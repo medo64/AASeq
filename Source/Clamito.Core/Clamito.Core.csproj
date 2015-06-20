@@ -58,7 +58,6 @@
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Command.cs" />
-    <Compile Include="Content.cs" />
     <Compile Include="Endpoint.cs" />
     <Compile Include="EndpointCollection.cs" />
     <Compile Include="ErrorResult.cs" />

@@ -286,17 +286,10 @@ namespace Clamito {
         #region Name types
 
         /// <summary>
-        /// Gets whether field belongs to content.
+        /// Gets if field is to be treated as a header.
         /// </summary>
-        public Boolean IsContent {
-            get { return !this.IsHeader; }
-        }
-
-        /// <summary>
-        /// Gets if field is to be treated as header.
-        /// </summary>
-        public Boolean IsHeader {
-            get { return this.Name.StartsWith("@", StringComparison.Ordinal); }
+        public Boolean IsModifier {
+            get { return this.Name.StartsWith(".", StringComparison.Ordinal); }
         }
 
         #endregion
@@ -313,7 +306,7 @@ namespace Clamito {
         }
 
 
-        internal static readonly Regex NameRegex = new Regex(@"^[\p{L}\p{Nd}][\p{L}\p{Nd}-]*$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.Singleline); //allowed letters, numbers and dashes
+        internal static readonly Regex NameRegex = new Regex(@"^\.?[\p{L}\p{Nd}][\p{L}\p{Nd}-]*$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.Singleline); //allowed letters, numbers and dashes
         internal static readonly StringComparer NameComparer = StringComparer.OrdinalIgnoreCase;
         internal FieldCollection OwnerCollection { get; set; }
 

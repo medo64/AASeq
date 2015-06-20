@@ -20,22 +20,15 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">Name cannot be null. -or- Source cannot be null. -or- Destination cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters. -or- Source and destination cannot be the same.</exception>
         public Message(string name, Endpoint source, Endpoint destination)
-            : this(name, source, destination, new Content()) {
-
-            this.Content.Changed += delegate(Object sender, EventArgs e) {
-                this.OnChanged(new EventArgs());
-            };
+            : this(name, source, destination, null) {
         }
 
-        private Message(string name, Endpoint source, Endpoint destination, Content content)
+        private Message(string name, Endpoint source, Endpoint destination, FieldCollection fields)
             : base(name) {
 
             this.SetEndpoints(source, destination);
 
-            this.Content = content;
-            this.Content.Changed += delegate(Object sender, EventArgs e) {
-                this.OnChanged(new EventArgs());
-            };
+            if (fields!= null) { this.Fields = fields; }
         }
 
 
@@ -50,11 +43,36 @@ namespace Clamito {
         public Endpoint Destination { get; private set; }
 
 
+        private FieldCollection _fields = null;
         /// <summary>
-        /// Gets content.
+        /// Gets fields.
         /// </summary>
-        public Content Content { get; private set; }
+        public FieldCollection Fields {
+            get {
+                if (this._fields == null) { _fields = new FieldCollection(); }
+                return this._fields;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                if (this._fields != null) {
+                    //todo - remove delegates too
+                    this._fields.Clear();
+                }
+                this.Fields.Changed += delegate (Object sender, EventArgs e) {
+                    this.OnChanged(new EventArgs());
+                };
 
+                this._fields = value;
+            }
+        }
+
+        /// <summary>
+        /// Gets number of fields.
+        /// </summary>
+        public int FieldCount {
+            get { return (this._fields != null) ? this._fields.Count : 0; }
+        }
 
         /// <summary>
         /// Sets endpoints.
@@ -113,7 +131,7 @@ namespace Clamito {
         /// Creates a copy of the message.
         /// </summary>
         public override Interaction Clone() {
-            var message = new Message(this.Name, this.Source.Clone(), this.Destination.Clone(), this.Content.Clone()) { Description = this.Description };
+            var message = new Message(this.Name, this.Source.Clone(), this.Destination.Clone(), this.Fields.Clone()) { Description = this.Description };
             return message;
         }
 
@@ -121,7 +139,7 @@ namespace Clamito {
         /// Creates a read-only copy of the message.
         /// </summary>
         public override Interaction AsReadOnly() {
-            var message = new Message(this.Name, this.Source.AsReadOnly(), this.Destination.AsReadOnly(), this.Content.AsReadOnly()) { Description = this.Description };
+            var message = new Message(this.Name, this.Source.AsReadOnly(), this.Destination.AsReadOnly(), this.Fields.AsReadOnly()) { Description = this.Description };
             message.IsReadOnly = true;
             return message;
         }

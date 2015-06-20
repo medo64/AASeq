@@ -411,7 +411,80 @@ namespace Clamito {
         /// Returns a string that represents the current object.
         /// </summary>
         public override string ToString() {
-            return Content.ToString(null, this);
+            var sb = new StringBuilder();
+            ToMultilineContentRecursion(sb, this, 0);
+            return sb.ToString();
+        }
+
+        private static void ToMultilineContentRecursion(StringBuilder sb, FieldCollection fields, int level, string prefix = null) {
+            foreach (var field in fields) {
+                sb.Append(new string(' ', level * 4));
+                if (prefix != null) { sb.Append(prefix); }
+                sb.Append(field.Name);
+                AppendTags(sb, field);
+                sb.Append(":");
+                if (field.HasSubfields) {
+                    sb.AppendLine();
+                    ToMultilineContentRecursion(sb, field.Subfields, level + 1);
+                } else {
+                    if (!string.IsNullOrEmpty(field.Value)) {
+                        sb.Append(" ");
+                        var chars = field.Value;
+
+                        int a;
+                        for (a = 0; a < chars.Length; a++) {
+                            if (chars[a] == ' ') {
+                                sb.Append(@"\_");
+                            } else {
+                                break;
+                            }
+                        }
+
+                        int b;
+                        for (b = chars.Length - 1; b > a; b--) {
+                            if (chars[b] != ' ') { break; }
+                        }
+
+                        for (int i = a; i <= b; i++) {
+                            var ch = chars[i];
+                            if (ch == '\t') {
+                                sb.Append(@"\t");
+                            } else if (ch == '\b') {
+                                sb.Append(@"\b");
+                            } else if (ch == '\n') {
+                                sb.Append(@"\n");
+                            } else if (ch == '\r') {
+                                sb.Append(@"\r");
+                            } else {
+                                sb.Append(ch);
+                            }
+                        }
+                        for (int i = b + 1; i < chars.Length; i++) {
+                            sb.Append(@"\_");
+                        }
+                    }
+                    sb.AppendLine();
+                }
+            }
+        }
+
+        private static void AppendTags(StringBuilder sb, Field field) {
+            if (field.HasTags || field.HasModifiers) {
+                sb.Append(" [");
+                var first = true;
+                foreach (var tag in field.Modifiers) {
+                    if (first) { first = false; } else { sb.Append(" "); }
+                    if (tag.State == false) { sb.Append("!"); }
+                    sb.Append(".");
+                    sb.Append(tag.Name);
+                }
+                foreach (var tag in field.Tags) {
+                    if (first) { first = false; } else { sb.Append(" "); }
+                    if (tag.State == false) { sb.Append("!"); }
+                    sb.Append(tag.Name);
+                }
+                sb.Append("]");
+            }
         }
 
         #endregion
@@ -432,14 +505,13 @@ namespace Clamito {
 
         /// <summary>
         /// Converts the specified string representation to its collection equivalent.
+        /// Fields with dot (.) are ordered before other fields.
         /// </summary>
         /// <param name="lines">Content lines.</param>
         /// <exception cref="System.ArgumentNullException">Lines cannot be null.</exception>
         /// <exception cref="System.FormatException">Error parsing content.</exception>
         public static FieldCollection Parse(IEnumerable<String> lines) {
             if (lines == null) { throw new ArgumentNullException("lines", "Lines cannot be null."); }
-
-            var newFields = new List<Field>();
 
             //split lines
             var entries = new List<ContentLine>();
@@ -483,6 +555,7 @@ namespace Clamito {
                 }
             }
 
+            var newFields = new List<Field>();
             FromMultilineContentRecursion(entries, null, newFields);
 
             return new FieldCollection(newFields);
@@ -490,6 +563,7 @@ namespace Clamito {
 
 
         private static void FromMultilineContentRecursion(IEnumerable<ContentLine> entries, ContentLine owner, IList<Field> fields) {
+            var newHeaderFields = new List<Field>();
             var newFields = new List<Field>();
 
             foreach (var entry in entries) {
@@ -507,7 +581,11 @@ namespace Clamito {
                                 newField.Tags.Add(tag);
                             }
                         }
-                        newFields.Add(newField);
+                        if (newField.IsModifier) {
+                            newHeaderFields.Add(newField);
+                        } else {
+                            newFields.Add(newField);
+                        }
                     } catch (Exception ex) {
                         var newEx = new FormatException(ex.Message.Split('\r', '\n')[0], ex); //just take first line from exception
                         if (entry.LineNumber > 0) { newEx.Data.Add("Line", entry.LineNumber); }
@@ -516,7 +594,8 @@ namespace Clamito {
                     FromMultilineContentRecursion(entries, entry, newField.Subfields);
                 }
             }
-            foreach (var field in newFields) { fields.Add(field); } //order headers first
+            foreach (var field in newHeaderFields) { fields.Add(field); } //order headers first
+            foreach (var field in newFields) { fields.Add(field); }
         }
 
 

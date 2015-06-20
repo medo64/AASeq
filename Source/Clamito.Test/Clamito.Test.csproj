@@ -59,7 +59,6 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\CommandTests.cs" />
-    <Compile Include="Core\ContentTests.cs" />
     <Compile Include="Core\EndpointCollectionTests.cs" />
     <Compile Include="Core\EndpointTests.cs" />
     <Compile Include="Core\FieldCollectionTests.cs" />
