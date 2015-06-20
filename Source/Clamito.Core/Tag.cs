@@ -193,7 +193,7 @@ namespace Clamito {
         }
 
 
-        internal static readonly Regex NameRegex = new Regex(@"^[\p{L}\p{Nd}]+$"); //allowed only letters and numbers
+        internal static readonly Regex NameRegex = new Regex(@"^\.?[\p{L}\p{Nd}]+$"); //allowed only letters and numbers
         internal static readonly StringComparer NameComparer = StringComparer.OrdinalIgnoreCase;
         internal TagCollection OwnerCollection { get; set; }
 

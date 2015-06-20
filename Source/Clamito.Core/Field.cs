@@ -107,23 +107,6 @@ namespace Clamito {
         }
 
 
-        private TagCollection _modifiers;
-        /// <summary>
-        /// Gets framework tags defined for given field.
-        /// </summary>
-        public TagCollection Modifiers {
-            get {
-                if (this._modifiers == null) {
-                    if (this.IsReadOnly) { return null; } //should never happen because AsReadOnly will always create an empty collection.
-                    this._modifiers = new TagCollection();
-                    this._modifiers.Changed += delegate(Object sender, EventArgs e) {
-                        this.OnChanged(new EventArgs());
-                    };
-                }
-                return this._modifiers;
-            }
-        }
-
         private TagCollection _tags;
         /// <summary>
         /// Gets tags defined for given field.
@@ -162,13 +145,6 @@ namespace Clamito {
         /// </summary>
         public Boolean HasTags {
             get { return (this._tags != null) && (this._tags.Count > 0); }
-        }
-
-        /// <summary>
-        /// Gets whether any modifier is present.
-        /// </summary>
-        public Boolean HasModifiers {
-            get { return (this._modifiers != null) && (this._modifiers.Count > 0); }
         }
 
 
@@ -245,7 +221,6 @@ namespace Clamito {
                     field.Subfields.Add(subfield.Clone());
                 }
             }
-            foreach (var tag in this.Modifiers) { field.Modifiers.Add(tag.Clone()); }
             foreach (var tag in this.Tags) { field.Tags.Add(tag.Clone()); }
             return field;
         }
@@ -261,7 +236,6 @@ namespace Clamito {
                 field = new Field(this.Name);
                 field._subfields = this.Subfields.AsReadOnly();
             }
-            field._modifiers = this.Modifiers.AsReadOnly();
             field._tags = this.Tags.AsReadOnly();
             field.IsReadOnly = true;
             return field;

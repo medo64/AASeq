@@ -194,6 +194,26 @@ namespace Clamito {
         }
 
         /// <summary>
+        /// Adds multiple items.
+        /// </summary>
+        /// <param name="items">Item.</param>
+        /// <exception cref="System.ArgumentNullException">Items cannot be null.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Item cannot be in other collection.</exception>
+        /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
+        public void AddRange(IEnumerable<Field> items) {
+            if (items == null) { throw new ArgumentNullException("items", "Item cannot be null."); }
+            if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+
+            foreach (var item in items) {
+                if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException("items", "Item cannot be in other collection."); }
+                item.OwnerCollection = this;
+                this.BaseCollection.Add(item);
+            }
+
+            this.OnChanged(new EventArgs());
+        }
+
+        /// <summary>
         /// Removes all items.
         /// </summary>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
@@ -469,15 +489,9 @@ namespace Clamito {
         }
 
         private static void AppendTags(StringBuilder sb, Field field) {
-            if (field.HasTags || field.HasModifiers) {
+            if (field.HasTags) {
                 sb.Append(" [");
                 var first = true;
-                foreach (var tag in field.Modifiers) {
-                    if (first) { first = false; } else { sb.Append(" "); }
-                    if (tag.State == false) { sb.Append("!"); }
-                    sb.Append(".");
-                    sb.Append(tag.Name);
-                }
                 foreach (var tag in field.Tags) {
                     if (first) { first = false; } else { sb.Append(" "); }
                     if (tag.State == false) { sb.Append("!"); }
@@ -571,11 +585,6 @@ namespace Clamito {
                     Field newField;
                     try {
                         newField = new Field(entry.Name, entry.Value);
-                        foreach (var tag in entry.Modifiers) {
-                            if (!newField.Modifiers.Contains(tag.Name)) {
-                                newField.Modifiers.Add(tag);
-                            }
-                        }
                         foreach (var tag in entry.Tags) {
                             if (!newField.Tags.Contains(tag.Name)) {
                                 newField.Tags.Add(tag);
@@ -614,7 +623,8 @@ namespace Clamito {
 
                 foreach (var ch in line) {
                     switch (state) {
-                        case State.Whitespace: {
+                        case State.Whitespace:
+                            {
                                 if (ch == '\t') {
                                     whitespaceCount += 1000;
                                 } else if (char.IsWhiteSpace(ch)) {
@@ -625,9 +635,11 @@ namespace Clamito {
                                     name.Append(ch);
                                     state = State.Name;
                                 }
-                            } break;
+                            }
+                            break;
 
-                        case State.BeforeName: {
+                        case State.BeforeName:
+                            {
                                 if (ch == '\t') {
                                 } else if (char.IsWhiteSpace(ch)) {
                                 } else if (ch == '[') {
@@ -636,9 +648,11 @@ namespace Clamito {
                                     name.Append(ch);
                                     state = State.Name;
                                 }
-                            } break;
+                            }
+                            break;
 
-                        case State.Name: {
+                        case State.Name:
+                            {
                                 if (char.IsWhiteSpace(ch)) {
                                     state = State.AfterName;
                                 } else if (ch == '[') {
@@ -648,9 +662,11 @@ namespace Clamito {
                                 } else {
                                     name.Append(ch);
                                 }
-                            } break;
+                            }
+                            break;
 
-                        case State.AfterName: {
+                        case State.AfterName:
+                            {
                                 if (char.IsWhiteSpace(ch)) {
                                 } else if (ch == '\\') {
                                     state = State.ValueLiteral;
@@ -662,9 +678,11 @@ namespace Clamito {
                                     value.Append(ch);
                                     state = State.Value;
                                 }
-                            } break;
+                            }
+                            break;
 
-                        case State.Tag: {
+                        case State.Tag:
+                            {
                                 if (char.IsWhiteSpace(ch) || (ch == ',') || (ch == ';')) {
                                     var tagText = tag.ToString().Trim();
                                     if (!string.IsNullOrEmpty(tagText)) { tags.Add(tagText); }
@@ -686,9 +704,11 @@ namespace Clamito {
                                 } else {
                                     tag.Append(ch);
                                 }
-                            } break;
+                            }
+                            break;
 
-                        case State.BeforeValue: {
+                        case State.BeforeValue:
+                            {
                                 if (char.IsWhiteSpace(ch)) {
                                 } else if (ch == '\\') {
                                     state = State.ValueLiteral;
@@ -696,17 +716,21 @@ namespace Clamito {
                                     value.Append(ch);
                                     state = State.Value;
                                 }
-                            } break;
+                            }
+                            break;
 
-                        case State.Value: {
+                        case State.Value:
+                            {
                                 if (ch == '\\') {
                                     state = State.ValueLiteral;
                                 } else {
                                     value.Append(ch);
                                 }
-                            } break;
+                            }
+                            break;
 
-                        case State.ValueLiteral: {
+                        case State.ValueLiteral:
+                            {
                                 if (ch == '_') {
                                     value.Append(" ");
                                 } else if (ch == 't') {
@@ -721,7 +745,8 @@ namespace Clamito {
                                     value.Append(ch);
                                 }
                                 state = State.Value;
-                            } break;
+                            }
+                            break;
 
                     }
                 }
@@ -730,69 +755,59 @@ namespace Clamito {
                 this.Value = value.ToString();
                 this.WhitespaceCount = whitespaceCount;
 
-                List<Tag> modifierList;
-                List<Tag> tagList;
-                ProcessTags(tags, out modifierList, out tagList);
-                this.Tags = tagList.AsReadOnly();
-                this.Modifiers = modifierList.AsReadOnly();
+                this.Tags = ProcessTags(tags);
             }
 
-            private static void ProcessTags(List<string> tags, out List<Tag> modifierList, out List<Tag> tagList) {
-                modifierList = new List<Tag>();
-                tagList = new List<Tag>();
+            private static IEnumerable<Tag> ProcessTags(List<string> tags) {
+                var modifierList = new List<Tag>();
+                var tagList = new List<Tag>();
                 foreach (var tagName in tags) {
-                    bool isModifier;
-                    Tag newTag;
                     if (tagName.StartsWith("!.", StringComparison.Ordinal) || tagName.StartsWith("-.", StringComparison.Ordinal) || tagName.StartsWith(".!", StringComparison.Ordinal) || tagName.StartsWith(".-", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(2), false);
-                        isModifier = true;
+                        modifierList.Add(new Tag("." + tagName.Substring(2), false));
                     } else if (tagName.StartsWith("+.", StringComparison.Ordinal) || tagName.StartsWith(".+", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(2), true);
-                        isModifier = true;
+                        modifierList.Add(new Tag("." + tagName.Substring(2), true));
                     } else if (tagName.StartsWith(".", StringComparison.Ordinal) && tagName.EndsWith("-", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(1, tagName.Length - 2), false);
-                        isModifier = true;
+                        modifierList.Add(new Tag(tagName.Substring(0, tagName.Length - 1), false));
                     } else if (tagName.StartsWith(".", StringComparison.Ordinal) && tagName.EndsWith("+", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(1, tagName.Length - 2), true);
-                        isModifier = true;
+                        modifierList.Add(new Tag(tagName.Substring(0, tagName.Length - 1), true));
                     } else if (tagName.StartsWith(".", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(1, tagName.Length - 1), true);
-                        isModifier = true;
+                        modifierList.Add(new Tag(tagName, true));
                     } else if (tagName.StartsWith("!", StringComparison.Ordinal) || tagName.StartsWith("-", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(1), false);
-                        isModifier = false;
+                        tagList.Add(new Tag(tagName.Substring(1), false));
                     } else if (tagName.StartsWith("+", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(1), true);
-                        isModifier = false;
+                        tagList.Add(new Tag(tagName.Substring(1), true));
                     } else if (tagName.EndsWith("-", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(0, tagName.Length - 1), false);
-                        isModifier = false;
+                        tagList.Add(new Tag(tagName.Substring(0, tagName.Length - 1), false));
                     } else if (tagName.EndsWith("+", StringComparison.Ordinal)) {
-                        newTag = new Tag(tagName.Substring(0, tagName.Length - 1), true);
-                        isModifier = false;
+                        tagList.Add(new Tag(tagName.Substring(0, tagName.Length - 1), true));
                     } else {
-                        newTag = new Tag(tagName);
-                        isModifier = false;
+                        tagList.Add(new Tag(tagName, true));
                     }
-                    if (isModifier) { modifierList.Add(newTag); } else { tagList.Add(newTag); }
                 }
+
                 modifierList.Sort(
-                    delegate(Tag item1, Tag item2) {
+                    delegate (Tag item1, Tag item2) {
                         return string.CompareOrdinal(item1.Name, item2.Name);
                     }
                 );
                 tagList.Sort(
-                    delegate(Tag item1, Tag item2) {
+                    delegate (Tag item1, Tag item2) {
                         return string.CompareOrdinal(item1.Name, item2.Name);
                     }
                 );
+
+                foreach (var tag in modifierList) {
+                    yield return tag;
+                }
+                foreach (var tag in tagList) {
+                    yield return tag;
+                }
             }
 
             public int LineNumber { get; private set; }
             public int WhitespaceCount { get; private set; }
             public string Name { get; private set; }
             public string Value { get; private set; }
-            public IEnumerable<Tag> Modifiers { get; private set; }
             public IEnumerable<Tag> Tags { get; private set; }
 
             public ContentLine Owner { get; set; }

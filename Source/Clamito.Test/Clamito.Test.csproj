@@ -59,12 +59,12 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Core\CommandTests.cs" />
+    <Compile Include="Core\DocumentTests.cs" />
     <Compile Include="Core\EndpointCollectionTests.cs" />
     <Compile Include="Core\EndpointTests.cs" />
     <Compile Include="Core\FieldCollectionTests.cs" />
     <Compile Include="Core\FieldTests.cs" />
     <Compile Include="Core\InteractionCollectionTests.cs" />
-    <Compile Include="Core\LogTests.cs" />
     <Compile Include="Core\MessageTests.cs" />
     <Compile Include="Core\ResultCollectionTests.cs" />
     <Compile Include="Core\TagCollectionTests.cs" />
@@ -98,6 +98,9 @@
     <EmbeddedResource Include="Core\Resources\MultilineContent\Simple.output" />
     <EmbeddedResource Include="Core\Resources\MultilineContent\Tags.input" />
     <EmbeddedResource Include="Core\Resources\MultilineContent\Tags.output" />
+    <EmbeddedResource Include="Core\Resources\Documents\Basic.Clamito" />
+    <EmbeddedResource Include="Core\Resources\Documents\Empty.Clamito" />
+    <EmbeddedResource Include="Core\Resources\Documents\InvalidVersion.Clamito" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Clamito.Core\Clamito.Core.csproj">

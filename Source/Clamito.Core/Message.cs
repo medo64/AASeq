@@ -23,12 +23,28 @@ namespace Clamito {
             : this(name, source, destination, null) {
         }
 
+        /// <summary>
+        /// Create a new instance.
+        /// </summary>
+        /// <param name="name">Message name.</param>
+        /// <param name="source">Source endpoint.</param>
+        /// <param name="destination">Destination endpoint.</param>
+        /// <param name="fields">Fields.</param>
+        /// <exception cref="System.ArgumentNullException">Name cannot be null. -or- Source cannot be null. -or- Destination cannot be null. -or- Fields cannot be null.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters. -or- Source and destination cannot be the same.</exception>
+        public Message(string name, Endpoint source, Endpoint destination, IEnumerable<Field> fields)
+            : this(name, source, destination, null) {
+            this.Fields.AddRange(fields);
+        }
+
         private Message(string name, Endpoint source, Endpoint destination, FieldCollection fields)
             : base(name) {
 
-            this.SetEndpoints(source, destination);
-
-            if (fields!= null) { this.Fields = fields; }
+            this.ReplaceEndpoints(source, destination);
+            this.Fields = (fields != null) ? fields : new FieldCollection();
+            this.Fields.Changed += delegate (Object sender, EventArgs e) {
+                this.OnChanged(new EventArgs());
+            };
         }
 
 
@@ -43,36 +59,18 @@ namespace Clamito {
         public Endpoint Destination { get; private set; }
 
 
-        private FieldCollection _fields = null;
         /// <summary>
         /// Gets fields.
         /// </summary>
-        public FieldCollection Fields {
-            get {
-                if (this._fields == null) { _fields = new FieldCollection(); }
-                return this._fields;
-            }
-            set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
-                if (this._fields != null) {
-                    //todo - remove delegates too
-                    this._fields.Clear();
-                }
-                this.Fields.Changed += delegate (Object sender, EventArgs e) {
-                    this.OnChanged(new EventArgs());
-                };
-
-                this._fields = value;
-            }
-        }
+        public FieldCollection Fields { get; private set; }
 
         /// <summary>
-        /// Gets number of fields.
+        /// Gets if any fields are present.
         /// </summary>
-        public int FieldCount {
-            get { return (this._fields != null) ? this._fields.Count : 0; }
+        public bool HasFields {
+            get { return (this.Fields.Count > 0); }
         }
+
 
         /// <summary>
         /// Sets endpoints.
@@ -80,7 +78,7 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">Source cannot be null. -or- Destination cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Source and destination cannot be the same.</exception>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
-        public void SetEndpoints(Endpoint source, Endpoint destination) {
+        public void ReplaceEndpoints(Endpoint source, Endpoint destination) {
             if (source == null) { throw new ArgumentNullException("source", "Source cannot be null."); }
             if (destination == null) { throw new ArgumentNullException("destination", "Destination cannot be null."); }
             if (source.Equals(destination)) { throw new ArgumentOutOfRangeException("source", "Source and destination cannot be the same."); }
@@ -89,6 +87,24 @@ namespace Clamito {
             this.Source = source;
             this.Destination = destination;
             this.OnChanged(new EventArgs());
+        }
+
+        /// <summary>
+        /// Sets Field collections.
+        /// </summary>
+        /// <param name="fields">Fields.</param>
+        /// <exception cref="System.ArgumentNullException">Fields cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public void ReplaceFields(FieldCollection fields) {
+            if (fields == null) { throw new ArgumentNullException("fields", "Fields cannot be null."); }
+            if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+
+            this.Fields.Clear(); //to release old stuff
+
+            this.Fields = fields;
+            this.Fields.Changed += delegate (Object sender, EventArgs e) {
+                this.OnChanged(new EventArgs());
+            };
         }
 
 

@@ -60,14 +60,14 @@ namespace Clamito.Test {
         [ExpectedException(typeof(ArgumentNullException))]
         public void Message_SourceCannotBeChangedToNull() {
             var x = new Message("Test", new Endpoint("S"), new Endpoint("D"));
-            x.SetEndpoints(null, x.Destination);
+            x.ReplaceEndpoints(null, x.Destination);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Message_DestinationCannotBeChangedToNull() {
             var x = new Message("Test", new Endpoint("S"), new Endpoint("D"));
-            x.SetEndpoints(x.Source, null);
+            x.ReplaceEndpoints(x.Source, null);
         }
 
         [TestMethod]
@@ -296,7 +296,7 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_FromMultilineContent_Simple() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Simple.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Simple.input")));
 
             var fields = message.Fields;
 
@@ -313,7 +313,7 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Tags() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Tags.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Tags.input")));
 
             var fields = message.Fields;
 
@@ -327,13 +327,15 @@ namespace Clamito.Test {
             Assert.AreEqual(0, fields[1].Tags.Count);
             Assert.AreEqual("F2", fields[2].Name);
             Assert.AreEqual("V2", fields[2].Value);
-            Assert.AreEqual(3, fields[2].Tags.Count);
-            Assert.AreEqual("Test", fields[2].Tags[0].Name);
-            Assert.AreEqual("Test1", fields[2].Tags[1].Name);
-            Assert.AreEqual("Test2", fields[2].Tags[2].Name);
+            Assert.AreEqual(5, fields[2].Tags.Count);
+            Assert.AreEqual(".Fixed", fields[2].Tags[0].Name);
+            Assert.AreEqual(".RegEx", fields[2].Tags[1].Name);
+            Assert.AreEqual("Test", fields[2].Tags[2].Name);
+            Assert.AreEqual("Test1", fields[2].Tags[3].Name);
+            Assert.AreEqual("Test2", fields[2].Tags[4].Name);
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = fields.Clone();
+            messageOut.ReplaceFields(fields.Clone());
 
             Assert.AreEqual(GetFragment("Tags.output"), messageOut.Fields.ToString());
         }
@@ -342,7 +344,7 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Escaping() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Escaping.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Escaping.input")));
 
             var fields = message.Fields;
 
@@ -355,7 +357,7 @@ namespace Clamito.Test {
             Assert.AreEqual(" V 3 ", fields[2].Value);
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = fields.Clone();
+            messageOut.ReplaceFields(fields.Clone());
 
             Assert.AreEqual(GetFragment("Escaping.output"), messageOut.Fields.ToString());
         }
@@ -364,10 +366,10 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Nested1() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Nested1.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Nested1.input")));
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = message.Fields.Clone();
+            messageOut.ReplaceFields(message.Fields.Clone());
 
             Assert.AreEqual(GetFragment("Nested1.output"), messageOut.Fields.ToString());
         }
@@ -376,10 +378,10 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Fixable1() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Fixable1.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Fixable1.input")));
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = message.Fields.Clone();
+            messageOut.ReplaceFields(message.Fields.Clone());
 
             Assert.AreEqual(GetFragment("Fixable1.output"), messageOut.Fields.ToString());
         }
@@ -387,10 +389,10 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Fixable2() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Fixable2.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Fixable2.input")));
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = message.Fields.Clone();
+            messageOut.ReplaceFields(message.Fields.Clone());
 
             Assert.AreEqual(GetFragment("Fixable2.output"), messageOut.Fields.ToString());
         }
@@ -398,10 +400,10 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Fixable3() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Fixable3.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Fixable3.input")));
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = message.Fields.Clone();
+            messageOut.ReplaceFields(message.Fields.Clone());
 
             Assert.AreEqual(GetFragment("Fixable3.output"), messageOut.Fields.ToString());
         }
@@ -409,13 +411,13 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Fixable4() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Fixable4.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Fixable4.input")));
 
             var headers = message.Fields;
             var data = message.Fields;
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = message.Fields.Clone();
+            messageOut.ReplaceFields(message.Fields.Clone());
 
             Assert.AreEqual(GetFragment("Fixable4.output"), messageOut.Fields.ToString());
         }
@@ -423,10 +425,10 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Fixable5() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Fixable5.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Fixable5.input")));
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = message.Fields.Clone();
+            messageOut.ReplaceFields(message.Fields.Clone());
 
             Assert.AreEqual(GetFragment("Fixable5.output"), messageOut.Fields.ToString());
         }
@@ -434,13 +436,13 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Fixable6() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Fixable6.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Fixable6.input")));
 
             var headers = message.Fields;
             var data = message.Fields;
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = message.Fields.Clone();
+            messageOut.ReplaceFields(message.Fields.Clone());
 
             Assert.AreEqual(GetFragment("Fixable6.output"), messageOut.Fields.ToString());
         }
@@ -448,13 +450,13 @@ namespace Clamito.Test {
         [TestMethod]
         public void Message_MultilineContent_Fixable7() {
             var message = new Message("Name", new Endpoint("A"), new Endpoint("B"));
-            message.Fields = FieldCollection.Parse(GetFragment("Fixable7.input"));
+            message.ReplaceFields(FieldCollection.Parse(GetFragment("Fixable7.input")));
 
             var headers = message.Fields;
             var data = message.Fields;
 
             var messageOut = new Message("Test", new Endpoint("Test1"), new Endpoint("Test2"));
-            messageOut.Fields = message.Fields.Clone();
+            messageOut.ReplaceFields(message.Fields.Clone());
 
             Assert.AreEqual(GetFragment("Fixable7.output"), messageOut.Fields.ToString());
         }

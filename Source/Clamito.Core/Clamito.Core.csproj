@@ -52,12 +52,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\App.snk" />
+    <None Include="Resources\Clamito.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
     <Compile Include="Command.cs" />
+    <Compile Include="Document.cs" />
     <Compile Include="Endpoint.cs" />
     <Compile Include="EndpointCollection.cs" />
     <Compile Include="ErrorResult.cs" />
