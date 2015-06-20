@@ -1,0 +1,107 @@
+using System;
+using System.Globalization;
+
+namespace Clamito {
+    /// <summary>
+    /// Error/warning result.
+    /// </summary>
+    public class ErrorResult {
+
+        private ErrorResult(int line, string format, params object[] args) {
+            this.Line = line;
+            this.Text = String.Format(CultureInfo.InvariantCulture, format, args);
+        }
+
+        private ErrorResult(int line, string text, bool isWarning) { //used for clone
+            this.Line = line;
+            this.Text = text;
+            this.IsWarning = isWarning;
+        }
+
+
+        /// <summary>
+        /// Gets error text.
+        /// </summary>
+        public string Text { get; private set; }
+
+        /// <summary>
+        /// Gets line where error occurred. Value will be 0 if line number is not known.
+        /// </summary>
+        public int Line { get; private set; }
+
+        /// <summary>
+        /// Gets if result is warning.
+        /// </summary>
+        public bool IsWarning { get; private set; }
+
+        /// <summary>
+        /// Gets if result is error.
+        /// </summary>
+        public bool IsError { get { return !this.IsWarning; } }
+
+
+        #region Create
+
+        /// <summary>
+        /// Returns new warning.
+        /// </summary>
+        /// <param name="format">Warning text as composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        public static ErrorResult NewWarning(string format, params object[] args) {
+            return new ErrorResult(0, format, args) { IsWarning = true };
+        }
+
+        /// <summary>
+        /// Returns new warning.
+        /// </summary>
+        /// <param name="line">Warning line.</param>
+        /// <param name="format">Warning text as composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        /// <returns></returns>
+        public static ErrorResult NewWarning(int line, string format, params object[] args) {
+            return new ErrorResult(line, format, args) { IsWarning = true };
+        }
+
+
+        /// <summary>
+        /// Returns new error.
+        /// </summary>
+        /// <param name="format">Error text as composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        public static ErrorResult NewError(string format, params object[] args) {
+            return new ErrorResult(0, format, args) { IsWarning = false };
+        }
+
+        /// <summary>
+        /// Returns new error.
+        /// </summary>
+        /// <param name="line">Error line.</param>
+        /// <param name="format">Error text as composite format string.</param>
+        /// <param name="args">An object array that contains zero or more objects to format.</param>
+        /// <returns></returns>
+        public static ErrorResult NewError(int line, string format, params object[] args) {
+            return new ErrorResult(line, format, args) { IsWarning = false };
+        }
+
+        #endregion
+
+
+        /// <summary>
+        /// Creates a copy of the result.
+        /// </summary>
+        public ErrorResult Clone() {
+            return new ErrorResult(this.Line, this.Text, this.IsWarning, this.IsError);
+        }
+
+        /// <summary>
+        /// Creates a copy of the result.
+        /// </summary>
+        /// <param name="newPrefix">New prefix for all text elements.</param>
+        /// <exception cref="System.ArgumentNullException">New prefix cannot be null.</exception>
+        public ErrorResult Clone(string newPrefix) {
+            if (newPrefix == null) { throw new ArgumentNullException("newPrefix", "New prefix cannot be null."); }
+            return new ErrorResult(this.Line, newPrefix + this.Text, this.IsWarning);
+        }
+
+    }
+}

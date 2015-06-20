@@ -1,0 +1,22 @@
+[M] Session-Id: test;123;45
+[M] Origin-Host: test
+[M] Origin-Realm: test.com
+[M] Destination-Host: dest
+[M] Destination-Realm: dest.com
+[M] Auth-Application-Id: 16777238
+[M] Re-Auth-Request-Type: AUTHORIZE_ONLY (0)
+[V]  Charging-Rule-Install [M]:
+  [V] Charging-Rule-Base-Name [M] : rule
+  [V,M] Rule-Deactivation-Time: Monday March 15 00:43:00 GMT 2021
+[V] Default-EPS-Bearer-QoS:
+  [V] [M] QoS-Class-Identifier: QCI_7 (7)
+  [V] Allocation-Retention-Priority:
+    [V] Priority-Level: 4
+    [V] Pre-emption-Capability: PRE-EMPTION_CAPABILITY_DISABLED (1)
+    [V] Pre-emption-Vulnerability: PRE-EMPTION_VULNERABILITY_ENABLED (0)
+[V] [M] QoS-Information:
+  [V] APN-Aggregate-Max-Bitrate-UL: 8640000
+  [V] APN-Aggregate-Max-Bitrate-DL: 16000000
+[V] [M] SN-CF-Policy-ID: 0
+[V] [M] Revalidation-Time: Sunday March 15 00:44:09 GMT 2020
+[V] [M] Event-Trigger: REVALIDATION_TIMEOUT (17)

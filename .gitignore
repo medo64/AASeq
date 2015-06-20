@@ -1,0 +1,7 @@
+Binaries/**
+Releases/**
+Temporary/**
+
+Source/**/bin
+Source/**/obj
+Source/TestResults
