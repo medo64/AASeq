@@ -37,23 +37,26 @@ namespace Clamito {
         #region Index
 
         /// <summary>
-        /// Gets item based on a name or null if item cannot be found.
+        /// Gets/sets item value based on a path.
+        /// Each subfield is separated by forward slash (/).
         /// </summary>
-        /// <param name="path">Name.</param>
-        public Field this[string path] {
+        /// <param name="path">Path.</param>
+        /// <exception cref="System.ArgumentNullException">Path cannot be null.</exception>
+        public string this[string path] {
             get {
-                if (path == null) { return null; }
-                var name = path.Split(new char[] { '\\', '/' });
+                if (path == null) { throw new ArgumentNullException("path", "Path cannot be null."); }
+
+                var pathParts = path.Split(new char[] { '\\', '/' });
 
                 var currFields = this;
                 FieldCollection nextFields;
-                for (int i = 0; i < name.Length; i++) {
+                for (int i = 0; i < pathParts.Length; i++) {
                     nextFields = null;
-                    var namePart = name[i];
+                    var name = pathParts[i];
                     foreach (var field in currFields) {
-                        if (Field.NameComparer.Equals(field.Name, namePart)) {
-                            if (i == name.Length - 1) {
-                                return field;
+                        if (Field.NameComparer.Equals(field.Name, name)) {
+                            if (i == pathParts.Length - 1) {
+                                return field.Value;
                             } else {
                                 nextFields = field.Subfields;
                                 break;
@@ -65,7 +68,75 @@ namespace Clamito {
 
                 return null;
             }
+            set {
+                if (path == null) { throw new ArgumentNullException("path", "Name path cannot be null."); }
+
+                var pathParts = path.Split(new char[] { '\\', '/' });
+
+                var currFields = this;
+                FieldCollection nextFields;
+                for (int i = 0; i < pathParts.Length; i++) {
+                    nextFields = null;
+                    var name = pathParts[i];
+                    foreach (var field in currFields) {
+                        if (Field.NameComparer.Equals(field.Name, name)) {
+                            if (i == pathParts.Length - 1) {
+                                field.Value = value;
+                                return;
+                            } else {
+                                nextFields = field.Subfields;
+                                break;
+                            }
+                        }
+                    }
+                    if (nextFields != null) {
+                        currFields = nextFields;
+                    } else { //create that field
+                        if (i == pathParts.Length - 1) {
+                            currFields.Add(new Field(name, value));
+                            return;
+                        } else {
+                            var newField = new Field(name);
+                            currFields.Add(newField);
+                            currFields = newField.Subfields;
+                        }
+                    }
+                }
+            }
         }
+
+        /// <summary>
+        /// Finds item based on a path.
+        /// Each subfield is separated by forward slash (/).
+        /// </summary>
+        /// <param name="path">Path.</param>
+        /// <exception cref="System.ArgumentNullException">Path cannot be null.</exception>
+        public Field Find(string path) {
+            if (path == null) { throw new ArgumentNullException("path", "Path cannot be null."); }
+
+            var pathParts = path.Split(new char[] { '\\', '/' });
+
+            var currFields = this;
+            FieldCollection nextFields;
+            for (int i = 0; i < pathParts.Length; i++) {
+                nextFields = null;
+                var name = pathParts[i];
+                foreach (var field in currFields) {
+                    if (Field.NameComparer.Equals(field.Name, name)) {
+                        if (i == pathParts.Length - 1) {
+                            return field;
+                        } else {
+                            nextFields = field.Subfields;
+                            break;
+                        }
+                    }
+                }
+                if (nextFields != null) { currFields = nextFields; }
+            }
+
+            return null;
+        }
+
 
         /// <summary>
         /// Adds new value field.
@@ -821,6 +892,48 @@ namespace Clamito {
                 BeforeValue,
                 Value,
                 ValueLiteral
+            }
+        }
+
+        #endregion
+
+
+        #region Paths
+
+        /// <summary>
+        /// Exposes the enumerator for iteration over each field.
+        /// Nested fields names will be separated by forward slash (/).
+        /// </summary>
+        public IEnumerable<FieldNode> AllPaths {
+            get {
+                foreach (var item in EnumerateAllPaths(this)) {
+                    yield return item;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Exposes the enumerator for iteration over each value field.
+        /// Nested fields names will be separated by forward slash (/).
+        /// </summary>
+        public IEnumerable<FieldNode> PathsWithValue {
+            get {
+                foreach (var item in this.AllPaths) {
+                    if (item.Field.HasValue) { yield return item; }
+                }
+            }
+        }
+
+
+        private static IEnumerable<FieldNode> EnumerateAllPaths(FieldCollection fields, string pathPrefix = null) {
+            foreach (var field in fields) {
+                var path = ((pathPrefix != null) ? pathPrefix + "/" : "") + field.Name;
+                yield return new FieldNode(path, field);
+                if (field.HasSubfields) {
+                    foreach (var innerField in EnumerateAllPaths(field.Subfields, pathPrefix: path)) {
+                        yield return innerField;
+                    }
+                }
             }
         }
 

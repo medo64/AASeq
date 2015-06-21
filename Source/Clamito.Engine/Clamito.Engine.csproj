@@ -56,7 +56,22 @@
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
+    <Compile Include="Engine.cs" />
+    <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Protocol\DummyProtocol.cs" />
+    <Compile Include="Protocol\ProtocolAttribute.cs" />
+    <Compile Include="Protocol\ProtocolPlugin.cs" />
+    <Compile Include="Protocol\ProtocolProxy.cs" />
+    <Compile Include="Protocol\ProtocolResolver.cs" />
+    <Compile Include="Protocol\ProtocolResolverCollection.cs" />
+    <Compile Include="StepCompletedEventArgs.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Clamito.Core\Clamito.Core.csproj">
+      <Project>{bf2738dd-c0fd-474d-af4d-26333c3edd76}</Project>
+      <Name>Clamito.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

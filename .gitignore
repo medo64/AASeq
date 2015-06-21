@@ -5,3 +5,4 @@ Temporary/**
 Source/**/bin
 Source/**/obj
 Source/TestResults
+Source/**/ApiPortabilityAnalysis*.htm

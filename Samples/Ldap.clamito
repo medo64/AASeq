@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Clamito version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmedved.com/schema/clamito.xsd">
+    <Endpoints>
+        <Endpoint name="Me" displayName="Client" />
+        <Endpoint name="Ldap" displayName="LDAP" protocolName="Any" />
+    </Endpoints>
+    <Interactions>
+        <Message name="BindRequest" source="Me" destination="Ldap">
+            <Fields>
+                <Field name=".Version" value="3" />
+                <Field name="name" value="uid=jdoe,ou=People,dc=localdomain" />
+                <Field name="password" value="test" />
+            </Fields>
+        </Message>
+        <Message name="BindResponse" source="Ldap" destination="Me" />
+        <Message name="SearchReq" source="Me" destination="Ldap" description="jdoe">
+            <Fields>
+                <Field name="baseObject" value="ou=people,dc=localdomain" />
+                <Field name="scope" value="baseObject" />
+                <Field name="filter" value="uid=jdoe" />
+            </Fields>
+        </Message>
+        <Message name="SearchResultEntry" source="Ldap" destination="Me">
+            <Fields>
+                <Field name="dn" value="uid=jdoe,ou=People,dc=localdomain" />
+                <Field name="objectClass" value="top" />
+                <Field name="objectClass" value="person" />
+                <Field name="objectClass" value="organizationalPerson" />
+                <Field name="objectClass" value="inetOrgPerson" />
+                <Field name="uid" value="jdoe" />
+                <Field name="cn" value="John Doe" />
+                <Field name="displayName" value="John Doe" />
+                <Field name="givenName" value="John" />
+                <Field name="sn" value="Doe" />
+            </Fields>
+        </Message>
+        <Message name="SearchResultDone" source="Ldap" destination="Me" />
+        <Message name="UnbindRequest" source="Me" destination="Ldap" />
+        <Message name="UnbindResponse" source="Ldap" destination="Me" />
+    </Interactions>
+    <Variables />
+</Clamito>

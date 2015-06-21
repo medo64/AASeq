@@ -67,6 +67,7 @@
     <Compile Include="ErrorResult.cs" />
     <Compile Include="Field.cs" />
     <Compile Include="FieldCollection.cs" />
+    <Compile Include="FieldNode.cs" />
     <Compile Include="Interaction.cs" />
     <Compile Include="InteractionCollection.cs" />
     <Compile Include="InteractionKind.cs" />

@@ -576,5 +576,79 @@ namespace Clamito.Test {
             m2.Fields.Add(f3);
         }
 
+
+        //#region SubFields
+
+        //[TestMethod]
+        //public void Content_LookupSubfields() {
+        //    var c = new Content(
+        //        new FieldCollection() { new Field("HA", "1h"), new Field("HB") },
+        //        new FieldCollection() { new Field("A", "1"), new Field("B") }
+        //    );
+        //    c.Header["HB"].Subfields.Add(new Field("HC", "3h"));
+        //    c.Header["HB"].Subfields.Add(new Field("HC", "4h"));
+        //    c.Data["B"].Subfields.Add(new Field("C", "3"));
+        //    c.Data["B"].Subfields.Add(new Field("C", "4"));
+
+        //    Assert.AreEqual("1h", c["@HA"]);
+        //    Assert.AreEqual(null, c["@HB"]);
+        //    Assert.AreEqual("3h", c["@HB/HC"]);
+
+        //    Assert.AreEqual("1", c["A"]);
+        //    Assert.AreEqual(null, c["B"]);
+        //    Assert.AreEqual("3", c["B/C"]);
+
+        //    Assert.AreEqual("@HA: 1h\r\n@HB:\r\n    HC: 3h\r\n    HC: 4h\r\nA: 1\r\nB:\r\n    C: 3\r\n    C: 4\r\n", c.ToString());
+
+        //    var list = new List<KeyValuePair<string, string>>(c);
+        //    Assert.AreEqual("@HA", list[0].Key);
+        //    Assert.AreEqual("1h", list[0].Value);
+        //    Assert.AreEqual("@HB/HC", list[1].Key);
+        //    Assert.AreEqual("3h", list[1].Value);
+        //    Assert.AreEqual("@HB/HC", list[2].Key);
+        //    Assert.AreEqual("4h", list[2].Value);
+        //    Assert.AreEqual("A", list[3].Key);
+        //    Assert.AreEqual("1", list[3].Value);
+        //    Assert.AreEqual("B/C", list[4].Key);
+        //    Assert.AreEqual("3", list[4].Value);
+        //    Assert.AreEqual("B/C", list[5].Key);
+        //    Assert.AreEqual("4", list[5].Value);
+        //}
+
+        //[TestMethod]
+        //public void Content_SetSubfields() {
+        //    var c = new FieldCollection();
+        //    c["@HA"] = "1h";
+        //    c["@HB\\HC"] = "2h";
+        //    c["@HB/HC"] = "3h";
+        //    c["A"] = "1";
+        //    c["B/C"] = "2";
+        //    c["B/C"] = "3";
+
+        //    Assert.AreEqual("1h", c["@HA"]);
+        //    Assert.AreEqual(null, c["@HB"]);
+        //    Assert.AreEqual("3h", c["@HB/HC"]);
+        //    Assert.AreEqual(1, c["HB"].Subfields.Count);
+
+        //    Assert.AreEqual("1", c["A"]);
+        //    Assert.AreEqual(null, c["B"]);
+        //    Assert.AreEqual("3", c["B\\C"]);
+        //    Assert.AreEqual(1, c["B"].Subfields.Count);
+
+        //    Assert.AreEqual("@HA: 1h\r\n@HB:\r\n    HC: 3h\r\nA: 1\r\nB:\r\n    C: 3\r\n", c.ToString());
+
+        //    var list = new List<KeyValuePair<string, string>>(c.GetTreeEnumerator());
+        //    Assert.AreEqual("@HA", list[0].Key);
+        //    Assert.AreEqual("1h", list[0].Value);
+        //    Assert.AreEqual("@HB/HC", list[1].Key);
+        //    Assert.AreEqual("3h", list[1].Value);
+        //    Assert.AreEqual("A", list[2].Key);
+        //    Assert.AreEqual("1", list[2].Value);
+        //    Assert.AreEqual("B/C", list[3].Key);
+        //    Assert.AreEqual("3", list[3].Value);
+        //}
+
+        //#endregion
+
     }
 }

@@ -2,6 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Reflection;
 using System.Text;
+using System.Collections.Generic;
 
 namespace Clamito.Test {
     [TestClass]
@@ -25,6 +26,10 @@ namespace Clamito.Test {
             Assert.AreEqual(null, c[0].Value);
             Assert.AreEqual(false, c[0].HasValue);
             Assert.AreEqual(true, c[0].HasSubfields);
+
+            var paths = new List<FieldNode>(c.AllPaths);
+            Assert.AreEqual(1, paths.Count);
+            Assert.AreEqual("Test", paths[0].Path);
         }
 
 
@@ -42,6 +47,11 @@ namespace Clamito.Test {
             c.Add(new Field("Test", "Value"));
             c.Add(new Field("test", "Value"));
             Assert.AreEqual(2, c.Count);
+
+            var paths = new List<FieldNode>(c.AllPaths);
+            Assert.AreEqual(2, paths.Count);
+            Assert.AreEqual("Test", paths[0].Path);
+            Assert.AreEqual("test", paths[1].Path);
         }
 
 
@@ -51,8 +61,8 @@ namespace Clamito.Test {
             c.Add(new Field("Test1", "Dummy"));
             c.Add(new Field("Test2", "Dummy"));
             Assert.AreEqual(2, c.Count);
-            Assert.AreEqual("Test1", c["test1"].Name);
-            Assert.AreEqual("Test2", c["test2"].Name);
+            Assert.AreEqual("Test1", c.Find("test1").Name);
+            Assert.AreEqual("Test2", c.Find("test2").Name);
         }
 
         [TestMethod]
@@ -61,7 +71,7 @@ namespace Clamito.Test {
             c.Add(new Field("Test"));
             c.Insert(0, new Field("test"));
             Assert.AreEqual(2, c.Count);
-            Assert.AreEqual("test", c["Test"].Name);
+            Assert.AreEqual("test", c.Find("Test").Name);
         }
 
         [TestMethod]
@@ -71,7 +81,7 @@ namespace Clamito.Test {
             c.Add(new Field("test"));
             c.RemoveAt(0);
             Assert.AreEqual(1, c.Count);
-            Assert.AreEqual("test", c["Test"].Name);
+            Assert.AreEqual("test", c.Find("Test").Name);
         }
 
         [TestMethod]
@@ -223,8 +233,8 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B", "2")
             };
-            Assert.AreEqual("1", c["A"].Value);
-            Assert.AreEqual("2", c["B"].Value);
+            Assert.AreEqual("1", c["A"]);
+            Assert.AreEqual("2", c["B"]);
         }
 
         [TestMethod]
@@ -256,19 +266,26 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o["B"].Subfields.Add(new Field("C", "3"));
-            o["B"].Subfields.Add(new Field("C", "4"));
+            o.Find("B").Subfields.Add(new Field("C", "3"));
+            o.Find("B").Subfields.Add(new Field("C", "4"));
 
             var c = o.Clone();
             o[0].Value = "1'";
             o[1].Subfields[0].Value = "3'";
 
-            Assert.AreEqual("1'", o["A"].Value);
-            Assert.AreEqual("3'", o["B"].Subfields["C"].Value);
+            Assert.AreEqual("1'", o["A"]);
+            Assert.AreEqual("3'", o["B/C"]);
 
-            Assert.AreEqual("1", c["A"].Value);
-            Assert.AreEqual(null, c["B"].Value);
-            Assert.AreEqual("3", c["B"].Subfields["C"].Value);
+            Assert.AreEqual("1", c["A"]);
+            Assert.AreEqual(null, c["B"]);
+            Assert.AreEqual("3", c["B/C"]);
+
+            var paths = new List<FieldNode>(c.AllPaths);
+            Assert.AreEqual(4, paths.Count);
+            Assert.AreEqual("A", paths[0].Path);
+            Assert.AreEqual("B", paths[1].Path);
+            Assert.AreEqual("B/C", paths[2].Path);
+            Assert.AreEqual("B/C", paths[3].Path);
         }
 
         [TestMethod]
@@ -277,19 +294,19 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o["B"].Subfields.Add(new Field("C", "3"));
-            o["B"].Subfields.Add(new Field("C", "4"));
+            o.Find("B").Subfields.Add(new Field("C", "3"));
+            o.Find("B").Subfields.Add(new Field("C", "4"));
 
             var c = o.AsReadOnly();
             o[0].Value = "1'";
             o[1].Subfields[0].Value = "3'";
 
-            Assert.AreEqual("1'", o["A"].Value);
-            Assert.AreEqual("3'", o["B"].Subfields["C"].Value);
+            Assert.AreEqual("1'", o["A"]);
+            Assert.AreEqual("3'", o["B/C"]);
 
-            Assert.AreEqual("1", c["A"].Value);
-            Assert.AreEqual(null, c["B"].Value);
-            Assert.AreEqual("3", c["B/C"].Value);
+            Assert.AreEqual("1", c["A"]);
+            Assert.AreEqual(null, c["B"]);
+            Assert.AreEqual("3", c["B/C"]);
         }
 
         [TestMethod]
@@ -299,7 +316,7 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o["B"].Subfields.Add(new Field("C", "3"));
+            o.Find("B").Subfields.Add(new Field("C", "3"));
             o.Add(@"B\C", "4");
 
             var c = o.AsReadOnly();
@@ -313,8 +330,8 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o["B"].Subfields.Add(new Field("C", "3"));
-            o["B"].Subfields.Add(new Field("C", "4"));
+            o.Find("B").Subfields.Add(new Field("C", "3"));
+            o.Find("B").Subfields.Add(new Field("C", "4"));
 
             var c = o.AsReadOnly();
             c[0].Value = "1'";
@@ -327,11 +344,11 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o["B"].Subfields.Add(new Field("C", "3"));
-            o["B"].Subfields.Add(new Field("C", "4"));
+            o.Find("B").Subfields.Add(new Field("C", "3"));
+            o.Find("B").Subfields.Add(new Field("C", "4"));
 
             var c = o.AsReadOnly();
-            c["B"].Subfields.Clear();
+            c.Find("B").Subfields.Clear();
         }
 
 
@@ -413,6 +430,101 @@ namespace Clamito.Test {
         }
 
         #endregion
+
+        #endregion
+
+
+        #region Paths
+
+        [TestMethod]
+        public void FieldCollection_LookupByPath() {
+            var c = new FieldCollection(new Field[] { new Field(".HA", "1h"), new Field(".HB"), new Field("A", "1"), new Field("B") });
+            c.Find(".HB").Subfields.Add(new Field("HC", "3h"));
+            c.Find(".HB").Subfields.Add(new Field("HC", "4h"));
+            c.Find("B").Subfields.Add(new Field("C", "3"));
+            c.Find("B").Subfields.Add(new Field("C", "4"));
+
+            Assert.AreEqual("1h", c[".HA"]);
+            Assert.AreEqual(null, c[".HB"]);
+            Assert.AreEqual("3h", c[".HB/HC"]);
+
+            Assert.AreEqual("1", c["A"]);
+            Assert.AreEqual(null, c["B"]);
+            Assert.AreEqual("3", c["B/C"]);
+
+            Assert.AreEqual(".HA: 1h\r\n.HB:\r\n    HC: 3h\r\n    HC: 4h\r\nA: 1\r\nB:\r\n    C: 3\r\n    C: 4\r\n", c.ToString());
+
+            {
+                var list = new List<FieldNode>(c.PathsWithValue);
+                Assert.AreEqual(6, list.Count);
+                Assert.AreEqual(".HA", list[0].Path);
+                Assert.AreEqual("1h", list[0].Field.Value);
+                Assert.AreEqual(".HB/HC", list[1].Path);
+                Assert.AreEqual("3h", list[1].Field.Value);
+                Assert.AreEqual(".HB/HC", list[2].Path);
+                Assert.AreEqual("4h", list[2].Field.Value);
+                Assert.AreEqual("A", list[3].Path);
+                Assert.AreEqual("1", list[3].Field.Value);
+                Assert.AreEqual("B/C", list[4].Path);
+                Assert.AreEqual("3", list[4].Field.Value);
+                Assert.AreEqual("B/C", list[5].Path);
+                Assert.AreEqual("4", list[5].Field.Value);
+            }
+
+            {
+                var list = new List<FieldNode>(c.AllPaths);
+                Assert.AreEqual(8, list.Count);
+                Assert.AreEqual(".HA", list[0].Path);
+                Assert.AreEqual("1h", list[0].Field.Value);
+                Assert.AreEqual(".HB", list[1].Path);
+                Assert.AreEqual(null, list[1].Field.Value);
+                Assert.AreEqual(".HB/HC", list[2].Path);
+                Assert.AreEqual("3h", list[2].Field.Value);
+                Assert.AreEqual(".HB/HC", list[3].Path);
+                Assert.AreEqual("4h", list[3].Field.Value);
+                Assert.AreEqual("A", list[4].Path);
+                Assert.AreEqual("1", list[4].Field.Value);
+                Assert.AreEqual("B", list[5].Path);
+                Assert.AreEqual(null, list[5].Field.Value);
+                Assert.AreEqual("B/C", list[6].Path);
+                Assert.AreEqual("3", list[6].Field.Value);
+                Assert.AreEqual("B/C", list[7].Path);
+                Assert.AreEqual("4", list[7].Field.Value);
+            }
+        }
+
+        [TestMethod]
+        public void FieldCollection_SetByPath() {
+            var c = new FieldCollection();
+            c[".HA"] = "1h";
+            c[".HB\\HC"] = "2h";
+            c[".HB/HC"] = "3h";
+            c["A"] = "1";
+            c["B/C"] = "2";
+            c["B/C"] = "3";
+
+            Assert.AreEqual("1h", c[".HA"]);
+            Assert.AreEqual(null, c[".HB"]);
+            Assert.AreEqual("3h", c[".HB/HC"]);
+            Assert.AreEqual(1, c.Find(".HB").Subfields.Count);
+
+            Assert.AreEqual("1", c["A"]);
+            Assert.AreEqual(null, c["B"]);
+            Assert.AreEqual("3", c["B\\C"]);
+            Assert.AreEqual(1, c.Find("B").Subfields.Count);
+
+            Assert.AreEqual(".HA: 1h\r\n.HB:\r\n    HC: 3h\r\nA: 1\r\nB:\r\n    C: 3\r\n", c.ToString());
+
+            var list = new List<FieldNode>(c.PathsWithValue);
+            Assert.AreEqual(".HA", list[0].Path);
+            Assert.AreEqual("1h", list[0].Field.Value);
+            Assert.AreEqual(".HB/HC", list[1].Path);
+            Assert.AreEqual("3h", list[1].Field.Value);
+            Assert.AreEqual("A", list[2].Path);
+            Assert.AreEqual("1", list[2].Field.Value);
+            Assert.AreEqual("B/C", list[3].Path);
+            Assert.AreEqual("3", list[3].Field.Value);
+        }
 
         #endregion
 
