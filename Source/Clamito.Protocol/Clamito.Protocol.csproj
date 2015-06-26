@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{44379F75-DC61-4E95-B9FC-9BD75AB731FC}</ProjectGuid>
+    <ProjectGuid>{7F43F4C9-CB0C-41BE-8759-875E80D1314D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Clamito</RootNamespace>
-    <AssemblyName>Clamito.Engine</AssemblyName>
+    <AssemblyName>Clamito.Protocol</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -20,7 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Binaries\Clamito.Engine.xml</DocumentationFile>
+    <DocumentationFile>..\..\Binaries\Clamito.Protocol.xml</DocumentationFile>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
@@ -31,7 +31,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\Binaries\Clamito.Engine.xml</DocumentationFile>
+    <DocumentationFile>..\..\Binaries\Clamito.Protocol.xml</DocumentationFile>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <RunCodeAnalysis>true</RunCodeAnalysis>
@@ -48,33 +48,18 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\App.snk" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\SolutionInfo.cs">
       <Link>Properties\SolutionInfo.cs</Link>
     </Compile>
-    <Compile Include="Engine.cs" />
-    <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Protocol\DummyProtocol.cs" />
-    <Compile Include="Protocol\ProtocolAttribute.cs" />
-    <Compile Include="Protocol\ProtocolPlugin.cs" />
-    <Compile Include="Protocol\ProtocolProxy.cs" />
-    <Compile Include="Protocol\ProtocolResolver.cs" />
-    <Compile Include="Protocol\ProtocolResolverCollection.cs" />
-    <Compile Include="StepCompletedEventArgs.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Clamito.Core\Clamito.Core.csproj">
-      <Project>{bf2738dd-c0fd-474d-af4d-26333c3edd76}</Project>
-      <Name>Clamito.Core</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
       <Link>Properties\CodeAnalysisDictionary.xml</Link>
     </CodeAnalysisDictionary>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\App.snk" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

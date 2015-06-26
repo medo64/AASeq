@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito", "Clamito\Clamito.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito.Test", "Clamito.Test\Clamito.Test.csproj", "{B0E5A531-718E-4029-8657-14BC5EA5B861}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito.Protocol", "Clamito.Protocol\Clamito.Protocol.csproj", "{7F43F4C9-CB0C-41BE-8759-875E80D1314D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{B0E5A531-718E-4029-8657-14BC5EA5B861}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B0E5A531-718E-4029-8657-14BC5EA5B861}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B0E5A531-718E-4029-8657-14BC5EA5B861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F43F4C9-CB0C-41BE-8759-875E80D1314D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F43F4C9-CB0C-41BE-8759-875E80D1314D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F43F4C9-CB0C-41BE-8759-875E80D1314D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F43F4C9-CB0C-41BE-8759-875E80D1314D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
