@@ -1,36 +1,45 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
 
 namespace Clamito {
     internal static class Log {
 
-        private static readonly TraceSource Source = new TraceSource("Clamito.Engine");
-
         [Conditional("TRACE")]
         public static void WriteVerbose(string format, params object[] args) {
-            Source.TraceEvent(TraceEventType.Verbose, 0, format, args);
+            Trace(TraceEventType.Verbose, format, args);
         }
 
         [Conditional("TRACE")]
         public static void WriteInformation(string format, params object[] args) {
-            Source.TraceEvent(TraceEventType.Information, 0, format, args);
+            Trace(TraceEventType.Information, format, args);
         }
 
         [Conditional("TRACE")]
         public static void WriteWarning(string format, params object[] args) {
-            Source.TraceEvent(TraceEventType.Warning, 0, format, args);
+            Trace(TraceEventType.Warning, format, args);
         }
 
         [Conditional("TRACE")]
         public static void WriteError(string format, params object[] args) {
-            Source.TraceEvent(TraceEventType.Error, 0, format, args);
+            Trace(TraceEventType.Error, format, args);
         }
 
 
         [Conditional("TRACE")]
         public static void WriteException(string prefix, Exception ex) {
-            Source.TraceEvent(TraceEventType.Error, 0, "{0}: Unhandled exception - {1}", prefix, ex.Message);
-            Source.TraceEvent(TraceEventType.Verbose, 0, "{0}: Unhandled exception - {1}{2}{3}", prefix, ex.Message, Environment.NewLine, ex.StackTrace);
+            Trace(TraceEventType.Error, "{0}: Unhandled exception - {1}", prefix, ex.Message);
+            Trace(TraceEventType.Verbose, "{0}: Unhandled exception - {1}{2}{3}", prefix, ex.Message, Environment.NewLine, ex.StackTrace);
+        }
+
+
+        private static readonly TraceSource Source = new TraceSource("Clamito.Engine");
+
+        private static void Trace(TraceEventType type, string format, params object[] args) {
+#if DEBUG
+            Debug.WriteLine(type.ToString().Substring(0, 1) + ": " + string.Format(CultureInfo.InvariantCulture, format, args));
+#endif
+            Source.TraceEvent(type, 0, format, args);
         }
 
     }

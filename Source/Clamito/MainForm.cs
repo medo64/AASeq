@@ -119,7 +119,7 @@ namespace Clamito.Gui {
         private void mnuNew_Click(object sender, EventArgs e) {
             if (ProceedWithNewDocument()) {
                 this.Document = new Document(new Endpoint[] { new Endpoint("Me") }, null, null);
-                this.Document.Changed += delegate(object sender2, EventArgs e2) { this.RefreshTitle(); };
+                this.Document.Changed += delegate (object sender2, EventArgs e2) { this.RefreshTitle(); };
                 this.RefreshDocument();
             }
         }
@@ -133,7 +133,7 @@ namespace Clamito.Gui {
                 mnuOpenDefault.DropDownItems.Add(new ToolStripSeparator());
                 foreach (var file in this.Recent.Items) {
                     if (File.Exists(file.FileName)) {
-                        mnuOpenDefault.DropDownItems.Add(file.Title, null, delegate(object sender2, EventArgs e2) {
+                        mnuOpenDefault.DropDownItems.Add(file.Title, null, delegate (object sender2, EventArgs e2) {
                             if (ProceedWithNewDocument()) {
                                 OpenFile(file.FileName);
                             }
@@ -169,7 +169,7 @@ namespace Clamito.Gui {
         private void OpenFile(string fileName) {
             try {
                 this.Document = Document.Load(fileName);
-                this.Document.Changed += delegate(object sender2, EventArgs e2) { this.RefreshTitle(); };
+                this.Document.Changed += delegate (object sender2, EventArgs e2) { this.RefreshTitle(); };
                 RefreshDocument();
                 this.Recent.Push(fileName);
             } catch (Exception ex) {
@@ -219,7 +219,7 @@ namespace Clamito.Gui {
                 }
             }
 
-            foreach (var protocol in Engine.Protocols) {
+            foreach (var protocol in ProtocolCollection.Instance) {
                 var item = new ToolStripMenuItem("Add " + protocol.DisplayName + " endpoint", null, mnuEndpointAdd_Click) { Tag = protocol };
                 mnuEndpointAddDefault.DropDownItems.Add(item);
             }
@@ -227,7 +227,7 @@ namespace Clamito.Gui {
 
         private void mnuEndpointAdd_Click(object sender, EventArgs e) {
             var item = sender as ToolStripItem;
-            using (var frm = new EndpointForm(this.Document, null, GetNextEndpoint(doc.Document, doc.SelectedEndpoint), item.Tag as ProtocolResolver)) {
+            using (var frm = new EndpointForm(this.Document, null, GetNextEndpoint(doc.Document, doc.SelectedEndpoint), item.Tag as ProtocolBase)) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
                     doc.SelectedEndpoint = frm.SelectedEndpoint;
                 }

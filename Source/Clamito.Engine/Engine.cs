@@ -24,7 +24,7 @@ namespace Clamito {
         /// </summary>
         public Document Document { get; private set; }
 
-        private readonly Dictionary<String, ProtocolProxy> EndpointProxies = new Dictionary<string, ProtocolProxy>();
+        private readonly Dictionary<String, ProtocolBase> Endpoints = new Dictionary<string, ProtocolBase>();
 
         #region Setup
 
@@ -47,11 +47,11 @@ namespace Clamito {
 
             foreach (var endpoint in this.Document.Endpoints) {
                 if (endpoint.ProtocolName == null) { continue; }
-                var protocol = Engine.Protocols[endpoint.ProtocolName];
+                var protocol = ProtocolCollection.Instance[endpoint.ProtocolName];
                 if (protocol == null) { return ErrorResult.NewError("Protocol '{0}' not found.", endpoint.ProtocolName); }
-                var proxy = new ProtocolProxy(protocol);
+                var proxy = (ProtocolBase)Activator.CreateInstance(protocol.GetType());
                 proxy.Initialize(endpoint.Properties);
-                this.EndpointProxies.Add(endpoint.Name, proxy);
+                this.Endpoints.Add(endpoint.Name, proxy);
             }
 
             this.CancelEvent = new ManualResetEvent(false);
@@ -223,23 +223,12 @@ namespace Clamito {
                     this.CanStopEvent = null;
                 }
 
-                foreach (var proxy in this.EndpointProxies) { //dispose proxies
+                foreach (var proxy in this.Endpoints) { //dispose proxies
                     proxy.Value.Dispose();
                 }
             }
             GC.SuppressFinalize(this);
         }
-
-        #endregion
-
-
-        #region Static
-
-        private static ProtocolResolverCollection _protocols = new ProtocolResolverCollection();
-        /// <summary>
-        /// Gets loaded protocol plugins
-        /// </summary>
-        public static ProtocolResolverCollection Protocols { get { return Engine._protocols; } }
 
         #endregion
 
@@ -274,7 +263,8 @@ namespace Clamito {
                             interactionIndex++;
 
                             switch (interaction.Kind) {
-                                case InteractionKind.Message: {
+                                case InteractionKind.Message:
+                                    {
                                         var message = (Message)interaction;
                                         var endpointSrc = message.Source;
                                         var endpointDst = message.Destination;
@@ -284,8 +274,8 @@ namespace Clamito {
                                         if ((protocolSrc == null) && (protocolDst == null)) { //ignore communication
                                         } else if (protocolDst != null) { //sending
                                             try {
-                                                ProtocolProxy protocolProxy;
-                                                if (this.EndpointProxies.TryGetValue(endpointDst.Name, out protocolProxy)) {
+                                                ProtocolBase protocolProxy;
+                                                if (this.Endpoints.TryGetValue(endpointDst.Name, out protocolProxy)) {
                                                     var content = message.Fields.AsReadOnly(); //TODO: resolve constants
                                                     var protocolErrors = protocolProxy.Send(content);
                                                     if (protocolErrors.Count > 0) {
@@ -299,12 +289,17 @@ namespace Clamito {
                                             }
                                         } else if (protocolSrc != null) { //receiving
                                             try {
-                                                ProtocolProxy protocolProxy;
-                                                if (this.EndpointProxies.TryGetValue(endpointSrc.Name, out protocolProxy)) {
+                                                ProtocolBase protocol;
+                                                if (this.Endpoints.TryGetValue(endpointSrc.Name, out protocol)) {
                                                     var content = message.Fields.AsReadOnly(); //TODO: resolve constants
-                                                    protocolProxy.PokeReceive(content);
+
+                                                    var dummyProtocol = protocol as DummyProtocol;
+                                                    if (dummyProtocol != null) {
+                                                        dummyProtocol.PokeReceive(content);
+                                                    }
+
                                                     FieldCollection receivedContent;
-                                                    var protocolErrors = protocolProxy.Receive(out receivedContent);
+                                                    var protocolErrors = protocol.Receive(out receivedContent);
                                                     if (protocolErrors.Count > 0) {
                                                         errors.AddRange(protocolErrors.Clone(string.Format(CultureInfo.InvariantCulture, "{0} {1}: ", interactionIndex, interaction.Name)));
                                                     }
@@ -317,9 +312,11 @@ namespace Clamito {
                                         } else { //ignore communication between two protocols
                                         }
 
-                                    } break;
+                                    }
+                                    break;
 
-                                case InteractionKind.Command: {
+                                case InteractionKind.Command:
+                                    {
                                         var command = (Command)interaction;
                                         if (command.Name == "Wait") {
                                             int milliseconds;
@@ -330,11 +327,14 @@ namespace Clamito {
                                                 Thread.Sleep(1000);
                                             }
                                         }
-                                    } break;
+                                    }
+                                    break;
 
-                                default: {
+                                default:
+                                    {
                                         errors.Add(ErrorResult.NewError("{0} {1}: Unknown interaction {2}.", interactionIndex, interaction.Name, interaction.Kind));
-                                    } break;
+                                    }
+                                    break;
 
                             }
                         }

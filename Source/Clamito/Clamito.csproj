@@ -205,6 +205,10 @@
       <Project>{44379f75-dc61-4e95-b9fc-9bd75ab731fc}</Project>
       <Name>Clamito.Engine</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Clamito.Protocol\Clamito.Protocol.csproj">
+      <Project>{7f43f4c9-cb0c-41be-8759-875e80d1314d}</Project>
+      <Name>Clamito.Protocol</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6">

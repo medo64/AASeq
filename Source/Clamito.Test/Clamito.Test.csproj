@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Engine\" />
+    <Folder Include="Protocol\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.snk" />

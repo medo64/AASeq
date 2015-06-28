@@ -7,16 +7,32 @@ namespace Clamito {
     /// <summary>
     /// Dummy protocol.
     /// </summary>
-    [Protocol("Dummy", ProtocolModel.Peer)]
-    [DisplayName("Dummy peer")]
-    [Description("Peer without a specific protocol.")]
-    public sealed class DummyProtocol : ProtocolPlugin {
+    public sealed class DummyProtocol : ProtocolBase {
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public DummyProtocol() {
-        }
+        public DummyProtocol() { }
+
+
+        #region Definition
+
+        /// <summary>
+        /// Gets unique name for protocol.
+        /// </summary>
+        public override string Name { get { return "Dummy"; } }
+
+        /// <summary>
+        /// Gets protocol behaviour model.
+        /// </summary>
+        public override ProtocolModel Model { get { return ProtocolModel.Peer; } }
+
+        /// <summary>
+        /// Gets protocol description.
+        /// </summary>
+        public override string Description { get { return "Peer without a specific protocol."; } }
+
+        #endregion
 
 
         #region Setup

@@ -29,22 +29,10 @@ namespace Clamito {
         [Conditional("TRACE")]
         public static void WriteException(string prefix, Exception ex) {
             Trace(TraceEventType.Error, "{0}: Unhandled exception - {1}", prefix, ex.Message);
-            Trace(TraceEventType.Verbose, "{0}: Unhandled exception - {1}{2}{3}", prefix, ex.Message, Environment.NewLine, ex.StackTrace);
         }
 
 
-        [Conditional("TRACE")]
-        public static void RecordDocumentLoad(long elapsedMilliseconds) {
-            Trace(TraceEventType.Information, "Document.Load in {0} ms.", elapsedMilliseconds);
-        }
-
-        [Conditional("TRACE")]
-        public static void RecordDocumentSave(long elapsedMilliseconds) {
-            Trace(TraceEventType.Information, "Document.Save in {0} ms.", elapsedMilliseconds);
-        }
-
-
-        private static readonly TraceSource Source = new TraceSource("Clamito.Core");
+        private static readonly TraceSource Source = new TraceSource("Clamito.Protocol");
 
         private static void Trace(TraceEventType type, string format, params object[] args) {
 #if DEBUG

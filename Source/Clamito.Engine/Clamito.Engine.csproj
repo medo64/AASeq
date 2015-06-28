@@ -58,17 +58,16 @@
     <Compile Include="Log.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Protocol\DummyProtocol.cs" />
-    <Compile Include="Protocol\ProtocolAttribute.cs" />
-    <Compile Include="Protocol\ProtocolPlugin.cs" />
-    <Compile Include="Protocol\ProtocolProxy.cs" />
-    <Compile Include="Protocol\ProtocolResolver.cs" />
-    <Compile Include="Protocol\ProtocolResolverCollection.cs" />
     <Compile Include="StepCompletedEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Clamito.Core\Clamito.Core.csproj">
       <Project>{bf2738dd-c0fd-474d-af4d-26333c3edd76}</Project>
       <Name>Clamito.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Clamito.Protocol\Clamito.Protocol.csproj">
+      <Project>{7f43f4c9-cb0c-41be-8759-875e80d1314d}</Project>
+      <Name>Clamito.Protocol</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

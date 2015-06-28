@@ -7,20 +7,27 @@ using System.Reflection;
 
 namespace Clamito {
     /// <summary>
-    /// Collection of protocol plugins.
+    /// Collection of protocols.
     /// </summary>
-    [DebuggerDisplay("{Count} protocol plugins")]
-    public sealed class ProtocolResolverCollection : IReadOnlyList<ProtocolResolver> {
+    [DebuggerDisplay("{Count} protocols")]
+    public sealed class ProtocolCollection : IReadOnlyList<ProtocolBase> {
+
+
+        private static readonly ProtocolCollection _instance = new ProtocolCollection();
+        /// <summary>
+        /// Loaded protocols.
+        /// </summary>
+        public static ProtocolCollection Instance { get { return _instance; } }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFile", Justification = "LoadFile is intentionaly called because given assembly has to be executable.")]
-        internal ProtocolResolverCollection() {
+        internal ProtocolCollection() {
             var path = new FileInfo((Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location).DirectoryName;
-            var pluginRoot = new DirectoryInfo(path);
+            var root = new DirectoryInfo(path);
 
-            Log.WriteVerbose("Searching for plugins in {0}...", pluginRoot.FullName);
+            Log.WriteVerbose("Searching for protocols in {0}...", root.FullName);
 
-            var protocolInterface = typeof(ProtocolPlugin);
-            foreach (var file in pluginRoot.GetFiles("*.dll")) {
+            foreach (var file in root.GetFiles("*.dll")) {
                 Log.WriteVerbose("Checking file {0}...", file.Name);
                 var assembly = Assembly.LoadFile(file.FullName);
 
@@ -32,14 +39,8 @@ namespace Clamito {
                         continue;
                     }
 
-                    if (!protocolInterface.IsAssignableFrom(type)) {
-                        Log.WriteVerbose("Type {0} does not implement an ProtocolPlugin.", type.Name);
-                        continue;
-                    }
-
-                    var protocolAttributes = type.GetCustomAttributes(typeof(ProtocolAttribute), true);
-                    if (protocolAttributes.Length == 0) {
-                        Log.WriteVerbose("Type {0} does not have a Protocol attribute.", type.Name);
+                    if (!typeof(ProtocolBase).IsAssignableFrom(type)) {
+                        Log.WriteVerbose("Type {0} does not implement ProtocolBase.", type.Name);
                         continue;
                     }
 
@@ -49,40 +50,38 @@ namespace Clamito {
                         continue;
                     }
 
-
-                    Log.WriteVerbose("Loading plugin type {0}...", type.Name);
-                    ProtocolResolver protocol;
+                    Log.WriteVerbose("Loading protocol type {0}...", type.Name);
                     try {
-                        protocol = new ProtocolResolver(type);
+                        var protocol = (ProtocolBase)Activator.CreateInstance(type);
+
+                        if (this.Contains(protocol.Name)) {
+                            Log.WriteWarning("Duplicate protocol name {0}!", protocol.Name);
+                            continue;
+                        }
+
+                        this.BaseCollection.Add(protocol);
+                        this.LookupByName.Add(protocol.Name, protocol);
+                        Log.WriteInformation("Loaded protocol {0}.", protocol.Name);
                     } catch (ArgumentException ex) {
-                        Log.WriteWarning("Cannot load plugin type {0} ({1})!", type.Name, ex.Message.Split(new char[] { '\r', '\n' })[0]);
+                        Log.WriteWarning("Cannot load protocol type {0} ({1})!", type.Name, ex.Message.Split(new char[] { '\r', '\n' })[0]);
                         continue;
                     }
-
-                    if (this.Contains(protocol.Name)) {
-                        Log.WriteWarning("Duplicate plugin name {0}!", protocol.Name);
-                        continue;
-                    }
-
-                    this.BaseCollection.Add(protocol);
-                    this.LookupByName.Add(protocol.Name, protocol);
-                    Log.WriteInformation("Loaded plugin {0}.", protocol.Name);
                 }
             }
 
             this.BaseCollection.Sort(
-                delegate (ProtocolResolver protocol1, ProtocolResolver protocol2) {
+                delegate (ProtocolBase protocol1, ProtocolBase protocol2) {
                     return string.CompareOrdinal(protocol1.DisplayName, protocol2.DisplayName);
                 }
             );
 
-            Log.WriteVerbose("Found total of {0} plugin(s).", this.BaseCollection.Count);
+            Log.WriteVerbose("Found total of {0} protocol(s).", this.BaseCollection.Count);
         }
 
 
         [DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
-        private readonly List<ProtocolResolver> BaseCollection = new List<ProtocolResolver>();
-        private readonly Dictionary<string, ProtocolResolver> LookupByName = new Dictionary<string, ProtocolResolver>(ProtocolResolver.NameComparer);
+        private readonly List<ProtocolBase> BaseCollection = new List<ProtocolBase>();
+        private readonly Dictionary<string, ProtocolBase> LookupByName = new Dictionary<string, ProtocolBase>(StringComparer.OrdinalIgnoreCase);
 
 
         #region IReadOnlyList
@@ -93,7 +92,7 @@ namespace Clamito {
         /// <param name="index">The zero-based index of the element to get or set.</param>
         /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Index is less than 0. -or- Index is equal to or greater than collection count. -or- Duplicate name in collection. -or- Item cannot be in other collection.</exception>
-        public ProtocolResolver this[int index] {
+        public ProtocolBase this[int index] {
             get { return this.BaseCollection[index]; }
         }
 
@@ -107,7 +106,7 @@ namespace Clamito {
         /// <summary>
         /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
         /// </summary>
-        public IEnumerator<ProtocolResolver> GetEnumerator() {
+        public IEnumerator<ProtocolBase> GetEnumerator() {
             return this.BaseCollection.GetEnumerator();
         }
 
@@ -126,10 +125,10 @@ namespace Clamito {
         /// Gets item based on a name or null if item cannot be found.
         /// </summary>
         /// <param name="name">Name.</param>
-        public ProtocolResolver this[string name] {
+        public ProtocolBase this[string name] {
             get {
                 if (name != null) {
-                    ProtocolResolver value;
+                    ProtocolBase value;
                     return this.LookupByName.TryGetValue(name, out value) ? value : null;
                 } else {
                     return null;

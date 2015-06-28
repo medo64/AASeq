@@ -1,15 +1,44 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Clamito {
 
     /// <summary>
     /// Protocol interface.
     /// </summary>
-    public abstract class ProtocolPlugin : IDisposable {
+    public abstract class ProtocolBase : IDisposable {
+
+        #region Definition
+
+        /// <summary>
+        /// Gets unique name for protocol.
+        /// </summary>
+        public abstract string Name { get; }
+
+        /// <summary>
+        /// Gets protocol behaviour model.
+        /// </summary>
+        public abstract ProtocolModel Model { get; }
+
+        /// <summary>
+        /// Gets display name for protocol.
+        /// </summary>
+        public virtual string DisplayName {
+            get { return this.Name + " " + this.Model.ToString().ToLower(CultureInfo.CurrentCulture); }
+        }
+
+        /// <summary>
+        /// Gets protocol description.
+        /// </summary>
+        public virtual string Description {
+            get { return ""; }
+        }
+
+        #endregion
 
         #region Setup
-        
+
         /// <summary>
         /// Starts protocol and allocates all needed resources.
         /// </summary>
@@ -23,7 +52,7 @@ namespace Clamito {
             this.Dispose();
             return true;
         }
-        
+
         #endregion
 
 
@@ -50,7 +79,7 @@ namespace Clamito {
         /// <summary>
         /// Releases all non-managed resources.
         /// </summary>
-        ~ProtocolPlugin() {
+        ~ProtocolBase() {
             this.Dispose(false);
         }
 
@@ -91,12 +120,45 @@ namespace Clamito {
             if ((properties != null) && (properties.Count > 0)) {
                 var results = new List<ErrorResult>();
                 //foreach (var item in FieldCollection.EnumerateTreeValues(properties)) {
-                    //results.Add(ErrorResult.NewWarning("Cannot validate property {0}.", item.Key));
+                //results.Add(ErrorResult.NewWarning("Cannot validate property {0}.", item.Key));
                 //}
                 return new ResultCollection(results);
             } else {
                 return new ResultCollection();
             }
+        }
+
+        #endregion
+
+
+        #region Overrides
+
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        public override bool Equals(object obj) {
+            var other = obj as ProtocolBase;
+            if (other != null) { return this.Name.Equals(other.Name); }
+
+            var otherString = obj as string;
+            if (otherString != null) { return this.Name.Equals(otherString); }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Returns a hash code for the current object.
+        /// </summary>
+        public override int GetHashCode() {
+            return this.Name.GetHashCode();
+        }
+
+        /// <summary>
+        /// Returns a string that represents the current object.
+        /// </summary>
+        public override string ToString() {
+            return this.DisplayName;
         }
 
         #endregion
