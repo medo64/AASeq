@@ -390,41 +390,6 @@ namespace Clamito {
         #endregion
 
 
-        #region Load/Save based on file names.
-
-        /// <summary>
-        /// Returns opened document.
-        /// </summary>
-        /// <param name="fileName">File name.</param>
-        /// <exception cref="System.ArgumentNullException">File name cannot be null.</exception>
-        public static Document Load(string fileName) {
-            if (fileName == null) { throw new ArgumentNullException("fileName", "File name cannot be null."); }
-
-            fileName = new FileInfo(fileName).FullName;
-            using (var stream = new FileStream(fileName, FileMode.Open, FileAccess.Read, FileShare.Read)) {
-                var doc = Document.Load(stream);
-                doc.FileName = fileName;
-                return doc;
-            }
-        }
-
-        /// <summary>
-        /// Saves document.
-        /// </summary>
-        /// <param name="fileName">File name.</param>
-        /// <exception cref="System.ArgumentNullException">File name cannot be null.</exception>
-        public void Save(string fileName) {
-            if (fileName == null) { throw new ArgumentNullException("fileName", "File name cannot be null."); }
-
-            fileName = new FileInfo(fileName).FullName;
-            using (var stream = new FileStream(fileName, FileMode.Create, FileAccess.Write, FileShare.None)) {
-                this.Save(stream);
-                this.FileName = fileName;
-            }
-        }
-
-        #endregion
-
 
         private static string GetValue(XmlAttribute attribute, string defaultValue = null) {
             return (attribute != null) ? attribute.Value : defaultValue;

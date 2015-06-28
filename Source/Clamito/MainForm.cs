@@ -168,7 +168,7 @@ namespace Clamito.Gui {
 
         private void OpenFile(string fileName) {
             try {
-                this.Document = Document.Load(fileName);
+                this.Document = Document.Load(File.OpenRead(fileName));
                 this.Document.Changed += delegate (object sender2, EventArgs e2) { this.RefreshTitle(); };
                 RefreshDocument();
                 this.Recent.Push(fileName);
@@ -192,7 +192,7 @@ namespace Clamito.Gui {
         private void mnuSave_Click(object sender, EventArgs e) {
             if (this.Document.FileName == null) { return; }
 
-            this.Document.Save(this.Document.FileName);
+            this.Document.Save(File.OpenWrite(this.Document.FileName));
             this.RefreshTitle();
             this.Recent.Push(this.Document.FileName); //to have it move to front in case of multiple concurent instances
         }
@@ -201,7 +201,7 @@ namespace Clamito.Gui {
             using (var frm = new SaveFileDialog() { AddExtension = true, DefaultExt = "clamito", Filter = "Clamito documents (*.clamito)|*.clamito|All files (*.*)|*.*" }) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
                     try {
-                        this.Document.Save(frm.FileName);
+                        this.Document.Save(File.OpenWrite(frm.FileName));
                         this.RefreshTitle();
                         this.Recent.Push(frm.FileName);
                     } catch (Exception ex) {
