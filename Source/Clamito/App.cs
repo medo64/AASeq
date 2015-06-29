@@ -19,11 +19,11 @@ namespace Clamito.Gui {
             Medo.Application.UnhandledCatch.Attach();
             Medo.Application.UnhandledCatch.ThreadException += new EventHandler<ThreadExceptionEventArgs>(UnhandledCatch_ThreadException);
 
-            Log.WriteInformation("Application Started");
+            Log.Write.Information("Application", "Started");
 
             Application.Run(new MainForm());
 
-            Log.WriteInformation("Application Terminated");
+            Log.Write.Information("Application", "Terminated");
             Application.Exit();
 
             SetupMutex.Close();
@@ -32,7 +32,7 @@ namespace Clamito.Gui {
         private static void UnhandledCatch_ThreadException(object sender, ThreadExceptionEventArgs e) {
             var ex = e.Exception as Exception;
             if (ex != null) {
-                Log.WriteCriticalException(ex);
+                Log.Write.Error("CRITICAL", ex);
             }
 
             Medo.Diagnostics.ErrorReport.SaveToTemp(e.Exception);

@@ -71,6 +71,7 @@
     <Compile Include="Interaction.cs" />
     <Compile Include="InteractionCollection.cs" />
     <Compile Include="InteractionKind.cs" />
+    <Compile Include="LogBase.cs" />
     <Compile Include="Log.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

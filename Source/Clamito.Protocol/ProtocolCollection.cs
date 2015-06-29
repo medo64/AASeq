@@ -25,45 +25,45 @@ namespace Clamito {
             var path = new FileInfo((Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location).DirectoryName;
             var root = new DirectoryInfo(path);
 
-            Log.WriteVerbose("Searching for protocols in {0}...", root.FullName);
+            Log.Write.Verbose("ProtocolCollection", "Searching for protocols in {0}...", root.FullName);
 
             foreach (var file in root.GetFiles("*.dll")) {
-                Log.WriteVerbose("Checking file {0}...", file.Name);
+                Log.Write.Verbose("ProtocolCollection", "Checking file {0}...", file.Name);
                 var assembly = Assembly.LoadFile(file.FullName);
 
                 foreach (var type in assembly.GetTypes()) {
-                    Log.WriteVerbose("Checking type {0}...", type.Name);
+                    Log.Write.Verbose("ProtocolCollection", "Checking type {0}...", type.Name);
 
                     if (!type.IsClass) { //must be class
-                        Log.WriteVerbose("Type {0} is not a class.", type.Name);
+                        Log.Write.Verbose("ProtocolCollection", "Type {0} is not a class.", type.Name);
                         continue;
                     }
 
                     if (!typeof(ProtocolBase).IsAssignableFrom(type)) {
-                        Log.WriteVerbose("Type {0} does not implement ProtocolBase.", type.Name);
+                        Log.Write.Verbose("ProtocolCollection", "Type {0} does not implement ProtocolBase.", type.Name);
                         continue;
                     }
 
                     var protocolConstructor = type.GetConstructor(new Type[] { });
                     if (protocolConstructor == null) {
-                        Log.WriteVerbose("Type {0} does not have a parameterless constructor.", type.Name);
+                        Log.Write.Verbose("ProtocolCollection", "Type {0} does not have a parameterless constructor.", type.Name);
                         continue;
                     }
 
-                    Log.WriteVerbose("Loading protocol type {0}...", type.Name);
+                    Log.Write.Verbose("ProtocolCollection", "Loading protocol type {0}...", type.Name);
                     try {
                         var protocol = (ProtocolBase)Activator.CreateInstance(type);
 
                         if (this.Contains(protocol.Name)) {
-                            Log.WriteWarning("Duplicate protocol name {0}!", protocol.Name);
+                            Log.Write.Warning("ProtocolCollection", "Duplicate protocol name {0}!", protocol.Name);
                             continue;
                         }
 
                         this.BaseCollection.Add(protocol);
                         this.LookupByName.Add(protocol.Name, protocol);
-                        Log.WriteInformation("Loaded protocol {0}.", protocol.Name);
+                        Log.Write.Information("ProtocolCollection", "Loaded protocol {0}.", protocol.Name);
                     } catch (ArgumentException ex) {
-                        Log.WriteWarning("Cannot load protocol type {0} ({1})!", type.Name, ex.Message.Split(new char[] { '\r', '\n' })[0]);
+                        Log.Write.Warning("ProtocolCollection", "Cannot load protocol type {0} ({1})!", type.Name, ex.Message.Split(new char[] { '\r', '\n' })[0]);
                         continue;
                     }
                 }
@@ -75,7 +75,7 @@ namespace Clamito {
                 }
             );
 
-            Log.WriteVerbose("Found total of {0} protocol(s).", this.BaseCollection.Count);
+            Log.Write.Verbose("ProtocolCollection", "Found total of {0} protocol(s).", this.BaseCollection.Count);
         }
 
 

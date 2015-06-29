@@ -91,7 +91,7 @@ namespace Clamito {
             private set {
                 if (this.DontTrackChanges) { return; }
                 if (this._isChanged != value) {
-                    Log.WriteVerbose("Document.IsChanged={0}", value);
+                    Log.Write.Verbose("Document", "IsChanged={0}", value);
                     this._isChanged = value;
                     if (value) {
                         this.OnChanged(new EventArgs());
@@ -113,7 +113,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         private void OnChanged(EventArgs e) {
-            Log.WriteVerbose("Document.OnChanged");
+            Log.Write.Verbose("Document", "OnChanged()");
             var ev = this.Changed;
             if (ev != null) { ev(this, e); }
         }
@@ -205,16 +205,16 @@ namespace Clamito {
                 return doc;
 
             } catch (FormatException ex) {
-                Log.WriteException("Document.Load", ex);
+                Log.Write.Error("Document.Load", ex);
                 throw;
             } catch (XmlException ex) {
-                Log.WriteException("Document.Load", ex);
+                Log.Write.Error("Document.Load", ex);
                 throw new FormatException(ex.Message);
             } catch (Exception ex) {
-                Log.WriteException("Document.Load", ex);
+                Log.Write.Error("Document.Load", ex);
                 throw;
             } finally {
-                Log.RecordDocumentLoad(sw.ElapsedMilliseconds);
+                Log.Write.DocumentLoad(sw.ElapsedMilliseconds);
             }
         }
 
@@ -286,10 +286,10 @@ namespace Clamito {
                 this.FileName = null;
 
             } catch (Exception ex) {
-                Log.WriteException("Document.Save", ex);
+                Log.Write.Error("Document.Save", ex);
                 throw;
             } finally {
-                Log.RecordDocumentSave(sw.ElapsedMilliseconds);
+                Log.Write.DocumentSave(sw.ElapsedMilliseconds);
             }
         }
 
