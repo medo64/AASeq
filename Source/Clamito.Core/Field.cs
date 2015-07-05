@@ -1,5 +1,7 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace Clamito {
@@ -97,7 +99,7 @@ namespace Clamito {
                 if (this._subfields == null) {
                     if (this.IsReadOnly) { return null; } //just in case when it is both Read-only and it has value.
                     this._subfields = new FieldCollection();
-                    this._subfields.Changed += delegate(Object sender, EventArgs e) {
+                    this._subfields.Changed += delegate (Object sender, EventArgs e) {
                         this._value = null; //reset value any time subfields are changed
                         this.OnChanged(new EventArgs());
                     };
@@ -116,7 +118,7 @@ namespace Clamito {
                 if (this._tags == null) {
                     if (this.IsReadOnly) { return null; } //should never happen because AsReadOnly will always create an empty collection.
                     this._tags = new TagCollection();
-                    this._tags.Changed += delegate(Object sender, EventArgs e) {
+                    this._tags.Changed += delegate (Object sender, EventArgs e) {
                         this.OnChanged(new EventArgs());
                     };
                 }
@@ -146,6 +148,263 @@ namespace Clamito {
         public Boolean HasTags {
             get { return (this._tags != null) && (this._tags.Count > 0); }
         }
+
+
+        #region Value conversions
+
+        /// <summary>
+        /// Gets/sets field value as Byte.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public Byte? ValueAsByte {
+            get {
+                if (this.Value == null) { return null; }
+                Byte value;
+                if (Byte.TryParse(this.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out value)) {
+                    return value;
+                } else {
+                    var text = this.Value.Trim();
+                    if (text.StartsWith("0x", StringComparison.OrdinalIgnoreCase)
+                        && Byte.TryParse(text.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
+                        return value;
+                    }
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets field value as Int16.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public Int32? ValueAsInt16 {
+            get {
+                if (this.Value == null) { return null; }
+                Int16 value;
+                if (Int16.TryParse(this.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out value)) {
+                    return value;
+                } else {
+                    var text = this.Value.Trim();
+                    if (text.StartsWith("0x", StringComparison.OrdinalIgnoreCase)
+                        && Int16.TryParse(text.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
+                        return value;
+                    }
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets field value as Int32.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public Int32? ValueAsInt32 {
+            get {
+                if (this.Value == null) { return null; }
+                Int32 value;
+                if (Int32.TryParse(this.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out value)) {
+                    return value;
+                } else {
+                    var text = this.Value.Trim();
+                    if (text.StartsWith("0x", StringComparison.OrdinalIgnoreCase)
+                        && Int32.TryParse(text.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
+                        return value;
+                    }
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets field value as Int64.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public Int64? ValueAsInt64 {
+            get {
+                if (this.Value == null) { return null; }
+                Int64 value;
+                if (Int64.TryParse(this.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out value)) {
+                    return value;
+                } else {
+                    var text = this.Value.Trim();
+                    if (text.StartsWith("0x", StringComparison.OrdinalIgnoreCase)
+                        && Int64.TryParse(text.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
+                        return value;
+                    }
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets/sets field value as Single.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public Single? ValueAsSingle {
+            get {
+                if (this.Value == null) { return null; }
+                Single value;
+                if (Single.TryParse(this.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out value)) {
+                    return value;
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+        /// <summary>
+        /// Gets/sets field value as Double.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public Double? ValueAsDouble {
+            get {
+                if (this.Value == null) { return null; }
+                Double value;
+                if (Double.TryParse(this.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out value)) {
+                    return value;
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets/sets field value as Boolean.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public Boolean? ValueAsBoolean {
+            get {
+                if (this.Value == null) { return null; }
+                Boolean value;
+                if (Boolean.TryParse(this.Value, out value)) {
+                    return value;
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets/sets field value as Decimal.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public Decimal? ValueAsDecimal {
+            get {
+                if (this.Value == null) { return null; }
+                Decimal value;
+                if (Decimal.TryParse(this.Value, NumberStyles.Float, CultureInfo.InvariantCulture, out value)) {
+                    return value;
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets/sets field value as DateTime.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public DateTime? ValueAsTime {
+            get {
+                if (this.Value == null) { return null; }
+                DateTime value;
+                Int64 longValue;
+                if (DateTime.TryParse(this.Value, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out value)) {
+                    return value;
+                } else if (Int64.TryParse(this.Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out longValue)) {
+                    return new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc).AddSeconds(longValue);
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.Value.ToString("O", CultureInfo.InvariantCulture);
+            }
+        }
+
+
+        /// <summary>
+        /// Gets/sets field value as IPAddress.
+        /// If value cannot be converted, null will be returned.
+        /// </summary>
+        /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public IPAddress ValueAsIPAddress {
+            get {
+                if (this.Value == null) { return null; }
+                IPAddress value;
+                if (IPAddress.TryParse(this.Value, out value)) {
+                    return value;
+                }
+                return null;
+            }
+            set {
+                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                this.Value = value.ToString();
+            }
+        }
+
+        #endregion
 
 
         #region Events
