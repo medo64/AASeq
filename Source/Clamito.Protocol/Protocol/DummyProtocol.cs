@@ -63,7 +63,7 @@ namespace Clamito {
         /// To be used only with dummy protocol.
         /// </summary>
         /// <param name="content">Message content.</param>
-        internal void PokeReceive(FieldCollection content) {
+        public void PokeReceive(FieldCollection content) {
             this.ContentQueue.Enqueue(content);
         }
 

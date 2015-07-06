@@ -21,7 +21,9 @@ namespace Clamito {
 
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFile", Justification = "LoadFile is intentionaly called because given assembly has to be executable.")]
-        internal ProtocolCollection() {
+        private ProtocolCollection() {
+            this.BaseCollection.Add(new DummyProtocol());
+
             var path = new FileInfo((Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location).DirectoryName;
             var root = new DirectoryInfo(path);
 
@@ -29,6 +31,13 @@ namespace Clamito {
 
             foreach (var file in root.GetFiles("*.dll")) {
                 Log.Write.Verbose("ProtocolCollection", "Checking file {0}...", file.Name);
+
+                //ignore basic dlls
+                if (file.Name.Equals("Clamito.Core.dll")) { continue; }
+                if (file.Name.Equals("Clamito.Engine.dll")) { continue; }
+                if (file.Name.Equals("Clamito.Protocol.dll")) { continue; }
+
+                //load assembly
                 var assembly = Assembly.LoadFile(file.FullName);
 
                 foreach (var type in assembly.GetTypes()) {
