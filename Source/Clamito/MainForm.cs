@@ -219,7 +219,7 @@ namespace Clamito.Gui {
                 }
             }
 
-            foreach (var protocol in ProtocolCollection.Instance) {
+            foreach (var protocol in Plugin.Protocols) {
                 var item = new ToolStripMenuItem("Add " + protocol.DisplayName + " endpoint", null, mnuEndpointAdd_Click) { Tag = protocol };
                 mnuEndpointAddDefault.DropDownItems.Add(item);
             }
@@ -227,7 +227,7 @@ namespace Clamito.Gui {
 
         private void mnuEndpointAdd_Click(object sender, EventArgs e) {
             var item = sender as ToolStripItem;
-            using (var frm = new EndpointForm(this.Document, null, GetNextEndpoint(doc.Document, doc.SelectedEndpoint), item.Tag as ProtocolBase)) {
+            using (var frm = new EndpointForm(this.Document, null, GetNextEndpoint(doc.Document, doc.SelectedEndpoint), item.Tag as ProtocolPlugin)) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
                     doc.SelectedEndpoint = frm.SelectedEndpoint;
                 }

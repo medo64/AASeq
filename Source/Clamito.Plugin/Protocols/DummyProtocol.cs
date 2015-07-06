@@ -7,7 +7,7 @@ namespace Clamito {
     /// <summary>
     /// Dummy protocol.
     /// </summary>
-    public sealed class DummyProtocol : ProtocolBase {
+    public sealed class DummyProtocol : ProtocolPlugin {
 
         /// <summary>
         /// Creates a new instance.

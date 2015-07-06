@@ -7,7 +7,7 @@ namespace Clamito {
     /// <summary>
     /// Protocol interface.
     /// </summary>
-    public abstract class ProtocolBase : IDisposable {
+    public abstract class ProtocolPlugin : IDisposable {
 
         #region Definition
 
@@ -43,8 +43,8 @@ namespace Clamito {
         /// <summary>
         /// Creates new instance of current class.
         /// </summary>
-        public ProtocolBase CreateInstance() {
-            return (ProtocolBase)Activator.CreateInstance(this.GetType());
+        public ProtocolPlugin CreateInstance() {
+            return (ProtocolPlugin)Activator.CreateInstance(this.GetType());
         }
 
         #endregion
@@ -92,7 +92,7 @@ namespace Clamito {
         /// <summary>
         /// Releases all non-managed resources.
         /// </summary>
-        ~ProtocolBase() {
+        ~ProtocolPlugin() {
             this.Dispose(false);
         }
 
@@ -151,7 +151,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
         public override bool Equals(object obj) {
-            var other = obj as ProtocolBase;
+            var other = obj as ProtocolPlugin;
             if (other != null) { return this.Name.Equals(other.Name); }
 
             var otherString = obj as string;

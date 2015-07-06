@@ -24,7 +24,7 @@ namespace Clamito {
         /// </summary>
         public Document Document { get; private set; }
 
-        private readonly Dictionary<String, ProtocolBase> Endpoints = new Dictionary<string, ProtocolBase>();
+        private readonly Dictionary<String, ProtocolPlugin> Endpoints = new Dictionary<string, ProtocolPlugin>();
 
         #region Setup
 
@@ -47,7 +47,7 @@ namespace Clamito {
 
             foreach (var endpoint in this.Document.Endpoints) {
                 if (endpoint.ProtocolName == null) { continue; }
-                var protocol = ProtocolCollection.Instance[endpoint.ProtocolName];
+                var protocol = Plugin.Protocols[endpoint.ProtocolName];
                 if (protocol == null) { return ErrorResult.NewError("Protocol '{0}' not found.", endpoint.ProtocolName); }
                 var proxy = protocol.CreateInstance();
                 proxy.Initialize(endpoint.Properties);
@@ -274,7 +274,7 @@ namespace Clamito {
                                         if ((protocolSrc == null) && (protocolDst == null)) { //ignore communication
                                         } else if (protocolDst != null) { //sending
                                             try {
-                                                ProtocolBase protocolProxy;
+                                                ProtocolPlugin protocolProxy;
                                                 if (this.Endpoints.TryGetValue(endpointDst.Name, out protocolProxy)) {
                                                     var content = message.Fields.AsReadOnly(); //TODO: resolve constants
                                                     var protocolErrors = protocolProxy.Send(content);
@@ -289,7 +289,7 @@ namespace Clamito {
                                             }
                                         } else if (protocolSrc != null) { //receiving
                                             try {
-                                                ProtocolBase protocol;
+                                                ProtocolPlugin protocol;
                                                 if (this.Endpoints.TryGetValue(endpointSrc.Name, out protocol)) {
                                                     var content = message.Fields.AsReadOnly(); //TODO: resolve constants
 

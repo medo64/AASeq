@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Clamito.Gui {
     internal partial class EndpointForm : Form {
-        public EndpointForm(Document document, Endpoint endpoint, Endpoint insertBefore = null, ProtocolBase defaultProtocol = null) {
+        public EndpointForm(Document document, Endpoint endpoint, Endpoint insertBefore = null, ProtocolPlugin defaultProtocol = null) {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
             foreach (var control in new Control[] { txtName, txtDisplayName, cmbProtocol, txtDescription, fccContent }) {
@@ -14,7 +14,7 @@ namespace Clamito.Gui {
             erp.SetIconAlignment(fccContent, ErrorIconAlignment.TopLeft);
 
             cmbProtocol.Items.Add("(none)");
-            foreach (var protocol in ProtocolCollection.Instance) {
+            foreach (var protocol in Plugin.Protocols) {
                 cmbProtocol.Items.Add(protocol);
             }
 
@@ -54,7 +54,7 @@ namespace Clamito.Gui {
                 cmbProtocol.SelectedIndex = 0; //select null
             } else {
                 foreach (var item in cmbProtocol.Items) {
-                    var protocol = item as ProtocolBase;
+                    var protocol = item as ProtocolPlugin;
                     if ((protocol != null) && protocol.Equals(this.endpointClone.ProtocolName)) {
                         cmbProtocol.SelectedItem = item;
                     }
@@ -83,7 +83,7 @@ namespace Clamito.Gui {
 
             var name = txtName.Text.Trim();
             var displayName = txtDisplayName.Text.Trim();
-            var protocol = cmbProtocol.SelectedItem as ProtocolBase;
+            var protocol = cmbProtocol.SelectedItem as ProtocolPlugin;
             var description = txtDescription.Text.Trim();
 
             try { this.endpointClone.Name = name; } catch (Exception ex) { nameError = ex.Message; }
