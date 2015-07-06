@@ -5,7 +5,7 @@ namespace Clamito {
     /// <summary>
     /// Protocol model.
     /// </summary>
-    public enum ProtocolModel {
+    public enum ProtocolPluginModel {
         /// <summary>
         /// Protocol implements both server and client behavior.
         /// </summary>

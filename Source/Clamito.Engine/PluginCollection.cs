@@ -7,14 +7,14 @@ namespace Clamito {
     /// <summary>
     /// Collection of protocols.
     /// </summary>
-    [DebuggerDisplay("{Count} protocols")]
-    public sealed class ProtocolPluginCollection : IReadOnlyList<ProtocolPlugin> {
+    [DebuggerDisplay("{Count} plugin(s)")]
+    public sealed class PluginCollection<T> : IReadOnlyList<T> where T : PluginBase {
 
-        internal ProtocolPluginCollection() {
+        internal PluginCollection() {
         }
 
 
-        internal void Add(ProtocolPlugin protocol) {
+        internal void Add(T protocol) {
             if (protocol == null) { throw new ArgumentNullException(nameof(protocol), "Protocol cannot be null."); }
             if (this.Contains(protocol.Name)) { throw new ArgumentOutOfRangeException(nameof(protocol), "Protocol " + protocol.Name + " already exists."); }
             this.BaseCollection.Add(protocol);
@@ -23,7 +23,7 @@ namespace Clamito {
 
         internal void Sort() {
             this.BaseCollection.Sort(
-                delegate (ProtocolPlugin protocol1, ProtocolPlugin protocol2) {
+                delegate (T protocol1, T protocol2) {
                     return string.CompareOrdinal(protocol1.DisplayName, protocol2.DisplayName);
                 }
             );
@@ -31,8 +31,8 @@ namespace Clamito {
 
 
         [DebuggerBrowsable(DebuggerBrowsableState.RootHidden)]
-        private readonly List<ProtocolPlugin> BaseCollection = new List<ProtocolPlugin>();
-        private readonly Dictionary<string, ProtocolPlugin> LookupByName = new Dictionary<string, ProtocolPlugin>(StringComparer.OrdinalIgnoreCase);
+        private readonly List<T> BaseCollection = new List<T>();
+        private readonly Dictionary<string, T> LookupByName = new Dictionary<string, T>(StringComparer.OrdinalIgnoreCase);
 
 
         #region IReadOnlyList
@@ -43,7 +43,7 @@ namespace Clamito {
         /// <param name="index">The zero-based index of the element to get or set.</param>
         /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Index is less than 0. -or- Index is equal to or greater than collection count. -or- Duplicate name in collection. -or- Item cannot be in other collection.</exception>
-        public ProtocolPlugin this[int index] {
+        public T this[int index] {
             get { return this.BaseCollection[index]; }
         }
 
@@ -57,7 +57,7 @@ namespace Clamito {
         /// <summary>
         /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
         /// </summary>
-        public IEnumerator<ProtocolPlugin> GetEnumerator() {
+        public IEnumerator<T> GetEnumerator() {
             return this.BaseCollection.GetEnumerator();
         }
 
@@ -76,10 +76,10 @@ namespace Clamito {
         /// Gets item based on a name or null if item cannot be found.
         /// </summary>
         /// <param name="name">Name.</param>
-        public ProtocolPlugin this[string name] {
+        public T this[string name] {
             get {
                 if (name != null) {
-                    ProtocolPlugin value;
+                    T value;
                     return this.LookupByName.TryGetValue(name, out value) ? value : null;
                 } else {
                     return null;

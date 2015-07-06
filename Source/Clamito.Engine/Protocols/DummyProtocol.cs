@@ -12,7 +12,7 @@ namespace Clamito {
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        public DummyProtocol() { }
+        internal DummyProtocol() { }
 
 
         #region Definition
@@ -25,7 +25,7 @@ namespace Clamito {
         /// <summary>
         /// Gets protocol behaviour model.
         /// </summary>
-        public override ProtocolModel Model { get { return ProtocolModel.Peer; } }
+        public override ProtocolPluginModel Model { get { return ProtocolPluginModel.Peer; } }
 
         /// <summary>
         /// Gets protocol description.

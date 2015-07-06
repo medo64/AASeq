@@ -12,7 +12,7 @@ namespace Clamito {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1810:InitializeReferenceTypeStaticFieldsInline", Justification = "Initialization must be guaranteed to occur before a static method of the type is called.")]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFile", Justification = "LoadFile is intentionaly called because given assembly has to be executable.")]
         static Plugin() {
-            Plugin.Protocols = new ProtocolPluginCollection();
+            Plugin.Protocols = new PluginCollection<ProtocolPlugin>();
             Plugin.Protocols.Add(new DummyProtocol());
 
             var path = new FileInfo((Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location).DirectoryName;
@@ -77,7 +77,7 @@ namespace Clamito {
         /// <summary>
         /// Loaded protocols.
         /// </summary>
-        public static ProtocolPluginCollection Protocols { get; }
+        public static PluginCollection<ProtocolPlugin> Protocols { get; }
 
 
     }
