@@ -134,7 +134,7 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">Stream cannot be null.</exception>
         /// <exception cref="System.FormatException">Error parsing stream.</exception>
         public static Document Load(Stream stream) {
-            if (stream == null) { throw new ArgumentNullException("stream", "Stream cannot be null."); }
+            if (stream == null) { throw new ArgumentNullException(nameof(stream), "Stream cannot be null."); }
 
             var sw = Stopwatch.StartNew();
 
@@ -259,7 +259,7 @@ namespace Clamito {
         /// <param name="stream">Stream.</param>
         /// <exception cref="System.ArgumentNullException">Stream cannot be null.</exception>
         public void Save(Stream stream) {
-            if (stream == null) { throw new ArgumentNullException("stream", "Stream cannot be null."); }
+            if (stream == null) { throw new ArgumentNullException(nameof(stream), "Stream cannot be null."); }
 
             var sw = Stopwatch.StartNew();
 

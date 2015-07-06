@@ -80,9 +80,9 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Source and destination cannot be the same.</exception>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public void ReplaceEndpoints(Endpoint source, Endpoint destination) {
-            if (source == null) { throw new ArgumentNullException("source", "Source cannot be null."); }
-            if (destination == null) { throw new ArgumentNullException("destination", "Destination cannot be null."); }
-            if (source.Equals(destination)) { throw new ArgumentOutOfRangeException("source", "Source and destination cannot be the same."); }
+            if (source == null) { throw new ArgumentNullException(nameof(source), "Source cannot be null."); }
+            if (destination == null) { throw new ArgumentNullException(nameof(destination), "Destination cannot be null."); }
+            if (source.Equals(destination)) { throw new ArgumentOutOfRangeException(nameof(source), "Source and destination cannot be the same."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
 
             this.Source = source;
@@ -97,7 +97,7 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">Fields cannot be null.</exception>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public void ReplaceFields(FieldCollection fields) {
-            if (fields == null) { throw new ArgumentNullException("fields", "Fields cannot be null."); }
+            if (fields == null) { throw new ArgumentNullException(nameof(fields), "Fields cannot be null."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
 
             this.Fields.Clear(); //to release old stuff

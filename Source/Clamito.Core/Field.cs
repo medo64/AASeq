@@ -25,7 +25,7 @@ namespace Clamito {
             try {
                 this.Value = value;
             } catch (ArgumentNullException exNull) {
-                throw new ArgumentNullException("value", exNull.Message);
+                throw new ArgumentNullException(nameof(value), exNull.Message);
             }
         }
 
@@ -39,9 +39,9 @@ namespace Clamito {
             try {
                 this.Name = name;
             } catch (ArgumentNullException exNull) {
-                throw new ArgumentNullException("name", exNull.Message);
+                throw new ArgumentNullException(nameof(name), exNull.Message);
             } catch (ArgumentOutOfRangeException exRange) {
-                throw new ArgumentOutOfRangeException("name", exRange.Message);
+                throw new ArgumentOutOfRangeException(nameof(name), exRange.Message);
             }
         }
 
@@ -56,14 +56,14 @@ namespace Clamito {
         public string Name {
             get { return this._name; }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Name cannot be null."); }
-                if (!Field.NameRegex.IsMatch(value)) { throw new ArgumentOutOfRangeException("value", "Name contains invalid characters."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Name cannot be null."); }
+                if (!Field.NameRegex.IsMatch(value)) { throw new ArgumentOutOfRangeException(nameof(value), "Name contains invalid characters."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 try {
                     this._name = value;
                     this.OnChanged(new EventArgs());
                 } catch (ArgumentOutOfRangeException) {
-                    throw new ArgumentOutOfRangeException("value", "Name already exists in collection.");
+                    throw new ArgumentOutOfRangeException(nameof(value), "Name already exists in collection.");
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace Clamito {
         public string Value {
             get { return this._value; }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this._value = value;
                 if (this._subfields != null) {
@@ -174,7 +174,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
             }
@@ -202,7 +202,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
             }
@@ -230,7 +230,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
             }
@@ -258,7 +258,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
             }
@@ -281,7 +281,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
             }
@@ -303,7 +303,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
             }
@@ -326,7 +326,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
             }
@@ -349,7 +349,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString(CultureInfo.InvariantCulture);
             }
@@ -375,7 +375,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.Value.ToString("O", CultureInfo.InvariantCulture);
             }
@@ -398,7 +398,7 @@ namespace Clamito {
                 return null;
             }
             set {
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 this.Value = value.ToString();
             }
@@ -534,7 +534,7 @@ namespace Clamito {
         /// <param name="name">Name.</param>
         /// <exception cref="System.NullReferenceException">Name cannot be null.</exception>
         public static bool IsNameValid(string name) {
-            if (name == null) { throw new ArgumentNullException("name", "Name cannot be null."); }
+            if (name == null) { throw new ArgumentNullException(nameof(name), "Name cannot be null."); }
             return Field.NameRegex.IsMatch(name);
         }
 

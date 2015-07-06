@@ -99,7 +99,7 @@ namespace Clamito {
         /// <param name="newPrefix">New prefix for all text elements.</param>
         /// <exception cref="System.ArgumentNullException">New prefix cannot be null.</exception>
         public ErrorResult Clone(string newPrefix) {
-            if (newPrefix == null) { throw new ArgumentNullException("newPrefix", "New prefix cannot be null."); }
+            if (newPrefix == null) { throw new ArgumentNullException(nameof(newPrefix), "New prefix cannot be null."); }
             return new ErrorResult(this.Line, newPrefix + this.Text, this.IsWarning);
         }
 

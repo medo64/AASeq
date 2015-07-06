@@ -71,7 +71,7 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Source cannot contain curly brackets.</exception>
         [Conditional("TRACE")]
         public void Error(string source, Exception exception) {
-            if (exception == null) { throw new ArgumentNullException("exception", "Exception cannot be null."); }
+            if (exception == null) { throw new ArgumentNullException(nameof(exception), "Exception cannot be null."); }
             TraceEvent(TraceEventType.Error, source, "Unhandled Exception: {0}", source, exception.Message);
             TraceEvent(TraceEventType.Verbose, source, "Unhandled Exception: {0}{1}{2}", source, exception.Message, Environment.NewLine, exception.StackTrace);
         }
@@ -90,9 +90,9 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">Source cannot be null. -or- Format cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Source cannot contain curly brackets.</exception>
         protected void TraceEvent(TraceEventType type, string source, string format, params object[] args) {
-            if (source == null) { throw new ArgumentNullException("source", "Source cannot be null."); }
-            if (source.IndexOfAny(new char[] { '{', '}' }) >= 0) { throw new ArgumentOutOfRangeException("source", "Source cannot contain curly brackets."); }
-            if (format == null) { throw new ArgumentNullException("format", "Format cannot be null."); }
+            if (source == null) { throw new ArgumentNullException(nameof(source), "Source cannot be null."); }
+            if (source.IndexOfAny(new char[] { '{', '}' }) >= 0) { throw new ArgumentOutOfRangeException(nameof(source), "Source cannot contain curly brackets."); }
+            if (format == null) { throw new ArgumentNullException(nameof(format), "Format cannot be null."); }
 #if DEBUG
             Debug.WriteLine(type.ToString().Substring(0, 1) + ": " + this.Source.Name + "." + source + ": " + string.Format(CultureInfo.InvariantCulture, format, args));
 #endif

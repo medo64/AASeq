@@ -72,7 +72,7 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">Name cannot be null.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public bool Remove(string name) {
-            if (name == null) { throw new ArgumentNullException("name", "Name cannot be null."); }
+            if (name == null) { throw new ArgumentNullException(nameof(name), "Name cannot be null."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             bool anyChanged = false;
@@ -98,8 +98,8 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Index out of range.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public void MoveItem(int moveFrom, int moveTo) {
-            if ((moveFrom < 0) || (moveFrom >= this.Count)) { throw new ArgumentOutOfRangeException("moveFrom", "Index out of range."); }
-            if ((moveTo < 0) || (moveTo >= this.Count)) { throw new ArgumentOutOfRangeException("moveTo", "Index out of range."); }
+            if ((moveFrom < 0) || (moveFrom >= this.Count)) { throw new ArgumentOutOfRangeException(nameof(moveFrom), "Index out of range."); }
+            if ((moveTo < 0) || (moveTo >= this.Count)) { throw new ArgumentOutOfRangeException(nameof(moveTo), "Index out of range."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             if (moveFrom == moveTo) { return; }
@@ -128,8 +128,8 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Item cannot be in other collection.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public void Add(Interaction item) {
-            if (item == null) { throw new ArgumentNullException("item", "Item cannot be null."); }
-            if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException("item", "Item cannot be in other collection."); }
+            if (item == null) { throw new ArgumentNullException(nameof(item), "Item cannot be null."); }
+            if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException(nameof(item), "Item cannot be in other collection."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             item.OwnerCollection = this;
@@ -193,8 +193,8 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Index is less than 0. -or- Index is greater than collection count. -or- Item cannot be in other collection.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public void Insert(int index, Interaction item) {
-            if (item == null) { throw new ArgumentNullException("item", "Item cannot be null."); }
-            if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException("item", "Item cannot be in other collection."); }
+            if (item == null) { throw new ArgumentNullException(nameof(item), "Item cannot be null."); }
+            if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException(nameof(item), "Item cannot be in other collection."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             item.OwnerCollection = this;
@@ -219,8 +219,8 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Item does not belong to this collection.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public bool Remove(Interaction item) {
-            if (item == null) { throw new ArgumentNullException("item", "Item cannot be null."); }
-            if (item.OwnerCollection != this) { throw new ArgumentOutOfRangeException("item", "Item does not belong to this collection."); }
+            if (item == null) { throw new ArgumentNullException(nameof(item), "Item cannot be null."); }
+            if (item.OwnerCollection != this) { throw new ArgumentOutOfRangeException(nameof(item), "Item does not belong to this collection."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             if (this.BaseCollection.Remove(item)) {
@@ -289,9 +289,9 @@ namespace Clamito {
                 item.OwnerCollection = null;
                 this.BaseCollection.RemoveAt(index);
 
-                if (value == null) { throw new ArgumentNullException("value", "Value cannot be null."); }
-                if (this[item.Name] != null) { throw new ArgumentOutOfRangeException("value", "Duplicate name in collection."); }
-                if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException("value", "Item cannot be in other collection."); }
+                if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
+                if (this[item.Name] != null) { throw new ArgumentOutOfRangeException(nameof(value), "Duplicate name in collection."); }
+                if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException(nameof(value), "Item cannot be in other collection."); }
 
                 item.OwnerCollection = this;
                 this.BaseCollection.Insert(index, item);

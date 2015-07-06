@@ -265,7 +265,7 @@ namespace Clamito {
         /// <param name="newPrefix">New prefix for all text elements.</param>
         /// <exception cref="System.ArgumentNullException">New prefix cannot be null.</exception>
         public ResultCollection Clone(string newPrefix) {
-            if (newPrefix == null) { throw new ArgumentNullException("newPrefix", "New prefix cannot be null."); }
+            if (newPrefix == null) { throw new ArgumentNullException(nameof(newPrefix), "New prefix cannot be null."); }
             if (this.Count == 0) {
                 return new ResultCollection(this.BaseCollection) { IsSuccess = this.IsSuccess };
             } else {
