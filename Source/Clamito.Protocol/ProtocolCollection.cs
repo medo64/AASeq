@@ -22,7 +22,10 @@ namespace Clamito {
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFile", Justification = "LoadFile is intentionaly called because given assembly has to be executable.")]
         private ProtocolCollection() {
-            this.BaseCollection.Add(new DummyProtocol());
+            foreach (var protocol in new ProtocolBase[] { new DummyProtocol() }) {
+                this.BaseCollection.Add(protocol);
+                this.LookupByName.Add(protocol.Name, protocol);
+            }
 
             var path = new FileInfo((Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location).DirectoryName;
             var root = new DirectoryInfo(path);

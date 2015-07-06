@@ -37,6 +37,19 @@ namespace Clamito {
 
         #endregion
 
+
+        #region Instance
+
+        /// <summary>
+        /// Creates new instance of current class.
+        /// </summary>
+        public ProtocolBase CreateInstance() {
+            return (ProtocolBase)Activator.CreateInstance(this.GetType());
+        }
+
+        #endregion
+
+
         #region Setup
 
         /// <summary>

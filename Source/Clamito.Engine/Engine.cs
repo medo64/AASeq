@@ -49,7 +49,7 @@ namespace Clamito {
                 if (endpoint.ProtocolName == null) { continue; }
                 var protocol = ProtocolCollection.Instance[endpoint.ProtocolName];
                 if (protocol == null) { return ErrorResult.NewError("Protocol '{0}' not found.", endpoint.ProtocolName); }
-                var proxy = (ProtocolBase)Activator.CreateInstance(protocol.GetType());
+                var proxy = protocol.CreateInstance();
                 proxy.Initialize(endpoint.Properties);
                 this.Endpoints.Add(endpoint.Name, proxy);
             }
