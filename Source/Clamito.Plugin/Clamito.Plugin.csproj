@@ -53,8 +53,8 @@
     </Compile>
     <Compile Include="PluginBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProtocolPluginModel.cs" />
     <Compile Include="ProtocolPlugin.cs" />
+    <Compile Include="ProtocolPluginModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
