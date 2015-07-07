@@ -61,8 +61,35 @@ namespace Clamito.Test {
             c.Add(new Field("Test1", "Dummy"));
             c.Add(new Field("Test2", "Dummy"));
             Assert.AreEqual(2, c.Count);
-            Assert.AreEqual("Test1", c.Find("test1").Name);
-            Assert.AreEqual("Test2", c.Find("test2").Name);
+            Assert.AreEqual("Test1", c.FindFirst("test1").Name);
+            Assert.AreEqual("Test2", c.FindFirst("test2").Name);
+            Assert.AreEqual("Test1", c.FindLast("test1").Name);
+            Assert.AreEqual("Test2", c.FindLast("test2").Name);
+
+            var list = new List<Field>(c.FindAll("test1"));
+            Assert.AreEqual("Test1", list[0].Name); 
+        }
+
+        [TestMethod]
+        public void FieldCollection_LookupNoItem() {
+            var c = new FieldCollection();
+            Assert.AreEqual(null, c.FindFirst("A"));
+            Assert.AreEqual(null, c.FindLast("A"));
+
+            var list = new List<Field>(c.FindAll("test1"));
+            Assert.AreEqual(0,list.Count);
+        }
+
+        [TestMethod]
+        public void FieldCollection_LookupNoItemInTree() {
+            var c = new FieldCollection();
+            c.Add(new Field("Test"));
+            c[0].Subfields.Add("X", "Dummy");
+            Assert.AreEqual(null, c.FindFirst("Test/A"));
+            Assert.AreEqual(null, c.FindLast("Test/A"));
+
+            var list = new List<Field>(c.FindAll("test1"));
+            Assert.AreEqual(0, list.Count);
         }
 
         [TestMethod]
@@ -71,7 +98,12 @@ namespace Clamito.Test {
             c.Add(new Field("Test"));
             c.Insert(0, new Field("test"));
             Assert.AreEqual(2, c.Count);
-            Assert.AreEqual("test", c.Find("Test").Name);
+            Assert.AreEqual("test", c.FindFirst("Test").Name);
+            Assert.AreEqual("Test", c.FindLast("Test").Name);
+
+            var list = new List<Field>(c.FindAll("test"));
+            Assert.AreEqual("test", list[0].Name);
+            Assert.AreEqual("Test", list[1].Name);
         }
 
         [TestMethod]
@@ -81,7 +113,11 @@ namespace Clamito.Test {
             c.Add(new Field("test"));
             c.RemoveAt(0);
             Assert.AreEqual(1, c.Count);
-            Assert.AreEqual("test", c.Find("Test").Name);
+            Assert.AreEqual("test", c.FindFirst("Test").Name);
+            Assert.AreEqual("test", c.FindLast("Test").Name);
+
+            var list = new List<Field>(c.FindAll("test"));
+            Assert.AreEqual("test", list[0].Name);
         }
 
         [TestMethod]
@@ -266,8 +302,8 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o.Find("B").Subfields.Add(new Field("C", "3"));
-            o.Find("B").Subfields.Add(new Field("C", "4"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "3"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "4"));
 
             var c = o.Clone();
             o[0].Value = "1'";
@@ -294,8 +330,8 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o.Find("B").Subfields.Add(new Field("C", "3"));
-            o.Find("B").Subfields.Add(new Field("C", "4"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "3"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "4"));
 
             var c = o.AsReadOnly();
             o[0].Value = "1'";
@@ -316,7 +352,7 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o.Find("B").Subfields.Add(new Field("C", "3"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "3"));
             o.Add(@"B\C", "4");
 
             var c = o.AsReadOnly();
@@ -330,8 +366,8 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o.Find("B").Subfields.Add(new Field("C", "3"));
-            o.Find("B").Subfields.Add(new Field("C", "4"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "3"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "4"));
 
             var c = o.AsReadOnly();
             c[0].Value = "1'";
@@ -344,11 +380,11 @@ namespace Clamito.Test {
                 new Field("A", "1"),
                 new Field("B")
             };
-            o.Find("B").Subfields.Add(new Field("C", "3"));
-            o.Find("B").Subfields.Add(new Field("C", "4"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "3"));
+            o.FindFirst("B").Subfields.Add(new Field("C", "4"));
 
             var c = o.AsReadOnly();
-            c.Find("B").Subfields.Clear();
+            c.FindFirst("B").Subfields.Clear();
         }
 
 
@@ -439,10 +475,10 @@ namespace Clamito.Test {
         [TestMethod]
         public void FieldCollection_LookupByPath() {
             var c = new FieldCollection(new Field[] { new Field(".HA", "1h"), new Field(".HB"), new Field("A", "1"), new Field("B") });
-            c.Find(".HB").Subfields.Add(new Field("HC", "3h"));
-            c.Find(".HB").Subfields.Add(new Field("HC", "4h"));
-            c.Find("B").Subfields.Add(new Field("C", "3"));
-            c.Find("B").Subfields.Add(new Field("C", "4"));
+            c.FindFirst(".HB").Subfields.Add(new Field("HC", "3h"));
+            c.FindFirst(".HB").Subfields.Add(new Field("HC", "4h"));
+            c.FindFirst("B").Subfields.Add(new Field("C", "3"));
+            c.FindFirst("B").Subfields.Add(new Field("C", "4"));
 
             Assert.AreEqual("1h", c[".HA"]);
             Assert.AreEqual(null, c[".HB"]);
@@ -506,12 +542,12 @@ namespace Clamito.Test {
             Assert.AreEqual("1h", c[".HA"]);
             Assert.AreEqual(null, c[".HB"]);
             Assert.AreEqual("3h", c[".HB/HC"]);
-            Assert.AreEqual(1, c.Find(".HB").Subfields.Count);
+            Assert.AreEqual(1, c.FindFirst(".HB").Subfields.Count);
 
             Assert.AreEqual("1", c["A"]);
             Assert.AreEqual(null, c["B"]);
             Assert.AreEqual("3", c["B\\C"]);
-            Assert.AreEqual(1, c.Find("B").Subfields.Count);
+            Assert.AreEqual(1, c.FindFirst("B").Subfields.Count);
 
             Assert.AreEqual(".HA: 1h\r\n.HB:\r\n    HC: 3h\r\nA: 1\r\nB:\r\n    C: 3\r\n", c.ToString());
 

@@ -24,11 +24,12 @@ namespace Clamito.Gui {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            Clamito.FieldCollection fieldCollection1 = new Clamito.FieldCollection();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.lblConstants = new System.Windows.Forms.Label();
+            this.lblData = new System.Windows.Forms.Label();
             this.erp = new System.Windows.Forms.ErrorProvider(this.components);
-            this.fccContent = new Clamito.Gui.FieldCollectionControl();
+            this.fccData = new Clamito.Gui.FieldCollectionControl();
             ((System.ComponentModel.ISupportInitialize)(this.erp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -58,35 +59,37 @@ namespace Clamito.Gui {
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
-            // lblConstants
+            // lblData
             // 
-            this.lblConstants.AutoSize = true;
-            this.lblConstants.Location = new System.Drawing.Point(12, 15);
-            this.lblConstants.Name = "lblConstants";
-            this.lblConstants.Size = new System.Drawing.Size(61, 17);
-            this.lblConstants.TabIndex = 0;
-            this.lblConstants.Text = "Content:";
+            this.lblData.AutoSize = true;
+            this.lblData.Location = new System.Drawing.Point(12, 15);
+            this.lblData.Name = "lblData";
+            this.lblData.Size = new System.Drawing.Size(42, 17);
+            this.lblData.TabIndex = 0;
+            this.lblData.Text = "Data:";
             // 
             // erp
             // 
             this.erp.ContainerControl = this;
             // 
-            // fccContent
+            // fccData
             // 
-            this.fccContent.AcceptsTab = true;
-            this.fccContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.fccData.AcceptsReturn = true;
+            this.fccData.AcceptsTab = true;
+            this.fccData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fccContent.Location = new System.Drawing.Point(130, 12);
-            this.fccContent.Multiline = true;
-            this.fccContent.Name = "fccContent";
-            this.fccContent.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.fccContent.Size = new System.Drawing.Size(320, 286);
-            this.fccContent.TabIndex = 1;
-            this.fccContent.WordWrap = false;
-            this.fccContent.TextChanged += new System.EventHandler(this.fccContent_TextChanged);
-            this.fccContent.Enter += new System.EventHandler(this.fccContent_Enter);
-            this.fccContent.Leave += new System.EventHandler(this.fccContent_Leave);
+            this.fccData.Content = fieldCollection1;
+            this.fccData.Location = new System.Drawing.Point(130, 12);
+            this.fccData.Multiline = true;
+            this.fccData.Name = "fccData";
+            this.fccData.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.fccData.Size = new System.Drawing.Size(320, 286);
+            this.fccData.TabIndex = 1;
+            this.fccData.WordWrap = false;
+            this.fccData.TextChanged += new System.EventHandler(this.fccContent_TextChanged);
+            this.fccData.Enter += new System.EventHandler(this.fccContent_Enter);
+            this.fccData.Leave += new System.EventHandler(this.fccContent_Leave);
             // 
             // VariablesForm
             // 
@@ -95,8 +98,8 @@ namespace Clamito.Gui {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(462, 353);
-            this.Controls.Add(this.fccContent);
-            this.Controls.Add(this.lblConstants);
+            this.Controls.Add(this.fccData);
+            this.Controls.Add(this.lblData);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.MaximizeBox = false;
@@ -119,8 +122,8 @@ namespace Clamito.Gui {
 
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
-        private System.Windows.Forms.Label lblConstants;
+        private System.Windows.Forms.Label lblData;
         private System.Windows.Forms.ErrorProvider erp;
-        private FieldCollectionControl fccContent;
+        private FieldCollectionControl fccData;
     }
 }

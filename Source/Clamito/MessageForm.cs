@@ -9,11 +9,11 @@ namespace Clamito.Gui {
         public MessageForm(Document document, Message message, Interaction insertBefore = null, Endpoint defaultSource = null, Endpoint defaultDestination = null) {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
-            foreach (var control in new Control[] { txtName, cmbSource, cmbDestination, txtDescription, fccContent }) {
+            foreach (var control in new Control[] { txtName, cmbSource, cmbDestination, txtDescription, fccData }) {
                 erp.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
                 erp.SetIconPadding(control, SystemInformation.BorderSize.Width);
             }
-            erp.SetIconAlignment(fccContent, ErrorIconAlignment.TopLeft);
+            erp.SetIconAlignment(fccData, ErrorIconAlignment.TopLeft);
 
             foreach (var endpoint in document.Endpoints) {
                 cmbSource.Items.Add(endpoint);
@@ -51,7 +51,7 @@ namespace Clamito.Gui {
             cmbSource.SelectedItem = (this.message != null) ? this.message.Source : this.defaultSource;
             cmbDestination.SelectedItem = (this.message != null) ? this.message.Destination : this.defaultDestination;
             txtDescription.Text = (this.message != null) ? this.message.Description : "";
-            fccContent.Text = (this.message != null) ? this.message.Fields.ToString() : "";
+            fccData.Text = (this.message != null) ? this.message.Data.ToString() : "";
 
             this.isLoaded = true;
             if (message == null) { txt_TextChanged(null, null); } //enable OK without change for new items
@@ -96,7 +96,7 @@ namespace Clamito.Gui {
                 this.message.Description = description;
                 this.SelectedInteraction = this.message;
             }
-            this.SelectedInteraction.ReplaceFields(content);
+            this.SelectedInteraction.ReplaceData(content);
         }
 
 
@@ -137,11 +137,11 @@ namespace Clamito.Gui {
 
             description = txtDescription.Text.Trim();
 
-            content = fccContent.Content;
-            if (fccContent.IsOK) {
-                erp.SetError(fccContent, null);
+            content = fccData.Content;
+            if (fccData.IsOK) {
+                erp.SetError(fccData, null);
             } else {
-                erp.SetError(fccContent, fccContent.ErrorText);
+                erp.SetError(fccData, fccData.ErrorText);
                 isValid = false;
             }
 

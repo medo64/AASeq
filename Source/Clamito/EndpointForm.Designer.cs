@@ -24,6 +24,7 @@ namespace Clamito.Gui {
         /// </summary>
         private void InitializeComponent() {
             this.components = new System.ComponentModel.Container();
+            Clamito.FieldCollection fieldCollection1 = new Clamito.FieldCollection();
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
@@ -35,8 +36,8 @@ namespace Clamito.Gui {
             this.txtDisplayName = new Clamito.Gui.TextBoxControl();
             this.txtName = new Clamito.Gui.TextBoxControl();
             this.txtDescription = new Clamito.Gui.TextBoxControl();
-            this.lblContent = new System.Windows.Forms.Label();
-            this.fccContent = new Clamito.Gui.FieldCollectionControl();
+            this.lblData = new System.Windows.Forms.Label();
+            this.fccData = new Clamito.Gui.FieldCollectionControl();
             ((System.ComponentModel.ISupportInitialize)(this.erp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -100,7 +101,7 @@ namespace Clamito.Gui {
             // 
             // cmbProtocol
             // 
-            this.cmbProtocol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.cmbProtocol.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbProtocol.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbProtocol.FormattingEnabled = true;
@@ -121,7 +122,7 @@ namespace Clamito.Gui {
             // 
             // txtDisplayName
             // 
-            this.txtDisplayName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtDisplayName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDisplayName.Location = new System.Drawing.Point(130, 40);
             this.txtDisplayName.Name = "txtDisplayName";
@@ -131,7 +132,7 @@ namespace Clamito.Gui {
             // 
             // txtName
             // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtName.Location = new System.Drawing.Point(130, 12);
             this.txtName.Name = "txtName";
@@ -141,7 +142,7 @@ namespace Clamito.Gui {
             // 
             // txtDescription
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtDescription.Location = new System.Drawing.Point(130, 98);
             this.txtDescription.Name = "txtDescription";
@@ -149,28 +150,34 @@ namespace Clamito.Gui {
             this.txtDescription.TabIndex = 7;
             this.txtDescription.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
-            // lblContent
+            // lblData
             // 
-            this.lblContent.AutoSize = true;
-            this.lblContent.Location = new System.Drawing.Point(12, 129);
-            this.lblContent.Name = "lblContent";
-            this.lblContent.Size = new System.Drawing.Size(61, 17);
-            this.lblContent.TabIndex = 8;
-            this.lblContent.Text = "Content:";
+            this.lblData.AutoSize = true;
+            this.lblData.Location = new System.Drawing.Point(12, 129);
+            this.lblData.Name = "lblData";
+            this.lblData.Size = new System.Drawing.Size(42, 17);
+            this.lblData.TabIndex = 8;
+            this.lblData.Text = "Data:";
             // 
-            // fccContent
+            // fccData
             // 
-            this.fccContent.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.fccData.AcceptsReturn = true;
+            this.fccData.AcceptsTab = true;
+            this.fccData.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.fccContent.Location = new System.Drawing.Point(130, 126);
-            this.fccContent.MaxLength = 0;
-            this.fccContent.Name = "fccContent";
-            this.fccContent.Size = new System.Drawing.Size(320, 172);
-            this.fccContent.TabIndex = 9;
-            this.fccContent.TextChanged += new System.EventHandler(this.txt_TextChanged);
-            this.fccContent.Enter += new System.EventHandler(this.txtContent_Enter);
-            this.fccContent.Leave += new System.EventHandler(this.txtContent_Leave);
+            this.fccData.Content = fieldCollection1;
+            this.fccData.Location = new System.Drawing.Point(130, 126);
+            this.fccData.MaxLength = 0;
+            this.fccData.Multiline = true;
+            this.fccData.Name = "fccData";
+            this.fccData.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.fccData.Size = new System.Drawing.Size(320, 172);
+            this.fccData.TabIndex = 9;
+            this.fccData.WordWrap = false;
+            this.fccData.TextChanged += new System.EventHandler(this.txt_TextChanged);
+            this.fccData.Enter += new System.EventHandler(this.txtContent_Enter);
+            this.fccData.Leave += new System.EventHandler(this.txtContent_Leave);
             // 
             // EndpointForm
             // 
@@ -179,8 +186,8 @@ namespace Clamito.Gui {
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(462, 353);
-            this.Controls.Add(this.lblContent);
-            this.Controls.Add(this.fccContent);
+            this.Controls.Add(this.lblData);
+            this.Controls.Add(this.fccData);
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.lblProtocol);
             this.Controls.Add(this.cmbProtocol);
@@ -219,7 +226,7 @@ namespace Clamito.Gui {
         private System.Windows.Forms.Label lblProtocol;
         private System.Windows.Forms.ComboBox cmbProtocol;
         private TextBoxControl txtDescription;
-        private System.Windows.Forms.Label lblContent;
-        private FieldCollectionControl fccContent;
+        private System.Windows.Forms.Label lblData;
+        private FieldCollectionControl fccData;
     }
 }

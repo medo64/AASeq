@@ -106,12 +106,12 @@ namespace Clamito {
         }
 
         /// <summary>
-        /// Finds item based on a path.
+        /// Finds first matching item based on a path.
         /// Each subfield is separated by forward slash (/).
         /// </summary>
         /// <param name="path">Path.</param>
         /// <exception cref="System.ArgumentNullException">Path cannot be null.</exception>
-        public Field Find(string path) {
+        public Field FindFirst(string path) {
             if (path == null) { throw new ArgumentNullException(nameof(path), "Path cannot be null."); }
 
             var pathParts = path.Split(new char[] { '\\', '/' });
@@ -131,10 +131,75 @@ namespace Clamito {
                         }
                     }
                 }
-                if (nextFields != null) { currFields = nextFields; }
+                if (nextFields != null) { currFields = nextFields; } else { break; }
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// Finds last matching item based on a path.
+        /// Each subfield is separated by forward slash (/).
+        /// </summary>
+        /// <param name="path">Path.</param>
+        /// <exception cref="System.ArgumentNullException">Path cannot be null.</exception>
+        public Field FindLast(string path) {
+            if (path == null) { throw new ArgumentNullException(nameof(path), "Path cannot be null."); }
+
+            var pathParts = path.Split(new char[] { '\\', '/' });
+
+            var currFields = this;
+            Field lastField = null;
+            FieldCollection nextFields;
+            for (int i = 0; i < pathParts.Length; i++) {
+                nextFields = null;
+                var name = pathParts[i];
+                foreach (var field in currFields) {
+                    if (Field.NameComparer.Equals(field.Name, name)) {
+                        if (i == pathParts.Length - 1) {
+                            lastField = field;
+                            nextFields = null;
+                        } else {
+                            nextFields = field.Subfields;
+                            break;
+                        }
+                    }
+                }
+                if (lastField != null) { return lastField; }
+                if (nextFields != null) { currFields = nextFields; } else { break; }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Finds all matching items based on a path.
+        /// Each subfield is separated by forward slash (/).
+        /// </summary>
+        /// <param name="path">Path.</param>
+        /// <exception cref="System.ArgumentNullException">Path cannot be null.</exception>
+        public IEnumerable<Field> FindAll(string path) {
+            if (path == null) { throw new ArgumentNullException(nameof(path), "Path cannot be null."); }
+
+            var pathParts = path.Split(new char[] { '\\', '/' });
+
+            var currFields = this;
+            FieldCollection nextFields;
+            for (int i = 0; i < pathParts.Length; i++) {
+                nextFields = null;
+                var name = pathParts[i];
+                foreach (var field in currFields) {
+                    if (Field.NameComparer.Equals(field.Name, name)) {
+                        if (i == pathParts.Length - 1) {
+                            yield return field;
+                        } else {
+                            nextFields = field.Subfields;
+                            break;
+                        }
+                    }
+                }
+                if (nextFields != null) { currFields = nextFields; } else { break; }
+            }
         }
 
 
@@ -225,7 +290,7 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Index out of range.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public void MoveItem(int moveFrom, int moveTo) {
-            if ((moveFrom < 0) || (moveFrom >= this.Count)) { throw new ArgumentOutOfRangeException(nameof(moveFrom),"Index out of range."); }
+            if ((moveFrom < 0) || (moveFrom >= this.Count)) { throw new ArgumentOutOfRangeException(nameof(moveFrom), "Index out of range."); }
             if ((moveTo < 0) || (moveTo >= this.Count)) { throw new ArgumentOutOfRangeException(nameof(moveTo), "Index out of range."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 

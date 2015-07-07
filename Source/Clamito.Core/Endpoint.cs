@@ -37,8 +37,8 @@ namespace Clamito {
             }
 
             this.ProtocolName = protocolName;
-            this.Properties = new FieldCollection();
-            this.Properties.Changed += delegate(Object sender, EventArgs e) {
+            this.Data = new FieldCollection();
+            this.Data.Changed += delegate(Object sender, EventArgs e) {
                 this.OnChanged(new EventArgs());
             };
         }
@@ -121,9 +121,9 @@ namespace Clamito {
 
 
         /// <summary>
-        /// Gets content field collection.
+        /// Gets data fields collection.
         /// </summary>
-        public FieldCollection Properties { get; private set; }
+        public FieldCollection Data { get; private set; }
 
 
         #region Events
@@ -191,8 +191,8 @@ namespace Clamito {
         /// </summary>
         public Endpoint Clone() {
             var endpoint = new Endpoint(this.Name, this.ProtocolName) { DisplayName = this.DisplayName, Description = this.Description };
-            foreach (var field in this.Properties) {
-                endpoint.Properties.Add(field.Clone());
+            foreach (var field in this.Data) {
+                endpoint.Data.Add(field.Clone());
             }
             return endpoint;
         }
@@ -202,7 +202,7 @@ namespace Clamito {
         /// </summary>
         public Endpoint AsReadOnly() {
             var endpoint = new Endpoint(this.Name, this.ProtocolName) { DisplayName = this.DisplayName, Description = this.Description };
-            endpoint.Properties = this.Properties.AsReadOnly();
+            endpoint.Data = this.Data.AsReadOnly();
             endpoint.IsReadOnly = true;
             return endpoint;
         }

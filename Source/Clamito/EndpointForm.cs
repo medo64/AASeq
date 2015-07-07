@@ -7,11 +7,11 @@ namespace Clamito.Gui {
         public EndpointForm(Document document, Endpoint endpoint, Endpoint insertBefore = null, ProtocolPlugin defaultProtocol = null) {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
-            foreach (var control in new Control[] { txtName, txtDisplayName, cmbProtocol, txtDescription, fccContent }) {
+            foreach (var control in new Control[] { txtName, txtDisplayName, cmbProtocol, txtDescription, fccData }) {
                 erp.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
                 erp.SetIconPadding(control, SystemInformation.BorderSize.Width);
             }
-            erp.SetIconAlignment(fccContent, ErrorIconAlignment.TopLeft);
+            erp.SetIconAlignment(fccData, ErrorIconAlignment.TopLeft);
 
             cmbProtocol.Items.Add("(none)");
             foreach (var protocol in Plugin.Protocols) {
@@ -48,7 +48,7 @@ namespace Clamito.Gui {
             txtName.Text = this.endpointClone.Name;
             txtDisplayName.Text = this.endpointClone.DisplayName;
             txtDescription.Text = this.endpointClone.Description;
-            fccContent.Text = (this.endpoint != null) ? endpoint.Properties.ToString() : "";
+            fccData.Text = (this.endpoint != null) ? endpoint.Data.ToString() : "";
 
             if (this.endpointClone.ProtocolName == null) {
                 cmbProtocol.SelectedIndex = 0; //select null
@@ -112,15 +112,15 @@ namespace Clamito.Gui {
                 }
             }
 
-            if (!fccContent.IsOK) {
-                contentError = fccContent.ErrorText;
+            if (!fccData.IsOK) {
+                contentError = fccData.ErrorText;
             }
 
             erp.SetError(txtName, nameError);
             erp.SetError(txtDisplayName, displayNameError);
             erp.SetError(cmbProtocol, protocolError);
             erp.SetError(txtDescription, descriptionError);
-            erp.SetError(fccContent, contentError);
+            erp.SetError(fccData, contentError);
 
             btnOK.Enabled = (nameError == null) && (displayNameError == null) && (protocolError == null) && (descriptionError == null) && (contentError == null);
         }
@@ -150,9 +150,9 @@ namespace Clamito.Gui {
                 this.endpoint.Description = this.endpointClone.Description;
                 this.SelectedEndpoint = this.endpoint;
             }
-            this.SelectedEndpoint.Properties.Clear();
-            foreach (var field in fccContent.Content) {
-                this.SelectedEndpoint.Properties.Add(field.Clone());
+            this.SelectedEndpoint.Data.Clear();
+            foreach (var field in fccData.Content) {
+                this.SelectedEndpoint.Data.Add(field.Clone());
             }
         }
 

@@ -166,7 +166,7 @@ namespace Clamito {
                     doc.Endpoints.Add(newEndpoint);
 
                     foreach (XmlElement fieldElement in endpointElement.SelectNodes("Property")) {
-                        LoadFieldRecursive(fieldElement, "Property", newEndpoint.Properties);
+                        LoadFieldRecursive(fieldElement, "Property", newEndpoint.Data);
                     }
                 }
 
@@ -191,7 +191,7 @@ namespace Clamito {
 
                         foreach (XmlElement fieldsElement in interactionElement.SelectNodes("Fields")) {
                             foreach (XmlElement fieldElement in fieldsElement.SelectNodes("Field")) {
-                                LoadFieldRecursive(fieldElement, "Field", message.Fields);
+                                LoadFieldRecursive(fieldElement, "Field", message.Data);
                             }
                         }
                     }
@@ -302,7 +302,7 @@ namespace Clamito {
                 if (endpoint.ProtocolName != null) { xw.WriteAttributeString("protocolName", endpoint.ProtocolName); }
                 if (!string.IsNullOrEmpty(endpoint.Description)) { xw.WriteAttributeString("description", endpoint.Description); }
 
-                foreach (var field in endpoint.Properties) {
+                foreach (var field in endpoint.Data) {
                     SaveFieldRecursive(xw, "Property", field);
                 }
 
@@ -335,9 +335,9 @@ namespace Clamito {
                             if (message.Destination != null) { xw.WriteAttributeString("destination", message.Destination.Name); }
                             if (!string.IsNullOrEmpty(message.Description)) { xw.WriteAttributeString("description", message.Description); }
 
-                            if (message.HasFields) {
+                            if (message.HasData) {
                                 xw.WriteStartElement("Fields");
-                                foreach (var field in message.Fields) {
+                                foreach (var field in message.Data) {
                                     SaveFieldRecursive(xw, "Field", field);
                                 }
                                 xw.WriteEndElement(); //Fields

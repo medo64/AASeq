@@ -8,8 +8,8 @@ namespace Clamito.Gui {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
 
-            erp.SetIconAlignment(fccContent, ErrorIconAlignment.TopLeft);
-            erp.SetIconPadding(fccContent, SystemInformation.BorderSize.Width);
+            erp.SetIconAlignment(fccData, ErrorIconAlignment.TopLeft);
+            erp.SetIconPadding(fccData, SystemInformation.BorderSize.Width);
 
             this.document = document;
 
@@ -23,7 +23,7 @@ namespace Clamito.Gui {
 
 
         private void Form_Load(object sender, EventArgs e) {
-            fccContent.Content = this.document.Variables;
+            fccData.Content = this.document.Variables;
 
             this.isLoaded = true;
         }
@@ -40,19 +40,19 @@ namespace Clamito.Gui {
         private void fccContent_TextChanged(object sender, EventArgs e) {
             if (!this.isLoaded) { return; }
 
-            if (!fccContent.IsOK) {
-                erp.SetError(fccContent, "Header fields are not supported in this context.");
+            if (!fccData.IsOK) {
+                erp.SetError(fccData, "Header fields are not supported in this context.");
             } else {
-                erp.SetError(fccContent, fccContent.ErrorText);
+                erp.SetError(fccData, fccData.ErrorText);
             }
 
-            btnOK.Enabled = fccContent.IsOK;
+            btnOK.Enabled = fccData.IsOK;
         }
 
 
         private void btnOK_Click(object sender, EventArgs e) {
             this.document.Variables.Clear();
-            foreach (var field in fccContent.Content) {
+            foreach (var field in fccData.Content) {
                 this.document.Variables.Add(field.Clone());
             }
         }

@@ -35,15 +35,15 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters. -or- Source and destination cannot be the same.</exception>
         public Message(string name, Endpoint source, Endpoint destination, IEnumerable<Field> fields)
             : this(name, source, destination, null) {
-            this.Fields.AddRange(fields);
+            this.Data.AddRange(fields);
         }
 
         private Message(string name, Endpoint source, Endpoint destination, FieldCollection fields)
             : base(name) {
 
             this.ReplaceEndpoints(source, destination);
-            this.Fields = (fields != null) ? fields : new FieldCollection();
-            this.Fields.Changed += delegate (Object sender, EventArgs e) {
+            this.Data = (fields != null) ? fields : new FieldCollection();
+            this.Data.Changed += delegate (Object sender, EventArgs e) {
                 this.OnChanged(new EventArgs());
             };
         }
@@ -61,15 +61,15 @@ namespace Clamito {
 
 
         /// <summary>
-        /// Gets fields.
+        /// Gets data fields.
         /// </summary>
-        public FieldCollection Fields { get; private set; }
+        public FieldCollection Data { get; private set; }
 
         /// <summary>
         /// Gets if any fields are present.
         /// </summary>
-        public bool HasFields {
-            get { return (this.Fields.Count > 0); }
+        public bool HasData {
+            get { return (this.Data.Count > 0); }
         }
 
 
@@ -91,19 +91,19 @@ namespace Clamito {
         }
 
         /// <summary>
-        /// Sets Field collections.
+        /// Sets Data collection.
         /// </summary>
         /// <param name="fields">Fields.</param>
         /// <exception cref="System.ArgumentNullException">Fields cannot be null.</exception>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
-        public void ReplaceFields(FieldCollection fields) {
+        public void ReplaceData(FieldCollection fields) {
             if (fields == null) { throw new ArgumentNullException(nameof(fields), "Fields cannot be null."); }
             if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
 
-            this.Fields.Clear(); //to release old stuff
+            this.Data.Clear(); //to release old stuff
 
-            this.Fields = fields;
-            this.Fields.Changed += delegate (Object sender, EventArgs e) {
+            this.Data = fields;
+            this.Data.Changed += delegate (Object sender, EventArgs e) {
                 this.OnChanged(new EventArgs());
             };
         }
@@ -148,7 +148,7 @@ namespace Clamito {
         /// Creates a copy of the message.
         /// </summary>
         public override Interaction Clone() {
-            var message = new Message(this.Name, this.Source.Clone(), this.Destination.Clone(), this.Fields.Clone()) { Description = this.Description };
+            var message = new Message(this.Name, this.Source.Clone(), this.Destination.Clone(), this.Data.Clone()) { Description = this.Description };
             return message;
         }
 
@@ -156,7 +156,7 @@ namespace Clamito {
         /// Creates a read-only copy of the message.
         /// </summary>
         public override Interaction AsReadOnly() {
-            var message = new Message(this.Name, this.Source.AsReadOnly(), this.Destination.AsReadOnly(), this.Fields.AsReadOnly()) { Description = this.Description };
+            var message = new Message(this.Name, this.Source.AsReadOnly(), this.Destination.AsReadOnly(), this.Data.AsReadOnly()) { Description = this.Description };
             message.IsReadOnly = true;
             return message;
         }

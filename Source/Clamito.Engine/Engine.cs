@@ -50,7 +50,7 @@ namespace Clamito {
                 var protocol = Plugin.Protocols[endpoint.ProtocolName];
                 if (protocol == null) { return ErrorResult.NewError("Protocol '{0}' not found.", endpoint.ProtocolName); }
                 var proxy = protocol.CreateInstance();
-                proxy.Initialize(endpoint.Properties);
+                proxy.Initialize(endpoint.Data);
                 this.Endpoints.Add(endpoint.Name, proxy);
             }
 
@@ -276,7 +276,7 @@ namespace Clamito {
                                             try {
                                                 ProtocolPlugin protocolProxy;
                                                 if (this.Endpoints.TryGetValue(endpointDst.Name, out protocolProxy)) {
-                                                    var content = message.Fields.AsReadOnly(); //TODO: resolve constants
+                                                    var content = message.Data.AsReadOnly(); //TODO: resolve constants
                                                     var protocolErrors = protocolProxy.Send(content);
                                                     if (protocolErrors.Count > 0) {
                                                         errors.AddRange(protocolErrors.Clone(string.Format(CultureInfo.InvariantCulture, "{0} {1}: ", interactionIndex, interaction.Name)));
@@ -291,7 +291,7 @@ namespace Clamito {
                                             try {
                                                 ProtocolPlugin protocol;
                                                 if (this.Endpoints.TryGetValue(endpointSrc.Name, out protocol)) {
-                                                    var content = message.Fields.AsReadOnly(); //TODO: resolve constants
+                                                    var content = message.Data.AsReadOnly(); //TODO: resolve constants
 
                                                     var dummyProtocol = protocol as DummyProtocol;
                                                     if (dummyProtocol != null) {

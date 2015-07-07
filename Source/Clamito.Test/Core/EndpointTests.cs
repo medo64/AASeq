@@ -68,26 +68,26 @@ namespace Clamito.Test {
         [TestMethod]
         public void Endpoint_Fields() {
             var x = new Endpoint("Test", "Protocol");
-            x.Properties.Add(new Field("P1", "V1"));
-            x.Properties.Add(new Field("P2", "V2"));
-            x.Properties.Add(new Field("P3", "V3"));
-            Assert.AreEqual("P1", x.Properties[0].Name);
-            Assert.AreEqual("V1", x.Properties[0].Value);
-            Assert.AreEqual("P2", x.Properties[1].Name);
-            Assert.AreEqual("V2", x.Properties[1].Value);
-            Assert.AreEqual("P3", x.Properties[2].Name);
-            Assert.AreEqual("V3", x.Properties[2].Value);
+            x.Data.Add(new Field("P1", "V1"));
+            x.Data.Add(new Field("P2", "V2"));
+            x.Data.Add(new Field("P3", "V3"));
+            Assert.AreEqual("P1", x.Data[0].Name);
+            Assert.AreEqual("V1", x.Data[0].Value);
+            Assert.AreEqual("P2", x.Data[1].Name);
+            Assert.AreEqual("V2", x.Data[1].Value);
+            Assert.AreEqual("P3", x.Data[2].Name);
+            Assert.AreEqual("V3", x.Data[2].Value);
         }
 
         [TestMethod]
         public void Endpoint_Clone() {
             var s = new Endpoint("Test", "Protocol") { Description = "Note" };
-            s.Properties.Add(new Field("P1", "V1"));
-            s.Properties.Add(new Field("P2", "V2"));
-            s.Properties.Add(new Field("P3", "V3"));
+            s.Data.Add(new Field("P1", "V1"));
+            s.Data.Add(new Field("P2", "V2"));
+            s.Data.Add(new Field("P3", "V3"));
 
             var x = s.Clone();
-            s.Properties.Clear();
+            s.Data.Clear();
             s.Name = "NewTest";
             s.ProtocolName = "NewProtocol";
             s.Description = "NewNote";
@@ -95,23 +95,23 @@ namespace Clamito.Test {
             Assert.AreEqual("Test", x.Name);
             Assert.AreEqual("Protocol", x.ProtocolName);
             Assert.AreEqual("Note", x.Description);
-            Assert.AreEqual("P1", x.Properties[0].Name);
-            Assert.AreEqual("V1", x.Properties[0].Value);
-            Assert.AreEqual("P2", x.Properties[1].Name);
-            Assert.AreEqual("V2", x.Properties[1].Value);
-            Assert.AreEqual("P3", x.Properties[2].Name);
-            Assert.AreEqual("V3", x.Properties[2].Value);
+            Assert.AreEqual("P1", x.Data[0].Name);
+            Assert.AreEqual("V1", x.Data[0].Value);
+            Assert.AreEqual("P2", x.Data[1].Name);
+            Assert.AreEqual("V2", x.Data[1].Value);
+            Assert.AreEqual("P3", x.Data[2].Name);
+            Assert.AreEqual("V3", x.Data[2].Value);
         }
 
         [TestMethod]
         public void Endpoint_AsReadOnly() {
             var s = new Endpoint("Test", "Protocol") { Description = "Note" };
-            s.Properties.Add(new Field("P1", "V1"));
-            s.Properties.Add(new Field("P2", "V2"));
-            s.Properties.Add(new Field("P3", "V3"));
+            s.Data.Add(new Field("P1", "V1"));
+            s.Data.Add(new Field("P2", "V2"));
+            s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
-            s.Properties.Clear();
+            s.Data.Clear();
             s.Name = "NewTest";
             s.ProtocolName = "NewProtocol";
             s.Description = "NewNote";
@@ -119,33 +119,33 @@ namespace Clamito.Test {
             Assert.AreEqual("Test", x.Name);
             Assert.AreEqual("Protocol", x.ProtocolName);
             Assert.AreEqual("Note", x.Description);
-            Assert.AreEqual("P1", x.Properties[0].Name);
-            Assert.AreEqual("V1", x.Properties[0].Value);
-            Assert.AreEqual("P2", x.Properties[1].Name);
-            Assert.AreEqual("V2", x.Properties[1].Value);
-            Assert.AreEqual("P3", x.Properties[2].Name);
-            Assert.AreEqual("V3", x.Properties[2].Value);
+            Assert.AreEqual("P1", x.Data[0].Name);
+            Assert.AreEqual("V1", x.Data[0].Value);
+            Assert.AreEqual("P2", x.Data[1].Name);
+            Assert.AreEqual("V2", x.Data[1].Value);
+            Assert.AreEqual("P3", x.Data[2].Name);
+            Assert.AreEqual("V3", x.Data[2].Value);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change1() {
             var s = new Endpoint("Test", "Protocol") { Description = "Note" };
-            s.Properties.Add(new Field("P1", "V1"));
-            s.Properties.Add(new Field("P2", "V2"));
-            s.Properties.Add(new Field("P3", "V3"));
+            s.Data.Add(new Field("P1", "V1"));
+            s.Data.Add(new Field("P2", "V2"));
+            s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
-            x.Properties.Clear();
+            x.Data.Clear();
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change2() {
             var s = new Endpoint("Test", "Protocol") { Description = "Note" };
-            s.Properties.Add(new Field("P1", "V1"));
-            s.Properties.Add(new Field("P2", "V2"));
-            s.Properties.Add(new Field("P3", "V3"));
+            s.Data.Add(new Field("P1", "V1"));
+            s.Data.Add(new Field("P2", "V2"));
+            s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
             x.Description = "Note";
@@ -155,9 +155,9 @@ namespace Clamito.Test {
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change3() {
             var s = new Endpoint("Test", "Protocol") { Description = "Note" };
-            s.Properties.Add(new Field("P1", "V1"));
-            s.Properties.Add(new Field("P2", "V2"));
-            s.Properties.Add(new Field("P3", "V3"));
+            s.Data.Add(new Field("P1", "V1"));
+            s.Data.Add(new Field("P2", "V2"));
+            s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
             x.Name = "Test";
@@ -167,9 +167,9 @@ namespace Clamito.Test {
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change4() {
             var s = new Endpoint("Test", "Protocol") { Description = "Note" };
-            s.Properties.Add(new Field("P1", "V1"));
-            s.Properties.Add(new Field("P2", "V2"));
-            s.Properties.Add(new Field("P3", "V3"));
+            s.Data.Add(new Field("P1", "V1"));
+            s.Data.Add(new Field("P2", "V2"));
+            s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
             x.ProtocolName = "Test";
@@ -179,9 +179,9 @@ namespace Clamito.Test {
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change5() {
             var s = new Endpoint("Test", "Protocol") { Description = "Note" };
-            s.Properties.Add(new Field("P1", "V1"));
-            s.Properties.Add(new Field("P2", "V2"));
-            s.Properties.Add(new Field("P3", "V3"));
+            s.Data.Add(new Field("P1", "V1"));
+            s.Data.Add(new Field("P2", "V2"));
+            s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
             x.DisplayName = "Test";
@@ -196,11 +196,11 @@ namespace Clamito.Test {
             var v2 = new Field("P2", "V2");
             var v3 = new Field("P3", "V3");
 
-            e1.Properties.Add(v1);
-            e1.Properties.Add(v2);
-            e1.Properties.Add(v3);
+            e1.Data.Add(v1);
+            e1.Data.Add(v2);
+            e1.Data.Add(v3);
 
-            e2.Properties.Add(v2);
+            e2.Data.Add(v2);
         }
 
         [TestMethod]
@@ -211,12 +211,12 @@ namespace Clamito.Test {
             var v2 = new Field("P2", "V2");
             var v3 = new Field("P3", "V3");
 
-            e1.Properties.Add(v1);
-            e1.Properties.Add(v2);
-            e1.Properties.Add(v3);
-            e1.Properties.Remove(v2);
+            e1.Data.Add(v1);
+            e1.Data.Add(v2);
+            e1.Data.Add(v3);
+            e1.Data.Remove(v2);
 
-            e2.Properties.Add(v2);
+            e2.Data.Add(v2);
         }
 
         [TestMethod]
@@ -227,14 +227,14 @@ namespace Clamito.Test {
             var v2 = new Field("P2", "V2");
             var v3 = new Field("P3", "V3");
 
-            e1.Properties.Add(v1);
-            e1.Properties.Add(v2);
-            e1.Properties.Add(v3);
-            e1.Properties.Clear();
+            e1.Data.Add(v1);
+            e1.Data.Add(v2);
+            e1.Data.Add(v3);
+            e1.Data.Clear();
 
-            e2.Properties.Add(v1);
-            e2.Properties.Add(v2);
-            e2.Properties.Add(v3);
+            e2.Data.Add(v1);
+            e2.Data.Add(v2);
+            e2.Data.Add(v3);
         }
 
     }
