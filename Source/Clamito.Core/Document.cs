@@ -17,7 +17,7 @@ namespace Clamito {
         /// Create a new instance.
         /// </summary>
         public Document()
-            : this(null, null, null) {
+            : this(null, null) {
         }
 
         /// <summary>
@@ -25,15 +25,12 @@ namespace Clamito {
         /// </summary>
         /// <param name="defaultEndpoints">Default endpoints.</param>
         /// <param name="defaultInteractions">Default interactions.</param>
-        /// <param name="defaultVariables">Default variables.</param>
-        public Document(ICollection<Endpoint> defaultEndpoints, ICollection<Interaction> defaultInteractions, ICollection<Field> defaultVariables) {
+        public Document(ICollection<Endpoint> defaultEndpoints, ICollection<Interaction> defaultInteractions) {
             this.Endpoints = new EndpointCollection(defaultEndpoints);
             this.Interactions = new InteractionCollection(defaultInteractions);
-            this.Variables = new FieldCollection(defaultVariables);
 
             this.Endpoints.Changed += Document_Changed;
             this.Interactions.Changed += Document_Changed;
-            this.Variables.Changed += Document_Changed;
         }
 
 
@@ -46,11 +43,6 @@ namespace Clamito {
         /// Gets collection of interactions.
         /// </summary>
         public InteractionCollection Interactions { get; private set; }
-
-        /// <summary>
-        /// Gets collection of variables.
-        /// </summary>
-        public FieldCollection Variables { get; private set; }
 
 
         /// <summary>
@@ -65,13 +57,6 @@ namespace Clamito {
         /// </summary>
         public Boolean HasAnyInteractions {
             get { return (this.Interactions.Count > 0); }
-        }
-
-        /// <summary>
-        /// Gets whether there are any variables in the document.
-        /// </summary>
-        public Boolean HasAnyVariables {
-            get { return (this.Variables.Count > 0); }
         }
 
 
@@ -165,8 +150,8 @@ namespace Clamito {
                     };
                     doc.Endpoints.Add(newEndpoint);
 
-                    foreach (XmlElement fieldElement in endpointElement.SelectNodes("Property")) {
-                        LoadFieldRecursive(fieldElement, "Property", newEndpoint.Data);
+                    foreach (XmlElement fieldElement in endpointElement.SelectNodes("Field")) {
+                        LoadFieldRecursive(fieldElement, newEndpoint.Data);
                     }
                 }
 
@@ -189,16 +174,10 @@ namespace Clamito {
                         };
                         doc.Interactions.Add(message);
 
-                        foreach (XmlElement fieldsElement in interactionElement.SelectNodes("Fields")) {
-                            foreach (XmlElement fieldElement in fieldsElement.SelectNodes("Field")) {
-                                LoadFieldRecursive(fieldElement, "Field", message.Data);
-                            }
+                        foreach (XmlElement fieldElement in interactionElement.SelectNodes("Field")) {
+                            LoadFieldRecursive(fieldElement, message.Data);
                         }
                     }
-                }
-
-                foreach (XmlElement variableElement in xml.SelectNodes("Clamito/Variables/Variable")) {
-                    LoadFieldRecursive(variableElement, "Variable", doc.Variables);
                 }
 
                 doc.DontTrackChanges = false;
@@ -218,7 +197,7 @@ namespace Clamito {
             }
         }
 
-        private static void LoadFieldRecursive(XmlElement fieldElement, string nodeName, FieldCollection fieldCollection) {
+        private static void LoadFieldRecursive(XmlElement fieldElement, FieldCollection fieldCollection) {
             var name = GetValue(fieldElement.Attributes["name"]);
             var value = GetValue(fieldElement.Attributes["value"]);
             var tags = GetValue(fieldElement.Attributes["tags"]);
@@ -229,8 +208,8 @@ namespace Clamito {
             if (value != null) {
                 field.Value = value;
             } else {
-                foreach (XmlElement subfieldElement in fieldElement.SelectNodes(nodeName)) {
-                    LoadFieldRecursive(subfieldElement, nodeName, field.Subfields);
+                foreach (XmlElement subfieldElement in fieldElement.SelectNodes("Field")) {
+                    LoadFieldRecursive(subfieldElement, field.Subfields);
                 }
             }
             fieldCollection.Add(field);
@@ -277,7 +256,6 @@ namespace Clamito {
 
                     SaveEndpoints(xw);
                     SaveFlows(xw);
-                    SaveVariables(xw);
 
                     xw.WriteEndElement(); //Clamito
                 }
@@ -303,7 +281,7 @@ namespace Clamito {
                 if (!string.IsNullOrEmpty(endpoint.Description)) { xw.WriteAttributeString("description", endpoint.Description); }
 
                 foreach (var field in endpoint.Data) {
-                    SaveFieldRecursive(xw, "Property", field);
+                    SaveFieldRecursive(xw, field);
                 }
 
                 xw.WriteEndElement(); //Endpoint
@@ -336,11 +314,9 @@ namespace Clamito {
                             if (!string.IsNullOrEmpty(message.Description)) { xw.WriteAttributeString("description", message.Description); }
 
                             if (message.HasData) {
-                                xw.WriteStartElement("Fields");
                                 foreach (var field in message.Data) {
-                                    SaveFieldRecursive(xw, "Field", field);
+                                    SaveFieldRecursive(xw, field);
                                 }
-                                xw.WriteEndElement(); //Fields
                             }
 
                             xw.WriteEndElement(); //Message
@@ -352,15 +328,15 @@ namespace Clamito {
             xw.WriteEndElement(); //Interactions
         }
 
-        private void SaveFieldRecursive(XmlTextWriter xw, String nodeName, Field field) {
-            xw.WriteStartElement(nodeName);
+        private void SaveFieldRecursive(XmlTextWriter xw, Field field) {
+            xw.WriteStartElement("Field");
             xw.WriteAttributeString("name", field.Name);
             if (field.HasTags) { SaveTags(xw, "tags", field.Tags); }
             if (field.HasValue) {
                 xw.WriteAttributeString("value", field.Value);
             } else {
                 foreach (var subfields in field.Subfields) {
-                    SaveFieldRecursive(xw, nodeName, subfields);
+                    SaveFieldRecursive(xw, subfields);
                 }
             }
             xw.WriteEndElement(); //Field
@@ -377,14 +353,6 @@ namespace Clamito {
                 }
             }
             xw.WriteAttributeString(attributeName, sbTag.ToString());
-        }
-
-        private void SaveVariables(XmlTextWriter xw) {
-            xw.WriteStartElement("Variables");
-            foreach (var field in this.Variables) {
-                SaveFieldRecursive(xw, "Variable", field);
-            }
-            xw.WriteEndElement(); //Variables
         }
 
         #endregion

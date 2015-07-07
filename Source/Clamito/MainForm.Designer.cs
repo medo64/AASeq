@@ -52,8 +52,6 @@ namespace Clamito.Gui {
             this.mnuInteractionAddCommand = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuInteractionProperties = new System.Windows.Forms.ToolStripButton();
             this.mnuInteractionRemove = new System.Windows.Forms.ToolStripButton();
-            this.mnu3 = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuVariables = new System.Windows.Forms.ToolStripButton();
             this.mnu4 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExecute = new System.Windows.Forms.ToolStripButton();
             this.doc = new Clamito.Gui.DocumentControl();
@@ -80,8 +78,6 @@ namespace Clamito.Gui {
             this.mnuInteractionAdd,
             this.mnuInteractionProperties,
             this.mnuInteractionRemove,
-            this.mnu3,
-            this.mnuVariables,
             this.mnu4,
             this.mnuExecute});
             this.mnu.Location = new System.Drawing.Point(0, 0);
@@ -346,20 +342,6 @@ namespace Clamito.Gui {
             this.mnuInteractionRemove.ToolTipText = "Remove interaction";
             this.mnuInteractionRemove.Click += new System.EventHandler(this.mnuInteractionRemove_Click);
             // 
-            // mnu3
-            // 
-            this.mnu3.Name = "mnu3";
-            this.mnu3.Size = new System.Drawing.Size(6, 27);
-            // 
-            // mnuVariables
-            // 
-            this.mnuVariables.Image = global::Clamito.Gui.Properties.Resources.mnuVariables_16;
-            this.mnuVariables.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.mnuVariables.Name = "mnuVariables";
-            this.mnuVariables.Size = new System.Drawing.Size(93, 24);
-            this.mnuVariables.Text = "Variables";
-            this.mnuVariables.Click += new System.EventHandler(this.mnuVariables_Click);
-            // 
             // mnu4
             // 
             this.mnu4.Name = "mnu4";
@@ -423,7 +405,6 @@ namespace Clamito.Gui {
         private System.Windows.Forms.ToolStripMenuItem mnuAppDonate;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem mnuAppAbout;
-        private System.Windows.Forms.ToolStripButton mnuVariables;
         private DocumentControl doc;
         private System.Windows.Forms.ToolStripLabel mnuFlowLabel;
         private System.Windows.Forms.ToolStripLabel mnuEndpointLabel;
@@ -433,7 +414,6 @@ namespace Clamito.Gui {
         private System.Windows.Forms.ToolStripLabel mnuInteractionLabel;
         private System.Windows.Forms.ToolStripButton mnuInteractionRemove;
         private System.Windows.Forms.ToolStripButton mnuInteractionProperties;
-        private System.Windows.Forms.ToolStripSeparator mnu3;
         private System.Windows.Forms.ToolStripSplitButton mnuInteractionAdd;
         private System.Windows.Forms.ToolStripMenuItem mnuInteractionAddMessage;
         private System.Windows.Forms.ToolStripMenuItem mnuInteractionAddCommand;

@@ -2,5 +2,4 @@
 <Clamito version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmedved.com/schema/clamito.xsd">
     <Endpoints />
     <Interactions />
-    <Variables />
 </Clamito>

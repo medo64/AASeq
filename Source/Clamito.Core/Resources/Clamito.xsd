@@ -6,7 +6,6 @@
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="Endpoints" minOccurs="0" maxOccurs="unbounded" />
                 <xs:element ref="Interactions" minOccurs="0" maxOccurs="unbounded" />
-                <xs:element ref="Variables" minOccurs="0" maxOccurs="unbounded" />
             </xs:choice>
             <xs:attribute name="version" use="required">
                 <xs:simpleType>
@@ -64,7 +63,7 @@
             <xs:simpleType>
                 <xs:restriction base="xs:string">
                     <xs:minLength value="1"/>
-                    <xs:pattern value="[!|.|!.]?[\p{L}\p{Nd}]+"/>
+                    <xs:pattern value="!?\.?[\p{L}\p{Nd}]+"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:list>
@@ -82,24 +81,12 @@
     <xs:element name="Endpoint">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element ref="Property" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
             </xs:choice>
             <xs:attribute name="name" type="endpointName" use="required" />
             <xs:attribute name="displayName" type="xs:string" use="optional" />
             <xs:attribute name="protocolName" type="xs:string" use="optional" />
             <xs:attribute name="description" type="xs:string" use="optional" />
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="Property">
-        <xs:complexType>
-            <xs:choice maxOccurs="unbounded">
-                <xs:element ref="Property" minOccurs="0" maxOccurs="unbounded" />
-            </xs:choice>
-            <xs:attribute name="name" type="fieldName" use="required" />
-            <xs:attribute name="value" type="xs:string" use="optional" />
-            <xs:attribute name="modifiers" type="tagList" use="optional" />
-            <xs:attribute name="tags" type="tagList" use="optional" />
         </xs:complexType>
     </xs:element>
 
@@ -124,7 +111,7 @@
     <xs:element name="Message">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
-                <xs:element ref="Fields" minOccurs="0" maxOccurs="1" />
+                <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
             </xs:choice>
             <xs:attribute name="name" type="interactionName" use="required" />
             <xs:attribute name="source" type="xs:string" use="optional" />
@@ -133,38 +120,10 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="Fields">
-        <xs:complexType>
-            <xs:choice maxOccurs="unbounded">
-                <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
-            </xs:choice>
-        </xs:complexType>
-    </xs:element>
-
     <xs:element name="Field">
         <xs:complexType>
             <xs:choice maxOccurs="unbounded">
                 <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
-            </xs:choice>
-            <xs:attribute name="name" type="fieldName" use="required" />
-            <xs:attribute name="value" type="xs:string" use="optional" />
-            <xs:attribute name="tags" type="tagList" use="optional" />
-        </xs:complexType>
-    </xs:element>
-
-
-    <xs:element name="Variables">
-        <xs:complexType>
-            <xs:choice maxOccurs="unbounded">
-                <xs:element ref="Variable" minOccurs="0" maxOccurs="unbounded" />
-            </xs:choice>
-        </xs:complexType>
-    </xs:element>
-
-    <xs:element name="Variable">
-        <xs:complexType>
-            <xs:choice maxOccurs="unbounded">
-                <xs:element ref="Variable" minOccurs="0" maxOccurs="unbounded" />
             </xs:choice>
             <xs:attribute name="name" type="fieldName" use="required" />
             <xs:attribute name="value" type="xs:string" use="optional" />

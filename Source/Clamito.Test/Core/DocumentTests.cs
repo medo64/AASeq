@@ -13,10 +13,8 @@ namespace Clamito.Test {
             var d = new Document();
             Assert.AreEqual(0, d.Endpoints.Count);
             Assert.AreEqual(0, d.Interactions.Count);
-            Assert.AreEqual(0, d.Variables.Count);
             Assert.AreEqual(false, d.HasAnyEndpoints);
             Assert.AreEqual(false, d.HasAnyInteractions);
-            Assert.AreEqual(false, d.HasAnyVariables);
         }
 
         [TestMethod]

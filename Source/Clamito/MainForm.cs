@@ -78,10 +78,6 @@ namespace Clamito.Gui {
                     }
                     return true;
 
-                case Keys.Alt | Keys.V:
-                    mnuVariables.Select();
-                    return true;
-
                 case Keys.F1:
                     mnuApp.ShowDropDown();
                     return true;
@@ -118,7 +114,7 @@ namespace Clamito.Gui {
 
         private void mnuNew_Click(object sender, EventArgs e) {
             if (ProceedWithNewDocument()) {
-                this.Document = new Document(new Endpoint[] { new Endpoint("Me") }, null, null);
+                this.Document = new Document(new Endpoint[] { new Endpoint("Me") }, null);
                 this.Document.Changed += delegate (object sender2, EventArgs e2) { this.RefreshTitle(); };
                 this.RefreshDocument();
             }
@@ -309,13 +305,6 @@ namespace Clamito.Gui {
                         }
                     }
                 }
-            }
-        }
-
-
-        private void mnuVariables_Click(object sender, EventArgs e) {
-            using (var frm = new VariablesForm(this.Document)) {
-                frm.ShowDialog(this);
             }
         }
 
