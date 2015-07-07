@@ -36,7 +36,7 @@ namespace Clamito.Test {
         public void InteractionCollection_LookupByName() {
             var c = new InteractionCollection();
             c.Add(new Message("Test1", new Endpoint("S"), new Endpoint("D")));
-            c.Add(new Command("Test2", "Dummy"));
+            c.Add(new Command("Test2"));
             Assert.AreEqual(2, c.Count);
             Assert.AreEqual("Test1", c["test1"].Name);
             Assert.AreEqual("Test2", c["test2"].Name);

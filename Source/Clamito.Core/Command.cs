@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace Clamito {
@@ -16,35 +17,23 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">Name cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
         public Command(string name)
-            : base(name) {
+            : base(name, null) {
         }
 
         /// <summary>
         /// Create a new instance.
         /// </summary>
         /// <param name="name">Command name.</param>
-        /// <param name="parameters">Parameters.</param>
+        /// <param name="fields">Fields.</param>
         /// <exception cref="System.ArgumentNullException">Name cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-        public Command(string name, string parameters)
-            : this(name) {
-            this.Parameters = parameters;
+        public Command(string name, IEnumerable<Field> fields)
+            : this(name, null) {
+            this.Data.AddRange(fields);
         }
 
-
-        private string _parameters;
-        /// <summary>
-        /// Gets/sets parameters.
-        /// </summary>
-        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
-        public string Parameters {
-            get { return this._parameters ?? ""; }
-            set {
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
-                if (value == null) { value = ""; }
-                this._parameters = value;
-                this.OnChanged(new EventArgs());
-            }
+        private Command(string name, FieldCollection fields)
+            : base(name, fields) {
         }
 
         /// <summary>
@@ -59,30 +48,14 @@ namespace Clamito {
         /// Creates a copy of the command.
         /// </summary>
         public override Interaction Clone() {
-            return new Command(this.Name, this.Parameters) { Description = this.Description };
+            return new Command(this.Name, this.Data.Clone()) { Description = this.Description };
         }
 
         /// <summary>
         /// Creates a read-only copy of the command.
         /// </summary>
         public override Interaction AsReadOnly() {
-            return new Command(this.Name, this.Parameters) { Description = this.Description, IsReadOnly = true };
-        }
-
-        #endregion
-
-
-        #region Overrides
-
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        public override string ToString() {
-            if (string.IsNullOrEmpty(this.Parameters)) {
-                return this.Name;
-            } else {
-                return this.Name + " " + this.Parameters;
-            }
+            return new Command(this.Name, this.Data.AsReadOnly()) { Description = this.Description, IsReadOnly = true };
         }
 
         #endregion

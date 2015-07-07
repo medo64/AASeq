@@ -9,10 +9,11 @@ namespace Clamito.Gui {
         public CommandForm(Document document, Command command, Interaction insertBefore = null) {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
-            foreach (var control in new Control[] { txtName, txtParameters, txtDescription }) {
+            foreach (var control in new Control[] { txtName, txtDescription, fccData }) {
                 erp.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
                 erp.SetIconPadding(control, SystemInformation.BorderSize.Width);
             }
+            erp.SetIconAlignment(fccData, ErrorIconAlignment.TopLeft);
 
             this.document = document;
             this.command = command;
@@ -39,8 +40,8 @@ namespace Clamito.Gui {
 
         private void Form_Load(object sender, EventArgs e) {
             txtName.Text = (this.command != null) ? this.command.Name : "";
-            txtParameters.Text = (this.command != null) ? this.command.Parameters : "";
             txtDescription.Text = (this.command != null) ? this.command.Description : "";
+            fccData.Text = (this.command != null) ? this.command.Data.ToString() : "";
 
             this.isLoaded = true;
             if (command == null) { txt_TextChanged(null, null); } //enable OK without change for new items
@@ -50,16 +51,27 @@ namespace Clamito.Gui {
         private void txt_TextChanged(object sender, EventArgs e) {
             if (!this.isLoaded) { return; }
 
-            string name, parameters, description;
-            btnOK.Enabled = GetOutputs(out name, out parameters, out description);
+            string name, description;
+            FieldCollection data;
+            btnOK.Enabled = GetOutputs(out name, out description, out data);
+        }
+
+
+        private void txtData_Enter(object sender, EventArgs e) {
+            this.AcceptButton = null;
+        }
+
+        private void fccData_Leave(object sender, EventArgs e) {
+            this.AcceptButton = btnOK;
         }
 
 
         private void btnOK_Click(object sender, EventArgs e) {
-            string name, parameters, description;
-            GetOutputs(out name, out parameters, out description);
+            string name, description;
+            FieldCollection data;
+            GetOutputs(out name, out description, out data);
             if (this.command == null) { //new
-                var interaction = new Command(name, parameters) { Description = description };
+                var interaction = new Command(name) { Description = description };
                 if (insertBefore == null) {
                     this.document.Interactions.Add(interaction);
                 } else {
@@ -68,14 +80,14 @@ namespace Clamito.Gui {
                 this.SelectedInteraction = interaction;
             } else {
                 this.command.Name = name;
-                this.command.Parameters = parameters;
                 this.command.Description = description;
                 this.SelectedInteraction = this.command;
             }
+            this.SelectedInteraction.ReplaceData(data);
         }
 
 
-        private bool GetOutputs(out string name, out string parameters, out string description) {
+        private bool GetOutputs(out string name, out string description, out FieldCollection content) {
             var isValid = true;
 
             name = txtName.Text.Trim();
@@ -86,10 +98,21 @@ namespace Clamito.Gui {
                 isValid = false;
             }
 
-            parameters = txtParameters.Text.Trim();
             description = txtDescription.Text.Trim();
 
+            content = fccData.Content;
+            if (fccData.IsOK) {
+                erp.SetError(fccData, null);
+            } else {
+                erp.SetError(fccData, fccData.ErrorText);
+                isValid = false;
+            }
+
             return isValid;
+        }
+
+        private void fccData_Enter(object sender, EventArgs e) {
+
         }
 
     }

@@ -102,8 +102,10 @@
 
     <xs:element name="Command">
         <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
             <xs:attribute name="name" type="interactionName" use="required" />
-            <xs:attribute name="parameters" type="xs:string" use="optional" />
             <xs:attribute name="description" type="xs:string" use="optional" />
         </xs:complexType>
     </xs:element>
@@ -114,9 +116,9 @@
                 <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
             </xs:choice>
             <xs:attribute name="name" type="interactionName" use="required" />
+            <xs:attribute name="description" type="xs:string" use="optional" />
             <xs:attribute name="source" type="xs:string" use="optional" />
             <xs:attribute name="destination" type="xs:string" use="optional" />
-            <xs:attribute name="description" type="xs:string" use="optional" />
         </xs:complexType>
     </xs:element>
 

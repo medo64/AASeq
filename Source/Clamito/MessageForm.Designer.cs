@@ -158,8 +158,8 @@ namespace Clamito.Gui {
             this.fccData.TabIndex = 9;
             this.fccData.WordWrap = false;
             this.fccData.TextChanged += new System.EventHandler(this.txt_TextChanged);
-            this.fccData.Enter += new System.EventHandler(this.txtContent_Enter);
-            this.fccData.Leave += new System.EventHandler(this.txtContent_Leave);
+            this.fccData.Enter += new System.EventHandler(this.fccData_Enter);
+            this.fccData.Leave += new System.EventHandler(this.fccData_Leave);
             // 
             // txtDescription
             // 

@@ -20,7 +20,9 @@
                 </Field>
             </Field>
         </Message>
-        <Command name="Wait" parameters="10s" description="Error if less than 10s." />
+        <Command name="Wait" description="Error if less than 10s.">
+            <Field name="Interval" tags="XXX .YYY !.ZZZ" value="10s" />
+        </Command>
         <Message name="Response" source="Endpoint2" destination="Endpoint1" />
     </Interactions>
 </Clamito>

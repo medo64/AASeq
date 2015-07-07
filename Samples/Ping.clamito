@@ -2,43 +2,27 @@
 <Clamito version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmedved.com/schema/clamito.xsd">
     <Endpoints>
         <Endpoint name="Me" displayName="Local" />
-        <Endpoint name="Local_IPv4" displayName="Local IPv4" protocolName="Dummy">
-            <Property name="Destination" value="127.0.0.1" />
-        </Endpoint>
-        <Endpoint name="Local_IPv4_Alternate" displayName="Local IPv4" protocolName="Dummy">
-            <Property name="Destination" value="127.0.0.2" />
-        </Endpoint>
-        <Endpoint name="Local_IPv6" displayName="Local IPv6" protocolName="Dummy">
-            <Property name="Destination" value="::1" />
-        </Endpoint>
+        <Endpoint name="Local_IPv4" displayName="Local IPv4" protocolName="Dummy" />
+        <Endpoint name="Local_IPv4_Alternate" displayName="Local IPv4" protocolName="Dummy" />
+        <Endpoint name="Local_IPv6" displayName="Local IPv6" protocolName="Dummy" />
     </Endpoints>
     <Interactions>
-        <Message name="Ping" source="Me" destination="Local_IPv4">
-            <Fields>
-                <Field name=".Size" value="64" />
-                <Field name=".Timeout" value="1000" />
-                <Field name=".TTL" tags="DontFragment" value="10" />
-                <Field name="Data" value="Test" />
-            </Fields>
-        </Message>
+        <Message name="Ping" source="Me" destination="Local_IPv4" />
         <Message name="Reply" source="Local_IPv4" destination="Me">
-            <Fields>
-                <Field name=".Size" value="64" />
-                <Field name="Status" value="Success" />
-                <Field name="Time" value=".*" />
-                <Field name="Data" modifiers="RegEx" value="(Test).*" />
-            </Fields>
+            <Field name=".Size" value="64" />
+            <Field name="Status" value="Success" />
+            <Field name="Time" value=".*" />
+            <Field name="Data" value="(Test).*" />
         </Message>
-        <Command name="Wait" description="1 second is default" />
-        <Message name="Ping" source="Me" destination="Local_IPv6">
-            <Fields>
-                <Field name=".Size" value="128" />
-                <Field name=".Timeout" value="1000" />
-            </Fields>
+        <Command name="Wait" description="1 second is default">
+            <Field name="Interval" value="1s" />
+        </Command>
+        <Message name="Ping" source="Me" destination="Local_IPv6" />
+        <Message name="Reply" source="Local_IPv6" destination="Me">
+            <Field name=".Size" value="128" />
+            <Field name=".Timeout" value="1000" />
         </Message>
-        <Message name="Reply" source="Local_IPv6" destination="Me" />
         <Message name="Ping" source="Me" destination="Local_IPv4_Alternate" />
         <Message name="Reply" source="Local_IPv4_Alternate" destination="Me" />
     </Interactions>
-    <Variables />
 </Clamito>

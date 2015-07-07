@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Threading;
 
@@ -317,15 +316,11 @@ namespace Clamito {
 
                                 case InteractionKind.Command:
                                     {
-                                        var command = (Command)interaction;
-                                        if (command.Name == "Wait") {
-                                            int milliseconds;
-                                            if (TryParseTime(command.Parameters, out milliseconds)) {
-                                                Thread.Sleep(milliseconds);
-                                            } else {
-                                                errors.Add(ErrorResult.NewWarning("{0} {1}: Cannot parse parameter {2}.", interactionIndex, interaction.Name, command.Parameters));
-                                                Thread.Sleep(1000);
-                                            }
+                                        var commandPlugin = Plugin.Commands[interaction.Name];
+                                        if (commandPlugin != null) {
+                                            commandPlugin.Execute(interaction.Data);
+                                        } else {
+                                            errors.Add(ErrorResult.NewWarning("{0} {1}: Cannot execute command.", interactionIndex, interaction.Name));
                                         }
                                     }
                                     break;
@@ -350,28 +345,6 @@ namespace Clamito {
                     Thread.Sleep(100);
                 }
             } catch (ThreadAbortException) { }
-        }
-
-        #endregion
-
-
-        #region Command parameters
-
-        private static bool TryParseTime(string parameters, out int milliseconds) {
-            parameters = parameters.Trim();
-            if (parameters.EndsWith("ms", StringComparison.OrdinalIgnoreCase)) {
-                if (int.TryParse(parameters.Substring(0, parameters.Length - 2), NumberStyles.Integer, CultureInfo.InvariantCulture, out milliseconds)) {
-                    return true;
-                }
-            } else if (parameters.EndsWith("s", StringComparison.OrdinalIgnoreCase)) {
-                if (int.TryParse(parameters.Substring(0, parameters.Length - 2), NumberStyles.Integer, CultureInfo.InvariantCulture, out milliseconds)) {
-                    milliseconds *= 1000;
-                    return true;
-                }
-            }
-
-            milliseconds = 1000;
-            return false;
         }
 
         #endregion

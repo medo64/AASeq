@@ -60,13 +60,6 @@ namespace Clamito {
         }
 
 
-        /// <summary>
-        /// Gets last used file name in open/save operations.
-        /// It will be null if stream was used for that operation.
-        /// </summary>
-        public string FileName { get; private set; }
-
-
         private bool _isChanged;
         /// <summary>
         /// Gets whether document was changed since last save.
@@ -158,11 +151,13 @@ namespace Clamito {
                 foreach (XmlElement interactionElement in xml.SelectNodes("Clamito/Interactions/*")) {
                     if (interactionElement.Name.Equals("Command", StringComparison.Ordinal)) {
                         var commandName = GetValue(interactionElement.Attributes["name"]);
-                        var commandParameters = GetValue(interactionElement.Attributes["parameters"]);
                         var commandDescription = GetValue(interactionElement.Attributes["description"]);
-                        var command = new Command(commandName, commandParameters) {
+                        var command = new Command(commandName) {
                             Description = commandDescription
                         };
+                        foreach (XmlElement fieldElement in interactionElement.SelectNodes("Field")) {
+                            LoadFieldRecursive(fieldElement, command.Data);
+                        }
                         doc.Interactions.Add(command);
                     } else if (interactionElement.Name.Equals("Message", StringComparison.Ordinal)) {
                         var messageName = GetValue(interactionElement.Attributes["name"]);
@@ -172,11 +167,10 @@ namespace Clamito {
                         var message = new Message(messageName, messageSource, messageDestination) {
                             Description = messageDescription
                         };
-                        doc.Interactions.Add(message);
-
                         foreach (XmlElement fieldElement in interactionElement.SelectNodes("Field")) {
                             LoadFieldRecursive(fieldElement, message.Data);
                         }
+                        doc.Interactions.Add(message);
                     }
                 }
 
@@ -261,8 +255,6 @@ namespace Clamito {
                 }
 
                 this.IsChanged = false;
-                this.FileName = null;
-
             } catch (Exception ex) {
                 Log.Write.Error("Document.Save", ex);
                 throw;
@@ -298,8 +290,14 @@ namespace Clamito {
                             var command = (Command)interaction;
                             xw.WriteStartElement("Command");
                             xw.WriteAttributeString("name", interaction.Name);
-                            if (!string.IsNullOrEmpty(command.Parameters)) { xw.WriteAttributeString("parameters", command.Parameters); }
                             if (!string.IsNullOrEmpty(command.Description)) { xw.WriteAttributeString("description", command.Description); }
+
+                            if (command.HasData) {
+                                foreach (var field in command.Data) {
+                                    SaveFieldRecursive(xw, field);
+                                }
+                            }
+
                             xw.WriteEndElement(); //Command
                         }
                         break;

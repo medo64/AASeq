@@ -12,7 +12,7 @@ namespace Clamito {
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        internal DummyProtocol() { }
+        public DummyProtocol() { }
 
 
         #region Definition
@@ -53,8 +53,8 @@ namespace Clamito {
         /// <summary>
         /// Sends message.
         /// </summary>
-        /// <param name="content">Message content.</param>
-        public override ResultCollection Send(FieldCollection content) {
+        /// <param name="data">Message data.</param>
+        public override ResultCollection Send(FieldCollection data) {
             return true;
         }
 

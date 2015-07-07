@@ -16,9 +16,10 @@ namespace Clamito {
         /// Create a new instance.
         /// </summary>
         /// <param name="name">Name.</param>
+        /// <param name="fields">Fields.</param>
         /// <exception cref="System.ArgumentNullException">Name cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-        internal protected Interaction(string name) {
+        internal protected Interaction(string name, FieldCollection fields) {
             try {
                 this.Name = name;
             } catch (ArgumentNullException exNull) {
@@ -26,6 +27,11 @@ namespace Clamito {
             } catch (ArgumentOutOfRangeException exRange) {
                 throw new ArgumentOutOfRangeException(nameof(name), exRange.Message);
             }
+
+            this.Data = (fields != null) ? fields : new FieldCollection();
+            this.Data.Changed += delegate (Object sender, EventArgs e) {
+                this.OnChanged(new EventArgs());
+            };
         }
 
 
@@ -65,6 +71,37 @@ namespace Clamito {
                 this._description = value;
                 this.OnChanged(new EventArgs());
             }
+        }
+
+
+        /// <summary>
+        /// Gets data fields.
+        /// </summary>
+        public FieldCollection Data { get; private set; }
+
+        /// <summary>
+        /// Gets if any fields are present.
+        /// </summary>
+        public bool HasData {
+            get { return (this.Data.Count > 0); }
+        }
+
+        /// <summary>
+        /// Sets Data collection.
+        /// </summary>
+        /// <param name="fields">Fields.</param>
+        /// <exception cref="System.ArgumentNullException">Fields cannot be null.</exception>
+        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
+        public void ReplaceData(FieldCollection fields) {
+            if (fields == null) { throw new ArgumentNullException(nameof(fields), "Fields cannot be null."); }
+            if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+
+            this.Data.Clear(); //to release old stuff
+
+            this.Data = fields;
+            this.Data.Changed += delegate (Object sender, EventArgs e) {
+                this.OnChanged(new EventArgs());
+            };
         }
 
 

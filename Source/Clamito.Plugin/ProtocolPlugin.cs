@@ -57,13 +57,13 @@ namespace Clamito {
         #endregion
 
 
-        #region Flow
+        #region Execute
 
         /// <summary>
         /// Sends message.
         /// </summary>
-        /// <param name="content">Message content.</param>
-        public abstract ResultCollection Send(FieldCollection content);
+        /// <param name="data">Message data.</param>
+        public abstract ResultCollection Send(FieldCollection data);
 
         /// <summary>
         /// Returns received message or null if timeout occurred.

@@ -39,13 +39,8 @@ namespace Clamito {
         }
 
         private Message(string name, Endpoint source, Endpoint destination, FieldCollection fields)
-            : base(name) {
-
+            : base(name, fields) {
             this.ReplaceEndpoints(source, destination);
-            this.Data = (fields != null) ? fields : new FieldCollection();
-            this.Data.Changed += delegate (Object sender, EventArgs e) {
-                this.OnChanged(new EventArgs());
-            };
         }
 
 
@@ -58,19 +53,6 @@ namespace Clamito {
         /// Gets destination.
         /// </summary>
         public Endpoint Destination { get; private set; }
-
-
-        /// <summary>
-        /// Gets data fields.
-        /// </summary>
-        public FieldCollection Data { get; private set; }
-
-        /// <summary>
-        /// Gets if any fields are present.
-        /// </summary>
-        public bool HasData {
-            get { return (this.Data.Count > 0); }
-        }
 
 
         /// <summary>
@@ -89,51 +71,6 @@ namespace Clamito {
             this.Destination = destination;
             this.OnChanged(new EventArgs());
         }
-
-        /// <summary>
-        /// Sets Data collection.
-        /// </summary>
-        /// <param name="fields">Fields.</param>
-        /// <exception cref="System.ArgumentNullException">Fields cannot be null.</exception>
-        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
-        public void ReplaceData(FieldCollection fields) {
-            if (fields == null) { throw new ArgumentNullException(nameof(fields), "Fields cannot be null."); }
-            if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
-
-            this.Data.Clear(); //to release old stuff
-
-            this.Data = fields;
-            this.Data.Changed += delegate (Object sender, EventArgs e) {
-                this.OnChanged(new EventArgs());
-            };
-        }
-
-
-        #region Overrides
-
-        /// <summary>
-        /// Determines whether the specified object is equal to the current object.
-        /// </summary>
-        /// <param name="obj">The object to compare with the current object.</param>
-        public override bool Equals(object obj) {
-            return base.Equals(obj);
-        }
-
-        /// <summary>
-        /// Returns a hash code for the current object.
-        /// </summary>
-        public override int GetHashCode() {
-            return this.Name.GetHashCode();
-        }
-
-        /// <summary>
-        /// Returns a string that represents the current object.
-        /// </summary>
-        public override string ToString() {
-            return this.Name;
-        }
-
-        #endregion
 
 
         /// <summary>

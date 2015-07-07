@@ -88,6 +88,7 @@ namespace Clamito.Gui {
 
 
         private Document Document = new Document();
+        private string DocumentFileName = null;
         private readonly Medo.Configuration.RecentFiles Recent = new Medo.Configuration.RecentFiles();
 
 
@@ -165,6 +166,7 @@ namespace Clamito.Gui {
         private void OpenFile(string fileName) {
             try {
                 this.Document = Document.Load(File.OpenRead(fileName));
+                this.DocumentFileName = fileName;
                 this.Document.Changed += delegate (object sender2, EventArgs e2) { this.RefreshTitle(); };
                 RefreshDocument();
                 this.Recent.Push(fileName);
@@ -174,7 +176,7 @@ namespace Clamito.Gui {
         }
 
         private void mnuSaveDefault_ButtonClick(object sender, EventArgs e) {
-            if (this.Document.FileName != null) {
+            if (this.DocumentFileName != null) {
                 mnuSave_Click(null, null);
             } else {
                 mnuSaveAs_Click(null, null);
@@ -182,22 +184,29 @@ namespace Clamito.Gui {
         }
 
         private void mnuSaveDefault_DropDownOpening(object sender, EventArgs e) {
-            mnuSave.Enabled = (this.Document.FileName != null);
+            mnuSave.Enabled = (this.DocumentFileName != null);
         }
 
         private void mnuSave_Click(object sender, EventArgs e) {
-            if (this.Document.FileName == null) { return; }
+            if (this.DocumentFileName == null) { return; }
 
-            this.Document.Save(File.OpenWrite(this.Document.FileName));
+            using (var stream = File.OpenWrite(this.DocumentFileName)) {
+                stream.SetLength(0);
+                this.Document.Save(stream);
+            }
             this.RefreshTitle();
-            this.Recent.Push(this.Document.FileName); //to have it move to front in case of multiple concurent instances
+            this.Recent.Push(this.DocumentFileName); //to have it move to front in case of multiple concurent instances
         }
 
         private void mnuSaveAs_Click(object sender, EventArgs e) {
             using (var frm = new SaveFileDialog() { AddExtension = true, DefaultExt = "clamito", Filter = "Clamito documents (*.clamito)|*.clamito|All files (*.*)|*.*" }) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
                     try {
-                        this.Document.Save(File.OpenWrite(frm.FileName));
+                        using (var stream = File.OpenWrite(frm.FileName)) {
+                            stream.SetLength(0);
+                            this.Document.Save(stream);
+                            this.DocumentFileName = frm.FileName;
+                        }
                         this.RefreshTitle();
                         this.Recent.Push(frm.FileName);
                     } catch (Exception ex) {
@@ -343,8 +352,8 @@ namespace Clamito.Gui {
         }
 
         private void RefreshTitle() {
-            if (this.Document.FileName != null) {
-                this.Text = Path.GetFileNameWithoutExtension(this.Document.FileName) + (this.Document.IsChanged ? "*" : "") + " - Clamito";
+            if (this.DocumentFileName != null) {
+                this.Text = Path.GetFileNameWithoutExtension(this.DocumentFileName) + (this.Document.IsChanged ? "*" : "") + " - Clamito";
             } else {
                 this.Text = "Clamito" + (this.Document.IsChanged ? "*" : "");
             }

@@ -9,9 +9,9 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Command_Basic() {
-            var x = new Command("Test", "Dummy");
+            var x = new Command("Test");
             Assert.AreEqual("Test", x.Name);
-            Assert.AreEqual("Dummy", x.Parameters);
+            Assert.AreEqual(0, x.Data.Count);
 
             Assert.AreEqual(InteractionKind.Command, x.Kind);
         }
@@ -19,7 +19,7 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Command_NameCannotBeNull() {
-            var x = new Command(null, "");
+            var x = new Command(null);
         }
 
         [TestMethod]
@@ -50,38 +50,70 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Command_Clone() {
-            var s = new Command("Name", "XXX") { Description = "Note" };
+            var s = new Command("Name") { Description = "Note" };
+            s.Data.Add(new Field("H1", "V1"));
+            s.Data.Add(new Field("H2"));
+            s.Data.Add(new Field("F1", "V1"));
+            s.Data.Add(new Field("F2"));
 
             var x = s.Clone();
             s.Name = "NewName";
-            s.Parameters = "YYY";
             s.Description = "NewNote";
+            s.Data.Clear();
 
             Assert.AreEqual(InteractionKind.Command, x.Kind);
             Assert.AreEqual("Name", x.Name);
-            Assert.AreEqual("XXX", ((Command)x).Parameters);
             Assert.AreEqual("Note", x.Description);
+            Assert.AreEqual(4, ((Command)x).Data.Count);
+            Assert.AreEqual("H1", ((Command)x).Data[0].Name);
+            Assert.AreEqual("V1", ((Command)x).Data[0].Value);
+            Assert.AreEqual("H2", ((Command)x).Data[1].Name);
+            Assert.AreEqual(false, ((Command)x).Data[1].HasValue);
+            Assert.AreEqual(true, ((Command)x).Data[1].HasSubfields);
+            Assert.AreEqual("F1", ((Command)x).Data[2].Name);
+            Assert.AreEqual("V1", ((Command)x).Data[2].Value);
+            Assert.AreEqual("F2", ((Command)x).Data[3].Name);
+            Assert.AreEqual(false, ((Command)x).Data[3].HasValue);
+            Assert.AreEqual(true, ((Command)x).Data[3].HasSubfields);
         }
 
         [TestMethod]
         public void Command_AsReadOnly() {
-            var s = new Command("Name", "XXX") { Description = "Note" };
+            var s = new Command("Name") { Description = "Note" };
+            s.Data.Add(new Field("H1", "V1"));
+            s.Data.Add(new Field("H2"));
+            s.Data.Add(new Field("F1", "V1"));
+            s.Data.Add(new Field("F2"));
 
             var x = s.AsReadOnly();
             s.Name = "NewName";
-            s.Parameters = "YYY";
             s.Description = "NewNote";
+            s.Data.Clear();
 
             Assert.AreEqual(InteractionKind.Command, x.Kind);
             Assert.AreEqual("Name", x.Name);
-            Assert.AreEqual("XXX", ((Command)x).Parameters);
             Assert.AreEqual("Note", x.Description);
+            Assert.AreEqual(4, ((Command)x).Data.Count);
+            Assert.AreEqual("H1", ((Command)x).Data[0].Name);
+            Assert.AreEqual("V1", ((Command)x).Data[0].Value);
+            Assert.AreEqual("H2", ((Command)x).Data[1].Name);
+            Assert.AreEqual(false, ((Command)x).Data[1].HasValue);
+            Assert.AreEqual(true, ((Command)x).Data[1].HasSubfields);
+            Assert.AreEqual("F1", ((Command)x).Data[2].Name);
+            Assert.AreEqual("V1", ((Command)x).Data[2].Value);
+            Assert.AreEqual("F2", ((Command)x).Data[3].Name);
+            Assert.AreEqual(false, ((Command)x).Data[3].HasValue);
+            Assert.AreEqual(true, ((Command)x).Data[3].HasSubfields);
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Command_AsReadOnly_Change1() {
-            var s = new Command("Name", "XXX") { Description = "Note" };
+            var s = new Command("Name") { Description = "Note" };
+            s.Data.Add(new Field("H1", "V1"));
+            s.Data.Add(new Field("H2"));
+            s.Data.Add(new Field("F1", "V1"));
+            s.Data.Add(new Field("F2"));
 
             var x = (Command)(s.AsReadOnly());
             x.Name = "NewName";
@@ -90,19 +122,14 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Command_AsReadOnly_Change2() {
-            var s = new Command("Name", "XXX") { Description = "Note" };
+            var s = new Command("Name") { Description = "Note" };
+            s.Data.Add(new Field("H1", "V1"));
+            s.Data.Add(new Field("H2"));
+            s.Data.Add(new Field("F1", "V1"));
+            s.Data.Add(new Field("F2"));
 
             var x = (Command)(s.AsReadOnly());
             x.Description = "Note";
-        }
-
-        [TestMethod]
-        [ExpectedException(typeof(NotSupportedException))]
-        public void Command_AsReadOnly_Change3() {
-            var s = new Command("Name", "XXX") { Description = "Note" };
-
-            var x = (Command)(s.AsReadOnly());
-            x.Parameters = "XXX";
         }
 
     }

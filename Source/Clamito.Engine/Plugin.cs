@@ -15,6 +15,9 @@ namespace Clamito {
             Plugin.Protocols = new PluginCollection<ProtocolPlugin>();
             Plugin.Protocols.Add(new DummyProtocol());
 
+            Plugin.Commands = new PluginCollection<CommandPlugin>();
+            Plugin.Commands.Add(new WaitCommand());
+
             var path = new FileInfo((Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location).DirectoryName;
             var root = new DirectoryInfo(path);
 
@@ -29,48 +32,76 @@ namespace Clamito {
                 if (file.Name.Equals("Clamito.Plugin.dll")) { continue; }
 
                 //load assembly
-                var assembly = Assembly.LoadFile(file.FullName);
+                try {
+                    var assembly = Assembly.LoadFile(file.FullName);
 
-                foreach (var type in assembly.GetTypes()) {
-                    Log.Write.Verbose("Plugin.Initialize", "Checking type {0}...", type.Name);
 
-                    if (!type.IsClass) { //must be class
-                        Log.Write.Verbose("Plugin.Initialize", "Type {0} is not a class.", type.Name);
-                        continue;
-                    }
+                    foreach (var type in assembly.GetTypes()) {
+                        Log.Write.Verbose("Plugin.Initialize", "Checking type {0}...", type.Name);
 
-                    if (!typeof(ProtocolPlugin).IsAssignableFrom(type)) {
-                        Log.Write.Verbose("Plugin.Initialize", "Type {0} does not implement ProtocolBase.", type.Name);
-                        continue;
-                    }
-
-                    var protocolConstructor = type.GetConstructor(new Type[] { });
-                    if (protocolConstructor == null) {
-                        Log.Write.Verbose("Plugin.Initialize", "Type {0} does not have a parameterless constructor.", type.Name);
-                        continue;
-                    }
-
-                    Log.Write.Verbose("Plugin.Initialize", "Loading protocol type {0}...", type.Name);
-                    try {
-                        var protocol = (ProtocolPlugin)Activator.CreateInstance(type);
-
-                        if (Plugin.Protocols[protocol.Name] != null) {
-                            Log.Write.Warning("Plugin.Initialize", "Duplicate protocol name {0}!", protocol.Name);
+                        if (!type.IsClass) { //must be class
+                            Log.Write.Verbose("Plugin.Initialize", "Type {0} is not a class.", type.Name);
                             continue;
                         }
 
-                        Plugin.Protocols.Add(protocol);
-                        Log.Write.Information("Plugin.Initialize", "Loaded protocol {0}.", protocol.Name);
-                    } catch (ArgumentException ex) {
-                        Log.Write.Warning("Plugin.Initialize", "Cannot load protocol type {0} ({1})!", type.Name, ex.Message.Split(new char[] { '\r', '\n' })[0]);
-                        continue;
+                        var protocolConstructor = type.GetConstructor(new Type[] { });
+                        if (protocolConstructor == null) {
+                            Log.Write.Verbose("Plugin.Initialize", "Type {0} does not have a parameterless constructor.", type.Name);
+                            continue;
+                        }
+
+                        if (typeof(ProtocolPlugin).IsAssignableFrom(type)) {
+                            Log.Write.Verbose("Plugin.Initialize", "Loading protocol type {0}...", type.Name);
+                            try {
+                                var protocol = (ProtocolPlugin)Activator.CreateInstance(type);
+
+                                if (Plugin.Protocols[protocol.Name] != null) {
+                                    Log.Write.Warning("Plugin.Initialize", "Duplicate protocol name {0}!", protocol.Name);
+                                    continue;
+                                }
+
+                                Plugin.Protocols.Add(protocol);
+                                Log.Write.Information("Plugin.Initialize", "Loaded protocol {0}.", protocol.Name);
+                            } catch (ArgumentException ex) {
+                                Log.Write.Warning("Plugin.Initialize", "Cannot load protocol type {0} ({1})!", type.Name, ex.Message.Split(new char[] { '\r', '\n' })[0]);
+                                continue;
+                            }
+                        } else if (typeof(CommandPlugin).IsAssignableFrom(type)) {
+                            Log.Write.Verbose("Plugin.Initialize", "Loading command type {0}...", type.Name);
+                            try {
+                                var command = (CommandPlugin)Activator.CreateInstance(type);
+
+                                if (Plugin.Commands[command.Name] != null) {
+                                    Log.Write.Warning("Plugin.Initialize", "Duplicate command name {0}!", command.Name);
+                                    continue;
+                                }
+
+                                Plugin.Commands.Add(command);
+                                Log.Write.Information("Plugin.Initialize", "Loaded command {0}.", command.Name);
+                            } catch (ArgumentException ex) {
+                                Log.Write.Warning("Plugin.Initialize", "Cannot load command type {0} ({1})!", type.Name, ex.Message.Split(new char[] { '\r', '\n' })[0]);
+                                continue;
+                            }
+                        } else {
+                            Log.Write.Verbose("Plugin.Initialize", "Type {0} does not implement PluginBase.", type.Name);
+                            continue;
+                        }
                     }
+
+                } catch (ReflectionTypeLoadException) {
+                    Log.Write.Information("Plugin.Initialize", "Cannot load potential plugin assembly {0}.", file.Name);
+                } catch (TypeLoadException) {
+                    Log.Write.Information("Plugin.Initialize", "Cannot check potential plugin assembly {0}.", file.Name);
+                } catch (Exception ex) {
+                    Log.Write.Error("Plugin.Initialize", ex);
+                    throw;
                 }
             }
 
             Plugin.Protocols.Sort();
+            Plugin.Commands.Sort();
 
-            Log.Write.Verbose("Plugin.Initialize", "Found total of {0} protocol(s).", Plugin.Protocols.Count);
+            Log.Write.Verbose("Plugin.Initialize", "Found total of {0} protocol(s) and {1} command(s).", Plugin.Protocols.Count, Plugin.Commands.Count);
         }
 
 
@@ -79,6 +110,10 @@ namespace Clamito {
         /// </summary>
         public static PluginCollection<ProtocolPlugin> Protocols { get; }
 
+        /// <summary>
+        /// Loaded protocols.
+        /// </summary>
+        public static PluginCollection<CommandPlugin> Commands { get; }
 
     }
 }

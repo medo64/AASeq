@@ -63,16 +63,16 @@ namespace Clamito.Gui {
 
             string name, description;
             Endpoint source, destination;
-            FieldCollection content;
-            btnOK.Enabled = GetOutputs(out name, out source, out destination, out content, out description);
+            FieldCollection data;
+            btnOK.Enabled = GetOutputs(out name, out source, out destination, out description, out data);
         }
 
 
-        private void txtContent_Enter(object sender, EventArgs e) {
+        private void fccData_Enter(object sender, EventArgs e) {
             this.AcceptButton = null;
         }
 
-        private void txtContent_Leave(object sender, EventArgs e) {
+        private void fccData_Leave(object sender, EventArgs e) {
             this.AcceptButton = btnOK;
         }
 
@@ -80,8 +80,8 @@ namespace Clamito.Gui {
         private void btnOK_Click(object sender, EventArgs e) {
             string name, description;
             Endpoint source, destination;
-            FieldCollection content;
-            GetOutputs(out name, out source, out destination, out content, out description);
+            FieldCollection data;
+            GetOutputs(out name, out source, out destination, out description, out data);
             if (this.message == null) { //new
                 var interaction = new Message(name, source, destination) { Description = description };
                 if (insertBefore == null) {
@@ -96,11 +96,11 @@ namespace Clamito.Gui {
                 this.message.Description = description;
                 this.SelectedInteraction = this.message;
             }
-            this.SelectedInteraction.ReplaceData(content);
+            this.SelectedInteraction.ReplaceData(data);
         }
 
 
-        private bool GetOutputs(out string name, out Endpoint source, out Endpoint destination, out FieldCollection content, out string description) {
+        private bool GetOutputs(out string name, out Endpoint source, out Endpoint destination, out string description, out FieldCollection content) {
             var isValid = true;
 
             name = txtName.Text.Trim();
