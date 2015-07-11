@@ -325,6 +325,12 @@ namespace Clamito.Gui {
         }
 
 
+        private void mnuAppPlugins_Click(object sender, EventArgs e) {
+            using (var frm = new PluginStatusForm()) {
+                frm.ShowDialog(this);
+            }
+        }
+
         private void mnuAppFeedback_Click(object sender, EventArgs e) {
             Medo.Diagnostics.ErrorReport.ShowDialog(this, null, new Uri("http://jmedved.com/feedback/"));
         }

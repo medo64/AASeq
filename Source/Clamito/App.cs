@@ -19,10 +19,12 @@ namespace Clamito.Gui {
             Medo.Application.UnhandledCatch.Attach();
             Medo.Application.UnhandledCatch.ThreadException += new EventHandler<ThreadExceptionEventArgs>(UnhandledCatch_ThreadException);
 
+            Log.Write.Verbose("Application", "Plugins initializing...");
+            Plugin.Initialize();
+            Log.Write.Information("Application", "Plugins initialized.");
+
             Log.Write.Information("Application", "Started");
-
             Application.Run(new MainForm());
-
             Log.Write.Information("Application", "Terminated");
             Application.Exit();
 

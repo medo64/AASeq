@@ -55,6 +55,8 @@ namespace Clamito.Gui {
             this.mnu4 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuExecute = new System.Windows.Forms.ToolStripButton();
             this.doc = new Clamito.Gui.DocumentControl();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuAppPlugins = new System.Windows.Forms.ToolStripMenuItem();
             this.mnu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,6 +166,8 @@ namespace Clamito.Gui {
             this.mnuApp.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.mnuApp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
             this.mnuApp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuAppPlugins,
+            this.toolStripMenuItem2,
             this.mnuAppFeedback,
             this.mnuAppUpdate,
             this.mnuAppDonate,
@@ -370,6 +374,18 @@ namespace Clamito.Gui {
             this.doc.TabIndex = 1;
             this.doc.Changed += new System.EventHandler(this.doc_Changed);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(194, 6);
+            // 
+            // mnuAppPlugins
+            // 
+            this.mnuAppPlugins.Name = "mnuAppPlugins";
+            this.mnuAppPlugins.Size = new System.Drawing.Size(197, 26);
+            this.mnuAppPlugins.Text = "Plugins";
+            this.mnuAppPlugins.Click += new System.EventHandler(this.mnuAppPlugins_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -422,5 +438,7 @@ namespace Clamito.Gui {
         private System.Windows.Forms.ToolStripSeparator mnuEndpoint0;
         private System.Windows.Forms.ToolStripSeparator mnu4;
         private System.Windows.Forms.ToolStripButton mnuExecute;
+        private System.Windows.Forms.ToolStripMenuItem mnuAppPlugins;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
     }
 }
