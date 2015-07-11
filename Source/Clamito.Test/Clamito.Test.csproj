@@ -69,11 +69,12 @@
     <Compile Include="Core\ResultCollectionTests.cs" />
     <Compile Include="Core\TagCollectionTests.cs" />
     <Compile Include="Core\TagTests.cs" />
+    <Compile Include="Engine\Commands\WaitCommandTests.cs" />
+    <Compile Include="Engine\Commands\LogCommandTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Engine\" />
-    <Folder Include="Protocol\" />
+    <Folder Include="Plugin\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.snk" />
@@ -107,6 +108,14 @@
     <ProjectReference Include="..\Clamito.Core\Clamito.Core.csproj">
       <Project>{bf2738dd-c0fd-474d-af4d-26333c3edd76}</Project>
       <Name>Clamito.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Clamito.Engine\Clamito.Engine.csproj">
+      <Project>{44379f75-dc61-4e95-b9fc-9bd75ab731fc}</Project>
+      <Name>Clamito.Engine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Clamito.Plugin\Clamito.Plugin.csproj">
+      <Project>{7f43f4c9-cb0c-41be-8759-875e80d1314d}</Project>
+      <Name>Clamito.Plugin</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

@@ -22,6 +22,7 @@ namespace Clamito {
             protocols.Add(new DummyProtocol());
 
             var commands = new PluginCollection<CommandPlugin>();
+            commands.Add(new LogCommand());
             commands.Add(new WaitCommand());
 
 

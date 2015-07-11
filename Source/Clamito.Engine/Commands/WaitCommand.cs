@@ -14,7 +14,7 @@ namespace Clamito {
         /// <summary>
         /// Creates a new instance.
         /// </summary>
-        internal WaitCommand() { }
+        public WaitCommand() { }
 
 
         #region Definition
