@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.Threading;
 
@@ -55,9 +54,6 @@ namespace Clamito {
             }
         }
 
-        #endregion
-
-
         private static bool TryParseTime(string parameters, out int milliseconds) {
             parameters = parameters.Trim();
             if (parameters.EndsWith("ms", StringComparison.OrdinalIgnoreCase)) {
@@ -74,6 +70,35 @@ namespace Clamito {
             milliseconds = 1000;
             return false;
         }
+
+        #endregion
+
+
+        #region Data
+
+        /// <summary>
+        /// Returns default data fields.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Calling the method two times in succession creates different results.")]
+        public override FieldCollection GetDefaultData() {
+            return new FieldCollection(new Field[] { new Field("Interval", "1s") });
+        }
+
+        /// <summary>
+        /// Returns data errors.
+        /// </summary>
+        /// <param name="data">Data fields to validate.</param>
+        public override ResultCollection ValidateData(FieldCollection data) {
+            var errors = new List<ErrorResult>();
+            foreach (var path in data.AllPaths) {
+                if (!path.Path .Equals("Interval")) {
+                    errors.Add(ErrorResult.NewWarning("Unknown field: {0}.", path));
+                }
+            }
+            return new ResultCollection(errors);
+        }
+
+        #endregion
 
     }
 }

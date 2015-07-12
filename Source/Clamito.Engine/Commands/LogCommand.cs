@@ -64,5 +64,32 @@ namespace Clamito {
 
         #endregion
 
+
+        #region Data
+
+        /// <summary>
+        /// Returns default data fields.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Calling the method two times in succession creates different results.")]
+        public override FieldCollection GetDefaultData() {
+            return new FieldCollection(new Field[] { new Field("Text", ""), new Field("Level", "Verbose") });
+        }
+
+        /// <summary>
+        /// Returns data errors.
+        /// </summary>
+        /// <param name="data">Data fields to validate.</param>
+        public override ResultCollection ValidateData(FieldCollection data) {
+            var errors = new List<ErrorResult>();
+            foreach (var path in data.AllPaths) {
+                if (!path.Path.Equals("Text") && !path.Path.Equals("Level")) {
+                    errors.Add(ErrorResult.NewWarning("Unknown field: {0}.", path));
+                }
+            }
+            return new ResultCollection(errors);
+        }
+
+        #endregion
+
     }
 }

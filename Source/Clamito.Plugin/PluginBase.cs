@@ -10,17 +10,17 @@ namespace Clamito {
         #region Definition
 
         /// <summary>
-        /// Gets unique name for protocol.
+        /// Gets unique name for plugin.
         /// </summary>
         public abstract string Name { get; }
 
         /// <summary>
-        /// Gets display name for protocol.
+        /// Gets display name for plugin.
         /// </summary>
         public abstract string DisplayName { get; }
 
         /// <summary>
-        /// Gets protocol description.
+        /// Gets plugin description.
         /// </summary>
         public abstract string Description { get; }
 

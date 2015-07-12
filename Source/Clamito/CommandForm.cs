@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace Clamito.Gui {
@@ -23,6 +21,10 @@ namespace Clamito.Gui {
                 this.Text = "New command";
             } else {
                 this.Text = "Command properties";
+            }
+
+            foreach (var cmd in Plugin.Commands) {
+                txtName.AutoCompleteCustomSource.Add(cmd.Name);
             }
 
             Medo.Windows.Forms.State.SetupOnLoadAndClose(this);
@@ -57,7 +59,18 @@ namespace Clamito.Gui {
         }
 
 
-        private void txtData_Enter(object sender, EventArgs e) {
+        private void txtName_Leave(object sender, EventArgs e) {
+            var cmd = Plugin.Commands[txtName.Text];
+            if (cmd != null) {
+                if (!txtName.Text.Equals(cmd.Name)) { txtName.Text = cmd.Name; }
+                if (fccData.TextLength == 0) {
+                    fccData.Text = cmd.GetDefaultData().ToString();
+                }
+            }
+        }
+
+
+        private void fccData_Enter(object sender, EventArgs e) {
             this.AcceptButton = null;
         }
 
@@ -91,10 +104,11 @@ namespace Clamito.Gui {
             var isValid = true;
 
             name = txtName.Text.Trim();
-            if (Command.IsNameValid(name)) {
+            var cmd = Plugin.Commands[name];
+            if (cmd != null) {
                 erp.SetError(txtName, null);
             } else {
-                erp.SetError(txtName, "Name is not valid.");
+                erp.SetError(txtName, "Command name is not valid.");
                 isValid = false;
             }
 
@@ -102,17 +116,23 @@ namespace Clamito.Gui {
 
             content = fccData.Content;
             if (fccData.IsOK) {
-                erp.SetError(fccData, null);
+                if (cmd != null) {
+                    var validationResults = cmd.ValidateData(content);
+                    if (validationResults.HasWarnings || validationResults.HasErrors) {
+                        erp.SetError(fccData, validationResults[0].Text);
+                        isValid = false;
+                    } else {
+                        erp.SetError(fccData, null);
+                    }
+                } else {
+                    erp.SetError(fccData, null);
+                }
             } else {
                 erp.SetError(fccData, fccData.ErrorText);
                 isValid = false;
             }
 
             return isValid;
-        }
-
-        private void fccData_Enter(object sender, EventArgs e) {
-
         }
 
     }

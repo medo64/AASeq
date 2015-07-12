@@ -75,30 +75,22 @@ namespace Clamito {
         #endregion
 
 
-        #region Properties
+        #region Data
 
         /// <summary>
-        /// Returns default properties.
+        /// Returns default data fields.
         /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Calling the method two times in succession creates different results.")]
-        public virtual FieldCollection GetDefaultProperties() {
+        public virtual FieldCollection GetDefaultData() {
             return null;
         }
 
         /// <summary>
-        /// Throws exception if property cannot be validated.
+        /// Returns data errors.
         /// </summary>
-        /// <param name="properties">Properties to validate.</param>
-        public virtual ResultCollection ValidateProperties(FieldCollection properties) {
-            if ((properties != null) && (properties.Count > 0)) {
-                var results = new List<ErrorResult>();
-                //foreach (var item in FieldCollection.EnumerateTreeValues(properties)) {
-                //results.Add(ErrorResult.NewWarning("Cannot validate property {0}.", item.Key));
-                //}
-                return new ResultCollection(results);
-            } else {
-                return new ResultCollection();
-            }
+        /// <param name="data">Data fields to validate.</param>
+        public virtual ResultCollection ValidateData(FieldCollection data) {
+            return true;
         }
 
         #endregion

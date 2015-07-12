@@ -30,10 +30,10 @@ namespace Clamito.Gui {
             this.lblName = new System.Windows.Forms.Label();
             this.lblDescription = new System.Windows.Forms.Label();
             this.erp = new System.Windows.Forms.ErrorProvider(this.components);
-            this.txtDescription = new Clamito.Gui.TextBoxControl();
-            this.txtName = new Clamito.Gui.TextBoxControl();
             this.lblData = new System.Windows.Forms.Label();
             this.fccData = new Clamito.Gui.FieldCollectionControl();
+            this.txtDescription = new Clamito.Gui.TextBoxControl();
+            this.txtName = new Clamito.Gui.TextBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.erp)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,26 +86,6 @@ namespace Clamito.Gui {
             this.erp.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.erp.ContainerControl = this;
             // 
-            // txtDescription
-            // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(130, 40);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(320, 22);
-            this.txtDescription.TabIndex = 3;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txt_TextChanged);
-            // 
-            // txtName
-            // 
-            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtName.Location = new System.Drawing.Point(130, 12);
-            this.txtName.Name = "txtName";
-            this.txtName.Size = new System.Drawing.Size(320, 22);
-            this.txtName.TabIndex = 1;
-            this.txtName.TextChanged += new System.EventHandler(this.txt_TextChanged);
-            // 
             // lblData
             // 
             this.lblData.AutoSize = true;
@@ -134,6 +114,29 @@ namespace Clamito.Gui {
             this.fccData.TextChanged += new System.EventHandler(this.txt_TextChanged);
             this.fccData.Enter += new System.EventHandler(this.fccData_Enter);
             this.fccData.Leave += new System.EventHandler(this.fccData_Leave);
+            // 
+            // txtDescription
+            // 
+            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDescription.Location = new System.Drawing.Point(130, 40);
+            this.txtDescription.Name = "txtDescription";
+            this.txtDescription.Size = new System.Drawing.Size(320, 22);
+            this.txtDescription.TabIndex = 3;
+            this.txtDescription.TextChanged += new System.EventHandler(this.txt_TextChanged);
+            // 
+            // txtName
+            // 
+            this.txtName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtName.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtName.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.CustomSource;
+            this.txtName.Location = new System.Drawing.Point(130, 12);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(320, 22);
+            this.txtName.TabIndex = 1;
+            this.txtName.TextChanged += new System.EventHandler(this.txt_TextChanged);
+            this.txtName.Leave += new System.EventHandler(this.txtName_Leave);
             // 
             // CommandForm
             // 

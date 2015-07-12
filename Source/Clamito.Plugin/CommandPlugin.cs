@@ -41,5 +41,26 @@ namespace Clamito {
 
         #endregion
 
+
+        #region Data
+
+        /// <summary>
+        /// Returns default data fields.
+        /// </summary>
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Calling the method two times in succession creates different results.")]
+        public virtual FieldCollection GetDefaultData() {
+            return null;
+        }
+
+        /// <summary>
+        /// Returns data errors.
+        /// </summary>
+        /// <param name="data">Data fields to validate.</param>
+        public virtual ResultCollection ValidateData(FieldCollection data) {
+            return true;
+        }
+
+        #endregion
+
     }
 }
