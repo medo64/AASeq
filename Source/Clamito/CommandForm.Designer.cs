@@ -78,7 +78,7 @@ namespace Clamito.Gui {
             this.lblDescription.Location = new System.Drawing.Point(12, 43);
             this.lblDescription.Name = "lblDescription";
             this.lblDescription.Size = new System.Drawing.Size(83, 17);
-            this.lblDescription.TabIndex = 4;
+            this.lblDescription.TabIndex = 2;
             this.lblDescription.Text = "Description:";
             // 
             // erp
@@ -93,7 +93,7 @@ namespace Clamito.Gui {
             this.txtDescription.Location = new System.Drawing.Point(130, 40);
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.Size = new System.Drawing.Size(320, 22);
-            this.txtDescription.TabIndex = 5;
+            this.txtDescription.TabIndex = 3;
             this.txtDescription.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // txtName
@@ -112,7 +112,7 @@ namespace Clamito.Gui {
             this.lblData.Location = new System.Drawing.Point(12, 71);
             this.lblData.Name = "lblData";
             this.lblData.Size = new System.Drawing.Size(42, 17);
-            this.lblData.TabIndex = 10;
+            this.lblData.TabIndex = 4;
             this.lblData.Text = "Data:";
             // 
             // fccData
@@ -129,7 +129,7 @@ namespace Clamito.Gui {
             this.fccData.Name = "fccData";
             this.fccData.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.fccData.Size = new System.Drawing.Size(320, 190);
-            this.fccData.TabIndex = 11;
+            this.fccData.TabIndex = 5;
             this.fccData.WordWrap = false;
             this.fccData.TextChanged += new System.EventHandler(this.txt_TextChanged);
             this.fccData.Enter += new System.EventHandler(this.fccData_Enter);
