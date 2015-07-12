@@ -7,7 +7,8 @@ namespace Clamito.Gui {
 
         protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, Keys keyData) {
             switch (keyData) {
-                case Keys.Left: {
+                case Keys.Left:
+                    {
                         if (this.SelectedEndpoint != null) {
                             var nextIndex = this.Document.Endpoints.IndexOf(this.SelectedEndpoint) - 1;
                             if (nextIndex >= 0) {
@@ -16,9 +17,11 @@ namespace Clamito.Gui {
                         } else if (this.Document.Endpoints.Count > 0) { //select first endpoint if nothing was selected
                             this.SelectedEndpoint = this.Document.Endpoints[0];
                         }
-                    } return true;
+                    }
+                    return true;
 
-                case Keys.Right: {
+                case Keys.Right:
+                    {
                         if (this.SelectedEndpoint != null) {
                             var nextIndex = this.Document.Endpoints.IndexOf(this.SelectedEndpoint) + 1;
                             if (nextIndex < this.Document.Endpoints.Count) {
@@ -27,9 +30,11 @@ namespace Clamito.Gui {
                         } else if (this.Document.Endpoints.Count > 0) { //select last endpoint if nothing was selected
                             this.SelectedEndpoint = this.Document.Endpoints[this.Document.Endpoints.Count - 1];
                         }
-                    } return true;
+                    }
+                    return true;
 
-                case Keys.Up: {
+                case Keys.Up:
+                    {
                         if (this.SelectedInteraction != null) {
                             var nextIndex = this.Document.Interactions.IndexOf(this.SelectedInteraction) - 1;
                             if (nextIndex >= 0) {
@@ -38,9 +43,11 @@ namespace Clamito.Gui {
                         } else if (this.Document.Interactions.Count > 0) { //select first interaction if nothing was selected
                             this.SelectedInteraction = this.Document.Interactions[0];
                         }
-                    } return true;
+                    }
+                    return true;
 
-                case Keys.Down: {
+                case Keys.Down:
+                    {
                         if (this.SelectedInteraction != null) {
                             var nextIndex = this.Document.Interactions.IndexOf(this.SelectedInteraction) + 1;
                             if (nextIndex < this.Document.Interactions.Count) {
@@ -49,14 +56,18 @@ namespace Clamito.Gui {
                         } else if (this.Document.Interactions.Count > 0) { //select first interaction if nothing was selected
                             this.SelectedInteraction = this.Document.Interactions[0];
                         }
-                    } return true;
+                    }
+                    return true;
 
-                case Keys.Escape: {
+                case Keys.Escape:
+                    {
                         this.SelectedEndpoint = null;
                         this.SelectedInteraction = null;
-                    } return true;
+                    }
+                    return true;
 
-                case (Keys)93: { //ContextMenu key
+                case (Keys)93:
+                    { //ContextMenu key
                         var pair = FindPairInSenseList(this.LastSelection);
                         if ((pair != null) && pair.IsMajor) {
                             var location = this.PointToScreen(new Point(pair.Rectangle.Right - pair.Rectangle.Width / 3, pair.Rectangle.Bottom - LookAndFeel.Screen.Spacing.Bottom));
@@ -66,7 +77,8 @@ namespace Clamito.Gui {
                                 mnxInteraction.Show(location);
                             }
                         }
-                    } return true;
+                    }
+                    return true;
 
                 default: return base.ProcessCmdKey(ref msg, keyData);
             }
@@ -97,15 +109,18 @@ namespace Clamito.Gui {
             }
 
             switch (e.Button) {
-                case MouseButtons.Left: { //dragging
+                case MouseButtons.Left:
+                    { //dragging
                         this.dragInProgress = false; //don't start drag immediatelly
                         if (pair != null) {
                             this.dragOrigin = e.Location;
                             this.dragPair = pair;
                         }
-                    } break;
+                    }
+                    break;
 
-                case MouseButtons.Right: { //menu
+                case MouseButtons.Right:
+                    { //menu
                         var menuLocation = this.PointToScreen(e.Location);
                         if (pair == null) {
                             mnxAdd.Show(menuLocation);
@@ -116,7 +131,8 @@ namespace Clamito.Gui {
                                 mnxInteraction.Show(menuLocation);
                             }
                         }
-                    } break;
+                    }
+                    break;
             }
         }
 
@@ -125,7 +141,8 @@ namespace Clamito.Gui {
             location.Offset(-this.AutoScrollPosition.X, -this.AutoScrollPosition.Y);
 
             switch (e.Button) {
-                case MouseButtons.Left: { //dragging
+                case MouseButtons.Left:
+                    { //dragging
                         if (this.dragPair != null) {
                             if (dragPair.IsMajor) { //moving endpoint/interaction
                                 this.dragInProgress |= IsDraged(this.dragOrigin, e.Location); //once drag is in progress, it is always in progress (otherwise it won't show drag over origin)
@@ -137,7 +154,7 @@ namespace Clamito.Gui {
                                     if (origEndpoint != null) {
                                         var destEndpoint = FindEndpointDragDestination(e.Location);
                                         if ((destEndpoint == null) || origEndpoint.Equals(destEndpoint)) {
-                                            newCursor = Cursors.No;
+                                            newCursor = origEndpoint.Equals(destEndpoint) || (this.Document.Endpoints.Count < 2) ? Cursors.No : Cursors.NoMoveHoriz;
                                         } else {
                                             var indexOrig = this.Document.Endpoints.IndexOf(origEndpoint);
                                             var indexDest = this.Document.Endpoints.IndexOf(destEndpoint);
@@ -146,7 +163,7 @@ namespace Clamito.Gui {
                                     } else if (origInteraction != null) {
                                         var destInteraction = FindInteractionDragDestination(e.Location);
                                         if ((destInteraction == null) || origInteraction.Equals(destInteraction)) {
-                                            newCursor = Cursors.No;
+                                            newCursor = origInteraction.Equals(destInteraction) || (this.Document.Interactions.Count < 2) ? Cursors.No : Cursors.NoMoveVert;
                                         } else {
                                             var indexOrig = this.Document.Interactions.IndexOf(origInteraction);
                                             var indexDest = this.Document.Interactions.IndexOf(destInteraction);
@@ -161,7 +178,7 @@ namespace Clamito.Gui {
                                 if (origEndpoint != null) {
                                     this.dragInProgress |= IsDraged(this.dragOrigin, e.Location); //once drag is in progress, it is always in progress (otherwise it won't show drag over origin)
                                     if (this.dragInProgress) {
-                                        var newCursor = Cursors.NoMoveHoriz;
+                                        var newCursor = (this.Document.Endpoints.Count >= 2) ? Cursors.NoMoveHoriz : Cursors.No;
                                         var destEndpoint = FindEndpointDragDestination(e.Location);
                                         if ((destEndpoint != null) && !origEndpoint.Equals(destEndpoint)) {
                                             var indexOrig = this.Document.Endpoints.IndexOf(origEndpoint);
@@ -173,7 +190,8 @@ namespace Clamito.Gui {
                                 }
                             }
                         }
-                    } break;
+                    }
+                    break;
             }
 
             this.currentMouseLocation = location;
@@ -182,7 +200,8 @@ namespace Clamito.Gui {
 
         protected override void OnMouseUp(MouseEventArgs e) {
             switch (e.Button) {
-                case MouseButtons.Left: { //dropping
+                case MouseButtons.Left:
+                    { //dropping
                         if (this.dragInProgress) {
                             if (this.dragPair.IsMajor) {
                                 var origEndpoint = this.dragPair.Item as Endpoint;
@@ -232,7 +251,8 @@ namespace Clamito.Gui {
                         this.dragOrigin = Point.Empty;
                         this.dragPair = null;
                         this.Cursor = Cursors.Default;
-                    } break;
+                    }
+                    break;
 
             }
         }
