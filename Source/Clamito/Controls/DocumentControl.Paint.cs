@@ -150,7 +150,8 @@ namespace Clamito.Gui {
         }
 
         private IEnumerable<SensePair> PaintEndpoint(Endpoint endpoint, Graphics g, DisplayStyle style, DisplayInk ink, int x, int y, int maxHeight, Font font, Size charSize) {
-            var size = g.MeasureString(endpoint.DisplayName, font, charSize.Width * style.MaxCharCount, style.TitleFormat).ToSize();
+            var endpointText = string.IsNullOrEmpty(endpoint.Description) ? endpoint.Name : endpoint.Description;
+            var size = g.MeasureString(endpointText, font, charSize.Width * style.MaxCharCount, style.TitleFormat).ToSize();
             var rect = new Rectangle(x - size.Width / 2 - charSize.Width / 2, y, size.Width + charSize.Width, charSize.Height);
             var senseRect = new Rectangle(rect.Left, rect.Top, rect.Width + 1, rect.Height + 1);
 
@@ -165,7 +166,7 @@ namespace Clamito.Gui {
             }
             var senseVRect = new Rectangle(x - charSize.Width / 4 - 1, y + charSize.Height - 1, charSize.Width / 2, maxHeight - y - charSize.Height + 2);
 
-            g.DrawString(endpoint.DisplayName, font, ink.Brush, rect, style.TitleFormat);
+            g.DrawString(endpointText, font, ink.Brush, rect, style.TitleFormat);
 
             return new SensePair[] {
                 new SensePair(senseRect, endpoint, isMajor: true),

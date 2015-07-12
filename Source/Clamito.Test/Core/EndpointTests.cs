@@ -7,10 +7,9 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Endpoint_Basic() {
-            var x = new Endpoint("Test", "Protocol") { DisplayName = "DN", Description = "D" };
+            var x = new Endpoint("Test", "Protocol") { Description = "D" };
             Assert.AreEqual("Test", x.Name);
             Assert.AreEqual("Protocol", x.ProtocolName);
-            Assert.AreEqual("DN", x.DisplayName);
             Assert.AreEqual("D", x.Description);
         }
 
@@ -184,7 +183,7 @@ namespace Clamito.Test {
             s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
-            x.DisplayName = "Test";
+            x.Description = "Test";
         }
 
         [TestMethod]

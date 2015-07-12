@@ -135,10 +135,8 @@ namespace Clamito {
                 foreach (XmlElement endpointElement in xml.SelectNodes("Clamito/Endpoints/Endpoint")) {
                     var name = GetValue(endpointElement.Attributes["name"]);
                     var protocolName = GetValue(endpointElement.Attributes["protocolName"]);
-                    var displayName = GetValue(endpointElement.Attributes["displayName"]);
                     var description = GetValue(endpointElement.Attributes["description"]);
                     var newEndpoint = new Endpoint(name, protocolName) {
-                        DisplayName = displayName,
                         Description = description
                     };
                     doc.Endpoints.Add(newEndpoint);
@@ -268,7 +266,6 @@ namespace Clamito {
             foreach (var endpoint in this.Endpoints) {
                 xw.WriteStartElement("Endpoint");
                 xw.WriteAttributeString("name", endpoint.Name);
-                xw.WriteAttributeString("displayName", endpoint.DisplayName);
                 if (endpoint.ProtocolName != null) { xw.WriteAttributeString("protocolName", endpoint.ProtocolName); }
                 if (!string.IsNullOrEmpty(endpoint.Description)) { xw.WriteAttributeString("description", endpoint.Description); }
 

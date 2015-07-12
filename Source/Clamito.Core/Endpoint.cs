@@ -38,7 +38,7 @@ namespace Clamito {
 
             this.ProtocolName = protocolName;
             this.Data = new FieldCollection();
-            this.Data.Changed += delegate(Object sender, EventArgs e) {
+            this.Data.Changed += delegate (Object sender, EventArgs e) {
                 this.OnChanged(new EventArgs());
             };
         }
@@ -72,21 +72,6 @@ namespace Clamito {
                 } catch (ArgumentOutOfRangeException) {
                     throw new ArgumentOutOfRangeException(nameof(value), "Name already exists in collection.");
                 }
-            }
-        }
-
-        private string _displayName;
-        /// <summary>
-        /// Gets/sets display name for an endpoint.
-        /// If display name is set to null, it will mirror name.
-        /// </summary>
-        /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
-        public string DisplayName {
-            get { return string.IsNullOrEmpty(this._displayName) ? this.Name : this._displayName; }
-            set {
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
-                this._displayName = value;
-                this.OnChanged(new EventArgs());
             }
         }
 
@@ -168,7 +153,7 @@ namespace Clamito {
         /// Returns a string that represents the current object.
         /// </summary>
         public override string ToString() {
-            return this.DisplayName;
+            return string.IsNullOrEmpty(this.Description) ? this.Name : this.Description;
         }
 
         #endregion
@@ -190,7 +175,7 @@ namespace Clamito {
         /// Creates a copy of the endpoint.
         /// </summary>
         public Endpoint Clone() {
-            var endpoint = new Endpoint(this.Name, this.ProtocolName) { DisplayName = this.DisplayName, Description = this.Description };
+            var endpoint = new Endpoint(this.Name, this.ProtocolName) { Description = this.Description };
             foreach (var field in this.Data) {
                 endpoint.Data.Add(field.Clone());
             }
@@ -201,7 +186,7 @@ namespace Clamito {
         /// Creates a read-only copy of the endpoint.
         /// </summary>
         public Endpoint AsReadOnly() {
-            var endpoint = new Endpoint(this.Name, this.ProtocolName) { DisplayName = this.DisplayName, Description = this.Description };
+            var endpoint = new Endpoint(this.Name, this.ProtocolName) { Description = this.Description };
             endpoint.Data = this.Data.AsReadOnly();
             endpoint.IsReadOnly = true;
             return endpoint;
