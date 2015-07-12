@@ -50,7 +50,7 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Command_Clone() {
-            var s = new Command("Name") { Description = "Note" };
+            var s = new Command("Name") { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -58,12 +58,12 @@ namespace Clamito.Test {
 
             var x = s.Clone();
             s.Name = "NewName";
-            s.Description = "NewNote";
+            s.Caption = "NewNote";
             s.Data.Clear();
 
             Assert.AreEqual(InteractionKind.Command, x.Kind);
             Assert.AreEqual("Name", x.Name);
-            Assert.AreEqual("Note", x.Description);
+            Assert.AreEqual("Note", x.Caption);
             Assert.AreEqual(4, ((Command)x).Data.Count);
             Assert.AreEqual("H1", ((Command)x).Data[0].Name);
             Assert.AreEqual("V1", ((Command)x).Data[0].Value);
@@ -79,7 +79,7 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Command_AsReadOnly() {
-            var s = new Command("Name") { Description = "Note" };
+            var s = new Command("Name") { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -87,12 +87,12 @@ namespace Clamito.Test {
 
             var x = s.AsReadOnly();
             s.Name = "NewName";
-            s.Description = "NewNote";
+            s.Caption = "NewNote";
             s.Data.Clear();
 
             Assert.AreEqual(InteractionKind.Command, x.Kind);
             Assert.AreEqual("Name", x.Name);
-            Assert.AreEqual("Note", x.Description);
+            Assert.AreEqual("Note", x.Caption);
             Assert.AreEqual(4, ((Command)x).Data.Count);
             Assert.AreEqual("H1", ((Command)x).Data[0].Name);
             Assert.AreEqual("V1", ((Command)x).Data[0].Value);
@@ -109,7 +109,7 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Command_AsReadOnly_Change1() {
-            var s = new Command("Name") { Description = "Note" };
+            var s = new Command("Name") { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -122,14 +122,14 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Command_AsReadOnly_Change2() {
-            var s = new Command("Name") { Description = "Note" };
+            var s = new Command("Name") { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
             s.Data.Add(new Field("F2"));
 
             var x = (Command)(s.AsReadOnly());
-            x.Description = "Note";
+            x.Caption = "Note";
         }
 
     }

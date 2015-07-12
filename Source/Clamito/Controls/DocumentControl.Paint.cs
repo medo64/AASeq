@@ -150,7 +150,7 @@ namespace Clamito.Gui {
         }
 
         private IEnumerable<SensePair> PaintEndpoint(Endpoint endpoint, Graphics g, DisplayStyle style, DisplayInk ink, int x, int y, int maxHeight, Font font, Size charSize) {
-            var endpointText = string.IsNullOrEmpty(endpoint.Description) ? endpoint.Name : endpoint.Description;
+            var endpointText = string.IsNullOrEmpty(endpoint.Caption) ? endpoint.Name : endpoint.Caption;
             var size = g.MeasureString(endpointText, font, charSize.Width * style.MaxCharCount, style.TitleFormat).ToSize();
             var rect = new Rectangle(x - size.Width / 2 - charSize.Width / 2, y, size.Width + charSize.Width, charSize.Height);
             var senseRect = new Rectangle(rect.Left, rect.Top, rect.Width + 1, rect.Height + 1);
@@ -192,13 +192,13 @@ namespace Clamito.Gui {
             }
 
             //description
-            if (!string.IsNullOrWhiteSpace(command.Description)) {
+            if (!string.IsNullOrWhiteSpace(command.Caption)) {
                 var maxRect = new Rectangle(Math.Min(sourceX, destinationX) + fontSize.Width, middleY, Math.Abs(destinationX - sourceX) - fontSize.Width * 2, fontSize.Height);
-                var size = g.MeasureString(command.Description, font, maxRect.Size, LookAndFeel.Screen.Interaction.TitleFormat).ToSize();
+                var size = g.MeasureString(command.Caption, font, maxRect.Size, LookAndFeel.Screen.Interaction.TitleFormat).ToSize();
                 var centerX = (sourceX + destinationX) / 2;
                 var rect = new Rectangle(centerX - size.Width / 2 - arrowX / 2, maxRect.Top, size.Width + arrowX, maxRect.Height);
                 g.FillRectangle(ink.BackBrush, rect);
-                g.DrawString(command.Description, font, ink.LightBrush, maxRect, LookAndFeel.Screen.Interaction.TitleFormat);
+                g.DrawString(command.Caption, font, ink.LightBrush, maxRect, LookAndFeel.Screen.Interaction.TitleFormat);
                 sensePairs.Add(new SensePair(rect, command, isMajor: false));
             }
 
@@ -222,13 +222,13 @@ namespace Clamito.Gui {
             }
 
             //description
-            if (!string.IsNullOrWhiteSpace(message.Description)) {
+            if (!string.IsNullOrWhiteSpace(message.Caption)) {
                 var maxRect = new Rectangle(Math.Min(sourceX, destinationX) + fontSize.Width, middleY, Math.Abs(destinationX - sourceX) - fontSize.Width * 2, fontSize.Height);
-                var size = g.MeasureString(message.Description, font, maxRect.Size, LookAndFeel.Screen.Interaction.TitleFormat).ToSize();
+                var size = g.MeasureString(message.Caption, font, maxRect.Size, LookAndFeel.Screen.Interaction.TitleFormat).ToSize();
                 var centerX = (sourceX + destinationX) / 2;
                 var rect = new Rectangle(centerX - size.Width / 2 - arrowX / 2, maxRect.Top, size.Width + arrowX, maxRect.Height);
                 g.FillRectangle(ink.BackBrush, rect);
-                g.DrawString(message.Description, font, ink.LightBrush, maxRect, LookAndFeel.Screen.Interaction.TitleFormat);
+                g.DrawString(message.Caption, font, ink.LightBrush, maxRect, LookAndFeel.Screen.Interaction.TitleFormat);
                 sensePairs.Add(new SensePair(rect, message, isMajor: false));
             }
 

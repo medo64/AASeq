@@ -5,7 +5,7 @@
         <Endpoint name="Pcrf" displayName="PCRF" protocolName="Diameter" />
     </Endpoints>
     <Interactions>
-        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" description="INITIAL_REQUEST">
+        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" caption="INITIAL_REQUEST">
             <Fields>
                 <Field name=".Flags" tags="R P" value="" />
                 <Field name=".Application-Id" value="16777238" />
@@ -60,7 +60,7 @@
         </Message>
         <Message name="Credit-Control-Response" source="Pcrf" destination="Me" />
         <Command name="Wait" parameters="5s" />
-        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" description="Update 1">
+        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" caption="Update 1">
             <Fields>
                 <Field name=".Flags" tags="P R" value="" />
                 <Field name=".Application-Id" value="16777238" />
@@ -113,7 +113,7 @@
         </Message>
         <Message name="Credit-Control-Response" source="Pcrf" destination="Me" />
         <Command name="Wait" parameters="10s-20s" />
-        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" description="Update 2">
+        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" caption="Update 2">
             <Fields>
                 <Field name=".Flags" tags="P R" value="" />
                 <Field name=".Application-Id" value="16777238" />
@@ -166,7 +166,7 @@
         </Message>
         <Message name="Credit-Control-Response" source="Pcrf" destination="Me" />
         <Command name="Wait" parameters="30s-60s" />
-        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" description="TERMINATION_REQUEST">
+        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" caption="TERMINATION_REQUEST">
             <Fields>
                 <Field name=".Flags" tags="R P" value="" />
                 <Field name=".Application-Id" value="16777238" />

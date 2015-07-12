@@ -75,17 +75,17 @@ namespace Clamito {
             }
         }
 
-        private string _description;
+        private string _caption;
         /// <summary>
-        /// Gets/sets description.
+        /// Gets/sets caption.
         /// </summary>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
-        public string Description {
-            get { return this._description ?? ""; }
+        public string Caption {
+            get { return this._caption ?? ""; }
             set {
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 if (value == null) { value = ""; }
-                this._description = value;
+                this._caption = value;
                 this.OnChanged(new EventArgs());
             }
         }
@@ -153,7 +153,7 @@ namespace Clamito {
         /// Returns a string that represents the current object.
         /// </summary>
         public override string ToString() {
-            return string.IsNullOrEmpty(this.Description) ? this.Name : this.Description;
+            return string.IsNullOrEmpty(this.Caption) ? this.Name : this.Caption;
         }
 
         #endregion
@@ -175,7 +175,7 @@ namespace Clamito {
         /// Creates a copy of the endpoint.
         /// </summary>
         public Endpoint Clone() {
-            var endpoint = new Endpoint(this.Name, this.ProtocolName) { Description = this.Description };
+            var endpoint = new Endpoint(this.Name, this.ProtocolName) { Caption = this.Caption };
             foreach (var field in this.Data) {
                 endpoint.Data.Add(field.Clone());
             }
@@ -186,7 +186,7 @@ namespace Clamito {
         /// Creates a read-only copy of the endpoint.
         /// </summary>
         public Endpoint AsReadOnly() {
-            var endpoint = new Endpoint(this.Name, this.ProtocolName) { Description = this.Description };
+            var endpoint = new Endpoint(this.Name, this.ProtocolName) { Caption = this.Caption };
             endpoint.Data = this.Data.AsReadOnly();
             endpoint.IsReadOnly = true;
             return endpoint;

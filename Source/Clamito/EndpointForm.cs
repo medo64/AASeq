@@ -7,7 +7,7 @@ namespace Clamito.Gui {
         public EndpointForm(Document document, Endpoint endpoint, Endpoint insertBefore = null, ProtocolPlugin defaultProtocol = null) {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
-            foreach (var control in new Control[] { txtName, cmbProtocol, txtDescription, fccData }) {
+            foreach (var control in new Control[] { txtName, cmbProtocol, txtCaption, fccData }) {
                 erp.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
                 erp.SetIconPadding(control, SystemInformation.BorderSize.Width);
             }
@@ -22,13 +22,13 @@ namespace Clamito.Gui {
             this.endpoint = endpoint;
             this.insertBefore = insertBefore;
             if (endpoint == null) {
-                this.endpointClone = new Endpoint(this.document.Endpoints.GetUniqueName("Endpoint"), (defaultProtocol != null) ? defaultProtocol.Name : null) { Description = (defaultProtocol != null) ? "New " + defaultProtocol.DisplayName : "New endpoint" };
+                this.endpointClone = new Endpoint(this.document.Endpoints.GetUniqueName("Endpoint"), (defaultProtocol != null) ? defaultProtocol.Name : null) { Caption = (defaultProtocol != null) ? "New " + defaultProtocol.DisplayName : "New endpoint" };
                 this.Text = "New endpoint";
             } else {
                 this.endpointClone = endpoint.Clone();
                 this.Text = "Endpoint properties";
             }
-            txtDescription.Select();
+            txtCaption.Select();
 
             Medo.Windows.Forms.State.SetupOnLoadAndClose(this);
         }
@@ -46,7 +46,7 @@ namespace Clamito.Gui {
 
         private void Form_Load(object sender, EventArgs e) {
             txtName.Text = this.endpointClone.Name;
-            txtDescription.Text = this.endpointClone.Description;
+            txtCaption.Text = this.endpointClone.Caption;
             fccData.Text = (this.endpoint != null) ? endpoint.Data.ToString() : "";
 
             if (this.endpointClone.ProtocolName == null) {
@@ -76,12 +76,12 @@ namespace Clamito.Gui {
 
             string nameError = null;
             string protocolError = null;
-            string descriptionError = null;
-            string contentError = null;
+            string captionError = null;
+            string dataError = null;
 
             var name = txtName.Text.Trim();
             var protocol = cmbProtocol.SelectedItem as ProtocolPlugin;
-            var description = txtDescription.Text.Trim();
+            var caption = txtCaption.Text.Trim();
 
             try { this.endpointClone.Name = name; } catch (Exception ex) { nameError = ex.Message; }
             try {
@@ -95,37 +95,37 @@ namespace Clamito.Gui {
             } catch (Exception ex) {
                 protocolError = ex.Message;
             }
-            try { this.endpointClone.Description = description; } catch (Exception ex) { descriptionError = ex.Message; }
+            try { this.endpointClone.Caption = caption; } catch (Exception ex) { captionError = ex.Message; }
 
             var endpointByName = this.document.Endpoints[name];
             if (endpoint == null) { //it is a new item
                 if (endpointByName != null) {
-                    nameError = "Endpoint with same name already exists.";
+                    nameError = "Endpoint with the same name already exists.";
                 }
             } else {
                 if ((endpointByName != null) && !endpointByName.Equals(this.endpoint)) {
-                    nameError = "Endpoint with same name already exists.";
+                    nameError = "Endpoint with the same name already exists.";
                 }
             }
 
             if (!fccData.IsOK) {
-                contentError = fccData.ErrorText;
+                dataError = fccData.ErrorText;
             }
 
             erp.SetError(txtName, nameError);
             erp.SetError(cmbProtocol, protocolError);
-            erp.SetError(txtDescription, descriptionError);
-            erp.SetError(fccData, contentError);
+            erp.SetError(txtCaption, captionError);
+            erp.SetError(fccData, dataError);
 
-            btnOK.Enabled = (nameError == null) && (protocolError == null) && (descriptionError == null) && (contentError == null);
+            btnOK.Enabled = (nameError == null) && (protocolError == null) && (captionError == null) && (dataError == null);
         }
 
 
-        private void txtContent_Enter(object sender, EventArgs e) {
+        private void fccData_Enter(object sender, EventArgs e) {
             this.AcceptButton = null;
         }
 
-        private void txtContent_Leave(object sender, EventArgs e) {
+        private void fccData_Leave(object sender, EventArgs e) {
             this.AcceptButton = btnOK;
         }
 
@@ -141,7 +141,7 @@ namespace Clamito.Gui {
             } else {
                 this.endpoint.Name = this.endpointClone.Name;
                 this.endpoint.ProtocolName = this.endpointClone.ProtocolName;
-                this.endpoint.Description = this.endpointClone.Description;
+                this.endpoint.Caption = this.endpointClone.Caption;
                 this.SelectedEndpoint = this.endpoint;
             }
             this.SelectedEndpoint.Data.Clear();

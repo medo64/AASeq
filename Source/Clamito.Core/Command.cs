@@ -48,14 +48,14 @@ namespace Clamito {
         /// Creates a copy of the command.
         /// </summary>
         public override Interaction Clone() {
-            return new Command(this.Name, this.Data.Clone()) { Description = this.Description };
+            return new Command(this.Name, this.Data.Clone()) { Caption = this.Caption };
         }
 
         /// <summary>
         /// Creates a read-only copy of the command.
         /// </summary>
         public override Interaction AsReadOnly() {
-            return new Command(this.Name, this.Data.AsReadOnly()) { Description = this.Description, IsReadOnly = true };
+            return new Command(this.Name, this.Data.AsReadOnly()) { Caption = this.Caption, IsReadOnly = true };
         }
 
         #endregion

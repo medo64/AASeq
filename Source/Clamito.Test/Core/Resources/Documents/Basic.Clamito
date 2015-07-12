@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Clamito version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmedved.com/schema/clamito.xsd">
     <Endpoints>
-        <Endpoint name="Endpoint1" description="Endpoint 1">
+        <Endpoint name="Endpoint1" caption="Endpoint 1">
             <Field name="Test" tags=".W W" value="test" />
             <Field name="SubFirst">
                 <Field name="SubMiddle" tags="YYY !ZZZ">
@@ -9,10 +9,10 @@
                 </Field>
             </Field>
         </Endpoint>
-        <Endpoint name="Endpoint2" protocolName="Dummy" description="Endpoint 2" />
+        <Endpoint name="Endpoint2" caption="Endpoint 2" protocolName="Dummy" />
     </Endpoints>
     <Interactions>
-        <Message name="Request" source="Endpoint1" destination="Endpoint2" description="Something">
+        <Message name="Request" caption="Something" source="Endpoint1" destination="Endpoint2">
             <Field name=".Test" tags="XXX .YYY !.ZZZ" value="Some text" />
             <Field name="Outer">
                 <Field name="Inner" tags="YYY !ZZZ">
@@ -20,7 +20,7 @@
                 </Field>
             </Field>
         </Message>
-        <Command name="Wait" description="Error if less than 10s.">
+        <Command name="Wait" caption="Error if less than 10s.">
             <Field name="Interval" tags="XXX .YYY !.ZZZ" value="10s" />
         </Command>
         <Message name="Response" source="Endpoint2" destination="Endpoint1" />

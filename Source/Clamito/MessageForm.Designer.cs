@@ -28,7 +28,7 @@ namespace Clamito.Gui {
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
-            this.lblDescription = new System.Windows.Forms.Label();
+            this.lblCaption = new System.Windows.Forms.Label();
             this.lblData = new System.Windows.Forms.Label();
             this.erp = new System.Windows.Forms.ErrorProvider(this.components);
             this.cmbSource = new System.Windows.Forms.ComboBox();
@@ -36,7 +36,7 @@ namespace Clamito.Gui {
             this.lblSource = new System.Windows.Forms.Label();
             this.lblDestination = new System.Windows.Forms.Label();
             this.fccData = new Clamito.Gui.FieldCollectionControl();
-            this.txtDescription = new Clamito.Gui.TextBoxControl();
+            this.txtCaption = new Clamito.Gui.TextBoxControl();
             this.txtName = new Clamito.Gui.TextBoxControl();
             ((System.ComponentModel.ISupportInitialize)(this.erp)).BeginInit();
             this.SuspendLayout();
@@ -76,14 +76,14 @@ namespace Clamito.Gui {
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Name:";
             // 
-            // lblDescription
+            // lblCaption
             // 
-            this.lblDescription.AutoSize = true;
-            this.lblDescription.Location = new System.Drawing.Point(12, 103);
-            this.lblDescription.Name = "lblDescription";
-            this.lblDescription.Size = new System.Drawing.Size(83, 17);
-            this.lblDescription.TabIndex = 6;
-            this.lblDescription.Text = "Description:";
+            this.lblCaption.AutoSize = true;
+            this.lblCaption.Location = new System.Drawing.Point(12, 43);
+            this.lblCaption.Name = "lblCaption";
+            this.lblCaption.Size = new System.Drawing.Size(60, 17);
+            this.lblCaption.TabIndex = 2;
+            this.lblCaption.Text = "Caption:";
             // 
             // lblData
             // 
@@ -105,10 +105,10 @@ namespace Clamito.Gui {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbSource.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSource.FormattingEnabled = true;
-            this.cmbSource.Location = new System.Drawing.Point(130, 40);
+            this.cmbSource.Location = new System.Drawing.Point(130, 68);
             this.cmbSource.Name = "cmbSource";
             this.cmbSource.Size = new System.Drawing.Size(320, 24);
-            this.cmbSource.TabIndex = 3;
+            this.cmbSource.TabIndex = 5;
             this.cmbSource.SelectedIndexChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // cmbDestination
@@ -117,28 +117,28 @@ namespace Clamito.Gui {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.cmbDestination.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDestination.FormattingEnabled = true;
-            this.cmbDestination.Location = new System.Drawing.Point(130, 70);
+            this.cmbDestination.Location = new System.Drawing.Point(130, 98);
             this.cmbDestination.Name = "cmbDestination";
             this.cmbDestination.Size = new System.Drawing.Size(320, 24);
-            this.cmbDestination.TabIndex = 5;
+            this.cmbDestination.TabIndex = 7;
             this.cmbDestination.SelectedIndexChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // lblSource
             // 
             this.lblSource.AutoSize = true;
-            this.lblSource.Location = new System.Drawing.Point(12, 43);
+            this.lblSource.Location = new System.Drawing.Point(12, 71);
             this.lblSource.Name = "lblSource";
             this.lblSource.Size = new System.Drawing.Size(57, 17);
-            this.lblSource.TabIndex = 2;
+            this.lblSource.TabIndex = 4;
             this.lblSource.Text = "Source:";
             // 
             // lblDestination
             // 
             this.lblDestination.AutoSize = true;
-            this.lblDestination.Location = new System.Drawing.Point(12, 73);
+            this.lblDestination.Location = new System.Drawing.Point(12, 101);
             this.lblDestination.Name = "lblDestination";
             this.lblDestination.Size = new System.Drawing.Size(83, 17);
-            this.lblDestination.TabIndex = 4;
+            this.lblDestination.TabIndex = 6;
             this.lblDestination.Text = "Destination:";
             // 
             // fccData
@@ -161,15 +161,15 @@ namespace Clamito.Gui {
             this.fccData.Enter += new System.EventHandler(this.fccData_Enter);
             this.fccData.Leave += new System.EventHandler(this.fccData_Leave);
             // 
-            // txtDescription
+            // txtCaption
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCaption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(130, 100);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(320, 22);
-            this.txtDescription.TabIndex = 7;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txt_TextChanged);
+            this.txtCaption.Location = new System.Drawing.Point(130, 40);
+            this.txtCaption.Name = "txtCaption";
+            this.txtCaption.Size = new System.Drawing.Size(320, 22);
+            this.txtCaption.TabIndex = 3;
+            this.txtCaption.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // txtName
             // 
@@ -193,12 +193,12 @@ namespace Clamito.Gui {
             this.Controls.Add(this.cmbDestination);
             this.Controls.Add(this.cmbSource);
             this.Controls.Add(this.lblData);
-            this.Controls.Add(this.lblDescription);
+            this.Controls.Add(this.lblCaption);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.fccData);
-            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.txtCaption);
             this.Controls.Add(this.txtName);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -218,12 +218,12 @@ namespace Clamito.Gui {
         #endregion
 
         private TextBoxControl txtName;
-        private TextBoxControl txtDescription;
+        private TextBoxControl txtCaption;
         private FieldCollectionControl fccData;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Label lblDescription;
+        private System.Windows.Forms.Label lblCaption;
         private System.Windows.Forms.Label lblData;
         private System.Windows.Forms.ErrorProvider erp;
         private System.Windows.Forms.ComboBox cmbDestination;

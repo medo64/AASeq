@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Clamito version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmedved.com/schema/clamito.xsd">
     <Endpoints>
-        <Endpoint name="Me" displayName="Local" />
-        <Endpoint name="Local_IPv4" displayName="Local IPv4" protocolName="Dummy" />
-        <Endpoint name="Local_IPv4_Alternate" displayName="Local IPv4" protocolName="Dummy" />
-        <Endpoint name="Local_IPv6" displayName="Local IPv6" protocolName="Dummy" />
+        <Endpoint name="Me" />
+        <Endpoint name="Local_IPv4" protocolName="Dummy" caption="Local IPv4" />
+        <Endpoint name="Local_IPv4_Alternate" protocolName="Dummy" caption="Local IPv4" />
+        <Endpoint name="Local_IPv6" protocolName="Dummy" caption="Local IPv6" />
     </Endpoints>
     <Interactions>
         <Message name="Ping" source="Me" destination="Local_IPv4" />
@@ -14,7 +14,7 @@
             <Field name="Time" value=".*" />
             <Field name="Data" value="(Test).*" />
         </Message>
-        <Command name="Wait" description="1 second is default">
+        <Command name="Wait" caption="1 second is default">
             <Field name="Interval" value="1s" />
         </Command>
         <Message name="Ping" source="Me" destination="Local_IPv6" />

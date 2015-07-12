@@ -80,6 +80,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="data">Data fields to validate.</param>
         public override ResultCollection ValidateData(FieldCollection data) {
+            if (data == null) { throw new ArgumentNullException(nameof(data), "Data cannot be null."); }
             var errors = new List<ErrorResult>();
             foreach (var path in data.AllPaths) {
                 if (!path.Path.Equals("Text") && !path.Path.Equals("Level")) {

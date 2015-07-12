@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Clamito version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmedved.com/schema/clamito.xsd">
     <Endpoints>
-        <Endpoint name="Me" displayName="Me" />
-        <Endpoint name="Ldap" displayName="LDAP" protocolName="Any" />
+        <Endpoint name="Me" caption="Me" />
+        <Endpoint name="Ldap" caption="LDAP" protocolName="Any" />
     </Endpoints>
     <Interactions>
         <Message name="BindRequest" source="Me" destination="Ldap">
@@ -29,7 +29,7 @@
                 <Field name="objectClass" value="inetOrgPerson" />
                 <Field name="uid" value="jdoe" />
                 <Field name="cn" value="John Doe" />
-                <Field name="displayName" value="John Doe" />
+                <Field name="caption" value="John Doe" />
                 <Field name="givenName" value="John" />
                 <Field name="sn" value="Doe" />
             </Fields>

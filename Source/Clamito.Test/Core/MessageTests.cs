@@ -118,7 +118,7 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Message_Clone() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -126,12 +126,12 @@ namespace Clamito.Test {
 
             var x = s.Clone();
             s.Name = "NewName";
-            s.Description = "NewNote";
+            s.Caption = "NewNote";
             s.Data.Clear();
 
             Assert.AreEqual(true, x.IsMessage);
             Assert.AreEqual("Name", x.Name);
-            Assert.AreEqual("Note", x.Description);
+            Assert.AreEqual("Note", x.Caption);
             Assert.AreEqual(4, ((Message)x).Data.Count);
             Assert.AreEqual("H1", ((Message)x).Data[0].Name);
             Assert.AreEqual("V1", ((Message)x).Data[0].Value);
@@ -147,7 +147,7 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Message_AsReadOnly() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -155,12 +155,12 @@ namespace Clamito.Test {
 
             var x = s.AsReadOnly();
             s.Name = "NewName";
-            s.Description = "NewNote";
+            s.Caption = "NewNote";
             s.Data.Clear();
 
             Assert.AreEqual(true, x.IsMessage);
             Assert.AreEqual("Name", x.Name);
-            Assert.AreEqual("Note", x.Description);
+            Assert.AreEqual("Note", x.Caption);
             Assert.AreEqual(4, ((Message)x).Data.Count);
             Assert.AreEqual("H1", ((Message)x).Data[0].Name);
             Assert.AreEqual("V1", ((Message)x).Data[0].Value);
@@ -177,7 +177,7 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Message_AsReadOnly_Change1() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -190,46 +190,46 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Message_AsReadOnly_Change2() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
             s.Data.Add(new Field("F2"));
 
             var x = (Message)(s.AsReadOnly());
-            x.Description = "Note";
+            x.Caption = "Note";
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Message_AsReadOnly_Change3() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
             s.Data.Add(new Field("F2"));
 
             var x = (Message)(s.AsReadOnly());
-            x.Source.Description = "XXX";
+            x.Source.Caption = "XXX";
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Message_AsReadOnly_Change4() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
             s.Data.Add(new Field("F2"));
 
             var x = (Message)(s.AsReadOnly());
-            x.Destination.Description = "XXX";
+            x.Destination.Caption = "XXX";
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Message_AsReadOnly_Change5() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -242,7 +242,7 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Message_AsReadOnly_Change6() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -255,7 +255,7 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Message_AsReadOnly_Change7() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));
@@ -268,7 +268,7 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Message_AsReadOnly_Change8() {
-            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Description = "Note" };
+            var s = new Message("Name", new Endpoint("S"), new Endpoint("D")) { Caption = "Note" };
             s.Data.Add(new Field("H1", "V1"));
             s.Data.Add(new Field("H2"));
             s.Data.Add(new Field("F1", "V1"));

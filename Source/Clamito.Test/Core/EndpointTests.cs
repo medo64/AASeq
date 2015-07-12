@@ -7,10 +7,10 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Endpoint_Basic() {
-            var x = new Endpoint("Test", "Protocol") { Description = "D" };
+            var x = new Endpoint("Test", "Protocol") { Caption = "D" };
             Assert.AreEqual("Test", x.Name);
             Assert.AreEqual("Protocol", x.ProtocolName);
-            Assert.AreEqual("D", x.Description);
+            Assert.AreEqual("D", x.Caption);
         }
 
         [TestMethod]
@@ -80,7 +80,7 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Endpoint_Clone() {
-            var s = new Endpoint("Test", "Protocol") { Description = "Note" };
+            var s = new Endpoint("Test", "Protocol") { Caption = "Note" };
             s.Data.Add(new Field("P1", "V1"));
             s.Data.Add(new Field("P2", "V2"));
             s.Data.Add(new Field("P3", "V3"));
@@ -89,11 +89,11 @@ namespace Clamito.Test {
             s.Data.Clear();
             s.Name = "NewTest";
             s.ProtocolName = "NewProtocol";
-            s.Description = "NewNote";
+            s.Caption = "NewNote";
 
             Assert.AreEqual("Test", x.Name);
             Assert.AreEqual("Protocol", x.ProtocolName);
-            Assert.AreEqual("Note", x.Description);
+            Assert.AreEqual("Note", x.Caption);
             Assert.AreEqual("P1", x.Data[0].Name);
             Assert.AreEqual("V1", x.Data[0].Value);
             Assert.AreEqual("P2", x.Data[1].Name);
@@ -104,7 +104,7 @@ namespace Clamito.Test {
 
         [TestMethod]
         public void Endpoint_AsReadOnly() {
-            var s = new Endpoint("Test", "Protocol") { Description = "Note" };
+            var s = new Endpoint("Test", "Protocol") { Caption = "Note" };
             s.Data.Add(new Field("P1", "V1"));
             s.Data.Add(new Field("P2", "V2"));
             s.Data.Add(new Field("P3", "V3"));
@@ -113,11 +113,11 @@ namespace Clamito.Test {
             s.Data.Clear();
             s.Name = "NewTest";
             s.ProtocolName = "NewProtocol";
-            s.Description = "NewNote";
+            s.Caption = "NewNote";
 
             Assert.AreEqual("Test", x.Name);
             Assert.AreEqual("Protocol", x.ProtocolName);
-            Assert.AreEqual("Note", x.Description);
+            Assert.AreEqual("Note", x.Caption);
             Assert.AreEqual("P1", x.Data[0].Name);
             Assert.AreEqual("V1", x.Data[0].Value);
             Assert.AreEqual("P2", x.Data[1].Name);
@@ -129,7 +129,7 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change1() {
-            var s = new Endpoint("Test", "Protocol") { Description = "Note" };
+            var s = new Endpoint("Test", "Protocol") { Caption = "Note" };
             s.Data.Add(new Field("P1", "V1"));
             s.Data.Add(new Field("P2", "V2"));
             s.Data.Add(new Field("P3", "V3"));
@@ -141,19 +141,19 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change2() {
-            var s = new Endpoint("Test", "Protocol") { Description = "Note" };
+            var s = new Endpoint("Test", "Protocol") { Caption = "Note" };
             s.Data.Add(new Field("P1", "V1"));
             s.Data.Add(new Field("P2", "V2"));
             s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
-            x.Description = "Note";
+            x.Caption = "Note";
         }
 
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change3() {
-            var s = new Endpoint("Test", "Protocol") { Description = "Note" };
+            var s = new Endpoint("Test", "Protocol") { Caption = "Note" };
             s.Data.Add(new Field("P1", "V1"));
             s.Data.Add(new Field("P2", "V2"));
             s.Data.Add(new Field("P3", "V3"));
@@ -165,7 +165,7 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change4() {
-            var s = new Endpoint("Test", "Protocol") { Description = "Note" };
+            var s = new Endpoint("Test", "Protocol") { Caption = "Note" };
             s.Data.Add(new Field("P1", "V1"));
             s.Data.Add(new Field("P2", "V2"));
             s.Data.Add(new Field("P3", "V3"));
@@ -177,13 +177,13 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(NotSupportedException))]
         public void Endpoint_AsReadOnly_Change5() {
-            var s = new Endpoint("Test", "Protocol") { Description = "Note" };
+            var s = new Endpoint("Test", "Protocol") { Caption = "Note" };
             s.Data.Add(new Field("P1", "V1"));
             s.Data.Add(new Field("P2", "V2"));
             s.Data.Add(new Field("P3", "V3"));
 
             var x = s.AsReadOnly();
-            x.Description = "Test";
+            x.Caption = "Test";
         }
 
         [TestMethod]

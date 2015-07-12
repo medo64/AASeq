@@ -29,7 +29,7 @@
                 <Field name="Data" modifiers="RegEx" value="(Test).*" />
             </Fields>
         </Message>
-        <Command name="Wait" description="1s" />
+        <Command name="Wait" caption="1s" />
         <Message name="Ping" source="Me" destination="Local_IPv6">
             <Fields>
                 <Field name=".Size" value="128" />

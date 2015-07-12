@@ -13,7 +13,7 @@
             </Fields>
         </Message>
         <Message name="BindResponse" source="Ldap" destination="Me" />
-        <Message name="SearchReq" source="Me" destination="Ldap" description="jdoe">
+        <Message name="SearchReq" source="Me" destination="Ldap" caption="jdoe">
             <Fields>
                 <Field name="baseObject" value="ou=people,dc=localdomain" />
                 <Field name="scope" value="baseObject" />

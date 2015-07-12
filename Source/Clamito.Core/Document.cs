@@ -134,10 +134,10 @@ namespace Clamito {
 
                 foreach (XmlElement endpointElement in xml.SelectNodes("Clamito/Endpoints/Endpoint")) {
                     var name = GetValue(endpointElement.Attributes["name"]);
+                    var caption = GetValue(endpointElement.Attributes["caption"]);
                     var protocolName = GetValue(endpointElement.Attributes["protocolName"]);
-                    var description = GetValue(endpointElement.Attributes["description"]);
                     var newEndpoint = new Endpoint(name, protocolName) {
-                        Description = description
+                        Caption = caption
                     };
                     doc.Endpoints.Add(newEndpoint);
 
@@ -149,9 +149,9 @@ namespace Clamito {
                 foreach (XmlElement interactionElement in xml.SelectNodes("Clamito/Interactions/*")) {
                     if (interactionElement.Name.Equals("Command", StringComparison.Ordinal)) {
                         var commandName = GetValue(interactionElement.Attributes["name"]);
-                        var commandDescription = GetValue(interactionElement.Attributes["description"]);
+                        var commandCaption = GetValue(interactionElement.Attributes["caption"]);
                         var command = new Command(commandName) {
-                            Description = commandDescription
+                            Caption = commandCaption
                         };
                         foreach (XmlElement fieldElement in interactionElement.SelectNodes("Field")) {
                             LoadFieldRecursive(fieldElement, command.Data);
@@ -159,11 +159,11 @@ namespace Clamito {
                         doc.Interactions.Add(command);
                     } else if (interactionElement.Name.Equals("Message", StringComparison.Ordinal)) {
                         var messageName = GetValue(interactionElement.Attributes["name"]);
+                        var messageCaption = GetValue(interactionElement.Attributes["caption"]);
                         var messageSource = doc.Endpoints[GetValue(interactionElement.Attributes["source"])];
                         var messageDestination = doc.Endpoints[GetValue(interactionElement.Attributes["destination"])];
-                        var messageDescription = GetValue(interactionElement.Attributes["description"]);
                         var message = new Message(messageName, messageSource, messageDestination) {
-                            Description = messageDescription
+                            Caption = messageCaption
                         };
                         foreach (XmlElement fieldElement in interactionElement.SelectNodes("Field")) {
                             LoadFieldRecursive(fieldElement, message.Data);
@@ -266,8 +266,8 @@ namespace Clamito {
             foreach (var endpoint in this.Endpoints) {
                 xw.WriteStartElement("Endpoint");
                 xw.WriteAttributeString("name", endpoint.Name);
+                if (!string.IsNullOrEmpty(endpoint.Caption)) { xw.WriteAttributeString("caption", endpoint.Caption); }
                 if (endpoint.ProtocolName != null) { xw.WriteAttributeString("protocolName", endpoint.ProtocolName); }
-                if (!string.IsNullOrEmpty(endpoint.Description)) { xw.WriteAttributeString("description", endpoint.Description); }
 
                 foreach (var field in endpoint.Data) {
                     SaveFieldRecursive(xw, field);
@@ -287,7 +287,7 @@ namespace Clamito {
                             var command = (Command)interaction;
                             xw.WriteStartElement("Command");
                             xw.WriteAttributeString("name", interaction.Name);
-                            if (!string.IsNullOrEmpty(command.Description)) { xw.WriteAttributeString("description", command.Description); }
+                            if (!string.IsNullOrEmpty(command.Caption)) { xw.WriteAttributeString("caption", command.Caption); }
 
                             if (command.HasData) {
                                 foreach (var field in command.Data) {
@@ -304,9 +304,9 @@ namespace Clamito {
                             var message = (Message)interaction;
                             xw.WriteStartElement("Message");
                             xw.WriteAttributeString("name", interaction.Name);
+                            if (!string.IsNullOrEmpty(message.Caption)) { xw.WriteAttributeString("caption", message.Caption); }
                             if (message.Source != null) { xw.WriteAttributeString("source", message.Source.Name); }
                             if (message.Destination != null) { xw.WriteAttributeString("destination", message.Destination.Name); }
-                            if (!string.IsNullOrEmpty(message.Description)) { xw.WriteAttributeString("description", message.Description); }
 
                             if (message.HasData) {
                                 foreach (var field in message.Data) {

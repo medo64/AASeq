@@ -28,12 +28,12 @@ namespace Clamito.Gui {
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lblName = new System.Windows.Forms.Label();
-            this.lblNotes = new System.Windows.Forms.Label();
+            this.lblCaption = new System.Windows.Forms.Label();
             this.erp = new System.Windows.Forms.ErrorProvider(this.components);
             this.cmbProtocol = new System.Windows.Forms.ComboBox();
             this.lblProtocol = new System.Windows.Forms.Label();
             this.txtName = new Clamito.Gui.TextBoxControl();
-            this.txtDescription = new Clamito.Gui.TextBoxControl();
+            this.txtCaption = new Clamito.Gui.TextBoxControl();
             this.lblData = new System.Windows.Forms.Label();
             this.fccData = new Clamito.Gui.FieldCollectionControl();
             ((System.ComponentModel.ISupportInitialize)(this.erp)).BeginInit();
@@ -74,14 +74,14 @@ namespace Clamito.Gui {
             this.lblName.TabIndex = 0;
             this.lblName.Text = "Name:";
             // 
-            // lblNotes
+            // lblCaption
             // 
-            this.lblNotes.AutoSize = true;
-            this.lblNotes.Location = new System.Drawing.Point(12, 43);
-            this.lblNotes.Name = "lblNotes";
-            this.lblNotes.Size = new System.Drawing.Size(83, 17);
-            this.lblNotes.TabIndex = 2;
-            this.lblNotes.Text = "Description:";
+            this.lblCaption.AutoSize = true;
+            this.lblCaption.Location = new System.Drawing.Point(12, 43);
+            this.lblCaption.Name = "lblCaption";
+            this.lblCaption.Size = new System.Drawing.Size(60, 17);
+            this.lblCaption.TabIndex = 2;
+            this.lblCaption.Text = "Caption:";
             // 
             // erp
             // 
@@ -119,15 +119,15 @@ namespace Clamito.Gui {
             this.txtName.TabIndex = 1;
             this.txtName.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
-            // txtDescription
+            // txtCaption
             // 
-            this.txtDescription.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.txtCaption.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtDescription.Location = new System.Drawing.Point(130, 40);
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(320, 22);
-            this.txtDescription.TabIndex = 3;
-            this.txtDescription.TextChanged += new System.EventHandler(this.txt_TextChanged);
+            this.txtCaption.Location = new System.Drawing.Point(130, 40);
+            this.txtCaption.Name = "txtCaption";
+            this.txtCaption.Size = new System.Drawing.Size(320, 22);
+            this.txtCaption.TabIndex = 3;
+            this.txtCaption.TextChanged += new System.EventHandler(this.txt_TextChanged);
             // 
             // lblData
             // 
@@ -155,8 +155,8 @@ namespace Clamito.Gui {
             this.fccData.TabIndex = 7;
             this.fccData.WordWrap = false;
             this.fccData.TextChanged += new System.EventHandler(this.txt_TextChanged);
-            this.fccData.Enter += new System.EventHandler(this.txtContent_Enter);
-            this.fccData.Leave += new System.EventHandler(this.txtContent_Leave);
+            this.fccData.Enter += new System.EventHandler(this.fccData_Enter);
+            this.fccData.Leave += new System.EventHandler(this.fccData_Leave);
             // 
             // EndpointForm
             // 
@@ -167,10 +167,10 @@ namespace Clamito.Gui {
             this.ClientSize = new System.Drawing.Size(462, 353);
             this.Controls.Add(this.lblData);
             this.Controls.Add(this.fccData);
-            this.Controls.Add(this.txtDescription);
+            this.Controls.Add(this.txtCaption);
             this.Controls.Add(this.lblProtocol);
             this.Controls.Add(this.cmbProtocol);
-            this.Controls.Add(this.lblNotes);
+            this.Controls.Add(this.lblCaption);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
@@ -196,11 +196,11 @@ namespace Clamito.Gui {
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Label lblName;
-        private System.Windows.Forms.Label lblNotes;
+        private System.Windows.Forms.Label lblCaption;
         private System.Windows.Forms.ErrorProvider erp;
         private System.Windows.Forms.Label lblProtocol;
         private System.Windows.Forms.ComboBox cmbProtocol;
-        private TextBoxControl txtDescription;
+        private TextBoxControl txtCaption;
         private System.Windows.Forms.Label lblData;
         private FieldCollectionControl fccData;
     }

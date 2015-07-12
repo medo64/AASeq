@@ -85,7 +85,7 @@ namespace Clamito {
         /// Creates a copy of the message.
         /// </summary>
         public override Interaction Clone() {
-            var message = new Message(this.Name, this.Source.Clone(), this.Destination.Clone(), this.Data.Clone()) { Description = this.Description };
+            var message = new Message(this.Name, this.Source.Clone(), this.Destination.Clone(), this.Data.Clone()) { Caption = this.Caption };
             return message;
         }
 
@@ -93,7 +93,7 @@ namespace Clamito {
         /// Creates a read-only copy of the message.
         /// </summary>
         public override Interaction AsReadOnly() {
-            var message = new Message(this.Name, this.Source.AsReadOnly(), this.Destination.AsReadOnly(), this.Data.AsReadOnly()) { Description = this.Description };
+            var message = new Message(this.Name, this.Source.AsReadOnly(), this.Destination.AsReadOnly(), this.Data.AsReadOnly()) { Caption = this.Caption };
             message.IsReadOnly = true;
             return message;
         }

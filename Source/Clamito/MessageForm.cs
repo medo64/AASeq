@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Globalization;
 using System.Windows.Forms;
 
 namespace Clamito.Gui {
@@ -9,7 +7,7 @@ namespace Clamito.Gui {
         public MessageForm(Document document, Message message, Interaction insertBefore = null, Endpoint defaultSource = null, Endpoint defaultDestination = null) {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
-            foreach (var control in new Control[] { txtName, cmbSource, cmbDestination, txtDescription, fccData }) {
+            foreach (var control in new Control[] { txtName, cmbSource, cmbDestination, txtCaption, fccData }) {
                 erp.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
                 erp.SetIconPadding(control, SystemInformation.BorderSize.Width);
             }
@@ -50,7 +48,7 @@ namespace Clamito.Gui {
             txtName.Text = (this.message != null) ? this.message.Name : "";
             cmbSource.SelectedItem = (this.message != null) ? this.message.Source : this.defaultSource;
             cmbDestination.SelectedItem = (this.message != null) ? this.message.Destination : this.defaultDestination;
-            txtDescription.Text = (this.message != null) ? this.message.Description : "";
+            txtCaption.Text = (this.message != null) ? this.message.Caption : "";
             fccData.Text = (this.message != null) ? this.message.Data.ToString() : "";
 
             this.isLoaded = true;
@@ -61,10 +59,10 @@ namespace Clamito.Gui {
         private void txt_TextChanged(object sender, EventArgs e) {
             if (!this.isLoaded) { return; }
 
-            string name, description;
+            string name, caption;
             Endpoint source, destination;
             FieldCollection data;
-            btnOK.Enabled = GetOutputs(out name, out source, out destination, out description, out data);
+            btnOK.Enabled = GetOutputs(out name, out source, out destination, out caption, out data);
         }
 
 
@@ -78,12 +76,12 @@ namespace Clamito.Gui {
 
 
         private void btnOK_Click(object sender, EventArgs e) {
-            string name, description;
+            string name, caption;
             Endpoint source, destination;
             FieldCollection data;
-            GetOutputs(out name, out source, out destination, out description, out data);
+            GetOutputs(out name, out source, out destination, out caption, out data);
             if (this.message == null) { //new
-                var interaction = new Message(name, source, destination) { Description = description };
+                var interaction = new Message(name, source, destination) { Caption = caption };
                 if (insertBefore == null) {
                     this.document.Interactions.Add(interaction);
                 } else {
@@ -93,14 +91,14 @@ namespace Clamito.Gui {
             } else {
                 this.message.Name = name;
                 this.message.ReplaceEndpoints(source, destination);
-                this.message.Description = description;
+                this.message.Caption = caption;
                 this.SelectedInteraction = this.message;
             }
             this.SelectedInteraction.ReplaceData(data);
         }
 
 
-        private bool GetOutputs(out string name, out Endpoint source, out Endpoint destination, out string description, out FieldCollection content) {
+        private bool GetOutputs(out string name, out Endpoint source, out Endpoint destination, out string caption, out FieldCollection content) {
             var isValid = true;
 
             name = txtName.Text.Trim();
@@ -135,7 +133,7 @@ namespace Clamito.Gui {
                 }
             }
 
-            description = txtDescription.Text.Trim();
+            caption = txtCaption.Text.Trim();
 
             content = fccData.Content;
             if (fccData.IsOK) {

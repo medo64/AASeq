@@ -7,7 +7,7 @@ namespace Clamito.Gui {
         public CommandForm(Document document, Command command, Interaction insertBefore = null) {
             InitializeComponent();
             this.Font = SystemFonts.MessageBoxFont;
-            foreach (var control in new Control[] { txtName, txtDescription, fccData }) {
+            foreach (var control in new Control[] { txtName, txtCaption, fccData }) {
                 erp.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
                 erp.SetIconPadding(control, SystemInformation.BorderSize.Width);
             }
@@ -42,7 +42,7 @@ namespace Clamito.Gui {
 
         private void Form_Load(object sender, EventArgs e) {
             txtName.Text = (this.command != null) ? this.command.Name : "";
-            txtDescription.Text = (this.command != null) ? this.command.Description : "";
+            txtCaption.Text = (this.command != null) ? this.command.Caption : "";
             fccData.Text = (this.command != null) ? this.command.Data.ToString() : "";
 
             this.isLoaded = true;
@@ -53,9 +53,9 @@ namespace Clamito.Gui {
         private void txt_TextChanged(object sender, EventArgs e) {
             if (!this.isLoaded) { return; }
 
-            string name, description;
+            string name, caption;
             FieldCollection data;
-            btnOK.Enabled = GetOutputs(out name, out description, out data);
+            btnOK.Enabled = GetOutputs(out name, out caption, out data);
         }
 
 
@@ -80,11 +80,11 @@ namespace Clamito.Gui {
 
 
         private void btnOK_Click(object sender, EventArgs e) {
-            string name, description;
+            string name, caption;
             FieldCollection data;
-            GetOutputs(out name, out description, out data);
+            GetOutputs(out name, out caption, out data);
             if (this.command == null) { //new
-                var interaction = new Command(name) { Description = description };
+                var interaction = new Command(name) { Caption = caption };
                 if (insertBefore == null) {
                     this.document.Interactions.Add(interaction);
                 } else {
@@ -93,14 +93,14 @@ namespace Clamito.Gui {
                 this.SelectedInteraction = interaction;
             } else {
                 this.command.Name = name;
-                this.command.Description = description;
+                this.command.Caption = caption;
                 this.SelectedInteraction = this.command;
             }
             this.SelectedInteraction.ReplaceData(data);
         }
 
 
-        private bool GetOutputs(out string name, out string description, out FieldCollection content) {
+        private bool GetOutputs(out string name, out string caption, out FieldCollection content) {
             var isValid = true;
 
             name = txtName.Text.Trim();
@@ -112,7 +112,7 @@ namespace Clamito.Gui {
                 isValid = false;
             }
 
-            description = txtDescription.Text.Trim();
+            caption = txtCaption.Text.Trim();
 
             content = fccData.Content;
             if (fccData.IsOK) {

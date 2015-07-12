@@ -58,17 +58,17 @@ namespace Clamito {
         }
 
 
-        private string _description;
+        private string _caption;
         /// <summary>
-        /// Gets/sets description.
+        /// Gets/sets caption.
         /// </summary>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
-        public string Description {
-            get { return this._description ?? ""; }
+        public string Caption {
+            get { return this._caption ?? ""; }
             set {
                 if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 if (value == null) { value = ""; }
-                this._description = value;
+                this._caption = value;
                 this.OnChanged(new EventArgs());
             }
         }

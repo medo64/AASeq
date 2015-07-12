@@ -282,7 +282,7 @@ namespace Clamito.Test {
             o.Add(new Message("Test", new Endpoint("S"), new Endpoint("D")));
 
             var c = o.AsReadOnly();
-            c[0].Description = "Test";
+            c[0].Caption = "Test";
         }
 
     }
