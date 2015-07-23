@@ -2,9 +2,15 @@
 <Clamito version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmedved.com/schema/clamito.xsd">
     <Endpoints>
         <Endpoint name="Me" />
-        <Endpoint name="Local_IPv4" protocolName="Dummy" caption="Local IPv4" />
-        <Endpoint name="Local_IPv4_Alternate" protocolName="Dummy" caption="Local IPv4" />
-        <Endpoint name="Local_IPv6" protocolName="Dummy" caption="Local IPv6" />
+        <Endpoint name="Local_IPv4" caption="Local IPv4" protocolName="Ping">
+            <Field name="Host" value="localhost" />
+        </Endpoint>
+        <Endpoint name="Local_IPv4_Alternate" caption="Local IPv4" protocolName="Ping">
+            <Field name="Host" value="127.0.0.1" />
+        </Endpoint>
+        <Endpoint name="Local_IPv6" caption="Local IPv6" protocolName="Ping">
+            <Field name="Host" value="::1" />
+        </Endpoint>
     </Endpoints>
     <Interactions>
         <Message name="Ping" source="Me" destination="Local_IPv4" />

@@ -100,10 +100,12 @@ namespace Clamito {
                         }
                     }
 
-                } catch (ReflectionTypeLoadException) {
+                } catch (ReflectionTypeLoadException ex) {
                     Log.Write.Information("Plugin.Initialize", "Cannot load potential plugin assembly {0}.", file.Name);
-                } catch (TypeLoadException) {
+                    Log.Write.Verbose("Plugin.Initialize", "Cannot load potential plugin assembly: {0}.", ex.Message);
+                } catch (TypeLoadException ex) {
                     Log.Write.Information("Plugin.Initialize", "Cannot check potential plugin assembly {0}.", file.Name);
+                    Log.Write.Verbose("Plugin.Initialize", "Cannot load potential plugin assembly: {0}.", ex.Message);
                 } catch (Exception ex) {
                     Log.Write.Error("Plugin.Initialize", ex);
                     throw;
