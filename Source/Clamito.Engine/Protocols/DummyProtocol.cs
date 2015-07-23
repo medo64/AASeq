@@ -40,8 +40,8 @@ namespace Clamito {
         /// <summary>
         /// Starts protocol and allocates all needed resources.
         /// </summary>
-        /// <param name="properties">Properties.</param>
-        public override ResultCollection Initialize(FieldCollection properties) {
+        /// <param name="data">Protocol data.</param>
+        public override ResultCollection Initialize(FieldCollection data) {
             return true;
         }
 
@@ -62,21 +62,21 @@ namespace Clamito {
         /// Setups message content for next receive.
         /// To be used only with dummy protocol.
         /// </summary>
-        /// <param name="content">Message content.</param>
-        public void PokeReceive(FieldCollection content) {
-            this.ContentQueue.Enqueue(content);
+        /// <param name="data">Message content.</param>
+        public void PokeReceive(FieldCollection data) {
+            this.ContentQueue.Enqueue(data);
         }
 
         /// <summary>
         /// Returns received message or null if timeout occurred.
         /// </summary>
-        /// <param name="content">Message content.</param>
-        public override ResultCollection Receive(out FieldCollection content) {
+        /// <param name="data">Message data.</param>
+        public override ResultCollection Receive(out FieldCollection data) {
             if (this.ContentQueue.Count > 0) {
-                content = this.ContentQueue.Dequeue();
+                data = this.ContentQueue.Dequeue();
                 return true;
             } else {
-                content = null;
+                data = null;
                 return ErrorResult.NewError("No content to return.");
             }
         }

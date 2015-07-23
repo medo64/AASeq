@@ -43,8 +43,8 @@ namespace Clamito {
         /// <summary>
         /// Starts protocol and allocates all needed resources.
         /// </summary>
-        /// <param name="properties">Properties.</param>
-        public abstract ResultCollection Initialize(FieldCollection properties);
+        /// <param name="data">Protocol data.</param>
+        public abstract ResultCollection Initialize(FieldCollection data);
 
         /// <summary>
         /// Stops protocol and releases all resources.
@@ -68,9 +68,9 @@ namespace Clamito {
         /// <summary>
         /// Returns received message or null if timeout occurred.
         /// </summary>
-        /// <param name="content">Message content.</param>
+        /// <param name="data">Message content.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "0#", Justification = "This method is to be used only by experienced protocol developers so there won't be any usability issues.")]
-        public abstract ResultCollection Receive(out FieldCollection content);
+        public abstract ResultCollection Receive(out FieldCollection data);
 
         #endregion
 
