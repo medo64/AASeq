@@ -37,20 +37,20 @@ namespace Clamito {
         /// Executes command.
         /// </summary>
         /// <param name="data">Command data.</param>
-        public override ResultCollection Execute(FieldCollection data) {
+        public override IEnumerable<Failure> Execute(FieldCollection data) {
             if (data == null) { throw new ArgumentNullException(nameof(data), "Data cannot be null."); }
             var interval = data["Interval"];
 
             int milliseconds;
             if (interval == null) {
                 Thread.Sleep(1000);
-                return true;
+                yield break;
             } else if (TryParseTime(interval, out milliseconds)) {
                 Thread.Sleep(milliseconds);
-                return true;
+                yield break;
             } else {
                 Thread.Sleep(1000);
-                return ErrorResult.NewWarning("Cannot parse interval {0}.", interval);
+                yield return Failure.NewWarning("Cannot parse interval {0}.", interval);
             }
         }
 
@@ -88,15 +88,14 @@ namespace Clamito {
         /// Returns data errors.
         /// </summary>
         /// <param name="data">Data fields to validate.</param>
-        public override ResultCollection ValidateData(FieldCollection data) {
+        public override IEnumerable<Failure> ValidateData(FieldCollection data) {
             if (data == null) { throw new ArgumentNullException(nameof(data), "Data cannot be null."); }
-            var errors = new List<ErrorResult>();
+            var errors = new List<Failure>();
             foreach (var path in data.AllPaths) {
-                if (!path.Path .Equals("Interval")) {
-                    errors.Add(ErrorResult.NewWarning("Unknown field: {0}.", path));
+                if (!path.Path.Equals("Interval")) {
+                    yield return Failure.NewWarning("Unknown field: {0}.", path);
                 }
             }
-            return new ResultCollection(errors);
         }
 
         #endregion

@@ -39,7 +39,7 @@ namespace Clamito {
         /// Executes command.
         /// </summary>
         /// <param name="data">Command data.</param>
-        public override ResultCollection Execute(FieldCollection data) {
+        public override IEnumerable<Failure> Execute(FieldCollection data) {
             if (data == null) { throw new ArgumentNullException(nameof(data), "Data cannot be null."); }
             var level = data["Level"] ?? "";
             var text = data["Text"] ?? "";
@@ -56,10 +56,8 @@ namespace Clamito {
                 Log.Write.Custom(TraceEventType.Verbose, text);
             } else {
                 Log.Write.Custom(TraceEventType.Verbose, text);
-                return ErrorResult.NewWarning("Cannot determine log level based on '{0}'.", level);
+                yield return Failure.NewWarning("Cannot determine log level based on '{0}'.", level);
             }
-
-            return true;
         }
 
         #endregion
@@ -79,15 +77,13 @@ namespace Clamito {
         /// Returns data errors.
         /// </summary>
         /// <param name="data">Data fields to validate.</param>
-        public override ResultCollection ValidateData(FieldCollection data) {
+        public override IEnumerable<Failure> ValidateData(FieldCollection data) {
             if (data == null) { throw new ArgumentNullException(nameof(data), "Data cannot be null."); }
-            var errors = new List<ErrorResult>();
             foreach (var path in data.AllPaths) {
                 if (!path.Path.Equals("Text") && !path.Path.Equals("Level")) {
-                    errors.Add(ErrorResult.NewWarning("Unknown field: {0}.", path));
+                    yield return Failure.NewWarning("Unknown field: {0}.", path);
                 }
             }
-            return new ResultCollection(errors);
         }
 
         #endregion

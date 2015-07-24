@@ -44,14 +44,14 @@ namespace Clamito {
         /// Starts protocol and allocates all needed resources.
         /// </summary>
         /// <param name="data">Protocol data.</param>
-        public abstract ResultCollection Initialize(FieldCollection data);
+        public abstract IEnumerable<Failure> Initialize(FieldCollection data);
 
         /// <summary>
         /// Stops protocol and releases all resources.
         /// </summary>
-        public virtual ResultCollection Terminate() {
+        public virtual IEnumerable<Failure> Terminate() {
             this.Dispose();
-            return true;
+            yield break;
         }
 
         #endregion
@@ -63,14 +63,14 @@ namespace Clamito {
         /// Sends message.
         /// </summary>
         /// <param name="data">Message data.</param>
-        public abstract ResultCollection Send(FieldCollection data);
+        public abstract IEnumerable<Failure> Send(FieldCollection data);
 
         /// <summary>
         /// Returns received message or null if timeout occurred.
         /// </summary>
-        /// <param name="data">Message content.</param>
+        /// <param name="receivedData">Message content. Must be empty; will be filled by function.</param>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "0#", Justification = "This method is to be used only by experienced protocol developers so there won't be any usability issues.")]
-        public abstract ResultCollection Receive(out FieldCollection data);
+        public abstract IEnumerable<Failure> Receive(FieldCollection receivedData);
 
         #endregion
 
@@ -89,8 +89,8 @@ namespace Clamito {
         /// Returns data errors.
         /// </summary>
         /// <param name="data">Data fields to validate.</param>
-        public virtual ResultCollection ValidateData(FieldCollection data) {
-            return true;
+        public virtual IEnumerable<Failure> ValidateData(FieldCollection data) {
+            yield break;
         }
 
         #endregion

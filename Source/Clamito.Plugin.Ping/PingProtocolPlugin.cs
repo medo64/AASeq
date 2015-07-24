@@ -34,16 +34,15 @@ namespace Clamito.Plugin {
         /// Starts protocol and allocates all needed resources.
         /// </summary>
         /// <param name="data">Protocol data.</param>
-        public override ResultCollection Initialize(FieldCollection data) {
+        public override IEnumerable<Failure> Initialize(FieldCollection data) {
             foreach (var node in data.PathsWithValue) {
                 if (node.Path.Equals("Host", StringComparison.OrdinalIgnoreCase)) {
                     this.hostNameOrAddress = node.Field.Value;
                 } else {
-                    //TODO report warning
+                    yield return Failure.NewWarning("Unknown field: {0}.", node.Path);
                 }
             }
-
-            return true;
+            yield break;
         }
 
 
@@ -58,7 +57,7 @@ namespace Clamito.Plugin {
         /// Sends message.
         /// </summary>
         /// <param name="data">Message data.</param>
-        public override ResultCollection Send(FieldCollection data) {
+        public override IEnumerable<Failure> Send(FieldCollection data) {
             int timeout = 1000;
             int bufferSize = 128;
             bool dontFragment = false;
@@ -92,7 +91,7 @@ namespace Clamito.Plugin {
             var reply = ping.Send(this.hostNameOrAddress, timeout, buffer, pingOptions);
             this.replies.Enqueue(reply);
 
-            return true;
+            yield break;
         }
 
         private Queue<PingReply> replies = new Queue<PingReply>();
@@ -100,17 +99,12 @@ namespace Clamito.Plugin {
         /// <summary>
         /// Returns received message or null if timeout occurred.
         /// </summary>
-        /// <param name="data">Message content.</param>
-        public override ResultCollection Receive(out FieldCollection data) {
-            var replyData = new FieldCollection();
-
+        /// <param name="receivedData">Message data. Must be empty; will be filled by function.</param>
+        public override IEnumerable<Failure> Receive(FieldCollection receivedData) {
             var reply = this.replies.Dequeue();
-
-            replyData.Add("Status", reply.Status.ToString());
-            replyData.Add("RoundtripTime", reply.RoundtripTime.ToString());
-
-            data = replyData;
-            return true;
+            receivedData.Add("Status", reply.Status.ToString());
+            receivedData.Add("RoundtripTime", reply.RoundtripTime.ToString());
+            yield break;
         }
 
         #endregion
@@ -130,18 +124,16 @@ namespace Clamito.Plugin {
         /// Returns data errors.
         /// </summary>
         /// <param name="data">Data fields to validate.</param>
-        public override ResultCollection ValidateData(FieldCollection data) {
+        public override IEnumerable<Failure> ValidateData(FieldCollection data) {
             if (data == null) { throw new ArgumentNullException(nameof(data), "Data cannot be null."); }
-            var errors = new List<ErrorResult>();
             foreach (var node in data.AllPaths) {
                 if (!node.Path.Equals("Timeout", StringComparison.OrdinalIgnoreCase)
                     && !node.Path.Equals("BufferSize", StringComparison.OrdinalIgnoreCase)
                     && !node.Path.Equals(".DontFragment", StringComparison.OrdinalIgnoreCase)
                     && !node.Path.Equals(".TimeToLive", StringComparison.OrdinalIgnoreCase)) {
-                    errors.Add(ErrorResult.NewWarning("Unknown field: {0}.", node));
+                    yield return Failure.NewWarning("Unknown field: {0}.", node);
                 }
             }
-            return new ResultCollection(errors);
         }
 
         #endregion

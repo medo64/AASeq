@@ -11,8 +11,12 @@
         <Endpoint name="Local_IPv6" caption="Local IPv6" protocolName="Ping">
             <Field name="Host" value="::1" />
         </Endpoint>
+        <Endpoint name="Endpoint" caption="Main" protocolName="Ping">
+            <Field name="Host" value="192.168.200.100" />
+        </Endpoint>
     </Endpoints>
     <Interactions>
+        <Message name="Ping" source="Me" destination="Endpoint" />
         <Message name="Ping" source="Me" destination="Local_IPv4" />
         <Message name="Reply" source="Local_IPv4" destination="Me">
             <Field name=".Size" value="64" />
@@ -30,5 +34,6 @@
         </Message>
         <Message name="Ping" source="Me" destination="Local_IPv4_Alternate" />
         <Message name="Reply" source="Local_IPv4_Alternate" destination="Me" />
+        <Message name="Reply" source="Endpoint" destination="Me" />
     </Interactions>
 </Clamito>

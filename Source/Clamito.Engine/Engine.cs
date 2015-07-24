@@ -38,18 +38,22 @@ namespace Clamito {
         /// </summary>
         /// <exception cref="System.NotSupportedException">Initialization can be done only once.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Disposal of proxies is handled in Engine's Dispose object.")]
-        public ResultCollection Initialize() {
+        public IEnumerable<Failure> Initialize() {
             if (this.WasInitialized) { throw new NotSupportedException("Initialization can be done only once."); }
             this.WasInitialized = true;
 
-            var errorList = new List<ErrorResult>();
+            var errors = new List<Failure>();
 
             foreach (var endpoint in this.Document.Endpoints) {
                 if (endpoint.ProtocolName == null) { continue; }
                 var protocol = Plugin.Protocols[endpoint.ProtocolName];
-                if (protocol == null) { return ErrorResult.NewError("Protocol '{0}' not found.", endpoint.ProtocolName); }
+                if (protocol == null) {
+                    errors.Add(Failure.NewError("Protocol '{0}' not found.", endpoint.ProtocolName));
+                }
                 var proxy = protocol.CreateInstance();
-                proxy.Initialize(endpoint.Data);
+                foreach (var fail in proxy.Initialize(endpoint.Data)) {
+                    errors.Add(fail.Clone("Initialization failed: "));
+                }
                 this.Endpoints.Add(endpoint.Name, proxy);
             }
 
@@ -65,16 +69,16 @@ namespace Clamito {
 
             this.IsInitialized = true;
 
-            return new ResultCollection(errorList);
+            return errors;
         }
 
         /// <summary>
         /// Terminates engine.
         /// </summary>
-        public ResultCollection Terminate() {
+        public IEnumerable<Failure> Terminate() {
             this.IsInitialized = false;
             this.Dispose();
-            return true;
+            yield break;
         }
 
         #endregion
@@ -96,7 +100,7 @@ namespace Clamito {
         /// Starts running the engine.
         /// </summary>
         public void Start() {
-            if (!this.IsInitialized) { this.Initialize(); }
+            if (!this.IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
 
             this.StepEvent.Reset(0);
             this.CanStopEvent.WaitOne();
@@ -108,7 +112,7 @@ namespace Clamito {
         /// Performs a single step.
         /// </summary>
         public void Step() {
-            if (!this.IsInitialized) { this.Initialize(); }
+            if (!this.IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
 
             this.StepEvent.Reset(1);
         }
@@ -117,7 +121,7 @@ namespace Clamito {
         /// Stops the engine.
         /// </summary>
         public void Stop() {
-            if (!this.IsInitialized) { this.Initialize(); }
+            if (!this.IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
 
             this.StepEvent.Reset(0);
             this.CanStopEvent.WaitOne();
@@ -255,7 +259,7 @@ namespace Clamito {
                         this.StepEvent.Signal();
                         Interlocked.Increment(ref this.CurrentStepCount);
 
-                        var errors = new List<ErrorResult>();
+                        var errors = new List<Failure>();
 
                         var interactionIndex = 0;
                         foreach (var interaction in this.Document.Interactions) {
@@ -276,15 +280,14 @@ namespace Clamito {
                                                 ProtocolPlugin protocolProxy;
                                                 if (this.Endpoints.TryGetValue(endpointDst.Name, out protocolProxy)) {
                                                     var content = message.Data.AsReadOnly(); //TODO: resolve constants
-                                                    var protocolErrors = protocolProxy.Send(content);
-                                                    if (protocolErrors.Count > 0) {
-                                                        errors.AddRange(protocolErrors.Clone(string.Format(CultureInfo.InvariantCulture, "{0} {1}: ", interactionIndex, interaction.Name)));
+                                                    foreach (var failure in protocolProxy.Send(content)) {
+                                                        errors.Add(failure.Clone(string.Format(CultureInfo.InvariantCulture, "{0} {1}: ", interactionIndex, interaction.Name)));
                                                     }
                                                 } else {
-                                                    errors.Add(ErrorResult.NewError("{0} {1}: Cannot find proxy for {2}.", interactionIndex, interaction.Name, endpointDst.Name));
+                                                    errors.Add(Failure.NewError("{0} {1}: Cannot find proxy for {2}.", interactionIndex, interaction.Name, endpointDst.Name));
                                                 }
                                             } catch (Exception ex) {
-                                                errors.Add(ErrorResult.NewError("{0} {1}: Exception sending message to {2}: {3}.", interactionIndex, interaction.Name, endpointDst.Name, ex.Message));
+                                                errors.Add(Failure.NewError("{0} {1}: Exception sending message to {2}: {3}.", interactionIndex, interaction.Name, endpointDst.Name, ex.Message));
                                             }
                                         } else if (protocolSrc != null) { //receiving
                                             try {
@@ -297,16 +300,15 @@ namespace Clamito {
                                                         dummyProtocol.PokeReceive(content);
                                                     }
 
-                                                    FieldCollection receivedContent;
-                                                    var protocolErrors = protocol.Receive(out receivedContent);
-                                                    if (protocolErrors.Count > 0) {
-                                                        errors.AddRange(protocolErrors.Clone(string.Format(CultureInfo.InvariantCulture, "{0} {1}: ", interactionIndex, interaction.Name)));
+                                                    var receivedContent = new FieldCollection();
+                                                    foreach (var failure in protocol.Receive(receivedContent)) {
+                                                        errors.Add(failure.Clone(string.Format(CultureInfo.InvariantCulture, "{0} {1}: ", interactionIndex, interaction.Name)));
                                                     }
                                                 } else {
-                                                    errors.Add(ErrorResult.NewError("{0} {1}: Cannot find proxy for {2}.", interactionIndex, interaction.Name, endpointSrc.Name));
+                                                    errors.Add(Failure.NewError("{0} {1}: Cannot find proxy for {2}.", interactionIndex, interaction.Name, endpointSrc.Name));
                                                 }
                                             } catch (Exception ex) {
-                                                errors.Add(ErrorResult.NewError("{0} {1}: Exception receiving message from {2}: {3}.", interactionIndex, interaction.Name, endpointSrc.Name, ex.Message));
+                                                errors.Add(Failure.NewError("{0} {1}: Exception receiving message from {2}: {3}.", interactionIndex, interaction.Name, endpointSrc.Name, ex.Message));
                                             }
                                         } else { //ignore communication between two protocols
                                         }
@@ -320,14 +322,14 @@ namespace Clamito {
                                         if (commandPlugin != null) {
                                             commandPlugin.Execute(interaction.Data);
                                         } else {
-                                            errors.Add(ErrorResult.NewWarning("{0} {1}: Cannot execute command.", interactionIndex, interaction.Name));
+                                            errors.Add(Failure.NewWarning("{0} {1}: Cannot execute command.", interactionIndex, interaction.Name));
                                         }
                                     }
                                     break;
 
                                 default:
                                     {
-                                        errors.Add(ErrorResult.NewError("{0} {1}: Unknown interaction {2}.", interactionIndex, interaction.Name, interaction.Kind));
+                                        errors.Add(Failure.NewError("{0} {1}: Unknown interaction {2}.", interactionIndex, interaction.Name, interaction.Kind));
                                     }
                                     break;
 
@@ -336,7 +338,7 @@ namespace Clamito {
 
                         this.CanStopEvent.Set();
 
-                        this.OnStepCompleted(new StepCompletedEventArgs(new ResultCollection(errors)));
+                        this.OnStepCompleted(new StepCompletedEventArgs(new List<Failure>(errors)));
                     } else if (wasRunning) {
                         wasRunning = false;
                         this.OnStopped(new EventArgs());

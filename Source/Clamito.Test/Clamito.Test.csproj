@@ -66,7 +66,7 @@
     <Compile Include="Core\FieldTests.cs" />
     <Compile Include="Core\InteractionCollectionTests.cs" />
     <Compile Include="Core\MessageTests.cs" />
-    <Compile Include="Core\ResultCollectionTests.cs" />
+    <Compile Include="Core\FailureTests.cs" />
     <Compile Include="Core\TagCollectionTests.cs" />
     <Compile Include="Core\TagTests.cs" />
     <Compile Include="Engine\Commands\WaitCommandTests.cs" />

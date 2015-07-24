@@ -1,18 +1,19 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace Clamito {
     /// <summary>
     /// Error/warning result.
     /// </summary>
-    public class ErrorResult {
+    public class Failure {
 
-        private ErrorResult(int line, string format, params object[] args) {
+        private Failure(int line, string format, params object[] args) {
             this.Line = line;
             this.Text = String.Format(CultureInfo.InvariantCulture, format, args);
         }
 
-        private ErrorResult(int line, string text, bool isWarning) { //used for clone
+        private Failure(int line, string text, bool isWarning) { //used for clone
             this.Line = line;
             this.Text = text;
             this.IsWarning = isWarning;
@@ -47,8 +48,8 @@ namespace Clamito {
         /// </summary>
         /// <param name="format">Warning text as composite format string.</param>
         /// <param name="args">An object array that contains zero or more objects to format.</param>
-        public static ErrorResult NewWarning(string format, params object[] args) {
-            return new ErrorResult(0, format, args) { IsWarning = true };
+        public static Failure NewWarning(string format, params object[] args) {
+            return new Failure(0, format, args) { IsWarning = true };
         }
 
         /// <summary>
@@ -58,8 +59,8 @@ namespace Clamito {
         /// <param name="format">Warning text as composite format string.</param>
         /// <param name="args">An object array that contains zero or more objects to format.</param>
         /// <returns></returns>
-        public static ErrorResult NewWarning(int line, string format, params object[] args) {
-            return new ErrorResult(line, format, args) { IsWarning = true };
+        public static Failure NewWarning(int line, string format, params object[] args) {
+            return new Failure(line, format, args) { IsWarning = true };
         }
 
 
@@ -68,8 +69,8 @@ namespace Clamito {
         /// </summary>
         /// <param name="format">Error text as composite format string.</param>
         /// <param name="args">An object array that contains zero or more objects to format.</param>
-        public static ErrorResult NewError(string format, params object[] args) {
-            return new ErrorResult(0, format, args) { IsWarning = false };
+        public static Failure NewError(string format, params object[] args) {
+            return new Failure(0, format, args) { IsWarning = false };
         }
 
         /// <summary>
@@ -79,8 +80,8 @@ namespace Clamito {
         /// <param name="format">Error text as composite format string.</param>
         /// <param name="args">An object array that contains zero or more objects to format.</param>
         /// <returns></returns>
-        public static ErrorResult NewError(int line, string format, params object[] args) {
-            return new ErrorResult(line, format, args) { IsWarning = false };
+        public static Failure NewError(int line, string format, params object[] args) {
+            return new Failure(line, format, args) { IsWarning = false };
         }
 
         #endregion
@@ -89,8 +90,8 @@ namespace Clamito {
         /// <summary>
         /// Creates a copy of the result.
         /// </summary>
-        public ErrorResult Clone() {
-            return new ErrorResult(this.Line, this.Text, this.IsWarning, this.IsError);
+        public Failure Clone() {
+            return new Failure(this.Line, this.Text, this.IsWarning, this.IsError);
         }
 
         /// <summary>
@@ -98,9 +99,9 @@ namespace Clamito {
         /// </summary>
         /// <param name="newPrefix">New prefix for all text elements.</param>
         /// <exception cref="System.ArgumentNullException">New prefix cannot be null.</exception>
-        public ErrorResult Clone(string newPrefix) {
+        public Failure Clone(string newPrefix) {
             if (newPrefix == null) { throw new ArgumentNullException(nameof(newPrefix), "New prefix cannot be null."); }
-            return new ErrorResult(this.Line, newPrefix + this.Text, this.IsWarning);
+            return new Failure(this.Line, newPrefix + this.Text, this.IsWarning);
         }
 
     }

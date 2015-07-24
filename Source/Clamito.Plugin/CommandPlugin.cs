@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Clamito {
 
@@ -37,7 +38,7 @@ namespace Clamito {
         /// Executes command.
         /// </summary>
         /// <param name="data">Command data.</param>
-        public abstract ResultCollection Execute(FieldCollection data);
+        public abstract IEnumerable<Failure> Execute(FieldCollection data);
 
         #endregion
 
@@ -56,8 +57,8 @@ namespace Clamito {
         /// Returns data errors.
         /// </summary>
         /// <param name="data">Data fields to validate.</param>
-        public virtual ResultCollection ValidateData(FieldCollection data) {
-            return true;
+        public virtual IEnumerable<Failure> ValidateData(FieldCollection data) {
+            yield break;
         }
 
         #endregion

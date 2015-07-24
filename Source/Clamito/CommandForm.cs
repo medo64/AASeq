@@ -117,12 +117,11 @@ namespace Clamito.Gui {
             content = fccData.Content;
             if (fccData.IsOK) {
                 if (cmd != null) {
-                    var validationResults = cmd.ValidateData(content);
-                    if (validationResults.HasWarnings || validationResults.HasErrors) {
-                        erp.SetError(fccData, validationResults[0].Text);
+                    erp.SetError(fccData, null);
+                    foreach (var failure in cmd.ValidateData(content)) {
+                        erp.SetError(fccData, failure.Text);
                         isValid = false;
-                    } else {
-                        erp.SetError(fccData, null);
+                        break;
                     }
                 } else {
                     erp.SetError(fccData, null);
