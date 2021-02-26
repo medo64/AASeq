@@ -1,78 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{AF9E1806-A512-4422-B3C1-A97C5492CBAB}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Clamito.Plugin.Ping</RootNamespace>
-    <AssemblyName>Clamito.Plugin.Ping</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\Binaries\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\Binaries\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <UseVSHostingProcess>false</UseVSHostingProcess>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Properties\App.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="Microsoft.CSharp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\SolutionInfo.cs">
-      <Link>Properties\SolutionInfo.cs</Link>
-    </Compile>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PingProtocolPlugin.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Clamito.Core\Clamito.Core.csproj">
-      <Project>{bf2738dd-c0fd-474d-af4d-26333c3edd76}</Project>
-      <Name>Clamito.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Clamito.Plugin\Clamito.Plugin.csproj">
-      <Project>{7f43f4c9-cb0c-41be-8759-875e80d1314d}</Project>
-      <Name>Clamito.Plugin</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
-      <Link>Properties\CodeAnalysisDictionary.xml</Link>
-    </CodeAnalysisDictionary>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\App.snk" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>Clamito.Plugin.Ping</AssemblyName>
+        <RootNamespace>Clamito.Plugin.Ping</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <Nullable>disable</Nullable>
+        <NoWarn>CA1303</NoWarn>
+        <WarningsAsErrors>CS8625</WarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Product>Clamito</Product>
+        <Description>Ping protocol.</Description>
+        <Authors>Josip Medved</Authors>
+        <Copyright>Copyright (c) 2014 Josip Medved</Copyright>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Clamito.Core\Clamito.Core.csproj" />
+        <ProjectReference Include="..\Clamito.Plugin\Clamito.Plugin.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
+            <Link>Properties\CodeAnalysisDictionary.xml</Link>
+        </CodeAnalysisDictionary>
+    </ItemGroup>
+
 </Project>

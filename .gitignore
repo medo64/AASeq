@@ -4,5 +4,7 @@ Temporary/**
 
 Source/**/bin
 Source/**/obj
+Source/**/.vs
+Source/**/*.csproj.user
 Source/TestResults
 Source/**/ApiPortabilityAnalysis*.htm
