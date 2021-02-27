@@ -149,7 +149,7 @@ namespace Clamito.Gui {
             return new Size(maxWidth, maxHeight);
         }
 
-        private IEnumerable<SensePair> PaintEndpoint(Endpoint endpoint, Graphics g, DisplayStyle style, DisplayInk ink, int x, int y, int maxHeight, Font font, Size charSize) {
+        private static IEnumerable<SensePair> PaintEndpoint(Endpoint endpoint, Graphics g, DisplayStyle style, DisplayInk ink, int x, int y, int maxHeight, Font font, Size charSize) {
             var endpointText = string.IsNullOrEmpty(endpoint.Caption) ? endpoint.Name : endpoint.Caption;
             var size = g.MeasureString(endpointText, font, charSize.Width * style.MaxCharCount, style.TitleFormat).ToSize();
             var rect = new Rectangle(x - size.Width / 2 - charSize.Width / 2, y, size.Width + charSize.Width, charSize.Height);
@@ -174,7 +174,7 @@ namespace Clamito.Gui {
             };
         }
 
-        private IEnumerable<SensePair> PaintCommand(Command command, Graphics g, DisplayInk ink, int sourceX, int destinationX, int middleY, Font font, Size fontSize) {
+        private static IEnumerable<SensePair> PaintCommand(Command command, Graphics g, DisplayInk ink, int sourceX, int destinationX, int middleY, Font font, Size fontSize) {
             var arrowX = fontSize.Width;
             var arrowY = fontSize.Height / 4;
             var penHalfWidth = (int)ink.Pen.Width / 2;
@@ -205,7 +205,7 @@ namespace Clamito.Gui {
             return sensePairs.AsReadOnly();
         }
 
-        private IEnumerable<SensePair> PaintMessage(Message message, Graphics g, DisplayInk ink, int sourceX, int destinationX, int middleY, Font font, Size fontSize) {
+        private static IEnumerable<SensePair> PaintMessage(Message message, Graphics g, DisplayInk ink, int sourceX, int destinationX, int middleY, Font font, Size fontSize) {
             var arrowX = fontSize.Width;
             var arrowY = fontSize.Height / 4;
             var penHalfWidth = (int)ink.Pen.Width / 2;

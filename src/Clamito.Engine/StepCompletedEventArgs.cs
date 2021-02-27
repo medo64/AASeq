@@ -12,7 +12,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="results">Result collection.</param>
         public StepCompletedEventArgs(IEnumerable<Failure> results) {
-            if (results == null) { throw new ArgumentNullException("results", "Result is null."); }
+            if (results == null) { throw new ArgumentNullException(nameof(results), "Result is null."); }
             Results = results;
         }
 

@@ -578,13 +578,13 @@ namespace Clamito {
                 if (prefix != null) { sb.Append(prefix); }
                 sb.Append(field.Name);
                 AppendTags(sb, field);
-                sb.Append(":");
+                sb.Append(':');
                 if (field.HasSubfields) {
                     sb.AppendLine();
                     ToMultilineContentRecursion(sb, field.Subfields, level + 1);
                 } else {
                     if (!string.IsNullOrEmpty(field.Value)) {
-                        sb.Append(" ");
+                        sb.Append(' ');
                         var chars = field.Value;
 
                         int a;
@@ -629,11 +629,11 @@ namespace Clamito {
                 sb.Append(" [");
                 var first = true;
                 foreach (var tag in field.Tags) {
-                    if (first) { first = false; } else { sb.Append(" "); }
-                    if (tag.State == false) { sb.Append("!"); }
+                    if (first) { first = false; } else { sb.Append(' '); }
+                    if (tag.State == false) { sb.Append('!'); }
                     sb.Append(tag.Name);
                 }
-                sb.Append("]");
+                sb.Append(']');
             }
         }
 
@@ -868,15 +868,15 @@ namespace Clamito {
                         case State.ValueLiteral:
                             {
                                 if (ch == '_') {
-                                    value.Append(" ");
+                                    value.Append(' ');
                                 } else if (ch == 't') {
-                                    value.Append("\t");
+                                    value.Append('\t');
                                 } else if (ch == 'b') {
-                                    value.Append("\b");
+                                    value.Append('\b');
                                 } else if (ch == 'n') {
-                                    value.Append("\n");
+                                    value.Append('\n');
                                 } else if (ch == 'r') {
-                                    value.Append("\r");
+                                    value.Append('\r');
                                 } else { //just take it as it is
                                     value.Append(ch);
                                 }

@@ -176,7 +176,7 @@ namespace Clamito.Gui {
         }
 
 
-        private bool IsDraged(Point origin, Point current) {
+        private static bool IsDraged(Point origin, Point current) {
             var distance = Math.Sqrt(Math.Pow(current.X - origin.X, 2) + Math.Pow(current.Y - origin.Y, 2));
             return (distance > (SystemInformation.DragSize.Height + SystemInformation.DragSize.Width) / 2);
         }

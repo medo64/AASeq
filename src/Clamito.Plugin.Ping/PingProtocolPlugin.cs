@@ -115,7 +115,6 @@ namespace Clamito.Plugin {
         /// <summary>
         /// Returns default data fields.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Calling the method two times in succession creates different results.")]
         public override FieldCollection GetDefaultData() {
             return new FieldCollection();
         }

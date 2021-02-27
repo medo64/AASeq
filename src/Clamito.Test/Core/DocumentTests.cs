@@ -49,7 +49,7 @@ namespace Clamito.Test {
 
         #region Private
 
-        private MemoryStream GetDocumentStream(string fileName) {
+        private static MemoryStream GetDocumentStream(string fileName) {
             var resStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Clamito.Test.Core.Resources.Documents." + fileName);
             var buffer = new byte[(int)resStream.Length];
             resStream.Read(buffer, 0, buffer.Length);

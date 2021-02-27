@@ -464,7 +464,7 @@ namespace Clamito.Test {
 
         #region Private
 
-        private string GetFragment(string fragmentName) {
+        private static string GetFragment(string fragmentName) {
             var resStream = Assembly.GetExecutingAssembly().GetManifestResourceStream("Clamito.Test.Core.Resources.MultilineContent." + fragmentName);
             var buffer = new byte[(int)resStream.Length];
             resStream.Read(buffer, 0, buffer.Length);

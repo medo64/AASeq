@@ -13,8 +13,6 @@ namespace Clamito {
         /// <summary>
         /// Initializes the plugins.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Classes initialized here are needed through whole application lifetime.")]
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2001:AvoidCallingProblematicMethods", MessageId = "System.Reflection.Assembly.LoadFile", Justification = "LoadFile is intentionaly called because given assembly has to be executable.")]
         public static void Initialize() {
             if (Plugin.IsInitialized) { throw new NotSupportedException("Plugin system has already been initialized."); }
 
@@ -52,7 +50,7 @@ namespace Clamito {
                             continue;
                         }
 
-                        var protocolConstructor = type.GetConstructor(new Type[] { });
+                        var protocolConstructor = type.GetConstructor(Array.Empty<Type>());
                         if (protocolConstructor == null) {
                             Log.Write.Verbose("Plugin.Initialize", "Type {0} does not have a parameterless constructor.", type.Name);
                             continue;

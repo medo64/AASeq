@@ -69,7 +69,6 @@ namespace Clamito {
         /// Returns received message or null if timeout occurred.
         /// </summary>
         /// <param name="receivedData">Message content. Must be empty; will be filled by function.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters", MessageId = "0#", Justification = "This method is to be used only by experienced protocol developers so there won't be any usability issues.")]
         public abstract IEnumerable<Failure> Receive(FieldCollection receivedData);
 
         #endregion
@@ -80,7 +79,6 @@ namespace Clamito {
         /// <summary>
         /// Returns default data fields.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Calling the method two times in succession creates different results.")]
         public virtual FieldCollection GetDefaultData() {
             return null;
         }

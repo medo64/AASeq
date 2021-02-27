@@ -340,7 +340,7 @@ namespace Clamito {
         private static void SaveTags(XmlTextWriter xw, string attributeName, TagCollection tags) {
             var sbTag = new StringBuilder();
             foreach (var tag in tags) {
-                if (sbTag.Length > 0) { sbTag.Append(" "); }
+                if (sbTag.Length > 0) { sbTag.Append(' '); }
                 if (tag.State) {
                     sbTag.Append(tag.Name);
                 } else {
