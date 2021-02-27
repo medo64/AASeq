@@ -1,10 +1,8 @@
-Binaries/**
-Releases/**
-Temporary/**
+/bin/
+/build/
+/dist/
 
-Source/**/bin
-Source/**/obj
-Source/**/.vs
-Source/**/*.csproj.user
-Source/TestResults
-Source/**/ApiPortabilityAnalysis*.htm
+**/bin
+**/obj
+**/.vs
+**/*.csproj.user

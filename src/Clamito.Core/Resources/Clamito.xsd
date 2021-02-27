@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <xs:element name="Clamito">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="Endpoints" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element ref="Interactions" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+            <xs:attribute name="version" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+            <xs:attribute name="minVersion" use="required">
+                <xs:simpleType>
+                    <xs:restriction base="xs:token">
+                        <xs:enumeration value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:attribute>
+        </xs:complexType>
+        <xs:unique name="UniqueEndpointName">
+            <xs:selector xpath="Endpoints/Endpoint" />
+            <xs:field xpath="@name" />
+        </xs:unique>
+        <xs:keyref name="MessageSourceRef" refer="UniqueEndpointName">
+            <xs:selector xpath=".//Interactions/Message"/>
+            <xs:field xpath="@source"/>
+        </xs:keyref>
+        <xs:keyref name="MessageDestinationRef" refer="UniqueEndpointName">
+            <xs:selector xpath=".//Interactions/Message"/>
+            <xs:field xpath="@destination"/>
+        </xs:keyref>
+    </xs:element>
+
+
+    <xs:simpleType name="endpointName">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="[\p{L}][\p{L}\p{Nd}_]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="interactionName">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="\.?[\p{L}\p{Nd}][\p{L}\p{Nd}-]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="fieldName">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="1"/>
+            <xs:pattern value="\.?[\p{L}\p{Nd}][\p{L}\p{Nd}-]*"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="tagList">
+        <xs:list>
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:minLength value="1"/>
+                    <xs:pattern value="!?\.?[\p{L}\p{Nd}]+"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:list>
+    </xs:simpleType>
+
+
+    <xs:element name="Endpoints">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="Endpoint" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Endpoint">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+            <xs:attribute name="name" type="endpointName" use="required" />
+            <xs:attribute name="caption" type="xs:string" use="optional" />
+            <xs:attribute name="protocolName" type="xs:string" use="optional" />
+        </xs:complexType>
+    </xs:element>
+
+
+    <xs:element name="Interactions">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="Command" minOccurs="0" maxOccurs="unbounded" />
+                <xs:element ref="Message" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Command">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+            <xs:attribute name="name" type="interactionName" use="required" />
+            <xs:attribute name="caption" type="xs:string" use="optional" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Message">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+            <xs:attribute name="name" type="interactionName" use="required" />
+            <xs:attribute name="caption" type="xs:string" use="optional" />
+            <xs:attribute name="source" type="xs:string" use="optional" />
+            <xs:attribute name="destination" type="xs:string" use="optional" />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Field">
+        <xs:complexType>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element ref="Field" minOccurs="0" maxOccurs="unbounded" />
+            </xs:choice>
+            <xs:attribute name="name" type="fieldName" use="required" />
+            <xs:attribute name="value" type="xs:string" use="optional" />
+            <xs:attribute name="tags" type="tagList" use="optional" />
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

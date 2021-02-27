@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Clamito version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://jmedved.com/schema/clamito.xsd">
+    <Endpoints>
+        <Endpoint name="Me" displayName="GGSN" />
+        <Endpoint name="Pcrf" displayName="PCRF" protocolName="Diameter" />
+    </Endpoints>
+    <Interactions>
+        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" caption="INITIAL_REQUEST">
+            <Fields>
+                <Field name=".Flags" tags="R P" value="" />
+                <Field name=".Application-Id" value="16777238" />
+                <Field name=".Hop-by-hop" value="0x06839824" />
+                <Field name=".End-to-end" value="0x427fae12" />
+                <Field name="Session-Id" tags="M" value="$DIAMETER_SESSION_ID_$SEQUENCE_COUNTER" />
+                <Field name="Auth-Application-Id" tags="M" value="16777238" />
+                <Field name="Origin-Host" tags="M" value="Ciscopgw.gx" />
+                <Field name="Origin-Realm" tags="M" value="Ciscopgw.t-mobile.com" />
+                <Field name="Destination-Realm" tags="M" value="pcrf.tm.us" />
+                <Field name="CC-Request-Type" tags="M" value="INITIAL_REQUEST" />
+                <Field name="CC-Request-Number" tags="M" value="0" />
+                <Field name="Origin-State-Id" tags="M" value="1355865954" />
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_E164" />
+                    <Field name="Subscription-Id-Data" tags="M" value="14259089864" />
+                </Field>
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_IMSI" />
+                    <Field name="Subscription-Id-Data" tags="M" value="310310990003314" />
+                </Field>
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_PRIVATE" />
+                    <Field name="Subscription-Id-Data" tags="M" value="sip:310310990003315@msg.lab.t-mobile.com" />
+                </Field>
+                <Field name="Supported-Features" tags="M V">
+                    <Field name="Vendor-Id" tags="M" value="10415" />
+                    <Field name="Feature-List-ID" tags="V" value="1" />
+                    <Field name="Feature-List" tags="V" value="1" />
+                </Field>
+                <Field name="Network-Request-Support" tags="M" value="NETWORK_REQUEST_SUPPORTED" />
+                <Field name="Framed-IP-Address" tags="M" value="10.169.50.12" />
+                <Field name="IP-CAN-Type" tags="M" value="3GPP-EPS" />
+                <Field name="RAT-Type" tags="M" value="EUTRAN" />
+                <Field name="QoS-Information" tags="V M">
+                    <Field name="Max-Requested-Bandwidth-UL" tags="V" value="100000000" />
+                    <Field name="Max-Requested-Bandwidth-DL" tags="V" value="100000000" />
+                </Field>
+                <Field name="3GPP-SGSN-MCC-MNC" tags="V M" value="310300" />
+                <Field name="AN-GW-Address" tags="V" value="66.94.13.216" />
+                <Field name="3GPP-User-Location-Info" tags="V M" value="0x8213000327131300030003EC01" />
+                <Field name="3GPP-MS-TimeZone" tags="V M" value="0x8000" />
+                <Field name="Called-Station-Id" tags="M" value="ims" />
+                <Field name="Bearer-Usage" tags="V M" value="GENERAL" />
+                <Field name="Online" tags="V M" value="DISABLE_ONLINE" />
+                <Field name="Offline" tags="V M" value="ENABLE_OFFLINE" />
+                <Field name="Access-Network-Charging-Address" tags="V M" value="66.94.13.217" />
+                <Field name="Access-Network-Charging-Identifier-Gx" tags="V M">
+                    <Field name="Access-Network-Charging-Identifier-Value" tags="V M" value="0x070025EE" />
+                </Field>
+            </Fields>
+        </Message>
+        <Message name="Credit-Control-Response" source="Pcrf" destination="Me" />
+        <Command name="Wait" parameters="5s" />
+        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" caption="Update 1">
+            <Fields>
+                <Field name=".Flags" tags="P R" value="" />
+                <Field name=".Application-Id" value="16777238" />
+                <Field name="Session-Id" tags="M" value="$DIAMETER_SESSION_ID_$SEQUENCE_COUNTER" />
+                <Field name="Auth-Application-Id" tags="M" value="16777238" />
+                <Field name="Origin-Host" tags="M" value="Ciscopgw.gx" />
+                <Field name="Origin-Realm" tags="M" value="Ciscopgw.t-mobile.com" />
+                <Field name="Destination-Realm" tags="M" value="pcrf.tm.us" />
+                <Field name="CC-Request-Type" tags="M" value="UPDATE_REQUEST" />
+                <Field name="CC-Request-Number" tags="M" value="1" />
+                <Field name="Origin-State-Id" tags="M" value="1355865954" />
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_E164" />
+                    <Field name="Subscription-Id-Data" tags="M" value="14259089864" />
+                </Field>
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_IMSI" />
+                    <Field name="Subscription-Id-Data" tags="M" value="310310990003314" />
+                </Field>
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_PRIVATE" />
+                    <Field name="Subscription-Id-Data" tags="M" value="sip:310310990003315@msg.lab.t-mobile.com" />
+                </Field>
+                <Field name="Supported-Features" tags="M V">
+                    <Field name="Vendor-Id" tags="M" value="10415" />
+                    <Field name="Feature-List-ID" tags="V" value="1" />
+                    <Field name="Feature-List" tags="V" value="1" />
+                </Field>
+                <Field name="Network-Request-Support" tags="M" value="NETWORK_REQUEST_SUPPORTED" />
+                <Field name="Framed-IP-Address" tags="M" value="10.169.50.12" />
+                <Field name="IP-CAN-Type" tags="M" value="3GPP-EPS" />
+                <Field name="RAT-Type" tags="M" value="EUTRAN" />
+                <Field name="QoS-Information" tags="M V">
+                    <Field name="Max-Requested-Bandwidth-UL" tags="V" value="100000000" />
+                    <Field name="Max-Requested-Bandwidth-DL" tags="V" value="100000000" />
+                </Field>
+                <Field name="3GPP-SGSN-MCC-MNC" tags="M V" value="310300" />
+                <Field name="AN-GW-Address" tags="V" value="66.94.13.216" />
+                <Field name="3GPP-User-Location-Info" tags="M V" value="0x8213000327131300030003EC01" />
+                <Field name="3GPP-MS-TimeZone" tags="M V" value="0x8000" />
+                <Field name="Called-Station-Id" tags="M" value="ims" />
+                <Field name="Bearer-Usage" tags="M V" value="GENERAL" />
+                <Field name="Online" tags="M V" value="DISABLE_ONLINE" />
+                <Field name="Offline" tags="M V" value="ENABLE_OFFLINE" />
+                <Field name="Access-Network-Charging-Address" tags="M V" value="66.94.13.217" />
+                <Field name="Access-Network-Charging-Identifier-Gx" tags="M V">
+                    <Field name="Access-Network-Charging-Identifier-Value" tags="M V" value="0x070025EE" />
+                </Field>
+            </Fields>
+        </Message>
+        <Message name="Credit-Control-Response" source="Pcrf" destination="Me" />
+        <Command name="Wait" parameters="10s-20s" />
+        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" caption="Update 2">
+            <Fields>
+                <Field name=".Flags" tags="P R" value="" />
+                <Field name=".Application-Id" value="16777238" />
+                <Field name="Session-Id" tags="M" value="$DIAMETER_SESSION_ID_$SEQUENCE_COUNTER" />
+                <Field name="Auth-Application-Id" tags="M" value="16777238" />
+                <Field name="Origin-Host" tags="M" value="Ciscopgw.gx" />
+                <Field name="Origin-Realm" tags="M" value="Ciscopgw.t-mobile.com" />
+                <Field name="Destination-Realm" tags="M" value="pcrf.tm.us" />
+                <Field name="CC-Request-Type" tags="M" value="UPDATE_REQUEST" />
+                <Field name="CC-Request-Number" tags="M" value="2" />
+                <Field name="Origin-State-Id" tags="M" value="1355865954" />
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_E164" />
+                    <Field name="Subscription-Id-Data" tags="M" value="14259089864" />
+                </Field>
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_IMSI" />
+                    <Field name="Subscription-Id-Data" tags="M" value="310310990003314" />
+                </Field>
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_PRIVATE" />
+                    <Field name="Subscription-Id-Data" tags="M" value="sip:310310990003315@msg.lab.t-mobile.com" />
+                </Field>
+                <Field name="Supported-Features" tags="M V">
+                    <Field name="Vendor-Id" tags="M" value="10415" />
+                    <Field name="Feature-List-ID" tags="V" value="1" />
+                    <Field name="Feature-List" tags="V" value="1" />
+                </Field>
+                <Field name="Network-Request-Support" tags="M" value="NETWORK_REQUEST_SUPPORTED" />
+                <Field name="Framed-IP-Address" tags="M" value="10.169.50.12" />
+                <Field name="IP-CAN-Type" tags="M" value="3GPP-EPS" />
+                <Field name="RAT-Type" tags="M" value="EUTRAN" />
+                <Field name="QoS-Information" tags="M V">
+                    <Field name="Max-Requested-Bandwidth-UL" tags="V" value="100000000" />
+                    <Field name="Max-Requested-Bandwidth-DL" tags="V" value="100000000" />
+                </Field>
+                <Field name="3GPP-SGSN-MCC-MNC" tags="M V" value="310300" />
+                <Field name="AN-GW-Address" tags="V" value="66.94.13.216" />
+                <Field name="3GPP-User-Location-Info" tags="M V" value="0x8213000327131300030003EC01" />
+                <Field name="3GPP-MS-TimeZone" tags="M V" value="0x8000" />
+                <Field name="Called-Station-Id" tags="M" value="ims" />
+                <Field name="Bearer-Usage" tags="M V" value="GENERAL" />
+                <Field name="Online" tags="M V" value="DISABLE_ONLINE" />
+                <Field name="Offline" tags="M V" value="ENABLE_OFFLINE" />
+                <Field name="Access-Network-Charging-Address" tags="M V" value="66.94.13.217" />
+                <Field name="Access-Network-Charging-Identifier-Gx" tags="M V">
+                    <Field name="Access-Network-Charging-Identifier-Value" tags="M V" value="0x070025EE" />
+                </Field>
+            </Fields>
+        </Message>
+        <Message name="Credit-Control-Response" source="Pcrf" destination="Me" />
+        <Command name="Wait" parameters="30s-60s" />
+        <Message name="Credit-Control-Request" source="Me" destination="Pcrf" caption="TERMINATION_REQUEST">
+            <Fields>
+                <Field name=".Flags" tags="R P" value="" />
+                <Field name=".Application-Id" value="16777238" />
+                <Field name="Session-Id" tags="M" value="DIAMETER_SESSION_ID_$SEQUENCE_COUNTER" />
+                <Field name="Auth-Application-Id" tags="M" value="16777238" />
+                <Field name="Origin-Host" tags="M" value="Ciscopgw.gx" />
+                <Field name="Origin-Realm" tags="M" value="Ciscopgw.t-mobile.com" />
+                <Field name="Destination-Realm" tags="M" value="pcrf.tm.us" />
+                <Field name="CC-Request-Type" tags="M" value="TERMINATION_REQUEST" />
+                <Field name="CC-Request-Number" tags="M" value="3" />
+                <Field name="Origin-State-Id" tags="M" value="1355865954" />
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_E164" />
+                    <Field name="Subscription-Id-Data" tags="M" value="14259089864" />
+                </Field>
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_IMSI" />
+                    <Field name="Subscription-Id-Data" tags="M" value="310310990003314" />
+                </Field>
+                <Field name="Subscription-Id" tags="M">
+                    <Field name="Subscription-Id-Type" tags="M" value="END_USER_PRIVATE" />
+                    <Field name="Subscription-Id-Data" tags="M" value="sip:310310990003315@msg.lab.t-mobile.com" />
+                </Field>
+                <Field name="Framed-IP-Address" tags="M" value="10.169.50.12" />
+                <Field name="Termination-Cause" tags="M" value="DIAMETER_LOGOUT" />
+                <Field name="Called-Station-Id" tags="M" value="ims" />
+                <Field name="Access-Network-Charging-Address" tags="V M" value="66.94.13.217" />
+                <Field name="Access-Network-Charging-Identifier-Gx" tags="V M">
+                    <Field name="Access-Network-Charging-Identifier-Value" tags="V M" value="0x070025EE" />
+                </Field>
+            </Fields>
+        </Message>
+        <Message name="Credit-Control-Response" source="Pcrf" destination="Me" />
+    </Interactions>
+    <Variables>
+        <Variable name="A" value="1" />
+    </Variables>
+</Clamito>

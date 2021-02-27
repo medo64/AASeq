@@ -1,0 +1,54 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito.Core", "Clamito.Core\Clamito.Core.csproj", "{BF2738DD-C0FD-474D-AF4D-26333C3EDD76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito.Engine", "Clamito.Engine\Clamito.Engine.csproj", "{44379F75-DC61-4E95-B9FC-9BD75AB731FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito", "Clamito\Clamito.csproj", "{CB00DCB3-8ED6-430A-BC1E-D6417EBDF792}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF9E1806-A512-4422-B3C1-A97C5492CBAB} = {AF9E1806-A512-4422-B3C1-A97C5492CBAB}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito.Test", "Clamito.Test\Clamito.Test.csproj", "{B0E5A531-718E-4029-8657-14BC5EA5B861}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito.Plugin", "Clamito.Plugin\Clamito.Plugin.csproj", "{7F43F4C9-CB0C-41BE-8759-875E80D1314D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clamito.Plugin.Ping", "Clamito.Plugin.Ping\Clamito.Plugin.Ping.csproj", "{AF9E1806-A512-4422-B3C1-A97C5492CBAB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF2738DD-C0FD-474D-AF4D-26333C3EDD76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF2738DD-C0FD-474D-AF4D-26333C3EDD76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF2738DD-C0FD-474D-AF4D-26333C3EDD76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF2738DD-C0FD-474D-AF4D-26333C3EDD76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44379F75-DC61-4E95-B9FC-9BD75AB731FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44379F75-DC61-4E95-B9FC-9BD75AB731FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44379F75-DC61-4E95-B9FC-9BD75AB731FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44379F75-DC61-4E95-B9FC-9BD75AB731FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB00DCB3-8ED6-430A-BC1E-D6417EBDF792}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB00DCB3-8ED6-430A-BC1E-D6417EBDF792}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB00DCB3-8ED6-430A-BC1E-D6417EBDF792}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB00DCB3-8ED6-430A-BC1E-D6417EBDF792}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E5A531-718E-4029-8657-14BC5EA5B861}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E5A531-718E-4029-8657-14BC5EA5B861}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E5A531-718E-4029-8657-14BC5EA5B861}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E5A531-718E-4029-8657-14BC5EA5B861}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F43F4C9-CB0C-41BE-8759-875E80D1314D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F43F4C9-CB0C-41BE-8759-875E80D1314D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F43F4C9-CB0C-41BE-8759-875E80D1314D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F43F4C9-CB0C-41BE-8759-875E80D1314D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9E1806-A512-4422-B3C1-A97C5492CBAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9E1806-A512-4422-B3C1-A97C5492CBAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9E1806-A512-4422-B3C1-A97C5492CBAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9E1806-A512-4422-B3C1-A97C5492CBAB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

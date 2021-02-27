@@ -1,0 +1,94 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+
+namespace Clamito {
+
+    /// <summary>
+    /// Dummy protocol.
+    /// </summary>
+    public sealed class DummyProtocol : ProtocolPlugin {
+
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public DummyProtocol() { }
+
+
+        #region Definition
+
+        /// <summary>
+        /// Gets unique name for protocol.
+        /// </summary>
+        public override string Name { get { return "Dummy"; } }
+
+        /// <summary>
+        /// Gets protocol behaviour model.
+        /// </summary>
+        public override ProtocolPluginModel Model { get { return ProtocolPluginModel.Peer; } }
+
+        /// <summary>
+        /// Gets protocol description.
+        /// </summary>
+        public override string Description { get { return "Peer without a specific protocol."; } }
+
+        #endregion
+
+
+        #region Setup
+
+        /// <summary>
+        /// Starts protocol and allocates all needed resources.
+        /// </summary>
+        /// <param name="data">Protocol data.</param>
+        public override IEnumerable<Failure> Initialize(FieldCollection data) {
+            yield break;
+        }
+
+        #endregion
+
+
+        #region Flow
+
+        /// <summary>
+        /// Sends message.
+        /// </summary>
+        /// <param name="data">Message data.</param>
+        public override IEnumerable<Failure> Send(FieldCollection data) {
+            yield break;
+        }
+
+        /// <summary>
+        /// Setups message content for next receive.
+        /// To be used only with dummy protocol.
+        /// </summary>
+        /// <param name="data">Message content.</param>
+        public void PokeReceive(FieldCollection data) {
+            this.ContentQueue.Enqueue(data);
+        }
+
+        /// <summary>
+        /// Returns received message or null if timeout occurred.
+        /// </summary>
+        /// <param name="receivedData">Message data. Must be empty; will be filled by function.</param>
+        public override IEnumerable<Failure> Receive(FieldCollection receivedData) {
+            if (this.ContentQueue.Count > 0) {
+                receivedData = this.ContentQueue.Dequeue();
+            } else {
+                receivedData = null;
+                yield return Failure.NewError("No content to return.");
+            }
+            yield break;
+        }
+
+        #endregion
+
+
+        #region Content buffer
+
+        private readonly Queue<FieldCollection> ContentQueue = new Queue<FieldCollection>();
+
+        #endregion
+
+    }
+}
