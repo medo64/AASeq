@@ -29,7 +29,7 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
         public Command(string name, IEnumerable<Field> fields)
             : this(name, null) {
-            this.Data.AddRange(fields);
+            Data.AddRange(fields);
         }
 
         private Command(string name, FieldCollection fields)
@@ -48,14 +48,14 @@ namespace Clamito {
         /// Creates a copy of the command.
         /// </summary>
         public override Interaction Clone() {
-            return new Command(this.Name, this.Data.Clone()) { Caption = this.Caption };
+            return new Command(Name, Data.Clone()) { Caption = Caption };
         }
 
         /// <summary>
         /// Creates a read-only copy of the command.
         /// </summary>
         public override Interaction AsReadOnly() {
-            return new Command(this.Name, this.Data.AsReadOnly()) { Caption = this.Caption, IsReadOnly = true };
+            return new Command(Name, Data.AsReadOnly()) { Caption = Caption, IsReadOnly = true };
         }
 
         #endregion

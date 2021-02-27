@@ -20,7 +20,7 @@ namespace Clamito {
         /// Gets display name for protocol.
         /// </summary>
         public override string DisplayName {
-            get { return this.Name + " " + this.Model.ToString().ToLower(CultureInfo.CurrentCulture); }
+            get { return Name + " " + Model.ToString().ToLower(CultureInfo.CurrentCulture); }
         }
 
         #endregion
@@ -32,7 +32,7 @@ namespace Clamito {
         /// Creates new instance of current class.
         /// </summary>
         public ProtocolPlugin CreateInstance() {
-            return (ProtocolPlugin)Activator.CreateInstance(this.GetType());
+            return (ProtocolPlugin)Activator.CreateInstance(GetType());
         }
 
         #endregion
@@ -50,7 +50,7 @@ namespace Clamito {
         /// Stops protocol and releases all resources.
         /// </summary>
         public virtual IEnumerable<Failure> Terminate() {
-            this.Dispose();
+            Dispose();
             yield break;
         }
 

@@ -24,7 +24,7 @@ namespace Clamito {
         public InteractionCollection(ICollection<Interaction> defaultItems) {
             if (defaultItems != null) {
                 foreach (var item in defaultItems) {
-                    this.Add(item);
+                    Add(item);
                 }
             }
         }
@@ -42,7 +42,7 @@ namespace Clamito {
         /// <param name="name">Name.</param>
         public Interaction this[string name] {
             get {
-                foreach (var item in this.BaseCollection) {
+                foreach (var item in BaseCollection) {
                     if (Interaction.NameComparer.Equals(item.Name, name)) {
                         return item;
                     }
@@ -57,7 +57,7 @@ namespace Clamito {
         /// <param name="name">Name of the item to locate.</param>
         /// <exception cref="System.ArgumentNullException">Name cannot be null.</exception>
         public bool Contains(string name) {
-            foreach (var item in this.BaseCollection) {
+            foreach (var item in BaseCollection) {
                 if (Interaction.NameComparer.Equals(item.Name, name)) {
                     return true;
                 }
@@ -73,17 +73,17 @@ namespace Clamito {
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public bool Remove(string name) {
             if (name == null) { throw new ArgumentNullException(nameof(name), "Name cannot be null."); }
-            if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+            if (IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             bool anyChanged = false;
-            for (int i = this.BaseCollection.Count - 1; i >= 0; i--) {
-                if (Interaction.NameComparer.Equals(this.BaseCollection[i].Name, name)) {
-                    this.BaseCollection.RemoveAt(i);
+            for (int i = BaseCollection.Count - 1; i >= 0; i--) {
+                if (Interaction.NameComparer.Equals(BaseCollection[i].Name, name)) {
+                    BaseCollection.RemoveAt(i);
                     anyChanged = true;
                 }
             }
             if (anyChanged) {
-                this.OnChanged(new EventArgs());
+                OnChanged(new EventArgs());
                 return true;
             } else {
                 return false;
@@ -98,21 +98,21 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Index out of range.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public void MoveItem(int moveFrom, int moveTo) {
-            if ((moveFrom < 0) || (moveFrom >= this.Count)) { throw new ArgumentOutOfRangeException(nameof(moveFrom), "Index out of range."); }
-            if ((moveTo < 0) || (moveTo >= this.Count)) { throw new ArgumentOutOfRangeException(nameof(moveTo), "Index out of range."); }
-            if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+            if ((moveFrom < 0) || (moveFrom >= Count)) { throw new ArgumentOutOfRangeException(nameof(moveFrom), "Index out of range."); }
+            if ((moveTo < 0) || (moveTo >= Count)) { throw new ArgumentOutOfRangeException(nameof(moveTo), "Index out of range."); }
+            if (IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             if (moveFrom == moveTo) { return; }
 
-            var item = this.BaseCollection[moveFrom];
-            this.BaseCollection.RemoveAt(moveFrom);
+            var item = BaseCollection[moveFrom];
+            BaseCollection.RemoveAt(moveFrom);
             if (moveFrom > moveTo) { //move before
-                this.BaseCollection.Insert(moveTo, item);
+                BaseCollection.Insert(moveTo, item);
             } else { //move after
-                this.BaseCollection.Insert(moveTo, item);
+                BaseCollection.Insert(moveTo, item);
             }
 
-            this.OnChanged(new EventArgs());
+            OnChanged(new EventArgs());
         }
 
         #endregion
@@ -130,11 +130,11 @@ namespace Clamito {
         public void Add(Interaction item) {
             if (item == null) { throw new ArgumentNullException(nameof(item), "Item cannot be null."); }
             if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException(nameof(item), "Item cannot be in other collection."); }
-            if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+            if (IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             item.OwnerCollection = this;
-            this.BaseCollection.Add(item);
-            this.OnChanged(new EventArgs());
+            BaseCollection.Add(item);
+            OnChanged(new EventArgs());
         }
 
         /// <summary>
@@ -142,13 +142,13 @@ namespace Clamito {
         /// </summary>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public void Clear() {
-            if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+            if (IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
-            if (this.BaseCollection.Count > 0) {
-                foreach (var item in this.BaseCollection) { item.OwnerCollection = null; }
-                this.BaseCollection.Clear();
+            if (BaseCollection.Count > 0) {
+                foreach (var item in BaseCollection) { item.OwnerCollection = null; }
+                BaseCollection.Clear();
             }
-            this.OnChanged(new EventArgs());
+            OnChanged(new EventArgs());
         }
 
         /// <summary>
@@ -157,7 +157,7 @@ namespace Clamito {
         /// <param name="item">The item to locate.</param>
         public bool Contains(Interaction item) {
             if (item == null) { return false; }
-            return this.BaseCollection.Contains(item);
+            return BaseCollection.Contains(item);
         }
 
         /// <summary>
@@ -166,14 +166,14 @@ namespace Clamito {
         /// <param name="array">The one-dimensional array that is the destination of the elements copied from collection.</param>
         /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
         public void CopyTo(Interaction[] array, int arrayIndex) {
-            this.BaseCollection.CopyTo(array, arrayIndex);
+            BaseCollection.CopyTo(array, arrayIndex);
         }
 
         /// <summary>
         /// Gets the number of items contained in the collection.
         /// </summary>
         public int Count {
-            get { return this.BaseCollection.Count; }
+            get { return BaseCollection.Count; }
         }
 
         /// <summary>
@@ -181,7 +181,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="item">The item to locate.</param>
         public int IndexOf(Interaction item) {
-            return this.BaseCollection.IndexOf(item);
+            return BaseCollection.IndexOf(item);
         }
 
         /// <summary>
@@ -195,11 +195,11 @@ namespace Clamito {
         public void Insert(int index, Interaction item) {
             if (item == null) { throw new ArgumentNullException(nameof(item), "Item cannot be null."); }
             if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException(nameof(item), "Item cannot be in other collection."); }
-            if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+            if (IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
             item.OwnerCollection = this;
-            this.BaseCollection.Insert(index, item);
-            this.OnChanged(new EventArgs());
+            BaseCollection.Insert(index, item);
+            OnChanged(new EventArgs());
         }
 
         private bool _isReadOnly;
@@ -207,8 +207,8 @@ namespace Clamito {
         /// Gets a value indicating whether the collection is read-only.
         /// </summary>
         public bool IsReadOnly {
-            get { return this._isReadOnly; }
-            private set { this._isReadOnly = value; }
+            get { return _isReadOnly; }
+            private set { _isReadOnly = value; }
         }
 
         /// <summary>
@@ -221,11 +221,11 @@ namespace Clamito {
         public bool Remove(Interaction item) {
             if (item == null) { throw new ArgumentNullException(nameof(item), "Item cannot be null."); }
             if (item.OwnerCollection != this) { throw new ArgumentOutOfRangeException(nameof(item), "Item does not belong to this collection."); }
-            if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+            if (IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
-            if (this.BaseCollection.Remove(item)) {
+            if (BaseCollection.Remove(item)) {
                 item.OwnerCollection = null;
-                this.OnChanged(new EventArgs());
+                OnChanged(new EventArgs());
                 return true;
             }
             return false;
@@ -238,19 +238,19 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Index is less than 0. -or- Index is equal to or greater than collection count.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public void RemoveAt(int index) {
-            if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+            if (IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
             
             var item = this[index];
             item.OwnerCollection = null;
-            this.BaseCollection.Remove(item);
-            this.OnChanged(new EventArgs());
+            BaseCollection.Remove(item);
+            OnChanged(new EventArgs());
         }
 
         /// <summary>
         /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
         /// </summary>
         public IEnumerator<Interaction> GetEnumerator() {
-            return this.BaseCollection.GetEnumerator();
+            return BaseCollection.GetEnumerator();
         }
 
         /// <summary>
@@ -258,7 +258,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="name">Name of the interaction.</param>
         public IEnumerator<Interaction> GetEnumerator(string name) {
-            foreach (var item in this.BaseCollection) {
+            foreach (var item in BaseCollection) {
                 if (Interaction.NameComparer.Equals(item.Name, name)) {
                     yield return item;
                 }
@@ -269,7 +269,7 @@ namespace Clamito {
         /// Exposes the enumerator, which supports a simple iteration over a non-generic collection.
         /// </summary>
         IEnumerator IEnumerable.GetEnumerator() {
-            return this.BaseCollection.GetEnumerator();
+            return BaseCollection.GetEnumerator();
         }
 
         /// <summary>
@@ -280,22 +280,22 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Index is less than 0. -or- Index is equal to or greater than collection count. -or- Duplicate name in collection. -or- Item cannot be in other collection.</exception>
         /// <exception cref="System.NotSupportedException">Collection is read-only.</exception>
         public Interaction this[int index] {
-            get { return this.BaseCollection[index]; }
+            get { return BaseCollection[index]; }
             set {
-                if (this.IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
+                if (IsReadOnly) { throw new NotSupportedException("Collection is read-only."); }
 
                 var item = this[index];
 
                 item.OwnerCollection = null;
-                this.BaseCollection.RemoveAt(index);
+                BaseCollection.RemoveAt(index);
 
                 if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
                 if (this[item.Name] != null) { throw new ArgumentOutOfRangeException(nameof(value), "Duplicate name in collection."); }
                 if (item.OwnerCollection != null) { throw new ArgumentOutOfRangeException(nameof(value), "Item cannot be in other collection."); }
 
                 item.OwnerCollection = this;
-                this.BaseCollection.Insert(index, item);
-                this.OnChanged(new EventArgs());
+                BaseCollection.Insert(index, item);
+                OnChanged(new EventArgs());
             }
         }
 
@@ -342,7 +342,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         internal void OnChanged(EventArgs e) {
-            var ev = this.Changed;
+            var ev = Changed;
             if (ev != null) { ev(this, e); }
         }
 

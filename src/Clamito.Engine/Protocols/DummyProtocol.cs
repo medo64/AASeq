@@ -64,7 +64,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="data">Message content.</param>
         public void PokeReceive(FieldCollection data) {
-            this.ContentQueue.Enqueue(data);
+            ContentQueue.Enqueue(data);
         }
 
         /// <summary>
@@ -72,8 +72,8 @@ namespace Clamito {
         /// </summary>
         /// <param name="receivedData">Message data. Must be empty; will be filled by function.</param>
         public override IEnumerable<Failure> Receive(FieldCollection receivedData) {
-            if (this.ContentQueue.Count > 0) {
-                receivedData = this.ContentQueue.Dequeue();
+            if (ContentQueue.Count > 0) {
+                receivedData = ContentQueue.Dequeue();
             } else {
                 receivedData = null;
                 yield return Failure.NewError("No content to return.");

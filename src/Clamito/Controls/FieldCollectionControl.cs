@@ -1,29 +1,30 @@
 using System;
 using System.Windows.Forms;
+using Clamito;
 
 namespace Clamito.Gui {
     internal class FieldCollectionControl : TextBoxControl {
 
         public FieldCollectionControl() {
-            this.AcceptsReturn = true;
-            this.AcceptsTab = true;
-            this.Multiline = true;
-            this.ScrollBars = ScrollBars.Both;
-            this.WordWrap = false;
+            AcceptsReturn = true;
+            AcceptsTab = true;
+            Multiline = true;
+            ScrollBars = ScrollBars.Both;
+            WordWrap = false;
 
-            this.IsOK = true;
+            IsOK = true;
         }
 
 
         private FieldCollection _content;
         public FieldCollection Content {
             get {
-                if (this._content == null) { this._content = new FieldCollection(); }
-                return this._content;
+                if (_content == null) { _content = new FieldCollection(); }
+                return _content;
             }
             set {
-                this._content = value;
-                this.Text = this.Content.ToString();
+                _content = value;
+                Text = Content.ToString();
             }
         }
 
@@ -36,7 +37,7 @@ namespace Clamito.Gui {
             base.OnKeyPress(e);
 
             if (e.KeyChar == '\t') {
-                this.SelectedText = "    ";
+                SelectedText = "    ";
                 e.Handled = true;
             }
         }
@@ -45,34 +46,34 @@ namespace Clamito.Gui {
             base.OnKeyUp(e);
 
             if (e.KeyData == Keys.Enter) {
-                var oldLine = this.GetLineFromCharIndex(this.SelectionStart);
+                var oldLine = GetLineFromCharIndex(SelectionStart);
                 string newText = null;
                 try {
-                    var parsed = FieldCollection.Parse(this.Text);
-                    this._content = parsed;
-                    newText = this.Content.ToString();
+                    var parsed = FieldCollection.Parse(Text);
+                    _content = parsed;
+                    newText = Content.ToString();
                 } catch (FormatException) { }
                 if (newText != null) {
-                    this.Text = newText;
-                    var newLineCharIndex = this.GetFirstCharIndexFromLine(oldLine);
-                    this.SelectionStart = (newLineCharIndex == -1) ? this.Text.Length : newLineCharIndex;
+                    Text = newText;
+                    var newLineCharIndex = GetFirstCharIndexFromLine(oldLine);
+                    SelectionStart = (newLineCharIndex == -1) ? Text.Length : newLineCharIndex;
                 }
             }
         }
 
         protected override void OnTextChanged(EventArgs e) {
-            this.IsOK = false;
-            this.ErrorText = null;
+            IsOK = false;
+            ErrorText = null;
             try {
-                var parsed = FieldCollection.Parse(this.Text);
-                this._content = parsed;
-                this.IsOK = true;
+                var parsed = FieldCollection.Parse(Text);
+                _content = parsed;
+                IsOK = true;
             } catch (FormatException ex) {
                 var line = ex.Data["Line"];
                 if (line != null) {
-                    this.ErrorText = ex.Message + "\nLine " + line.ToString();
+                    ErrorText = ex.Message + "\nLine " + line.ToString();
                 } else {
-                    this.ErrorText = ex.Message;
+                    ErrorText = ex.Message;
                 }
             }
 

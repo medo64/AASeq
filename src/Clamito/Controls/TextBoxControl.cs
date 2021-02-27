@@ -7,7 +7,7 @@ namespace Clamito.Gui {
         protected override bool ProcessCmdKey(ref System.Windows.Forms.Message msg, Keys keyData) {
             switch (keyData) {
                 case Keys.Control | Keys.A:
-                    this.SelectAll();
+                    SelectAll();
                     return true;
 
                 default: return base.ProcessCmdKey(ref msg, keyData);
@@ -16,7 +16,7 @@ namespace Clamito.Gui {
 
         protected override void OnGotFocus(EventArgs e) {
             base.OnGotFocus(e);
-            this.SelectAll();
+            SelectAll();
         }
 
     }

@@ -6,21 +6,21 @@ namespace Clamito.Gui {
     internal partial class CommandForm : Form {
         public CommandForm(Document document, Command command, Interaction insertBefore = null) {
             InitializeComponent();
-            this.Font = SystemFonts.MessageBoxFont;
+            Font = SystemFonts.MessageBoxFont;
             foreach (var control in new Control[] { txtName, txtCaption, fccData }) {
                 erp.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
                 erp.SetIconPadding(control, SystemInformation.BorderSize.Width);
             }
             erp.SetIconAlignment(fccData, ErrorIconAlignment.TopLeft);
 
-            this.document = document;
-            this.command = command;
-            this.insertBefore = insertBefore;
+            Document = document;
+            Command = command;
+            InsertBefore = insertBefore;
 
             if (command == null) {
-                this.Text = "New command";
+                Text = "New command";
             } else {
-                this.Text = "Command properties";
+                Text = "Command properties";
             }
 
             foreach (var cmd in Plugin.Commands) {
@@ -31,31 +31,28 @@ namespace Clamito.Gui {
         }
 
 
-        private readonly Document document;
-        private readonly Command command;
-        private readonly Interaction insertBefore;
+        private readonly Document Document;
+        private readonly Command Command;
+        private readonly Interaction InsertBefore;
 
-        private Boolean isLoaded = false;
+        private Boolean IsLoaded = false;
 
         public Interaction SelectedInteraction { get; private set; }
 
 
         private void Form_Load(object sender, EventArgs e) {
-            txtName.Text = (this.command != null) ? this.command.Name : "";
-            txtCaption.Text = (this.command != null) ? this.command.Caption : "";
-            fccData.Text = (this.command != null) ? this.command.Data.ToString() : "";
+            txtName.Text = (Command != null) ? Command.Name : "";
+            txtCaption.Text = (Command != null) ? Command.Caption : "";
+            fccData.Text = (Command != null) ? Command.Data.ToString() : "";
 
-            this.isLoaded = true;
-            if (command == null) { txt_TextChanged(null, null); } //enable OK without change for new items
+            IsLoaded = true;
+            if (Command == null) { txt_TextChanged(null, null); } //enable OK without change for new items
         }
 
 
         private void txt_TextChanged(object sender, EventArgs e) {
-            if (!this.isLoaded) { return; }
-
-            string name, caption;
-            FieldCollection data;
-            btnOK.Enabled = GetOutputs(out name, out caption, out data);
+            if (!IsLoaded) { return; }
+            btnOK.Enabled = GetOutputs(out _, out _, out _);
         }
 
 
@@ -71,32 +68,30 @@ namespace Clamito.Gui {
 
 
         private void fccData_Enter(object sender, EventArgs e) {
-            this.AcceptButton = null;
+            AcceptButton = null;
         }
 
         private void fccData_Leave(object sender, EventArgs e) {
-            this.AcceptButton = btnOK;
+            AcceptButton = btnOK;
         }
 
 
         private void btnOK_Click(object sender, EventArgs e) {
-            string name, caption;
-            FieldCollection data;
-            GetOutputs(out name, out caption, out data);
-            if (this.command == null) { //new
+            GetOutputs(out var name, out var caption, out var data);
+            if (Command == null) { //new
                 var interaction = new Command(name) { Caption = caption };
-                if (insertBefore == null) {
-                    this.document.Interactions.Add(interaction);
+                if (InsertBefore == null) {
+                    Document.Interactions.Add(interaction);
                 } else {
-                    this.document.Interactions.Insert(this.document.Interactions.IndexOf(this.insertBefore), interaction);
+                    Document.Interactions.Insert(Document.Interactions.IndexOf(InsertBefore), interaction);
                 }
-                this.SelectedInteraction = interaction;
+                SelectedInteraction = interaction;
             } else {
-                this.command.Name = name;
-                this.command.Caption = caption;
-                this.SelectedInteraction = this.command;
+                Command.Name = name;
+                Command.Caption = caption;
+                SelectedInteraction = Command;
             }
-            this.SelectedInteraction.ReplaceData(data);
+            SelectedInteraction.ReplaceData(data);
         }
 
 

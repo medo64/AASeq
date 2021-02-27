@@ -13,7 +13,7 @@ namespace Clamito {
         /// <param name="results">Result collection.</param>
         public StepCompletedEventArgs(IEnumerable<Failure> results) {
             if (results == null) { throw new ArgumentNullException("results", "Result is null."); }
-            this.Results = results;
+            Results = results;
         }
 
 
@@ -28,7 +28,7 @@ namespace Clamito {
         /// </summary>
         public bool IsSuccess {
             get {
-                foreach (var result in this.Results) {
+                foreach (var result in Results) {
                     if (result.IsError) { return false; }
                 }
                 return true;

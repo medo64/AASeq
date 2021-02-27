@@ -37,7 +37,7 @@ namespace Clamito.Plugin {
         public override IEnumerable<Failure> Initialize(FieldCollection data) {
             foreach (var node in data.PathsWithValue) {
                 if (node.Path.Equals("Host", StringComparison.OrdinalIgnoreCase)) {
-                    this.hostNameOrAddress = node.Field.Value;
+                    hostNameOrAddress = node.Field.Value;
                 } else {
                     yield return Failure.NewWarning("Unknown field: {0}.", node.Path);
                 }
@@ -88,8 +88,8 @@ namespace Clamito.Plugin {
             var pingOptions = new PingOptions(timeToLive, dontFragment);
             var ping = new Ping();
 
-            var reply = ping.Send(this.hostNameOrAddress, timeout, buffer, pingOptions);
-            this.replies.Enqueue(reply);
+            var reply = ping.Send(hostNameOrAddress, timeout, buffer, pingOptions);
+            replies.Enqueue(reply);
 
             yield break;
         }
@@ -101,7 +101,7 @@ namespace Clamito.Plugin {
         /// </summary>
         /// <param name="receivedData">Message data. Must be empty; will be filled by function.</param>
         public override IEnumerable<Failure> Receive(FieldCollection receivedData) {
-            var reply = this.replies.Dequeue();
+            var reply = replies.Dequeue();
             receivedData.Add("Status", reply.Status.ToString());
             receivedData.Add("RoundtripTime", reply.RoundtripTime.ToString());
             yield break;

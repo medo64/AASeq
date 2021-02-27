@@ -19,14 +19,14 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
         public Tag(string name, bool state) {
             try {
-                this.Name = name;
+                Name = name;
             } catch (ArgumentNullException exNull) {
                 throw new ArgumentNullException(nameof(name), exNull.Message);
             } catch (ArgumentOutOfRangeException exRange) {
                 throw new ArgumentOutOfRangeException(nameof(name), exRange.Message);
             }
 
-            this.State = state;
+            State = state;
         }
 
         /// <summary>
@@ -48,23 +48,22 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters. -or- Name already exists in collection.</exception>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public string Name {
-            get { return this._name; }
+            get { return _name; }
             set {
                 if (value == null) { throw new ArgumentNullException(nameof(value), "Name cannot be null."); }
                 if (!Tag.NameRegex.IsMatch(value)) { throw new ArgumentOutOfRangeException(nameof(value), "Name contains invalid characters."); }
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 try {
-                    if (this.OwnerCollection != null) {
-                        string oldName = this._name, newName = value;
-                        Tag oldItem, newItem;
-                        this.OwnerCollection.NameLookupDictionary.TryGetValue(oldName, out oldItem);
-                        this.OwnerCollection.NameLookupDictionary.TryGetValue(newName, out newItem);
+                    if (OwnerCollection != null) {
+                        string oldName = _name, newName = value;
+                        OwnerCollection.NameLookupDictionary.TryGetValue(oldName, out var oldItem);
+                        OwnerCollection.NameLookupDictionary.TryGetValue(newName, out var newItem);
                         if ((newItem != null) && (oldItem != newItem)) { throw new ArgumentOutOfRangeException(nameof(value), "Item already exists in collection."); }
-                        this.OwnerCollection.NameLookupDictionary.Remove(oldName);
-                        this.OwnerCollection.NameLookupDictionary.Add(newName, oldItem);
+                        OwnerCollection.NameLookupDictionary.Remove(oldName);
+                        OwnerCollection.NameLookupDictionary.Add(newName, oldItem);
                     }
-                    this._name = value;
-                    this.OnChanged(new EventArgs());
+                    _name = value;
+                    OnChanged(new EventArgs());
                 } catch (ArgumentOutOfRangeException) {
                     throw new ArgumentOutOfRangeException(nameof(value), "Name already exists in collection.");
                 }
@@ -77,11 +76,11 @@ namespace Clamito {
         /// </summary>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public bool State {
-            get { return this._state; }
+            get { return _state; }
             set {
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
-                this._state = value;
-                this.OnChanged(new EventArgs());
+                if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                _state = value;
+                OnChanged(new EventArgs());
             }
         }
 
@@ -98,9 +97,9 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         internal void OnChanged(EventArgs e) {
-            var ev = this.Changed;
+            var ev = Changed;
             if (ev != null) { ev(this, e); }
-            if (this.OwnerCollection != null) { this.OwnerCollection.OnChanged(new EventArgs()); }
+            if (OwnerCollection != null) { OwnerCollection.OnChanged(new EventArgs()); }
         }
 
         #endregion
@@ -114,21 +113,21 @@ namespace Clamito {
         /// <param name="obj">The object to compare with the current object.</param>
         public override bool Equals(object obj) {
             var other = obj as Tag;
-            return (other != null) && (Tag.NameComparer.Compare(this.Name, other.Name) == 0);
+            return (other != null) && (Tag.NameComparer.Compare(Name, other.Name) == 0);
         }
 
         /// <summary>
         /// Returns a hash code for the current object.
         /// </summary>
         public override int GetHashCode() {
-            return this.Name.GetHashCode();
+            return Name.GetHashCode();
         }
 
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         public override string ToString() {
-            return this.State ? this.Name : "!" + this.Name;
+            return State ? Name : "!" + Name;
         }
 
         #endregion
@@ -140,14 +139,14 @@ namespace Clamito {
         /// Gets whether tag should be processed in a normal manner.
         /// </summary>
         public Boolean IsNormal {
-            get { return !this.IsFramework; }
+            get { return !IsFramework; }
         }
 
         /// <summary>
         /// Gets whether tag is processed as a part of framework.
         /// </summary>
         public Boolean IsFramework {
-            get { return this.Name.StartsWith(".", StringComparison.Ordinal); }
+            get { return Name.StartsWith(".", StringComparison.Ordinal); }
         }
 
         #endregion
@@ -160,8 +159,8 @@ namespace Clamito {
         /// Gets a value indicating whether item is read-only.
         /// </summary>
         public bool IsReadOnly {
-            get { return this._isReadOnly; }
-            private set { this._isReadOnly = value; }
+            get { return _isReadOnly; }
+            private set { _isReadOnly = value; }
         }
 
 
@@ -169,14 +168,14 @@ namespace Clamito {
         /// Creates a copy of the tag.
         /// </summary>
         public Tag Clone() {
-            return new Tag(this.Name, this.State) { IsReadOnly = true };
+            return new Tag(Name, State) { IsReadOnly = true };
         }
 
         /// <summary>
         /// Creates a read-only copy of the tag.
         /// </summary>
         public Tag AsReadOnly() {
-            return new Tag(this.Name, this.State) { IsReadOnly = true };
+            return new Tag(Name, State) { IsReadOnly = true };
         }
 
         #endregion

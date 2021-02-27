@@ -21,16 +21,16 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
         internal protected Interaction(string name, FieldCollection fields) {
             try {
-                this.Name = name;
+                Name = name;
             } catch (ArgumentNullException exNull) {
                 throw new ArgumentNullException(nameof(name), exNull.Message);
             } catch (ArgumentOutOfRangeException exRange) {
                 throw new ArgumentOutOfRangeException(nameof(name), exRange.Message);
             }
 
-            this.Data = (fields != null) ? fields : new FieldCollection();
-            this.Data.Changed += delegate (Object sender, EventArgs e) {
-                this.OnChanged(new EventArgs());
+            Data = (fields != null) ? fields : new FieldCollection();
+            Data.Changed += delegate (Object sender, EventArgs e) {
+                OnChanged(new EventArgs());
             };
         }
 
@@ -43,14 +43,14 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters. -or- Name already exists in collection.</exception>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public string Name {
-            get { return this._name; }
+            get { return _name; }
             set {
                 if (value == null) { throw new ArgumentNullException(nameof(value), "Name cannot be null."); }
                 if (!Interaction.NameRegex.IsMatch(value)) { throw new ArgumentOutOfRangeException(nameof(value), "Name contains invalid characters."); }
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 try {
-                    this._name = value;
-                    this.OnChanged(new EventArgs());
+                    _name = value;
+                    OnChanged(new EventArgs());
                 } catch (ArgumentOutOfRangeException) {
                     throw new ArgumentOutOfRangeException(nameof(value), "Name already exists in collection.");
                 }
@@ -64,12 +64,12 @@ namespace Clamito {
         /// </summary>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public string Caption {
-            get { return this._caption ?? ""; }
+            get { return _caption ?? ""; }
             set {
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 if (value == null) { value = ""; }
-                this._caption = value;
-                this.OnChanged(new EventArgs());
+                _caption = value;
+                OnChanged(new EventArgs());
             }
         }
 
@@ -83,7 +83,7 @@ namespace Clamito {
         /// Gets if any fields are present.
         /// </summary>
         public bool HasData {
-            get { return (this.Data.Count > 0); }
+            get { return (Data.Count > 0); }
         }
 
         /// <summary>
@@ -94,13 +94,13 @@ namespace Clamito {
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public void ReplaceData(FieldCollection fields) {
             if (fields == null) { throw new ArgumentNullException(nameof(fields), "Fields cannot be null."); }
-            if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+            if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
 
-            this.Data.Clear(); //to release old stuff
+            Data.Clear(); //to release old stuff
 
-            this.Data = fields;
-            this.Data.Changed += delegate (Object sender, EventArgs e) {
-                this.OnChanged(new EventArgs());
+            Data = fields;
+            Data.Changed += delegate (Object sender, EventArgs e) {
+                OnChanged(new EventArgs());
             };
         }
 
@@ -117,9 +117,9 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         internal void OnChanged(EventArgs e) {
-            var ev = this.Changed;
+            var ev = Changed;
             if (ev != null) { ev(this, e); }
-            if (this.OwnerCollection != null) { this.OwnerCollection.OnChanged(new EventArgs()); }
+            if (OwnerCollection != null) { OwnerCollection.OnChanged(new EventArgs()); }
         }
 
         #endregion
@@ -139,14 +139,14 @@ namespace Clamito {
         /// Returns a hash code for the current object.
         /// </summary>
         public override int GetHashCode() {
-            return this.Name.GetHashCode();
+            return Name.GetHashCode();
         }
 
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         public override string ToString() {
-            return this.Name;
+            return Name;
         }
 
         #endregion
@@ -182,8 +182,8 @@ namespace Clamito {
         /// Gets a value indicating whether item is read-only.
         /// </summary>
         public bool IsReadOnly {
-            get { return this._isReadOnly; }
-            protected set { this._isReadOnly = value; }
+            get { return _isReadOnly; }
+            protected set { _isReadOnly = value; }
         }
 
         /// <summary>

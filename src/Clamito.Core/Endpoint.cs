@@ -29,17 +29,17 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
         public Endpoint(string name, string protocolName) {
             try {
-                this.Name = name;
+                Name = name;
             } catch (ArgumentNullException exNull) {
                 throw new ArgumentNullException(nameof(name), exNull.Message);
             } catch (ArgumentOutOfRangeException exRange) {
                 throw new ArgumentOutOfRangeException(nameof(name), exRange.Message);
             }
 
-            this.ProtocolName = protocolName;
-            this.Data = new FieldCollection();
-            this.Data.Changed += delegate (Object sender, EventArgs e) {
-                this.OnChanged(new EventArgs());
+            ProtocolName = protocolName;
+            Data = new FieldCollection();
+            Data.Changed += delegate (Object sender, EventArgs e) {
+                OnChanged(new EventArgs());
             };
         }
 
@@ -52,23 +52,22 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters. -or- Name already exists in collection.</exception>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public string Name {
-            get { return this._name; }
+            get { return _name; }
             set {
                 if (value == null) { throw new ArgumentNullException(nameof(value), "Name cannot be null."); }
                 if (!Endpoint.NameRegex.IsMatch(value)) { throw new ArgumentOutOfRangeException(nameof(value), "Name contains invalid characters."); }
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 try {
-                    if (this.OwnerCollection != null) {
-                        string oldName = this._name, newName = value;
-                        Endpoint oldItem, newItem;
-                        this.OwnerCollection.NameLookupDictionary.TryGetValue(oldName, out oldItem);
-                        this.OwnerCollection.NameLookupDictionary.TryGetValue(newName, out newItem);
+                    if (OwnerCollection != null) {
+                        string oldName = _name, newName = value;
+                        OwnerCollection.NameLookupDictionary.TryGetValue(oldName, out var oldItem);
+                        OwnerCollection.NameLookupDictionary.TryGetValue(newName, out var newItem);
                         if ((newItem != null) && (oldItem != newItem)) { throw new ArgumentOutOfRangeException(nameof(value), "Item already exists in collection."); }
-                        this.OwnerCollection.NameLookupDictionary.Remove(oldName);
-                        this.OwnerCollection.NameLookupDictionary.Add(newName, oldItem);
+                        OwnerCollection.NameLookupDictionary.Remove(oldName);
+                        OwnerCollection.NameLookupDictionary.Add(newName, oldItem);
                     }
-                    this._name = value;
-                    this.OnChanged(new EventArgs());
+                    _name = value;
+                    OnChanged(new EventArgs());
                 } catch (ArgumentOutOfRangeException) {
                     throw new ArgumentOutOfRangeException(nameof(value), "Name already exists in collection.");
                 }
@@ -81,12 +80,12 @@ namespace Clamito {
         /// </summary>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public string Caption {
-            get { return this._caption ?? ""; }
+            get { return _caption ?? ""; }
             set {
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
                 if (value == null) { value = ""; }
-                this._caption = value;
-                this.OnChanged(new EventArgs());
+                _caption = value;
+                OnChanged(new EventArgs());
             }
         }
 
@@ -96,11 +95,11 @@ namespace Clamito {
         /// </summary>
         /// <exception cref="System.NotSupportedException">Object is read-only.</exception>
         public string ProtocolName {
-            get { return this._protocolName; }
+            get { return _protocolName; }
             set {
-                if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
-                this._protocolName = value;
-                this.OnChanged(new EventArgs());
+                if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+                _protocolName = value;
+                OnChanged(new EventArgs());
             }
         }
 
@@ -123,9 +122,9 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         internal void OnChanged(EventArgs e) {
-            var ev = this.Changed;
+            var ev = Changed;
             if (ev != null) { ev(this, e); }
-            if (this.OwnerCollection != null) { this.OwnerCollection.OnChanged(new EventArgs()); }
+            if (OwnerCollection != null) { OwnerCollection.OnChanged(new EventArgs()); }
         }
 
         #endregion
@@ -139,21 +138,21 @@ namespace Clamito {
         /// <param name="obj">The object to compare with the current object.</param>
         public override bool Equals(object obj) {
             var other = obj as Endpoint;
-            return (other != null) && (Endpoint.NameComparer.Compare(this.Name, other.Name) == 0);
+            return (other != null) && (Endpoint.NameComparer.Compare(Name, other.Name) == 0);
         }
 
         /// <summary>
         /// Returns a hash code for the current object.
         /// </summary>
         public override int GetHashCode() {
-            return this.Name.GetHashCode();
+            return Name.GetHashCode();
         }
 
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         public override string ToString() {
-            return string.IsNullOrEmpty(this.Caption) ? this.Name : this.Caption;
+            return string.IsNullOrEmpty(Caption) ? Name : Caption;
         }
 
         #endregion
@@ -166,8 +165,8 @@ namespace Clamito {
         /// Gets a value indicating whether item is read-only.
         /// </summary>
         public bool IsReadOnly {
-            get { return this._isReadOnly; }
-            private set { this._isReadOnly = value; }
+            get { return _isReadOnly; }
+            private set { _isReadOnly = value; }
         }
 
 
@@ -175,8 +174,8 @@ namespace Clamito {
         /// Creates a copy of the endpoint.
         /// </summary>
         public Endpoint Clone() {
-            var endpoint = new Endpoint(this.Name, this.ProtocolName) { Caption = this.Caption };
-            foreach (var field in this.Data) {
+            var endpoint = new Endpoint(Name, ProtocolName) { Caption = Caption };
+            foreach (var field in Data) {
                 endpoint.Data.Add(field.Clone());
             }
             return endpoint;
@@ -186,8 +185,8 @@ namespace Clamito {
         /// Creates a read-only copy of the endpoint.
         /// </summary>
         public Endpoint AsReadOnly() {
-            var endpoint = new Endpoint(this.Name, this.ProtocolName) { Caption = this.Caption };
-            endpoint.Data = this.Data.AsReadOnly();
+            var endpoint = new Endpoint(Name, ProtocolName) { Caption = Caption };
+            endpoint.Data = Data.AsReadOnly();
             endpoint.IsReadOnly = true;
             return endpoint;
         }

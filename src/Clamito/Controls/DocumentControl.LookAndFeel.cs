@@ -71,13 +71,13 @@ namespace Clamito.Gui {
         private class DisplayStyle : IDisposable {
 
             public DisplayStyle(Color normalColor, Color normalBackColor, Color highlightColor, Color highlightBackColor, Color selectedColor, Color selectedBackColor, int penWidth, StringFormat titleFormat, StringFormat textFormat, int maxCharCount, int paddingCharCount) {
-                this.NormalInk = new DisplayInk(normalColor, normalBackColor, penWidth);
-                this.HighlightInk = new DisplayInk(highlightColor, highlightBackColor, penWidth);
-                this.SelectedInk = new DisplayInk(selectedColor, selectedBackColor, penWidth);
-                this.TitleFormat = titleFormat;
-                this.TextFormat = textFormat;
-                this.MaxCharCount = maxCharCount;
-                this.PaddingCharCount = paddingCharCount;
+                NormalInk = new DisplayInk(normalColor, normalBackColor, penWidth);
+                HighlightInk = new DisplayInk(highlightColor, highlightBackColor, penWidth);
+                SelectedInk = new DisplayInk(selectedColor, selectedBackColor, penWidth);
+                TitleFormat = titleFormat;
+                TextFormat = textFormat;
+                MaxCharCount = maxCharCount;
+                PaddingCharCount = paddingCharCount;
             }
 
 
@@ -90,13 +90,13 @@ namespace Clamito.Gui {
 
             public int MaxCharCount { get; private set; }
             public int PaddingCharCount { get; private set; }
-            public int TotalCharCount { get { return this.MaxCharCount + PaddingCharCount; } }
+            public int TotalCharCount { get { return MaxCharCount + PaddingCharCount; } }
 
 
             public void Dispose() {
-                if (this.NormalInk != null) { this.NormalInk.Dispose(); }
-                if (this.HighlightInk != null) { this.HighlightInk.Dispose(); }
-                if (this.SelectedInk != null) { this.SelectedInk.Dispose(); }
+                if (NormalInk != null) { NormalInk.Dispose(); }
+                if (HighlightInk != null) { HighlightInk.Dispose(); }
+                if (SelectedInk != null) { SelectedInk.Dispose(); }
             }
         }
 
@@ -104,15 +104,15 @@ namespace Clamito.Gui {
         private class DisplayInk : IDisposable {
 
             public DisplayInk(Color foreColor, Color backColor, int penWidth) {
-                this.Pen = new Pen(foreColor, penWidth);
-                this.Brush = new SolidBrush(foreColor);
+                Pen = new Pen(foreColor, penWidth);
+                Brush = new SolidBrush(foreColor);
 
                 var lightForeColor = BlendHigh(Color.FromArgb(128, foreColor));
-                this.LightPen = new Pen(lightForeColor, penWidth);
-                this.LightBrush = new SolidBrush(lightForeColor);
+                LightPen = new Pen(lightForeColor, penWidth);
+                LightBrush = new SolidBrush(lightForeColor);
 
-                this.BackPen = new Pen(backColor, penWidth);
-                this.BackBrush = new SolidBrush(backColor);
+                BackPen = new Pen(backColor, penWidth);
+                BackBrush = new SolidBrush(backColor);
             }
 
 
@@ -125,12 +125,12 @@ namespace Clamito.Gui {
 
 
             public void Dispose() {
-                if (this.Pen != null) { this.Pen.Dispose(); }
-                if (this.Brush != null) { this.Brush.Dispose(); }
-                if (this.LightPen != null) { this.LightPen.Dispose(); }
-                if (this.LightBrush != null) { this.LightBrush.Dispose(); }
-                if (this.BackPen != null) { this.BackPen.Dispose(); }
-                if (this.BackBrush != null) { this.BackBrush.Dispose(); }
+                if (Pen != null) { Pen.Dispose(); }
+                if (Brush != null) { Brush.Dispose(); }
+                if (LightPen != null) { LightPen.Dispose(); }
+                if (LightBrush != null) { LightBrush.Dispose(); }
+                if (BackPen != null) { BackPen.Dispose(); }
+                if (BackBrush != null) { BackBrush.Dispose(); }
             }
         }
 

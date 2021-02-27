@@ -9,71 +9,71 @@ namespace Clamito.Gui {
             switch (keyData) {
                 case Keys.Left:
                     {
-                        if (this.SelectedEndpoint != null) {
-                            var nextIndex = this.Document.Endpoints.IndexOf(this.SelectedEndpoint) - 1;
+                        if (SelectedEndpoint != null) {
+                            var nextIndex = Document.Endpoints.IndexOf(SelectedEndpoint) - 1;
                             if (nextIndex >= 0) {
-                                this.SelectedEndpoint = this.Document.Endpoints[nextIndex];
+                                SelectedEndpoint = Document.Endpoints[nextIndex];
                             }
-                        } else if (this.Document.Endpoints.Count > 0) { //select first endpoint if nothing was selected
-                            this.SelectedEndpoint = this.Document.Endpoints[0];
+                        } else if (Document.Endpoints.Count > 0) { //select first endpoint if nothing was selected
+                            SelectedEndpoint = Document.Endpoints[0];
                         }
                     }
                     return true;
 
                 case Keys.Right:
                     {
-                        if (this.SelectedEndpoint != null) {
-                            var nextIndex = this.Document.Endpoints.IndexOf(this.SelectedEndpoint) + 1;
-                            if (nextIndex < this.Document.Endpoints.Count) {
-                                this.SelectedEndpoint = this.Document.Endpoints[nextIndex];
+                        if (SelectedEndpoint != null) {
+                            var nextIndex = Document.Endpoints.IndexOf(SelectedEndpoint) + 1;
+                            if (nextIndex < Document.Endpoints.Count) {
+                                SelectedEndpoint = Document.Endpoints[nextIndex];
                             }
-                        } else if (this.Document.Endpoints.Count > 0) { //select last endpoint if nothing was selected
-                            this.SelectedEndpoint = this.Document.Endpoints[this.Document.Endpoints.Count - 1];
+                        } else if (Document.Endpoints.Count > 0) { //select last endpoint if nothing was selected
+                            SelectedEndpoint = Document.Endpoints[Document.Endpoints.Count - 1];
                         }
                     }
                     return true;
 
                 case Keys.Up:
                     {
-                        if (this.SelectedInteraction != null) {
-                            var nextIndex = this.Document.Interactions.IndexOf(this.SelectedInteraction) - 1;
+                        if (SelectedInteraction != null) {
+                            var nextIndex = Document.Interactions.IndexOf(SelectedInteraction) - 1;
                             if (nextIndex >= 0) {
-                                this.SelectedInteraction = this.Document.Interactions[nextIndex];
+                                SelectedInteraction = Document.Interactions[nextIndex];
                             }
-                        } else if (this.Document.Interactions.Count > 0) { //select first interaction if nothing was selected
-                            this.SelectedInteraction = this.Document.Interactions[0];
+                        } else if (Document.Interactions.Count > 0) { //select first interaction if nothing was selected
+                            SelectedInteraction = Document.Interactions[0];
                         }
                     }
                     return true;
 
                 case Keys.Down:
                     {
-                        if (this.SelectedInteraction != null) {
-                            var nextIndex = this.Document.Interactions.IndexOf(this.SelectedInteraction) + 1;
-                            if (nextIndex < this.Document.Interactions.Count) {
-                                this.SelectedInteraction = this.Document.Interactions[nextIndex];
+                        if (SelectedInteraction != null) {
+                            var nextIndex = Document.Interactions.IndexOf(SelectedInteraction) + 1;
+                            if (nextIndex < Document.Interactions.Count) {
+                                SelectedInteraction = Document.Interactions[nextIndex];
                             }
-                        } else if (this.Document.Interactions.Count > 0) { //select first interaction if nothing was selected
-                            this.SelectedInteraction = this.Document.Interactions[0];
+                        } else if (Document.Interactions.Count > 0) { //select first interaction if nothing was selected
+                            SelectedInteraction = Document.Interactions[0];
                         }
                     }
                     return true;
 
                 case Keys.Escape:
                     {
-                        this.SelectedEndpoint = null;
-                        this.SelectedInteraction = null;
+                        SelectedEndpoint = null;
+                        SelectedInteraction = null;
                     }
                     return true;
 
                 case (Keys)93:
                     { //ContextMenu key
-                        var pair = FindPairInSenseList(this.LastSelection);
+                        var pair = FindPairInSenseList(LastSelection);
                         if ((pair != null) && pair.IsMajor) {
-                            var location = this.PointToScreen(new Point(pair.Rectangle.Right - pair.Rectangle.Width / 3, pair.Rectangle.Bottom - LookAndFeel.Screen.Spacing.Bottom));
-                            if (this.SelectedEndpoint == pair.Item) {
+                            var location = PointToScreen(new Point(pair.Rectangle.Right - pair.Rectangle.Width / 3, pair.Rectangle.Bottom - LookAndFeel.Screen.Spacing.Bottom));
+                            if (SelectedEndpoint == pair.Item) {
                                 mnxEndpoint.Show(location);
-                            } else if (this.SelectedInteraction == pair.Item) {
+                            } else if (SelectedInteraction == pair.Item) {
                                 mnxInteraction.Show(location);
                             }
                         }
@@ -92,42 +92,42 @@ namespace Clamito.Gui {
 
         protected override void OnMouseDown(MouseEventArgs e) {
             var location = e.Location;
-            location.Offset(-this.AutoScrollPosition.X, -this.AutoScrollPosition.Y);
+            location.Offset(-AutoScrollPosition.X, -AutoScrollPosition.Y);
 
             var pair = FindPairInSenseList(location);
             if (pair != null) {
                 var endpoint = pair.Item as Endpoint;
                 var interaction = pair.Item as Interaction;
                 if (endpoint != null) {
-                    this.SelectedEndpoint = endpoint;
+                    SelectedEndpoint = endpoint;
                 } else if (interaction != null) {
-                    this.SelectedInteraction = interaction;
+                    SelectedInteraction = interaction;
                 }
             } else {
-                this.SelectedEndpoint = null;
-                this.SelectedInteraction = null;
+                SelectedEndpoint = null;
+                SelectedInteraction = null;
             }
 
             switch (e.Button) {
                 case MouseButtons.Left:
                     { //dragging
-                        this.dragInProgress = false; //don't start drag immediatelly
+                        dragInProgress = false; //don't start drag immediatelly
                         if (pair != null) {
-                            this.dragOrigin = e.Location;
-                            this.dragPair = pair;
+                            dragOrigin = e.Location;
+                            dragPair = pair;
                         }
                     }
                     break;
 
                 case MouseButtons.Right:
                     { //menu
-                        var menuLocation = this.PointToScreen(e.Location);
+                        var menuLocation = PointToScreen(e.Location);
                         if (pair == null) {
                             mnxAdd.Show(menuLocation);
                         } else {
-                            if (this.SelectedEndpoint == pair.Item) {
+                            if (SelectedEndpoint == pair.Item) {
                                 mnxEndpoint.Show(menuLocation);
-                            } else if (this.SelectedInteraction == pair.Item) {
+                            } else if (SelectedInteraction == pair.Item) {
                                 mnxInteraction.Show(menuLocation);
                             }
                         }
@@ -138,54 +138,54 @@ namespace Clamito.Gui {
 
         protected override void OnMouseMove(MouseEventArgs e) {
             var location = e.Location;
-            location.Offset(-this.AutoScrollPosition.X, -this.AutoScrollPosition.Y);
+            location.Offset(-AutoScrollPosition.X, -AutoScrollPosition.Y);
 
             switch (e.Button) {
                 case MouseButtons.Left:
                     { //dragging
-                        if (this.dragPair != null) {
+                        if (dragPair != null) {
                             if (dragPair.IsMajor) { //moving endpoint/interaction
-                                this.dragInProgress |= IsDraged(this.dragOrigin, e.Location); //once drag is in progress, it is always in progress (otherwise it won't show drag over origin)
-                                if (this.dragInProgress) {
+                                dragInProgress |= IsDraged(dragOrigin, e.Location); //once drag is in progress, it is always in progress (otherwise it won't show drag over origin)
+                                if (dragInProgress) {
                                     var newCursor = Cursors.Default;
-                                    var origEndpoint = this.dragPair.Item as Endpoint;
-                                    var origInteraction = this.dragPair.Item as Interaction;
+                                    var origEndpoint = dragPair.Item as Endpoint;
+                                    var origInteraction = dragPair.Item as Interaction;
 
                                     if (origEndpoint != null) {
                                         var destEndpoint = FindEndpointDragDestination(e.Location);
                                         if ((destEndpoint == null) || origEndpoint.Equals(destEndpoint)) {
-                                            newCursor = origEndpoint.Equals(destEndpoint) || (this.Document.Endpoints.Count < 2) ? Cursors.No : Cursors.NoMoveHoriz;
+                                            newCursor = origEndpoint.Equals(destEndpoint) || (Document.Endpoints.Count < 2) ? Cursors.No : Cursors.NoMoveHoriz;
                                         } else {
-                                            var indexOrig = this.Document.Endpoints.IndexOf(origEndpoint);
-                                            var indexDest = this.Document.Endpoints.IndexOf(destEndpoint);
+                                            var indexOrig = Document.Endpoints.IndexOf(origEndpoint);
+                                            var indexDest = Document.Endpoints.IndexOf(destEndpoint);
                                             newCursor = (indexOrig > indexDest) ? Cursors.PanWest : Cursors.PanEast;
                                         }
                                     } else if (origInteraction != null) {
                                         var destInteraction = FindInteractionDragDestination(e.Location);
                                         if ((destInteraction == null) || origInteraction.Equals(destInteraction)) {
-                                            newCursor = origInteraction.Equals(destInteraction) || (this.Document.Interactions.Count < 2) ? Cursors.No : Cursors.NoMoveVert;
+                                            newCursor = origInteraction.Equals(destInteraction) || (Document.Interactions.Count < 2) ? Cursors.No : Cursors.NoMoveVert;
                                         } else {
-                                            var indexOrig = this.Document.Interactions.IndexOf(origInteraction);
-                                            var indexDest = this.Document.Interactions.IndexOf(destInteraction);
+                                            var indexOrig = Document.Interactions.IndexOf(origInteraction);
+                                            var indexDest = Document.Interactions.IndexOf(destInteraction);
                                             newCursor = (indexOrig > indexDest) ? Cursors.PanNorth : Cursors.PanSouth;
                                         }
                                     }
 
-                                    this.Cursor = newCursor;
+                                    Cursor = newCursor;
                                 }
                             } else { //maybe dragging new message
-                                var origEndpoint = this.dragPair.Item as Endpoint;
+                                var origEndpoint = dragPair.Item as Endpoint;
                                 if (origEndpoint != null) {
-                                    this.dragInProgress |= IsDraged(this.dragOrigin, e.Location); //once drag is in progress, it is always in progress (otherwise it won't show drag over origin)
-                                    if (this.dragInProgress) {
-                                        var newCursor = (this.Document.Endpoints.Count >= 2) ? Cursors.NoMoveHoriz : Cursors.No;
+                                    dragInProgress |= IsDraged(dragOrigin, e.Location); //once drag is in progress, it is always in progress (otherwise it won't show drag over origin)
+                                    if (dragInProgress) {
+                                        var newCursor = (Document.Endpoints.Count >= 2) ? Cursors.NoMoveHoriz : Cursors.No;
                                         var destEndpoint = FindEndpointDragDestination(e.Location);
                                         if ((destEndpoint != null) && !origEndpoint.Equals(destEndpoint)) {
-                                            var indexOrig = this.Document.Endpoints.IndexOf(origEndpoint);
-                                            var indexDest = this.Document.Endpoints.IndexOf(destEndpoint);
+                                            var indexOrig = Document.Endpoints.IndexOf(origEndpoint);
+                                            var indexDest = Document.Endpoints.IndexOf(destEndpoint);
                                             newCursor = (indexOrig > indexDest) ? Cursors.PanWest : Cursors.PanEast;
                                         }
-                                        this.Cursor = newCursor;
+                                        Cursor = newCursor;
                                     }
                                 }
                             }
@@ -194,43 +194,43 @@ namespace Clamito.Gui {
                     break;
             }
 
-            this.currentMouseLocation = location;
-            this.Invalidate();
+            currentMouseLocation = location;
+            Invalidate();
         }
 
         protected override void OnMouseUp(MouseEventArgs e) {
             switch (e.Button) {
                 case MouseButtons.Left:
                     { //dropping
-                        if (this.dragInProgress) {
-                            if (this.dragPair.IsMajor) {
-                                var origEndpoint = this.dragPair.Item as Endpoint;
-                                var origInteraction = this.dragPair.Item as Interaction;
+                        if (dragInProgress) {
+                            if (dragPair.IsMajor) {
+                                var origEndpoint = dragPair.Item as Endpoint;
+                                var origInteraction = dragPair.Item as Interaction;
 
                                 if (origEndpoint != null) {
                                     var destEndpoint = FindEndpointDragDestination(e.Location);
                                     if ((destEndpoint != null) && !origEndpoint.Equals(destEndpoint)) {
-                                        var indexOrig = this.Document.Endpoints.IndexOf(origEndpoint);
-                                        var indexDest = this.Document.Endpoints.IndexOf(destEndpoint);
-                                        this.Document.Endpoints.MoveItem(indexOrig, indexDest);
-                                        this.Invalidate();
+                                        var indexOrig = Document.Endpoints.IndexOf(origEndpoint);
+                                        var indexDest = Document.Endpoints.IndexOf(destEndpoint);
+                                        Document.Endpoints.MoveItem(indexOrig, indexDest);
+                                        Invalidate();
                                     }
                                 } else if (origInteraction != null) {
                                     var destInteraction = FindInteractionDragDestination(e.Location);
                                     if ((destInteraction != null) && !origInteraction.Equals(destInteraction)) {
-                                        var indexOrig = this.Document.Interactions.IndexOf(origInteraction);
-                                        var indexDest = this.Document.Interactions.IndexOf(destInteraction);
-                                        this.Document.Interactions.MoveItem(indexOrig, indexDest);
-                                        this.Invalidate();
+                                        var indexOrig = Document.Interactions.IndexOf(origInteraction);
+                                        var indexDest = Document.Interactions.IndexOf(destInteraction);
+                                        Document.Interactions.MoveItem(indexOrig, indexDest);
+                                        Invalidate();
                                     }
                                 }
                             } else { //maybe create a message
-                                var origEndpoint = this.dragPair.Item as Endpoint;
+                                var origEndpoint = dragPair.Item as Endpoint;
                                 var destEndpoint = FindEndpointDragDestination(e.Location);
                                 if ((origEndpoint != null) && (destEndpoint != null) && !origEndpoint.Equals(destEndpoint)) {
                                     //find closest interaction above current position
                                     SensePair insertBeforePair = null;
-                                    foreach (var pair in this.clickSenseList) {
+                                    foreach (var pair in clickSenseList) {
                                         if ((pair.Item is Interaction) && (pair.Rectangle.Top > e.Location.Y)) {
                                             if ((insertBeforePair == null) || (insertBeforePair.Rectangle.Top > pair.Rectangle.Top)) {
                                                 insertBeforePair = pair;
@@ -238,19 +238,19 @@ namespace Clamito.Gui {
                                         }
                                     }
                                     var insertBefore = (insertBeforePair != null) ? (Interaction)insertBeforePair.Item : null;
-                                    using (var frm = new MessageForm(this.Document, null, insertBefore, origEndpoint, destEndpoint)) {
+                                    using (var frm = new MessageForm(Document, null, insertBefore, origEndpoint, destEndpoint)) {
                                         if (frm.ShowDialog(this) == DialogResult.OK) {
-                                            this.SelectedInteraction = frm.SelectedInteraction;
-                                            this.Invalidate();
+                                            SelectedInteraction = frm.SelectedInteraction;
+                                            Invalidate();
                                         }
                                     }
                                 }
                             }
-                            this.dragInProgress = false;
+                            dragInProgress = false;
                         }
-                        this.dragOrigin = Point.Empty;
-                        this.dragPair = null;
-                        this.Cursor = Cursors.Default;
+                        dragOrigin = Point.Empty;
+                        dragPair = null;
+                        Cursor = Cursors.Default;
                     }
                     break;
 
@@ -260,17 +260,17 @@ namespace Clamito.Gui {
 
         protected override void OnMouseDoubleClick(MouseEventArgs e) {
             var location = e.Location;
-            location.Offset(-this.AutoScrollPosition.X, -this.AutoScrollPosition.Y);
+            location.Offset(-AutoScrollPosition.X, -AutoScrollPosition.Y);
 
             var pair = FindPairInSenseList(location);
             if (pair != null) {
                 var endpoint = pair.Item as Endpoint;
                 var interaction = pair.Item as Interaction;
                 if (endpoint != null) {
-                    this.SelectedEndpoint = endpoint;
+                    SelectedEndpoint = endpoint;
                     mnxEndpointProperties_Click(null, null);
                 } else if (interaction != null) {
-                    this.SelectedInteraction = interaction;
+                    SelectedInteraction = interaction;
                     mnxInteractionProperties_Click(null, null);
                 }
             }
@@ -278,7 +278,7 @@ namespace Clamito.Gui {
 
         protected override void OnMouseLeave(EventArgs e) {
             base.OnMouseLeave(e);
-            this.currentMouseLocation = Point.Empty;
+            currentMouseLocation = Point.Empty;
         }
 
     }

@@ -10,21 +10,21 @@ namespace Clamito.Gui {
         protected override void OnPaint(PaintEventArgs e) {
             if (e == null) { return; }
 
-            e.Graphics.TranslateTransform(this.AutoScrollPosition.X, this.AutoScrollPosition.Y);
+            e.Graphics.TranslateTransform(AutoScrollPosition.X, AutoScrollPosition.Y);
 
-            this.clickSenseList.Clear();
+            clickSenseList.Clear();
             var newAutoScrollMinSize = PaintDocument(
                 e.Graphics,
-                font: this.Font,
+                font: Font,
                 view: LookAndFeel.Screen,
-                startingSize: this.ClientRectangle.Size,
-                senseList: this.clickSenseList
+                startingSize: ClientRectangle.Size,
+                senseList: clickSenseList
             );
 
-            if (this.AutoScrollMinSize != newAutoScrollMinSize) { this.AutoScrollMinSize = newAutoScrollMinSize; }
-            if (this.nextVisible != null) {
-                this.AutoScrollPosition = new Point(0, 0);
-                this.EnsureVisible(this.nextVisible);
+            if (AutoScrollMinSize != newAutoScrollMinSize) { AutoScrollMinSize = newAutoScrollMinSize; }
+            if (nextVisible != null) {
+                AutoScrollPosition = new Point(0, 0);
+                EnsureVisible(nextVisible);
             }
         }
 
@@ -33,7 +33,7 @@ namespace Clamito.Gui {
             g.SmoothingMode = view.SmoothingMode;
 
             if (view.BackColor.HasValue) { g.Clear(view.BackColor.Value); }
-            if (this.Document == null) { return new Size(0, 0); }
+            if (Document == null) { return new Size(0, 0); }
 
             var maxWidth = (view.Margins.Left > startingSize.Width) ? view.Margins.Left : startingSize.Width;
             var maxHeight = (view.Margins.Top > startingSize.Height) ? view.Margins.Top : startingSize.Height;
@@ -46,9 +46,9 @@ namespace Clamito.Gui {
 
 
             //Calculate endpoint locations
-            var endpoints = this.Document.Endpoints;
+            var endpoints = Document.Endpoints;
             if (endpoints.Count == 0) {
-                g.DrawString("No endpoints", this.Font, view.Endpoint.NormalInk.LightBrush, new Rectangle(0, top, maxWidth, fontSize.Height + view.Spacing.Vertical), view.Endpoint.TitleFormat);
+                g.DrawString("No endpoints", Font, view.Endpoint.NormalInk.LightBrush, new Rectangle(0, top, maxWidth, fontSize.Height + view.Spacing.Vertical), view.Endpoint.TitleFormat);
                 maxHeight += fontSize.Height + view.Spacing.Vertical;
                 return new Size(maxWidth, top + fontSize.Height + view.Spacing.Vertical);
             }
@@ -79,11 +79,11 @@ namespace Clamito.Gui {
                 var sensePairs = PaintEndpoint(endpoint, g, view.Endpoint, view.Endpoint.NormalInk, x, endpointTitleTop, maxHeight - view.Margins.Bottom, font, fontSize);
                 if (senseList != null) { senseList.AddRange(sensePairs); }
 
-                if (endpoint.Equals(this.SelectedEndpoint)) {
+                if (endpoint.Equals(SelectedEndpoint)) {
                     PaintEndpoint(endpoint, g, view.Endpoint, view.Endpoint.SelectedInk, x, endpointTitleTop, maxHeight - view.Margins.Bottom, font, fontSize);
                 } else {
                     foreach (var pair in sensePairs) {
-                        if (pair.Rectangle.Contains(this.currentMouseLocation)) {
+                        if (pair.Rectangle.Contains(currentMouseLocation)) {
                             PaintEndpoint(endpoint, g, view.Endpoint, view.Endpoint.HighlightInk, x, endpointTitleTop, maxHeight - view.Margins.Bottom, font, fontSize);
                             break;
                         }
@@ -101,7 +101,7 @@ namespace Clamito.Gui {
             top = endpointLineTop;
             var interactionHeight = view.Spacing.Vertical * 6 + fontSize.Height;
 
-            foreach (var interaction in this.Document.Interactions) {
+            foreach (var interaction in Document.Interactions) {
                 var middle = top + interactionHeight / 2;
                 if (interaction.Kind == InteractionKind.Command) {
                     var command = (Command)interaction;
@@ -112,11 +112,11 @@ namespace Clamito.Gui {
                     var sensePairs = PaintCommand(command, g, view.Interaction.NormalInk, srcX, dstX, middle, font, fontSize);
                     if (senseList != null) { senseList.AddRange(sensePairs); }
 
-                    if (interaction.Equals(this.SelectedInteraction)) {
+                    if (interaction.Equals(SelectedInteraction)) {
                         PaintCommand(command, g, view.Interaction.SelectedInk, srcX, dstX, middle, font, fontSize);
                     } else {
                         foreach (var pair in sensePairs) {
-                            if (pair.Rectangle.Contains(this.currentMouseLocation)) {
+                            if (pair.Rectangle.Contains(currentMouseLocation)) {
                                 PaintCommand(command, g, view.Interaction.HighlightInk, srcX, dstX, middle, font, fontSize);
                                 break;
                             }
@@ -131,11 +131,11 @@ namespace Clamito.Gui {
                     var sensePairs = PaintMessage(message, g, view.Interaction.NormalInk, srcX, dstX, middle, font, fontSize);
                     if (senseList != null) { senseList.AddRange(sensePairs); }
 
-                    if (interaction.Equals(this.SelectedInteraction)) {
+                    if (interaction.Equals(SelectedInteraction)) {
                         PaintMessage(message, g, view.Interaction.SelectedInk, srcX, dstX, middle, font, fontSize);
                     } else {
                         foreach (var pair in sensePairs) {
-                            if (pair.Rectangle.Contains(this.currentMouseLocation)) {
+                            if (pair.Rectangle.Contains(currentMouseLocation)) {
                                 PaintMessage(message, g, view.Interaction.HighlightInk, srcX, dstX, middle, font, fontSize);
                                 break;
                             }

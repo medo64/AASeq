@@ -9,14 +9,14 @@ namespace Clamito {
     public class Failure {
 
         private Failure(int line, string format, params object[] args) {
-            this.Line = line;
-            this.Text = String.Format(CultureInfo.InvariantCulture, format, args);
+            Line = line;
+            Text = String.Format(CultureInfo.InvariantCulture, format, args);
         }
 
         private Failure(int line, string text, bool isWarning) { //used for clone
-            this.Line = line;
-            this.Text = text;
-            this.IsWarning = isWarning;
+            Line = line;
+            Text = text;
+            IsWarning = isWarning;
         }
 
 
@@ -38,7 +38,7 @@ namespace Clamito {
         /// <summary>
         /// Gets if result is error.
         /// </summary>
-        public bool IsError { get { return !this.IsWarning; } }
+        public bool IsError { get { return !IsWarning; } }
 
 
         #region Create
@@ -91,7 +91,7 @@ namespace Clamito {
         /// Creates a copy of the result.
         /// </summary>
         public Failure Clone() {
-            return new Failure(this.Line, this.Text, this.IsWarning, this.IsError);
+            return new Failure(Line, Text, IsWarning, IsError);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">New prefix cannot be null.</exception>
         public Failure Clone(string newPrefix) {
             if (newPrefix == null) { throw new ArgumentNullException(nameof(newPrefix), "New prefix cannot be null."); }
-            return new Failure(this.Line, newPrefix + this.Text, this.IsWarning);
+            return new Failure(Line, newPrefix + Text, IsWarning);
         }
 
     }

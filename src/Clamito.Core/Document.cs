@@ -26,11 +26,11 @@ namespace Clamito {
         /// <param name="defaultEndpoints">Default endpoints.</param>
         /// <param name="defaultInteractions">Default interactions.</param>
         public Document(ICollection<Endpoint> defaultEndpoints, ICollection<Interaction> defaultInteractions) {
-            this.Endpoints = new EndpointCollection(defaultEndpoints);
-            this.Interactions = new InteractionCollection(defaultInteractions);
+            Endpoints = new EndpointCollection(defaultEndpoints);
+            Interactions = new InteractionCollection(defaultInteractions);
 
-            this.Endpoints.Changed += Document_Changed;
-            this.Interactions.Changed += Document_Changed;
+            Endpoints.Changed += Document_Changed;
+            Interactions.Changed += Document_Changed;
         }
 
 
@@ -49,14 +49,14 @@ namespace Clamito {
         /// Gets whether there are any endpoints in the document.
         /// </summary>
         public Boolean HasAnyEndpoints {
-            get { return (this.Endpoints.Count > 0); }
+            get { return (Endpoints.Count > 0); }
         }
 
         /// <summary>
         /// Gets whether there are any interactions in the document.
         /// </summary>
         public Boolean HasAnyInteractions {
-            get { return (this.Interactions.Count > 0); }
+            get { return (Interactions.Count > 0); }
         }
 
 
@@ -65,14 +65,14 @@ namespace Clamito {
         /// Gets whether document was changed since last save.
         /// </summary>
         public bool IsChanged {
-            get { return this._isChanged; }
+            get { return _isChanged; }
             private set {
-                if (this.DontTrackChanges) { return; }
-                if (this._isChanged != value) {
+                if (DontTrackChanges) { return; }
+                if (_isChanged != value) {
                     Log.Write.Verbose("Document", "IsChanged={0}", value);
-                    this._isChanged = value;
+                    _isChanged = value;
                     if (value) {
-                        this.OnChanged(new EventArgs());
+                        OnChanged(new EventArgs());
                     }
                 }
             }
@@ -92,7 +92,7 @@ namespace Clamito {
         /// <param name="e">Event data.</param>
         private void OnChanged(EventArgs e) {
             Log.Write.Verbose("Document", "OnChanged()");
-            var ev = this.Changed;
+            var ev = Changed;
             if (ev != null) { ev(this, e); }
         }
 
@@ -252,7 +252,7 @@ namespace Clamito {
                     xw.WriteEndElement(); //Clamito
                 }
 
-                this.IsChanged = false;
+                IsChanged = false;
             } catch (Exception ex) {
                 Log.Write.Error("Document.Save", ex);
                 throw;
@@ -263,7 +263,7 @@ namespace Clamito {
 
         private void SaveEndpoints(XmlTextWriter xw) {
             xw.WriteStartElement("Endpoints");
-            foreach (var endpoint in this.Endpoints) {
+            foreach (var endpoint in Endpoints) {
                 xw.WriteStartElement("Endpoint");
                 xw.WriteAttributeString("name", endpoint.Name);
                 if (!string.IsNullOrEmpty(endpoint.Caption)) { xw.WriteAttributeString("caption", endpoint.Caption); }
@@ -280,7 +280,7 @@ namespace Clamito {
 
         private void SaveFlows(XmlTextWriter xw) {
             xw.WriteStartElement("Interactions");
-            foreach (var interaction in this.Interactions) {
+            foreach (var interaction in Interactions) {
                 switch (interaction.Kind) {
                     case InteractionKind.Command:
                         {
@@ -364,7 +364,7 @@ namespace Clamito {
         private bool DontTrackChanges;
 
         private void Document_Changed(Object sender, EventArgs e) {
-            this.IsChanged = true;
+            IsChanged = true;
         }
 
     }

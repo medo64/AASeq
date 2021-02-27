@@ -35,12 +35,12 @@ namespace Clamito {
         /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters. -or- Source and destination cannot be the same.</exception>
         public Message(string name, Endpoint source, Endpoint destination, IEnumerable<Field> fields)
             : this(name, source, destination, null) {
-            this.Data.AddRange(fields);
+            Data.AddRange(fields);
         }
 
         private Message(string name, Endpoint source, Endpoint destination, FieldCollection fields)
             : base(name, fields) {
-            this.ReplaceEndpoints(source, destination);
+            ReplaceEndpoints(source, destination);
         }
 
 
@@ -65,11 +65,11 @@ namespace Clamito {
             if (source == null) { throw new ArgumentNullException(nameof(source), "Source cannot be null."); }
             if (destination == null) { throw new ArgumentNullException(nameof(destination), "Destination cannot be null."); }
             if (source.Equals(destination)) { throw new ArgumentOutOfRangeException(nameof(source), "Source and destination cannot be the same."); }
-            if (this.IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
+            if (IsReadOnly) { throw new NotSupportedException("Object is read-only."); }
 
-            this.Source = source;
-            this.Destination = destination;
-            this.OnChanged(new EventArgs());
+            Source = source;
+            Destination = destination;
+            OnChanged(new EventArgs());
         }
 
 
@@ -85,7 +85,7 @@ namespace Clamito {
         /// Creates a copy of the message.
         /// </summary>
         public override Interaction Clone() {
-            var message = new Message(this.Name, this.Source.Clone(), this.Destination.Clone(), this.Data.Clone()) { Caption = this.Caption };
+            var message = new Message(Name, Source.Clone(), Destination.Clone(), Data.Clone()) { Caption = Caption };
             return message;
         }
 
@@ -93,7 +93,7 @@ namespace Clamito {
         /// Creates a read-only copy of the message.
         /// </summary>
         public override Interaction AsReadOnly() {
-            var message = new Message(this.Name, this.Source.AsReadOnly(), this.Destination.AsReadOnly(), this.Data.AsReadOnly()) { Caption = this.Caption };
+            var message = new Message(Name, Source.AsReadOnly(), Destination.AsReadOnly(), Data.AsReadOnly()) { Caption = Caption };
             message.IsReadOnly = true;
             return message;
         }

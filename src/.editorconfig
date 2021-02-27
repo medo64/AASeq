@@ -18,8 +18,8 @@ dotnet_style_qualification_for_property                                  = false
 dotnet_style_qualification_for_method                                    = false : suggestion
 dotnet_style_qualification_for_event                                     = false : suggestion
 # Language keywords instead of framework type names for type references
-dotnet_style_predefined_type_for_locals_parameters_members               = true : suggestion
-dotnet_style_predefined_type_for_member_access                           = true : suggestion
+dotnet_style_predefined_type_for_locals_parameters_members               = true : none
+dotnet_style_predefined_type_for_member_access                           = true : none
 # Modifier preferences
 dotnet_style_require_accessibility_modifiers                             = for_non_interface_members : none
 csharp_preferred_modifier_order                                          = public, private, protected, internal, static, extern, new, virtual, abstract, sealed, override, readonly, unsafe, volatile, async : none

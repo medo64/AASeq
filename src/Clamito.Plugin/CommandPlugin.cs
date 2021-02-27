@@ -14,7 +14,7 @@ namespace Clamito {
         /// Gets display name for protocol.
         /// </summary>
         public override string DisplayName {
-            get { return this.Name; }
+            get { return Name; }
         }
 
         #endregion
@@ -26,7 +26,7 @@ namespace Clamito {
         /// Creates new instance of current class.
         /// </summary>
         public CommandPlugin CreateInstance() {
-            return (CommandPlugin)Activator.CreateInstance(this.GetType());
+            return (CommandPlugin)Activator.CreateInstance(GetType());
         }
 
         #endregion

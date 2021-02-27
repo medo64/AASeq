@@ -41,11 +41,10 @@ namespace Clamito {
             if (data == null) { throw new ArgumentNullException(nameof(data), "Data cannot be null."); }
             var interval = data["Interval"];
 
-            int milliseconds;
             if (interval == null) {
                 Thread.Sleep(1000);
                 yield break;
-            } else if (TryParseTime(interval, out milliseconds)) {
+            } else if (TryParseTime(interval, out var milliseconds)) {
                 Thread.Sleep(milliseconds);
                 yield break;
             } else {

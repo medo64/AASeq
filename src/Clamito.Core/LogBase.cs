@@ -94,9 +94,9 @@ namespace Clamito {
             if (source.IndexOfAny(new char[] { '{', '}' }) >= 0) { throw new ArgumentOutOfRangeException(nameof(source), "Source cannot contain curly brackets."); }
             if (format == null) { throw new ArgumentNullException(nameof(format), "Format cannot be null."); }
 #if DEBUG
-            Debug.WriteLine(type.ToString().Substring(0, 1) + ": " + this.Source.Name + ":" + source + ": " + string.Format(CultureInfo.InvariantCulture, format, args));
+            Debug.WriteLine(type.ToString().Substring(0, 1) + ": " + Source.Name + ":" + source + ": " + string.Format(CultureInfo.InvariantCulture, format, args));
 #endif
-            this.Source.TraceEvent(type, 0, source + ": " + format, args);
+            Source.TraceEvent(type, 0, source + ": " + format, args);
         }
 
     }

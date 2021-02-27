@@ -8,9 +8,9 @@ namespace Clamito.Gui {
         public ExecuteForm(Document document) {
             InitializeComponent();
             mnu.Renderer = Helper.ToolstripRenderer;
-            this.Font = SystemFonts.MessageBoxFont;
+            Font = SystemFonts.MessageBoxFont;
 
-            this.Document = document;
+            Document = document;
 
             Medo.Windows.Forms.State.SetupOnLoadAndClose(this);
         }
@@ -45,7 +45,7 @@ namespace Clamito.Gui {
 
 
                 case Keys.Escape:
-                    this.Close();
+                    Close();
                     return true;
 
                 default: return base.ProcessCmdKey(ref msg, keyData);
@@ -54,16 +54,16 @@ namespace Clamito.Gui {
 
 
         private void Form_Load(object sender, EventArgs e) {
-            this.Engine = new Engine(this.Document);
-            this.Engine.Started += Engine_Started;
-            this.Engine.StepStarted += Engine_StepStarted;
-            this.Engine.StepCompleted += Engine_StepCompleted;
-            this.Engine.Stopped += Engine_Stopped;
+            Engine = new Engine(Document);
+            Engine.Started += Engine_Started;
+            Engine.StepStarted += Engine_StepStarted;
+            Engine.StepCompleted += Engine_StepCompleted;
+            Engine.Stopped += Engine_Stopped;
             bwInitializeEngine.RunWorkerAsync();
         }
 
         private void Form_FormClosed(object sender, FormClosedEventArgs e) {
-            this.Engine.Terminate();
+            Engine.Terminate();
         }
 
 
@@ -76,19 +76,19 @@ namespace Clamito.Gui {
         private void mnuStart_Click(object sender, EventArgs e) {
             staStatus.Text = "Starting...";
             sta.Refresh();
-            this.Engine.Start();
+            Engine.Start();
         }
 
         private void mnuStep_Click(object sender, EventArgs e) {
             staStatus.Text = "Stepping...";
             sta.Refresh();
-            this.Engine.Step();
+            Engine.Step();
         }
 
         private void mnuStop_Click(object sender, EventArgs e) {
             staStatus.Text = "Stopping...";
             sta.Refresh();
-            this.Engine.Stop();
+            Engine.Stop();
         }
 
         #endregion
@@ -108,7 +108,7 @@ namespace Clamito.Gui {
         }
 
         void Engine_StepCompleted(object sender, StepCompletedEventArgs e) {
-            staRunCount.Text = this.Engine.StepCount.ToString();
+            staRunCount.Text = Engine.StepCount.ToString();
             if (e.IsSuccess) {
                 staStatus.Text = "Done.";
             } else {
@@ -123,12 +123,12 @@ namespace Clamito.Gui {
 
 
         private void bwInitializeEngine_DoWork(object sender, DoWorkEventArgs e) {
-            this.Engine.Initialize();
+            Engine.Initialize();
         }
 
         private void bwInitializeEngine_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e) {
             if (e.Cancelled) {
-                this.Close();
+                Close();
             } else {
                 mnuRun.Enabled = true;
                 mnuStep.Enabled = true;

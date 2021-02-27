@@ -6,7 +6,7 @@ namespace Clamito.Gui {
     partial class DocumentControl {
 
         private void mnxAdd_Opening(object sender, CancelEventArgs e) {
-            mnxAddMessage.Enabled = (this.Document.Endpoints.Count >= 2);
+            mnxAddMessage.Enabled = (Document.Endpoints.Count >= 2);
             mnxAddCommand.Enabled = true;
         }
 
@@ -24,73 +24,73 @@ namespace Clamito.Gui {
 
 
         private void mnxEndpointAdd_Click(object sender, EventArgs e) {
-            using (var frm = new EndpointForm(this.Document, null, GetNextEndpoint(this.Document, this.SelectedEndpoint))) {
+            using (var frm = new EndpointForm(Document, null, GetNextEndpoint(Document, SelectedEndpoint))) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
-                    this.SelectedEndpoint = frm.SelectedEndpoint;
+                    SelectedEndpoint = frm.SelectedEndpoint;
                 }
             }
         }
 
         private void mnxEndpointRemove_Click(object sender, EventArgs e) {
-            var nextIndex = this.Document.Endpoints.IndexOf(this.SelectedEndpoint);
-            this.Document.Endpoints.Remove(this.SelectedEndpoint);
-            if (nextIndex >= this.Document.Endpoints.Count) { nextIndex--; }
-            if (this.Document.Endpoints.Count > 0) {
-                this.SelectedEndpoint = this.Document.Endpoints[nextIndex];
+            var nextIndex = Document.Endpoints.IndexOf(SelectedEndpoint);
+            Document.Endpoints.Remove(SelectedEndpoint);
+            if (nextIndex >= Document.Endpoints.Count) { nextIndex--; }
+            if (Document.Endpoints.Count > 0) {
+                SelectedEndpoint = Document.Endpoints[nextIndex];
             } else {
-                this.SelectedEndpoint = null;
+                SelectedEndpoint = null;
             }
         }
 
         private void mnxEndpointProperties_Click(object sender, EventArgs e) {
-            using (var frm = new EndpointForm(this.Document, this.SelectedEndpoint)) {
+            using (var frm = new EndpointForm(Document, SelectedEndpoint)) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
-                    this.SelectedEndpoint = frm.SelectedEndpoint;
+                    SelectedEndpoint = frm.SelectedEndpoint;
                 }
             }
         }
 
 
         private void mnxInteractionAddContent_Click(object sender, EventArgs e) {
-            using (var frm = new MessageForm(this.Document, null, GetNextInteraction(this.Document, this.SelectedInteraction))) {
+            using (var frm = new MessageForm(Document, null, GetNextInteraction(Document, SelectedInteraction))) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
-                    this.SelectedInteraction = frm.SelectedInteraction;
+                    SelectedInteraction = frm.SelectedInteraction;
                 }
             }
         }
 
         private void mnxInteractionAddCommand_Click(object sender, EventArgs e) {
-            using (var frm = new CommandForm(this.Document, null, GetNextInteraction(this.Document, this.SelectedInteraction))) {
+            using (var frm = new CommandForm(Document, null, GetNextInteraction(Document, SelectedInteraction))) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
-                    this.SelectedInteraction = frm.SelectedInteraction;
+                    SelectedInteraction = frm.SelectedInteraction;
                 }
             }
         }
 
         private void mnxInteractionRemove_Click(object sender, EventArgs e) {
-            var nextIndex = this.Document.Interactions.IndexOf(this.SelectedInteraction);
-            this.Document.Interactions.Remove(this.SelectedInteraction);
-            if (nextIndex >= this.Document.Interactions.Count) { nextIndex--; }
-            if (this.Document.Interactions.Count > 0) {
-                this.SelectedInteraction = this.Document.Interactions[nextIndex];
+            var nextIndex = Document.Interactions.IndexOf(SelectedInteraction);
+            Document.Interactions.Remove(SelectedInteraction);
+            if (nextIndex >= Document.Interactions.Count) { nextIndex--; }
+            if (Document.Interactions.Count > 0) {
+                SelectedInteraction = Document.Interactions[nextIndex];
             } else {
-                this.SelectedInteraction = null;
+                SelectedInteraction = null;
             }
         }
 
         private void mnxInteractionProperties_Click(object sender, EventArgs e) {
-            var interaction = this.SelectedInteraction;
+            var interaction = SelectedInteraction;
             if (interaction != null) {
                 if (interaction.Kind == InteractionKind.Message) {
-                    using (var frm = new MessageForm(this.Document, (Message)this.SelectedInteraction)) {
+                    using (var frm = new MessageForm(Document, (Message)SelectedInteraction)) {
                         if (frm.ShowDialog(this) == DialogResult.OK) {
-                            this.SelectedInteraction = frm.SelectedInteraction;
+                            SelectedInteraction = frm.SelectedInteraction;
                         }
                     }
                 } else if (interaction.Kind == InteractionKind.Command) {
-                    using (var frm = new CommandForm(this.Document, (Command)this.SelectedInteraction)) {
+                    using (var frm = new CommandForm(Document, (Command)SelectedInteraction)) {
                         if (frm.ShowDialog(this) == DialogResult.OK) {
-                            this.SelectedInteraction = frm.SelectedInteraction;
+                            SelectedInteraction = frm.SelectedInteraction;
                         }
                     }
                 }

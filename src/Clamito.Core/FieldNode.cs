@@ -8,8 +8,8 @@ namespace Clamito {
     public class FieldNode {
 
         internal FieldNode(string path, Field field) {
-            this.Path = path;
-            this.Field = field;
+            Path = path;
+            Field = field;
         }
 
 
@@ -28,7 +28,7 @@ namespace Clamito {
         /// Returns a string that represents the current object.
         /// </summary>
         public override string ToString() {
-            return this.Path;
+            return Path;
         }
 
     }

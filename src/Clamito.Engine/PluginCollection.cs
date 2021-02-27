@@ -16,13 +16,13 @@ namespace Clamito {
 
         internal void Add(T protocol) {
             if (protocol == null) { throw new ArgumentNullException(nameof(protocol), "Protocol cannot be null."); }
-            if (this.Contains(protocol.Name)) { throw new ArgumentOutOfRangeException(nameof(protocol), "Protocol " + protocol.Name + " already exists."); }
-            this.BaseCollection.Add(protocol);
-            this.LookupByName.Add(protocol.Name, protocol);
+            if (Contains(protocol.Name)) { throw new ArgumentOutOfRangeException(nameof(protocol), "Protocol " + protocol.Name + " already exists."); }
+            BaseCollection.Add(protocol);
+            LookupByName.Add(protocol.Name, protocol);
         }
 
         internal void Sort() {
-            this.BaseCollection.Sort(
+            BaseCollection.Sort(
                 delegate (T protocol1, T protocol2) {
                     return string.CompareOrdinal(protocol1.DisplayName, protocol2.DisplayName);
                 }
@@ -44,28 +44,28 @@ namespace Clamito {
         /// <exception cref="System.ArgumentNullException">Value cannot be null.</exception>
         /// <exception cref="System.ArgumentOutOfRangeException">Index is less than 0. -or- Index is equal to or greater than collection count. -or- Duplicate name in collection. -or- Item cannot be in other collection.</exception>
         public T this[int index] {
-            get { return this.BaseCollection[index]; }
+            get { return BaseCollection[index]; }
         }
 
         /// <summary>
         /// Gets the number of protocols contained in the collection.
         /// </summary>
         public int Count {
-            get { return this.BaseCollection.Count; }
+            get { return BaseCollection.Count; }
         }
 
         /// <summary>
         /// Exposes the enumerator, which supports a simple iteration over a collection of a specified type.
         /// </summary>
         public IEnumerator<T> GetEnumerator() {
-            return this.BaseCollection.GetEnumerator();
+            return BaseCollection.GetEnumerator();
         }
 
         /// <summary>
         /// Exposes the enumerator, which supports a simple iteration over a non-generic collection.
         /// </summary>
         IEnumerator IEnumerable.GetEnumerator() {
-            return this.BaseCollection.GetEnumerator();
+            return BaseCollection.GetEnumerator();
         }
 
         #endregion
@@ -79,8 +79,7 @@ namespace Clamito {
         public T this[string name] {
             get {
                 if (name != null) {
-                    T value;
-                    return this.LookupByName.TryGetValue(name, out value) ? value : null;
+                    return LookupByName.TryGetValue(name, out var value) ? value : null;
                 } else {
                     return null;
                 }
@@ -94,7 +93,7 @@ namespace Clamito {
         /// <param name="name">Name of the item to locate.</param>
         /// <exception cref="System.ArgumentNullException">Name cannot be null.</exception>
         public bool Contains(string name) {
-            return (name == null) ? false : this.LookupByName.ContainsKey(name);
+            return (name == null) ? false : LookupByName.ContainsKey(name);
         }
 
         #endregion

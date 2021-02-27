@@ -5,7 +5,7 @@
         <TargetFramework>net5.0-windows</TargetFramework>
         <UseWindowsForms>true</UseWindowsForms>
         <AssemblyName>Clamito</AssemblyName>
-        <RootNamespace>ClamitoGui</RootNamespace>
+        <RootNamespace>Clamito.Gui</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup>

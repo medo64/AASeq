@@ -33,14 +33,14 @@ namespace Clamito {
         /// Releases all non-managed resources.
         /// </summary>
         ~PluginBase() {
-            this.Dispose(false);
+            Dispose(false);
         }
 
         /// <summary>
         /// Releases all allocated resources.
         /// </summary>
         public void Dispose() {
-            this.Dispose(true);
+            Dispose(true);
             GC.SuppressFinalize(this);
         }
 
@@ -63,10 +63,10 @@ namespace Clamito {
         /// <param name="obj">The object to compare with the current object.</param>
         public override bool Equals(object obj) {
             var other = obj as PluginBase;
-            if (other != null) { return (obj.GetType().Equals(this.GetType())) && this.Name.Equals(other.Name); }
+            if (other != null) { return (obj.GetType().Equals(GetType())) && Name.Equals(other.Name); }
 
             var otherString = obj as string;
-            if (otherString != null) { return this.Name.Equals(otherString); }
+            if (otherString != null) { return Name.Equals(otherString); }
 
             return false;
         }
@@ -75,14 +75,14 @@ namespace Clamito {
         /// Returns a hash code for the current object.
         /// </summary>
         public override int GetHashCode() {
-            return this.Name.GetHashCode();
+            return Name.GetHashCode();
         }
 
         /// <summary>
         /// Returns a string that represents the current object.
         /// </summary>
         public override string ToString() {
-            return this.DisplayName;
+            return DisplayName;
         }
 
         #endregion

@@ -12,7 +12,7 @@ namespace Clamito.Gui {
             mnu.Renderer = Helper.ToolstripRenderer;
             Helper.ScaleToolstrip(mnu);
             doc.Font = SystemFonts.MessageBoxFont;
-            this.Font = SystemFonts.MessageBoxFont;
+            Font = SystemFonts.MessageBoxFont;
 
             Medo.Windows.Forms.State.SetupOnLoadAndClose(this);
 
@@ -104,7 +104,7 @@ namespace Clamito.Gui {
             mnuEndpointProperties.Enabled = (doc.SelectedEndpoint != null);
 
             mnuInteractionAdd.Enabled = true;
-            mnuInteractionAddMessage.Enabled = (this.Document.Endpoints.Count >= 2);
+            mnuInteractionAddMessage.Enabled = (Document.Endpoints.Count >= 2);
             mnuInteractionAddCommand.Enabled = true;
             mnuInteractionRemove.Enabled = (doc.SelectedInteraction != null);
             mnuInteractionProperties.Enabled = (doc.SelectedInteraction != null);
@@ -115,9 +115,9 @@ namespace Clamito.Gui {
 
         private void mnuNew_Click(object sender, EventArgs e) {
             if (ProceedWithNewDocument()) {
-                this.Document = new Document(new Endpoint[] { new Endpoint("Me") }, null);
-                this.Document.Changed += delegate (object sender2, EventArgs e2) { this.RefreshTitle(); };
-                this.RefreshDocument();
+                Document = new Document(new Endpoint[] { new Endpoint("Me") }, null);
+                Document.Changed += delegate (object sender2, EventArgs e2) { RefreshTitle(); };
+                RefreshDocument();
             }
         }
 
@@ -126,9 +126,9 @@ namespace Clamito.Gui {
                 mnuOpenDefault.DropDownItems.RemoveAt(i);
             }
 
-            if (this.Recent.Count > 0) {
+            if (Recent.Count > 0) {
                 mnuOpenDefault.DropDownItems.Add(new ToolStripSeparator());
-                foreach (var file in this.Recent.Items) {
+                foreach (var file in Recent.Items) {
                     if (File.Exists(file.FileName)) {
                         mnuOpenDefault.DropDownItems.Add(file.Title, null, delegate (object sender2, EventArgs e2) {
                             if (ProceedWithNewDocument()) {
@@ -151,12 +151,12 @@ namespace Clamito.Gui {
         }
 
         private bool ProceedWithNewDocument() {
-            if (this.Document.IsChanged == false) { return true; }
+            if (Document.IsChanged == false) { return true; }
 
             switch (Medo.MessageBox.ShowQuestion(this, "Current document has not been saved. Do you wish to save it now?", MessageBoxButtons.YesNoCancel, MessageBoxDefaultButton.Button1)) {
                 case DialogResult.Yes:
                     mnuSaveDefault_ButtonClick(null, null);
-                    return (this.Document.IsChanged == false);
+                    return (Document.IsChanged == false);
 
                 case DialogResult.No: return true;
             }
@@ -165,18 +165,18 @@ namespace Clamito.Gui {
 
         private void OpenFile(string fileName) {
             try {
-                this.Document = Document.Load(File.OpenRead(fileName));
-                this.DocumentFileName = fileName;
-                this.Document.Changed += delegate (object sender2, EventArgs e2) { this.RefreshTitle(); };
+                Document = Document.Load(File.OpenRead(fileName));
+                DocumentFileName = fileName;
+                Document.Changed += delegate (object sender2, EventArgs e2) { RefreshTitle(); };
                 RefreshDocument();
-                this.Recent.Push(fileName);
+                Recent.Push(fileName);
             } catch (Exception ex) {
                 Medo.MessageBox.ShowError(this, "Cannot open " + Path.GetFileName(fileName) + "!\n\n" + ex.Message);
             }
         }
 
         private void mnuSaveDefault_ButtonClick(object sender, EventArgs e) {
-            if (this.DocumentFileName != null) {
+            if (DocumentFileName != null) {
                 mnuSave_Click(null, null);
             } else {
                 mnuSaveAs_Click(null, null);
@@ -184,18 +184,18 @@ namespace Clamito.Gui {
         }
 
         private void mnuSaveDefault_DropDownOpening(object sender, EventArgs e) {
-            mnuSave.Enabled = (this.DocumentFileName != null);
+            mnuSave.Enabled = (DocumentFileName != null);
         }
 
         private void mnuSave_Click(object sender, EventArgs e) {
-            if (this.DocumentFileName == null) { return; }
+            if (DocumentFileName == null) { return; }
 
-            using (var stream = File.OpenWrite(this.DocumentFileName)) {
+            using (var stream = File.OpenWrite(DocumentFileName)) {
                 stream.SetLength(0);
-                this.Document.Save(stream);
+                Document.Save(stream);
             }
-            this.RefreshTitle();
-            this.Recent.Push(this.DocumentFileName); //to have it move to front in case of multiple concurent instances
+            RefreshTitle();
+            Recent.Push(DocumentFileName); //to have it move to front in case of multiple concurent instances
         }
 
         private void mnuSaveAs_Click(object sender, EventArgs e) {
@@ -204,11 +204,11 @@ namespace Clamito.Gui {
                     try {
                         using (var stream = File.OpenWrite(frm.FileName)) {
                             stream.SetLength(0);
-                            this.Document.Save(stream);
-                            this.DocumentFileName = frm.FileName;
+                            Document.Save(stream);
+                            DocumentFileName = frm.FileName;
                         }
-                        this.RefreshTitle();
-                        this.Recent.Push(frm.FileName);
+                        RefreshTitle();
+                        Recent.Push(frm.FileName);
                     } catch (Exception ex) {
                         Medo.MessageBox.ShowError(this, "Cannot save " + Path.GetFileName(frm.FileName) + "!\n\n" + ex.Message);
                     }
@@ -232,7 +232,7 @@ namespace Clamito.Gui {
 
         private void mnuEndpointAdd_Click(object sender, EventArgs e) {
             var item = sender as ToolStripItem;
-            using (var frm = new EndpointForm(this.Document, null, GetNextEndpoint(doc.Document, doc.SelectedEndpoint), item.Tag as ProtocolPlugin)) {
+            using (var frm = new EndpointForm(Document, null, GetNextEndpoint(doc.Document, doc.SelectedEndpoint), item.Tag as ProtocolPlugin)) {
                 if (frm.ShowDialog(this) == DialogResult.OK) {
                     doc.SelectedEndpoint = frm.SelectedEndpoint;
                 }
@@ -241,11 +241,11 @@ namespace Clamito.Gui {
 
         private void mnuEndpointRemove_Click(object sender, EventArgs e) {
             if (doc.SelectedEndpoint != null) {
-                var nextIndex = this.Document.Endpoints.IndexOf(doc.SelectedEndpoint);
-                this.Document.Endpoints.Remove(doc.SelectedEndpoint);
-                if (nextIndex >= this.Document.Endpoints.Count) { nextIndex--; }
-                if (this.Document.Endpoints.Count > 0) {
-                    doc.SelectedEndpoint = this.Document.Endpoints[nextIndex];
+                var nextIndex = Document.Endpoints.IndexOf(doc.SelectedEndpoint);
+                Document.Endpoints.Remove(doc.SelectedEndpoint);
+                if (nextIndex >= Document.Endpoints.Count) { nextIndex--; }
+                if (Document.Endpoints.Count > 0) {
+                    doc.SelectedEndpoint = Document.Endpoints[nextIndex];
                 } else {
                     doc.SelectedEndpoint = null;
                 }
@@ -254,7 +254,7 @@ namespace Clamito.Gui {
 
         private void mnuEndpointProperties_Click(object sender, EventArgs e) {
             if (doc.SelectedEndpoint != null) {
-                using (var frm = new EndpointForm(this.Document, doc.SelectedEndpoint)) {
+                using (var frm = new EndpointForm(Document, doc.SelectedEndpoint)) {
                     if (frm.ShowDialog(this) == DialogResult.OK) {
                         doc.SelectedEndpoint = frm.SelectedEndpoint;
                     }
@@ -273,8 +273,8 @@ namespace Clamito.Gui {
         }
 
         private void mnuInteractionAddContent_Click(object sender, EventArgs e) {
-            if (this.Document.Endpoints.Count >= 2) {
-                using (var frm = new MessageForm(this.Document, null, GetNextInteraction(doc.Document, doc.SelectedInteraction))) {
+            if (Document.Endpoints.Count >= 2) {
+                using (var frm = new MessageForm(Document, null, GetNextInteraction(doc.Document, doc.SelectedInteraction))) {
                     if (frm.ShowDialog(this) == DialogResult.OK) {
                         doc.SelectedInteraction = frm.SelectedInteraction;
                     }
@@ -283,8 +283,8 @@ namespace Clamito.Gui {
         }
 
         private void mnuInteractionAddCommand_Click(object sender, EventArgs e) {
-            if (this.Document.Endpoints.Count >= 1) {
-                using (var frm = new CommandForm(this.Document, null, GetNextInteraction(doc.Document, doc.SelectedInteraction))) {
+            if (Document.Endpoints.Count >= 1) {
+                using (var frm = new CommandForm(Document, null, GetNextInteraction(doc.Document, doc.SelectedInteraction))) {
                     if (frm.ShowDialog(this) == DialogResult.OK) {
                         doc.SelectedInteraction = frm.SelectedInteraction;
                     }
@@ -308,7 +308,7 @@ namespace Clamito.Gui {
         private void mnuInteractionProperties_Click(object sender, EventArgs e) {
             if (doc.SelectedInteraction != null) {
                 if (doc.SelectedInteraction.IsMessage) {
-                    using (var frm = new MessageForm(this.Document, (Message)doc.SelectedInteraction)) {
+                    using (var frm = new MessageForm(Document, (Message)doc.SelectedInteraction)) {
                         if (frm.ShowDialog(this) == DialogResult.OK) {
                             doc.SelectedInteraction = frm.SelectedInteraction;
                         }
@@ -319,7 +319,7 @@ namespace Clamito.Gui {
 
 
         private void mnuExecute_Click(object sender, EventArgs e) {
-            using (var frm = new ExecuteForm(this.Document)) {
+            using (var frm = new ExecuteForm(Document)) {
                 frm.ShowDialog(this);
             }
         }
@@ -353,15 +353,15 @@ namespace Clamito.Gui {
         #region Refresh
 
         private void RefreshDocument() {
-            doc.Document = this.Document;
+            doc.Document = Document;
             RefreshTitle();
         }
 
         private void RefreshTitle() {
-            if (this.DocumentFileName != null) {
-                this.Text = Path.GetFileNameWithoutExtension(this.DocumentFileName) + (this.Document.IsChanged ? "*" : "") + " - Clamito";
+            if (DocumentFileName != null) {
+                Text = Path.GetFileNameWithoutExtension(DocumentFileName) + (Document.IsChanged ? "*" : "") + " - Clamito";
             } else {
-                this.Text = "Clamito" + (this.Document.IsChanged ? "*" : "");
+                Text = "Clamito" + (Document.IsChanged ? "*" : "");
             }
         }
 

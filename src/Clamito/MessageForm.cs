@@ -6,7 +6,7 @@ namespace Clamito.Gui {
     internal partial class MessageForm : Form {
         public MessageForm(Document document, Message message, Interaction insertBefore = null, Endpoint defaultSource = null, Endpoint defaultDestination = null) {
             InitializeComponent();
-            this.Font = SystemFonts.MessageBoxFont;
+            Font = SystemFonts.MessageBoxFont;
             foreach (var control in new Control[] { txtName, cmbSource, cmbDestination, txtCaption, fccData }) {
                 erp.SetIconAlignment(control, ErrorIconAlignment.MiddleLeft);
                 erp.SetIconPadding(control, SystemInformation.BorderSize.Width);
@@ -18,83 +18,77 @@ namespace Clamito.Gui {
                 cmbDestination.Items.Add(endpoint);
             }
 
-            this.document = document;
-            this.message = message;
-            this.insertBefore = insertBefore;
-            this.defaultSource = defaultSource;
-            this.defaultDestination = defaultDestination;
+            Document = document;
+            Message = message;
+            InsertBefore = insertBefore;
+            DefaultSource = defaultSource;
+            DefaultDestination = defaultDestination;
 
             if (message == null) {
-                this.Text = "New message";
+                Text = "New message";
             } else {
-                this.Text = "Message properties";
+                Text = "Message properties";
             }
 
             Medo.Windows.Forms.State.SetupOnLoadAndClose(this);
         }
 
 
-        private readonly Document document;
-        private readonly Message message;
-        private readonly Interaction insertBefore;
-        private readonly Endpoint defaultSource, defaultDestination;
+        private readonly Document Document;
+        private readonly Message Message;
+        private readonly Interaction InsertBefore;
+        private readonly Endpoint DefaultSource, DefaultDestination;
 
-        private Boolean isLoaded = false;
+        private Boolean IsLoaded = false;
 
         public Message SelectedInteraction { get; private set; }
 
 
         private void Form_Load(object sender, EventArgs e) {
-            txtName.Text = (this.message != null) ? this.message.Name : "";
-            cmbSource.SelectedItem = (this.message != null) ? this.message.Source : this.defaultSource;
-            cmbDestination.SelectedItem = (this.message != null) ? this.message.Destination : this.defaultDestination;
-            txtCaption.Text = (this.message != null) ? this.message.Caption : "";
-            fccData.Text = (this.message != null) ? this.message.Data.ToString() : "";
+            txtName.Text = (Message != null) ? Message.Name : "";
+            cmbSource.SelectedItem = (Message != null) ? Message.Source : DefaultSource;
+            cmbDestination.SelectedItem = (Message != null) ? Message.Destination : DefaultDestination;
+            txtCaption.Text = (Message != null) ? Message.Caption : "";
+            fccData.Text = (Message != null) ? Message.Data.ToString() : "";
 
-            this.isLoaded = true;
-            if (message == null) { txt_TextChanged(null, null); } //enable OK without change for new items
+            IsLoaded = true;
+            if (Message == null) { txt_TextChanged(null, null); } //enable OK without change for new items
         }
 
 
         private void txt_TextChanged(object sender, EventArgs e) {
-            if (!this.isLoaded) { return; }
+            if (!IsLoaded) { return; }
 
-            string name, caption;
-            Endpoint source, destination;
-            FieldCollection data;
-            btnOK.Enabled = GetOutputs(out name, out source, out destination, out caption, out data);
+            btnOK.Enabled = GetOutputs(out _, out _, out _, out _, out _);
         }
 
 
         private void fccData_Enter(object sender, EventArgs e) {
-            this.AcceptButton = null;
+            AcceptButton = null;
         }
 
         private void fccData_Leave(object sender, EventArgs e) {
-            this.AcceptButton = btnOK;
+            AcceptButton = btnOK;
         }
 
 
         private void btnOK_Click(object sender, EventArgs e) {
-            string name, caption;
-            Endpoint source, destination;
-            FieldCollection data;
-            GetOutputs(out name, out source, out destination, out caption, out data);
-            if (this.message == null) { //new
+            GetOutputs(out var name, out var source, out var destination, out var caption, out var data);
+            if (Message == null) { //new
                 var interaction = new Message(name, source, destination) { Caption = caption };
-                if (insertBefore == null) {
-                    this.document.Interactions.Add(interaction);
+                if (InsertBefore == null) {
+                    Document.Interactions.Add(interaction);
                 } else {
-                    this.document.Interactions.Insert(this.document.Interactions.IndexOf(this.insertBefore), interaction);
+                    Document.Interactions.Insert(Document.Interactions.IndexOf(InsertBefore), interaction);
                 }
-                this.SelectedInteraction = interaction;
+                SelectedInteraction = interaction;
             } else {
-                this.message.Name = name;
-                this.message.ReplaceEndpoints(source, destination);
-                this.message.Caption = caption;
-                this.SelectedInteraction = this.message;
+                Message.Name = name;
+                Message.ReplaceEndpoints(source, destination);
+                Message.Caption = caption;
+                SelectedInteraction = Message;
             }
-            this.SelectedInteraction.ReplaceData(data);
+            SelectedInteraction.ReplaceData(data);
         }
 
 

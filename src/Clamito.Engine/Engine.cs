@@ -14,7 +14,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="document">Document.</param>
         public Engine(Document document) {
-            this.Document = document;
+            Document = document;
         }
 
 
@@ -39,12 +39,12 @@ namespace Clamito {
         /// <exception cref="System.NotSupportedException">Initialization can be done only once.</exception>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Disposal of proxies is handled in Engine's Dispose object.")]
         public IEnumerable<Failure> Initialize() {
-            if (this.WasInitialized) { throw new NotSupportedException("Initialization can be done only once."); }
-            this.WasInitialized = true;
+            if (WasInitialized) { throw new NotSupportedException("Initialization can be done only once."); }
+            WasInitialized = true;
 
             var errors = new List<Failure>();
 
-            foreach (var endpoint in this.Document.Endpoints) {
+            foreach (var endpoint in Document.Endpoints) {
                 if (endpoint.ProtocolName == null) { continue; }
                 var protocol = Plugin.Protocols[endpoint.ProtocolName];
                 if (protocol == null) {
@@ -54,20 +54,20 @@ namespace Clamito {
                 foreach (var fail in proxy.Initialize(endpoint.Data)) {
                     errors.Add(fail.Clone("Initialization failed: "));
                 }
-                this.Endpoints.Add(endpoint.Name, proxy);
+                Endpoints.Add(endpoint.Name, proxy);
             }
 
-            this.CancelEvent = new ManualResetEvent(false);
-            this.StepEvent = new CountdownEvent(0);
-            this.CanStopEvent = new ManualResetEvent(true);
+            CancelEvent = new ManualResetEvent(false);
+            StepEvent = new CountdownEvent(0);
+            CanStopEvent = new ManualResetEvent(true);
 
-            this.Thread = new Thread(Run);
-            this.Thread.Name = "Engine";
-            this.Thread.IsBackground = true;
-            this.Thread.CurrentCulture = CultureInfo.InvariantCulture;
-            this.Thread.Start();
+            Thread = new Thread(Run);
+            Thread.Name = "Engine";
+            Thread.IsBackground = true;
+            Thread.CurrentCulture = CultureInfo.InvariantCulture;
+            Thread.Start();
 
-            this.IsInitialized = true;
+            IsInitialized = true;
 
             return errors;
         }
@@ -76,8 +76,8 @@ namespace Clamito {
         /// Terminates engine.
         /// </summary>
         public IEnumerable<Failure> Terminate() {
-            this.IsInitialized = false;
-            this.Dispose();
+            IsInitialized = false;
+            Dispose();
             yield break;
         }
 
@@ -89,43 +89,43 @@ namespace Clamito {
         /// <summary>
         /// Gets whether engine is currently execuring.
         /// </summary>
-        public Boolean IsRunning { get { return (this.StepEvent.CurrentCount > 0); } }
+        public Boolean IsRunning { get { return (StepEvent.CurrentCount > 0); } }
 
         /// <summary>
         /// Gets number of executed steps so far.
         /// </summary>
-        public Int32 StepCount { get { return this.CurrentStepCount; } }
+        public Int32 StepCount { get { return CurrentStepCount; } }
 
         /// <summary>
         /// Starts running the engine.
         /// </summary>
         public void Start() {
-            if (!this.IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
+            if (!IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
 
-            this.StepEvent.Reset(0);
-            this.CanStopEvent.WaitOne();
-            this.OnStarted(new EventArgs());
-            this.StepEvent.Reset(int.MaxValue);
+            StepEvent.Reset(0);
+            CanStopEvent.WaitOne();
+            OnStarted(new EventArgs());
+            StepEvent.Reset(int.MaxValue);
         }
 
         /// <summary>
         /// Performs a single step.
         /// </summary>
         public void Step() {
-            if (!this.IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
+            if (!IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
 
-            this.StepEvent.Reset(1);
+            StepEvent.Reset(1);
         }
 
         /// <summary>
         /// Stops the engine.
         /// </summary>
         public void Stop() {
-            if (!this.IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
+            if (!IsInitialized) { throw new InvalidOperationException("Engine is not initialized!"); }
 
-            this.StepEvent.Reset(0);
-            this.CanStopEvent.WaitOne();
-            this.OnStopped(new EventArgs());
+            StepEvent.Reset(0);
+            CanStopEvent.WaitOne();
+            OnStopped(new EventArgs());
         }
 
         #endregion
@@ -143,7 +143,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event arguments.</param>
         private void OnStarted(EventArgs e) {
-            var eh = this.Started;
+            var eh = Started;
             if (eh != null) { eh.Invoke(this, e); }
         }
 
@@ -158,7 +158,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event arguments.</param>
         private void OnStepStarted(EventArgs e) {
-            var eh = this.StepStarted;
+            var eh = StepStarted;
             if (eh != null) { eh.Invoke(this, e); }
         }
 
@@ -173,7 +173,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event arguments.</param>
         private void OnStepCompleted(StepCompletedEventArgs e) {
-            var eh = this.StepCompleted;
+            var eh = StepCompleted;
             if (eh != null) { eh.Invoke(this, e); }
         }
 
@@ -188,7 +188,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event arguments.</param>
         private void OnStopped(EventArgs e) {
-            var eh = this.Stopped;
+            var eh = Stopped;
             if (eh != null) { eh.Invoke(this, e); }
         }
 
@@ -201,32 +201,32 @@ namespace Clamito {
         /// Releases all allocated resources.
         /// </summary>
         public void Dispose() {
-            if (this.WasInitialized) {
-                if (this.Thread != null) {
-                    this.CancelEvent.Set();
+            if (WasInitialized) {
+                if (Thread != null) {
+                    CancelEvent.Set();
                     Thread.Sleep(100);
-                    if (this.Thread.IsAlive) {
-                        this.Thread.Abort();
+                    if (Thread.IsAlive) {
+                        Thread.Abort();
                     }
-                    this.Thread = null;
+                    Thread = null;
                 }
 
-                if (this.CancelEvent != null) {
-                    this.CancelEvent.Dispose();
-                    this.CancelEvent = null;
+                if (CancelEvent != null) {
+                    CancelEvent.Dispose();
+                    CancelEvent = null;
                 }
 
-                if (this.StepEvent != null) {
-                    this.StepEvent.Dispose();
-                    this.StepEvent = null;
+                if (StepEvent != null) {
+                    StepEvent.Dispose();
+                    StepEvent = null;
                 }
 
-                if (this.CanStopEvent != null) {
-                    this.CanStopEvent.Dispose();
-                    this.CanStopEvent = null;
+                if (CanStopEvent != null) {
+                    CanStopEvent.Dispose();
+                    CanStopEvent = null;
                 }
 
-                foreach (var proxy in this.Endpoints) { //dispose proxies
+                foreach (var proxy in Endpoints) { //dispose proxies
                     proxy.Value.Dispose();
                 }
             }
@@ -249,20 +249,20 @@ namespace Clamito {
             try {
                 bool wasRunning = false;
 
-                while (!this.CancelEvent.WaitOne(0, false)) {
-                    bool doStep = !this.StepEvent.IsSet;
+                while (!CancelEvent.WaitOne(0, false)) {
+                    bool doStep = !StepEvent.IsSet;
                     if (doStep) {
-                        this.OnStepStarted(new EventArgs());
+                        OnStepStarted(new EventArgs());
 
                         wasRunning = true;
-                        this.CanStopEvent.Reset();
-                        this.StepEvent.Signal();
-                        Interlocked.Increment(ref this.CurrentStepCount);
+                        CanStopEvent.Reset();
+                        StepEvent.Signal();
+                        Interlocked.Increment(ref CurrentStepCount);
 
                         var errors = new List<Failure>();
 
                         var interactionIndex = 0;
-                        foreach (var interaction in this.Document.Interactions) {
+                        foreach (var interaction in Document.Interactions) {
                             interactionIndex++;
 
                             switch (interaction.Kind) {
@@ -277,8 +277,7 @@ namespace Clamito {
                                         if ((protocolSrc == null) && (protocolDst == null)) { //ignore communication
                                         } else if (protocolDst != null) { //sending
                                             try {
-                                                ProtocolPlugin protocolProxy;
-                                                if (this.Endpoints.TryGetValue(endpointDst.Name, out protocolProxy)) {
+                                                if (Endpoints.TryGetValue(endpointDst.Name, out var protocolProxy)) {
                                                     var content = message.Data.AsReadOnly(); //TODO: resolve constants
                                                     foreach (var failure in protocolProxy.Send(content)) {
                                                         errors.Add(failure.Clone(string.Format(CultureInfo.InvariantCulture, "{0} {1}: ", interactionIndex, interaction.Name)));
@@ -291,8 +290,7 @@ namespace Clamito {
                                             }
                                         } else if (protocolSrc != null) { //receiving
                                             try {
-                                                ProtocolPlugin protocol;
-                                                if (this.Endpoints.TryGetValue(endpointSrc.Name, out protocol)) {
+                                                if (Endpoints.TryGetValue(endpointSrc.Name, out var protocol)) {
                                                     var content = message.Data.AsReadOnly(); //TODO: resolve constants
 
                                                     var dummyProtocol = protocol as DummyProtocol;
@@ -336,12 +334,12 @@ namespace Clamito {
                             }
                         }
 
-                        this.CanStopEvent.Set();
+                        CanStopEvent.Set();
 
-                        this.OnStepCompleted(new StepCompletedEventArgs(new List<Failure>(errors)));
+                        OnStepCompleted(new StepCompletedEventArgs(new List<Failure>(errors)));
                     } else if (wasRunning) {
                         wasRunning = false;
-                        this.OnStopped(new EventArgs());
+                        OnStopped(new EventArgs());
                     }
 
                     Thread.Sleep(100);

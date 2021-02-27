@@ -2,41 +2,42 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using Clamito;
 
 namespace Clamito.Gui {
     internal partial class DocumentControl : ScrollableControl {
 
         public DocumentControl() {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            this.SetStyle(ControlStyles.ResizeRedraw, true);
-            this.SetStyle(ControlStyles.Selectable, true);
-            this.SetStyle(ControlStyles.StandardClick, true);
-            this.SetStyle(ControlStyles.StandardDoubleClick, true);
-            this.SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            SetStyle(ControlStyles.Selectable, true);
+            SetStyle(ControlStyles.StandardClick, true);
+            SetStyle(ControlStyles.StandardDoubleClick, true);
+            SetStyle(ControlStyles.UserPaint, true);
 
             Helper.ScaleToolstrip(mnxAdd, mnxEndpoint, mnxInteraction);
 
-            this.AutoScroll = true;
+            AutoScroll = true;
         }
 
 
         private Document _document;
         public Document Document {
-            get { return this._document; }
+            get { return _document; }
             set {
-                this._selectedEndpoint = null;
-                this._selectedInteraction = null;
-                this._document = value;
-                this.AutoScrollPosition = new Point(0, 0);
-                this.Invalidate();
-                this.OnChanged(new EventArgs());
-                this._lastSelection = null;
-                if (this._document != null) {
-                    this._document.Changed += delegate(object sender, EventArgs e) {
-                        this.OnChanged(new EventArgs());
+                _selectedEndpoint = null;
+                _selectedInteraction = null;
+                _document = value;
+                AutoScrollPosition = new Point(0, 0);
+                Invalidate();
+                OnChanged(new EventArgs());
+                _lastSelection = null;
+                if (_document != null) {
+                    _document.Changed += delegate(object sender, EventArgs e) {
+                        OnChanged(new EventArgs());
                     };
                 }
             }
@@ -44,36 +45,36 @@ namespace Clamito.Gui {
 
         private Endpoint _selectedEndpoint;
         public Endpoint SelectedEndpoint {
-            get { return this._selectedEndpoint; }
+            get { return _selectedEndpoint; }
             set {
-                if (value != null) { this._selectedInteraction = null; }
-                this._selectedEndpoint = value;
+                if (value != null) { _selectedInteraction = null; }
+                _selectedEndpoint = value;
                 EnsureVisible(value);
-                this.nextVisible = value;
-                this.Invalidate();
-                this.OnChanged(new EventArgs());
-                this.LastSelection = value;
+                nextVisible = value;
+                Invalidate();
+                OnChanged(new EventArgs());
+                LastSelection = value;
             }
         }
 
         private Interaction _selectedInteraction;
         public Interaction SelectedInteraction {
-            get { return this._selectedInteraction; }
+            get { return _selectedInteraction; }
             set {
-                if (value != null) { this._selectedEndpoint = null; }
-                this._selectedInteraction = value;
+                if (value != null) { _selectedEndpoint = null; }
+                _selectedInteraction = value;
                 EnsureVisible(value);
-                this.Invalidate();
-                this.OnChanged(new EventArgs());
-                this.LastSelection = value;
+                Invalidate();
+                OnChanged(new EventArgs());
+                LastSelection = value;
             }
         }
 
         private Object _lastSelection;
         public Object LastSelection {
-            get { return this._lastSelection; }
+            get { return _lastSelection; }
             set {
-                if (value != null) { this._lastSelection = value; }
+                if (value != null) { _lastSelection = value; }
             }
         }
 
@@ -92,7 +93,7 @@ namespace Clamito.Gui {
         /// </summary>
         /// <param name="e">Event data.</param>
         protected void OnChanged(EventArgs e) {
-            var ev = this.Changed;
+            var ev = Changed;
             if (ev != null) { ev(this, e); }
         }
 
@@ -105,10 +106,10 @@ namespace Clamito.Gui {
 
 
         private class SensePair {
-            public SensePair(Rectangle rectangle, object Item, bool isMajor = false) {
-                this.Rectangle = rectangle;
-                this.Item = Item;
-                this.IsMajor = isMajor;
+            public SensePair(Rectangle rectangle, object item, bool isMajor = false) {
+                Rectangle = rectangle;
+                Item = item;
+                IsMajor = isMajor;
             }
 
             public Rectangle Rectangle { get; private set; }
@@ -118,8 +119,8 @@ namespace Clamito.Gui {
 
 
         private SensePair FindPairInSenseList(Point location, int tolerance = 0) {
-            if (this.clickSenseList != null) {
-                foreach (var pair in this.clickSenseList) {
+            if (clickSenseList != null) {
+                foreach (var pair in clickSenseList) {
                     if ((location.X >= pair.Rectangle.Left - tolerance) && (location.X <= pair.Rectangle.Right + tolerance) && (location.Y >= pair.Rectangle.Top - tolerance) && (location.Y <= pair.Rectangle.Bottom + tolerance)) {
                         return pair;
                     }
@@ -129,8 +130,8 @@ namespace Clamito.Gui {
         }
 
         private SensePair FindPairInSenseList(object item) {
-            if (this.clickSenseList != null) {
-                foreach (var pair in this.clickSenseList) {
+            if (clickSenseList != null) {
+                foreach (var pair in clickSenseList) {
                     if (pair.Item.Equals(item)) {
                         return pair;
                     }
@@ -156,21 +157,21 @@ namespace Clamito.Gui {
         private void EnsureVisible(object selectedObject) {
             var pair = FindPairInSenseList(selectedObject);
             if (pair != null) {
-                this.nextVisible = null;
+                nextVisible = null;
 
-                var left = -this.AutoScrollPosition.X;
-                var right = left + this.ClientRectangle.Width;
-                var top = -this.AutoScrollPosition.Y;
-                var bottom = top + this.ClientRectangle.Height;
+                var left = -AutoScrollPosition.X;
+                var right = left + ClientRectangle.Width;
+                var top = -AutoScrollPosition.Y;
+                var bottom = top + ClientRectangle.Height;
 
-                if (pair.Rectangle.Right > right) { left = pair.Rectangle.Right - this.ClientRectangle.Width + LookAndFeel.Screen.Spacing.Horizontal * 3; }
+                if (pair.Rectangle.Right > right) { left = pair.Rectangle.Right - ClientRectangle.Width + LookAndFeel.Screen.Spacing.Horizontal * 3; }
                 if (pair.Rectangle.Left < left) { left = pair.Rectangle.Left - LookAndFeel.Screen.Spacing.Horizontal * 3; }
-                if (pair.Rectangle.Bottom > bottom) { top = pair.Rectangle.Bottom - this.ClientRectangle.Height + LookAndFeel.Screen.Spacing.Vertical * 3; }
+                if (pair.Rectangle.Bottom > bottom) { top = pair.Rectangle.Bottom - ClientRectangle.Height + LookAndFeel.Screen.Spacing.Vertical * 3; }
                 if (pair.Rectangle.Top < top) { top = pair.Rectangle.Top - LookAndFeel.Screen.Spacing.Vertical * 3; }
 
-                if (-this.AutoScrollPosition.X != left) { this.AutoScrollPosition = new Point(left, top); }
+                if (-AutoScrollPosition.X != left) { AutoScrollPosition = new Point(left, top); }
             } else {
-                this.nextVisible = selectedObject;
+                nextVisible = selectedObject;
             }
         }
 
