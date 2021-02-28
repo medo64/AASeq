@@ -166,7 +166,7 @@ namespace Clamito {
                 } else {
                     var text = Value.Trim();
                     if (text.StartsWith("0x", StringComparison.OrdinalIgnoreCase)
-                        && Byte.TryParse(text.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
+                        && Byte.TryParse(text[2..], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
                         return value;
                     }
                 }
@@ -193,7 +193,7 @@ namespace Clamito {
                 } else {
                     var text = Value.Trim();
                     if (text.StartsWith("0x", StringComparison.OrdinalIgnoreCase)
-                        && Int16.TryParse(text.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
+                        && Int16.TryParse(text[2..], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
                         return value;
                     }
                 }
@@ -220,7 +220,7 @@ namespace Clamito {
                 } else {
                     var text = Value.Trim();
                     if (text.StartsWith("0x", StringComparison.OrdinalIgnoreCase)
-                        && Int32.TryParse(text.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
+                        && Int32.TryParse(text[2..], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
                         return value;
                     }
                 }
@@ -247,7 +247,7 @@ namespace Clamito {
                 } else {
                     var text = Value.Trim();
                     if (text.StartsWith("0x", StringComparison.OrdinalIgnoreCase)
-                        && Int64.TryParse(text.Substring(2), NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
+                        && Int64.TryParse(text[2..], NumberStyles.HexNumber, CultureInfo.InvariantCulture, out value)) {
                         return value;
                     }
                 }
@@ -408,8 +408,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         internal void OnChanged(EventArgs e) {
-            var ev = Changed;
-            if (ev != null) { ev(this, e); }
+            Changed?.Invoke(this, e);
             if (OwnerCollection != null) { OwnerCollection.OnChanged(new EventArgs()); }
         }
 
@@ -423,8 +422,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
         public override bool Equals(object obj) {
-            var other = obj as Field;
-            return (other != null) && (Field.NameComparer.Compare(Name, other.Name) == 0);
+            return (obj is Field other) && (Field.NameComparer.Compare(Name, other.Name) == 0);
         }
 
         /// <summary>
@@ -481,8 +479,9 @@ namespace Clamito {
             if (HasValue) {
                 field = new Field(Name, Value);
             } else {
-                field = new Field(Name);
-                field._subfields = Subfields.AsReadOnly();
+                field = new Field(Name) {
+                    _subfields = Subfields.AsReadOnly()
+                };
             }
             field._tags = Tags.AsReadOnly();
             field.IsReadOnly = true;
@@ -499,7 +498,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="field">Field.</param>
         public static implicit operator String(Field field) {
-            return (field != null) ? field.Value : null;
+            return field?.Value;
         }
 
         #endregion

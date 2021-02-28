@@ -94,7 +94,7 @@ namespace Clamito.Plugin {
             yield break;
         }
 
-        private Queue<PingReply> replies = new Queue<PingReply>();
+        private readonly Queue<PingReply> replies = new Queue<PingReply>();
 
         /// <summary>
         /// Returns received message or null if timeout occurred.

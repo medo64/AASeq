@@ -28,7 +28,7 @@ namespace Clamito {
                 throw new ArgumentOutOfRangeException(nameof(name), exRange.Message);
             }
 
-            Data = (fields != null) ? fields : new FieldCollection();
+            Data = fields ?? new FieldCollection();
             Data.Changed += delegate (Object sender, EventArgs e) {
                 OnChanged(new EventArgs());
             };
@@ -117,8 +117,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         internal void OnChanged(EventArgs e) {
-            var ev = Changed;
-            if (ev != null) { ev(this, e); }
+            Changed?.Invoke(this, e);
             if (OwnerCollection != null) { OwnerCollection.OnChanged(new EventArgs()); }
         }
 

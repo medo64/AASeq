@@ -16,12 +16,14 @@ namespace Clamito {
         public static void Initialize() {
             if (Plugin.IsInitialized) { throw new NotSupportedException("Plugin system has already been initialized."); }
 
-            var protocols = new PluginCollection<ProtocolPlugin>();
-            protocols.Add(new DummyProtocol());
+            var protocols = new PluginCollection<ProtocolPlugin> {
+                new DummyProtocol()
+            };
 
-            var commands = new PluginCollection<CommandPlugin>();
-            commands.Add(new LogCommand());
-            commands.Add(new WaitCommand());
+            var commands = new PluginCollection<CommandPlugin> {
+                new LogCommand(),
+                new WaitCommand()
+            };
 
 
             var path = new FileInfo((Assembly.GetEntryAssembly() ?? Assembly.GetExecutingAssembly()).Location).DirectoryName;

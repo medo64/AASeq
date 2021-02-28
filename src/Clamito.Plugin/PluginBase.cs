@@ -62,12 +62,8 @@ namespace Clamito {
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
         public override bool Equals(object obj) {
-            var other = obj as PluginBase;
-            if (other != null) { return (obj.GetType().Equals(GetType())) && Name.Equals(other.Name); }
-
-            var otherString = obj as string;
-            if (otherString != null) { return Name.Equals(otherString); }
-
+            if (obj is PluginBase other) { return (obj.GetType().Equals(GetType())) && Name.Equals(other.Name); }
+            if (obj is string otherString) { return Name.Equals(otherString); }
             return false;
         }
 

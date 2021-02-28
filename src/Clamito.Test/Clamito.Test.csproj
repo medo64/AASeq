@@ -11,6 +11,8 @@
     <PropertyGroup>
         <LangVersion>latest</LangVersion>
         <NoWarn>CA1303</NoWarn>
+        <RunAnalyzersDuringBuild>false</RunAnalyzersDuringBuild>
+        <EnableNETAnalyzers>false</EnableNETAnalyzers>
     </PropertyGroup>
 
     <ItemGroup>

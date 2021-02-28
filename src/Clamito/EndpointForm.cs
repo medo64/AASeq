@@ -22,7 +22,7 @@ namespace Clamito.Gui {
             Endpoint = endpoint;
             InsertBefore = insertBefore;
             if (endpoint == null) {
-                EndpointClone = new Endpoint(document.Endpoints.GetUniqueName("Endpoint"), (defaultProtocol != null) ? defaultProtocol.Name : null) { Caption = (defaultProtocol != null) ? "New " + defaultProtocol.DisplayName : "New endpoint" };
+                EndpointClone = new Endpoint(document.Endpoints.GetUniqueName("Endpoint"), defaultProtocol?.Name) { Caption = (defaultProtocol != null) ? "New " + defaultProtocol.DisplayName : "New endpoint" };
                 Text = "New endpoint";
             } else {
                 EndpointClone = endpoint.Clone();
@@ -53,8 +53,7 @@ namespace Clamito.Gui {
                 cmbProtocol.SelectedIndex = 0; //select null
             } else {
                 foreach (var item in cmbProtocol.Items) {
-                    var protocol = item as ProtocolPlugin;
-                    if ((protocol != null) && protocol.Equals(EndpointClone.ProtocolName)) {
+                    if ((item is ProtocolPlugin protocol) && protocol.Equals(EndpointClone.ProtocolName)) {
                         cmbProtocol.SelectedItem = item;
                     }
                 }
@@ -80,14 +79,13 @@ namespace Clamito.Gui {
             string dataError = null;
 
             var name = txtName.Text.Trim();
-            var protocol = cmbProtocol.SelectedItem as ProtocolPlugin;
             var caption = txtCaption.Text.Trim();
 
             try { EndpointClone.Name = name; } catch (Exception ex) { nameError = ex.Message; }
             try {
                 if (cmbProtocol.SelectedIndex == 0) { //null selected
                     EndpointClone.ProtocolName = null;
-                } else if (protocol == null) {
+                } else if (cmbProtocol.SelectedItem is not ProtocolPlugin protocol) {
                     protocolError = "Protocol not found!";
                 } else {
                     EndpointClone.ProtocolName = protocol.Name;

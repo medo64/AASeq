@@ -56,11 +56,11 @@ namespace Clamito {
         private static bool TryParseTime(string parameters, out int milliseconds) {
             parameters = parameters.Trim();
             if (parameters.EndsWith("ms", StringComparison.OrdinalIgnoreCase)) {
-                if (int.TryParse(parameters.Substring(0, parameters.Length - 2), NumberStyles.Integer, CultureInfo.InvariantCulture, out milliseconds)) {
+                if (int.TryParse(parameters[0..^2], NumberStyles.Integer, CultureInfo.InvariantCulture, out milliseconds)) {
                     return true;
                 }
             } else if (parameters.EndsWith("s", StringComparison.OrdinalIgnoreCase)) {
-                if (int.TryParse(parameters.Substring(0, parameters.Length - 2), NumberStyles.Integer, CultureInfo.InvariantCulture, out milliseconds)) {
+                if (int.TryParse(parameters[0..^2], NumberStyles.Integer, CultureInfo.InvariantCulture, out milliseconds)) {
                     milliseconds *= 1000;
                     return true;
                 }
@@ -78,7 +78,6 @@ namespace Clamito {
         /// <summary>
         /// Returns default data fields.
         /// </summary>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate", Justification = "Calling the method two times in succession creates different results.")]
         public override FieldCollection GetDefaultData() {
             return new FieldCollection(new Field[] { new Field("Interval", "1s") });
         }
@@ -89,7 +88,6 @@ namespace Clamito {
         /// <param name="data">Data fields to validate.</param>
         public override IEnumerable<Failure> ValidateData(FieldCollection data) {
             if (data == null) { throw new ArgumentNullException(nameof(data), "Data cannot be null."); }
-            var errors = new List<Failure>();
             foreach (var path in data.AllPaths) {
                 if (!path.Path.Equals("Interval")) {
                     yield return Failure.NewWarning("Unknown field: {0}.", path);

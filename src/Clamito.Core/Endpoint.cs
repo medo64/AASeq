@@ -122,8 +122,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         internal void OnChanged(EventArgs e) {
-            var ev = Changed;
-            if (ev != null) { ev(this, e); }
+            Changed?.Invoke(this, e);
             if (OwnerCollection != null) { OwnerCollection.OnChanged(new EventArgs()); }
         }
 
@@ -137,8 +136,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
         public override bool Equals(object obj) {
-            var other = obj as Endpoint;
-            return (other != null) && (Endpoint.NameComparer.Compare(Name, other.Name) == 0);
+            return (obj is Endpoint other) && (Endpoint.NameComparer.Compare(Name, other.Name) == 0);
         }
 
         /// <summary>

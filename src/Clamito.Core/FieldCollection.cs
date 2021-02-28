@@ -554,8 +554,7 @@ namespace Clamito {
         /// </summary>
         /// <param name="e">Event data.</param>
         internal void OnChanged(EventArgs e) {
-            var ev = Changed;
-            if (ev != null) { ev(this, e); }
+            Changed?.Invoke(this, e);
         }
 
         #endregion
@@ -899,23 +898,23 @@ namespace Clamito {
                 var tagList = new List<Tag>();
                 foreach (var tagName in tags) {
                     if (tagName.StartsWith("!.", StringComparison.Ordinal) || tagName.StartsWith("-.", StringComparison.Ordinal) || tagName.StartsWith(".!", StringComparison.Ordinal) || tagName.StartsWith(".-", StringComparison.Ordinal)) {
-                        modifierList.Add(new Tag("." + tagName.Substring(2), false));
+                        modifierList.Add(new Tag("." + tagName[2..], false));
                     } else if (tagName.StartsWith("+.", StringComparison.Ordinal) || tagName.StartsWith(".+", StringComparison.Ordinal)) {
-                        modifierList.Add(new Tag("." + tagName.Substring(2), true));
+                        modifierList.Add(new Tag("." + tagName[2..], true));
                     } else if (tagName.StartsWith(".", StringComparison.Ordinal) && tagName.EndsWith("-", StringComparison.Ordinal)) {
-                        modifierList.Add(new Tag(tagName.Substring(0, tagName.Length - 1), false));
+                        modifierList.Add(new Tag(tagName[0..^1], false));
                     } else if (tagName.StartsWith(".", StringComparison.Ordinal) && tagName.EndsWith("+", StringComparison.Ordinal)) {
-                        modifierList.Add(new Tag(tagName.Substring(0, tagName.Length - 1), true));
+                        modifierList.Add(new Tag(tagName[0..^1], true));
                     } else if (tagName.StartsWith(".", StringComparison.Ordinal)) {
                         modifierList.Add(new Tag(tagName, true));
                     } else if (tagName.StartsWith("!", StringComparison.Ordinal) || tagName.StartsWith("-", StringComparison.Ordinal)) {
-                        tagList.Add(new Tag(tagName.Substring(1), false));
+                        tagList.Add(new Tag(tagName[1..], false));
                     } else if (tagName.StartsWith("+", StringComparison.Ordinal)) {
-                        tagList.Add(new Tag(tagName.Substring(1), true));
+                        tagList.Add(new Tag(tagName[1..], true));
                     } else if (tagName.EndsWith("-", StringComparison.Ordinal)) {
-                        tagList.Add(new Tag(tagName.Substring(0, tagName.Length - 1), false));
+                        tagList.Add(new Tag(tagName[0..^1], false));
                     } else if (tagName.EndsWith("+", StringComparison.Ordinal)) {
-                        tagList.Add(new Tag(tagName.Substring(0, tagName.Length - 1), true));
+                        tagList.Add(new Tag(tagName[0..^1], true));
                     } else {
                         tagList.Add(new Tag(tagName, true));
                     }

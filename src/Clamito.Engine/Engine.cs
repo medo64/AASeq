@@ -37,7 +37,6 @@ namespace Clamito {
         /// Initializes engine.
         /// </summary>
         /// <exception cref="System.NotSupportedException">Initialization can be done only once.</exception>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Reliability", "CA2000:Dispose objects before losing scope", Justification = "Disposal of proxies is handled in Engine's Dispose object.")]
         public IEnumerable<Failure> Initialize() {
             if (WasInitialized) { throw new NotSupportedException("Initialization can be done only once."); }
             WasInitialized = true;
@@ -61,10 +60,11 @@ namespace Clamito {
             StepEvent = new CountdownEvent(0);
             CanStopEvent = new ManualResetEvent(true);
 
-            Thread = new Thread(Run);
-            Thread.Name = "Engine";
-            Thread.IsBackground = true;
-            Thread.CurrentCulture = CultureInfo.InvariantCulture;
+            Thread = new Thread(Run) {
+                Name = "Engine",
+                IsBackground = true,
+                CurrentCulture = CultureInfo.InvariantCulture
+            };
             Thread.Start();
 
             IsInitialized = true;
@@ -244,7 +244,6 @@ namespace Clamito {
         private ManualResetEvent CanStopEvent;
         private int CurrentStepCount;
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1031:DoNotCatchGeneralExceptionTypes", Justification = "Errors during send/receive are handled by the engine logging.")]
         private void Run() {
             try {
                 bool wasRunning = false;
@@ -293,8 +292,7 @@ namespace Clamito {
                                                 if (Endpoints.TryGetValue(endpointSrc.Name, out var protocol)) {
                                                     var content = message.Data.AsReadOnly(); //TODO: resolve constants
 
-                                                    var dummyProtocol = protocol as DummyProtocol;
-                                                    if (dummyProtocol != null) {
+                                                    if (protocol is DummyProtocol dummyProtocol) {
                                                         dummyProtocol.PokeReceive(content);
                                                     }
 

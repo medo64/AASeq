@@ -33,15 +33,17 @@ namespace Clamito.Test {
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void Message_NameCannotBeChangedToNull() {
-            var x = new Message("Test", new Endpoint("S"), new Endpoint("D"));
-            x.Name = null;
+            var x = new Message("Test", new Endpoint("S"), new Endpoint("D")) {
+                Name = null
+            };
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Message_NameCannotBeChangedToEmpty() {
-            var x = new Message("Test", new Endpoint("S"), new Endpoint("D"));
-            x.Name = "";
+            var x = new Message("Test", new Endpoint("S"), new Endpoint("D")) {
+                Name = ""
+            };
         }
 
         [TestMethod]

@@ -38,7 +38,7 @@ namespace Clamito.Gui {
             var maxWidth = (view.Margins.Left > startingSize.Width) ? view.Margins.Left : startingSize.Width;
             var maxHeight = (view.Margins.Top > startingSize.Height) ? view.Margins.Top : startingSize.Height;
 
-            var left = view.Margins.Left;
+            int left;
             var top = view.Margins.Top;
 
             var fontSizeF = g.MeasureString("MXW", font);
@@ -49,7 +49,6 @@ namespace Clamito.Gui {
             var endpoints = Document.Endpoints;
             if (endpoints.Count == 0) {
                 g.DrawString("No endpoints", Font, view.Endpoint.NormalInk.LightBrush, new Rectangle(0, top, maxWidth, fontSize.Height + view.Spacing.Vertical), view.Endpoint.TitleFormat);
-                maxHeight += fontSize.Height + view.Spacing.Vertical;
                 return new Size(maxWidth, top + fontSize.Height + view.Spacing.Vertical);
             }
 
@@ -176,8 +175,6 @@ namespace Clamito.Gui {
 
         private static IEnumerable<SensePair> PaintCommand(Command command, Graphics g, DisplayInk ink, int sourceX, int destinationX, int middleY, Font font, Size fontSize) {
             var arrowX = fontSize.Width;
-            var arrowY = fontSize.Height / 4;
-            var penHalfWidth = (int)ink.Pen.Width / 2;
             var sensePairs = new List<SensePair>();
 
             { //text

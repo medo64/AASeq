@@ -92,8 +92,7 @@ namespace Clamito {
         /// <param name="e">Event data.</param>
         private void OnChanged(EventArgs e) {
             Log.Write.Verbose("Document", "OnChanged()");
-            var ev = Changed;
-            if (ev != null) { ev(this, e); }
+            Changed?.Invoke(this, e);
         }
 
         #endregion
@@ -212,7 +211,7 @@ namespace Clamito {
                 foreach (string tag in element.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)) {
                     var tagText = tag.Trim();
                     if (tag.StartsWith("!", StringComparison.Ordinal)) {
-                        list.Add(new Tag(tagText.Substring(1).TrimStart(), false));
+                        list.Add(new Tag(tagText[1..].TrimStart(), false));
                     } else {
                         list.Add(new Tag(tagText));
                     }
