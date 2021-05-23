@@ -1,0 +1,11 @@
+site_name: Tipfeler
+site_url: https://tipfeler.com
+
+nav:
+  - Home: index.md
+
+extra_css:
+    - css/extra.css
+
+plugins:
+    - search
