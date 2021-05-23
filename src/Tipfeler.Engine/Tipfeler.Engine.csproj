@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>Tipfeler.Engine</AssemblyName>
+        <RootNamespace>Tipfeler</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <Nullable>disable</Nullable>
+        <NoWarn>CA1303</NoWarn>
+        <WarningsAsErrors>CS8625</WarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Product>Tipfeler</Product>
+        <Description>Flow execution library.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Tipfeler.Core\Tipfeler.Core.csproj" />
+        <ProjectReference Include="..\Tipfeler.Plugin\Tipfeler.Plugin.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
+            <Link>Properties\CodeAnalysisDictionary.xml</Link>
+        </CodeAnalysisDictionary>
+    </ItemGroup>
+
+</Project>

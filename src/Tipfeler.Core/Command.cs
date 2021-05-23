@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+namespace Tipfeler {
+
+    /// <summary>
+    /// Command.
+    /// </summary>
+    [DebuggerDisplay("{Name}")]
+    public sealed class Command : Interaction {
+
+        /// <summary>
+        /// Create a new instance.
+        /// </summary>
+        /// <param name="name">Command name.</param>
+        /// <exception cref="System.ArgumentNullException">Name cannot be null.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
+        public Command(string name)
+            : base(name, null) {
+        }
+
+        /// <summary>
+        /// Create a new instance.
+        /// </summary>
+        /// <param name="name">Command name.</param>
+        /// <param name="fields">Fields.</param>
+        /// <exception cref="System.ArgumentNullException">Name cannot be null.</exception>
+        /// <exception cref="System.ArgumentOutOfRangeException">Name contains invalid characters.</exception>
+        public Command(string name, IEnumerable<Field> fields)
+            : this(name, null) {
+            Data.AddRange(fields);
+        }
+
+        private Command(string name, FieldCollection fields)
+            : base(name, fields) {
+        }
+
+        /// <summary>
+        /// Gets interaction kind.
+        /// </summary>
+        public override InteractionKind Kind { get { return InteractionKind.Command; } }
+
+
+        #region Clone
+
+        /// <summary>
+        /// Creates a copy of the command.
+        /// </summary>
+        public override Interaction Clone() {
+            return new Command(Name, Data.Clone()) { Caption = Caption };
+        }
+
+        /// <summary>
+        /// Creates a read-only copy of the command.
+        /// </summary>
+        public override Interaction AsReadOnly() {
+            return new Command(Name, Data.AsReadOnly()) { Caption = Caption, IsReadOnly = true };
+        }
+
+        #endregion
+
+    }
+}

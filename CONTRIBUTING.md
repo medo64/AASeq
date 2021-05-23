@@ -1,6 +1,6 @@
-## Contributing to Clamito
+## Contributing
 
-Welcome and thank you for your interest in contributing to Clamito!
+Welcome and thank you for your interest in contributing!
 
 
 ### Compiling Code
@@ -15,8 +15,7 @@ Fixes can be contributed using pull requests. Do note project is under MIT
 license and any contribution will inherit the same.
 
 This repository uses K&R coding style. Please do make sure any contribution
-follows coding style already in use. If in doubt, just rely on autoformatting -
-both VS Code OmniSharp and Visual Studio 2017 editor config are supported.
+follows coding style already in use. If in doubt, just rely on autoformatting.
 
 LF line ending is strongly preferred. To have Git check it for you, configure
 `core.whitespace` setting:
