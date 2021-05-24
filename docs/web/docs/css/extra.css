@@ -1,3 +1,22 @@
+code {
+    border: 0;
+    color: #800020;
+    padding: 0;
+    background-color: inherit;
+}
+
+footer {
+    visibility: collapse;
+}
+
+.bg-primary {
+    background-image: linear-gradient(#70393f, #800020 60%, #a00020);
+}
+
 .navitem.active {
     font-weight: bold;
+}
+
+ul li ul li .nav-link {
+    margin-left: 0.5em;
 }

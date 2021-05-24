@@ -3,9 +3,15 @@ site_url: https://tipfeler.com
 
 nav:
   - Home: index.md
+  - File Format: fileformat.md
 
 extra_css:
     - css/extra.css
 
 plugins:
     - search
+
+extra:
+  generator: false
+
+theme: mkdocs
