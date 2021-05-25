@@ -15,3 +15,6 @@ extra:
   generator: false
 
 theme: mkdocs
+
+docs_dir: src
+site_dir: out

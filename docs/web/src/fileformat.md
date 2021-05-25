@@ -14,10 +14,9 @@ mid-line comments are also supported).
 
 All empty lines are ignored if they are not part of field value.
 
-It is suggested that each file starts with file identifier `Tipfeler` and
-optionally a version, e.g.:
+It is suggested that each file starts with shebang interpreter directive, e.g.:
 
-    # Tipfeler v1
+    #!/usr/bin/env tipfeler
 
 
 # Sections
@@ -69,9 +68,10 @@ Direction can be either outgoing (`>`) or incoming (`<`).
 Destination identifies the second endpoint for a message. It must match the
 Name of previously defined endpoint and cannot be omitted.
 
-Message is the name of message and it's dependant on plugin definition. If
-destination is "Me", message can be omitted. It must start with a letter and
-it can contain letters, numbers, dash, and underscore character.
+Message is the name of message and it's dependant on protocol definition. If
+destination is "Me" or protocol supports only one message type, message can be
+omitted. It must start with a letter and it can contain letters, numbers, dash,
+and underscore character.
 
 
 ## Commands
