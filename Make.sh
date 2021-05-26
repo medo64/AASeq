@@ -110,9 +110,9 @@ function release() {
                  --output "$BASE_DIRECTORY/build/release/" \
                  --verbosity "minimal" \
                  || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "Tipfeler*.exe" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "Tipfeler*.dll" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "Tipfeler*.pdb" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/release/" -name "Tipfeler*.exe" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/release/" -name "Tipfeler*.dll" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/release/" -name "Tipfeler*.pdb" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
     echo "${ANSI_CYAN}Output in 'bin/'${ANSI_RESET}"
 }
 

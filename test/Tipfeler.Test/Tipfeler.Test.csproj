@@ -23,9 +23,9 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Tipfeler.Core\Tipfeler.Core.csproj" />
-      <ProjectReference Include="..\Tipfeler.Engine\Tipfeler.Engine.csproj" />
-      <ProjectReference Include="..\Tipfeler.Plugin\Tipfeler.Plugin.csproj" />
+      <ProjectReference Include="..\..\src\Tipfeler.Core\Tipfeler.Core.csproj" />
+      <ProjectReference Include="..\..\src\Tipfeler.Engine\Tipfeler.Engine.csproj" />
+      <ProjectReference Include="..\..\src\Tipfeler.Plugin\Tipfeler.Plugin.csproj" />
     </ItemGroup>
 
     <ItemGroup>

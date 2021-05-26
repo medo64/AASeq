@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tipfeler", "Tipfeler\Tipfel
 		{AF9E1806-A512-4422-B3C1-A97C5492CBAB} = {AF9E1806-A512-4422-B3C1-A97C5492CBAB}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tipfeler.Test", "Tipfeler.Test\Tipfeler.Test.csproj", "{B0E5A531-718E-4029-8657-14BC5EA5B861}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tipfeler.Test", "..\test\Tipfeler.Test\Tipfeler.Test.csproj", "{B0E5A531-718E-4029-8657-14BC5EA5B861}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tipfeler.Plugin", "Tipfeler.Plugin\Tipfeler.Plugin.csproj", "{7F43F4C9-CB0C-41BE-8759-875E80D1314D}"
 EndProject
