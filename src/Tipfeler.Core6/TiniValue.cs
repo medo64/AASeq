@@ -10,6 +10,8 @@ namespace Tipfeler;
 [DebuggerDisplay("{AsString()}")]
 public abstract record TiniValue {
 
+    #region As
+
     /// <summary>
     /// Returns value object if it's of a Boolean type or null otherwise.
     /// </summary>
@@ -350,6 +352,8 @@ public abstract record TiniValue {
     /// </summary>
     public IPAddress AsIPv6Address(IPAddress defaultValue)
         => ConvertToIPv6Address() ?? defaultValue;
+
+    #endregion As
 
 
     #region Operators

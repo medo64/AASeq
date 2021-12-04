@@ -1,7 +1,6 @@
 using System;
-using System.Globalization;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using System.Net.Sockets;
 
 namespace Tipfeler;
 
@@ -35,188 +34,93 @@ public sealed record TiniStringValue : TiniValue {
     }
 
 
+    /// <summary>
+    /// Returns true if text can be converted with the value object in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+        if (TryParseValue(text, out var value)) {
+            result = new TiniStringValue(value);
+            return true;
+        } else {
+            result = default;
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns true if text can be converted with the value in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    internal static bool TryParseValue(string? text, [NotNullWhen(true)] out String? result) {
+        if (text != null) {
+            result = text;
+            return true;
+        } else {
+            result = default;
+            return false;
+        }
+    }
+
+
     #region Convert
 
-    protected override Boolean? ConvertToBoolean() {
-        var trimmed = Value.Trim();
-        if (trimmed.Equals("True", StringComparison.InvariantCultureIgnoreCase)
-            || trimmed.Equals("Yes", StringComparison.InvariantCultureIgnoreCase)
-            || trimmed.Equals("T", StringComparison.InvariantCultureIgnoreCase)
-            || trimmed.Equals("Y", StringComparison.InvariantCultureIgnoreCase)
-            || trimmed.Equals("+", StringComparison.InvariantCultureIgnoreCase)) {
-            return true;
-        } else if (trimmed.Equals("False", StringComparison.InvariantCultureIgnoreCase)
-            || trimmed.Equals("No", StringComparison.InvariantCultureIgnoreCase)
-            || trimmed.Equals("F", StringComparison.InvariantCultureIgnoreCase)
-            || trimmed.Equals("N", StringComparison.InvariantCultureIgnoreCase)
-            || trimmed.Equals("-", StringComparison.InvariantCultureIgnoreCase)) {
-            return false;
-        } else if (Int32.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result != 0;
-        }
-        return null;
-    }
+    protected override Boolean? ConvertToBoolean()
+        => TiniBooleanValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override SByte? ConvertToInt8() {
-        if (SByte.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override SByte? ConvertToInt8()
+        => TiniInt8Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override Int16? ConvertToInt16() {
-        if (Int16.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override Int16? ConvertToInt16()
+        => TiniInt16Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override Int32? ConvertToInt32() {
-        if (Int32.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override Int32? ConvertToInt32()
+        => TiniInt32Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override Int64? ConvertToInt64() {
-        if (Int64.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override Int64? ConvertToInt64()
+        => TiniInt64Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override Byte? ConvertToUInt8() {
-        if (Byte.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override Byte? ConvertToUInt8()
+        => TiniUInt8Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override UInt16? ConvertToUInt16() {
-        if (UInt16.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override UInt16? ConvertToUInt16()
+        => TiniUInt16Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override UInt32? ConvertToUInt32() {
-        if (UInt32.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override UInt32? ConvertToUInt32()
+        => TiniUInt32Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override UInt64? ConvertToUInt64() {
-        if (UInt64.TryParse(Value, NumberStyles.Integer, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override UInt64? ConvertToUInt64()
+        => TiniUInt64Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override Single? ConvertToFloat32() {
-        if (Single.TryParse(Value, NumberStyles.Float, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override Single? ConvertToFloat32()
+        => TiniFloat32Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override Double? ConvertToFloat64() {
-        if (Double.TryParse(Value, NumberStyles.Float, CultureInfo.InvariantCulture, out var result)) {
-            return result;
-        }
-        return null;
-    }
+    protected override Double? ConvertToFloat64()
+        => TiniFloat64Value.TryParseValue(Value, out var result) ? result : null;
 
     protected override String? ConvertToString()
         => Value;
 
-    protected override DateTimeOffset? ConvertToDateTime() {
-        if (DateTime.TryParseExact(Value, ParseDateTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out var resultDateTime)) {
-            return resultDateTime;
-        } else if (DateTime.TryParseExact(Value, ParseDateFormats, CultureInfo.InvariantCulture, ParseStyle, out var resultDate)) {
-            return resultDate;
-        } else if (DateTime.TryParseExact(Value, ParseTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out var resultTime)) {
-            return resultTime;
-        }
-        return null;
-    }
+    protected override DateTimeOffset? ConvertToDateTime()
+        => TiniDateTimeValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override DateOnly? ConvertToDate() {
-        if (DateTime.TryParseExact(Value, ParseDateFormats, CultureInfo.InvariantCulture, ParseStyle, out var result)) {
-            return new DateOnly(result.Year, result.Month, result.Day);
-        }
-        return null;
-    }
+    protected override DateOnly? ConvertToDate()
+        => TiniDateValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override TimeOnly? ConvertToTime() {
-        if (DateTime.TryParseExact(Value, ParseTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out var result)) {
-            return new TimeOnly(result.Hour, result.Minute, result.Second, result.Millisecond);
-        }
-        return null;
-    }
+    protected override TimeOnly? ConvertToTime()
+        => TiniTimeValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override IPAddress? ConvertToIPAddress() {
-        if (IPAddress.TryParse(Value, out var address)) {
-            if (address.AddressFamily is AddressFamily.InterNetwork or AddressFamily.InterNetworkV6) {
-                return address;
-            }
-        }
-        return null;
-    }
+    protected override IPAddress? ConvertToIPAddress()
+        => TiniIPAddressValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override IPAddress? ConvertToIPv4Address() {
-        if (IPAddress.TryParse(Value, out var address)) {
-            if (address.AddressFamily is AddressFamily.InterNetwork) {
-                return address;
-            }
-        }
-        return null;
-    }
+    protected override IPAddress? ConvertToIPv4Address()
+        => TiniIPv4AddressValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override IPAddress? ConvertToIPv6Address() {
-        if (IPAddress.TryParse(Value, out var address)) {
-            if (address.AddressFamily is AddressFamily.InterNetworkV6) {
-                return address;
-            }
-        }
-        return null;
-    }
+    protected override IPAddress? ConvertToIPv6Address()
+        => TiniIPv6AddressValue.TryParseValue(Value, out var result) ? result : null;
 
     #endregion Convert
-
-    #region Formats
-
-    private static readonly DateTimeStyles ParseStyle = DateTimeStyles.AllowLeadingWhite
-                                                      | DateTimeStyles.AllowInnerWhite
-                                                      | DateTimeStyles.AllowTrailingWhite
-                                                      | DateTimeStyles.AllowWhiteSpaces
-                                                      | DateTimeStyles.AssumeUniversal
-                                                      | DateTimeStyles.AdjustToUniversal;
-
-    private static readonly string[] ParseDateTimeFormats = new string[] {
-        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF K",
-        "yyyy-MM-dd HH:mm:ss.FFFFFFF K",
-        "yyyyMMdd'T'HHmmss.FFFFFFF K",
-        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF",
-        "yyyy-MM-dd HH:mm:ss.FFFFFFF",
-        "yyyyMMdd'T'HHmmss.FFFFFFF",
-        "yyyy-MM-dd'T'HH:mm K",
-        "yyyy-MM-dd HH:mm K",
-        "yyyyMMdd'T'HHmm K",
-        "yyyy-MM-dd'T'HH:mm",
-        "yyyy-MM-dd HH:mm",
-        "yyyyMMdd'T'HHmm",
-    };
-
-    private static readonly string[] ParseDateFormats = new string[] {
-        "yyyy-mm-dd",
-    };
-
-    private static readonly string[] ParseTimeFormats = new string[] {
-        "HH:mm:ss.FFFFFFF",
-        "HH:mm",
-    };
-
-    #endregion Formats
 
 }

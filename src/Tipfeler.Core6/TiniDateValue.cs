@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net;
 
@@ -27,6 +28,37 @@ public sealed record TiniDateValue : TiniValue {
         set {
             _value = value;
             OnChanged();
+        }
+    }
+
+
+    /// <summary>
+    /// Returns true if text can be converted with the value object in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+        if (TryParseValue(text, out var value)) {
+            result = new TiniDateValue(value);
+            return true;
+        } else {
+            result = default;
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns true if text can be converted with the value in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    internal static bool TryParseValue(string? text, out DateOnly result) {
+        if (DateTime.TryParseExact(text, TiniDateTimeValue.ParseDateFormats, CultureInfo.InvariantCulture, TiniDateTimeValue.ParseStyle, out var resultDate)) {
+            result = new DateOnly(resultDate.Year, resultDate.Month, resultDate.Day);
+            return true;
+        } else {
+            result = default;
+            return false;
         }
     }
 

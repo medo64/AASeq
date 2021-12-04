@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 
 namespace Tipfeler;
@@ -12,6 +13,16 @@ public sealed record TiniNullValue : TiniValue {
     /// Create a new instance.
     /// </summary>
     public TiniNullValue() { }
+
+    /// <summary>
+    /// Returns true if text can be converted with the value object in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+        result = new TiniNullValue();
+        return true;
+    }
 
 
     #region Convert

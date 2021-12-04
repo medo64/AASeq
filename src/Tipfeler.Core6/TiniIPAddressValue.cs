@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Net.Sockets;
 
@@ -36,6 +37,38 @@ public sealed record TiniIPAddressValue : TiniValue {
             _value = value;
             OnChanged();
         }
+    }
+
+
+    /// <summary>
+    /// Returns true if text can be converted with the value object in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+        if (TryParseValue(text, out var value)) {
+            result = new TiniIPAddressValue(value);
+            return true;
+        } else {
+            result = default;
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns true if text can be converted with the value in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    internal static bool TryParseValue(string? text, [NotNullWhen(true)] out IPAddress? result) {
+        if (IPAddress.TryParse(text, out var address)) {
+            if (address.AddressFamily is AddressFamily.InterNetwork or AddressFamily.InterNetworkV6) {
+                result = address;
+                return true;
+            }
+        }
+        result = default;
+        return false;
     }
 
 

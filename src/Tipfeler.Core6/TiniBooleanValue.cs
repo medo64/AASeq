@@ -1,4 +1,6 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Net;
 
 namespace Tipfeler;
@@ -27,6 +29,54 @@ public sealed record TiniBooleanValue : TiniValue {
             _value = value;
             OnChanged();
         }
+    }
+
+
+    /// <summary>
+    /// Returns true if text can be converted with the value object in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+        if (TryParseValue(text, out var value)) {
+            result = new TiniBooleanValue(value);
+            return true;
+        } else {
+            result = default;
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns true if text can be converted with the value in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    internal static bool TryParseValue(string? text, out bool result) {
+        if (text != null) {
+            var trimmed = text.Trim();
+            if (trimmed.Equals("True", StringComparison.InvariantCultureIgnoreCase)
+                || trimmed.Equals("Yes", StringComparison.InvariantCultureIgnoreCase)
+                || trimmed.Equals("T", StringComparison.InvariantCultureIgnoreCase)
+                || trimmed.Equals("Y", StringComparison.InvariantCultureIgnoreCase)
+                || trimmed.Equals("+", StringComparison.InvariantCultureIgnoreCase)) {
+                result = true;
+                return true;
+            } else if (trimmed.Equals("False", StringComparison.InvariantCultureIgnoreCase)
+                || trimmed.Equals("No", StringComparison.InvariantCultureIgnoreCase)
+                || trimmed.Equals("F", StringComparison.InvariantCultureIgnoreCase)
+                || trimmed.Equals("N", StringComparison.InvariantCultureIgnoreCase)
+                || trimmed.Equals("-", StringComparison.InvariantCultureIgnoreCase)) {
+                result = false;
+                return true;
+            } else if (Int32.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var intValue)) {
+                result = intValue != 0;
+                return true;
+            }
+        }
+
+        result = default;
+        return false;
     }
 
 

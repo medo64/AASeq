@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net;
 
@@ -15,6 +16,31 @@ public sealed record TiniInt16Value : TiniValue {
     /// <param name="value">Value.</param>
     public TiniInt16Value(Int16 value) {
         _value = value;
+    }
+
+
+    /// <summary>
+    /// Returns true if text can be converted with the value object in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+        if (TryParseValue(text, out var value)) {
+            result = new TiniInt16Value(value);
+            return true;
+        } else {
+            result = default;
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns true if text can be converted with the value in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    internal static bool TryParseValue(string? text, out Int16 result) {
+        return Int16.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
     }
 
 
