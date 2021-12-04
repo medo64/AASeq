@@ -67,6 +67,15 @@ public sealed record TiniBooleanValue : TiniValue {
     protected override String? ConvertToString()
         => Value ? "True" : "False";
 
+    protected override DateTimeOffset? ConvertToDateTime()
+        => null;
+
+    protected override DateOnly? ConvertToDate()
+        => null;
+
+    protected override TimeOnly? ConvertToTime()
+        => null;
+
     #endregion Convert
 
 }

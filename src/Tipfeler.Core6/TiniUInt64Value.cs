@@ -68,6 +68,15 @@ public sealed record TiniUInt64Value : TiniValue {
     protected override String? ConvertToString()
         => Value.ToString("0", CultureInfo.InvariantCulture);
 
+    protected override DateTimeOffset? ConvertToDateTime()
+        => DateTimeOffset.UnixEpoch.AddSeconds(Value);
+
+    protected override DateOnly? ConvertToDate()
+        => new DateOnly(1970, 1, 1).AddDays((int)(Value / 86400));
+
+    protected override TimeOnly? ConvertToTime()
+        => null;
+
     #endregion Convert
 
 }

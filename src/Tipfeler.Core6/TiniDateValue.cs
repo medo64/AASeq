@@ -4,24 +4,24 @@ using System.Globalization;
 namespace Tipfeler;
 
 /// <summary>
-/// Float32 value.
+/// Date value.
 /// </summary>
-public sealed record TiniFloat32Value : TiniValue {
+public sealed record TiniDateValue : TiniValue {
 
     /// <summary>
     /// Create a new instance.
     /// </summary>
     /// <param name="value">Value.</param>
-    public TiniFloat32Value(Single value) {
+    public TiniDateValue(DateOnly value) {
         _value = value;
     }
 
 
-    private Single _value;
+    private DateOnly _value;
     /// <summary>
     /// Gets/sets value.
     /// </summary>
-    public Single Value {
+    public DateOnly Value {
         get => _value;
         set {
             _value = value;
@@ -33,50 +33,58 @@ public sealed record TiniFloat32Value : TiniValue {
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
-        => Value != 0;
+        => null;
 
     protected override SByte? ConvertToInt8()
-        => Value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)Value : null;
+        => null;
 
     protected override Int16? ConvertToInt16()
-        => Value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)Value : null;
+        => null;
 
     protected override Int32? ConvertToInt32()
-        => Value is >= Int32.MinValue and <= Int32.MaxValue ? (Int32)Value : null;
+        => null;
 
     protected override Int64? ConvertToInt64()
-        => Value is >= Int64.MinValue and <= Int64.MaxValue ? (Int32)Value : null;
+        => ConvertToDateTime()?.ToUnixTimeSeconds();
 
     protected override Byte? ConvertToUInt8()
-        => Value is >= Byte.MinValue and <= Byte.MaxValue ? (Byte)Value : null;
+        => null;
 
     protected override UInt16? ConvertToUInt16()
-        => Value is >= UInt16.MinValue and <= UInt16.MaxValue ? (UInt16)Value : null;
+        => null;
 
     protected override UInt32? ConvertToUInt32()
-        => Value is >= UInt32.MinValue and <= UInt32.MaxValue ? (UInt32)Value : null;
+        => null;
 
-    protected override UInt64? ConvertToUInt64()
-        => Value is >= UInt64.MinValue and <= UInt64.MaxValue ? (UInt64)Value : null;
+    protected override UInt64? ConvertToUInt64() {
+        var seconds = ConvertToDateTime()?.ToUnixTimeSeconds();
+        return seconds >= 0 ? (UInt64)seconds : null;
+    }
 
     protected override Single? ConvertToFloat32()
-        => Value;
+        => null;
 
     protected override Double? ConvertToFloat64()
-        => Value;
+        => ConvertToUInt64();
 
     protected override String? ConvertToString()
-        => Value.ToString(CultureInfo.InvariantCulture);
+        => Value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
 
     protected override DateTimeOffset? ConvertToDateTime()
-        => null;
+        => new DateTimeOffset(Value.Year, Value.Month, Value.Day, 0, 0, 0, 0, new TimeSpan());
 
     protected override DateOnly? ConvertToDate()
-        => null;
+        => Value;
 
     protected override TimeOnly? ConvertToTime()
         => null;
 
     #endregion Convert
+
+
+    internal static readonly string[] ParseFormats = new string[] {
+        "YYYY-mm-dd",
+        "YYYYmmdd"
+    };
 
 }

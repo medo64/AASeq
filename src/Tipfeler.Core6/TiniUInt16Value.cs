@@ -68,6 +68,15 @@ public sealed record TiniUInt16Value : TiniValue {
     protected override String? ConvertToString()
         => Value.ToString("0", CultureInfo.InvariantCulture);
 
+    protected override DateTimeOffset? ConvertToDateTime()
+        => null;
+
+    protected override DateOnly? ConvertToDate()
+        => null;
+
+    protected override TimeOnly? ConvertToTime()
+        => null;
+
     #endregion Convert
 
 }

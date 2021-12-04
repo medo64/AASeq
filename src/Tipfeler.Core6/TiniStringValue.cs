@@ -127,6 +127,30 @@ public sealed record TiniStringValue : TiniValue {
 
     protected override String? ConvertToString()
         => Value;
+
+    protected override DateTimeOffset? ConvertToDateTime() {
+        if (DateTime.TryParseExact(Value, TiniDateTimeValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var result)) {
+            return result;
+        } else if (DateTime.TryParseExact(Value, TiniDateValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var resultDate)) {
+            return resultDate;
+        } else if (DateTime.TryParseExact(Value, TiniTimeValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var resultTime)) {
+            return resultTime;
+        }
+        return null;
+    }
+
+    protected override DateOnly? ConvertToDate() {
+        if (DateTime.TryParseExact(Value, TiniDateValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var result)) {
+            return new DateOnly(result.Year, result.Month, result.Day);
+        }
+        return null;
+    }
+
+    protected override TimeOnly? ConvertToTime() {
+        if (DateTime.TryParseExact(Value, TiniTimeValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var result)) {
+            return new TimeOnly(result.Hour, result.Minute, result.Second, result.Millisecond);
+        }
+        return null;
     }
 
     #endregion Convert

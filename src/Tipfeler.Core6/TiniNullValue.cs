@@ -27,6 +27,9 @@ public sealed record TiniNullValue : TiniValue {
     protected override String? ConvertToString() => null;
     protected override Single? ConvertToFloat32() => null;
     protected override Double? ConvertToFloat64() => null;
+    protected override DateTimeOffset? ConvertToDateTime() => null;
+    protected override DateOnly? ConvertToDate() => null;
+    protected override TimeOnly? ConvertToTime() => null;
 
     #endregion Convert
 

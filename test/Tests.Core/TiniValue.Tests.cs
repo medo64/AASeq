@@ -80,6 +80,30 @@ public class TiniValueTests {
         Assert.IsType<TiniStringValue>(x);
     }
 
+    [Fact(DisplayName = "TiniValue: Implicit DateTime")]
+    public void ImplicitDateTime() {
+        TiniValue x = new DateTimeOffset(1997, 4, 1, 23, 11, 54, 565, new TimeSpan(0, 0, 0));
+        Assert.IsType<TiniDateTimeValue>(x);
+    }
+
+    [Fact(DisplayName = "TiniValue: Implicit DateTime (2)")]
+    public void ImplicitDateTime2() {
+        TiniValue x = new DateTime(1997, 4, 1, 23, 11, 54, 565, DateTimeKind.Local);
+        Assert.IsType<TiniDateTimeValue>(x);
+    }
+
+    [Fact(DisplayName = "TiniValue: Implicit Date")]
+    public void ImplicitDate() {
+        TiniValue x = new DateOnly(1997, 4, 1);
+        Assert.IsType<TiniDateValue>(x);
+    }
+
+    [Fact(DisplayName = "TiniValue: Implicit Time")]
+    public void ImplicitTime() {
+        TiniValue x = new TimeOnly(23, 11, 54, 565);
+        Assert.IsType<TiniTimeValue>(x);
+    }
+
     #endregion Implicit
 
     #region AsValue
@@ -99,6 +123,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt8Value")]
@@ -116,6 +143,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt16Value")]
@@ -133,6 +163,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt32Value")]
@@ -150,6 +183,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt64Value")]
@@ -167,6 +203,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt8Value")]
@@ -184,6 +223,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt16Value")]
@@ -201,6 +243,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt32Value")]
@@ -218,6 +263,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt64Value")]
@@ -235,6 +283,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsFloat32Value")]
@@ -252,6 +303,9 @@ public class TiniValueTests {
         Assert.NotNull(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsFloat64Value")]
@@ -269,6 +323,9 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.NotNull(x.AsFloat64Value());
         Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
     }
 
     [Fact(DisplayName = "TiniValue: AsStringValue")]
@@ -286,6 +343,89 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32Value());
         Assert.Null(x.AsFloat64Value());
         Assert.NotNull(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsDateTimeValue")]
+    public void AsDateTimeValue() {
+        TiniValue x = new DateTimeOffset(2005, 2, 1, 11, 43, 33, 787, new TimeSpan(2, 30, 0));
+        Assert.Null(x.AsBooleanValue());
+        Assert.Null(x.AsInt8Value());
+        Assert.Null(x.AsInt16Value());
+        Assert.Null(x.AsInt32Value());
+        Assert.Null(x.AsInt64Value());
+        Assert.Null(x.AsUInt8Value());
+        Assert.Null(x.AsUInt16Value());
+        Assert.Null(x.AsUInt32Value());
+        Assert.Null(x.AsUInt64Value());
+        Assert.Null(x.AsFloat32Value());
+        Assert.Null(x.AsFloat64Value());
+        Assert.Null(x.AsStringValue());
+        Assert.NotNull(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsDateTimeValue (2)")]
+    public void AsDateTimeValue2() {
+        TiniValue x = new DateTime(2005, 2, 1, 11, 43, 33, 787, DateTimeKind.Local);
+        Assert.Null(x.AsBooleanValue());
+        Assert.Null(x.AsInt8Value());
+        Assert.Null(x.AsInt16Value());
+        Assert.Null(x.AsInt32Value());
+        Assert.Null(x.AsInt64Value());
+        Assert.Null(x.AsUInt8Value());
+        Assert.Null(x.AsUInt16Value());
+        Assert.Null(x.AsUInt32Value());
+        Assert.Null(x.AsUInt64Value());
+        Assert.Null(x.AsFloat32Value());
+        Assert.Null(x.AsFloat64Value());
+        Assert.Null(x.AsStringValue());
+        Assert.NotNull(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsDateValue")]
+    public void AsDateValue() {
+        TiniValue x = new DateOnly(2005, 2, 1);
+        Assert.Null(x.AsBooleanValue());
+        Assert.Null(x.AsInt8Value());
+        Assert.Null(x.AsInt16Value());
+        Assert.Null(x.AsInt32Value());
+        Assert.Null(x.AsInt64Value());
+        Assert.Null(x.AsUInt8Value());
+        Assert.Null(x.AsUInt16Value());
+        Assert.Null(x.AsUInt32Value());
+        Assert.Null(x.AsUInt64Value());
+        Assert.Null(x.AsFloat32Value());
+        Assert.Null(x.AsFloat64Value());
+        Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.NotNull(x.AsDateValue());
+        Assert.Null(x.AsTimeValue());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsTimeValue")]
+    public void AsTimeValue() {
+        TiniValue x = new TimeOnly(11, 43, 33, 787);
+        Assert.Null(x.AsBooleanValue());
+        Assert.Null(x.AsInt8Value());
+        Assert.Null(x.AsInt16Value());
+        Assert.Null(x.AsInt32Value());
+        Assert.Null(x.AsInt64Value());
+        Assert.Null(x.AsUInt8Value());
+        Assert.Null(x.AsUInt16Value());
+        Assert.Null(x.AsUInt32Value());
+        Assert.Null(x.AsUInt64Value());
+        Assert.Null(x.AsFloat32Value());
+        Assert.Null(x.AsFloat64Value());
+        Assert.Null(x.AsStringValue());
+        Assert.Null(x.AsDateTimeValue());
+        Assert.Null(x.AsDateValue());
+        Assert.NotNull(x.AsTimeValue());
     }
 
     #endregion AsValue
@@ -307,6 +447,9 @@ public class TiniValueTests {
         Assert.Equal(1.0f, x.AsFloat32());
         Assert.Equal(1.0, x.AsFloat64());
         Assert.Equal("True", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt8")]
@@ -324,6 +467,9 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt16")]
@@ -341,6 +487,9 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt32")]
@@ -358,6 +507,9 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt64")]
@@ -375,6 +527,9 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
+        Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 000, new TimeSpan(00, 00, 00)), x.AsDateTime());
+        Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt8")]
@@ -392,6 +547,9 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt16")]
@@ -409,6 +567,9 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt32")]
@@ -426,6 +587,9 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt64")]
@@ -463,6 +627,9 @@ public class TiniValueTests {
         Assert.Equal(42.2f, x.AsFloat32());
         Assert.Equal(42.2, x.AsFloat64(0), 5);
         Assert.Equal("42.2", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: Float64")]
@@ -480,6 +647,9 @@ public class TiniValueTests {
         Assert.Equal(42.2f, x.AsFloat32());
         Assert.Equal(42.2, x.AsFloat64());
         Assert.Equal("42.2", x.AsString());
+        Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 200, new TimeSpan(00, 00, 00)), x.AsDateTime());
+        Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
     [Fact(DisplayName = "TiniValue: AsString")]
@@ -497,6 +667,89 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32());
         Assert.Null(x.AsFloat64());
         Assert.Equal("A", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsDateTime")]
+    public void AsDateTime() {
+        TiniValue x = new DateTimeOffset(1999, 1, 2, 4, 12, 44, 469, new TimeSpan(10, 0, 0));
+        Assert.Null(x.AsBoolean());
+        Assert.Null(x.AsInt8());
+        Assert.Null(x.AsInt16());
+        Assert.Null(x.AsInt32());
+        Assert.Equal(915214364, x.AsInt64());
+        Assert.Null(x.AsUInt8());
+        Assert.Null(x.AsUInt16());
+        Assert.Null(x.AsUInt32());
+        Assert.Equal((ulong)915214364, x.AsUInt64());
+        Assert.Null(x.AsFloat32());
+        Assert.Equal(915214364.469, x.AsFloat64());
+        Assert.Equal("1999-01-02T04:12:44+10:00", x.AsString());
+        Assert.Equal(new DateTimeOffset(1999, 1, 2, 4, 12, 44, 469, new TimeSpan(10, 0, 0)), x.AsDateTime());
+        Assert.Equal(new DateOnly(1999, 1, 2), x.AsDate());
+        Assert.Equal(new TimeOnly(4, 12, 44, 469), x.AsTime());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsDateTime (2)")]
+    public void AsDateTime2() {
+        TiniValue x = new DateTime(1999, 1, 2, 4, 12, 44, 469, DateTimeKind.Utc);
+        Assert.Null(x.AsBoolean());
+        Assert.Null(x.AsInt8());
+        Assert.Null(x.AsInt16());
+        Assert.Null(x.AsInt32());
+        Assert.Equal(915250364, x.AsInt64());
+        Assert.Null(x.AsUInt8());
+        Assert.Null(x.AsUInt16());
+        Assert.Null(x.AsUInt32());
+        Assert.Equal((ulong)915250364, x.AsUInt64());
+        Assert.Null(x.AsFloat32());
+        Assert.Equal(915250364.469, x.AsFloat64());
+        Assert.Equal("1999-01-02T04:12:44+00:00", x.AsString());
+        Assert.Equal(new DateTimeOffset(1999, 1, 2, 4, 12, 44, 469, new TimeSpan(0, 0, 0)), x.AsDateTime());
+        Assert.Equal(new DateOnly(1999, 1, 2), x.AsDate());
+        Assert.Equal(new TimeOnly(4, 12, 44, 469), x.AsTime());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsDate")]
+    public void AsDate() {
+        TiniValue x = new DateOnly(1999, 1, 2);
+        Assert.Null(x.AsBoolean());
+        Assert.Null(x.AsInt8());
+        Assert.Null(x.AsInt16());
+        Assert.Null(x.AsInt32());
+        Assert.Equal(915235200, x.AsInt64());
+        Assert.Null(x.AsUInt8());
+        Assert.Null(x.AsUInt16());
+        Assert.Null(x.AsUInt32());
+        Assert.Equal((ulong)915235200, x.AsUInt64());
+        Assert.Null(x.AsFloat32());
+        Assert.Equal(915235200, x.AsFloat64());
+        Assert.Equal("1999-01-02", x.AsString());
+        Assert.Equal(new DateTimeOffset(1999, 1, 2, 0, 0, 0, 0, new TimeSpan(0, 0, 0)), x.AsDateTime());
+        Assert.Equal(new DateOnly(1999, 1, 2), x.AsDate());
+        Assert.Null(x.AsTime());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsTime")]
+    public void AsTime() {
+        TiniValue x = new TimeOnly(4, 12, 44, 469);
+        Assert.Null(x.AsBoolean());
+        Assert.Null(x.AsInt8());
+        Assert.Null(x.AsInt16());
+        Assert.Null(x.AsInt32());
+        Assert.Null(x.AsInt64());
+        Assert.Null(x.AsUInt8());
+        Assert.Null(x.AsUInt16());
+        Assert.Null(x.AsUInt32());
+        Assert.Null(x.AsUInt64());
+        Assert.Null(x.AsFloat32());
+        Assert.Null(x.AsFloat64());
+        Assert.Equal("04:12:44", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Equal(new TimeOnly(4, 12, 44, 469), x.AsTime());
     }
 
     #endregion AsValue

@@ -237,6 +237,63 @@ public abstract record TiniValue {
         => ConvertToString() ?? defaultValue;
 
 
+    /// <summary>
+    /// Returns value object if it's of a DateTime type or null otherwise.
+    /// </summary>
+    public TiniDateTimeValue? AsDateTimeValue()
+        => this as TiniDateTimeValue;
+
+    /// <summary>
+    /// Returns DateTime value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public DateTimeOffset? AsDateTime()
+        => ConvertToDateTime();
+
+    /// <summary>
+    /// Returns DateTime value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public DateTimeOffset AsDateTime(DateTimeOffset defaultValue)
+        => ConvertToDateTime() ?? defaultValue;
+
+
+    /// <summary>
+    /// Returns value object if it's of a Date type or null otherwise.
+    /// </summary>
+    public TiniDateValue? AsDateValue()
+        => this as TiniDateValue;
+
+    /// <summary>
+    /// Returns Date value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public DateOnly? AsDate()
+        => ConvertToDate();
+
+    /// <summary>
+    /// Returns Date value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public DateOnly AsDate(DateOnly defaultValue)
+        => ConvertToDate() ?? defaultValue;
+
+
+    /// <summary>
+    /// Returns value object if it's of a Time type or null otherwise.
+    /// </summary>
+    public TiniTimeValue? AsTimeValue()
+        => this as TiniTimeValue;
+
+    /// <summary>
+    /// Returns Time value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public TimeOnly? AsTime()
+        => ConvertToTime();
+
+    /// <summary>
+    /// Returns Time value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public TimeOnly AsTime(TimeOnly defaultValue)
+        => ConvertToTime() ?? defaultValue;
+
+
     #region Operators
 
     /// <summary>
@@ -323,6 +380,34 @@ public abstract record TiniValue {
     public static implicit operator TiniValue(String value)
         => new TiniStringValue(value);
 
+    /// <summary>
+    /// Implicit conversion into a DateTime value object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator TiniValue(DateTimeOffset value)
+        => new TiniDateTimeValue(value);
+
+    /// <summary>
+    /// Implicit conversion into a DateTime value object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator TiniValue(DateTime value)
+        => new TiniDateTimeValue(value);
+
+    /// <summary>
+    /// Implicit conversion into a Date value object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator TiniValue(DateOnly value)
+        => new TiniDateValue(value);
+
+    /// <summary>
+    /// Implicit conversion into a Time value object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator TiniValue(TimeOnly value)
+        => new TiniTimeValue(value);
+
     #endregion Operators
 
 
@@ -387,6 +472,22 @@ public abstract record TiniValue {
     /// Returns String if object can be converted or null otherwise.
     /// </summary>
     protected abstract String? ConvertToString();
+
+    /// <summary>
+    /// Returns DateTime if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract DateTimeOffset? ConvertToDateTime();
+
+    /// <summary>
+    /// Returns Date if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract DateOnly? ConvertToDate();
+
+
+    /// <summary>
+    /// Returns Time if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract TimeOnly? ConvertToTime();
 
     #endregion Convert
 
