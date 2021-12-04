@@ -129,30 +129,65 @@ public sealed record TiniStringValue : TiniValue {
         => Value;
 
     protected override DateTimeOffset? ConvertToDateTime() {
-        if (DateTime.TryParseExact(Value, TiniDateTimeValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var result)) {
-            return result;
-        } else if (DateTime.TryParseExact(Value, TiniDateValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var resultDate)) {
+        if (DateTime.TryParseExact(Value, ParseDateTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out var resultDateTime)) {
+            return resultDateTime;
+        } else if (DateTime.TryParseExact(Value, ParseDateFormats, CultureInfo.InvariantCulture, ParseStyle, out var resultDate)) {
             return resultDate;
-        } else if (DateTime.TryParseExact(Value, TiniTimeValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var resultTime)) {
+        } else if (DateTime.TryParseExact(Value, ParseTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out var resultTime)) {
             return resultTime;
         }
         return null;
     }
 
     protected override DateOnly? ConvertToDate() {
-        if (DateTime.TryParseExact(Value, TiniDateValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var result)) {
+        if (DateTime.TryParseExact(Value, ParseDateFormats, CultureInfo.InvariantCulture, ParseStyle, out var result)) {
             return new DateOnly(result.Year, result.Month, result.Day);
         }
         return null;
     }
 
     protected override TimeOnly? ConvertToTime() {
-        if (DateTime.TryParseExact(Value, TiniTimeValue.ParseFormats, CultureInfo.InvariantCulture, DateTimeStyles.AssumeUniversal, out var result)) {
+        if (DateTime.TryParseExact(Value, ParseTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out var result)) {
             return new TimeOnly(result.Hour, result.Minute, result.Second, result.Millisecond);
         }
         return null;
     }
 
     #endregion Convert
+
+    #region Formats
+
+    private static readonly DateTimeStyles ParseStyle = DateTimeStyles.AllowLeadingWhite
+                                                      | DateTimeStyles.AllowInnerWhite
+                                                      | DateTimeStyles.AllowTrailingWhite
+                                                      | DateTimeStyles.AllowWhiteSpaces
+                                                      | DateTimeStyles.AssumeUniversal
+                                                      | DateTimeStyles.AdjustToUniversal;
+
+    private static readonly string[] ParseDateTimeFormats = new string[] {
+        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF K",
+        "yyyy-MM-dd HH:mm:ss.FFFFFFF K",
+        "yyyyMMdd'T'HHmmss.FFFFFFF K",
+        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF",
+        "yyyy-MM-dd HH:mm:ss.FFFFFFF",
+        "yyyyMMdd'T'HHmmss.FFFFFFF",
+        "yyyy-MM-dd'T'HH:mm K",
+        "yyyy-MM-dd HH:mm K",
+        "yyyyMMdd'T'HHmm K",
+        "yyyy-MM-dd'T'HH:mm",
+        "yyyy-MM-dd HH:mm",
+        "yyyyMMdd'T'HHmm",
+    };
+
+    private static readonly string[] ParseDateFormats = new string[] {
+        "yyyy-mm-dd",
+    };
+
+    private static readonly string[] ParseTimeFormats = new string[] {
+        "HH:mm:ss.FFFFFFF",
+        "HH:mm",
+    };
+
+    #endregion Formats
 
 }

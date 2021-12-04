@@ -1,3 +1,4 @@
+using System;
 using System.Globalization;
 using Tipfeler;
 using Xunit;
@@ -126,6 +127,28 @@ public class TiniStringValueTests {
     [Fact(DisplayName = "TiniStringValue: AsString")]
     public void AsString() {
         Assert.Equal("42", new TiniStringValue("42").AsString());
+    }
+
+    [Fact(DisplayName = "TiniStringValue: AsDateTime")]
+    public void AsDateTime() {
+        var now = DateTimeOffset.Now;
+        Assert.Equal(now, new TiniStringValue(now.ToString("o")).AsDateTime());
+        Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(0, 0, 0)), new TiniStringValue("1929-01-07 13:45:23.122").AsDateTime());
+        Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(1, 0, 0)), new TiniStringValue("1929-01-07 13:45:23.122+01:00").AsDateTime());
+        Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 0, new TimeSpan(2, 0, 0)), new TiniStringValue("1929-01-07 13:45:23+02:00").AsDateTime());
+        Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, new TimeSpan(0, 0, 0)).AddTicks(1234567), new TiniStringValue("1929-01-07 13:45:23.1234567Z").AsDateTime());
+        Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 0, 0, new TimeSpan(-2, 0, 0)), new TiniStringValue("1929-01-07 13:45-02:00").AsDateTime());
+    }
+
+    [Fact(DisplayName = "TiniStringValue: AsDate")]
+    public void AsDate() {
+        Assert.Equal(new DateOnly(1929, 01, 07), new TiniStringValue("1929-01-07").AsDate());
+    }
+
+    [Fact(DisplayName = "TiniStringValue: AsTime")]
+    public void AsTime() {
+        Assert.Equal(new TimeOnly(19, 51, 37), new TiniStringValue("19:51:37").AsTime());
+        Assert.Equal(new TimeOnly(19, 51, 00), new TiniStringValue("19:51").AsTime());
     }
 
 }

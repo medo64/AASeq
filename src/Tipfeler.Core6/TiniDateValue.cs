@@ -79,12 +79,8 @@ public sealed record TiniDateValue : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => null;
 
+
+
     #endregion Convert
-
-
-    internal static readonly string[] ParseFormats = new string[] {
-        "YYYY-mm-dd",
-        "YYYYmmdd"
-    };
 
 }

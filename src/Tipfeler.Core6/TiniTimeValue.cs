@@ -77,14 +77,8 @@ public sealed record TiniTimeValue : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => Value;
 
+
+
     #endregion Convert
-
-
-    internal static readonly string[] ParseFormats = new string[] {
-        "HH:mm:ss.ffffff",
-        "HH:mm:ss.fff",
-        "HH:mm:ss",
-        "HH:mm",
-    };
 
 }

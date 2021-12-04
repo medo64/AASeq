@@ -79,28 +79,8 @@ public sealed record TiniDateTimeValue : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => new TimeOnly(Value.Hour, Value.Minute, Value.Second, Value.Millisecond);
 
+
+
     #endregion Convert
-
-
-    internal static readonly string[] ParseFormats = new string[] {
-        "YYYY-mm-dd'T'HH:mm:ss.ffffffK",
-        "YYYY-mm-dd'T'HH:mm:ss.fffK",
-        "YYYY-mm-dd'T'HH:mm:ssK",
-        "YYYY-mm-dd'T'HH:mm:ss.ffffff",
-        "YYYY-mm-dd'T'HH:mm:ss.fff",
-        "YYYY-mm-dd'T'HH:mm:ss",
-        "YYYYmmdd'T'HHmmss.ffffffK",
-        "YYYYmmdd'T'HHmmss.ffffff",
-        "YYYYmmdd'T'HHmmss.fffK",
-        "YYYYmmdd'T'HHmmss.fff",
-        "YYYYmmdd'T'HHmmssK",
-        "YYYYmmdd'T'HHmmss",
-        "YYYY-mm-dd' 'HH:mm:ss.ffffff K",
-        "YYYY-mm-dd' 'HH:mm:ss.ffffff",
-        "YYYY-mm-dd' 'HH:mm:ss.fff K",
-        "YYYY-mm-dd' 'HH:mm:ss.fff",
-        "YYYY-mm-dd' 'HH:mm:ss K",
-        "YYYY-mm-dd' 'HH:mm:ss",
-    };
 
 }
