@@ -31,53 +31,41 @@ public sealed record TiniBooleanValue : TiniValue {
 
     #region Convert
 
-    protected override Boolean? ConvertToBoolean() {
-        return Value;
-    }
+    protected override Boolean? ConvertToBoolean()
+        => Value;
 
-    protected override SByte? ConvertToInt8() {
-        return Value ? (sbyte)1 : (sbyte)0;
-    }
+    protected override SByte? ConvertToInt8()
+        => Value ? (sbyte)1 : (sbyte)0;
 
-    protected override Int16? ConvertToInt16() {
-        return Value ? (Int16)1 : (Int16)0;
-    }
+    protected override Int16? ConvertToInt16()
+        => Value ? (Int16)1 : (Int16)0;
 
-    protected override Int32? ConvertToInt32() {
-        return Value ? 1 : 0;
-    }
+    protected override Int32? ConvertToInt32()
+        => Value ? 1 : 0;
 
-    protected override Int64? ConvertToInt64() {
-        return Value ? 1 : 0;
-    }
+    protected override Int64? ConvertToInt64()
+        => Value ? 1 : 0;
 
-    protected override Byte? ConvertToUInt8() {
-        return Value ? (byte)1 : (byte)0;
-    }
+    protected override Byte? ConvertToUInt8()
+        => Value ? (byte)1 : (byte)0;
 
-    protected override UInt16? ConvertToUInt16() {
-        return Value ? (UInt16)1 : (UInt16)0;
-    }
+    protected override UInt16? ConvertToUInt16()
+        => Value ? (UInt16)1 : (UInt16)0;
 
-    protected override UInt32? ConvertToUInt32() {
-        return Value ? 1u : 0;
-    }
+    protected override UInt32? ConvertToUInt32()
+        => Value ? 1u : 0;
 
-    protected override UInt64? ConvertToUInt64() {
-        return Value ? 1u : 0;
-    }
+    protected override UInt64? ConvertToUInt64()
+        => Value ? 1u : 0;
 
-    protected override Single? ConvertToFloat32() {
-        return Value ? 1 : 0;
-    }
+    protected override Single? ConvertToFloat32()
+        => Value ? 1 : 0;
 
-    protected override Double? ConvertToFloat64() {
-        return Value ? 1 : 0;
-    }
+    protected override Double? ConvertToFloat64()
+        => Value ? 1 : 0;
 
-    protected override String? ConvertToString() {
-        return Value ? "True" : "False";
-    }
+    protected override String? ConvertToString()
+        => Value ? "True" : "False";
 
     #endregion Convert
 

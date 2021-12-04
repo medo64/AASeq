@@ -32,53 +32,41 @@ public sealed record TiniInt8Value : TiniValue {
 
     #region Convert
 
-    protected override Boolean? ConvertToBoolean() {
-        return Value != 0;
-    }
+    protected override Boolean? ConvertToBoolean()
+        => Value != 0;
 
-    protected override SByte? ConvertToInt8() {
-        return Value;
-    }
+    protected override SByte? ConvertToInt8()
+        => Value;
 
-    protected override Int16? ConvertToInt16() {
-        return Value;
-    }
+    protected override Int16? ConvertToInt16()
+        => Value;
 
-    protected override Int32? ConvertToInt32() {
-        return Value;
-    }
+    protected override Int32? ConvertToInt32()
+        => Value;
 
-    protected override Int64? ConvertToInt64() {
-        return Value;
-    }
+    protected override Int64? ConvertToInt64()
+        => Value;
 
-    protected override Byte? ConvertToUInt8() {
-        return Value is >= 0 ? (Byte)Value : null;
-    }
+    protected override Byte? ConvertToUInt8()
+        => Value is >= 0 ? (Byte)Value : null;
 
-    protected override UInt16? ConvertToUInt16() {
-        return Value is >= 0 ? (UInt16)Value : null;
-    }
+    protected override UInt16? ConvertToUInt16()
+        => Value is >= 0 ? (UInt16)Value : null;
 
-    protected override UInt32? ConvertToUInt32() {
-        return Value >= 0 ? (UInt32)Value : null;
-    }
+    protected override UInt32? ConvertToUInt32()
+        => Value >= 0 ? (UInt32)Value : null;
 
-    protected override UInt64? ConvertToUInt64() {
-        return Value >= 0 ? (UInt64)Value : null;
-    }
+    protected override UInt64? ConvertToUInt64()
+        => Value >= 0 ? (UInt64)Value : null;
 
-    protected override Single? ConvertToFloat32() {
-        return Value;
-    }
+    protected override Single? ConvertToFloat32()
+        => Value;
 
-    protected override Double? ConvertToFloat64() {
-        return Value;
-    }
+    protected override Double? ConvertToFloat64()
+        => Value;
 
-    protected override String? ConvertToString() {
-        return Value.ToString("0", CultureInfo.InvariantCulture);
-    }
+    protected override String? ConvertToString()
+        => Value.ToString("0", CultureInfo.InvariantCulture);
 
     #endregion Convert
 

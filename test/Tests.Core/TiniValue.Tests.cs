@@ -1,3 +1,4 @@
+using System;
 using Tipfeler;
 using Xunit;
 
@@ -83,7 +84,7 @@ public class TiniValueTests {
 
     #region AsValue
 
-    [Fact(DisplayName = "TiniValue: AsBooleanValue()")]
+    [Fact(DisplayName = "TiniValue: AsBooleanValue")]
     public void AsValueBoolean() {
         TiniValue x = true;
         Assert.NotNull(x.AsBooleanValue());
@@ -100,7 +101,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt8Value()")]
+    [Fact(DisplayName = "TiniValue: AsInt8Value")]
     public void AsInt8Value() {
         TiniValue x = (sbyte)32;
         Assert.Null(x.AsBooleanValue());
@@ -117,7 +118,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt16Value()")]
+    [Fact(DisplayName = "TiniValue: AsInt16Value")]
     public void AsInt16Value() {
         TiniValue x = (short)32;
         Assert.Null(x.AsBooleanValue());
@@ -134,7 +135,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt32Value()")]
+    [Fact(DisplayName = "TiniValue: AsInt32Value")]
     public void AsInt32Value() {
         TiniValue x = 32;
         Assert.Null(x.AsBooleanValue());
@@ -151,7 +152,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt64Value()")]
+    [Fact(DisplayName = "TiniValue: AsInt64Value")]
     public void AsInt64Value() {
         TiniValue x = (long)32;
         Assert.Null(x.AsBooleanValue());
@@ -168,7 +169,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt8Value()")]
+    [Fact(DisplayName = "TiniValue: AsUInt8Value")]
     public void AsUInt8Value() {
         TiniValue x = (byte)32;
         Assert.Null(x.AsBooleanValue());
@@ -185,7 +186,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt16Value()")]
+    [Fact(DisplayName = "TiniValue: AsUInt16Value")]
     public void AsUInt16Value() {
         TiniValue x = (ushort)32;
         Assert.Null(x.AsBooleanValue());
@@ -202,7 +203,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt32Value()")]
+    [Fact(DisplayName = "TiniValue: AsUInt32Value")]
     public void AsUInt32Value() {
         TiniValue x = (uint)32;
         Assert.Null(x.AsBooleanValue());
@@ -219,7 +220,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt64Value()")]
+    [Fact(DisplayName = "TiniValue: AsUInt64Value")]
     public void AsUInt64Value() {
         TiniValue x = (ulong)32;
         Assert.Null(x.AsBooleanValue());
@@ -236,7 +237,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsFloat32Value()")]
+    [Fact(DisplayName = "TiniValue: AsFloat32Value")]
     public void AsFloat32Value() {
         TiniValue x = (float)32;
         Assert.Null(x.AsBooleanValue());
@@ -253,7 +254,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsFloat64Value()")]
+    [Fact(DisplayName = "TiniValue: AsFloat64Value")]
     public void AsFloat64Value() {
         TiniValue x = (double)32;
         Assert.Null(x.AsBooleanValue());
@@ -270,7 +271,7 @@ public class TiniValueTests {
         Assert.Null(x.AsStringValue());
     }
 
-    [Fact(DisplayName = "TiniValue: AsStringValue()")]
+    [Fact(DisplayName = "TiniValue: AsStringValue")]
     public void AsStringValue() {
         TiniValue x = "A";
         Assert.Null(x.AsBooleanValue());
@@ -291,7 +292,7 @@ public class TiniValueTests {
 
     #region As
 
-    [Fact(DisplayName = "TiniValue: AsBoolean()")]
+    [Fact(DisplayName = "TiniValue: AsBoolean")]
     public void AsBoolean() {
         TiniValue x = true;
         Assert.True(x.AsBoolean());
@@ -308,7 +309,7 @@ public class TiniValueTests {
         Assert.Equal("True", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt8()")]
+    [Fact(DisplayName = "TiniValue: AsInt8")]
     public void AsInt8() {
         TiniValue x = (sbyte)42;
         Assert.True(x.AsBoolean());
@@ -325,7 +326,7 @@ public class TiniValueTests {
         Assert.Equal("42", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt16()")]
+    [Fact(DisplayName = "TiniValue: AsInt16")]
     public void AsInt16() {
         TiniValue x = (short)42;
         Assert.True(x.AsBoolean());
@@ -342,7 +343,7 @@ public class TiniValueTests {
         Assert.Equal("42", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt32()")]
+    [Fact(DisplayName = "TiniValue: AsInt32")]
     public void AsInt32() {
         TiniValue x = 42;
         Assert.True(x.AsBoolean());
@@ -359,7 +360,7 @@ public class TiniValueTests {
         Assert.Equal("42", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt64()")]
+    [Fact(DisplayName = "TiniValue: AsInt64")]
     public void AsInt64() {
         TiniValue x = (long)42;
         Assert.True(x.AsBoolean());
@@ -376,7 +377,7 @@ public class TiniValueTests {
         Assert.Equal("42", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt8()")]
+    [Fact(DisplayName = "TiniValue: AsUInt8")]
     public void AsUInt8() {
         TiniValue x = (byte)42;
         Assert.True(x.AsBoolean());
@@ -393,7 +394,7 @@ public class TiniValueTests {
         Assert.Equal("42", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt16()")]
+    [Fact(DisplayName = "TiniValue: AsUInt16")]
     public void AsUInt16() {
         TiniValue x = (ushort)42;
         Assert.True(x.AsBoolean());
@@ -410,7 +411,7 @@ public class TiniValueTests {
         Assert.Equal("42", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt32()")]
+    [Fact(DisplayName = "TiniValue: AsUInt32")]
     public void AsUInt32() {
         TiniValue x = (uint)42;
         Assert.True(x.AsBoolean());
@@ -427,7 +428,7 @@ public class TiniValueTests {
         Assert.Equal("42", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt64()")]
+    [Fact(DisplayName = "TiniValue: AsUInt64")]
     public void AsUInt64() {
         TiniValue x = (ulong)42;
         Assert.True(x.AsBoolean());
@@ -442,11 +443,14 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
+        Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 000, new TimeSpan(00, 00, 00)), x.AsDateTime());
+        Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
+        Assert.Null(x.AsTime());
     }
 
-    [Fact(DisplayName = "TiniValue: Float32()")]
+    [Fact(DisplayName = "TiniValue: Float32")]
     public void AsFloat32() {
-        TiniValue x = (float)42;
+        TiniValue x = (float)42.2;
         Assert.True(x.AsBoolean());
         Assert.Equal((sbyte)42, x.AsInt8());
         Assert.Equal((short)42, x.AsInt16());
@@ -456,14 +460,14 @@ public class TiniValueTests {
         Assert.Equal((ushort)42, x.AsUInt16());
         Assert.Equal((uint)42, x.AsUInt32());
         Assert.Equal((ulong)42, x.AsUInt64());
-        Assert.Equal(42.0f, x.AsFloat32());
-        Assert.Equal(42.0, x.AsFloat64());
-        Assert.Equal("42", x.AsString());
+        Assert.Equal(42.2f, x.AsFloat32());
+        Assert.Equal(42.2, x.AsFloat64(0), 5);
+        Assert.Equal("42.2", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: Float64()")]
+    [Fact(DisplayName = "TiniValue: Float64")]
     public void AsFloat64() {
-        TiniValue x = (double)42;
+        TiniValue x = (double)42.2;
         Assert.True(x.AsBoolean());
         Assert.Equal((sbyte)42, x.AsInt8());
         Assert.Equal((short)42, x.AsInt16());
@@ -473,12 +477,12 @@ public class TiniValueTests {
         Assert.Equal((ushort)42, x.AsUInt16());
         Assert.Equal((uint)42, x.AsUInt32());
         Assert.Equal((ulong)42, x.AsUInt64());
-        Assert.Equal(42.0f, x.AsFloat32());
-        Assert.Equal(42.0, x.AsFloat64());
-        Assert.Equal("42", x.AsString());
+        Assert.Equal(42.2f, x.AsFloat32());
+        Assert.Equal(42.2, x.AsFloat64());
+        Assert.Equal("42.2", x.AsString());
     }
 
-    [Fact(DisplayName = "TiniValue: AsString()")]
+    [Fact(DisplayName = "TiniValue: AsString")]
     public void AsString() {
         TiniValue x = "A";
         Assert.Null(x.AsBoolean());

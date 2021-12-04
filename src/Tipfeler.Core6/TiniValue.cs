@@ -12,265 +12,229 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Boolean type or null otherwise.
     /// </summary>
-    public TiniBooleanValue? AsBooleanValue() {
-        return this as TiniBooleanValue;
-    }
+    public TiniBooleanValue? AsBooleanValue()
+        => this as TiniBooleanValue;
 
     /// <summary>
     /// Returns Boolean value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public Boolean? AsBoolean() {
-        return ConvertToBoolean();
-    }
+    public Boolean? AsBoolean()
+        => ConvertToBoolean();
 
     /// <summary>
     /// Returns Boolean value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public Boolean AsBoolean(Boolean defaultValue) {
-        return ConvertToBoolean() ?? defaultValue;
-    }
+    public Boolean AsBoolean(Boolean defaultValue)
+        => ConvertToBoolean() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a Int8 type or null otherwise.
     /// </summary>
-    public TiniInt8Value? AsInt8Value() {
-        return this as TiniInt8Value;
-    }
+    public TiniInt8Value? AsInt8Value()
+        => this as TiniInt8Value;
 
     /// <summary>
     /// Returns Int8 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public SByte? AsInt8() {
-        return ConvertToInt8();
-    }
+    public SByte? AsInt8()
+        => ConvertToInt8();
 
     /// <summary>
     /// Returns Int8 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public SByte AsInt8(SByte defaultValue) {
-        return ConvertToInt8() ?? defaultValue;
-    }
+    public SByte AsInt8(SByte defaultValue)
+        => ConvertToInt8() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a Int16 type or null otherwise.
     /// </summary>
-    public TiniInt16Value? AsInt16Value() {
-        return this as TiniInt16Value;
-    }
+    public TiniInt16Value? AsInt16Value()
+        => this as TiniInt16Value;
 
     /// <summary>
     /// Returns Int16 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public Int16? AsInt16() {
-        return ConvertToInt16();
-    }
+    public Int16? AsInt16()
+        => ConvertToInt16();
 
     /// <summary>
     /// Returns Int16 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public Int16 AsInt16(Int16 defaultValue) {
-        return ConvertToInt16() ?? defaultValue;
-    }
+    public Int16 AsInt16(Int16 defaultValue)
+        => ConvertToInt16() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a Int32 type or null otherwise.
     /// </summary>
-    public TiniInt32Value? AsInt32Value() {
-        return this as TiniInt32Value;
-    }
+    public TiniInt32Value? AsInt32Value()
+        => this as TiniInt32Value;
 
     /// <summary>
     /// Returns Int32 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public Int32? AsInt32() {
-        return ConvertToInt32();
-    }
+    public Int32? AsInt32()
+        => ConvertToInt32();
 
     /// <summary>
     /// Returns Int32 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public Int32 AsInt32(Int32 defaultValue) {
-        return ConvertToInt32() ?? defaultValue;
-    }
+    public Int32 AsInt32(Int32 defaultValue)
+        => ConvertToInt32() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a Int64 type or null otherwise.
     /// </summary>
-    public TiniInt64Value? AsInt64Value() {
-        return this as TiniInt64Value;
-    }
+    public TiniInt64Value? AsInt64Value()
+        => this as TiniInt64Value;
 
     /// <summary>
     /// Returns Int64 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public Int64? AsInt64() {
-        return ConvertToInt64();
-    }
+    public Int64? AsInt64()
+        => ConvertToInt64();
 
     /// <summary>
     /// Returns Int64 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public Int64 AsInt64(Int64 defaultValue) {
-        return ConvertToInt64() ?? defaultValue;
-    }
+    public Int64 AsInt64(Int64 defaultValue)
+        => ConvertToInt64() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a UInt8 type or null otherwise.
     /// </summary>
-    public TiniUInt8Value? AsUInt8Value() {
-        return this as TiniUInt8Value;
-    }
+    public TiniUInt8Value? AsUInt8Value()
+        => this as TiniUInt8Value;
 
     /// <summary>
     /// Returns UInt8 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public Byte? AsUInt8() {
-        return ConvertToUInt8();
-    }
+    public Byte? AsUInt8()
+        => ConvertToUInt8();
 
     /// <summary>
     /// Returns UInt8 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public Byte AsUInt8(Byte defaultValue) {
-        return ConvertToUInt8() ?? defaultValue;
-    }
+    public Byte AsUInt8(Byte defaultValue)
+        => ConvertToUInt8() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a UInt16 type or null otherwise.
     /// </summary>
-    public TiniUInt16Value? AsUInt16Value() {
-        return this as TiniUInt16Value;
-    }
+    public TiniUInt16Value? AsUInt16Value()
+        => this as TiniUInt16Value;
 
     /// <summary>
     /// Returns UInt16 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public UInt16? AsUInt16() {
-        return ConvertToUInt16();
-    }
+    public UInt16? AsUInt16()
+        => ConvertToUInt16();
 
     /// <summary>
     /// Returns UInt16 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public UInt16 AsUInt16(UInt16 defaultValue) {
-        return ConvertToUInt16() ?? defaultValue;
-    }
+    public UInt16 AsUInt16(UInt16 defaultValue)
+        => ConvertToUInt16() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a UInt32 type or null otherwise.
     /// </summary>
-    public TiniUInt32Value? AsUInt32Value() {
-        return this as TiniUInt32Value;
-    }
+    public TiniUInt32Value? AsUInt32Value()
+        => this as TiniUInt32Value;
 
     /// <summary>
     /// Returns UInt32 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public UInt32? AsUInt32() {
-        return ConvertToUInt32();
-    }
+    public UInt32? AsUInt32()
+        => ConvertToUInt32();
 
     /// <summary>
     /// Returns UInt32 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public UInt32 AsUInt32(UInt32 defaultValue) {
-        return ConvertToUInt32() ?? defaultValue;
-    }
+    public UInt32 AsUInt32(UInt32 defaultValue)
+        => ConvertToUInt32() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a UInt64 type or null otherwise.
     /// </summary>
-    public TiniUInt64Value? AsUInt64Value() {
-        return this as TiniUInt64Value;
-    }
+    public TiniUInt64Value? AsUInt64Value()
+        => this as TiniUInt64Value;
 
     /// <summary>
     /// Returns UInt64 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public UInt64? AsUInt64() {
-        return ConvertToUInt64();
-    }
+    public UInt64? AsUInt64()
+        => ConvertToUInt64();
 
     /// <summary>
     /// Returns UInt64 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public UInt64 AsUInt64(UInt64 defaultValue) {
-        return ConvertToUInt64() ?? defaultValue;
-    }
+    public UInt64 AsUInt64(UInt64 defaultValue)
+        => ConvertToUInt64() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a Float32 type or null otherwise.
     /// </summary>
-    public TiniFloat32Value? AsFloat32Value() {
-        return this as TiniFloat32Value;
-    }
+    public TiniFloat32Value? AsFloat32Value()
+        => this as TiniFloat32Value;
 
     /// <summary>
     /// Returns Float32 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public Single? AsFloat32() {
-        return ConvertToFloat32();
-    }
+    public Single? AsFloat32()
+        => ConvertToFloat32();
 
     /// <summary>
     /// Returns Float32 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public Single AsFloat32(Single defaultValue) {
-        return ConvertToFloat32() ?? defaultValue;
-    }
+    public Single AsFloat32(Single defaultValue)
+        => ConvertToFloat32() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a Float64 type or null otherwise.
     /// </summary>
-    public TiniFloat64Value? AsFloat64Value() {
-        return this as TiniFloat64Value;
-    }
+    public TiniFloat64Value? AsFloat64Value()
+        => this as TiniFloat64Value;
 
     /// <summary>
     /// Returns Float64 value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public Double? AsFloat64() {
-        return ConvertToFloat64();
-    }
+    public Double? AsFloat64()
+        => ConvertToFloat64();
 
     /// <summary>
     /// Returns Float64 value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public Double AsFloat64(Double defaultValue) {
-        return ConvertToFloat64() ?? defaultValue;
-    }
+    public Double AsFloat64(Double defaultValue)
+        => ConvertToFloat64() ?? defaultValue;
 
 
     /// <summary>
     /// Returns value object if it's of a String type or null otherwise.
     /// </summary>
-    public TiniStringValue? AsStringValue() {
-        return this as TiniStringValue;
-    }
+    public TiniStringValue? AsStringValue()
+        => this as TiniStringValue;
 
     /// <summary>
     /// Returns String value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public String? AsString() {
-        return ConvertToString();
-    }
+    public String? AsString()
+        => ConvertToString();
 
     /// <summary>
     /// Returns String value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public String AsString(String defaultValue) {
-        return ConvertToString() ?? defaultValue;
-    }
+    public String AsString(String defaultValue)
+        => ConvertToString() ?? defaultValue;
 
 
     #region Operators

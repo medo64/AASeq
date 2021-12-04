@@ -125,8 +125,8 @@ public sealed record TiniStringValue : TiniValue {
         return null;
     }
 
-    protected override String? ConvertToString() {
-        return Value;
+    protected override String? ConvertToString()
+        => Value;
     }
 
     #endregion Convert

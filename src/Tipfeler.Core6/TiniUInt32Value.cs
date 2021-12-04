@@ -32,53 +32,41 @@ public sealed record TiniUInt32Value : TiniValue {
 
     #region Convert
 
-    protected override Boolean? ConvertToBoolean() {
-        return Value != 0;
-    }
+    protected override Boolean? ConvertToBoolean()
+        => Value != 0;
 
-    protected override SByte? ConvertToInt8() {
-        return Value is <= (Byte)SByte.MaxValue ? (SByte)Value : null;
-    }
+    protected override SByte? ConvertToInt8()
+        => Value is <= (Byte)SByte.MaxValue ? (SByte)Value : null;
 
-    protected override Int16? ConvertToInt16() {
-        return Value is <= (UInt16)Int16.MaxValue ? (Int16)Value : null;
-    }
+    protected override Int16? ConvertToInt16()
+        => Value is <= (UInt16)Int16.MaxValue ? (Int16)Value : null;
 
-    protected override Int32? ConvertToInt32() {
-        return Value is <= Int32.MaxValue ? (Int32)Value : null;
-    }
+    protected override Int32? ConvertToInt32()
+        => Value is <= Int32.MaxValue ? (Int32)Value : null;
 
-    protected override Int64? ConvertToInt64() {
-        return Value;
-    }
+    protected override Int64? ConvertToInt64()
+        => Value;
 
-    protected override Byte? ConvertToUInt8() {
-        return Value is <= Byte.MaxValue ? (Byte)Value : null;
-    }
+    protected override Byte? ConvertToUInt8()
+        => Value is <= Byte.MaxValue ? (Byte)Value : null;
 
-    protected override UInt16? ConvertToUInt16() {
-        return Value is <= UInt16.MaxValue ? (UInt16)Value : null;
-    }
+    protected override UInt16? ConvertToUInt16()
+        => Value is <= UInt16.MaxValue ? (UInt16)Value : null;
 
-    protected override UInt32? ConvertToUInt32() {
-        return Value;
-    }
+    protected override UInt32? ConvertToUInt32()
+        => Value;
 
-    protected override UInt64? ConvertToUInt64() {
-        return Value;
-    }
+    protected override UInt64? ConvertToUInt64()
+        => Value;
 
-    protected override Single? ConvertToFloat32() {
-        return Value;
-    }
+    protected override Single? ConvertToFloat32()
+        => Value;
 
-    protected override Double? ConvertToFloat64() {
-        return Value;
-    }
+    protected override Double? ConvertToFloat64()
+        => Value;
 
-    protected override String? ConvertToString() {
-        return Value.ToString("0", CultureInfo.InvariantCulture);
-    }
+    protected override String? ConvertToString()
+        => Value.ToString("0", CultureInfo.InvariantCulture);
 
     #endregion Convert
 
