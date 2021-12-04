@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Net;
 
 namespace Tipfeler;
 
@@ -79,7 +80,14 @@ public sealed record TiniDateTimeValue : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => new TimeOnly(Value.Hour, Value.Minute, Value.Second, Value.Millisecond);
 
+    protected override IPAddress? ConvertToIPAddress()
+        => null;
 
+    protected override IPAddress? ConvertToIPv4Address()
+        => null;
+
+    protected override IPAddress? ConvertToIPv6Address()
+        => null;
 
     #endregion Convert
 

@@ -1,5 +1,7 @@
 using System;
 using System.Globalization;
+using System.Net;
+using System.Net.Sockets;
 
 namespace Tipfeler;
 
@@ -149,6 +151,33 @@ public sealed record TiniStringValue : TiniValue {
     protected override TimeOnly? ConvertToTime() {
         if (DateTime.TryParseExact(Value, ParseTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out var result)) {
             return new TimeOnly(result.Hour, result.Minute, result.Second, result.Millisecond);
+        }
+        return null;
+    }
+
+    protected override IPAddress? ConvertToIPAddress() {
+        if (IPAddress.TryParse(Value, out var address)) {
+            if (address.AddressFamily is AddressFamily.InterNetwork or AddressFamily.InterNetworkV6) {
+                return address;
+            }
+        }
+        return null;
+    }
+
+    protected override IPAddress? ConvertToIPv4Address() {
+        if (IPAddress.TryParse(Value, out var address)) {
+            if (address.AddressFamily is AddressFamily.InterNetwork) {
+                return address;
+            }
+        }
+        return null;
+    }
+
+    protected override IPAddress? ConvertToIPv6Address() {
+        if (IPAddress.TryParse(Value, out var address)) {
+            if (address.AddressFamily is AddressFamily.InterNetworkV6) {
+                return address;
+            }
         }
         return null;
     }

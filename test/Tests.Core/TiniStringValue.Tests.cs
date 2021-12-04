@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Net;
 using Tipfeler;
 using Xunit;
 
@@ -149,6 +150,39 @@ public class TiniStringValueTests {
     public void AsTime() {
         Assert.Equal(new TimeOnly(19, 51, 37), new TiniStringValue("19:51:37").AsTime());
         Assert.Equal(new TimeOnly(19, 51, 00), new TiniStringValue("19:51").AsTime());
+    }
+
+    [Fact(DisplayName = "TiniStringValue: AsIPAddress")]
+    public void AsIPAddress() {
+        Assert.Equal(IPAddress.IPv6Any , new TiniStringValue("::").AsIPAddress());
+        Assert.Equal(IPAddress.Any, new TiniStringValue("0.0.0.0").AsIPAddress());
+        Assert.Equal(IPAddress.IPv6Loopback, new TiniStringValue("::1").AsIPAddress());
+        Assert.Equal(IPAddress.Loopback, new TiniStringValue("127.0.0.1").AsIPAddress());
+        Assert.Equal(IPAddress.Parse("ff08::152"), new TiniStringValue("ff08::152").AsIPAddress());
+        Assert.Equal(IPAddress.Parse("239.192.111.17"), new TiniStringValue("239.192.111.17").AsIPAddress());
+        Assert.Equal(IPAddress.Parse("ff18::5e:40:6f:11"), new TiniStringValue("ff18::5e:40:6f:11").AsIPAddress());
+    }
+
+    [Fact(DisplayName = "TiniStringValue: AsIPv6Address")]
+    public void AsIPv6Address() {
+        Assert.Equal(IPAddress.IPv6Any, new TiniStringValue("::").AsIPv6Address());
+        Assert.Null(new TiniStringValue("0.0.0.0").AsIPv6Address());
+        Assert.Equal(IPAddress.IPv6Loopback, new TiniStringValue("::1").AsIPv6Address());
+        Assert.Null(new TiniStringValue("127.0.0.1").AsIPv6Address());
+        Assert.Equal(IPAddress.Parse("ff08::152"), new TiniStringValue("ff08::152").AsIPv6Address());
+        Assert.Null(new TiniStringValue("239.192.111.17").AsIPv6Address());
+        Assert.Equal(IPAddress.Parse("ff18::5e:40:6f:11"), new TiniStringValue("ff18::5e:40:6f:11").AsIPv6Address());
+    }
+
+    [Fact(DisplayName = "TiniStringValue: AsIPv4Address")]
+    public void AsIPv4Address() {
+        Assert.Null(new TiniStringValue("::").AsIPv4Address());
+        Assert.Equal(IPAddress.Any, new TiniStringValue("0.0.0.0").AsIPv4Address());
+        Assert.Null(new TiniStringValue("::1").AsIPv4Address());
+        Assert.Equal(IPAddress.Loopback, new TiniStringValue("127.0.0.1").AsIPv4Address());
+        Assert.Null(new TiniStringValue("ff08::152").AsIPv4Address());
+        Assert.Equal(IPAddress.Parse("239.192.111.17"), new TiniStringValue("239.192.111.17").AsIPv4Address());
+        Assert.Null(new TiniStringValue("ff18::5e:40:6f:11").AsIPv4Address());
     }
 
 }

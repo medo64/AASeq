@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Net;
 
 namespace Tipfeler;
 
@@ -294,6 +295,63 @@ public abstract record TiniValue {
         => ConvertToTime() ?? defaultValue;
 
 
+    /// <summary>
+    /// Returns value object if it's of a IPAddress type or null otherwise.
+    /// </summary>
+    public TiniIPAddressValue? AsIPAddressValue()
+        => this as TiniIPAddressValue;
+
+    /// <summary>
+    /// Returns IPAddress value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public IPAddress? AsIPAddress()
+        => ConvertToIPAddress();
+
+    /// <summary>
+    /// Returns IPAddress value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public IPAddress AsIPAddress(IPAddress defaultValue)
+        => ConvertToIPAddress() ?? defaultValue;
+
+
+    /// <summary>
+    /// Returns value object if it's of a IPv4Address type or null otherwise.
+    /// </summary>
+    public TiniIPv4AddressValue? AsIPv4AddressValue()
+        => this as TiniIPv4AddressValue;
+
+    /// <summary>
+    /// Returns IPv4Address value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public IPAddress? AsIPv4Address()
+        => ConvertToIPv4Address();
+
+    /// <summary>
+    /// Returns IPv4Address value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public IPAddress AsIPv4Address(IPAddress defaultValue)
+        => ConvertToIPv4Address() ?? defaultValue;
+
+
+    /// <summary>
+    /// Returns value object if it's of a IPv6Address type or null otherwise.
+    /// </summary>
+    public TiniIPv6AddressValue? AsIPv6AddressValue()
+        => this as TiniIPv6AddressValue;
+
+    /// <summary>
+    /// Returns IPv6Address value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public IPAddress? AsIPv6Address()
+        => ConvertToIPv6Address();
+
+    /// <summary>
+    /// Returns IPv6Address value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public IPAddress AsIPv6Address(IPAddress defaultValue)
+        => ConvertToIPv6Address() ?? defaultValue;
+
+
     #region Operators
 
     /// <summary>
@@ -408,6 +466,13 @@ public abstract record TiniValue {
     public static implicit operator TiniValue(TimeOnly value)
         => new TiniTimeValue(value);
 
+    /// <summary>
+    /// Implicit conversion into a IPAddress value object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator TiniValue(IPAddress value)
+        => new TiniIPAddressValue(value);
+
     #endregion Operators
 
 
@@ -483,11 +548,25 @@ public abstract record TiniValue {
     /// </summary>
     protected abstract DateOnly? ConvertToDate();
 
-
     /// <summary>
     /// Returns Time if object can be converted or null otherwise.
     /// </summary>
     protected abstract TimeOnly? ConvertToTime();
+
+    /// <summary>
+    /// Returns IPAddress if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract IPAddress? ConvertToIPAddress();
+
+    /// <summary>
+    /// Returns IPv4Address if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract IPAddress? ConvertToIPv4Address();
+
+    /// <summary>
+    /// Returns IPv6Address if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract IPAddress? ConvertToIPv6Address();
 
     #endregion Convert
 

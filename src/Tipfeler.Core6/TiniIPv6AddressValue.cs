@@ -1,30 +1,38 @@
 using System;
-using System.Globalization;
 using System.Net;
+using System.Net.Sockets;
 
 namespace Tipfeler;
 
 /// <summary>
-/// UInt32 value.
+/// IPv6Address value.
 /// </summary>
-public sealed record TiniUInt32Value : TiniValue {
+public sealed record TiniIPv6AddressValue : TiniValue {
 
     /// <summary>
     /// Create a new instance.
     /// </summary>
     /// <param name="value">Value.</param>
-    public TiniUInt32Value(UInt32 value) {
+    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Address family not supported.</exception>
+    public TiniIPv6AddressValue(IPAddress value) {
+        if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
+        if (value.AddressFamily is not AddressFamily.InterNetworkV6) { throw new ArgumentOutOfRangeException(nameof(value), "Address family not supported."); }
         _value = value;
     }
 
 
-    private UInt32 _value;
+    private IPAddress _value;
     /// <summary>
     /// Gets/sets value.
     /// </summary>
-    public UInt32 Value {
+    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Address family not supported.</exception>
+    public IPAddress Value {
         get => _value;
         set {
+            if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
+            if (value.AddressFamily is not AddressFamily.InterNetworkV6) { throw new ArgumentOutOfRangeException(nameof(value), "Address family not supported."); }
             _value = value;
             OnChanged();
         }
@@ -34,40 +42,40 @@ public sealed record TiniUInt32Value : TiniValue {
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
-        => Value != 0;
+        => null;
 
     protected override SByte? ConvertToInt8()
-        => Value is <= (Byte)SByte.MaxValue ? (SByte)Value : null;
+        => null;
 
     protected override Int16? ConvertToInt16()
-        => Value is <= (UInt16)Int16.MaxValue ? (Int16)Value : null;
+        => null;
 
     protected override Int32? ConvertToInt32()
-        => Value is <= Int32.MaxValue ? (Int32)Value : null;
+        => null;
 
     protected override Int64? ConvertToInt64()
-        => Value;
+        => null;
 
     protected override Byte? ConvertToUInt8()
-        => Value is <= Byte.MaxValue ? (Byte)Value : null;
+        => null;
 
     protected override UInt16? ConvertToUInt16()
-        => Value is <= UInt16.MaxValue ? (UInt16)Value : null;
+        => null;
 
     protected override UInt32? ConvertToUInt32()
-        => Value;
+        => null;
 
     protected override UInt64? ConvertToUInt64()
-        => Value;
+        => null;
 
     protected override Single? ConvertToFloat32()
-        => Value;
+        => null;
 
     protected override Double? ConvertToFloat64()
-        => Value;
+        => null;
 
     protected override String? ConvertToString()
-        => Value.ToString("0", CultureInfo.InvariantCulture);
+        => Value.ToString();
 
     protected override DateTimeOffset? ConvertToDateTime()
         => null;
@@ -79,13 +87,13 @@ public sealed record TiniUInt32Value : TiniValue {
         => null;
 
     protected override IPAddress? ConvertToIPAddress()
-        => null;
+        => Value;
 
     protected override IPAddress? ConvertToIPv4Address()
         => null;
 
     protected override IPAddress? ConvertToIPv6Address()
-        => null;
+        => Value;
 
     #endregion Convert
 

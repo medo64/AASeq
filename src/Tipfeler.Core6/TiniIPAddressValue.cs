@@ -1,30 +1,38 @@
 using System;
-using System.Globalization;
 using System.Net;
+using System.Net.Sockets;
 
 namespace Tipfeler;
 
 /// <summary>
-/// Time value.
+/// IPAddress value.
 /// </summary>
-public sealed record TiniTimeValue : TiniValue {
+public sealed record TiniIPAddressValue : TiniValue {
 
     /// <summary>
     /// Create a new instance.
     /// </summary>
     /// <param name="value">Value.</param>
-    public TiniTimeValue(TimeOnly value) {
+    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Address family not supported.</exception>
+    public TiniIPAddressValue(IPAddress value) {
+        if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
+        if (value.AddressFamily is not AddressFamily.InterNetwork and not AddressFamily.InterNetworkV6) { throw new ArgumentOutOfRangeException(nameof(value), "Address family not supported."); }
         _value = value;
     }
 
 
-    private TimeOnly _value;
+    private IPAddress _value;
     /// <summary>
     /// Gets/sets value.
     /// </summary>
-    public TimeOnly Value {
+    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Address family not supported.</exception>
+    public IPAddress Value {
         get => _value;
         set {
+            if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
+            if (value.AddressFamily is not AddressFamily.InterNetwork and not AddressFamily.InterNetworkV6) { throw new ArgumentOutOfRangeException(nameof(value), "Address family not supported."); }
             _value = value;
             OnChanged();
         }
@@ -67,7 +75,7 @@ public sealed record TiniTimeValue : TiniValue {
         => null;
 
     protected override String? ConvertToString()
-        => Value.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+        => Value.ToString();
 
     protected override DateTimeOffset? ConvertToDateTime()
         => null;
@@ -76,16 +84,16 @@ public sealed record TiniTimeValue : TiniValue {
         => null;
 
     protected override TimeOnly? ConvertToTime()
-        => Value;
+        => null;
 
     protected override IPAddress? ConvertToIPAddress()
-        => null;
+        => Value;
 
     protected override IPAddress? ConvertToIPv4Address()
-        => null;
+        => Value.AddressFamily is AddressFamily.InterNetwork ? Value : null;
 
     protected override IPAddress? ConvertToIPv6Address()
-        => null;
+        => Value.AddressFamily is AddressFamily.InterNetworkV6 ? Value : null;
 
     #endregion Convert
 
