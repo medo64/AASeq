@@ -162,6 +162,12 @@ public sealed record TiniStringValue : TiniValue {
     protected override IPAddress? ConvertToIPv6Address()
         => TiniIPv6AddressValue.TryParseValue(Value, out var result) ? result : null;
 
+    protected override UInt64? ConvertToSize()
+        => TiniSizeValue.TryParseValue(Value, out var result) ? result : null;
+
+    protected override UInt64? ConvertToBinarySize()
+        => TiniSizeValue.TryParseValue(Value, out var result) ? result : null;
+
     #endregion Convert
 
 }

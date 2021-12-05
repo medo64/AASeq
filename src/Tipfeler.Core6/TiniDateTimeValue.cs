@@ -188,6 +188,12 @@ public sealed record TiniDateTimeValue : TiniValue {
     protected override IPAddress? ConvertToIPv6Address()
         => null;
 
+    protected override UInt64? ConvertToSize()
+        => null;
+
+    protected override UInt64? ConvertToBinarySize()
+        => null;
+
     #endregion Convert
 
 

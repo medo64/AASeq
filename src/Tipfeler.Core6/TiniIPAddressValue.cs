@@ -176,6 +176,12 @@ public sealed record TiniIPAddressValue : TiniValue {
     protected override IPAddress? ConvertToIPv6Address()
         => Value.AddressFamily is AddressFamily.InterNetworkV6 ? Value : null;
 
+    protected override UInt64? ConvertToSize()
+        => null;
+
+    protected override UInt64? ConvertToBinarySize()
+        => null;
+
     #endregion Convert
 
 }

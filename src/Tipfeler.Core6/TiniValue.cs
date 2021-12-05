@@ -353,6 +353,44 @@ public abstract record TiniValue {
     public IPAddress AsIPv6Address(IPAddress defaultValue)
         => ConvertToIPv6Address() ?? defaultValue;
 
+
+    /// <summary>
+    /// Returns value object if it's of a Size type or null otherwise.
+    /// </summary>
+    public TiniSizeValue? AsSizeValue()
+        => this as TiniSizeValue;
+
+    /// <summary>
+    /// Returns Size value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public UInt64? AsSize()
+        => ConvertToSize();
+
+    /// <summary>
+    /// Returns Size value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public UInt64 AsSize(UInt64 defaultValue)
+        => ConvertToSize() ?? defaultValue;
+
+
+    /// <summary>
+    /// Returns value object if it's of a BinarySize type or null otherwise.
+    /// </summary>
+    public TiniBinarySizeValue? AsBinarySizeValue()
+        => this as TiniBinarySizeValue;
+
+    /// <summary>
+    /// Returns BinarySize value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public UInt64? AsBinarySize()
+        => ConvertToBinarySize();
+
+    /// <summary>
+    /// Returns BinarySize value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public UInt64 AsBinarySize(UInt64 defaultValue)
+        => ConvertToBinarySize() ?? defaultValue;
+
     #endregion As
 
 
@@ -571,6 +609,16 @@ public abstract record TiniValue {
     /// Returns IPv6Address if object can be converted or null otherwise.
     /// </summary>
     protected abstract IPAddress? ConvertToIPv6Address();
+
+    /// <summary>
+    /// Returns UInt64 if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract UInt64? ConvertToSize();
+
+    /// <summary>
+    /// Returns UInt64 if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract UInt64? ConvertToBinarySize();
 
     #endregion Convert
 

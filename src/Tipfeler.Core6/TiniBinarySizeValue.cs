@@ -6,24 +6,24 @@ using System.Net;
 namespace Tipfeler;
 
 /// <summary>
-/// Float32 value.
+/// UInt64 value.
 /// </summary>
-public sealed record TiniFloat32Value : TiniValue {
+public sealed record TiniBinarySizeValue : TiniValue {
 
     /// <summary>
     /// Create a new instance.
     /// </summary>
     /// <param name="value">Value.</param>
-    public TiniFloat32Value(Single value) {
+    public TiniBinarySizeValue(UInt64 value) {
         _value = value;
     }
 
 
-    private Single _value;
+    private UInt64 _value;
     /// <summary>
     /// Gets/sets value.
     /// </summary>
-    public Single Value {
+    public UInt64 Value {
         get => _value;
         set {
             _value = value;
@@ -39,7 +39,7 @@ public sealed record TiniFloat32Value : TiniValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <exception cref="FormatException">Cannot parse text.</exception>
-    public static TiniFloat32Value Parse(string text) {
+    public static TiniBinarySizeValue Parse(string text) {
         if (TryParse(text, out var value)) {
             return value;
         } else {
@@ -52,9 +52,9 @@ public sealed record TiniFloat32Value : TiniValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniFloat32Value? result) {
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniBinarySizeValue? result) {
         if (TryParseValue(text, out var value)) {
-            result = new TiniFloat32Value(value);
+            result = new TiniBinarySizeValue(value);
             return true;
         } else {
             result = default;
@@ -67,8 +67,53 @@ public sealed record TiniFloat32Value : TiniValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    internal static bool TryParseValue(string? text, out Single result) {
-        return Single.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out result);
+    internal static bool TryParseValue(string? text, out UInt64 result) {
+        var decimalResult = -1M;  // dummy value
+
+        if (text != null) {
+            int splitIndex = 0;
+            foreach (var ch in text) {  // find first character
+                if (char.IsLetter(ch)) { break; }
+                splitIndex += 1;
+            }
+            if (splitIndex > 0) {  // we have the split
+                if (decimal.TryParse(text[..splitIndex], NumberStyles.Float, CultureInfo.InvariantCulture, out decimalResult)) {
+                    if (splitIndex < text.Length) {  // we may have unit
+                        var unitText = text[splitIndex..].Trim();
+                        if (unitText.Length > 0) {  // we have unit
+                            switch (char.ToUpperInvariant(unitText[0])) {
+                                case 'B': break;
+                                case 'K': decimalResult *= 1024; break;
+                                case 'M': decimalResult *= 1048576; break;
+                                case 'G': decimalResult *= 1073741824; break;
+                                case 'P': decimalResult *= 1099511627776; break;
+                                default: decimalResult = -1; break;  // unknown unit
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (decimalResult < 0) {  // nobody changed it (or entered a negative number)
+            result = default;
+            return false;
+        } else if (decimalResult == 0) {  // zero stays zero
+            result = 0;
+            return true;
+        } else if (decimalResult <= 1) {  // round to 1 if 1 or less
+            result = 1;
+            return true;
+        } else {  // round properly everything more than 1
+            var rounded = Math.Round(decimalResult, MidpointRounding.AwayFromZero);
+            if (rounded is >= UInt64.MinValue and <= UInt64.MaxValue) {
+                result = (UInt64)rounded;
+                return true;
+            } else {  // to big for 64-bit integer
+                result = default;
+                return false;
+            }
+        }
     }
 
     #endregion Parse
@@ -97,17 +142,17 @@ public sealed record TiniFloat32Value : TiniValue {
     #region Operators
 
     /// <summary>
-    /// Implicit conversion into a float.
+    /// Implicit conversion into an unsigned long.
     /// </summary>
     /// <param name="obj">Value object.</param>
-    public static implicit operator float(TiniFloat32Value obj)
+    public static implicit operator ulong(TiniBinarySizeValue obj)
         => obj.Value;
 
     /// <summary>
     /// Implicit conversion into a string.
     /// </summary>
     /// <param name="obj">Value object.</param>
-    public static implicit operator string(TiniFloat32Value obj)
+    public static implicit operator string(TiniBinarySizeValue obj)
         => obj.ToString();
 
     #endregion Operators
@@ -119,34 +164,34 @@ public sealed record TiniFloat32Value : TiniValue {
         => Value != 0;
 
     protected override SByte? ConvertToInt8()
-        => Value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)Value : null;
+        => Value is <= (Byte)SByte.MaxValue ? (SByte)Value : null;
 
     protected override Int16? ConvertToInt16()
-        => Value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)Value : null;
+        => Value is <= (UInt16)Int16.MaxValue ? (Int16)Value : null;
 
     protected override Int32? ConvertToInt32()
-        => Value is >= Int32.MinValue and <= Int32.MaxValue ? (Int32)Value : null;
+        => Value is <= Int32.MaxValue ? (Int32)Value : null;
 
     protected override Int64? ConvertToInt64()
-        => Value is >= Int64.MinValue and <= Int64.MaxValue ? (Int32)Value : null;
+        => Value is <= Int64.MaxValue ? (Int64)Value : null;
 
     protected override Byte? ConvertToUInt8()
-        => Value is >= Byte.MinValue and <= Byte.MaxValue ? (Byte)Value : null;
+        => Value is <= Byte.MaxValue ? (Byte)Value : null;
 
     protected override UInt16? ConvertToUInt16()
-        => Value is >= UInt16.MinValue and <= UInt16.MaxValue ? (UInt16)Value : null;
+        => Value is <= UInt16.MaxValue ? (UInt16)Value : null;
 
     protected override UInt32? ConvertToUInt32()
-        => Value is >= UInt32.MinValue and <= UInt32.MaxValue ? (UInt32)Value : null;
+        => Value is <= UInt32.MaxValue ? (UInt32)Value : null;
 
     protected override UInt64? ConvertToUInt64()
-        => Value is >= UInt64.MinValue and <= UInt64.MaxValue ? (UInt64)Value : null;
+        => Value;
 
     protected override Single? ConvertToFloat32()
-        => Value;
+        => null;
 
     protected override Double? ConvertToFloat64()
-        => Value;
+        => null;
 
     protected override String? ConvertToString()
         => ToString();
@@ -170,10 +215,10 @@ public sealed record TiniFloat32Value : TiniValue {
         => null;
 
     protected override UInt64? ConvertToSize()
-        => null;
+        => ConvertToUInt64();
 
     protected override UInt64? ConvertToBinarySize()
-        => null;
+        => ConvertToUInt64();
 
     #endregion Convert
 

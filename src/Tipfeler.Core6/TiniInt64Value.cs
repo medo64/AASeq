@@ -113,7 +113,6 @@ public sealed record TiniInt64Value : TiniValue {
     #endregion Operators
 
 
-
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
@@ -169,6 +168,12 @@ public sealed record TiniInt64Value : TiniValue {
 
     protected override IPAddress? ConvertToIPv6Address()
         => null;
+
+    protected override UInt64? ConvertToSize()
+        => ConvertToUInt64();
+
+    protected override UInt64? ConvertToBinarySize()
+        => ConvertToUInt64();
 
     #endregion Convert
 

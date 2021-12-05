@@ -86,6 +86,8 @@ public sealed record TiniNullValue : TiniValue {
     protected override IPAddress? ConvertToIPAddress() => null;
     protected override IPAddress? ConvertToIPv4Address() => null;
     protected override IPAddress? ConvertToIPv6Address() => null;
+    protected override UInt64? ConvertToSize() => null;
+    protected override UInt64? ConvertToBinarySize() => null;
 
     #endregion Convert
 
