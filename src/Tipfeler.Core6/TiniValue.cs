@@ -15,7 +15,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Boolean type or null otherwise.
     /// </summary>
-    public TiniBooleanValue? AsBooleanValue()
+    public TiniBooleanValue? AsBooleanObject()
         => this as TiniBooleanValue;
 
     /// <summary>
@@ -34,7 +34,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Int8 type or null otherwise.
     /// </summary>
-    public TiniInt8Value? AsInt8Value()
+    public TiniInt8Value? AsInt8Object()
         => this as TiniInt8Value;
 
     /// <summary>
@@ -53,7 +53,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Int16 type or null otherwise.
     /// </summary>
-    public TiniInt16Value? AsInt16Value()
+    public TiniInt16Value? AsInt16Object()
         => this as TiniInt16Value;
 
     /// <summary>
@@ -72,7 +72,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Int32 type or null otherwise.
     /// </summary>
-    public TiniInt32Value? AsInt32Value()
+    public TiniInt32Value? AsInt32Object()
         => this as TiniInt32Value;
 
     /// <summary>
@@ -91,7 +91,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Int64 type or null otherwise.
     /// </summary>
-    public TiniInt64Value? AsInt64Value()
+    public TiniInt64Value? AsInt64Object()
         => this as TiniInt64Value;
 
     /// <summary>
@@ -110,7 +110,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a UInt8 type or null otherwise.
     /// </summary>
-    public TiniUInt8Value? AsUInt8Value()
+    public TiniUInt8Value? AsUInt8Object()
         => this as TiniUInt8Value;
 
     /// <summary>
@@ -129,7 +129,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a UInt16 type or null otherwise.
     /// </summary>
-    public TiniUInt16Value? AsUInt16Value()
+    public TiniUInt16Value? AsUInt16Object()
         => this as TiniUInt16Value;
 
     /// <summary>
@@ -148,7 +148,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a UInt32 type or null otherwise.
     /// </summary>
-    public TiniUInt32Value? AsUInt32Value()
+    public TiniUInt32Value? AsUInt32Object()
         => this as TiniUInt32Value;
 
     /// <summary>
@@ -167,7 +167,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a UInt64 type or null otherwise.
     /// </summary>
-    public TiniUInt64Value? AsUInt64Value()
+    public TiniUInt64Value? AsUInt64Object()
         => this as TiniUInt64Value;
 
     /// <summary>
@@ -186,7 +186,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Float32 type or null otherwise.
     /// </summary>
-    public TiniFloat32Value? AsFloat32Value()
+    public TiniFloat32Value? AsFloat32Object()
         => this as TiniFloat32Value;
 
     /// <summary>
@@ -205,7 +205,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Float64 type or null otherwise.
     /// </summary>
-    public TiniFloat64Value? AsFloat64Value()
+    public TiniFloat64Value? AsFloat64Object()
         => this as TiniFloat64Value;
 
     /// <summary>
@@ -224,7 +224,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a String type or null otherwise.
     /// </summary>
-    public TiniStringValue? AsStringValue()
+    public TiniStringValue? AsStringObject()
         => this as TiniStringValue;
 
     /// <summary>
@@ -243,7 +243,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a DateTime type or null otherwise.
     /// </summary>
-    public TiniDateTimeValue? AsDateTimeValue()
+    public TiniDateTimeValue? AsDateTimeObject()
         => this as TiniDateTimeValue;
 
     /// <summary>
@@ -262,7 +262,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Date type or null otherwise.
     /// </summary>
-    public TiniDateValue? AsDateValue()
+    public TiniDateValue? AsDateObject()
         => this as TiniDateValue;
 
     /// <summary>
@@ -281,7 +281,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Time type or null otherwise.
     /// </summary>
-    public TiniTimeValue? AsTimeValue()
+    public TiniTimeValue? AsTimeObject()
         => this as TiniTimeValue;
 
     /// <summary>
@@ -300,7 +300,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a IPAddress type or null otherwise.
     /// </summary>
-    public TiniIPAddressValue? AsIPAddressValue()
+    public TiniIPAddressValue? AsIPAddressObject()
         => this as TiniIPAddressValue;
 
     /// <summary>
@@ -319,7 +319,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a IPv4Address type or null otherwise.
     /// </summary>
-    public TiniIPv4AddressValue? AsIPv4AddressValue()
+    public TiniIPv4AddressValue? AsIPv4AddressObject()
         => this as TiniIPv4AddressValue;
 
     /// <summary>
@@ -338,7 +338,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a IPv6Address type or null otherwise.
     /// </summary>
-    public TiniIPv6AddressValue? AsIPv6AddressValue()
+    public TiniIPv6AddressValue? AsIPv6AddressObject()
         => this as TiniIPv6AddressValue;
 
     /// <summary>
@@ -357,7 +357,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Size type or null otherwise.
     /// </summary>
-    public TiniSizeValue? AsSizeValue()
+    public TiniSizeValue? AsSizeObject()
         => this as TiniSizeValue;
 
     /// <summary>
@@ -376,7 +376,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a BinarySize type or null otherwise.
     /// </summary>
-    public TiniBinarySizeValue? AsBinarySizeValue()
+    public TiniBinarySizeValue? AsBinarySizeObject()
         => this as TiniBinarySizeValue;
 
     /// <summary>

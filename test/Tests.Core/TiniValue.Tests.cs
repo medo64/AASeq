@@ -116,554 +116,554 @@ public class TiniValueTests {
 
     #region AsObject
 
-    [Fact(DisplayName = "TiniValue: AsBooleanValue")]
-    public void AsValueBoolean() {
+    [Fact(DisplayName = "TiniValue: AsBooleanObject")]
+    public void AsObjectBoolean() {
         TiniValue x = true;
-        Assert.NotNull(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.NotNull(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt8Value")]
-    public void AsInt8Value() {
+    [Fact(DisplayName = "TiniValue: AsInt8Object")]
+    public void AsInt8Object() {
         TiniValue x = (sbyte)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.NotNull(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.NotNull(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt16Value")]
-    public void AsInt16Value() {
+    [Fact(DisplayName = "TiniValue: AsInt16Object")]
+    public void AsInt16Object() {
         TiniValue x = (short)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.NotNull(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.NotNull(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt32Value")]
-    public void AsInt32Value() {
+    [Fact(DisplayName = "TiniValue: AsInt32Object")]
+    public void AsInt32Object() {
         TiniValue x = 32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.NotNull(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.NotNull(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsInt64Value")]
-    public void AsInt64Value() {
+    [Fact(DisplayName = "TiniValue: AsInt64Object")]
+    public void AsInt64Object() {
         TiniValue x = (long)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.NotNull(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.NotNull(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt8Value")]
-    public void AsUInt8Value() {
+    [Fact(DisplayName = "TiniValue: AsUInt8Object")]
+    public void AsUInt8Object() {
         TiniValue x = (byte)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.NotNull(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.NotNull(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt16Value")]
-    public void AsUInt16Value() {
+    [Fact(DisplayName = "TiniValue: AsUInt16Object")]
+    public void AsUInt16Object() {
         TiniValue x = (ushort)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.NotNull(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.NotNull(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt32Value")]
-    public void AsUInt32Value() {
+    [Fact(DisplayName = "TiniValue: AsUInt32Object")]
+    public void AsUInt32Object() {
         TiniValue x = (uint)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.NotNull(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.NotNull(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsUInt64Value")]
-    public void AsUInt64Value() {
+    [Fact(DisplayName = "TiniValue: AsUInt64Object")]
+    public void AsUInt64Object() {
         TiniValue x = (ulong)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.NotNull(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.NotNull(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsFloat32Value")]
-    public void AsFloat32Value() {
+    [Fact(DisplayName = "TiniValue: AsFloat32Object")]
+    public void AsFloat32Object() {
         TiniValue x = (float)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.NotNull(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.NotNull(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsFloat64Value")]
-    public void AsFloat64Value() {
+    [Fact(DisplayName = "TiniValue: AsFloat64Object")]
+    public void AsFloat64Object() {
         TiniValue x = (double)32;
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.NotNull(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.NotNull(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsStringValue")]
-    public void AsStringValue() {
+    [Fact(DisplayName = "TiniValue: AsStringObject")]
+    public void AsStringObject() {
         TiniValue x = "A";
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.NotNull(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.NotNull(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsDateTimeValue")]
-    public void AsDateTimeValue() {
+    [Fact(DisplayName = "TiniValue: AsDateTimeObject")]
+    public void AsDateTimeObject() {
         TiniValue x = new DateTimeOffset(2005, 2, 1, 11, 43, 33, 787, new TimeSpan(2, 30, 0));
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.NotNull(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.NotNull(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsDateTimeValue (2)")]
-    public void AsDateTimeValue2() {
+    [Fact(DisplayName = "TiniValue: AsDateTimeObject (2)")]
+    public void AsDateTimeObject2() {
         TiniValue x = new DateTime(2005, 2, 1, 11, 43, 33, 787, DateTimeKind.Local);
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.NotNull(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.NotNull(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsDateValue")]
-    public void AsDateValue() {
+    [Fact(DisplayName = "TiniValue: AsDateObject")]
+    public void AsDateObject() {
         TiniValue x = new DateOnly(2005, 2, 1);
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.NotNull(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.NotNull(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsTimeValue")]
-    public void AsTimeValue() {
+    [Fact(DisplayName = "TiniValue: AsTimeObject")]
+    public void AsTimeObject() {
         TiniValue x = new TimeOnly(11, 43, 33, 787);
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.NotNull(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.NotNull(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsIPAddressValue (1)")]
-    public void AsIPAddressValue1() {
+    [Fact(DisplayName = "TiniValue: AsIPAddressObject (1)")]
+    public void AsIPAddressObject1() {
         TiniValue x = IPAddress.Parse("ff04::152");
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.NotNull(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.NotNull(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsIPAddressValue (2)")]
-    public void AsIPAddressValue2() {
+    [Fact(DisplayName = "TiniValue: AsIPAddressObject (2)")]
+    public void AsIPAddressObject2() {
         TiniValue x = IPAddress.Parse("239.192.111.17");
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.NotNull(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.NotNull(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsIPv6AddressValue")]
-    public void AsIPv6AddressValue() {
+    [Fact(DisplayName = "TiniValue: AsIPv6AddressObject")]
+    public void AsIPv6AddressObject() {
         TiniValue x = TiniIPv6AddressValue.Parse("ff04::152");
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.NotNull(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.NotNull(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsIPv4AddressValue")]
-    public void AsIPv4AddressValue() {
+    [Fact(DisplayName = "TiniValue: AsIPv4AddressObject")]
+    public void AsIPv4AddressObject() {
         TiniValue x = TiniIPv4AddressValue.Parse("239.192.111.17");
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.NotNull(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.NotNull(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsSizeValue")]
-    public void AsSizeValue() {
+    [Fact(DisplayName = "TiniValue: AsSizeObject")]
+    public void AsSizeObject() {
         TiniValue x = new TiniSizeValue(42);
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.NotNull(x.AsSizeValue());
-        Assert.Null(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.NotNull(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
     }
 
-    [Fact(DisplayName = "TiniValue: AsBinarySizeValue")]
-    public void AsBinarySizeValue() {
+    [Fact(DisplayName = "TiniValue: AsBinarySizeObject")]
+    public void AsBinarySizeObject() {
         TiniValue x = new TiniBinarySizeValue(42);
-        Assert.Null(x.AsBooleanValue());
-        Assert.Null(x.AsInt8Value());
-        Assert.Null(x.AsInt16Value());
-        Assert.Null(x.AsInt32Value());
-        Assert.Null(x.AsInt64Value());
-        Assert.Null(x.AsUInt8Value());
-        Assert.Null(x.AsUInt16Value());
-        Assert.Null(x.AsUInt32Value());
-        Assert.Null(x.AsUInt64Value());
-        Assert.Null(x.AsFloat32Value());
-        Assert.Null(x.AsFloat64Value());
-        Assert.Null(x.AsStringValue());
-        Assert.Null(x.AsDateTimeValue());
-        Assert.Null(x.AsDateValue());
-        Assert.Null(x.AsTimeValue());
-        Assert.Null(x.AsIPAddressValue());
-        Assert.Null(x.AsIPv6AddressValue());
-        Assert.Null(x.AsIPv4AddressValue());
-        Assert.Null(x.AsSizeValue());
-        Assert.NotNull(x.AsBinarySizeValue());
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.NotNull(x.AsBinarySizeObject());
     }
 
     #endregion AsObject
@@ -896,7 +896,7 @@ public class TiniValueTests {
         Assert.Equal(42ul, x.AsBinarySize());
     }
 
-    [Fact(DisplayName = "TiniValue: Float32")]
+    [Fact(DisplayName = "TiniValue: AsFloat32")]
     public void AsFloat32() {
         TiniValue x = (float)42.2;
         Assert.True(x.AsBoolean());
@@ -921,7 +921,7 @@ public class TiniValueTests {
         Assert.Null(x.AsBinarySize());
     }
 
-    [Fact(DisplayName = "TiniValue: Float64")]
+    [Fact(DisplayName = "TiniValue: AsFloat64")]
     public void AsFloat64() {
         TiniValue x = (double)42.2;
         Assert.True(x.AsBoolean());
