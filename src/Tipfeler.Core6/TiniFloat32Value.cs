@@ -160,6 +160,9 @@ public sealed record TiniFloat32Value : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => null;
 
+    protected override TimeSpan? ConvertToDuration()
+        => null;
+
     protected override IPAddress? ConvertToIPAddress()
         => null;
 

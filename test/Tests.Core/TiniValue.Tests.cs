@@ -105,6 +105,12 @@ public class TiniValueTests {
         Assert.IsType<TiniTimeValue>(x);
     }
 
+    [Fact(DisplayName = "TiniValue: Implicit Duration")]
+    public void ImplicitDuration() {
+        TiniValue x = new TimeSpan(23, 11, 54, 565);
+        Assert.IsType<TiniDurationValue>(x);
+    }
+
     [Fact(DisplayName = "TiniValue: Implicit IPAddress")]
     public void ImplicitIPAddress() {
         TiniValue x = IPAddress.Parse("ff08::152");
@@ -134,6 +140,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -159,6 +166,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -184,6 +192,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -209,6 +218,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -234,6 +244,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -259,6 +270,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -284,6 +296,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -309,6 +322,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -334,6 +348,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -359,6 +374,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -384,6 +400,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -409,6 +426,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -434,6 +452,7 @@ public class TiniValueTests {
         Assert.NotNull(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -459,6 +478,7 @@ public class TiniValueTests {
         Assert.NotNull(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -484,6 +504,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.NotNull(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -509,6 +530,33 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.NotNull(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
+        Assert.Null(x.AsIPAddressObject());
+        Assert.Null(x.AsIPv6AddressObject());
+        Assert.Null(x.AsIPv4AddressObject());
+        Assert.Null(x.AsSizeObject());
+        Assert.Null(x.AsBinarySizeObject());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsDurationObject")]
+    public void AsDurationObject() {
+        TiniValue x = new TimeSpan(11, 43, 33, 787);
+        Assert.Null(x.AsBooleanObject());
+        Assert.Null(x.AsInt8Object());
+        Assert.Null(x.AsInt16Object());
+        Assert.Null(x.AsInt32Object());
+        Assert.Null(x.AsInt64Object());
+        Assert.Null(x.AsUInt8Object());
+        Assert.Null(x.AsUInt16Object());
+        Assert.Null(x.AsUInt32Object());
+        Assert.Null(x.AsUInt64Object());
+        Assert.Null(x.AsFloat32Object());
+        Assert.Null(x.AsFloat64Object());
+        Assert.Null(x.AsStringObject());
+        Assert.Null(x.AsDateTimeObject());
+        Assert.Null(x.AsDateObject());
+        Assert.Null(x.AsTimeObject());
+        Assert.NotNull(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -534,6 +582,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.NotNull(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -559,6 +608,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.NotNull(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -584,6 +634,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.NotNull(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -609,6 +660,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.NotNull(x.AsIPv4AddressObject());
@@ -634,6 +686,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -659,6 +712,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTimeObject());
         Assert.Null(x.AsDateObject());
         Assert.Null(x.AsTimeObject());
+        Assert.Null(x.AsDurationObject());
         Assert.Null(x.AsIPAddressObject());
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
@@ -689,6 +743,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -714,6 +769,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -739,6 +795,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -764,6 +821,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -789,6 +847,7 @@ public class TiniValueTests {
         Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 000, new TimeSpan(00, 00, 00)), x.AsDateTime());
         Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -814,6 +873,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -839,6 +899,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -864,6 +925,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -889,6 +951,7 @@ public class TiniValueTests {
         Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 000, new TimeSpan(00, 00, 00)), x.AsDateTime());
         Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -914,6 +977,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -939,6 +1003,7 @@ public class TiniValueTests {
         Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 200, new TimeSpan(00, 00, 00)), x.AsDateTime());
         Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -964,6 +1029,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -989,6 +1055,7 @@ public class TiniValueTests {
         Assert.Equal(new DateTimeOffset(1999, 1, 2, 4, 12, 44, 469, new TimeSpan(10, 0, 0)), x.AsDateTime());
         Assert.Equal(new DateOnly(1999, 1, 2), x.AsDate());
         Assert.Equal(new TimeOnly(4, 12, 44, 469), x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -1014,6 +1081,7 @@ public class TiniValueTests {
         Assert.Equal(new DateTimeOffset(1999, 1, 2, 4, 12, 44, 469, new TimeSpan(0, 0, 0)), x.AsDateTime());
         Assert.Equal(new DateOnly(1999, 1, 2), x.AsDate());
         Assert.Equal(new TimeOnly(4, 12, 44, 469), x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -1039,6 +1107,7 @@ public class TiniValueTests {
         Assert.Equal(new DateTimeOffset(1999, 1, 2, 0, 0, 0, 0, new TimeSpan(0, 0, 0)), x.AsDateTime());
         Assert.Equal(new DateOnly(1999, 1, 2), x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -1064,6 +1133,33 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Equal(new TimeOnly(4, 12, 44, 469), x.AsTime());
+        Assert.Null(x.AsDuration());
+        Assert.Null(x.AsIPAddress());
+        Assert.Null(x.AsIPv6Address());
+        Assert.Null(x.AsIPv4Address());
+        Assert.Null(x.AsSize());
+        Assert.Null(x.AsBinarySize());
+    }
+
+    [Fact(DisplayName = "TiniValue: AsDuration")]
+    public void AsDuration() {
+        TiniValue x = new TimeSpan(4, 22, 12, 44, 469);
+        Assert.Null(x.AsBoolean());
+        Assert.Null(x.AsInt8());
+        Assert.Null(x.AsInt16());
+        Assert.Equal(425564, x.AsInt32());
+        Assert.Equal(425564, x.AsInt64());
+        Assert.Null(x.AsUInt8());
+        Assert.Null(x.AsUInt16());
+        Assert.Equal(425564u, x.AsUInt32());
+        Assert.Equal(425564ul, x.AsUInt64());
+        Assert.Null(x.AsFloat32());
+        Assert.Equal(425564.469, x.AsFloat64());
+        Assert.Equal("4.22:12:44.469", x.AsString());
+        Assert.Null(x.AsDateTime());
+        Assert.Null(x.AsDate());
+        Assert.Null(x.AsTime());
+        Assert.Equal(new TimeSpan(4, 22, 12, 44, 469),  x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -1089,6 +1185,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Equal(IPAddress.Parse("ff08::152"), x.AsIPAddress());
         Assert.Equal(IPAddress.Parse("ff08::152"), x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -1114,6 +1211,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Equal(IPAddress.Parse("239.192.111.17"), x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Equal(IPAddress.Parse("239.192.111.17"), x.AsIPv4Address());
@@ -1139,6 +1237,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Equal(IPAddress.Parse("ff08::152"), x.AsIPAddress());
         Assert.Equal(IPAddress.Parse("ff08::152"), x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -1164,6 +1263,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Equal(IPAddress.Parse("239.192.111.17"), x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Equal(IPAddress.Parse("239.192.111.17"), x.AsIPv4Address());
@@ -1189,6 +1289,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
@@ -1214,6 +1315,7 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
+        Assert.Null(x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());

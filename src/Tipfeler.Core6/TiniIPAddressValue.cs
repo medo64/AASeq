@@ -167,6 +167,9 @@ public sealed record TiniIPAddressValue : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => null;
 
+    protected override TimeSpan? ConvertToDuration()
+        => null;
+
     protected override IPAddress? ConvertToIPAddress()
         => Value;
 

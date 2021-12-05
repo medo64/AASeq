@@ -83,6 +83,7 @@ public sealed record TiniNullValue : TiniValue {
     protected override DateTimeOffset? ConvertToDateTime() => null;
     protected override DateOnly? ConvertToDate() => null;
     protected override TimeOnly? ConvertToTime() => null;
+    protected override TimeSpan? ConvertToDuration() => null;
     protected override IPAddress? ConvertToIPAddress() => null;
     protected override IPAddress? ConvertToIPv4Address() => null;
     protected override IPAddress? ConvertToIPv6Address() => null;

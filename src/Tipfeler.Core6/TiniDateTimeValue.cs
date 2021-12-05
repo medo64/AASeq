@@ -179,6 +179,9 @@ public sealed record TiniDateTimeValue : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => new TimeOnly(Value.Hour, Value.Minute, Value.Second, Value.Millisecond);
 
+    protected override TimeSpan? ConvertToDuration()
+        => null;
+
     protected override IPAddress? ConvertToIPAddress()
         => null;
 
@@ -221,6 +224,16 @@ public sealed record TiniDateTimeValue : TiniValue {
     internal static readonly string[] ParseTimeFormats = new string[] {
         "HH:mm:ss.FFFFFFF",
         "HH:mm",
+    };
+
+    internal static readonly string[] ParseTimeSpanFormats = new string[] {
+        @"d\.h\:mm\:ss\.FFFFFFF",
+        @"d\.h\:mm\:ss",
+        @"h\:mm\:ss\.FFFFFFF",
+        @"h\:mm\:ss",
+        @"d\.h\:mm",
+        @"m\:ss\.FFFFFFF",
+        @"m\:ss",
     };
 
     internal static readonly DateTimeStyles ParseStyle = DateTimeStyles.AllowLeadingWhite

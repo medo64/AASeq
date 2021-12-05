@@ -298,6 +298,25 @@ public abstract record TiniValue {
 
 
     /// <summary>
+    /// Returns value object if it's of a Duration type or null otherwise.
+    /// </summary>
+    public TiniDurationValue? AsDurationObject()
+        => this as TiniDurationValue;
+
+    /// <summary>
+    /// Returns Duration value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public TimeSpan? AsDuration()
+        => ConvertToDuration();
+
+    /// <summary>
+    /// Returns Duration value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public TimeSpan AsDuration(TimeSpan defaultValue)
+        => ConvertToDuration() ?? defaultValue;
+
+
+    /// <summary>
     /// Returns value object if it's of a IPAddress type or null otherwise.
     /// </summary>
     public TiniIPAddressValue? AsIPAddressObject()
@@ -509,6 +528,13 @@ public abstract record TiniValue {
         => new TiniTimeValue(value);
 
     /// <summary>
+    /// Implicit conversion into a Duration value object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator TiniValue(TimeSpan value)
+        => new TiniDurationValue(value);
+
+    /// <summary>
     /// Implicit conversion into a IPAddress value object.
     /// </summary>
     /// <param name="value">Value.</param>
@@ -521,102 +547,107 @@ public abstract record TiniValue {
     #region Convert
 
     /// <summary>
-    /// Returns Boolean if object can be converted or null otherwise.
+    /// Returns Boolean value if object can be converted or null otherwise.
     /// </summary>
     protected abstract Boolean? ConvertToBoolean();
 
     /// <summary>
-    /// Returns Int8 if object can be converted or null otherwise.
+    /// Returns Int8 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract SByte? ConvertToInt8();
 
     /// <summary>
-    /// Returns Int16 if object can be converted or null otherwise.
+    /// Returns Int16 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract Int16? ConvertToInt16();
 
     /// <summary>
-    /// Returns Int32 if object can be converted or null otherwise.
+    /// Returns Int32 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract Int32? ConvertToInt32();
 
     /// <summary>
-    /// Returns Int64 if object can be converted or null otherwise.
+    /// Returns Int64 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract Int64? ConvertToInt64();
 
     /// <summary>
-    /// Returns UInt8 if object can be converted or null otherwise.
+    /// Returns UInt8 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract Byte? ConvertToUInt8();
 
     /// <summary>
-    /// Returns UInt16 if object can be converted or null otherwise.
+    /// Returns UInt16 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract UInt16? ConvertToUInt16();
 
     /// <summary>
-    /// Returns UInt32 if object can be converted or null otherwise.
+    /// Returns UInt32 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract UInt32? ConvertToUInt32();
 
     /// <summary>
-    /// Returns UInt64 if object can be converted or null otherwise.
+    /// Returns UInt64 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract UInt64? ConvertToUInt64();
 
     /// <summary>
-    /// Returns Float32 if object can be converted or null otherwise.
+    /// Returns Float32 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract Single? ConvertToFloat32();
 
     /// <summary>
-    /// Returns Float64 if object can be converted or null otherwise.
+    /// Returns Float64 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract Double? ConvertToFloat64();
 
     /// <summary>
-    /// Returns String if object can be converted or null otherwise.
+    /// Returns String value if object can be converted or null otherwise.
     /// </summary>
     protected abstract String? ConvertToString();
 
     /// <summary>
-    /// Returns DateTime if object can be converted or null otherwise.
+    /// Returns DateTime value if object can be converted or null otherwise.
     /// </summary>
     protected abstract DateTimeOffset? ConvertToDateTime();
 
     /// <summary>
-    /// Returns Date if object can be converted or null otherwise.
+    /// Returns Date value if object can be converted or null otherwise.
     /// </summary>
     protected abstract DateOnly? ConvertToDate();
 
     /// <summary>
-    /// Returns Time if object can be converted or null otherwise.
+    /// Returns Time value if object can be converted or null otherwise.
     /// </summary>
     protected abstract TimeOnly? ConvertToTime();
 
     /// <summary>
-    /// Returns IPAddress if object can be converted or null otherwise.
+    /// Returns Duration value if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract TimeSpan? ConvertToDuration();
+
+    /// <summary>
+    /// Returns IPAddress value if object can be converted or null otherwise.
     /// </summary>
     protected abstract IPAddress? ConvertToIPAddress();
 
     /// <summary>
-    /// Returns IPv4Address if object can be converted or null otherwise.
+    /// Returns IPv4Address value if object can be converted or null otherwise.
     /// </summary>
     protected abstract IPAddress? ConvertToIPv4Address();
 
     /// <summary>
-    /// Returns IPv6Address if object can be converted or null otherwise.
+    /// Returns IPv6Address value if object can be converted or null otherwise.
     /// </summary>
     protected abstract IPAddress? ConvertToIPv6Address();
 
     /// <summary>
-    /// Returns UInt64 if object can be converted or null otherwise.
+    /// Returns Size value if object can be converted or null otherwise.
     /// </summary>
     protected abstract UInt64? ConvertToSize();
 
     /// <summary>
-    /// Returns UInt64 if object can be converted or null otherwise.
+    /// Returns BinarySize value if object can be converted or null otherwise.
     /// </summary>
     protected abstract UInt64? ConvertToBinarySize();
 

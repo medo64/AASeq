@@ -2,28 +2,29 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net;
+using System.Text;
 
 namespace Tipfeler;
 
 /// <summary>
-/// Boolean value.
+/// Date value.
 /// </summary>
-public sealed record TiniBooleanValue : TiniValue {
+public sealed record TiniDurationValue : TiniValue {
 
     /// <summary>
-    /// Creates a new instance.
+    /// Create a new instance.
     /// </summary>
     /// <param name="value">Value.</param>
-    public TiniBooleanValue(Boolean value) {
+    public TiniDurationValue(TimeSpan value) {
         _value = value;
     }
 
 
-    private Boolean _value;
+    private TimeSpan _value;
     /// <summary>
     /// Gets/sets value.
     /// </summary>
-    public Boolean Value {
+    public TimeSpan Value {
         get => _value;
         set {
             _value = value;
@@ -39,7 +40,7 @@ public sealed record TiniBooleanValue : TiniValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <exception cref="FormatException">Cannot parse text.</exception>
-    public static TiniBooleanValue Parse(string text) {
+    public static TiniDurationValue Parse(string text) {
         if (TryParse(text, out var value)) {
             return value;
         } else {
@@ -52,9 +53,9 @@ public sealed record TiniBooleanValue : TiniValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniBooleanValue? result) {
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniDurationValue? result) {
         if (TryParseValue(text, out var value)) {
-            result = new TiniBooleanValue(value);
+            result = new TiniDurationValue(value);
             return true;
         } else {
             result = default;
@@ -67,29 +68,16 @@ public sealed record TiniBooleanValue : TiniValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    internal static bool TryParseValue(string? text, out bool result) {
-        if (text != null) {
-            var trimmed = text.Trim();
-            if (trimmed.Equals("True", StringComparison.InvariantCultureIgnoreCase)
-                || trimmed.Equals("Yes", StringComparison.InvariantCultureIgnoreCase)
-                || trimmed.Equals("T", StringComparison.InvariantCultureIgnoreCase)
-                || trimmed.Equals("Y", StringComparison.InvariantCultureIgnoreCase)
-                || trimmed.Equals("+", StringComparison.InvariantCultureIgnoreCase)) {
-                result = true;
-                return true;
-            } else if (trimmed.Equals("False", StringComparison.InvariantCultureIgnoreCase)
-                || trimmed.Equals("No", StringComparison.InvariantCultureIgnoreCase)
-                || trimmed.Equals("F", StringComparison.InvariantCultureIgnoreCase)
-                || trimmed.Equals("N", StringComparison.InvariantCultureIgnoreCase)
-                || trimmed.Equals("-", StringComparison.InvariantCultureIgnoreCase)) {
-                result = false;
-                return true;
-            } else if (Int32.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out var intValue)) {
-                result = intValue != 0;
+    internal static bool TryParseValue(string? text, out TimeSpan result) {
+        if (TimeSpan.TryParseExact(text, TiniDateTimeValue.ParseTimeSpanFormats, CultureInfo.InvariantCulture, TimeSpanStyles.None, out result)) {
+            return true;
+        } else if (decimal.TryParse(text, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var decimalValue)) {
+            var totalTicks = decimalValue * 10000000;
+            if (totalTicks is >= long.MinValue and <= long.MaxValue) {
+                result = new TimeSpan((long)totalTicks);
                 return true;
             }
         }
-
         result = default;
         return false;
     }
@@ -103,7 +91,32 @@ public sealed record TiniBooleanValue : TiniValue {
     /// Returns string representation of an object.
     /// </summary>
     public override string ToString() {
-        return Value ? "True" : "False";
+        var sb = new StringBuilder();
+        if (Value.Days >= 1) {  // add days only if they exist
+            sb.Append(Value.Days.ToString(CultureInfo.InvariantCulture));
+            sb.Append('.');
+        }
+        sb.AppendFormat(CultureInfo.InvariantCulture, "{0:00}:{1:00}:{2:00}", Value.Hours, Value.Minutes, Value.Seconds);
+
+        var nanos = (Value.Ticks % 10000000).ToString("0000000", CultureInfo.InvariantCulture);
+        var i = nanos.Length - 1;
+        for (; i >= 0; i--) {  // find where first non-zero is
+            if (nanos[i] != '0') { break; }
+        }
+        if (i > -1) {  // add only significant zeros
+            sb.Append('.');
+            sb.Append(nanos[0..(i + 1)]);
+        }
+
+        return sb.ToString();
+    }
+
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToString(string? format) {
+        return Value.ToString(format, CultureInfo.InvariantCulture);
     }
 
     #endregion ToString
@@ -112,56 +125,64 @@ public sealed record TiniBooleanValue : TiniValue {
     #region Operators
 
     /// <summary>
-    /// Implicit conversion into a boolean.
+    /// Implicit conversion into a DateOnly.
     /// </summary>
     /// <param name="obj">Value object.</param>
-    public static implicit operator bool(TiniBooleanValue obj)
-       => obj.Value;
+    public static implicit operator TimeSpan(TiniDurationValue obj)
+        => obj.Value;
 
     /// <summary>
     /// Implicit conversion into a string.
     /// </summary>
     /// <param name="obj">Value object.</param>
-    public static implicit operator string(TiniBooleanValue obj)
+    public static implicit operator string(TiniDurationValue obj)
         => obj.ToString();
 
-    #endregion Operations
+    #endregion Operators
 
 
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
-        => Value;
+        => null;
 
     protected override SByte? ConvertToInt8()
-        => Value ? (sbyte)1 : (sbyte)0;
+        => null;
 
     protected override Int16? ConvertToInt16()
-        => Value ? (Int16)1 : (Int16)0;
+        => null;
 
-    protected override Int32? ConvertToInt32()
-        => Value ? 1 : 0;
+    protected override Int32? ConvertToInt32() {
+        var seconds = Value.Ticks / 10000000;
+        if (seconds is >= Int32.MinValue and <= Int32.MaxValue) { return (Int32)seconds; }
+        return null;
+    }
 
     protected override Int64? ConvertToInt64()
-        => Value ? 1 : 0;
+        => Value.Ticks / 10000000;
 
     protected override Byte? ConvertToUInt8()
-        => Value ? (byte)1 : (byte)0;
+        => null;
 
     protected override UInt16? ConvertToUInt16()
-        => Value ? (UInt16)1 : (UInt16)0;
+        => null;
 
-    protected override UInt32? ConvertToUInt32()
-        => Value ? 1u : 0;
+    protected override UInt32? ConvertToUInt32() {
+        var seconds = Value.Ticks / 10000000;
+        if (seconds is >= UInt32.MinValue and <= UInt32.MaxValue) { return (UInt32)seconds; }
+        return null;
+    }
 
-    protected override UInt64? ConvertToUInt64()
-        => Value ? 1u : 0;
+    protected override UInt64? ConvertToUInt64() {
+        var seconds = Value.Ticks / 10000000;
+        return seconds >= 0 ? (UInt64)seconds : null;
+    }
 
     protected override Single? ConvertToFloat32()
-        => Value ? 1 : 0;
+        => null;
 
     protected override Double? ConvertToFloat64()
-        => Value ? 1 : 0;
+        => Value.Ticks / 10000000.0;
 
     protected override String? ConvertToString()
         => ToString();
@@ -176,7 +197,7 @@ public sealed record TiniBooleanValue : TiniValue {
         => null;
 
     protected override TimeSpan? ConvertToDuration()
-        => null;
+        => Value;
 
     protected override IPAddress? ConvertToIPAddress()
         => null;

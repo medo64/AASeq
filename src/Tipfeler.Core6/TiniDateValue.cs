@@ -168,6 +168,9 @@ public sealed record TiniDateValue : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => null;
 
+    protected override TimeSpan? ConvertToDuration()
+        => null;
+
     protected override IPAddress? ConvertToIPAddress()
         => null;
 

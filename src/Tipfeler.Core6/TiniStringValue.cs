@@ -153,6 +153,9 @@ public sealed record TiniStringValue : TiniValue {
     protected override TimeOnly? ConvertToTime()
         => TiniTimeValue.TryParseValue(Value, out var result) ? result : null;
 
+    protected override TimeSpan? ConvertToDuration()
+        => TiniDurationValue.TryParseValue(Value, out var result) ? result : null;
+
     protected override IPAddress? ConvertToIPAddress()
         => TiniIPAddressValue.TryParseValue(Value, out var result) ? result : null;
 
