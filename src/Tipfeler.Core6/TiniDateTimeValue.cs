@@ -69,6 +69,22 @@ public sealed record TiniDateTimeValue : TiniValue {
     }
 
 
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    public override string ToString() {
+        return ToString(ParseDateTimeFormats[0]);
+    }
+
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToString(string? format) {
+        return Value.ToString(format, CultureInfo.InvariantCulture);
+    }
+
+
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
@@ -133,22 +149,22 @@ public sealed record TiniDateTimeValue : TiniValue {
     #region Constants
 
     internal static readonly string[] ParseDateTimeFormats = new string[] {
-        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF K",
         "yyyy-MM-dd HH:mm:ss.FFFFFFF K",
+        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF K",
         "yyyyMMdd'T'HHmmss.FFFFFFF K",
-        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF",
         "yyyy-MM-dd HH:mm:ss.FFFFFFF",
+        "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF",
         "yyyyMMdd'T'HHmmss.FFFFFFF",
-        "yyyy-MM-dd'T'HH:mm K",
         "yyyy-MM-dd HH:mm K",
+        "yyyy-MM-dd'T'HH:mm K",
         "yyyyMMdd'T'HHmm K",
-        "yyyy-MM-dd'T'HH:mm",
         "yyyy-MM-dd HH:mm",
+        "yyyy-MM-dd'T'HH:mm",
         "yyyyMMdd'T'HHmm",
     };
 
     internal static readonly string[] ParseDateFormats = new string[] {
-        "yyyy-mm-dd",
+        "yyyy-MM-dd",
     };
 
     internal static readonly string[] ParseTimeFormats = new string[] {

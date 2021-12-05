@@ -25,6 +25,14 @@ public sealed record TiniNullValue : TiniValue {
     }
 
 
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    public override string ToString() {
+        return String.Empty;
+    }
+
+
     #region Convert
 
     protected override Boolean? ConvertToBoolean() => null;

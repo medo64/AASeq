@@ -869,7 +869,7 @@ public class TiniValueTests {
         Assert.Null(x.AsUInt64());
         Assert.Null(x.AsFloat32());
         Assert.Null(x.AsFloat64());
-        Assert.Equal("04:12:44", x.AsString());
+        Assert.Equal("04:12:44.469", x.AsString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Equal(new TimeOnly(4, 12, 44, 469), x.AsTime());

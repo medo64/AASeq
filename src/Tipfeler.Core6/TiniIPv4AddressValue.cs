@@ -72,6 +72,14 @@ public sealed record TiniIPv4AddressValue : TiniValue {
     }
 
 
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    public override string ToString() {
+        return Value.ToString();
+    }
+
+
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
@@ -108,7 +116,7 @@ public sealed record TiniIPv4AddressValue : TiniValue {
         => null;
 
     protected override String? ConvertToString()
-        => Value.ToString();
+        => ToString();
 
     protected override DateTimeOffset? ConvertToDateTime()
         => null;

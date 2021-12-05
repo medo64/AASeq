@@ -65,6 +65,14 @@ public sealed record TiniStringValue : TiniValue {
     }
 
 
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    public override string ToString() {
+        return Value;
+    }
+
+
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
@@ -101,7 +109,7 @@ public sealed record TiniStringValue : TiniValue {
         => TiniFloat64Value.TryParseValue(Value, out var result) ? result : null;
 
     protected override String? ConvertToString()
-        => Value;
+        => ToString();
 
     protected override DateTimeOffset? ConvertToDateTime()
         => TiniDateTimeValue.TryParseValue(Value, out var result) ? result : null;

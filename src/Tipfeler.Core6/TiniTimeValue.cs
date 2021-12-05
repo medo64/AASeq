@@ -63,6 +63,22 @@ public sealed record TiniTimeValue : TiniValue {
     }
 
 
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    public override string ToString() {
+        return ToString(TiniDateTimeValue.ParseTimeFormats[0]);
+    }
+
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToString(string? format) {
+        return Value.ToString(format, CultureInfo.InvariantCulture);
+    }
+
+
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
@@ -99,7 +115,7 @@ public sealed record TiniTimeValue : TiniValue {
         => null;
 
     protected override String? ConvertToString()
-        => Value.ToString("HH:mm:ss", CultureInfo.InvariantCulture);
+        => ToString();
 
     protected override DateTimeOffset? ConvertToDateTime()
         => null;

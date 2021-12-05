@@ -80,6 +80,14 @@ public sealed record TiniBooleanValue : TiniValue {
     }
 
 
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    public override string ToString() {
+        return Value ? "True" : "False";
+    }
+
+
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
@@ -116,7 +124,7 @@ public sealed record TiniBooleanValue : TiniValue {
         => Value ? 1 : 0;
 
     protected override String? ConvertToString()
-        => Value ? "True" : "False";
+        => ToString();
 
     protected override DateTimeOffset? ConvertToDateTime()
         => null;

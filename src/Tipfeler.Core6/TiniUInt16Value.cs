@@ -57,6 +57,22 @@ public sealed record TiniUInt16Value : TiniValue {
     }
 
 
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    public override string ToString() {
+        return Value.ToString(CultureInfo.InvariantCulture);
+    }
+
+    /// <summary>
+    /// Returns string representation of an object.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToString(string? format) {
+        return Value.ToString(format, CultureInfo.InvariantCulture);
+    }
+
+
     #region Convert
 
     protected override Boolean? ConvertToBoolean()
@@ -93,7 +109,7 @@ public sealed record TiniUInt16Value : TiniValue {
         => Value;
 
     protected override String? ConvertToString()
-        => Value.ToString("0", CultureInfo.InvariantCulture);
+        => ToString();
 
     protected override DateTimeOffset? ConvertToDateTime()
         => null;
