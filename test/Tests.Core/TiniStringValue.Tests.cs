@@ -8,6 +8,14 @@ namespace Tests.Core;
 
 public class TiniStringValueTests {
 
+    [Fact(DisplayName = "TiniStringValue: Failed Parse")]
+    public void FailedParse() {
+        Assert.False(TiniStringValue.TryParse(null, out var _));
+        Assert.Throws<FormatException>(() => {
+            TiniStringValue.Parse(null);
+        });
+    }
+
     [Fact(DisplayName = "TiniStringValue: AsBoolean")]
     public void AsBoolean() {
         Assert.True(new TiniStringValue("TRUE").AsBoolean());
@@ -134,7 +142,7 @@ public class TiniStringValueTests {
     public void AsDateTime() {
         var now = DateTimeOffset.Now;
         Assert.Equal(now, new TiniStringValue(now.ToString("o")).AsDateTime());
-        Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(0, 0, 0)), new TiniStringValue("1929-01-07 13:45:23.122").AsDateTime());
+        Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(0, 0, 0)), new TiniStringValue("1929-01-07 13:45:23.122Z").AsDateTime());
         Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(1, 0, 0)), new TiniStringValue("1929-01-07 13:45:23.122+01:00").AsDateTime());
         Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 0, new TimeSpan(2, 0, 0)), new TiniStringValue("1929-01-07 13:45:23+02:00").AsDateTime());
         Assert.Equal(new DateTimeOffset(1929, 01, 07, 13, 45, 23, new TimeSpan(0, 0, 0)).AddTicks(1234567), new TiniStringValue("1929-01-07 13:45:23.1234567Z").AsDateTime());

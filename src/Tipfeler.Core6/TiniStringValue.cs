@@ -34,12 +34,27 @@ public sealed record TiniStringValue : TiniValue {
     }
 
 
+    #region Parse
+
+    /// <summary>
+    /// Returns value object converted from given text.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <exception cref="FormatException">Cannot parse text.</exception>
+    public static TiniStringValue Parse(string text) {
+        if (TryParse(text, out var value)) {
+            return value;
+        } else {
+            throw new FormatException("Cannot parse text.");
+        }
+    }
+
     /// <summary>
     /// Returns true if text can be converted with the value object in the output parameter.
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniStringValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new TiniStringValue(value);
             return true;
@@ -64,6 +79,10 @@ public sealed record TiniStringValue : TiniValue {
         }
     }
 
+    #endregion Parse
+
+
+    #region ToString
 
     /// <summary>
     /// Returns string representation of an object.
@@ -71,6 +90,20 @@ public sealed record TiniStringValue : TiniValue {
     public override string ToString() {
         return Value;
     }
+
+    #endregion ToString
+
+
+    #region Operators
+
+    /// <summary>
+    /// Implicit conversion into a string.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator string(TiniStringValue obj)
+        => obj.ToString();
+
+    #endregion Operators
 
 
     #region Convert

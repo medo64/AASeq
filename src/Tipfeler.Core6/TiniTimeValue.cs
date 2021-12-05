@@ -32,12 +32,27 @@ public sealed record TiniTimeValue : TiniValue {
     }
 
 
+    #region Parse
+
+    /// <summary>
+    /// Returns value object converted from given text.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <exception cref="FormatException">Cannot parse text.</exception>
+    public static TiniTimeValue Parse(string text) {
+        if (TryParse(text, out var value)) {
+            return value;
+        } else {
+            throw new FormatException("Cannot parse text.");
+        }
+    }
+
     /// <summary>
     /// Returns true if text can be converted with the value object in the output parameter.
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniTimeValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new TiniTimeValue(value);
             return true;
@@ -54,7 +69,8 @@ public sealed record TiniTimeValue : TiniValue {
     /// <param name="result">Conversion result.</param>
     internal static bool TryParseValue(string? text, out TimeOnly result) {
         if (DateTime.TryParseExact(text, TiniDateTimeValue.ParseTimeFormats, CultureInfo.InvariantCulture, TiniDateTimeValue.ParseStyle, out var resultTime)) {
-            result = new TimeOnly(resultTime.Hour, resultTime.Minute, resultTime.Second, resultTime.Millisecond);
+            var result1 = new TimeOnly(resultTime.Hour, resultTime.Minute, resultTime.Second);
+            result = new TimeOnly(result1.Ticks + resultTime.Ticks % 10000000);  // since TimeOnly has no AddTicks method
             return true;
         } else {
             result = default;
@@ -62,6 +78,10 @@ public sealed record TiniTimeValue : TiniValue {
         }
     }
 
+    #endregion Parse
+
+
+    #region ToString
 
     /// <summary>
     /// Returns string representation of an object.
@@ -77,6 +97,27 @@ public sealed record TiniTimeValue : TiniValue {
     public string ToString(string? format) {
         return Value.ToString(format, CultureInfo.InvariantCulture);
     }
+
+    #endregion ToString
+
+
+    #region Operators
+
+    /// <summary>
+    /// Implicit conversion into a TimeOnly.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator TimeOnly(TiniTimeValue obj)
+        => obj.Value;
+
+    /// <summary>
+    /// Implicit conversion into a string.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator string(TiniTimeValue obj)
+        => obj.ToString();
+
+    #endregion Operators
 
 
     #region Convert

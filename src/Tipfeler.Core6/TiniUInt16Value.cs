@@ -32,12 +32,27 @@ public sealed record TiniUInt16Value : TiniValue {
     }
 
 
+    #region Parse
+
+    /// <summary>
+    /// Returns value object converted from given text.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <exception cref="FormatException">Cannot parse text.</exception>
+    public static TiniUInt16Value Parse(string text) {
+        if (TryParse(text, out var value)) {
+            return value;
+        } else {
+            throw new FormatException("Cannot parse text.");
+        }
+    }
+
     /// <summary>
     /// Returns true if text can be converted with the value object in the output parameter.
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniUInt16Value? result) {
         if (TryParseValue(text, out var value)) {
             result = new TiniUInt16Value(value);
             return true;
@@ -56,6 +71,10 @@ public sealed record TiniUInt16Value : TiniValue {
         return UInt16.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
     }
 
+    #endregion Parse
+
+
+    #region ToString
 
     /// <summary>
     /// Returns string representation of an object.
@@ -71,6 +90,27 @@ public sealed record TiniUInt16Value : TiniValue {
     public string ToString(string? format) {
         return Value.ToString(format, CultureInfo.InvariantCulture);
     }
+
+    #endregion ToString
+
+
+    #region Operators
+
+    /// <summary>
+    /// Implicit conversion into an unsigned short.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator ushort(TiniUInt16Value obj)
+        => obj.Value;
+
+    /// <summary>
+    /// Implicit conversion into a string.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator string(TiniUInt16Value obj)
+        => obj.ToString();
+
+    #endregion Operators
 
 
     #region Convert

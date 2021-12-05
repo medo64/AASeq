@@ -32,12 +32,27 @@ public sealed record TiniDateTimeValue : TiniValue {
     }
 
 
+    #region Parse
+
+    /// <summary>
+    /// Returns value object converted from given text.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <exception cref="FormatException">Cannot parse text.</exception>
+    public static TiniDateTimeValue Parse(string text) {
+        if (TryParse(text, out var value)) {
+            return value;
+        } else {
+            throw new FormatException("Cannot parse text.");
+        }
+    }
+
     /// <summary>
     /// Returns true if text can be converted with the value object in the output parameter.
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniDateTimeValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new TiniDateTimeValue(value);
             return true;
@@ -53,8 +68,7 @@ public sealed record TiniDateTimeValue : TiniValue {
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
     internal static bool TryParseValue(string? text, out DateTimeOffset result) {
-        if (DateTime.TryParseExact(text, ParseDateTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out var resultDateTime)) {
-            result = resultDateTime;
+        if (DateTimeOffset.TryParseExact(text, ParseDateTimeFormats, CultureInfo.InvariantCulture, ParseStyle, out result)) {
             return true;
         } else if (DateTime.TryParseExact(text, ParseDateFormats, CultureInfo.InvariantCulture, ParseStyle, out var resultDate)) {
             result = resultDate;
@@ -68,12 +82,22 @@ public sealed record TiniDateTimeValue : TiniValue {
         return false;
     }
 
+    #endregion Parse
+
+
+    #region ToString
 
     /// <summary>
     /// Returns string representation of an object.
     /// </summary>
     public override string ToString() {
-        return ToString(ParseDateTimeFormats[0]);
+        if (Value.UtcTicks < 864000000000) {  // time-only
+            return ToString(ParseTimeFormats[0]);
+        } else if ((Value.Offset.Ticks == 0) && (Value.UtcTicks % 864000000000 == 0)) {  // date-only
+            return ToString(ParseDateFormats[0]);
+        } else {  // both date and time
+            return ToString(ParseDateTimeFormats[0]);
+        }
     }
 
     /// <summary>
@@ -83,6 +107,27 @@ public sealed record TiniDateTimeValue : TiniValue {
     public string ToString(string? format) {
         return Value.ToString(format, CultureInfo.InvariantCulture);
     }
+
+    #endregion ToString
+
+
+    #region Operators
+
+    /// <summary>
+    /// Implicit conversion into a DateTimeOffset.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator DateTimeOffset(TiniDateTimeValue obj)
+        => obj.Value;
+
+    /// <summary>
+    /// Implicit conversion into a string.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator string(TiniDateTimeValue obj)
+        => obj.ToString();
+
+    #endregion Operators
 
 
     #region Convert
@@ -173,11 +218,10 @@ public sealed record TiniDateTimeValue : TiniValue {
     };
 
     internal static readonly DateTimeStyles ParseStyle = DateTimeStyles.AllowLeadingWhite
-                                                  | DateTimeStyles.AllowInnerWhite
-                                                  | DateTimeStyles.AllowTrailingWhite
-                                                  | DateTimeStyles.AllowWhiteSpaces
-                                                  | DateTimeStyles.AssumeUniversal
-                                                  | DateTimeStyles.AdjustToUniversal;
+                                                       | DateTimeStyles.AllowInnerWhite
+                                                       | DateTimeStyles.AllowTrailingWhite
+                                                       | DateTimeStyles.AllowWhiteSpaces
+                                                       | DateTimeStyles.AssumeLocal;
 
     #endregion Constants
 

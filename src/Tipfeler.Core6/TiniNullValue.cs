@@ -14,16 +14,35 @@ public sealed record TiniNullValue : TiniValue {
     /// </summary>
     public TiniNullValue() { }
 
+
+    #region Parse
+
+    /// <summary>
+    /// Returns value object converted from given text.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+#pragma warning disable IDE0060 // Remove unused parameter
+    public static TiniNullValue Parse(string text) {
+#pragma warning restore IDE0060 // Remove unused parameter
+        return new TiniNullValue();
+    }
+
     /// <summary>
     /// Returns true if text can be converted with the value object in the output parameter.
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+#pragma warning disable IDE0060 // Remove unused parameter
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniNullValue? result) {
+#pragma warning restore IDE0060 // Remove unused parameter
         result = new TiniNullValue();
         return true;
     }
 
+    #endregion Parse
+
+
+    #region ToString
 
     /// <summary>
     /// Returns string representation of an object.
@@ -31,6 +50,20 @@ public sealed record TiniNullValue : TiniValue {
     public override string ToString() {
         return String.Empty;
     }
+
+    #endregion ToString
+
+
+    #region Operators
+
+    /// <summary>
+    /// Implicit conversion into a string.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator string(TiniNullValue obj)
+        => obj.ToString();
+
+    #endregion Operators
 
 
     #region Convert

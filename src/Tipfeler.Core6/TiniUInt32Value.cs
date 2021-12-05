@@ -32,12 +32,27 @@ public sealed record TiniUInt32Value : TiniValue {
     }
 
 
+    #region Parse
+
+    /// <summary>
+    /// Returns value object converted from given text.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <exception cref="FormatException">Cannot parse text.</exception>
+    public static TiniUInt32Value Parse(string text) {
+        if (TryParse(text, out var value)) {
+            return value;
+        } else {
+            throw new FormatException("Cannot parse text.");
+        }
+    }
+
     /// <summary>
     /// Returns true if text can be converted with the value object in the output parameter.
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniValue? result) {
+    public static bool TryParse(string? text, [NotNullWhen(true)] out TiniUInt32Value? result) {
         if (TryParseValue(text, out var value)) {
             result = new TiniUInt32Value(value);
             return true;
@@ -56,6 +71,10 @@ public sealed record TiniUInt32Value : TiniValue {
         return UInt32.TryParse(text, NumberStyles.Integer, CultureInfo.InvariantCulture, out result);
     }
 
+    #endregion Parse
+
+
+    #region ToString
 
     /// <summary>
     /// Returns string representation of an object.
@@ -72,6 +91,26 @@ public sealed record TiniUInt32Value : TiniValue {
         return Value.ToString(format, CultureInfo.InvariantCulture);
     }
 
+    #endregion ToString
+
+
+    #region Operators
+
+    /// <summary>
+    /// Implicit conversion into an unsigned int.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator uint(TiniUInt32Value obj)
+        => obj.Value;
+
+    /// <summary>
+    /// Implicit conversion into a string.
+    /// </summary>
+    /// <param name="obj">Value object.</param>
+    public static implicit operator string(TiniUInt32Value obj)
+        => obj.ToString();
+
+    #endregion Operators
 
     #region Convert
 
