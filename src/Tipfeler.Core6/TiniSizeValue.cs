@@ -85,11 +85,13 @@ public sealed record TiniSizeValue : TiniValue {
                                 case "K": decimalResult *= 1000; break;
                                 case "M": decimalResult *= 1000000; break;
                                 case "G": decimalResult *= 1000000000; break;
-                                case "P": decimalResult *= 1000000000000; break;
+                                case "T": decimalResult *= 1000000000000; break;
+                                case "P": decimalResult *= 1000000000000000; break;
                                 case "KI": decimalResult *= 1024; break;
                                 case "MI": decimalResult *= 1048576; break;
                                 case "GI": decimalResult *= 1073741824; break;
-                                case "PI": decimalResult *= 1099511627776; break;
+                                case "TI": decimalResult *= 1099511627776; break;
+                                case "PI": decimalResult *= 1125899906842624; break;
                                 default: decimalResult = -1; break;  // unknown unit
                             }
                         }

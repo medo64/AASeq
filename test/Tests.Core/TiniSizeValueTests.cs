@@ -123,34 +123,65 @@ public class TiniSizeValueTests {
     }
 
 
+    [Fact(DisplayName = "TiniSizeValue: Tera (1)")]
+    public void Tera1() {
+        Assert.Equal("42000000000000", TiniSizeValue.Parse("42T"));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Tera (2)")]
+    public void Tera2() {
+        Assert.Equal("42840000000000", TiniSizeValue.Parse("42.84 T"));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Tera (3)")]
+    public void Tera3() {
+        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000000001 T "));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Tebi (1)")]
+    public void Tebi1() {
+        Assert.Equal("46179488366592", TiniSizeValue.Parse("42Ti"));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Tebi (2)")]
+    public void Tebi2() {
+        Assert.Equal("47103078133924", TiniSizeValue.Parse("42.84Ti"));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Tebi (3)")]
+    public void Tebi3() {
+        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000000001 Ti "));
+    }
+
+
     [Fact(DisplayName = "TiniSizeValue: Peta (1)")]
     public void Peta1() {
-        Assert.Equal("42000000000000", TiniSizeValue.Parse("42p"));
+        Assert.Equal("42000000000000000", TiniSizeValue.Parse("42p"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Peta (2)")]
     public void Peta2() {
-        Assert.Equal("42840000000000", TiniSizeValue.Parse("42.84 P"));
+        Assert.Equal("42840000000000000", TiniSizeValue.Parse("42.84 P"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Peta (3)")]
     public void Peta3() {
-        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000000001 P "));
+        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000000000001 P "));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Pebi (1)")]
     public void Pebi1() {
-        Assert.Equal("46179488366592", TiniSizeValue.Parse("42pi"));
+        Assert.Equal("47287796087390208", TiniSizeValue.Parse("42pi"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Pebi (2)")]
     public void Pebi2() {
-        Assert.Equal("47103078133924", TiniSizeValue.Parse("42.84PI"));
+        Assert.Equal("48233552009138012", TiniSizeValue.Parse("42.84PI"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Pebi (3)")]
     public void Pebi3() {
-        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000000001 PI "));
+        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000000000001 PI "));
     }
 
 
