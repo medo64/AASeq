@@ -391,25 +391,6 @@ public abstract record TiniValue {
     public UInt64 AsSize(UInt64 defaultValue)
         => ConvertToSize() ?? defaultValue;
 
-
-    /// <summary>
-    /// Returns value object if it's of a BinarySize type or null otherwise.
-    /// </summary>
-    public TiniBinarySizeValue? AsBinarySizeObject()
-        => this as TiniBinarySizeValue;
-
-    /// <summary>
-    /// Returns BinarySize value of an object if conversion is possible or null otherwise.
-    /// </summary>
-    public UInt64? AsBinarySize()
-        => ConvertToBinarySize();
-
-    /// <summary>
-    /// Returns BinarySize value of an object if conversion is possible or default value otherwise.
-    /// </summary>
-    public UInt64 AsBinarySize(UInt64 defaultValue)
-        => ConvertToBinarySize() ?? defaultValue;
-
     #endregion As
 
 
@@ -645,11 +626,6 @@ public abstract record TiniValue {
     /// Returns Size value if object can be converted or null otherwise.
     /// </summary>
     protected abstract UInt64? ConvertToSize();
-
-    /// <summary>
-    /// Returns BinarySize value if object can be converted or null otherwise.
-    /// </summary>
-    protected abstract UInt64? ConvertToBinarySize();
 
     #endregion Convert
 

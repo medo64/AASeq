@@ -174,9 +174,6 @@ public sealed record TiniUInt32Value : TiniValue {
     protected override UInt64? ConvertToSize()
         => ConvertToUInt64();
 
-    protected override UInt64? ConvertToBinarySize()
-        => ConvertToUInt64();
-
     #endregion Convert
 
 }

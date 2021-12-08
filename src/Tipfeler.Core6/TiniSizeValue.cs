@@ -81,12 +81,15 @@ public sealed record TiniSizeValue : TiniValue {
                     if (splitIndex < text.Length) {  // we may have unit
                         var unitText = text[splitIndex..].Trim();
                         if (unitText.Length > 0) {  // we have unit
-                            switch (char.ToUpperInvariant(unitText[0])) {
-                                case 'B': break;
-                                case 'K': decimalResult *= 1000; break;
-                                case 'M': decimalResult *= 1000000; break;
-                                case 'G': decimalResult *= 1000000000; break;
-                                case 'P': decimalResult *= 1000000000000; break;
+                            switch (unitText.ToUpperInvariant()) {
+                                case "K": decimalResult *= 1000; break;
+                                case "M": decimalResult *= 1000000; break;
+                                case "G": decimalResult *= 1000000000; break;
+                                case "P": decimalResult *= 1000000000000; break;
+                                case "KI": decimalResult *= 1024; break;
+                                case "MI": decimalResult *= 1048576; break;
+                                case "GI": decimalResult *= 1073741824; break;
+                                case "PI": decimalResult *= 1099511627776; break;
                                 default: decimalResult = -1; break;  // unknown unit
                             }
                         }
@@ -218,9 +221,6 @@ public sealed record TiniSizeValue : TiniValue {
         => null;
 
     protected override UInt64? ConvertToSize()
-        => ConvertToUInt64();
-
-    protected override UInt64? ConvertToBinarySize()
         => ConvertToUInt64();
 
     #endregion Convert

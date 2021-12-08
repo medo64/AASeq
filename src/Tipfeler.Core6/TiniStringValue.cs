@@ -168,9 +168,6 @@ public sealed record TiniStringValue : TiniValue {
     protected override UInt64? ConvertToSize()
         => TiniSizeValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override UInt64? ConvertToBinarySize()
-        => TiniSizeValue.TryParseValue(Value, out var result) ? result : null;
-
     #endregion Convert
 
 }

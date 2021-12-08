@@ -183,9 +183,6 @@ public sealed record TiniDateValue : TiniValue {
     protected override UInt64? ConvertToSize()
         => null;
 
-    protected override UInt64? ConvertToBinarySize()
-        => null;
-
     #endregion Convert
 
 }

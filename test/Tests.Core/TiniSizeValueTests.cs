@@ -16,18 +16,19 @@ public class TiniSizeValueTests {
 
     [Fact(DisplayName = "TiniSizeValue: Base (1)")]
     public void Base1() {
-        Assert.Equal("42", TiniSizeValue.Parse("42B"));
+        Assert.Equal("42", TiniSizeValue.Parse("42"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Base (2)")]
     public void Base2() {
-        Assert.Equal("42", TiniSizeValue.Parse("42 bit"));
+        Assert.Equal("43", TiniSizeValue.Parse("42.84"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Base (3)")]
     public void Base3() {
-        Assert.Equal("43", TiniSizeValue.Parse("42.84 bit"));
+        Assert.Equal("43", TiniSizeValue.Parse(" 42.84"));
     }
+
 
     [Fact(DisplayName = "TiniSizeValue: Kilo (1)")]
     public void Kilo1() {
@@ -36,38 +37,60 @@ public class TiniSizeValueTests {
 
     [Fact(DisplayName = "TiniSizeValue: Kilo (2)")]
     public void Kilo2() {
-        Assert.Equal("42000", TiniSizeValue.Parse("42 KB"));
+        Assert.Equal("42840", TiniSizeValue.Parse("42.84 k"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Kilo (3)")]
     public void Kilo3() {
-        Assert.Equal("42000", TiniSizeValue.Parse("42 kbit"));
+        Assert.Equal("1", TiniSizeValue.Parse(" 0.0001 k "));
     }
 
-    [Fact(DisplayName = "TiniSizeValue: Kilo (4)")]
-    public void Kilo4() {
-        Assert.Equal("42840", TiniSizeValue.Parse("42.84 kbit"));
+    [Fact(DisplayName = "TiniSizeValue: Kibi (1)")]
+    public void Kibi1() {
+        Assert.Equal("43008", TiniSizeValue.Parse("42Ki"));
     }
+
+    [Fact(DisplayName = "TiniSizeValue: Kibi (2)")]
+    public void Kibi2() {
+        Assert.Equal("43868", TiniSizeValue.Parse("42.84ki"));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Kibi (3)")]
+    public void Kibi3() {
+        Assert.Equal("1", TiniSizeValue.Parse(" 0.000001 ki "));
+    }
+
 
     [Fact(DisplayName = "TiniSizeValue: Mega (1)")]
     public void Mega1() {
-        Assert.Equal("42000000", TiniSizeValue.Parse("42M"));
+        Assert.Equal("42000000", TiniSizeValue.Parse("42m"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Mega (2)")]
     public void Mega2() {
-        Assert.Equal("42000000", TiniSizeValue.Parse("42MB"));
+        Assert.Equal("42840000", TiniSizeValue.Parse("42.84 M"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Mega (3)")]
     public void Mega3() {
-        Assert.Equal("42000000", TiniSizeValue.Parse("42mbit"));
+        Assert.Equal("1", TiniSizeValue.Parse(" 0.0000001 M "));
     }
 
-    [Fact(DisplayName = "TiniSizeValue: Mega (4)")]
-    public void Mega4() {
-        Assert.Equal("42840000", TiniSizeValue.Parse("42.84 Mbit"));
+    [Fact(DisplayName = "TiniSizeValue: Mebi (1)")]
+    public void Mebi1() {
+        Assert.Equal("44040192", TiniSizeValue.Parse("42Mi"));
     }
+
+    [Fact(DisplayName = "TiniSizeValue: Mebi (2)")]
+    public void Mebi2() {
+        Assert.Equal("44920996", TiniSizeValue.Parse("42.84Mi"));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Mebi (3)")]
+    public void Mebi3() {
+        Assert.Equal("1", TiniSizeValue.Parse(" 0.0000001 Mi "));
+    }
+
 
     [Fact(DisplayName = "TiniSizeValue: Giga (1)")]
     public void Giga1() {
@@ -76,18 +99,29 @@ public class TiniSizeValueTests {
 
     [Fact(DisplayName = "TiniSizeValue: Giga (2)")]
     public void Giga2() {
-        Assert.Equal("42000000000", TiniSizeValue.Parse("42 GB"));
+        Assert.Equal("42840000000", TiniSizeValue.Parse("42.84g"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Giga (3)")]
     public void Giga3() {
-        Assert.Equal("42000000000", TiniSizeValue.Parse("42 GBIT"));
+        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000001 G "));
     }
 
-    [Fact(DisplayName = "TiniSizeValue: Giga (4)")]
-    public void Giga4() {
-        Assert.Equal("42840000000", TiniSizeValue.Parse("42.84 GB"));
+    [Fact(DisplayName = "TiniSizeValue: Gibi (1)")]
+    public void Gibi1() {
+        Assert.Equal("45097156608", TiniSizeValue.Parse("42 Gi"));
     }
+
+    [Fact(DisplayName = "TiniSizeValue: Gibi (2)")]
+    public void Gibi2() {
+        Assert.Equal("45999099740", TiniSizeValue.Parse("42.84Gi"));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Gibi (3)")]
+    public void Gibi3() {
+        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000001 GI "));
+    }
+
 
     [Fact(DisplayName = "TiniSizeValue: Peta (1)")]
     public void Peta1() {
@@ -96,18 +130,29 @@ public class TiniSizeValueTests {
 
     [Fact(DisplayName = "TiniSizeValue: Peta (2)")]
     public void Peta2() {
-        Assert.Equal("42000000000000", TiniSizeValue.Parse("42pb"));
+        Assert.Equal("42840000000000", TiniSizeValue.Parse("42.84 P"));
     }
 
     [Fact(DisplayName = "TiniSizeValue: Peta (3)")]
     public void Peta3() {
-        Assert.Equal("42000000000000", TiniSizeValue.Parse("42pbit"));
+        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000000001 P "));
     }
 
-    [Fact(DisplayName = "TiniSizeValue: Peta (4)")]
-    public void Peta4() {
-        Assert.Equal("42840000000000", TiniSizeValue.Parse("42.84 P"));
+    [Fact(DisplayName = "TiniSizeValue: Pebi (1)")]
+    public void Pebi1() {
+        Assert.Equal("46179488366592", TiniSizeValue.Parse("42pi"));
     }
+
+    [Fact(DisplayName = "TiniSizeValue: Pebi (2)")]
+    public void Pebi2() {
+        Assert.Equal("47103078133924", TiniSizeValue.Parse("42.84PI"));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: Pebi (3)")]
+    public void Pebi3() {
+        Assert.Equal("1", TiniSizeValue.Parse("  0.0000000000001 PI "));
+    }
+
 
     [Fact(DisplayName = "TiniSizeValue: Failed Parse")]
     public void FailedParse() {

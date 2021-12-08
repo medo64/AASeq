@@ -145,7 +145,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt8Object")]
@@ -171,7 +170,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt16Object")]
@@ -197,7 +195,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt32Object")]
@@ -223,7 +220,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt64Object")]
@@ -249,7 +245,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt8Object")]
@@ -275,7 +270,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt16Object")]
@@ -301,7 +295,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt32Object")]
@@ -327,7 +320,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt64Object")]
@@ -353,7 +345,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsFloat32Object")]
@@ -379,7 +370,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsFloat64Object")]
@@ -405,7 +395,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsStringObject")]
@@ -431,7 +420,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsDateTimeObject")]
@@ -457,7 +445,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsDateTimeObject (2)")]
@@ -483,7 +470,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsDateObject")]
@@ -509,7 +495,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsTimeObject")]
@@ -535,7 +520,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsDurationObject")]
@@ -561,7 +545,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsIPAddressObject (1)")]
@@ -587,7 +570,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsIPAddressObject (2)")]
@@ -613,7 +595,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsIPv6AddressObject")]
@@ -639,7 +620,6 @@ public class TiniValueTests {
         Assert.NotNull(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsIPv4AddressObject")]
@@ -665,7 +645,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.NotNull(x.AsIPv4AddressObject());
         Assert.Null(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
     }
 
     [Fact(DisplayName = "TiniValue: AsSizeObject")]
@@ -691,33 +670,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6AddressObject());
         Assert.Null(x.AsIPv4AddressObject());
         Assert.NotNull(x.AsSizeObject());
-        Assert.Null(x.AsBinarySizeObject());
-    }
-
-    [Fact(DisplayName = "TiniValue: AsBinarySizeObject")]
-    public void AsBinarySizeObject() {
-        TiniValue x = new TiniBinarySizeValue(42);
-        Assert.Null(x.AsBooleanObject());
-        Assert.Null(x.AsInt8Object());
-        Assert.Null(x.AsInt16Object());
-        Assert.Null(x.AsInt32Object());
-        Assert.Null(x.AsInt64Object());
-        Assert.Null(x.AsUInt8Object());
-        Assert.Null(x.AsUInt16Object());
-        Assert.Null(x.AsUInt32Object());
-        Assert.Null(x.AsUInt64Object());
-        Assert.Null(x.AsFloat32Object());
-        Assert.Null(x.AsFloat64Object());
-        Assert.Null(x.AsStringObject());
-        Assert.Null(x.AsDateTimeObject());
-        Assert.Null(x.AsDateObject());
-        Assert.Null(x.AsTimeObject());
-        Assert.Null(x.AsDurationObject());
-        Assert.Null(x.AsIPAddressObject());
-        Assert.Null(x.AsIPv6AddressObject());
-        Assert.Null(x.AsIPv4AddressObject());
-        Assert.Null(x.AsSizeObject());
-        Assert.NotNull(x.AsBinarySizeObject());
     }
 
     #endregion AsObject
@@ -748,7 +700,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt8")]
@@ -774,7 +725,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt16")]
@@ -800,7 +750,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt32")]
@@ -826,7 +775,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsInt64")]
@@ -852,7 +800,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt8")]
@@ -878,7 +825,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt16")]
@@ -904,7 +850,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt32")]
@@ -930,7 +875,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsUInt64")]
@@ -956,7 +900,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsFloat32")]
@@ -982,7 +925,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsFloat64")]
@@ -1008,7 +950,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsString")]
@@ -1034,7 +975,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsDateTime")]
@@ -1060,7 +1000,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsDateTime (2)")]
@@ -1086,7 +1025,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsDate")]
@@ -1112,7 +1050,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsTime")]
@@ -1138,7 +1075,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsDuration")]
@@ -1159,12 +1095,11 @@ public class TiniValueTests {
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
-        Assert.Equal(new TimeSpan(4, 22, 12, 44, 469),  x.AsDuration());
+        Assert.Equal(new TimeSpan(4, 22, 12, 44, 469), x.AsDuration());
         Assert.Null(x.AsIPAddress());
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsIPAddress")]
@@ -1190,7 +1125,6 @@ public class TiniValueTests {
         Assert.Equal(IPAddress.Parse("ff08::152"), x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsIPAddress (2)")]
@@ -1216,7 +1150,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Equal(IPAddress.Parse("239.192.111.17"), x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsIPv6Address")]
@@ -1242,7 +1175,6 @@ public class TiniValueTests {
         Assert.Equal(IPAddress.Parse("ff08::152"), x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsIPv4Address")]
@@ -1268,7 +1200,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Equal(IPAddress.Parse("239.192.111.17"), x.AsIPv4Address());
         Assert.Null(x.AsSize());
-        Assert.Null(x.AsBinarySize());
     }
 
     [Fact(DisplayName = "TiniValue: AsSize")]
@@ -1294,33 +1225,6 @@ public class TiniValueTests {
         Assert.Null(x.AsIPv6Address());
         Assert.Null(x.AsIPv4Address());
         Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
-    }
-
-    [Fact(DisplayName = "TiniValue: AsBinarySize")]
-    public void AsBinarySize() {
-        TiniValue x = new TiniBinarySizeValue(42);
-        Assert.True(x.AsBoolean());
-        Assert.Equal((sbyte)42, x.AsInt8());
-        Assert.Equal((short)42, x.AsInt16());
-        Assert.Equal(42, x.AsInt32());
-        Assert.Equal(42, x.AsInt64());
-        Assert.Equal((byte)42, x.AsUInt8());
-        Assert.Equal((ushort)42, x.AsUInt16());
-        Assert.Equal((uint)42, x.AsUInt32());
-        Assert.Equal((ulong)42, x.AsUInt64());
-        Assert.Null(x.AsFloat32());
-        Assert.Null(x.AsFloat64());
-        Assert.Equal("42", x.AsString());
-        Assert.Null(x.AsDateTime());
-        Assert.Null(x.AsDate());
-        Assert.Null(x.AsTime());
-        Assert.Null(x.AsDuration());
-        Assert.Null(x.AsIPAddress());
-        Assert.Null(x.AsIPv6Address());
-        Assert.Null(x.AsIPv4Address());
-        Assert.Equal(42ul, x.AsSize());
-        Assert.Equal(42ul, x.AsBinarySize());
     }
 
     #endregion AsValue
