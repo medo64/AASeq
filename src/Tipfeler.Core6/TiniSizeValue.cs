@@ -32,6 +32,58 @@ public sealed record TiniSizeValue : TiniValue {
     }
 
 
+    /// <summary>
+    /// Gets value in Kilo units.
+    /// </summary>
+    public double ValueInKilo => Value / (double)ScaleFactorKilo;
+
+    /// <summary>
+    /// Gets value in Mega units.
+    /// </summary>
+    public double ValueInMega => Value / (double)ScaleFactorMega;
+
+    /// <summary>
+    /// Gets value in Giga units.
+    /// </summary>
+    public double ValueInGiga => Value / (double)ScaleFactorGiga;
+
+    /// <summary>
+    /// Gets value in Tera units.
+    /// </summary>
+    public double ValueInTera => Value / (double)ScaleFactorTera;
+
+    /// <summary>
+    /// Gets value in Peta units.
+    /// </summary>
+    public double ValueInPeta => Value / (double)ScaleFactorPeta;
+
+    /// <summary>
+    /// Gets value in Kibi units.
+    /// </summary>
+    public double ValueInKibi => Value / (double)ScaleFactorKibi;
+
+    /// <summary>
+    /// Gets value in Mebi units.
+    /// </summary>
+    public double ValueInMebi => Value / (double)ScaleFactorMebi;
+
+    /// <summary>
+    /// Gets value in Gibi units.
+    /// </summary>
+    public double ValueInGibi => Value / (double)ScaleFactorGibi;
+
+    /// <summary>
+    /// Gets value in Tebi units.
+    /// </summary>
+    public double ValueInTebi => Value / (double)ScaleFactorTebi;
+
+    /// <summary>
+    /// Gets value in Pebi units.
+    /// </summary>
+    public double ValueInPebi => Value / (double)ScaleFactorPebi;
+
+
+
     #region Parse
 
     /// <summary>
@@ -82,16 +134,16 @@ public sealed record TiniSizeValue : TiniValue {
                         var unitText = text[splitIndex..].Trim();
                         if (unitText.Length > 0) {  // we have unit
                             switch (unitText.ToUpperInvariant()) {
-                                case "K": decimalResult *= 1000; break;
-                                case "M": decimalResult *= 1000000; break;
-                                case "G": decimalResult *= 1000000000; break;
-                                case "T": decimalResult *= 1000000000000; break;
-                                case "P": decimalResult *= 1000000000000000; break;
-                                case "KI": decimalResult *= 1024; break;
-                                case "MI": decimalResult *= 1048576; break;
-                                case "GI": decimalResult *= 1073741824; break;
-                                case "TI": decimalResult *= 1099511627776; break;
-                                case "PI": decimalResult *= 1125899906842624; break;
+                                case "K": decimalResult *= ScaleFactorKilo; break;
+                                case "M": decimalResult *= ScaleFactorMega; break;
+                                case "G": decimalResult *= ScaleFactorGiga; break;
+                                case "T": decimalResult *= ScaleFactorTera; break;
+                                case "P": decimalResult *= ScaleFactorPeta; break;
+                                case "KI": decimalResult *= ScaleFactorKibi; break;
+                                case "MI": decimalResult *= ScaleFactorMebi; break;
+                                case "GI": decimalResult *= ScaleFactorGibi; break;
+                                case "TI": decimalResult *= ScaleFactorTebi; break;
+                                case "PI": decimalResult *= ScaleFactorPebi; break;
                                 default: decimalResult = -1; break;  // unknown unit
                             }
                         }
@@ -139,6 +191,221 @@ public sealed record TiniSizeValue : TiniValue {
     /// <param name="format">Format for the object.</param>
     public string ToString(string? format) {
         return Value.ToString(format, CultureInfo.InvariantCulture);
+    }
+
+
+    /// <summary>
+    /// Returns string representation of an object in Kilo units.
+    /// </summary>
+    public string ToKiloString() {
+        return ValueInKilo.ToString(CultureInfo.InvariantCulture) + "k";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Kilo units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToKiloString(string? format) {
+        return ValueInKilo.ToString(format, CultureInfo.InvariantCulture) + "k";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Mega units.
+    /// </summary>
+    /// <returns></returns>
+    public string ToMegaString() {
+        return ValueInMega.ToString(CultureInfo.InvariantCulture) + "M";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Mega units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToMegaString(string? format) {
+        return ValueInMega.ToString(format, CultureInfo.InvariantCulture) + "M";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Giga units.
+    /// </summary>
+    public string ToGigaString() {
+        return ValueInGiga.ToString(CultureInfo.InvariantCulture) + "G";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Giga units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToGigaString(string? format) {
+        return ValueInGiga.ToString(format, CultureInfo.InvariantCulture) + "G";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Tera units.
+    /// </summary>
+    /// <returns></returns>
+    public string ToTeraString() {
+        return ValueInTera.ToString(CultureInfo.InvariantCulture) + "T";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Tera units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToTeraString(string? format) {
+        return ValueInTera.ToString(format, CultureInfo.InvariantCulture) + "T";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Peta units.
+    /// </summary>
+    /// <returns></returns>
+    public string ToPetaString() {
+        return ValueInPeta.ToString(CultureInfo.InvariantCulture) + "P";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Peta units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToPetaString(string? format) {
+        return ValueInPeta.ToString(format, CultureInfo.InvariantCulture) + "P";
+    }
+
+
+    /// <summary>
+    /// Returns string representation of an object in Kibi units.
+    /// </summary>
+    public string ToKibiString() {
+        return ValueInKibi.ToString(CultureInfo.InvariantCulture) + "Ki";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Kibi units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToKibiString(string? format) {
+        return ValueInKibi.ToString(format, CultureInfo.InvariantCulture) + "Ki";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Mebi  units.
+    /// </summary>
+    public string ToMebiString() {
+        return ValueInMebi.ToString(CultureInfo.InvariantCulture) + "Mi";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Mebi units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToMebiString(string? format) {
+        return ValueInMebi.ToString(format, CultureInfo.InvariantCulture) + "Mi";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Gibi units.
+    /// </summary>
+    public string ToGibiString() {
+        return ValueInGibi.ToString(CultureInfo.InvariantCulture) + "Gi";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Gibi units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToGibiString(string? format) {
+        return ValueInGibi.ToString(format, CultureInfo.InvariantCulture) + "Gi";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Tebi units.
+    /// </summary>
+    public string ToTebiString() {
+        return ValueInTebi.ToString(CultureInfo.InvariantCulture) + "Ti";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Tebi units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToTebiString(string? format) {
+        return ValueInTebi.ToString(format, CultureInfo.InvariantCulture) + "Ti";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Pebi units.
+    /// </summary>
+    public string ToPebiString() {
+        return ValueInPebi.ToString(CultureInfo.InvariantCulture) + "Pi";
+    }
+
+    /// <summary>
+    /// Returns string representation of an object in Pebi units.
+    /// </summary>
+    /// <param name="format">Format for the object.</param>
+    public string ToPebiString(string? format) {
+        return ValueInPebi.ToString(format, CultureInfo.InvariantCulture) + "Pi";
+    }
+
+
+    /// <summary>
+    /// Returns number scaled to a SI unit.
+    /// </summary>
+    public string ToScaledUnitString() {
+        return ToScaledUnitString(3);
+    }
+
+    /// <summary>
+    /// Returns number scaled to a SI unit and a defined number of significant digits.
+    /// </summary>
+    /// <param name="significantDigits">Number of significant digits.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Significant digits are to be between 1 and 10.</exception>
+    public string ToScaledUnitString(int significantDigits) {
+        if (significantDigits is < 1 or > 10) { throw new ArgumentOutOfRangeException(nameof(significantDigits), "Significant digits are to be between 1 and 10."); }
+        return ToScaledString(significantDigits, 1000, new string[] { "", "k", "M", "G", "T", "P" });
+    }
+
+    /// <summary>
+    /// Returns number scaled to a binary unit.
+    /// </summary>
+    public string ToScaledBinaryUnitString() {
+        return ToScaledBinaryUnitString(3);
+    }
+
+    /// <summary>
+    /// Returns number scaled to a binary unit and a defined number of significant digits.
+    /// </summary>
+    /// <param name="significantDigits">Number of significant digits.</param>
+    /// <exception cref="ArgumentOutOfRangeException">Significant digits are to be between 1 and 10.</exception>
+    public string ToScaledBinaryUnitString(int significantDigits) {
+        if (significantDigits is < 1 or > 10) { throw new ArgumentOutOfRangeException(nameof(significantDigits), "Significant digits are to be between 1 and 10."); }
+        return ToScaledString(significantDigits, 1024, new string[] { "", "Ki", "Mi", "Gi", "Ti", "Pi" });
+    }
+
+    private string ToScaledString(int significantDigits, int multiplier, string[] unitText) {
+        var value = (double)Value;
+        var factor = 0;
+        for (var i = 1; i <= 5; i++) {
+            if (value <= (ulong)multiplier) { break; }
+            value /= multiplier;
+            factor += 1;
+        }
+
+        var decimalValue = value;
+        var decimalDigits = 0;
+        while (decimalValue >= 1) {
+            decimalValue /= 10;
+            decimalDigits += 1;
+        }
+        var decimalMultiplier = 1;
+        while (decimalDigits > significantDigits) {
+            decimalMultiplier *= 10;
+            decimalDigits -= 1;
+        }
+
+        value = Math.Round(value / decimalMultiplier, significantDigits - decimalDigits, MidpointRounding.AwayFromZero) * decimalMultiplier;
+        return value.ToString(CultureInfo.InvariantCulture) + unitText[factor];
     }
 
     #endregion ToString
@@ -226,5 +493,21 @@ public sealed record TiniSizeValue : TiniValue {
         => ConvertToUInt64();
 
     #endregion Convert
+
+
+    #region ScaleFactor
+
+    private const UInt64 ScaleFactorKilo = 1000;
+    private const UInt64 ScaleFactorMega = 1000000;
+    private const UInt64 ScaleFactorGiga = 1000000000;
+    private const UInt64 ScaleFactorTera = 1000000000000;
+    private const UInt64 ScaleFactorPeta = 1000000000000000;
+    private const UInt64 ScaleFactorKibi = 1024;
+    private const UInt64 ScaleFactorMebi = 1048576;
+    private const UInt64 ScaleFactorGibi = 1073741824;
+    private const UInt64 ScaleFactorTebi = 1099511627776;
+    private const UInt64 ScaleFactorPebi = 1125899906842624;
+
+    #endregion ScaleFactor
 
 }
