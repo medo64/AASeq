@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net;
@@ -75,6 +76,54 @@ public sealed record TiniDurationValue : TiniValue {
             var totalTicks = decimalValue * 10000000;
             if (totalTicks is >= long.MinValue and <= long.MaxValue) {
                 result = new TimeSpan((long)totalTicks);
+                return true;
+            }
+        } else if (text is not null) {  // try splitting into parts and parsing that way
+            var parts = new List<string>();
+            bool expectNumber = true;
+            var lastStart = 0;
+            for (var i = 0; i < text.Length; i++) {  // go over chars to split into number/unit pairs
+                var ch = text[i];
+                if (expectNumber) {
+                    if (!char.IsDigit(ch) && !char.IsWhiteSpace(ch) && (ch != '.') && (ch != ',')) {
+                        parts.Add(text[lastStart..i].Trim());
+                        lastStart = i;
+                        expectNumber = false;
+                    }
+                } else {
+                    if (!char.IsLetter(ch) && !char.IsWhiteSpace(ch)) {
+                        parts.Add(text[lastStart..i].Trim());
+                        lastStart = i;
+                        expectNumber = true;
+                    }
+                }
+            }
+            parts.Add(text[lastStart..]);
+
+            // lets add all parts we have here
+            var totalTicks = 0L;
+            var allGood = true;
+            for (var i = 0; i < parts.Count; i += 2) {
+                var numberPart = parts[i];
+                var unitPart = (i + 1) < parts.Count ? parts[i + 1] : "";
+                if (decimal.TryParse(numberPart, NumberStyles.Integer | NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out var number)) {
+                    switch (unitPart.ToUpperInvariant()) {
+                        case "D": totalTicks += (long)Math.Round(number * 86400 * 10000000, 0); break;
+                        case "H": totalTicks += (long)Math.Round(number * 3600 * 10000000, 0); break;
+                        case "M": totalTicks += (long)Math.Round(number * 60 * 10000000, 0); break;
+                        case "S": case "": totalTicks += (long)Math.Round(number * 10000000, 0); break;
+                        case "MS": totalTicks += (long)Math.Round(number * 10000, 0); break;
+                        case "US": totalTicks += (long)Math.Round(number * 10, 0); break;
+                        case "NS": totalTicks += (long)Math.Round(number / 100, 0); break;
+                        default: allGood = false; break;
+                    }
+                } else {
+                    allGood = false;
+                    break;
+                }
+            }
+            if (allGood) {
+                result = new TimeSpan(totalTicks);
                 return true;
             }
         }
