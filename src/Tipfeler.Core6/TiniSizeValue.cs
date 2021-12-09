@@ -384,6 +384,9 @@ public sealed record TiniSizeValue : TiniValue {
     }
 
     private string ToScaledString(int significantDigits, int multiplier, string[] unitText) {
+        var scaledDecimalMin = Math.Pow(10, significantDigits - 1);
+        var scaledDecimalMax = Math.Pow(10, significantDigits);
+
         var value = (double)Value;
         var factor = 0;
         for (var i = 1; i <= 5; i++) {
@@ -392,20 +395,27 @@ public sealed record TiniSizeValue : TiniValue {
             factor += 1;
         }
 
-        var decimalValue = value;
-        var decimalDigits = 0;
-        while (decimalValue >= 1) {
-            decimalValue /= 10;
-            decimalDigits += 1;
-        }
-        var decimalMultiplier = 1;
-        while (decimalDigits > significantDigits) {
-            decimalMultiplier *= 10;
-            decimalDigits -= 1;
+        var decimalDigits = 0;  // to figure where decimal point goes
+        if (factor > 0) {  // only decimal point when going into kilo or higher
+            while (value < scaledDecimalMin) {
+                value *= 10;
+                decimalDigits += 1;
+            }
         }
 
-        value = Math.Round(value / decimalMultiplier, significantDigits - decimalDigits, MidpointRounding.AwayFromZero) * decimalMultiplier;
-        return value.ToString(CultureInfo.InvariantCulture) + unitText[factor];
+        var decimalMultiplier = 0;  // to figure if there are more zeros
+        while (value >= scaledDecimalMax) {
+            value /= 10;
+            decimalMultiplier += 1;
+        }
+
+        var wholeValue = Math.Round(value, 0, MidpointRounding.AwayFromZero);
+        var wholeNumber = wholeValue.ToString(CultureInfo.InvariantCulture);
+        if (decimalDigits == 0) {
+            return wholeNumber + new string('0', decimalMultiplier) + unitText[factor];
+        } else {
+            return wholeNumber[0..(3 - decimalDigits)] + "." + wholeNumber[^decimalDigits..] + unitText[factor];
+        }
     }
 
     #endregion ToString

@@ -329,8 +329,8 @@ public class TiniSizeValueTests {
         Assert.Equal("1.12Ti", TiniSizeValue.Parse("1234567890123").ToScaledBinaryUnitString());
         Assert.Equal("11.2Ti", TiniSizeValue.Parse("12345678901234").ToScaledBinaryUnitString());
         Assert.Equal("112Ti", TiniSizeValue.Parse("123456789012345").ToScaledBinaryUnitString());
-        Assert.Equal("1.1Pi", TiniSizeValue.Parse("1234567890123456").ToScaledBinaryUnitString());
-        Assert.Equal("11Pi", TiniSizeValue.Parse("12345678901234567").ToScaledBinaryUnitString());
+        Assert.Equal("1.10Pi", TiniSizeValue.Parse("1234567890123456").ToScaledBinaryUnitString());
+        Assert.Equal("11.0Pi", TiniSizeValue.Parse("12345678901234567").ToScaledBinaryUnitString());
         Assert.Equal("110Pi", TiniSizeValue.Parse("123456789012345678").ToScaledBinaryUnitString());
         Assert.Equal("1100Pi", TiniSizeValue.Parse("1234567890123456789").ToScaledBinaryUnitString());
         Assert.Equal("11000Pi", TiniSizeValue.Parse("12345678901234567890").ToScaledBinaryUnitString());
