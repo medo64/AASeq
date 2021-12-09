@@ -288,52 +288,457 @@ public class TiniSizeValueTests {
     }
 
 
-    [Fact(DisplayName = "TiniSizeValue: ToScaledUnitString")]
-    public void ToScaledUnitString() {
-        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledUnitString());
-        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledUnitString());
-        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledUnitString());
-        Assert.Equal("1.23k", TiniSizeValue.Parse("1234").ToScaledUnitString());
-        Assert.Equal("12.3k", TiniSizeValue.Parse("12345").ToScaledUnitString());
-        Assert.Equal("123k", TiniSizeValue.Parse("123456").ToScaledUnitString());
-        Assert.Equal("1.23M", TiniSizeValue.Parse("1234567").ToScaledUnitString());
-        Assert.Equal("12.3M", TiniSizeValue.Parse("12345678").ToScaledUnitString());
-        Assert.Equal("123M", TiniSizeValue.Parse("123456789").ToScaledUnitString());
-        Assert.Equal("1.23G", TiniSizeValue.Parse("1234567890").ToScaledUnitString());
-        Assert.Equal("12.3G", TiniSizeValue.Parse("12345678901").ToScaledUnitString());
-        Assert.Equal("123G", TiniSizeValue.Parse("123456789012").ToScaledUnitString());
-        Assert.Equal("1.23T", TiniSizeValue.Parse("1234567890123").ToScaledUnitString());
-        Assert.Equal("12.3T", TiniSizeValue.Parse("12345678901234").ToScaledUnitString());
-        Assert.Equal("123T", TiniSizeValue.Parse("123456789012345").ToScaledUnitString());
-        Assert.Equal("1.23P", TiniSizeValue.Parse("1234567890123456").ToScaledUnitString());
-        Assert.Equal("12.3P", TiniSizeValue.Parse("12345678901234567").ToScaledUnitString());
-        Assert.Equal("123P", TiniSizeValue.Parse("123456789012345678").ToScaledUnitString());
-        Assert.Equal("1230P", TiniSizeValue.Parse("1234567890123456789").ToScaledUnitString());
-        Assert.Equal("12300P", TiniSizeValue.Parse("12345678901234567890").ToScaledUnitString());
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString")]
+    public void ToScaledSIString() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString());
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledSIString());
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledSIString());
+        Assert.Equal("1.23k", TiniSizeValue.Parse("1234").ToScaledSIString());
+        Assert.Equal("12.3k", TiniSizeValue.Parse("12345").ToScaledSIString());
+        Assert.Equal("123k", TiniSizeValue.Parse("123456").ToScaledSIString());
+        Assert.Equal("1.23M", TiniSizeValue.Parse("1234567").ToScaledSIString());
+        Assert.Equal("12.3M", TiniSizeValue.Parse("12345678").ToScaledSIString());
+        Assert.Equal("123M", TiniSizeValue.Parse("123456789").ToScaledSIString());
+        Assert.Equal("1.23G", TiniSizeValue.Parse("1234567890").ToScaledSIString());
+        Assert.Equal("12.3G", TiniSizeValue.Parse("12345678901").ToScaledSIString());
+        Assert.Equal("123G", TiniSizeValue.Parse("123456789012").ToScaledSIString());
+        Assert.Equal("1.23T", TiniSizeValue.Parse("1234567890123").ToScaledSIString());
+        Assert.Equal("12.3T", TiniSizeValue.Parse("12345678901234").ToScaledSIString());
+        Assert.Equal("123T", TiniSizeValue.Parse("123456789012345").ToScaledSIString());
+        Assert.Equal("1.23P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString());
+        Assert.Equal("12.3P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString());
+        Assert.Equal("123P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString());
+        Assert.Equal("1230P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString());
+        Assert.Equal("12300P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString());
     }
 
-    [Fact(DisplayName = "TiniSizeValue: ToScaledBinaryUnitString")]
-    public void ToScaledBinaryUnitString() {
-        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledBinaryUnitString());
-        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledBinaryUnitString());
-        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledBinaryUnitString());
-        Assert.Equal("1.21Ki", TiniSizeValue.Parse("1234").ToScaledBinaryUnitString());
-        Assert.Equal("12.1Ki", TiniSizeValue.Parse("12345").ToScaledBinaryUnitString());
-        Assert.Equal("121Ki", TiniSizeValue.Parse("123456").ToScaledBinaryUnitString());
-        Assert.Equal("1.18Mi", TiniSizeValue.Parse("1234567").ToScaledBinaryUnitString());
-        Assert.Equal("11.8Mi", TiniSizeValue.Parse("12345678").ToScaledBinaryUnitString());
-        Assert.Equal("118Mi", TiniSizeValue.Parse("123456789").ToScaledBinaryUnitString());
-        Assert.Equal("1.15Gi", TiniSizeValue.Parse("1234567890").ToScaledBinaryUnitString());
-        Assert.Equal("11.5Gi", TiniSizeValue.Parse("12345678901").ToScaledBinaryUnitString());
-        Assert.Equal("115Gi", TiniSizeValue.Parse("123456789012").ToScaledBinaryUnitString());
-        Assert.Equal("1.12Ti", TiniSizeValue.Parse("1234567890123").ToScaledBinaryUnitString());
-        Assert.Equal("11.2Ti", TiniSizeValue.Parse("12345678901234").ToScaledBinaryUnitString());
-        Assert.Equal("112Ti", TiniSizeValue.Parse("123456789012345").ToScaledBinaryUnitString());
-        Assert.Equal("1.10Pi", TiniSizeValue.Parse("1234567890123456").ToScaledBinaryUnitString());
-        Assert.Equal("11.0Pi", TiniSizeValue.Parse("12345678901234567").ToScaledBinaryUnitString());
-        Assert.Equal("110Pi", TiniSizeValue.Parse("123456789012345678").ToScaledBinaryUnitString());
-        Assert.Equal("1100Pi", TiniSizeValue.Parse("1234567890123456789").ToScaledBinaryUnitString());
-        Assert.Equal("11000Pi", TiniSizeValue.Parse("12345678901234567890").ToScaledBinaryUnitString());
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (1)")]
+    public void ToScaledSIString1() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString(1));
+        Assert.Equal("10", TiniSizeValue.Parse("12").ToScaledSIString(1));
+        Assert.Equal("100", TiniSizeValue.Parse("123").ToScaledSIString(1));
+        Assert.Equal("1k", TiniSizeValue.Parse("1234").ToScaledSIString(1));
+        Assert.Equal("10k", TiniSizeValue.Parse("12345").ToScaledSIString(1));
+        Assert.Equal("100k", TiniSizeValue.Parse("123456").ToScaledSIString(1));
+        Assert.Equal("1M", TiniSizeValue.Parse("1234567").ToScaledSIString(1));
+        Assert.Equal("10M", TiniSizeValue.Parse("12345678").ToScaledSIString(1));
+        Assert.Equal("100M", TiniSizeValue.Parse("123456789").ToScaledSIString(1));
+        Assert.Equal("1G", TiniSizeValue.Parse("1234567890").ToScaledSIString(1));
+        Assert.Equal("10G", TiniSizeValue.Parse("12345678901").ToScaledSIString(1));
+        Assert.Equal("100G", TiniSizeValue.Parse("123456789012").ToScaledSIString(1));
+        Assert.Equal("1T", TiniSizeValue.Parse("1234567890123").ToScaledSIString(1));
+        Assert.Equal("10T", TiniSizeValue.Parse("12345678901234").ToScaledSIString(1));
+        Assert.Equal("100T", TiniSizeValue.Parse("123456789012345").ToScaledSIString(1));
+        Assert.Equal("1P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString(1));
+        Assert.Equal("10P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString(1));
+        Assert.Equal("100P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString(1));
+        Assert.Equal("1000P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString(1));
+        Assert.Equal("10000P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString(1));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (3)")]
+    public void ToScaledSIString3() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString(3));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledSIString(3));
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledSIString(3));
+        Assert.Equal("1.23k", TiniSizeValue.Parse("1234").ToScaledSIString(3));
+        Assert.Equal("12.3k", TiniSizeValue.Parse("12345").ToScaledSIString(3));
+        Assert.Equal("123k", TiniSizeValue.Parse("123456").ToScaledSIString(3));
+        Assert.Equal("1.23M", TiniSizeValue.Parse("1234567").ToScaledSIString(3));
+        Assert.Equal("12.3M", TiniSizeValue.Parse("12345678").ToScaledSIString(3));
+        Assert.Equal("123M", TiniSizeValue.Parse("123456789").ToScaledSIString(3));
+        Assert.Equal("1.23G", TiniSizeValue.Parse("1234567890").ToScaledSIString(3));
+        Assert.Equal("12.3G", TiniSizeValue.Parse("12345678901").ToScaledSIString(3));
+        Assert.Equal("123G", TiniSizeValue.Parse("123456789012").ToScaledSIString(3));
+        Assert.Equal("1.23T", TiniSizeValue.Parse("1234567890123").ToScaledSIString(3));
+        Assert.Equal("12.3T", TiniSizeValue.Parse("12345678901234").ToScaledSIString(3));
+        Assert.Equal("123T", TiniSizeValue.Parse("123456789012345").ToScaledSIString(3));
+        Assert.Equal("1.23P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString(3));
+        Assert.Equal("12.3P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString(3));
+        Assert.Equal("123P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString(3));
+        Assert.Equal("1230P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString(3));
+        Assert.Equal("12300P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString(3));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (4)")]
+    public void ToScaledSIString4() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString(4));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledSIString(4));
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledSIString(4));
+        Assert.Equal("1.234k", TiniSizeValue.Parse("1234").ToScaledSIString(4));
+        Assert.Equal("12.35k", TiniSizeValue.Parse("12345").ToScaledSIString(4));
+        Assert.Equal("123.5k", TiniSizeValue.Parse("123456").ToScaledSIString(4));
+        Assert.Equal("1.235M", TiniSizeValue.Parse("1234567").ToScaledSIString(4));
+        Assert.Equal("12.35M", TiniSizeValue.Parse("12345678").ToScaledSIString(4));
+        Assert.Equal("123.5M", TiniSizeValue.Parse("123456789").ToScaledSIString(4));
+        Assert.Equal("1.235G", TiniSizeValue.Parse("1234567890").ToScaledSIString(4));
+        Assert.Equal("12.35G", TiniSizeValue.Parse("12345678901").ToScaledSIString(4));
+        Assert.Equal("123.5G", TiniSizeValue.Parse("123456789012").ToScaledSIString(4));
+        Assert.Equal("1.235T", TiniSizeValue.Parse("1234567890123").ToScaledSIString(4));
+        Assert.Equal("12.35T", TiniSizeValue.Parse("12345678901234").ToScaledSIString(4));
+        Assert.Equal("123.5T", TiniSizeValue.Parse("123456789012345").ToScaledSIString(4));
+        Assert.Equal("1.235P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString(4));
+        Assert.Equal("12.35P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString(4));
+        Assert.Equal("123.5P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString(4));
+        Assert.Equal("1235P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString(4));
+        Assert.Equal("12350P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString(4));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (5)")]
+    public void ToScaledSIString5() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString(5));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledSIString(5));
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledSIString(5));
+        Assert.Equal("1.234k", TiniSizeValue.Parse("1234").ToScaledSIString(5));
+        Assert.Equal("12.345k", TiniSizeValue.Parse("12345").ToScaledSIString(5));
+        Assert.Equal("123.46k", TiniSizeValue.Parse("123456").ToScaledSIString(5));
+        Assert.Equal("1.2346M", TiniSizeValue.Parse("1234567").ToScaledSIString(5));
+        Assert.Equal("12.346M", TiniSizeValue.Parse("12345678").ToScaledSIString(5));
+        Assert.Equal("123.46M", TiniSizeValue.Parse("123456789").ToScaledSIString(5));
+        Assert.Equal("1.2346G", TiniSizeValue.Parse("1234567890").ToScaledSIString(5));
+        Assert.Equal("12.346G", TiniSizeValue.Parse("12345678901").ToScaledSIString(5));
+        Assert.Equal("123.46G", TiniSizeValue.Parse("123456789012").ToScaledSIString(5));
+        Assert.Equal("1.2346T", TiniSizeValue.Parse("1234567890123").ToScaledSIString(5));
+        Assert.Equal("12.346T", TiniSizeValue.Parse("12345678901234").ToScaledSIString(5));
+        Assert.Equal("123.46T", TiniSizeValue.Parse("123456789012345").ToScaledSIString(5));
+        Assert.Equal("1.2346P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString(5));
+        Assert.Equal("12.346P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString(5));
+        Assert.Equal("123.46P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString(5));
+        Assert.Equal("1234.6P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString(5));
+        Assert.Equal("12346P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString(5));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (6)")]
+    public void ToScaledSIString6() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString(6));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledSIString(6));
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledSIString(6));
+        Assert.Equal("1.234k", TiniSizeValue.Parse("1234").ToScaledSIString(6));
+        Assert.Equal("12.345k", TiniSizeValue.Parse("12345").ToScaledSIString(6));
+        Assert.Equal("123.456k", TiniSizeValue.Parse("123456").ToScaledSIString(6));
+        Assert.Equal("1.23457M", TiniSizeValue.Parse("1234567").ToScaledSIString(6));
+        Assert.Equal("12.3457M", TiniSizeValue.Parse("12345678").ToScaledSIString(6));
+        Assert.Equal("123.457M", TiniSizeValue.Parse("123456789").ToScaledSIString(6));
+        Assert.Equal("1.23457G", TiniSizeValue.Parse("1234567890").ToScaledSIString(6));
+        Assert.Equal("12.3457G", TiniSizeValue.Parse("12345678901").ToScaledSIString(6));
+        Assert.Equal("123.457G", TiniSizeValue.Parse("123456789012").ToScaledSIString(6));
+        Assert.Equal("1.23457T", TiniSizeValue.Parse("1234567890123").ToScaledSIString(6));
+        Assert.Equal("12.3457T", TiniSizeValue.Parse("12345678901234").ToScaledSIString(6));
+        Assert.Equal("123.457T", TiniSizeValue.Parse("123456789012345").ToScaledSIString(6));
+        Assert.Equal("1.23457P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString(6));
+        Assert.Equal("12.3457P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString(6));
+        Assert.Equal("123.457P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString(6));
+        Assert.Equal("1234.57P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString(6));
+        Assert.Equal("12345.7P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString(6));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (7)")]
+    public void ToScaledSIString7() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString(7));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledSIString(7));
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledSIString(7));
+        Assert.Equal("1.234k", TiniSizeValue.Parse("1234").ToScaledSIString(7));
+        Assert.Equal("12.345k", TiniSizeValue.Parse("12345").ToScaledSIString(7));
+        Assert.Equal("123.456k", TiniSizeValue.Parse("123456").ToScaledSIString(7));
+        Assert.Equal("1.234567M", TiniSizeValue.Parse("1234567").ToScaledSIString(7));
+        Assert.Equal("12.34568M", TiniSizeValue.Parse("12345678").ToScaledSIString(7));
+        Assert.Equal("123.4568M", TiniSizeValue.Parse("123456789").ToScaledSIString(7));
+        Assert.Equal("1.234568G", TiniSizeValue.Parse("1234567890").ToScaledSIString(7));
+        Assert.Equal("12.34568G", TiniSizeValue.Parse("12345678901").ToScaledSIString(7));
+        Assert.Equal("123.4568G", TiniSizeValue.Parse("123456789012").ToScaledSIString(7));
+        Assert.Equal("1.234568T", TiniSizeValue.Parse("1234567890123").ToScaledSIString(7));
+        Assert.Equal("12.34568T", TiniSizeValue.Parse("12345678901234").ToScaledSIString(7));
+        Assert.Equal("123.4568T", TiniSizeValue.Parse("123456789012345").ToScaledSIString(7));
+        Assert.Equal("1.234568P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString(7));
+        Assert.Equal("12.34568P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString(7));
+        Assert.Equal("123.4568P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString(7));
+        Assert.Equal("1234.568P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString(7));
+        Assert.Equal("12345.68P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString(7));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (8)")]
+    public void ToScaledSIString8() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString(8));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledSIString(8));
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledSIString(8));
+        Assert.Equal("1.234k", TiniSizeValue.Parse("1234").ToScaledSIString(8));
+        Assert.Equal("12.345k", TiniSizeValue.Parse("12345").ToScaledSIString(8));
+        Assert.Equal("123.456k", TiniSizeValue.Parse("123456").ToScaledSIString(8));
+        Assert.Equal("1.234567M", TiniSizeValue.Parse("1234567").ToScaledSIString(8));
+        Assert.Equal("12.345678M", TiniSizeValue.Parse("12345678").ToScaledSIString(8));
+        Assert.Equal("123.45679M", TiniSizeValue.Parse("123456789").ToScaledSIString(8));
+        Assert.Equal("1.2345679G", TiniSizeValue.Parse("1234567890").ToScaledSIString(8));
+        Assert.Equal("12.345679G", TiniSizeValue.Parse("12345678901").ToScaledSIString(8));
+        Assert.Equal("123.45679G", TiniSizeValue.Parse("123456789012").ToScaledSIString(8));
+        Assert.Equal("1.2345679T", TiniSizeValue.Parse("1234567890123").ToScaledSIString(8));
+        Assert.Equal("12.345679T", TiniSizeValue.Parse("12345678901234").ToScaledSIString(8));
+        Assert.Equal("123.45679T", TiniSizeValue.Parse("123456789012345").ToScaledSIString(8));
+        Assert.Equal("1.2345679P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString(8));
+        Assert.Equal("12.345679P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString(8));
+        Assert.Equal("123.45679P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString(8));
+        Assert.Equal("1234.5679P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString(8));
+        Assert.Equal("12345.679P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString(8));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (9)")]
+    public void ToScaledSIString9() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString(9));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledSIString(9));
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledSIString(9));
+        Assert.Equal("1.234k", TiniSizeValue.Parse("1234").ToScaledSIString(9));
+        Assert.Equal("12.345k", TiniSizeValue.Parse("12345").ToScaledSIString(9));
+        Assert.Equal("123.456k", TiniSizeValue.Parse("123456").ToScaledSIString(9));
+        Assert.Equal("1.234567M", TiniSizeValue.Parse("1234567").ToScaledSIString(9));
+        Assert.Equal("12.345678M", TiniSizeValue.Parse("12345678").ToScaledSIString(9));
+        Assert.Equal("123.456789M", TiniSizeValue.Parse("123456789").ToScaledSIString(9));
+        Assert.Equal("1.23456789G", TiniSizeValue.Parse("1234567890").ToScaledSIString(9));
+        Assert.Equal("12.3456789G", TiniSizeValue.Parse("12345678901").ToScaledSIString(9));
+        Assert.Equal("123.456789G", TiniSizeValue.Parse("123456789012").ToScaledSIString(9));
+        Assert.Equal("1.23456789T", TiniSizeValue.Parse("1234567890123").ToScaledSIString(9));
+        Assert.Equal("12.3456789T", TiniSizeValue.Parse("12345678901234").ToScaledSIString(9));
+        Assert.Equal("123.456789T", TiniSizeValue.Parse("123456789012345").ToScaledSIString(9));
+        Assert.Equal("1.23456789P", TiniSizeValue.Parse("1234567890123456").ToScaledSIString(9));
+        Assert.Equal("12.3456789P", TiniSizeValue.Parse("12345678901234567").ToScaledSIString(9));
+        Assert.Equal("123.456789P", TiniSizeValue.Parse("123456789012345678").ToScaledSIString(9));
+        Assert.Equal("1234.56789P", TiniSizeValue.Parse("1234567890123456789").ToScaledSIString(9));
+        Assert.Equal("12345.6789P", TiniSizeValue.Parse("12345678901234567890").ToScaledSIString(9));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (10)")]
+    public void ToScaledSIString10() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledSIString());
+        Assert.Equal("10", TiniSizeValue.Parse("10").ToScaledSIString());
+        Assert.Equal("102", TiniSizeValue.Parse("102").ToScaledSIString());
+        Assert.Equal("1.02k", TiniSizeValue.Parse("1023").ToScaledSIString());
+        Assert.Equal("10.2k", TiniSizeValue.Parse("10234").ToScaledSIString());
+        Assert.Equal("102k", TiniSizeValue.Parse("102345").ToScaledSIString());
+        Assert.Equal("1.02M", TiniSizeValue.Parse("1023456").ToScaledSIString());
+        Assert.Equal("10.2M", TiniSizeValue.Parse("10234567").ToScaledSIString());
+        Assert.Equal("102M", TiniSizeValue.Parse("102345678").ToScaledSIString());
+        Assert.Equal("1.02G", TiniSizeValue.Parse("1023456789").ToScaledSIString());
+        Assert.Equal("10.2G", TiniSizeValue.Parse("10234567890").ToScaledSIString());
+        Assert.Equal("102G", TiniSizeValue.Parse("102345678901").ToScaledSIString());
+        Assert.Equal("1.02T", TiniSizeValue.Parse("1023456789012").ToScaledSIString());
+        Assert.Equal("10.2T", TiniSizeValue.Parse("10234567890123").ToScaledSIString());
+        Assert.Equal("102T", TiniSizeValue.Parse("102345678901234").ToScaledSIString());
+        Assert.Equal("1.02P", TiniSizeValue.Parse("1023456789012345").ToScaledSIString());
+        Assert.Equal("10.2P", TiniSizeValue.Parse("10234567890123456").ToScaledSIString());
+        Assert.Equal("102P", TiniSizeValue.Parse("102345678901234567").ToScaledSIString());
+        Assert.Equal("1020P", TiniSizeValue.Parse("1023456789012345678").ToScaledSIString());
+        Assert.Equal("10200P", TiniSizeValue.Parse("10234567890123456789").ToScaledSIString());
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (11)")]
+    public void ToScaledSIString11() {
+        Assert.Equal("3", TiniSizeValue.Parse("3").ToScaledSIString());
+        Assert.Equal("31", TiniSizeValue.Parse("31").ToScaledSIString());
+        Assert.Equal("314", TiniSizeValue.Parse("314").ToScaledSIString());
+        Assert.Equal("3.14k", TiniSizeValue.Parse("3141").ToScaledSIString());
+        Assert.Equal("31.4k", TiniSizeValue.Parse("31415").ToScaledSIString());
+        Assert.Equal("314k", TiniSizeValue.Parse("314159").ToScaledSIString());
+        Assert.Equal("3.14M", TiniSizeValue.Parse("3141592").ToScaledSIString());
+        Assert.Equal("31.4M", TiniSizeValue.Parse("31415926").ToScaledSIString());
+        Assert.Equal("314M", TiniSizeValue.Parse("314159265").ToScaledSIString());
+        Assert.Equal("3.14G", TiniSizeValue.Parse("3141592653").ToScaledSIString());
+        Assert.Equal("31.4G", TiniSizeValue.Parse("31415926535").ToScaledSIString());
+        Assert.Equal("314G", TiniSizeValue.Parse("314159265358").ToScaledSIString());
+        Assert.Equal("3.14T", TiniSizeValue.Parse("3141592653589").ToScaledSIString());
+        Assert.Equal("31.4T", TiniSizeValue.Parse("31415926535897").ToScaledSIString());
+        Assert.Equal("314T", TiniSizeValue.Parse("314159265358979").ToScaledSIString());
+        Assert.Equal("3.14P", TiniSizeValue.Parse("3141592653589793").ToScaledSIString());
+        Assert.Equal("31.4P", TiniSizeValue.Parse("31415926535897932").ToScaledSIString());
+        Assert.Equal("314P", TiniSizeValue.Parse("314159265358979323").ToScaledSIString());
+        Assert.Equal("3140P", TiniSizeValue.Parse("3141592653589793238").ToScaledSIString());
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledSIString (12)")]
+    public void ToScaledSIString12() {
+        Assert.Equal("2", TiniSizeValue.Parse("2").ToScaledSIString());
+        Assert.Equal("27", TiniSizeValue.Parse("27").ToScaledSIString());
+        Assert.Equal("271", TiniSizeValue.Parse("271").ToScaledSIString());
+        Assert.Equal("2.72k", TiniSizeValue.Parse("2718").ToScaledSIString());
+        Assert.Equal("27.2k", TiniSizeValue.Parse("27182").ToScaledSIString());
+        Assert.Equal("272k", TiniSizeValue.Parse("271828").ToScaledSIString());
+        Assert.Equal("2.72M", TiniSizeValue.Parse("2718281").ToScaledSIString());
+        Assert.Equal("27.2M", TiniSizeValue.Parse("27182818").ToScaledSIString());
+        Assert.Equal("272M", TiniSizeValue.Parse("271828182").ToScaledSIString());
+        Assert.Equal("2.72G", TiniSizeValue.Parse("2718281828").ToScaledSIString());
+        Assert.Equal("27.2G", TiniSizeValue.Parse("27182818284").ToScaledSIString());
+        Assert.Equal("272G", TiniSizeValue.Parse("271828182845").ToScaledSIString());
+        Assert.Equal("2.72T", TiniSizeValue.Parse("2718281828459").ToScaledSIString());
+        Assert.Equal("27.2T", TiniSizeValue.Parse("27182818284590").ToScaledSIString());
+        Assert.Equal("272T", TiniSizeValue.Parse("271828182845904").ToScaledSIString());
+        Assert.Equal("2.72P", TiniSizeValue.Parse("2718281828459045").ToScaledSIString());
+        Assert.Equal("27.2P", TiniSizeValue.Parse("27182818284590452").ToScaledSIString());
+        Assert.Equal("272P", TiniSizeValue.Parse ("271828182845904523").ToScaledSIString());
+        Assert.Equal("2720P", TiniSizeValue.Parse("2718281828459045235").ToScaledSIString());
+    }
+
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledBinaryString")]
+    public void ToScaledBinaryString() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledBinaryString());
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledBinaryString());
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledBinaryString());
+        Assert.Equal("1.21Ki", TiniSizeValue.Parse("1234").ToScaledBinaryString());
+        Assert.Equal("12.1Ki", TiniSizeValue.Parse("12345").ToScaledBinaryString());
+        Assert.Equal("121Ki", TiniSizeValue.Parse("123456").ToScaledBinaryString());
+        Assert.Equal("1.18Mi", TiniSizeValue.Parse("1234567").ToScaledBinaryString());
+        Assert.Equal("11.8Mi", TiniSizeValue.Parse("12345678").ToScaledBinaryString());
+        Assert.Equal("118Mi", TiniSizeValue.Parse("123456789").ToScaledBinaryString());
+        Assert.Equal("1.15Gi", TiniSizeValue.Parse("1234567890").ToScaledBinaryString());
+        Assert.Equal("11.5Gi", TiniSizeValue.Parse("12345678901").ToScaledBinaryString());
+        Assert.Equal("115Gi", TiniSizeValue.Parse("123456789012").ToScaledBinaryString());
+        Assert.Equal("1.12Ti", TiniSizeValue.Parse("1234567890123").ToScaledBinaryString());
+        Assert.Equal("11.2Ti", TiniSizeValue.Parse("12345678901234").ToScaledBinaryString());
+        Assert.Equal("112Ti", TiniSizeValue.Parse("123456789012345").ToScaledBinaryString());
+        Assert.Equal("1.10Pi", TiniSizeValue.Parse("1234567890123456").ToScaledBinaryString());
+        Assert.Equal("11.0Pi", TiniSizeValue.Parse("12345678901234567").ToScaledBinaryString());
+        Assert.Equal("110Pi", TiniSizeValue.Parse("123456789012345678").ToScaledBinaryString());
+        Assert.Equal("1100Pi", TiniSizeValue.Parse("1234567890123456789").ToScaledBinaryString());
+        Assert.Equal("11000Pi", TiniSizeValue.Parse("12345678901234567890").ToScaledBinaryString());
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledBinaryString (1)")]
+    public void ToScaledBinaryString1() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledBinaryString(1));
+        Assert.Equal("10", TiniSizeValue.Parse("12").ToScaledBinaryString(1));
+        Assert.Equal("100", TiniSizeValue.Parse("123").ToScaledBinaryString(1));
+        Assert.Equal("1Ki", TiniSizeValue.Parse("1234").ToScaledBinaryString(1));
+        Assert.Equal("10Ki", TiniSizeValue.Parse("12345").ToScaledBinaryString(1));
+        Assert.Equal("100Ki", TiniSizeValue.Parse("123456").ToScaledBinaryString(1));
+        Assert.Equal("1Mi", TiniSizeValue.Parse("1234567").ToScaledBinaryString(1));
+        Assert.Equal("10Mi", TiniSizeValue.Parse("12345678").ToScaledBinaryString(1));
+        Assert.Equal("100Mi", TiniSizeValue.Parse("123456789").ToScaledBinaryString(1));
+        Assert.Equal("1Gi", TiniSizeValue.Parse("1234567890").ToScaledBinaryString(1));
+        Assert.Equal("10Gi", TiniSizeValue.Parse("12345678901").ToScaledBinaryString(1));
+        Assert.Equal("100Gi", TiniSizeValue.Parse("123456789012").ToScaledBinaryString(1));
+        Assert.Equal("1Ti", TiniSizeValue.Parse("1234567890123").ToScaledBinaryString(1));
+        Assert.Equal("10Ti", TiniSizeValue.Parse("12345678901234").ToScaledBinaryString(1));
+        Assert.Equal("100Ti", TiniSizeValue.Parse("123456789012345").ToScaledBinaryString(1));
+        Assert.Equal("1Pi", TiniSizeValue.Parse("1234567890123456").ToScaledBinaryString(1));
+        Assert.Equal("10Pi", TiniSizeValue.Parse("12345678901234567").ToScaledBinaryString(1));
+        Assert.Equal("100Pi", TiniSizeValue.Parse("123456789012345678").ToScaledBinaryString(1));
+        Assert.Equal("1000Pi", TiniSizeValue.Parse("1234567890123456789").ToScaledBinaryString(1));
+        Assert.Equal("10000Pi", TiniSizeValue.Parse("12345678901234567890").ToScaledBinaryString(1));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledBinaryString (2)")]
+    public void ToScaledBinaryString2() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledBinaryString(2));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledBinaryString(2));
+        Assert.Equal("120", TiniSizeValue.Parse("123").ToScaledBinaryString(2));
+        Assert.Equal("1.2Ki", TiniSizeValue.Parse("1234").ToScaledBinaryString(2));
+        Assert.Equal("12Ki", TiniSizeValue.Parse("12345").ToScaledBinaryString(2));
+        Assert.Equal("120Ki", TiniSizeValue.Parse("123456").ToScaledBinaryString(2));
+        Assert.Equal("1.2Mi", TiniSizeValue.Parse("1234567").ToScaledBinaryString(2));
+        Assert.Equal("12Mi", TiniSizeValue.Parse("12345678").ToScaledBinaryString(2));
+        Assert.Equal("120Mi", TiniSizeValue.Parse("123456789").ToScaledBinaryString(2));
+        Assert.Equal("1.1Gi", TiniSizeValue.Parse("1234567890").ToScaledBinaryString(2));
+        Assert.Equal("11Gi", TiniSizeValue.Parse("12345678901").ToScaledBinaryString(2));
+        Assert.Equal("110Gi", TiniSizeValue.Parse("123456789012").ToScaledBinaryString(2));
+        Assert.Equal("1.1Ti", TiniSizeValue.Parse("1234567890123").ToScaledBinaryString(2));
+        Assert.Equal("11Ti", TiniSizeValue.Parse("12345678901234").ToScaledBinaryString(2));
+        Assert.Equal("110Ti", TiniSizeValue.Parse("123456789012345").ToScaledBinaryString(2));
+        Assert.Equal("1.1Pi", TiniSizeValue.Parse("1234567890123456").ToScaledBinaryString(2));
+        Assert.Equal("11Pi", TiniSizeValue.Parse("12345678901234567").ToScaledBinaryString(2));
+        Assert.Equal("110Pi", TiniSizeValue.Parse("123456789012345678").ToScaledBinaryString(2));
+        Assert.Equal("1100Pi", TiniSizeValue.Parse("1234567890123456789").ToScaledBinaryString(2));
+        Assert.Equal("11000Pi", TiniSizeValue.Parse("12345678901234567890").ToScaledBinaryString(2));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledBinaryString (3)")]
+    public void ToScaledBinaryString3() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledBinaryString(3));
+        Assert.Equal("12", TiniSizeValue.Parse("12").ToScaledBinaryString(3));
+        Assert.Equal("123", TiniSizeValue.Parse("123").ToScaledBinaryString(3));
+        Assert.Equal("1.21Ki", TiniSizeValue.Parse("1234").ToScaledBinaryString(3));
+        Assert.Equal("12.1Ki", TiniSizeValue.Parse("12345").ToScaledBinaryString(3));
+        Assert.Equal("121Ki", TiniSizeValue.Parse("123456").ToScaledBinaryString(3));
+        Assert.Equal("1.18Mi", TiniSizeValue.Parse("1234567").ToScaledBinaryString(3));
+        Assert.Equal("11.8Mi", TiniSizeValue.Parse("12345678").ToScaledBinaryString(3));
+        Assert.Equal("118Mi", TiniSizeValue.Parse("123456789").ToScaledBinaryString(3));
+        Assert.Equal("1.15Gi", TiniSizeValue.Parse("1234567890").ToScaledBinaryString(3));
+        Assert.Equal("11.5Gi", TiniSizeValue.Parse("12345678901").ToScaledBinaryString(3));
+        Assert.Equal("115Gi", TiniSizeValue.Parse("123456789012").ToScaledBinaryString(3));
+        Assert.Equal("1.12Ti", TiniSizeValue.Parse("1234567890123").ToScaledBinaryString(3));
+        Assert.Equal("11.2Ti", TiniSizeValue.Parse("12345678901234").ToScaledBinaryString(3));
+        Assert.Equal("112Ti", TiniSizeValue.Parse("123456789012345").ToScaledBinaryString(3));
+        Assert.Equal("1.10Pi", TiniSizeValue.Parse("1234567890123456").ToScaledBinaryString(3));
+        Assert.Equal("11.0Pi", TiniSizeValue.Parse("12345678901234567").ToScaledBinaryString(3));
+        Assert.Equal("110Pi", TiniSizeValue.Parse("123456789012345678").ToScaledBinaryString(3));
+        Assert.Equal("1100Pi", TiniSizeValue.Parse("1234567890123456789").ToScaledBinaryString(3));
+        Assert.Equal("11000Pi", TiniSizeValue.Parse("12345678901234567890").ToScaledBinaryString(3));
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledBinaryString (10)")]
+    public void ToScaledBinaryString10() {
+        Assert.Equal("1", TiniSizeValue.Parse("1").ToScaledBinaryString());
+        Assert.Equal("10", TiniSizeValue.Parse("10").ToScaledBinaryString());
+        Assert.Equal("102", TiniSizeValue.Parse("102").ToScaledBinaryString());
+        Assert.Equal("1020", TiniSizeValue.Parse("1023").ToScaledBinaryString());
+        Assert.Equal("9.99Ki", TiniSizeValue.Parse("10234").ToScaledBinaryString());
+        Assert.Equal("99.9Ki", TiniSizeValue.Parse("102345").ToScaledBinaryString());
+        Assert.Equal("999Ki", TiniSizeValue.Parse("1023456").ToScaledBinaryString());
+        Assert.Equal("9.76Mi", TiniSizeValue.Parse("10234567").ToScaledBinaryString());
+        Assert.Equal("97.6Mi", TiniSizeValue.Parse("102345678").ToScaledBinaryString());
+        Assert.Equal("976Mi", TiniSizeValue.Parse("1023456789").ToScaledBinaryString());
+        Assert.Equal("9.53Gi", TiniSizeValue.Parse("10234567890").ToScaledBinaryString());
+        Assert.Equal("95.3Gi", TiniSizeValue.Parse("102345678901").ToScaledBinaryString());
+        Assert.Equal("953Gi", TiniSizeValue.Parse("1023456789012").ToScaledBinaryString());
+        Assert.Equal("9.31Ti", TiniSizeValue.Parse("10234567890123").ToScaledBinaryString());
+        Assert.Equal("93.1Ti", TiniSizeValue.Parse("102345678901234").ToScaledBinaryString());
+        Assert.Equal("931Ti", TiniSizeValue.Parse("1023456789012345").ToScaledBinaryString());
+        Assert.Equal("9.09Pi", TiniSizeValue.Parse("10234567890123456").ToScaledBinaryString());
+        Assert.Equal("90.9Pi", TiniSizeValue.Parse("102345678901234567").ToScaledBinaryString());
+        Assert.Equal("909Pi", TiniSizeValue.Parse("1023456789012345678").ToScaledBinaryString());
+        Assert.Equal("9090Pi", TiniSizeValue.Parse("10234567890123456789").ToScaledBinaryString());
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledBinaryString (11)")]
+    public void ToScaledBinaryString11() {
+        Assert.Equal("3", TiniSizeValue.Parse("3").ToScaledBinaryString());
+        Assert.Equal("31", TiniSizeValue.Parse("31").ToScaledBinaryString());
+        Assert.Equal("314", TiniSizeValue.Parse("314").ToScaledBinaryString());
+        Assert.Equal("3.07Ki", TiniSizeValue.Parse("3141").ToScaledBinaryString());
+        Assert.Equal("30.7Ki", TiniSizeValue.Parse("31415").ToScaledBinaryString());
+        Assert.Equal("307Ki", TiniSizeValue.Parse("314159").ToScaledBinaryString());
+        Assert.Equal("3.00Mi", TiniSizeValue.Parse("3141592").ToScaledBinaryString());
+        Assert.Equal("30.0Mi", TiniSizeValue.Parse("31415926").ToScaledBinaryString());
+        Assert.Equal("300Mi", TiniSizeValue.Parse("314159265").ToScaledBinaryString());
+        Assert.Equal("2.93Gi", TiniSizeValue.Parse("3141592653").ToScaledBinaryString());
+        Assert.Equal("29.3Gi", TiniSizeValue.Parse("31415926535").ToScaledBinaryString());
+        Assert.Equal("293Gi", TiniSizeValue.Parse("314159265358").ToScaledBinaryString());
+        Assert.Equal("2.86Ti", TiniSizeValue.Parse("3141592653589").ToScaledBinaryString());
+        Assert.Equal("28.6Ti", TiniSizeValue.Parse("31415926535897").ToScaledBinaryString());
+        Assert.Equal("286Ti", TiniSizeValue.Parse("314159265358979").ToScaledBinaryString());
+        Assert.Equal("2.79Pi", TiniSizeValue.Parse("3141592653589793").ToScaledBinaryString());
+        Assert.Equal("27.9Pi", TiniSizeValue.Parse("31415926535897932").ToScaledBinaryString());
+        Assert.Equal("279Pi", TiniSizeValue.Parse("314159265358979323").ToScaledBinaryString());
+        Assert.Equal("2790Pi", TiniSizeValue.Parse("3141592653589793238").ToScaledBinaryString());
+    }
+
+    [Fact(DisplayName = "TiniSizeValue: ToScaledBinaryString (12)")]
+    public void ToScaledBinaryString12() {
+        Assert.Equal("2", TiniSizeValue.Parse("2").ToScaledBinaryString());
+        Assert.Equal("27", TiniSizeValue.Parse("27").ToScaledBinaryString());
+        Assert.Equal("271", TiniSizeValue.Parse("271").ToScaledBinaryString());
+        Assert.Equal("2.65Ki", TiniSizeValue.Parse("2718").ToScaledBinaryString());
+        Assert.Equal("26.5Ki", TiniSizeValue.Parse("27182").ToScaledBinaryString());
+        Assert.Equal("265Ki", TiniSizeValue.Parse("271828").ToScaledBinaryString());
+        Assert.Equal("2.59Mi", TiniSizeValue.Parse("2718281").ToScaledBinaryString());
+        Assert.Equal("25.9Mi", TiniSizeValue.Parse("27182818").ToScaledBinaryString());
+        Assert.Equal("259Mi", TiniSizeValue.Parse("271828182").ToScaledBinaryString());
+        Assert.Equal("2.53Gi", TiniSizeValue.Parse("2718281828").ToScaledBinaryString());
+        Assert.Equal("25.3Gi", TiniSizeValue.Parse("27182818284").ToScaledBinaryString());
+        Assert.Equal("253Gi", TiniSizeValue.Parse("271828182845").ToScaledBinaryString());
+        Assert.Equal("2.47Ti", TiniSizeValue.Parse("2718281828459").ToScaledBinaryString());
+        Assert.Equal("24.7Ti", TiniSizeValue.Parse("27182818284590").ToScaledBinaryString());
+        Assert.Equal("247Ti", TiniSizeValue.Parse("271828182845904").ToScaledBinaryString());
+        Assert.Equal("2.41Pi", TiniSizeValue.Parse("2718281828459045").ToScaledBinaryString());
+        Assert.Equal("24.1Pi", TiniSizeValue.Parse("27182818284590452").ToScaledBinaryString());
+        Assert.Equal("241Pi", TiniSizeValue.Parse("271828182845904523").ToScaledBinaryString());
+        Assert.Equal("2410Pi", TiniSizeValue.Parse("2718281828459045235").ToScaledBinaryString());
     }
 
 }

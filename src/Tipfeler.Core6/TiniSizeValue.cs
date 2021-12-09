@@ -352,34 +352,34 @@ public sealed record TiniSizeValue : TiniValue {
     /// <summary>
     /// Returns number scaled to a SI unit.
     /// </summary>
-    public string ToScaledUnitString() {
-        return ToScaledUnitString(3);
+    public string ToScaledSIString() {
+        return ToScaledSIString(3);
     }
 
     /// <summary>
     /// Returns number scaled to a SI unit and a defined number of significant digits.
     /// </summary>
     /// <param name="significantDigits">Number of significant digits.</param>
-    /// <exception cref="ArgumentOutOfRangeException">Significant digits are to be between 1 and 10.</exception>
-    public string ToScaledUnitString(int significantDigits) {
-        if (significantDigits is < 1 or > 10) { throw new ArgumentOutOfRangeException(nameof(significantDigits), "Significant digits are to be between 1 and 10."); }
+    /// <exception cref="ArgumentOutOfRangeException">Significant digits are to be between 1 and 9.</exception>
+    public string ToScaledSIString(int significantDigits) {
+        if (significantDigits is < 1 or > 9) { throw new ArgumentOutOfRangeException(nameof(significantDigits), "Significant digits are to be between 1 and 10."); }
         return ToScaledString(significantDigits, 1000, new string[] { "", "k", "M", "G", "T", "P" });
     }
 
     /// <summary>
     /// Returns number scaled to a binary unit.
     /// </summary>
-    public string ToScaledBinaryUnitString() {
-        return ToScaledBinaryUnitString(3);
+    public string ToScaledBinaryString() {
+        return ToScaledBinaryString(3);
     }
 
     /// <summary>
     /// Returns number scaled to a binary unit and a defined number of significant digits.
     /// </summary>
     /// <param name="significantDigits">Number of significant digits.</param>
-    /// <exception cref="ArgumentOutOfRangeException">Significant digits are to be between 1 and 10.</exception>
-    public string ToScaledBinaryUnitString(int significantDigits) {
-        if (significantDigits is < 1 or > 10) { throw new ArgumentOutOfRangeException(nameof(significantDigits), "Significant digits are to be between 1 and 10."); }
+    /// <exception cref="ArgumentOutOfRangeException">Significant digits are to be between 1 and 9.</exception>
+    public string ToScaledBinaryString(int significantDigits) {
+        if (significantDigits is < 1 or > 9) { throw new ArgumentOutOfRangeException(nameof(significantDigits), "Significant digits are to be between 1 and 10."); }
         return ToScaledString(significantDigits, 1024, new string[] { "", "Ki", "Mi", "Gi", "Ti", "Pi" });
     }
 
@@ -387,7 +387,9 @@ public sealed record TiniSizeValue : TiniValue {
         var scaledDecimalMin = Math.Pow(10, significantDigits - 1);
         var scaledDecimalMax = Math.Pow(10, significantDigits);
 
-        var value = (double)Value;
+        var initValue = (double)Value;
+
+        var value = initValue;
         var factor = 0;
         for (var i = 1; i <= 5; i++) {
             if (value <= (ulong)multiplier) { break; }
@@ -397,7 +399,7 @@ public sealed record TiniSizeValue : TiniValue {
 
         var decimalDigits = 0;  // to figure where decimal point goes
         if (factor > 0) {  // only decimal point when going into kilo or higher
-            while (value < scaledDecimalMin) {
+            while ((value < scaledDecimalMin) && (Math.Round(value, 1) < initValue)) {
                 value *= 10;
                 decimalDigits += 1;
             }
@@ -414,7 +416,7 @@ public sealed record TiniSizeValue : TiniValue {
         if (decimalDigits == 0) {
             return wholeNumber + new string('0', decimalMultiplier) + unitText[factor];
         } else {
-            return wholeNumber[0..(3 - decimalDigits)] + "." + wholeNumber[^decimalDigits..] + unitText[factor];
+            return wholeNumber[0..(wholeNumber.Length - decimalDigits)] + "." + wholeNumber[^decimalDigits..] + unitText[factor];
         }
     }
 
