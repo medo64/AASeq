@@ -442,7 +442,7 @@ public class TiniValueTests {
 
     [Fact(DisplayName = "TiniValue: AsBinaryObject")]
     public void AsBinaryObject() {
-        TiniValue x = new byte[] { };
+        TiniValue x = Array.Empty<byte>();
         Assert.Null(x.AsBooleanObject());
         Assert.Null(x.AsInt8Object());
         Assert.Null(x.AsInt16Object());
