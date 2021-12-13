@@ -158,6 +158,9 @@ public sealed record TiniIPv6AddressValue : TiniValue {
     protected override String? ConvertToString()
         => ToString();
 
+    protected override Byte[]? ConvertToBinary()
+        => Value.GetAddressBytes();
+
     protected override DateTimeOffset? ConvertToDateTime()
         => null;
 

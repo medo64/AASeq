@@ -159,6 +159,9 @@ public sealed record TiniDateValue : TiniValue {
     protected override String? ConvertToString()
         => ToString();
 
+    protected override Byte[]? ConvertToBinary()
+        => null;
+
     protected override DateTimeOffset? ConvertToDateTime()
         => new DateTimeOffset(Value.Year, Value.Month, Value.Day, 0, 0, 0, 0, new TimeSpan());
 

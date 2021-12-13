@@ -241,6 +241,25 @@ public abstract record TiniValue {
 
 
     /// <summary>
+    /// Returns value object if it's of a Binary type or null otherwise.
+    /// </summary>
+    public TiniBinaryValue? AsBinaryObject()
+        => this as TiniBinaryValue;
+
+    /// <summary>
+    /// Returns Binary value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public Byte[]? AsBinary()
+        => ConvertToBinary();
+
+    /// <summary>
+    /// Returns Size value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public Byte[] AsBinary(byte[] defaultValue)
+        => ConvertToBinary() ?? defaultValue;
+
+
+    /// <summary>
     /// Returns value object if it's of a DateTime type or null otherwise.
     /// </summary>
     public TiniDateTimeValue? AsDateTimeObject()
@@ -481,6 +500,16 @@ public abstract record TiniValue {
         => new TiniStringValue(value);
 
     /// <summary>
+    /// Implicit conversion into a Binary value object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator TiniValue(Byte[] value) {
+        var buffer = new Byte[value.Length];
+        Buffer.BlockCopy(value, 0, buffer, 0, buffer.Length);
+        return new TiniBinaryValue(buffer);
+    }
+
+    /// <summary>
     /// Implicit conversion into a DateTime value object.
     /// </summary>
     /// <param name="value">Value.</param>
@@ -581,6 +610,11 @@ public abstract record TiniValue {
     /// Returns Float64 value if object can be converted or null otherwise.
     /// </summary>
     protected abstract Double? ConvertToFloat64();
+
+    /// <summary>
+    /// Returns Binary value if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract Byte[]? ConvertToBinary();
 
     /// <summary>
     /// Returns String value if object can be converted or null otherwise.

@@ -166,6 +166,9 @@ public sealed record TiniBooleanValue : TiniValue {
     protected override String? ConvertToString()
         => ToString();
 
+    protected override Byte[]? ConvertToBinary()
+        => null;
+
     protected override DateTimeOffset? ConvertToDateTime()
         => null;
 

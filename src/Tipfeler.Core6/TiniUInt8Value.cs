@@ -151,6 +151,9 @@ public sealed record TiniUInt8Value : TiniValue {
     protected override String? ConvertToString()
         => ToString();
 
+    protected override Byte[]? ConvertToBinary()
+        => new byte[] { Value };
+
     protected override DateTimeOffset? ConvertToDateTime()
         => null;
 

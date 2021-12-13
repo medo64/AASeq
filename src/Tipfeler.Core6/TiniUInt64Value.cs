@@ -1,4 +1,5 @@
 using System;
+using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Net;
@@ -150,6 +151,12 @@ public sealed record TiniUInt64Value : TiniValue {
 
     protected override String? ConvertToString()
         => ToString();
+
+    protected override Byte[]? ConvertToBinary() {
+        var buffer = new byte[8];
+        BinaryPrimitives.WriteUInt64BigEndian(buffer, Value);
+        return buffer;
+    }
 
     protected override DateTimeOffset? ConvertToDateTime()
         => DateTimeOffset.UnixEpoch.AddSeconds(Value);

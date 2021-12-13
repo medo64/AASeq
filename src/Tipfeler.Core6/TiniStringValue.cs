@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
+using System.Text;
 
 namespace Tipfeler;
 
@@ -24,6 +25,7 @@ public sealed record TiniStringValue : TiniValue {
     /// <summary>
     /// Gets/sets value.
     /// </summary>
+    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
     public String Value {
         get => _value;
         set {
@@ -143,6 +145,10 @@ public sealed record TiniStringValue : TiniValue {
 
     protected override String? ConvertToString()
         => ToString();
+
+    private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+    protected override Byte[]? ConvertToBinary()
+        => Utf8.GetBytes(Value);
 
     protected override DateTimeOffset? ConvertToDateTime()
         => TiniDateTimeValue.TryParseValue(Value, out var result) ? result : null;

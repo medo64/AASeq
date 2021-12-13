@@ -236,6 +236,9 @@ public sealed record TiniDurationValue : TiniValue {
     protected override String? ConvertToString()
         => ToString();
 
+    protected override Byte[]? ConvertToBinary()
+        => null;
+
     protected override DateTimeOffset? ConvertToDateTime()
         => null;
 
