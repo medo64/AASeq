@@ -152,7 +152,7 @@ public sealed record TiniInt32Value : TiniValue {
     protected override String? ConvertToString()
         => ToString();
 
-    protected override Byte[]? ConvertToBinary() {
+    protected override ReadOnlyMemory<Byte>? ConvertToBinary() {
         var buffer = new byte[4];
         BinaryPrimitives.WriteInt32BigEndian(buffer, Value);
         return buffer;

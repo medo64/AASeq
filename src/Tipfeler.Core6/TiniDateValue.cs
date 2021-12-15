@@ -159,7 +159,7 @@ public sealed record TiniDateValue : TiniValue {
     protected override String? ConvertToString()
         => ToString();
 
-    protected override Byte[]? ConvertToBinary()
+    protected override ReadOnlyMemory<Byte>? ConvertToBinary()
         => null;
 
     protected override DateTimeOffset? ConvertToDateTime()

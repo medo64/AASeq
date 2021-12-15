@@ -147,7 +147,7 @@ public sealed record TiniStringValue : TiniValue {
         => ToString();
 
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
-    protected override Byte[]? ConvertToBinary()
+    protected override ReadOnlyMemory<Byte>? ConvertToBinary()
         => Utf8.GetBytes(Value);
 
     protected override DateTimeOffset? ConvertToDateTime()

@@ -170,7 +170,7 @@ public sealed record TiniDateTimeValue : TiniValue {
     protected override String? ConvertToString()
         => Value.ToString("yyyy-MM-dd'T'HH:mm:ssK", CultureInfo.InvariantCulture);
 
-    protected override Byte[]? ConvertToBinary()
+    protected override ReadOnlyMemory<Byte>? ConvertToBinary()
         => null;
 
     protected override DateTimeOffset? ConvertToDateTime()

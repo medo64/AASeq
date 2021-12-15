@@ -249,4 +249,12 @@ public class TiniBinaryValueTests {
         });
     }
 
+    [Fact(DisplayName = "TiniBooleanValue: ReadOnlyMemory")]
+    public void ReadOnlyMemory() {
+        var buffer = new byte[] { 0x01, 0x02 };
+        var x = new TiniBinaryValue(buffer);
+        buffer[1] = 0x2A;
+        Assert.Equal("0102", x.Value.ToHexString());
+    }
+
 }

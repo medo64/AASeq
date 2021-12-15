@@ -81,9 +81,15 @@ public class TiniValueTests {
         Assert.IsType<TiniStringValue>(x);
     }
 
-    [Fact(DisplayName = "TiniValue: Implicit Binary")]
-    public void ImplicitBinary() {
+    [Fact(DisplayName = "TiniValue: Implicit Binary (byte[])")]
+    public void ImplicitBinary1() {
         TiniValue x = new byte[] { 0x42 };
+        Assert.IsType<TiniBinaryValue>(x);
+    }
+
+    [Fact(DisplayName = "TiniValue: Implicit Binary (ReadOnlyMemory)")]
+    public void ImplicitBinary2() {
+        TiniValue x = new ReadOnlyMemory<Byte>( new byte[] { 0x42 });
         Assert.IsType<TiniBinaryValue>(x);
     }
 
@@ -772,7 +778,7 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("2A", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -798,7 +804,7 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("00-2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("002A", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -824,7 +830,7 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("00-00-00-2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("0000002A", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -850,7 +856,7 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("00-00-00-00-00-00-00-2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("00000000 0000002A", x.AsBinary().ToHexString());
         Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 000, new TimeSpan(00, 00, 00)), x.AsDateTime());
         Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
         Assert.Null(x.AsTime());
@@ -876,7 +882,7 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("2A", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -902,7 +908,7 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("00-2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("002A", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -928,7 +934,7 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("00-00-00-2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("0000002A", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -954,7 +960,7 @@ public class TiniValueTests {
         Assert.Equal(42.0f, x.AsFloat32());
         Assert.Equal(42.0, x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("00-00-00-00-00-00-00-2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("00000000 0000002A", x.AsBinary().ToHexString());
         Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 000, new TimeSpan(00, 00, 00)), x.AsDateTime());
         Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
         Assert.Null(x.AsTime());
@@ -980,7 +986,7 @@ public class TiniValueTests {
         Assert.Equal(42.2f, x.AsFloat32());
         Assert.Equal(42.2, x.AsFloat64(0), 5);
         Assert.Equal("42.2", x.AsString());
-        Assert.Equal("42-28-CC-CD", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("4228CCCD", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -1006,7 +1012,7 @@ public class TiniValueTests {
         Assert.Equal(42.2f, x.AsFloat32());
         Assert.Equal(42.2, x.AsFloat64());
         Assert.Equal("42.2", x.AsString());
-        Assert.Equal("40-45-19-99-99-99-99-9A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("40451999 9999999A", x.AsBinary().ToHexString());
         Assert.Equal(new DateTimeOffset(1970, 01, 01, 00, 00, 42, 200, new TimeSpan(00, 00, 00)), x.AsDateTime());
         Assert.Equal(new DateOnly(1970, 01, 01), x.AsDate());
         Assert.Null(x.AsTime());
@@ -1032,7 +1038,7 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32());
         Assert.Null(x.AsFloat64());
         Assert.Equal("ABC", x.AsString());
-        Assert.Equal("41-42-43", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("414243", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -1188,7 +1194,7 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32());
         Assert.Null(x.AsFloat64());
         Assert.Equal("ff08::152", x.AsString());
-        Assert.Equal("FF-08-00-00-00-00-00-00-00-00-00-00-00-00-01-52", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("FF080000 00000000 00000000 00000152", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -1214,7 +1220,7 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32());
         Assert.Null(x.AsFloat64());
         Assert.Equal("239.192.111.17", x.AsString());
-        Assert.Equal("EF-C0-6F-11", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("EFC06F11", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -1240,7 +1246,7 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32());
         Assert.Null(x.AsFloat64());
         Assert.Equal("ff08::152", x.AsString());
-        Assert.Equal("FF-08-00-00-00-00-00-00-00-00-00-00-00-00-01-52", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("FF080000 00000000 00000000 00000152", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -1266,7 +1272,7 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32());
         Assert.Null(x.AsFloat64());
         Assert.Equal("239.192.111.17", x.AsString());
-        Assert.Equal("EF-C0-6F-11", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("EFC06F11", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());
@@ -1292,7 +1298,7 @@ public class TiniValueTests {
         Assert.Null(x.AsFloat32());
         Assert.Null(x.AsFloat64());
         Assert.Equal("42", x.AsString());
-        Assert.Equal("00-00-00-00-00-00-00-2A", BitConverter.ToString(x.AsBinary()));
+        Assert.Equal("00000000 0000002A", x.AsBinary().ToHexString());
         Assert.Null(x.AsDateTime());
         Assert.Null(x.AsDate());
         Assert.Null(x.AsTime());

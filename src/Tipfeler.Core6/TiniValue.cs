@@ -249,13 +249,13 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns Binary value of an object if conversion is possible or null otherwise.
     /// </summary>
-    public Byte[]? AsBinary()
+    public ReadOnlyMemory<Byte>? AsBinary()
         => ConvertToBinary();
 
     /// <summary>
     /// Returns Size value of an object if conversion is possible or default value otherwise.
     /// </summary>
-    public Byte[] AsBinary(byte[] defaultValue)
+    public ReadOnlyMemory<Byte> AsBinary(ReadOnlyMemory<Byte> defaultValue)
         => ConvertToBinary() ?? defaultValue;
 
 
@@ -503,10 +503,16 @@ public abstract record TiniValue {
     /// Implicit conversion into a Binary value object.
     /// </summary>
     /// <param name="value">Value.</param>
+    public static implicit operator TiniValue(ReadOnlyMemory<Byte> value) {
+        return new TiniBinaryValue(value);
+    }
+
+    /// <summary>
+    /// Implicit conversion into a Binary value object.
+    /// </summary>
+    /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Byte[] value) {
-        var buffer = new Byte[value.Length];
-        Buffer.BlockCopy(value, 0, buffer, 0, buffer.Length);
-        return new TiniBinaryValue(buffer);
+        return new TiniBinaryValue(value);
     }
 
     /// <summary>
@@ -614,7 +620,7 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns Binary value if object can be converted or null otherwise.
     /// </summary>
-    protected abstract Byte[]? ConvertToBinary();
+    protected abstract ReadOnlyMemory<Byte>? ConvertToBinary();
 
     /// <summary>
     /// Returns String value if object can be converted or null otherwise.

@@ -78,7 +78,7 @@ public sealed record TiniNullValue : TiniValue {
     protected override UInt32? ConvertToUInt32() => null;
     protected override UInt64? ConvertToUInt64() => null;
     protected override String? ConvertToString() => null;
-    protected override Byte[]? ConvertToBinary() => null;
+    protected override ReadOnlyMemory<Byte>? ConvertToBinary() => null;
     protected override Single? ConvertToFloat32() => null;
     protected override Double? ConvertToFloat64() => null;
     protected override DateTimeOffset? ConvertToDateTime() => null;
