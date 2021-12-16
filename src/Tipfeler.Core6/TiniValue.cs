@@ -8,15 +8,15 @@ namespace Tipfeler;
 /// Base value class.
 /// </summary>
 [DebuggerDisplay("{AsString()}")]
-public abstract record TiniValue {
+public abstract class TiniValue {
 
     #region As
 
     /// <summary>
     /// Returns value object if it's of a Boolean type or null otherwise.
     /// </summary>
-    public TiniBooleanValue? AsBooleanObject()
-        => this as TiniBooleanValue;
+    public TiniValueBoolean? AsBooleanObject()
+        => this as TiniValueBoolean;
 
     /// <summary>
     /// Returns Boolean value of an object if conversion is possible or null otherwise.
@@ -34,8 +34,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Int8 type or null otherwise.
     /// </summary>
-    public TiniInt8Value? AsInt8Object()
-        => this as TiniInt8Value;
+    public TiniValueInt8? AsInt8Object()
+        => this as TiniValueInt8;
 
     /// <summary>
     /// Returns Int8 value of an object if conversion is possible or null otherwise.
@@ -53,8 +53,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Int16 type or null otherwise.
     /// </summary>
-    public TiniInt16Value? AsInt16Object()
-        => this as TiniInt16Value;
+    public TiniValueInt16? AsInt16Object()
+        => this as TiniValueInt16;
 
     /// <summary>
     /// Returns Int16 value of an object if conversion is possible or null otherwise.
@@ -72,8 +72,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Int32 type or null otherwise.
     /// </summary>
-    public TiniInt32Value? AsInt32Object()
-        => this as TiniInt32Value;
+    public TiniValueInt32? AsInt32Object()
+        => this as TiniValueInt32;
 
     /// <summary>
     /// Returns Int32 value of an object if conversion is possible or null otherwise.
@@ -91,8 +91,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Int64 type or null otherwise.
     /// </summary>
-    public TiniInt64Value? AsInt64Object()
-        => this as TiniInt64Value;
+    public TiniValueInt64? AsInt64Object()
+        => this as TiniValueInt64;
 
     /// <summary>
     /// Returns Int64 value of an object if conversion is possible or null otherwise.
@@ -110,8 +110,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a UInt8 type or null otherwise.
     /// </summary>
-    public TiniUInt8Value? AsUInt8Object()
-        => this as TiniUInt8Value;
+    public TiniValueUInt8? AsUInt8Object()
+        => this as TiniValueUInt8;
 
     /// <summary>
     /// Returns UInt8 value of an object if conversion is possible or null otherwise.
@@ -129,8 +129,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a UInt16 type or null otherwise.
     /// </summary>
-    public TiniUInt16Value? AsUInt16Object()
-        => this as TiniUInt16Value;
+    public TiniValueUInt16? AsUInt16Object()
+        => this as TiniValueUInt16;
 
     /// <summary>
     /// Returns UInt16 value of an object if conversion is possible or null otherwise.
@@ -148,8 +148,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a UInt32 type or null otherwise.
     /// </summary>
-    public TiniUInt32Value? AsUInt32Object()
-        => this as TiniUInt32Value;
+    public TiniValueUInt32? AsUInt32Object()
+        => this as TiniValueUInt32;
 
     /// <summary>
     /// Returns UInt32 value of an object if conversion is possible or null otherwise.
@@ -167,8 +167,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a UInt64 type or null otherwise.
     /// </summary>
-    public TiniUInt64Value? AsUInt64Object()
-        => this as TiniUInt64Value;
+    public TiniValueUInt64? AsUInt64Object()
+        => this as TiniValueUInt64;
 
     /// <summary>
     /// Returns UInt64 value of an object if conversion is possible or null otherwise.
@@ -186,8 +186,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Float32 type or null otherwise.
     /// </summary>
-    public TiniFloat32Value? AsFloat32Object()
-        => this as TiniFloat32Value;
+    public TiniValueFloat32? AsFloat32Object()
+        => this as TiniValueFloat32;
 
     /// <summary>
     /// Returns Float32 value of an object if conversion is possible or null otherwise.
@@ -205,8 +205,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Float64 type or null otherwise.
     /// </summary>
-    public TiniFloat64Value? AsFloat64Object()
-        => this as TiniFloat64Value;
+    public TiniValueFloat64? AsFloat64Object()
+        => this as TiniValueFloat64;
 
     /// <summary>
     /// Returns Float64 value of an object if conversion is possible or null otherwise.
@@ -224,8 +224,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a String type or null otherwise.
     /// </summary>
-    public TiniStringValue? AsStringObject()
-        => this as TiniStringValue;
+    public TiniValueString? AsStringObject()
+        => this as TiniValueString;
 
     /// <summary>
     /// Returns String value of an object if conversion is possible or null otherwise.
@@ -243,8 +243,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Binary type or null otherwise.
     /// </summary>
-    public TiniBinaryValue? AsBinaryObject()
-        => this as TiniBinaryValue;
+    public TiniValueBinary? AsBinaryObject()
+        => this as TiniValueBinary;
 
     /// <summary>
     /// Returns Binary value of an object if conversion is possible or null otherwise.
@@ -262,8 +262,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a DateTime type or null otherwise.
     /// </summary>
-    public TiniDateTimeValue? AsDateTimeObject()
-        => this as TiniDateTimeValue;
+    public TiniValueDateTime? AsDateTimeObject()
+        => this as TiniValueDateTime;
 
     /// <summary>
     /// Returns DateTime value of an object if conversion is possible or null otherwise.
@@ -281,8 +281,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Date type or null otherwise.
     /// </summary>
-    public TiniDateValue? AsDateObject()
-        => this as TiniDateValue;
+    public TiniValueDate? AsDateObject()
+        => this as TiniValueDate;
 
     /// <summary>
     /// Returns Date value of an object if conversion is possible or null otherwise.
@@ -300,8 +300,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Time type or null otherwise.
     /// </summary>
-    public TiniTimeValue? AsTimeObject()
-        => this as TiniTimeValue;
+    public TiniValueTime? AsTimeObject()
+        => this as TiniValueTime;
 
     /// <summary>
     /// Returns Time value of an object if conversion is possible or null otherwise.
@@ -319,8 +319,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Duration type or null otherwise.
     /// </summary>
-    public TiniDurationValue? AsDurationObject()
-        => this as TiniDurationValue;
+    public TiniValueDuration? AsDurationObject()
+        => this as TiniValueDuration;
 
     /// <summary>
     /// Returns Duration value of an object if conversion is possible or null otherwise.
@@ -338,8 +338,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a IPAddress type or null otherwise.
     /// </summary>
-    public TiniIPAddressValue? AsIPAddressObject()
-        => this as TiniIPAddressValue;
+    public TiniValueIPAddress? AsIPAddressObject()
+        => this as TiniValueIPAddress;
 
     /// <summary>
     /// Returns IPAddress value of an object if conversion is possible or null otherwise.
@@ -357,8 +357,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a IPv4Address type or null otherwise.
     /// </summary>
-    public TiniIPv4AddressValue? AsIPv4AddressObject()
-        => this as TiniIPv4AddressValue;
+    public TiniValueIPv4Address? AsIPv4AddressObject()
+        => this as TiniValueIPv4Address;
 
     /// <summary>
     /// Returns IPv4Address value of an object if conversion is possible or null otherwise.
@@ -376,8 +376,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a IPv6Address type or null otherwise.
     /// </summary>
-    public TiniIPv6AddressValue? AsIPv6AddressObject()
-        => this as TiniIPv6AddressValue;
+    public TiniValueIPv6Address? AsIPv6AddressObject()
+        => this as TiniValueIPv6Address;
 
     /// <summary>
     /// Returns IPv6Address value of an object if conversion is possible or null otherwise.
@@ -395,8 +395,8 @@ public abstract record TiniValue {
     /// <summary>
     /// Returns value object if it's of a Size type or null otherwise.
     /// </summary>
-    public TiniSizeValue? AsSizeObject()
-        => this as TiniSizeValue;
+    public TiniValueSize? AsSizeObject()
+        => this as TiniValueSize;
 
     /// <summary>
     /// Returns Size value of an object if conversion is possible or null otherwise.
@@ -420,91 +420,91 @@ public abstract record TiniValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Boolean value)
-        => new TiniBooleanValue(value);
+        => new TiniValueBoolean(value);
 
     /// <summary>
     /// Implicit conversion into a Int8 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(SByte value)
-        => new TiniInt8Value(value);
+        => new TiniValueInt8(value);
 
     /// <summary>
     /// Implicit conversion into a Int16 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Int16 value)
-        => new TiniInt16Value(value);
+        => new TiniValueInt16(value);
 
     /// <summary>
     /// Implicit conversion into a Int32 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Int32 value)
-        => new TiniInt32Value(value);
+        => new TiniValueInt32(value);
 
     /// <summary>
     /// Implicit conversion into a Int64 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Int64 value)
-        => new TiniInt64Value(value);
+        => new TiniValueInt64(value);
 
     /// <summary>
     /// Implicit conversion into a UInt8 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Byte value)
-        => new TiniUInt8Value(value);
+        => new TiniValueUInt8(value);
 
     /// <summary>
     /// Implicit conversion into a UInt16 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(UInt16 value)
-        => new TiniUInt16Value(value);
+        => new TiniValueUInt16(value);
 
     /// <summary>
     /// Implicit conversion into a UInt32 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(UInt32 value)
-        => new TiniUInt32Value(value);
+        => new TiniValueUInt32(value);
 
     /// <summary>
     /// Implicit conversion into a UInt64 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(UInt64 value)
-        => new TiniUInt64Value(value);
+        => new TiniValueUInt64(value);
 
     /// <summary>
     /// Implicit conversion into a Float32 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Single value)
-        => new TiniFloat32Value(value);
+        => new TiniValueFloat32(value);
 
     /// <summary>
     /// Implicit conversion into a Float64 value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Double value)
-        => new TiniFloat64Value(value);
+        => new TiniValueFloat64(value);
 
     /// <summary>
     /// Implicit conversion into a String value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(String value)
-        => new TiniStringValue(value);
+        => new TiniValueString(value);
 
     /// <summary>
     /// Implicit conversion into a Binary value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(ReadOnlyMemory<Byte> value) {
-        return new TiniBinaryValue(value);
+        return new TiniValueBinary(value);
     }
 
     /// <summary>
@@ -512,7 +512,7 @@ public abstract record TiniValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(Byte[] value) {
-        return new TiniBinaryValue(value);
+        return new TiniValueBinary(value);
     }
 
     /// <summary>
@@ -520,42 +520,42 @@ public abstract record TiniValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(DateTimeOffset value)
-        => new TiniDateTimeValue(value);
+        => new TiniValueDateTime(value);
 
     /// <summary>
     /// Implicit conversion into a DateTime value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(DateTime value)
-        => new TiniDateTimeValue(value);
+        => new TiniValueDateTime(value);
 
     /// <summary>
     /// Implicit conversion into a Date value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(DateOnly value)
-        => new TiniDateValue(value);
+        => new TiniValueDate(value);
 
     /// <summary>
     /// Implicit conversion into a Time value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(TimeOnly value)
-        => new TiniTimeValue(value);
+        => new TiniValueTime(value);
 
     /// <summary>
     /// Implicit conversion into a Duration value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(TimeSpan value)
-        => new TiniDurationValue(value);
+        => new TiniValueDuration(value);
 
     /// <summary>
     /// Implicit conversion into a IPAddress value object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator TiniValue(IPAddress value)
-        => new TiniIPAddressValue(value);
+        => new TiniValueIPAddress(value);
 
     #endregion Operators
 

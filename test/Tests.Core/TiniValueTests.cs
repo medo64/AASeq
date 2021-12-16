@@ -12,121 +12,121 @@ public class TiniValueTests {
     [Fact(DisplayName = "TiniValue: Implicit Boolean")]
     public void ImplicitBoolean() {
         TiniValue x = true;
-        Assert.IsType<TiniBooleanValue>(x);
+        Assert.IsType<TiniValueBoolean>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Int8")]
     public void ImplicitInt8() {
         TiniValue x = (sbyte)42;
-        Assert.IsType<TiniInt8Value>(x);
+        Assert.IsType<TiniValueInt8>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Int16")]
     public void ImplicitInt16() {
         TiniValue x = (short)42;
-        Assert.IsType<TiniInt16Value>(x);
+        Assert.IsType<TiniValueInt16>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Int32")]
     public void ImplicitInt32() {
         TiniValue x = 42;
-        Assert.IsType<TiniInt32Value>(x);
+        Assert.IsType<TiniValueInt32>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Int64")]
     public void ImplicitInt64() {
         TiniValue x = (long)42;
-        Assert.IsType<TiniInt64Value>(x);
+        Assert.IsType<TiniValueInt64>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit UInt8")]
     public void ImplicitUInt8() {
         TiniValue x = (byte)42;
-        Assert.IsType<TiniUInt8Value>(x);
+        Assert.IsType<TiniValueUInt8>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit UInt16")]
     public void ImplicitUInt16() {
         TiniValue x = (ushort)42;
-        Assert.IsType<TiniUInt16Value>(x);
+        Assert.IsType<TiniValueUInt16>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit UInt32")]
     public void ImplicitUInt32() {
         TiniValue x = (uint)42;
-        Assert.IsType<TiniUInt32Value>(x);
+        Assert.IsType<TiniValueUInt32>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit UInt64")]
     public void ImplicitUInt64() {
         TiniValue x = (ulong)42;
-        Assert.IsType<TiniUInt64Value>(x);
+        Assert.IsType<TiniValueUInt64>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Float32")]
     public void ImplicitFloat32() {
         TiniValue x = (float)42;
-        Assert.IsType<TiniFloat32Value>(x);
+        Assert.IsType<TiniValueFloat32>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Float64")]
     public void ImplicitFloat64() {
         TiniValue x = (double)42;
-        Assert.IsType<TiniFloat64Value>(x);
+        Assert.IsType<TiniValueFloat64>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit String")]
     public void ImplicitString() {
         TiniValue x = "A";
-        Assert.IsType<TiniStringValue>(x);
+        Assert.IsType<TiniValueString>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Binary (byte[])")]
     public void ImplicitBinary1() {
         TiniValue x = new byte[] { 0x42 };
-        Assert.IsType<TiniBinaryValue>(x);
+        Assert.IsType<TiniValueBinary>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Binary (ReadOnlyMemory)")]
     public void ImplicitBinary2() {
         TiniValue x = new ReadOnlyMemory<Byte>( new byte[] { 0x42 });
-        Assert.IsType<TiniBinaryValue>(x);
+        Assert.IsType<TiniValueBinary>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit DateTime")]
     public void ImplicitDateTime() {
         TiniValue x = new DateTimeOffset(1997, 4, 1, 23, 11, 54, 565, new TimeSpan(0, 0, 0));
-        Assert.IsType<TiniDateTimeValue>(x);
+        Assert.IsType<TiniValueDateTime>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit DateTime (2)")]
     public void ImplicitDateTime2() {
         TiniValue x = new DateTime(1997, 4, 1, 23, 11, 54, 565, DateTimeKind.Local);
-        Assert.IsType<TiniDateTimeValue>(x);
+        Assert.IsType<TiniValueDateTime>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Date")]
     public void ImplicitDate() {
         TiniValue x = new DateOnly(1997, 4, 1);
-        Assert.IsType<TiniDateValue>(x);
+        Assert.IsType<TiniValueDate>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Time")]
     public void ImplicitTime() {
         TiniValue x = new TimeOnly(23, 11, 54, 565);
-        Assert.IsType<TiniTimeValue>(x);
+        Assert.IsType<TiniValueTime>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit Duration")]
     public void ImplicitDuration() {
         TiniValue x = new TimeSpan(23, 11, 54, 565);
-        Assert.IsType<TiniDurationValue>(x);
+        Assert.IsType<TiniValueDuration>(x);
     }
 
     [Fact(DisplayName = "TiniValue: Implicit IPAddress")]
     public void ImplicitIPAddress() {
         TiniValue x = IPAddress.Parse("ff08::152");
-        Assert.IsType<TiniIPAddressValue>(x);
+        Assert.IsType<TiniValueIPAddress>(x);
     }
 
     #endregion Implicit
@@ -656,7 +656,7 @@ public class TiniValueTests {
 
     [Fact(DisplayName = "TiniValue: AsIPv6AddressObject")]
     public void AsIPv6AddressObject() {
-        TiniValue x = TiniIPv6AddressValue.Parse("ff04::152");
+        TiniValue x = TiniValueIPv6Address.Parse("ff04::152");
         Assert.Null(x.AsBooleanObject());
         Assert.Null(x.AsInt8Object());
         Assert.Null(x.AsInt16Object());
@@ -682,7 +682,7 @@ public class TiniValueTests {
 
     [Fact(DisplayName = "TiniValue: AsIPv4AddressObject")]
     public void AsIPv4AddressObject() {
-        TiniValue x = TiniIPv4AddressValue.Parse("239.192.111.17");
+        TiniValue x = TiniValueIPv4Address.Parse("239.192.111.17");
         Assert.Null(x.AsBooleanObject());
         Assert.Null(x.AsInt8Object());
         Assert.Null(x.AsInt16Object());
@@ -708,7 +708,7 @@ public class TiniValueTests {
 
     [Fact(DisplayName = "TiniValue: AsSizeObject")]
     public void AsSizeObject() {
-        TiniValue x = new TiniSizeValue(42);
+        TiniValue x = new TiniValueSize(42);
         Assert.Null(x.AsBooleanObject());
         Assert.Null(x.AsInt8Object());
         Assert.Null(x.AsInt16Object());
@@ -1233,7 +1233,7 @@ public class TiniValueTests {
 
     [Fact(DisplayName = "TiniValue: AsIPv6Address")]
     public void AsIPv6Address() {
-        TiniValue x = TiniIPv6AddressValue.Parse("ff08::152");
+        TiniValue x = TiniValueIPv6Address.Parse("ff08::152");
         Assert.Null(x.AsBoolean());
         Assert.Null(x.AsInt8());
         Assert.Null(x.AsInt16());
@@ -1259,7 +1259,7 @@ public class TiniValueTests {
 
     [Fact(DisplayName = "TiniValue: AsIPv4Address")]
     public void AsIPv4Address() {
-        TiniValue x = TiniIPv4AddressValue.Parse("239.192.111.17");
+        TiniValue x = TiniValueIPv4Address.Parse("239.192.111.17");
         Assert.Null(x.AsBoolean());
         Assert.Null(x.AsInt8());
         Assert.Null(x.AsInt16());
@@ -1285,7 +1285,7 @@ public class TiniValueTests {
 
     [Fact(DisplayName = "TiniValue: AsSize")]
     public void AsSize() {
-        TiniValue x = new TiniSizeValue(42);
+        TiniValue x = new TiniValueSize(42);
         Assert.True(x.AsBoolean());
         Assert.Equal((sbyte)42, x.AsInt8());
         Assert.Equal((short)42, x.AsInt16());
