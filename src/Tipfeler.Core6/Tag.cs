@@ -8,7 +8,7 @@ namespace Tipfeler {
     /// Tag.
     /// </summary>
     [DebuggerDisplay("{Name} = {State}")]
-    public sealed class TiniTag {
+    public sealed class Tag {
 
         /// <summary>
         /// Create a new instance.
@@ -17,7 +17,7 @@ namespace Tipfeler {
         /// <param name="state">State.</param>
         /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-        public TiniTag(string name, bool state) {
+        public Tag(string name, bool state) {
             if (name == null) { throw new ArgumentNullException(nameof(name), "Name cannot be null."); }
             if (!IsNameValid(name)) { throw new ArgumentOutOfRangeException(nameof(name), "Name contains invalid characters."); }
             Name = name;
@@ -30,7 +30,7 @@ namespace Tipfeler {
         /// <param name="name">Name.</param>
         /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
         /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-        public TiniTag(string name)
+        public Tag(string name)
             : this(name, true) {
         }
 
@@ -80,7 +80,7 @@ namespace Tipfeler {
         /// </summary>
         /// <param name="obj">The object to compare with the current object.</param>
         public override bool Equals(object? obj) {
-            return (obj is TiniTag other) && IsSameName(other.Name) && (State == other.State);
+            return (obj is Tag other) && IsSameName(other.Name) && (State == other.State);
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace Tipfeler {
         }
 
         private static readonly Regex NameRegex = new(@"^@?\p{L}[\p{L}\p{Nd}]*$");  // allowed only letters and numbers; can start with at sign (@)
-        private static readonly StringComparer NameComparer = StringComparer.OrdinalIgnoreCase;
+        internal static readonly StringComparer NameComparer = StringComparer.OrdinalIgnoreCase;
 
     }
 }
