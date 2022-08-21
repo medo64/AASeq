@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Tipfeler.Core6\Tipfeler.Core6.csproj" />
+    <ProjectReference Include="..\..\src\AASeq.Core6\AASeq.Core6.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,7 +1,7 @@
 using System;
 using System.Globalization;
 using System.Net;
-using Tipfeler;
+using AASeq;
 using Xunit;
 
 namespace Tests.Core;

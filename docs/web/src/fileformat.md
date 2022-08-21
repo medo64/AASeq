@@ -3,7 +3,7 @@
 File format is UTF-8 encoded text consisting of multiple sections, each with
 field definitions inside.
 
-Suggested extension is `.tipfeler`.
+Suggested extension is `.aaseq`.
 
 
 # Comments
@@ -16,7 +16,7 @@ All empty lines are ignored if they are not part of field value.
 
 It is suggested that each file starts with shebang interpreter directive, e.g.:
 
-    #!/usr/bin/env tipfeler
+    #!/usr/bin/env aaseq
 
 
 # Sections

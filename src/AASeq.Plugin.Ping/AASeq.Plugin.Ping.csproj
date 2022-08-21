@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>AASeq.Plugin.Ping</AssemblyName>
+        <RootNamespace>AASeq.Plugin.Ping</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <Nullable>disable</Nullable>
+        <NoWarn>CA1303</NoWarn>
+        <WarningsAsErrors>CS8625</WarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Product>AASeq</Product>
+        <Description>Ping protocol.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AASeq.Core\AASeq.Core.csproj" />
+        <ProjectReference Include="..\AASeq.Plugin\AASeq.Plugin.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
+            <Link>Properties\CodeAnalysisDictionary.xml</Link>
+        </CodeAnalysisDictionary>
+    </ItemGroup>
+
+</Project>

@@ -1,4 +1,4 @@
-using Tipfeler;
+using AASeq;
 using Xunit;
 
 namespace Tests.Core;

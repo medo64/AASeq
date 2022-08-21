@@ -88,14 +88,14 @@ function dist() {
 function debug() {
     mkdir -p "$BASE_DIRECTORY/bin/"
     mkdir -p "$BASE_DIRECTORY/build/debug/"
-    dotnet build "$BASE_DIRECTORY/src/Tipfeler.sln" \
+    dotnet build "$BASE_DIRECTORY/src/AASeq.sln" \
                  --configuration "Debug" \
                  --output "$BASE_DIRECTORY/build/debug/" \
                  --verbosity "minimal" \
                  || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "Tipfeler*.exe" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "Tipfeler*.dll" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "Tipfeler*.pdb" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/debug/" -name "AASeq*.exe" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/debug/" -name "AASeq*.dll" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/debug/" -name "AASeq*.pdb" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
     echo "${ANSI_CYAN}Output in 'bin/'${ANSI_RESET}"
 }
 
@@ -105,21 +105,21 @@ function release() {
     fi
     mkdir -p "$BASE_DIRECTORY/bin/"
     mkdir -p "$BASE_DIRECTORY/build/release/"
-    dotnet build "$BASE_DIRECTORY/src/Tipfeler.sln" \
+    dotnet build "$BASE_DIRECTORY/src/AASeq.sln" \
                  --configuration "Release" \
                  --output "$BASE_DIRECTORY/build/release/" \
                  --verbosity "minimal" \
                  || return 1
-    find "$BASE_DIRECTORY/build/release/" -name "Tipfeler*.exe" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/release/" -name "Tipfeler*.dll" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/release/" -name "Tipfeler*.pdb" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/release/" -name "AASeq*.exe" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/release/" -name "AASeq*.dll" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
+    find "$BASE_DIRECTORY/build/release/" -name "AASeq*.pdb" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
     echo "${ANSI_CYAN}Output in 'bin/'${ANSI_RESET}"
 }
 
 function test() {
     mkdir -p "$BASE_DIRECTORY/build/test/"
     echo ".NET `dotnet --version`"
-    dotnet test "$BASE_DIRECTORY/src/Tipfeler.sln" \
+    dotnet test "$BASE_DIRECTORY/src/AASeq.sln" \
                 --configuration "Debug" \
                 --output "$BASE_DIRECTORY/build/test/" \
                 --verbosity "minimal" \
@@ -131,8 +131,8 @@ function web() {
 }
 
 
-PACKAGE_ID=`cat "$BASE_DIRECTORY/src/Tipfeler/Tipfeler.csproj" | grep "<PackageId>" | sed 's^</\?PackageId>^^g' | xargs`
-PACKAGE_VERSION=`cat "$BASE_DIRECTORY/src/Tipfeler/Tipfeler.csproj" | grep "<Version>" | sed 's^</\?Version>^^g' | xargs`
+PACKAGE_ID=`cat "$BASE_DIRECTORY/src/AASeq/AASeq.csproj" | grep "<PackageId>" | sed 's^</\?PackageId>^^g' | xargs`
+PACKAGE_VERSION=`cat "$BASE_DIRECTORY/src/AASeq/AASeq.csproj" | grep "<Version>" | sed 's^</\?Version>^^g' | xargs`
 
 while [ $# -gt 0 ]; do
     OPERATION="$1"

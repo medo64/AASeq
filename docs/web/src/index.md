@@ -1,3 +1,3 @@
-# Welcome to Tipfeler
+# Welcome to AASeq
 
-Tipfeler is a multi-protocol simulator intended for functional testing.
+AASeq is a multi-protocol simulator intended for functional testing.

@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Library</OutputType>
+        <TargetFramework>net5.0</TargetFramework>
+        <AssemblyName>AASeq.Plugin</AssemblyName>
+        <RootNamespace>AASeq</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <LangVersion>latest</LangVersion>
+        <Nullable>disable</Nullable>
+        <NoWarn>CA1303</NoWarn>
+        <WarningsAsErrors>CS8625</WarningsAsErrors>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <Product>AASeq</Product>
+        <Description>Plugin base library.</Description>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\AASeq.Core\AASeq.Core.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <CodeAnalysisDictionary Include="..\CodeAnalysisDictionary.xml">
+            <Link>Properties\CodeAnalysisDictionary.xml</Link>
+        </CodeAnalysisDictionary>
+    </ItemGroup>
+
+</Project>

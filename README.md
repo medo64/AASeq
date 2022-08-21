@@ -1,4 +1,4 @@
-Tipfeler
-========
+AASeq (Automated Action Sequence)
+=================================
 
-Tipfeler is a protocol simulator intended mostly for functional testing.
+AASeq is a protocol simulator intended mostly for functional testing.
