@@ -13,6 +13,8 @@ public class AASizeValue_Tests {
         Assert.IsTrue(AASizeValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AASizeValue.Parse(text));
+        Assert.AreEqual(result, AASizeValue.Parse(text));
+        Assert.AreEqual(result, UInt64.Parse(text));
     }
 
     [TestMethod]
@@ -571,7 +573,7 @@ public class AASizeValue_Tests {
         Assert.AreEqual("272T", AASizeValue.Parse("271828182845904").ToScaledSIString());
         Assert.AreEqual("2.72P", AASizeValue.Parse("2718281828459045").ToScaledSIString());
         Assert.AreEqual("27.2P", AASizeValue.Parse("27182818284590452").ToScaledSIString());
-        Assert.AreEqual("272P", AASizeValue.Parse ("271828182845904523").ToScaledSIString());
+        Assert.AreEqual("272P", AASizeValue.Parse("271828182845904523").ToScaledSIString());
         Assert.AreEqual("2720P", AASizeValue.Parse("2718281828459045235").ToScaledSIString());
     }
 

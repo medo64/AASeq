@@ -13,6 +13,8 @@ public class AAUInt8Value_Tests {
         Assert.IsTrue(AAUInt8Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAUInt8Value.Parse(text));
+        Assert.AreEqual(result, AAUInt8Value.Parse(text));
+        Assert.AreEqual(result, Byte.Parse(text));
     }
 
     [TestMethod]

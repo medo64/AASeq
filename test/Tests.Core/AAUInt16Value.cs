@@ -13,6 +13,8 @@ public class AAUInt16Value_Tests {
         Assert.IsTrue(AAUInt16Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAUInt16Value.Parse(text));
+        Assert.AreEqual(result, AAUInt16Value.Parse(text));
+        Assert.AreEqual(result, UInt16.Parse(text));
     }
 
     [TestMethod]

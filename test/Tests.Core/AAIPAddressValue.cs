@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using AASeq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,6 +14,8 @@ public class AAIPAddressValue_Tests {
         Assert.IsTrue(AAIPAddressValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAIPAddressValue.Parse(text));
+        Assert.AreEqual(result, AAIPAddressValue.Parse(text));
+        Assert.AreEqual(result, IPAddress.Parse(text));
     }
 
     [TestMethod]
@@ -21,6 +24,8 @@ public class AAIPAddressValue_Tests {
         Assert.IsTrue(AAIPAddressValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAIPAddressValue.Parse(text));
+        Assert.AreEqual(AAIPAddressValue.Parse(text), result);
+        Assert.AreEqual(IPAddress.Parse(text), result);
     }
 
     [TestMethod]

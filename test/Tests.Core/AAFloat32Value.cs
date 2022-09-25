@@ -13,6 +13,8 @@ public class AAFloat32Value_Tests {
         Assert.IsTrue(AAFloat32Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAFloat32Value.Parse(text));
+        Assert.AreEqual(result, AAFloat32Value.Parse(text));
+        Assert.AreEqual(result, Single.Parse(text));
     }
 
     [TestMethod]

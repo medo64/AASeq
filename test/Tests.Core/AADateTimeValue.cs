@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using AASeq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,6 +14,9 @@ public class AADateTimeValue_Tests {
         Assert.IsTrue(AADateTimeValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AADateTimeValue.Parse(text));
+        Assert.AreEqual(result, AADateTimeValue.Parse(text));
+        Assert.AreEqual(result, DateTimeOffset.Parse(text));
+        Assert.AreEqual(result, DateTime.Parse(text));
     }
 
     [TestMethod]

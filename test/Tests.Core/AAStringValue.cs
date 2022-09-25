@@ -10,6 +10,16 @@ namespace Tests.Core;
 public class AAStringValue_Tests {
 
     [TestMethod]
+    public void AAStringValue_Basic() {
+        var text = "HG2G";
+        Assert.IsTrue(AAStringValue.TryParse(text, out var result));
+        Assert.AreEqual(text, result.ToString());
+        Assert.AreEqual(text, AAStringValue.Parse(text));
+        Assert.AreEqual(result, AAStringValue.Parse(text));
+        Assert.AreEqual(result, text);
+    }
+
+    [TestMethod]
     public void AAStringValue_FailedParse() {
         Assert.IsFalse(AAStringValue.TryParse(null, out var _));
         Assert.ThrowsException<FormatException>(() => {

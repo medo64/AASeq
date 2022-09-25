@@ -13,6 +13,8 @@ public class AABooleanValue_Tests {
         Assert.IsTrue(AABooleanValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AABooleanValue.Parse(text));
+        Assert.AreEqual(result, AABooleanValue.Parse(text));
+        Assert.AreEqual(result, Boolean.Parse(text));
     }
 
     [TestMethod]

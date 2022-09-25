@@ -13,6 +13,8 @@ public class AAInt32Value_Tests {
         Assert.IsTrue(AAInt32Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAInt32Value.Parse(text));
+        Assert.AreEqual(result, AAInt32Value.Parse(text));
+        Assert.AreEqual(result, Int32.Parse(text));
     }
 
     [TestMethod]

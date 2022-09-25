@@ -9,10 +9,12 @@ public class AABinaryValue_Tests {
 
     [TestMethod]
     public void AABinaryValue_Basic() {
-        var text = "0xFEFE";
+        var text = "0xFEFF";
         Assert.IsTrue(AABinaryValue.TryParse(text, out var result));
-        Assert.AreEqual("FE-FE", BitConverter.ToString(result));
-        Assert.AreEqual("0xFEFE", AABinaryValue.Parse(text));
+        Assert.AreEqual("FE-FF", BitConverter.ToString(result));
+        Assert.AreEqual("0xFEFF", AABinaryValue.Parse(text));
+        Assert.AreEqual(result, AABinaryValue.Parse(text));
+        Assert.IsTrue(result.Equals(new byte[] { 0xFE, 0xFF }));
     }
 
     [TestMethod]

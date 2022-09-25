@@ -13,6 +13,8 @@ public class AAUInt64Value_Tests {
         Assert.IsTrue(AAUInt64Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAUInt64Value.Parse(text));
+        Assert.AreEqual(result, AAUInt64Value.Parse(text));
+        Assert.AreEqual(result, UInt64.Parse(text));
     }
 
     [TestMethod]

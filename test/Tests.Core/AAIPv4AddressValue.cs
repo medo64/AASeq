@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using AASeq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,6 +14,8 @@ public class AAIPv4AddressValue_Tests {
         Assert.IsTrue(AAIPv4AddressValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAIPv4AddressValue.Parse(text));
+        Assert.AreEqual(result, AAIPv4AddressValue.Parse(text));
+        Assert.AreEqual(result, IPAddress.Parse(text));
     }
 
     [TestMethod]

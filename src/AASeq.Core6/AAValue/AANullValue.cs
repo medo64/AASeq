@@ -54,6 +54,32 @@ public sealed class AANullValue : AAValue {
     #endregion ToString
 
 
+    #region Overrides
+
+    /// <summary>
+    /// Determines whether the specified object is equal to the current object.
+    /// </summary>
+    /// <param name="obj">The object to compare with the current object.</param>
+    public override bool Equals(object? obj) {
+        if (obj is AANullValue) {
+            return true;
+        } else if (obj is null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns a hash code for the current object.
+    /// </summary>
+    public override int GetHashCode() {
+        return string.Empty.GetHashCode();  // the same hash code for all
+    }
+
+    #endregion
+
+
     #region Operators
 
     /// <summary>

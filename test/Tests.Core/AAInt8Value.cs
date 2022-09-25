@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using AASeq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -13,6 +14,8 @@ public class AAInt8Value_Tests {
         Assert.IsTrue(AAInt8Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAInt8Value.Parse(text));
+        Assert.AreEqual(result, AAInt8Value.Parse(text));
+        Assert.AreEqual(result, SByte.Parse(text));
     }
 
     [TestMethod]

@@ -1,5 +1,6 @@
 using AASeq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Tests.Core;
 
@@ -12,6 +13,8 @@ public class AADurationValue_Tests {
         Assert.IsTrue(AADurationValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AADurationValue.Parse(text));
+        Assert.AreEqual(result, AADurationValue.Parse(text));
+        Assert.AreEqual(result, TimeSpan.Parse(text));
     }
 
     [TestMethod]

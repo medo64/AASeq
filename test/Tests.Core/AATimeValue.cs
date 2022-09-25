@@ -13,6 +13,8 @@ public class AATimeValue_Tests {
         Assert.IsTrue(AATimeValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AATimeValue.Parse(text));
+        Assert.AreEqual(result, AATimeValue.Parse(text));
+        Assert.AreEqual(result, TimeOnly.Parse(text));
     }
 
     [TestMethod]

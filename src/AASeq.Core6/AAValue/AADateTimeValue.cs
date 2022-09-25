@@ -108,6 +108,34 @@ public sealed class AADateTimeValue : AAValue {
     #endregion ToString
 
 
+    #region Overrides
+
+    /// <summary>
+    /// Determines whether the specified object is equal to the current object.
+    /// </summary>
+    /// <param name="obj">The object to compare with the current object.</param>
+    public override bool Equals(object? obj) {
+        if (obj is AADateTimeValue otherValue) {
+            return Value.Equals(otherValue.Value);
+        } else if (obj is DateTimeOffset objValue) {
+            return Value.Equals(objValue);
+        } else if (obj is DateTime objDateValue) {
+            return Value.Equals(new DateTimeOffset(objDateValue));
+        } else {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns a hash code for the current object.
+    /// </summary>
+    public override int GetHashCode() {
+        return Value.GetHashCode();
+    }
+
+    #endregion
+
+
     #region Operators
 
     /// <summary>

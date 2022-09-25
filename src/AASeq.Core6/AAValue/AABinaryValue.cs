@@ -118,6 +118,34 @@ public sealed class AABinaryValue : AAValue {
     #endregion ToString
 
 
+    #region Overrides
+
+    /// <summary>
+    /// Determines whether the specified object is equal to the current object.
+    /// </summary>
+    /// <param name="obj">The object to compare with the current object.</param>
+    public override bool Equals(object? obj) {
+        if (obj is AABinaryValue otherValue) {
+            return Value.Span.SequenceEqual(otherValue.Value.Span);
+        } else if (obj is ReadOnlyMemory<Byte> objValue) {
+            return Value.Span.SequenceEqual(objValue.Span);
+        } else if (obj is byte[] objArray) {
+            return Value.Span.SequenceEqual(objArray.AsSpan<Byte>());
+        } else {
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Returns a hash code for the current object.
+    /// </summary>
+    public override int GetHashCode() {
+        return Value.GetHashCode();
+    }
+
+    #endregion
+
+
     #region Operators
 
     /// <summary>

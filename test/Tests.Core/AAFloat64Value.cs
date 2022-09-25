@@ -13,6 +13,8 @@ public class AAFloat64Value_Tests {
         Assert.IsTrue(AAFloat64Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AAFloat64Value.Parse(text));
+        Assert.AreEqual(result, AAFloat64Value.Parse(text));
+        Assert.AreEqual(result, Double.Parse(text));
     }
 
     [TestMethod]

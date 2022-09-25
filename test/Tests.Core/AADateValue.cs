@@ -13,6 +13,8 @@ public class AADateValue_Tests {
         Assert.IsTrue(AADateValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
         Assert.AreEqual(text, AADateValue.Parse(text));
+        Assert.AreEqual(result, AADateValue.Parse(text));
+        Assert.AreEqual(result, DateOnly.Parse(text));
     }
 
     [TestMethod]
