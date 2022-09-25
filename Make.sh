@@ -123,6 +123,7 @@ function test() {
                 --configuration "Debug" \
                 --output "$BASE_DIRECTORY/build/test/" \
                 --verbosity "minimal" \
+                --logger "console;verbosity=normal" \
                 || return 1
 }
 
