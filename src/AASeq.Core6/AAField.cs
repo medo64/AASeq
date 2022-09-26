@@ -8,7 +8,7 @@ namespace AASeq;
 /// Field.
 /// </summary>
 [DebuggerDisplay("{Name}: {Value}")]
-public sealed class AAField {
+public sealed record AAField {
 
     /// <summary>
     /// Create a new instance.
@@ -22,32 +22,20 @@ public sealed class AAField {
         if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
         if (!IsNameValid(name)) { throw new ArgumentOutOfRangeException(nameof(name), "Name contains invalid characters."); }
 
-        _name = name;
+        Name = name;
         _value = value;
     }
 
 
-    private string _name;
     /// <summary>
-    /// Gets/sets name.
+    /// Gets name.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
-    /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters. -or- Name already exists in collection.</exception>
-    /// <exception cref="NotSupportedException">Object is read-only.</exception>
-    public string Name {
-        get { return _name; }
-        set {
-            if (value == null) { throw new ArgumentNullException(nameof(value), "Name cannot be null."); }
-            if (!IsNameValid(value)) { throw new ArgumentOutOfRangeException(nameof(value), "Name contains invalid characters."); }
-            _name = value;
-        }
-    }
+    public string Name { get; }
 
     private AAValue _value;
     /// <summary>
     /// Gets/sets field value.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
     public AAValue Value {
         get { return _value; }
         set {
@@ -72,22 +60,19 @@ public sealed class AAField {
     }
 
 
-    #region Overrides
+    #region Name types
 
     /// <summary>
-    /// Determines whether the specified object is equal to the current object.
+    /// Gets if field is to be treated as a header.
     /// </summary>
-    /// <param name="obj">The object to compare with the current object.</param>
-    public override bool Equals(object? obj) {
-        if (obj is string otherString) {  // just check name
-            return (AAField.NameComparer.Compare(Name, otherString) == 0);
-        } else if (obj is AAField otherField) {
-            return (AAField.NameComparer.Compare(Name, otherField.Name) == 0)
-                   && Value.Equals(otherField.Value);
-        } else {
-            return false;
-        }
+    public Boolean IsHeader {
+        get { return Name.StartsWith(".", StringComparison.Ordinal); }
     }
+
+    #endregion Name types
+
+
+    #region Overrides
 
     /// <summary>
     /// Returns a hash code for the current object.
@@ -99,18 +84,12 @@ public sealed class AAField {
     #endregion
 
 
-    #region Name types
+    #region Validation
 
-    /// <summary>
-    /// Gets if field is to be treated as a header.
-    /// </summary>
-    public Boolean IsHeader {
-        get { return Name.StartsWith(".", StringComparison.Ordinal); }
-    }
-
-    #endregion
+    internal static StringComparer NameComparer => StringComparer.OrdinalIgnoreCase;
 
 
+    private static readonly Regex NameRegex = new(@"^\.?[\p{L}\p{Nd}][\p{L}\p{Nd}-]*$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.Singleline); //allowed letters, numbers and dashes
     /// <summary>
     /// Returns true if name is valid.
     /// </summary>
@@ -121,8 +100,6 @@ public sealed class AAField {
         return AAField.NameRegex.IsMatch(name);
     }
 
-
-    internal static readonly Regex NameRegex = new(@"^\.?[\p{L}\p{Nd}][\p{L}\p{Nd}-]*$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.Singleline); //allowed letters, numbers and dashes
-    internal static readonly StringComparer NameComparer = StringComparer.OrdinalIgnoreCase;
+    #endregion Validation
 
 }

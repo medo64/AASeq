@@ -468,7 +468,7 @@ public sealed class AAFieldCollection : AAValue, IList<AAField> {
             if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
             var item = this[index];
             BaseCollection.RemoveAt(index);
-            BaseCollection.Insert(index, item);
+            BaseCollection.Insert(index, value);
         }
     }
 

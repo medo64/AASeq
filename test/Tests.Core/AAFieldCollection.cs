@@ -22,8 +22,8 @@ public class AAFieldCollection_Tests {
     public void AAFieldCollection_BasicWithSubfields() {
         var c = new AAFieldCollection {
             new AAField("Test", new AAFieldCollection(
-                new AAField("TestInner1"),
-                new AAField("TestInner2")))
+                new AAField("TestInner1", ""),
+                new AAField("TestInner2", "")))
         };
         Assert.AreEqual(1, c.Count);
         Assert.AreEqual("Test", c[0].Name);
@@ -32,8 +32,8 @@ public class AAFieldCollection_Tests {
         Assert.AreEqual(2, c[0].Value.AsFieldCollection().Count);
         Assert.AreEqual("TestInner1", c[0].Value.AsFieldCollection()[0].Name);
         Assert.AreEqual("TestInner2", c[0].Value.AsFieldCollection()[1].Name);
-        Assert.AreEqual(AANullValue.Instance, c[0].Value.AsFieldCollection()[0].Value);
-        Assert.AreEqual(AANullValue.Instance, c[0].Value.AsFieldCollection()[1].Value);
+        Assert.AreEqual(String.Empty, c[0].Value.AsFieldCollection()[0].Value);
+        Assert.AreEqual(String.Empty, c[0].Value.AsFieldCollection()[1].Value);
 
         var paths = new List<AAFieldNode>(c.AllPaths);
         Assert.AreEqual(3, paths.Count);
@@ -96,7 +96,7 @@ public class AAFieldCollection_Tests {
     [TestMethod]
     public void AAFieldCollection_LookupNoItemInTree() {
         var c = new AAFieldCollection {
-            new AAField("Test")
+            new AAField("Test", "")
         };
         c[0].Value = new AAFieldCollection(new AAField("X", "Dummy"));
         Assert.AreEqual(null, c.FindFirst("Test/A"));
@@ -109,8 +109,8 @@ public class AAFieldCollection_Tests {
     [TestMethod]
     public void AAFieldCollection_LookupMultipleByName() {
         var c = new AAFieldCollection();
-        c.Add(new AAField("Test"));
-        c.Insert(0, new AAField("test"));
+        c.Add(new AAField("Test", ""));
+        c.Insert(0, new AAField("test", ""));
         Assert.AreEqual(2, c.Count);
         Assert.AreEqual("test", c.FindFirst("Test").Name);
         Assert.AreEqual("Test", c.FindLast("Test").Name);
@@ -123,8 +123,8 @@ public class AAFieldCollection_Tests {
     [TestMethod]
     public void AAFieldCollection_LookupByNameAfterRemove() {
         var c = new AAFieldCollection {
-            new AAField("Test"),
-            new AAField("test")
+            new AAField("Test", ""),
+            new AAField("test", "")
         };
         c.RemoveAt(0);
         Assert.AreEqual(1, c.Count);
@@ -138,8 +138,8 @@ public class AAFieldCollection_Tests {
     [TestMethod]
     public void AAFieldCollection_RemoveByNameCaseInsensitive() {
         var c = new AAFieldCollection {
-            new AAField("Test"),
-            new AAField("test")
+            new AAField("Test", ""),
+            new AAField("test", "")
         };
         c.Remove("TEST");
         Assert.AreEqual(0, c.Count);
@@ -151,7 +151,7 @@ public class AAFieldCollection_Tests {
             new AAField("Test1", "Dummy"),
             new AAField("Test2", "Dummy")
         };
-        c[0].Name = "Test";
+        c[0] = new AAField("Test", "Dummy");
         Assert.AreEqual(2, c.Count);
         Assert.AreEqual("Test", c[0].Name);
         Assert.AreEqual("Test2", c[1].Name);
@@ -163,7 +163,7 @@ public class AAFieldCollection_Tests {
             new AAField("Test1", "Dummy"),
             new AAField("Test2", "Dummy")
         };
-        c[0].Name = "Test1";
+        c[0] = new AAField("Test1", "Dummy");
         Assert.AreEqual(2, c.Count);
         Assert.AreEqual("Test1", c[0].Name);
         Assert.AreEqual("Test2", c[1].Name);
@@ -175,20 +175,10 @@ public class AAFieldCollection_Tests {
             new AAField("Test1", "Dummy"),
             new AAField("Test2", "Dummy")
         };
-        c[0].Name = "Test2";
+        c[0] = new AAField("Test2", "Dummy");
         Assert.AreEqual(2, c.Count);
         Assert.AreEqual("Test2", c[0].Name);
         Assert.AreEqual("Test2", c[1].Name);
-    }
-
-    [TestMethod]
-    [ExpectedException(typeof(ArgumentNullException))]
-    public void AAFieldCollection_RenameItemNull() {
-        var c = new AAFieldCollection {
-            new AAField("Test1", "Dummy"),
-            new AAField("Test2", "Dummy")
-        };
-        c[0].Name = null;
     }
 
     [TestMethod]
@@ -203,8 +193,8 @@ public class AAFieldCollection_Tests {
     [TestMethod]
     public void AAFieldCollection_RemoveMultipleByName() {
         var c = new AAFieldCollection {
-            new AAField("Test"),
-            new AAField("test")
+            new AAField("Test", ""),
+            new AAField("test", "")
         };
         c.Remove("Test");
         Assert.AreEqual(0, c.Count);
