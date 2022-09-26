@@ -1,39 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?>
-<AASeq version="1" minVersion="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://api.aaseq.com/schema/aaseq.xsd">
-    <Endpoints>
-        <Endpoint name="Me" />
-        <Endpoint name="Local_IPv4" caption="Local IPv4" protocolName="Ping">
-            <Field name="Host" value="localhost" />
-        </Endpoint>
-        <Endpoint name="Local_IPv4_Alternate" caption="Local IPv4" protocolName="Ping">
-            <Field name="Host" value="127.0.0.1" />
-        </Endpoint>
-        <Endpoint name="Local_IPv6" caption="Local IPv6" protocolName="Ping">
-            <Field name="Host" value="::1" />
-        </Endpoint>
-        <Endpoint name="Endpoint" caption="Main" protocolName="Ping">
-            <Field name="Host" value="192.168.200.100" />
-        </Endpoint>
-    </Endpoints>
-    <Interactions>
-        <Message name="Ping" source="Me" destination="Endpoint" />
-        <Message name="Ping" source="Me" destination="Local_IPv4" />
-        <Message name="Reply" source="Local_IPv4" destination="Me">
-            <Field name=".Size" value="64" />
-            <Field name="Status" value="Success" />
-            <Field name="Time" value=".*" />
-            <Field name="Data" value="(Test).*" />
-        </Message>
-        <Command name="Wait" caption="1 second is default">
-            <Field name="Interval" value="1s" />
-        </Command>
-        <Message name="Ping" source="Me" destination="Local_IPv6" />
-        <Message name="Reply" source="Local_IPv6" destination="Me">
-            <Field name=".Size" value="128" />
-            <Field name=".Timeout" value="1000" />
-        </Message>
-        <Message name="Ping" source="Me" destination="Local_IPv4_Alternate" />
-        <Message name="Reply" source="Local_IPv4_Alternate" destination="Me" />
-        <Message name="Reply" source="Endpoint" destination="Me" />
-    </Interactions>
-</AASeq>
+#!/usr/bin/env aaseq
+
+[Me]
+
+[Local_IPv4: Ping]
+Host: localhost
+
+[Local_IPv4_Alternate: Ping]
+Host: 127.0.0.2
+
+[Local_IPv6: Ping]
+Host: ::1
+
+[Endpoint: Ping]
+Host: 192.168.200.100
+
+[> Endpoint Ping]
+
+[> Local_IPv4 Ping]
+
+[< Local_IPv4 Reply]
+.Size: 64
+Status: Success
+Time [@regex]: .*
+Data [@regex]: (Test).*
+
+[!Wait]
+Interval: 1s
+
+[Me > Local_IPv6 Ping]
+
+[Me < Local_IPv6 Reply]
+.Size: 128
+.Timeout: 1000
+
+[> Local_IPv4_Alternate Ping]
+
+[< Local_IPv4_Alternate Reply]
+
+[< Endpoint Reply]

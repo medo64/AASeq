@@ -33,14 +33,14 @@ processed in file order and should include Name and Plugin fields.
 
 For example:
 
-    [Name Protocol]
+    [Name: Plugin]
 
 Name is the identifier used further in file for given endpoint. It must start
 with a letter and it can contain letters, numbers, and underscore character.
 
-Protocol is an optional field specifying which protocol is to be used. If not
-specified, it will be assumed to be the same as Name. Protocol must start with
-a letter and it can contain letters, numbers, and underscore character.
+Plugin is an optional field specifying which protocol plugin is to be used. If
+not specified, it will be assumed to be the same as Name. Plugin must start
+with a letter and it can contain letters, numbers, and underscore character.
 
 Special endpoint "Me" signifies application itself. If it's not defined, it
 will be automatically added.
