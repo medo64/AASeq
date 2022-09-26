@@ -32,8 +32,8 @@ public class AAFieldCollection_Tests {
         Assert.AreEqual(2, c[0].Value.AsFieldCollection().Count);
         Assert.AreEqual("TestInner1", c[0].Value.AsFieldCollection()[0].Name);
         Assert.AreEqual("TestInner2", c[0].Value.AsFieldCollection()[1].Name);
-        Assert.AreEqual(new AANullValue(), c[0].Value.AsFieldCollection()[0].Value);
-        Assert.AreEqual(new AANullValue(), c[0].Value.AsFieldCollection()[1].Value);
+        Assert.AreEqual(AANullValue.Instance, c[0].Value.AsFieldCollection()[0].Value);
+        Assert.AreEqual(AANullValue.Instance, c[0].Value.AsFieldCollection()[1].Value);
 
         var paths = new List<AAFieldNode>(c.AllPaths);
         Assert.AreEqual(3, paths.Count);
@@ -108,9 +108,7 @@ public class AAFieldCollection_Tests {
 
     [TestMethod]
     public void AAFieldCollection_LookupMultipleByName() {
-#pragma warning disable IDE0028 // Simplify collection initialization
         var c = new AAFieldCollection();
-#pragma warning restore IDE0028 // Simplify collection initialization
         c.Add(new AAField("Test"));
         c.Insert(0, new AAField("test"));
         Assert.AreEqual(2, c.Count);
@@ -305,9 +303,7 @@ public class AAFieldCollection_Tests {
 
     [TestMethod]
     public void AAFieldCollection_SetByPath() {
-#pragma warning disable IDE0028 // Simplify collection initialization
         var c = new AAFieldCollection();
-#pragma warning restore IDE0028 // Simplify collection initialization
         c[".HA"] = "1h";
         c[".HB/HC"] = "2h";
         c[".HB\\HC"] = "3h";
@@ -339,9 +335,7 @@ public class AAFieldCollection_Tests {
 
     [TestMethod]
     public void AAFieldCollection_SetByPathMixedType() {
-#pragma warning disable IDE0028 // Simplify collection initialization
         var c = new AAFieldCollection();
-#pragma warning restore IDE0028 // Simplify collection initialization
         c[".HA"] = "1h";
         c[".HB"] = 42;
         c[".HB/HC"] = "2h";

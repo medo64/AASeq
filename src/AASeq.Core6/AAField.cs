@@ -1,7 +1,5 @@
 using System;
 using System.Diagnostics;
-using System.Globalization;
-using System.Net;
 using System.Text.RegularExpressions;
 
 namespace AASeq;
@@ -26,20 +24,6 @@ public sealed class AAField {
 
         _name = name;
         _value = value;
-    }
-
-    /// <summary>
-    /// Create a new instance.
-    /// </summary>
-    /// <param name="name">Name.</param>
-    /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
-    /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-    public AAField(string name) {
-        if (name == null) { throw new ArgumentNullException(nameof(name), "Name cannot be null."); }
-        if (!IsNameValid(name)) { throw new ArgumentOutOfRangeException(nameof(name), "Name contains invalid characters."); }
-
-        _name = name;
-        _value = new AANullValue();
     }
 
 
