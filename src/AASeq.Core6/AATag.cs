@@ -7,8 +7,8 @@ namespace AASeq;
 /// <summary>
 /// Tag.
 /// </summary>
-[DebuggerDisplay("{Name} = {State}")]
-public sealed class AATag {
+[DebuggerDisplay("{State ? Name : \"!\" + Name}")]
+public sealed record AATag {
 
     /// <summary>
     /// Create a new instance.
@@ -38,27 +38,15 @@ public sealed class AATag {
     /// <summary>
     /// Gets name.
     /// </summary>
-    public string Name { get; private init; }
+    public string Name { get; }
 
-    private bool _state;
     /// <summary>
-    /// Gets/sets state for a tag.
+    /// Gets state for a tag.
     /// </summary>
-    public bool State {
-        get { return _state; }
-        set { _state = value; }
-    }
+    public bool State { get; }
 
 
     #region Overrides
-
-    /// <summary>
-    /// Determines whether the specified object is equal to the current object.
-    /// </summary>
-    /// <param name="obj">The object to compare with the current object.</param>
-    public override bool Equals(object? obj) {
-        return (obj is AATag other) && IsSameName(other.Name) && (State == other.State);
-    }
 
     /// <summary>
     /// Returns a hash code for the current object.
@@ -67,17 +55,14 @@ public sealed class AATag {
         return Name.GetHashCode();
     }
 
-    /// <summary>
-    /// Returns a string that represents the current object.
-    /// </summary>
-    public override string ToString() {
-        return State ? Name : "!" + Name;
-    }
-
-    #endregion
+    #endregion Overrides
 
 
+    #region Validation
 
+    internal static StringComparer NameComparer => StringComparer.OrdinalIgnoreCase;
+
+    private static readonly Regex NameRegex = new(@"^@?\p{L}[\p{L}\p{Nd}]*$");  // allowed only letters and numbers; can start with at sign (@)
     /// <summary>
     /// Returns true if name is valid.
     /// </summary>
@@ -86,15 +71,6 @@ public sealed class AATag {
         return (name != null) && NameRegex.IsMatch(name);
     }
 
-    /// <summary>
-    /// Returns if name matches.
-    /// </summary>
-    /// <param name="name">Name to match.</param>
-    public bool IsSameName(string name) {
-        return (name != null) && (NameComparer.Compare(Name, name) == 0);
-    }
-
-    private static readonly Regex NameRegex = new(@"^@?\p{L}[\p{L}\p{Nd}]*$");  // allowed only letters and numbers; can start with at sign (@)
-    internal static readonly StringComparer NameComparer = StringComparer.OrdinalIgnoreCase;
+    #endregion Validation
 
 }

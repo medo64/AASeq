@@ -15,6 +15,13 @@ public class AATag_Tests {
     }
 
     [TestMethod]
+    public void AATag_BasicNegative() {
+        var tag = new AATag("Test", false);
+        Assert.AreEqual("Test", tag.Name);
+        Assert.IsFalse(tag.State);
+    }
+
+    [TestMethod]
     public void AATag_Equality() {
         Assert.AreEqual(new AATag("Test"), new AATag("Test"));
         Assert.AreEqual(new AATag("Test", true), new AATag("Test", true));

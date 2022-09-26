@@ -8,7 +8,7 @@ namespace AASeq;
 /// Endpoint.
 /// </summary>
 [DebuggerDisplay("{Name}")]
-public sealed class AAEndpoint {
+public sealed record AAEndpoint {
 
     /// <summary>
     /// Create a new instance.
@@ -59,6 +59,18 @@ public sealed class AAEndpoint {
     public AAFieldCollection Data {
         get { return _data.Value; }
     }
+
+
+    #region Overrides
+
+    /// <summary>
+    /// Returns a hash code for the current object.
+    /// </summary>
+    public override int GetHashCode() {
+        return Name.GetHashCode();
+    }
+
+    #endregion Overrides
 
 
     #region Validation
