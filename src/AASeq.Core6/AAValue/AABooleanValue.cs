@@ -216,6 +216,9 @@ public sealed class AABooleanValue : AAValue {
     protected override UInt64? ConvertToSize()
         => null;
 
+    protected override AAFieldCollection? ConvertToFieldCollection()
+        => null;
+
     #endregion Convert
 
 }

@@ -201,6 +201,9 @@ public sealed class AAInt8Value : AAValue {
     protected override UInt64? ConvertToSize()
         => ConvertToUInt64();
 
+    protected override AAFieldCollection? ConvertToFieldCollection()
+        => null;
+
     #endregion Convert
 
 }

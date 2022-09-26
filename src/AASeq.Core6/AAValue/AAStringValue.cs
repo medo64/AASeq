@@ -199,6 +199,9 @@ public sealed class AAStringValue : AAValue {
     protected override UInt64? ConvertToSize()
         => AASizeValue.TryParseValue(Value, out var result) ? result : null;
 
+    protected override AAFieldCollection? ConvertToFieldCollection()
+        => null;
+
     #endregion Convert
 
 }

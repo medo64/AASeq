@@ -205,6 +205,9 @@ public sealed class AAFloat32Value : AAValue {
     protected override UInt64? ConvertToSize()
         => null;
 
+    protected override AAFieldCollection? ConvertToFieldCollection()
+        => null;
+
     #endregion Convert
 
 }

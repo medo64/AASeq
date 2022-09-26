@@ -210,6 +210,9 @@ public sealed class AAIPv4AddressValue : AAValue {
     protected override ulong? ConvertToSize()
         => null;
 
+    protected override AAFieldCollection? ConvertToFieldCollection()
+        => null;
+
     #endregion Convert
 
 }

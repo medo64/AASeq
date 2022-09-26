@@ -209,6 +209,9 @@ public sealed class AADateValue : AAValue {
     protected override UInt64? ConvertToSize()
         => null;
 
+    protected override AAFieldCollection? ConvertToFieldCollection()
+        => null;
+
     #endregion Convert
 
 }

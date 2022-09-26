@@ -341,6 +341,9 @@ public sealed class AABinaryValue : AAValue {
     protected override UInt64? ConvertToSize()
         => ConvertToUInt64();
 
+    protected override AAFieldCollection? ConvertToFieldCollection()
+        => null;
+
     #endregion Convert
 
 }

@@ -411,6 +411,13 @@ public abstract class AAValue {
     public UInt64 AsSize(UInt64 defaultValue)
         => ConvertToSize() ?? defaultValue;
 
+
+    /// <summary>
+    /// Returns collection if conversion is possible or null otherwise.
+    /// </summary>
+    public AAFieldCollection? AsFieldCollection()
+        => ConvertToFieldCollection();
+
     #endregion As
 
 
@@ -667,6 +674,11 @@ public abstract class AAValue {
     /// Returns Size value if object can be converted or null otherwise.
     /// </summary>
     protected abstract UInt64? ConvertToSize();
+
+    /// <summary>
+    /// Returns collection if object can be converted or null otherwise.
+    /// </summary>
+    protected abstract AAFieldCollection? ConvertToFieldCollection();
 
     #endregion Convert
 
