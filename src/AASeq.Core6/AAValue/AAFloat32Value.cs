@@ -16,18 +16,14 @@ public sealed class AAFloat32Value : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AAFloat32Value(Single value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private Single _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public Single Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public Single Value { get; }
 
 
     #region Parse

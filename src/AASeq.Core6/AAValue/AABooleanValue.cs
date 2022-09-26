@@ -15,18 +15,14 @@ public sealed class AABooleanValue : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AABooleanValue(Boolean value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private Boolean _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public Boolean Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public Boolean Value { get; }
 
 
     #region Parse

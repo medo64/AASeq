@@ -16,18 +16,14 @@ public sealed class AAUInt16Value : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AAUInt16Value(UInt16 value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private UInt16 _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public UInt16 Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public UInt16 Value { get; }
 
 
     #region Parse

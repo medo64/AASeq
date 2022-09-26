@@ -15,18 +15,14 @@ public sealed class AAInt8Value : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AAInt8Value(SByte value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private SByte _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public SByte Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public SByte Value { get; }
 
 
     #region Parse

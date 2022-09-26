@@ -15,18 +15,14 @@ public sealed class AATimeValue : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AATimeValue(TimeOnly value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private TimeOnly _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public TimeOnly Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public TimeOnly Value { get; }
 
 
     #region Parse

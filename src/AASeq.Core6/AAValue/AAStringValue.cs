@@ -17,22 +17,14 @@ public sealed class AAStringValue : AAValue {
     /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
     public AAStringValue(String value) {
         if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
-        _value = value;
+        Value = value;
     }
 
 
-    private String _value;
     /// <summary>
     /// Gets/sets value.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
-    public String Value {
-        get => _value;
-        set {
-            if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
-            _value = value;
-        }
-    }
+    public String Value { get; }
 
 
     #region Parse

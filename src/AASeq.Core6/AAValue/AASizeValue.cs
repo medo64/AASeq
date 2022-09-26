@@ -16,18 +16,14 @@ public sealed class AASizeValue : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AASizeValue(UInt64 value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private UInt64 _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public UInt64 Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public UInt64 Value { get; }
 
 
     /// <summary>

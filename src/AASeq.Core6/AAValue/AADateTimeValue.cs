@@ -15,18 +15,14 @@ public sealed class AADateTimeValue : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AADateTimeValue(DateTimeOffset value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private DateTimeOffset _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public DateTimeOffset Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public DateTimeOffset Value { get; }
 
 
     #region Parse

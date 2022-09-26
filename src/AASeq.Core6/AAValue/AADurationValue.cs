@@ -17,18 +17,14 @@ public sealed class AADurationValue : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AADurationValue(TimeSpan value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private TimeSpan _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public TimeSpan Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public TimeSpan Value { get; }
 
 
     #region Parse

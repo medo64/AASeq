@@ -16,18 +16,14 @@ public sealed class AAUInt8Value : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AAUInt8Value(Byte value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private Byte _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public Byte Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public Byte Value { get; }
 
 
     #region Parse

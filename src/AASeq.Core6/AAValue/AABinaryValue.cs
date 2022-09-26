@@ -19,7 +19,7 @@ public sealed class AABinaryValue : AAValue {
     /// <param name="value">Value.</param>
     /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
     public AABinaryValue(ReadOnlyMemory<Byte> value) {
-        _value = value;
+        Value = value;
     }
 
     /// <summary>
@@ -30,19 +30,14 @@ public sealed class AABinaryValue : AAValue {
     public AABinaryValue(Byte[] value) {
         var buffer = new byte[value.Length];
         Buffer.BlockCopy(value, 0, buffer, 0, buffer.Length);
-        _value = new ReadOnlyMemory<byte>(buffer);
+        Value = new ReadOnlyMemory<byte>(buffer);
     }
 
 
-    private ReadOnlyMemory<Byte> _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
-    public ReadOnlyMemory<Byte> Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public ReadOnlyMemory<Byte> Value { get; }
 
 
     #region Parse

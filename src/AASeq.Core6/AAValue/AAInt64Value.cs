@@ -16,18 +16,14 @@ public sealed class AAInt64Value : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AAInt64Value(Int64 value) {
-        _value = value;
+        Value = value;
     }
 
 
-    private Int64 _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public Int64 Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public Int64 Value { get; }
 
 
     #region Parse

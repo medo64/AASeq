@@ -19,24 +19,14 @@ public sealed class AAIPv4AddressValue : AAValue {
     public AAIPv4AddressValue(IPAddress value) {
         if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
         if (value.AddressFamily is not AddressFamily.InterNetwork) { throw new ArgumentOutOfRangeException(nameof(value), "Address family not supported."); }
-        _value = value;
+        Value = value;
     }
 
 
-    private IPAddress _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
-    /// <exception cref="ArgumentOutOfRangeException">Address family not supported.</exception>
-    public IPAddress Value {
-        get => _value;
-        set {
-            if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
-            if (value.AddressFamily is not AddressFamily.InterNetwork) { throw new ArgumentOutOfRangeException(nameof(value), "Address family not supported."); }
-            _value = value;
-        }
-    }
+    public IPAddress Value { get; }
 
 
     #region Parse

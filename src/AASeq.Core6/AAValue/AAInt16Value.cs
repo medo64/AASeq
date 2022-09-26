@@ -16,7 +16,7 @@ public sealed class AAInt16Value : AAValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AAInt16Value(Int16 value) {
-        _value = value;
+        Value = value;
     }
 
 
@@ -80,14 +80,10 @@ public sealed class AAInt16Value : AAValue {
     }
 
 
-    private Int16 _value;
     /// <summary>
-    /// Gets/sets value.
+    /// Gets value.
     /// </summary>
-    public Int16 Value {
-        get => _value;
-        set { _value = value; }
-    }
+    public Int16 Value { get; }
 
     #endregion ToString
 
