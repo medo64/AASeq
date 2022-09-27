@@ -147,74 +147,84 @@ public sealed class AABooleanValue : AAValue {
     #endregion Operations
 
 
-    #region Convert
+    #region AAValue
 
-    protected override Boolean? ConvertToBoolean()
+    /// <inheritdoc/>
+    public override Boolean? AsBoolean()
         => Value;
 
-    protected override SByte? ConvertToInt8()
-        => Value ? (sbyte)1 : (sbyte)0;
-
-    protected override Int16? ConvertToInt16()
-        => Value ? (Int16)1 : (Int16)0;
-
-    protected override Int32? ConvertToInt32()
-        => Value ? 1 : 0;
-
-    protected override Int64? ConvertToInt64()
-        => Value ? 1 : 0;
-
-    protected override Byte? ConvertToUInt8()
+    /// <inheritdoc/>
+    public override Byte? AsByte()
         => Value ? (byte)1 : (byte)0;
 
-    protected override UInt16? ConvertToUInt16()
+    /// <inheritdoc/>
+    public override UInt16? AsUInt16()
         => Value ? (UInt16)1 : (UInt16)0;
 
-    protected override UInt32? ConvertToUInt32()
+    /// <inheritdoc/>
+    public override UInt32? AsUInt32()
         => Value ? 1u : 0;
 
-    protected override UInt64? ConvertToUInt64()
+    /// <inheritdoc/>
+    public override UInt64? AsUInt64()
         => Value ? 1u : 0;
 
-    protected override Single? ConvertToFloat32()
+    /// <inheritdoc/>
+    public override SByte? AsSByte()
+        => Value ? (sbyte)1 : (sbyte)0;
+
+    /// <inheritdoc/>
+    public override Int16? AsInt16()
+        => Value ? (Int16)1 : (Int16)0;
+
+    /// <inheritdoc/>
+    public override Int32? AsInt32()
         => Value ? 1 : 0;
 
-    protected override Double? ConvertToFloat64()
+    /// <inheritdoc/>
+    public override Int64? AsInt64()
         => Value ? 1 : 0;
 
-    protected override String? ConvertToString()
+    /// <inheritdoc/>
+    public override Single? AsSingle()
+        => Value ? 1 : 0;
+
+    /// <inheritdoc/>
+    public override Double? AsDouble()
+        => Value ? 1 : 0;
+
+    /// <inheritdoc/>
+    public override DateTimeOffset? AsDateTimeOffset()
+        => null;
+
+    /// <inheritdoc/>
+    public override DateOnly? AsDateOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeOnly? AsTimeOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeSpan? AsTimeSpan()
+        => null;
+
+    /// <inheritdoc/>
+    public override String? AsString()
         => ToString();
 
-    protected override ReadOnlyMemory<Byte>? ConvertToBinary()
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
         => null;
 
-    protected override DateTimeOffset? ConvertToDateTime()
+    /// <inheritdoc/>
+    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
         => null;
 
-    protected override DateOnly? ConvertToDate()
+    /// <inheritdoc/>
+    public override AAFieldCollection? AsFieldCollection()
         => null;
 
-    protected override TimeOnly? ConvertToTime()
-        => null;
-
-    protected override TimeSpan? ConvertToDuration()
-        => null;
-
-    protected override IPAddress? ConvertToIPAddress()
-        => null;
-
-    protected override IPAddress? ConvertToIPv4Address()
-        => null;
-
-    protected override IPAddress? ConvertToIPv6Address()
-        => null;
-
-    protected override UInt64? ConvertToSize()
-        => null;
-
-    protected override AAFieldCollection? ConvertToFieldCollection()
-        => null;
-
-    #endregion Convert
+    #endregion AAValue
 
 }

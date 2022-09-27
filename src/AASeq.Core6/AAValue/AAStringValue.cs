@@ -125,75 +125,85 @@ public sealed class AAStringValue : AAValue {
     #endregion Operators
 
 
-    #region Convert
+    #region AAValue
 
-    protected override Boolean? ConvertToBoolean()
+    /// <inheritdoc/>
+    public override Boolean? AsBoolean()
         => AABooleanValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override SByte? ConvertToInt8()
-        => AAInt8Value.TryParseValue(Value, out var result) ? result : null;
-
-    protected override Int16? ConvertToInt16()
-        => AAInt16Value.TryParseValue(Value, out var result) ? result : null;
-
-    protected override Int32? ConvertToInt32()
-        => AAInt32Value.TryParseValue(Value, out var result) ? result : null;
-
-    protected override Int64? ConvertToInt64()
-        => AAInt64Value.TryParseValue(Value, out var result) ? result : null;
-
-    protected override Byte? ConvertToUInt8()
+    /// <inheritdoc/>
+    public override Byte? AsByte()
         => AAUInt8Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override UInt16? ConvertToUInt16()
+    /// <inheritdoc/>
+    public override UInt16? AsUInt16()
         => AAUInt16Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override UInt32? ConvertToUInt32()
+    /// <inheritdoc/>
+    public override UInt32? AsUInt32()
         => AAUInt32Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override UInt64? ConvertToUInt64()
+    /// <inheritdoc/>
+    public override UInt64? AsUInt64()
         => AAUInt64Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override Single? ConvertToFloat32()
+    /// <inheritdoc/>
+    public override SByte? AsSByte()
+        => AAInt8Value.TryParseValue(Value, out var result) ? result : null;
+
+    /// <inheritdoc/>
+    public override Int16? AsInt16()
+        => AAInt16Value.TryParseValue(Value, out var result) ? result : null;
+
+    /// <inheritdoc/>
+    public override Int32? AsInt32()
+        => AAInt32Value.TryParseValue(Value, out var result) ? result : null;
+
+    /// <inheritdoc/>
+    public override Int64? AsInt64()
+        => AAInt64Value.TryParseValue(Value, out var result) ? result : null;
+
+    /// <inheritdoc/>
+    public override Single? AsSingle()
         => AAFloat32Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override Double? ConvertToFloat64()
+    /// <inheritdoc/>
+    public override Double? AsDouble()
         => AAFloat64Value.TryParseValue(Value, out var result) ? result : null;
 
-    protected override String? ConvertToString()
-        => ToString();
-
-    private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
-    protected override ReadOnlyMemory<Byte>? ConvertToBinary()
-        => Utf8.GetBytes(Value);
-
-    protected override DateTimeOffset? ConvertToDateTime()
+    /// <inheritdoc/>
+    public override DateTimeOffset? AsDateTimeOffset()
         => AADateTimeValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override DateOnly? ConvertToDate()
+    /// <inheritdoc/>
+    public override DateOnly? AsDateOnly()
         => AADateValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override TimeOnly? ConvertToTime()
+    /// <inheritdoc/>
+    public override TimeOnly? AsTimeOnly()
         => AATimeValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override TimeSpan? ConvertToDuration()
+    /// <inheritdoc/>
+    public override TimeSpan? AsTimeSpan()
         => AADurationValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override IPAddress? ConvertToIPAddress()
+    /// <inheritdoc/>
+    public override String? AsString()
+        => ToString();
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
         => AAIPAddressValue.TryParseValue(Value, out var result) ? result : null;
 
-    protected override IPAddress? ConvertToIPv4Address()
-        => AAIPv4AddressValue.TryParseValue(Value, out var result) ? result : null;
+    private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+    /// <inheritdoc/>
+    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
+        => Utf8.GetBytes(Value);
 
-    protected override IPAddress? ConvertToIPv6Address()
-        => AAIPv6AddressValue.TryParseValue(Value, out var result) ? result : null;
-
-    protected override UInt64? ConvertToSize()
-        => AASizeValue.TryParseValue(Value, out var result) ? result : null;
-
-    protected override AAFieldCollection? ConvertToFieldCollection()
+    /// <inheritdoc/>
+    public override AAFieldCollection? AsFieldCollection()
         => null;
 
-    #endregion Convert
+    #endregion AAValuet
 
 }

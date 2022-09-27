@@ -209,82 +209,92 @@ public sealed class AADurationValue : AAValue {
     #endregion Operators
 
 
-    #region Convert
+    #region AAValue
 
-    protected override Boolean? ConvertToBoolean()
+    /// <inheritdoc/>
+    public override Boolean? AsBoolean()
         => null;
 
-    protected override SByte? ConvertToInt8()
+    /// <inheritdoc/>
+    public override Byte? AsByte()
         => null;
 
-    protected override Int16? ConvertToInt16()
+    /// <inheritdoc/>
+    public override UInt16? AsUInt16()
         => null;
 
-    protected override Int32? ConvertToInt32() {
-        var seconds = Value.Ticks / 10000000;
-        if (seconds is >= Int32.MinValue and <= Int32.MaxValue) { return (Int32)seconds; }
-        return null;
-    }
-
-    protected override Int64? ConvertToInt64()
-        => Value.Ticks / 10000000;
-
-    protected override Byte? ConvertToUInt8()
-        => null;
-
-    protected override UInt16? ConvertToUInt16()
-        => null;
-
-    protected override UInt32? ConvertToUInt32() {
+    /// <inheritdoc/>
+    public override UInt32? AsUInt32() {
         var seconds = Value.Ticks / 10000000;
         if (seconds is >= UInt32.MinValue and <= UInt32.MaxValue) { return (UInt32)seconds; }
         return null;
     }
 
-    protected override UInt64? ConvertToUInt64() {
+    /// <inheritdoc/>
+    public override UInt64? AsUInt64() {
         var seconds = Value.Ticks / 10000000;
         return seconds >= 0 ? (UInt64)seconds : null;
     }
 
-    protected override Single? ConvertToFloat32()
+    /// <inheritdoc/>
+    public override SByte? AsSByte()
         => null;
 
-    protected override Double? ConvertToFloat64()
+    /// <inheritdoc/>
+    public override Int16? AsInt16()
+        => null;
+
+    /// <inheritdoc/>
+    public override Int32? AsInt32() {
+        var seconds = Value.Ticks / 10000000;
+        if (seconds is >= Int32.MinValue and <= Int32.MaxValue) { return (Int32)seconds; }
+        return null;
+    }
+
+    /// <inheritdoc/>
+    public override Int64? AsInt64()
+        => Value.Ticks / 10000000;
+
+    /// <inheritdoc/>
+    public override Single? AsSingle()
+        => null;
+
+    /// <inheritdoc/>
+    public override Double? AsDouble()
         => Value.Ticks / 10000000.0;
 
-    protected override String? ConvertToString()
-        => ToString();
-
-    protected override ReadOnlyMemory<Byte>? ConvertToBinary()
+    /// <inheritdoc/>
+    public override DateTimeOffset? AsDateTimeOffset()
         => null;
 
-    protected override DateTimeOffset? ConvertToDateTime()
+    /// <inheritdoc/>
+    public override DateOnly? AsDateOnly()
         => null;
 
-    protected override DateOnly? ConvertToDate()
+    /// <inheritdoc/>
+    public override TimeOnly? AsTimeOnly()
         => null;
 
-    protected override TimeOnly? ConvertToTime()
-        => null;
-
-    protected override TimeSpan? ConvertToDuration()
+    /// <inheritdoc/>
+    public override TimeSpan? AsTimeSpan()
         => Value;
 
-    protected override IPAddress? ConvertToIPAddress()
+    /// <inheritdoc/>
+    public override String? AsString()
+        => ToString();
+
+    /// <inheritdoc/>
+    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
         => null;
 
-    protected override IPAddress? ConvertToIPv4Address()
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
         => null;
 
-    protected override IPAddress? ConvertToIPv6Address()
+    /// <inheritdoc/>
+    public override AAFieldCollection? AsFieldCollection()
         => null;
 
-    protected override UInt64? ConvertToSize()
-        => null;
-
-    protected override AAFieldCollection? ConvertToFieldCollection()
-        => null;
-
-    #endregion Convert
+    #endregion AAValue
 
 }

@@ -135,74 +135,84 @@ public sealed class AAIPAddressValue : AAValue {
     #endregion Operators
 
 
-    #region Convert
+    #region AAValue
 
-    protected override bool? ConvertToBoolean()
+    /// <inheritdoc/>
+    public override Boolean? AsBoolean()
         => null;
 
-    protected override sbyte? ConvertToInt8()
+    /// <inheritdoc/>
+    public override Byte? AsByte()
         => null;
 
-    protected override short? ConvertToInt16()
+    /// <inheritdoc/>
+    public override UInt16? AsUInt16()
         => null;
 
-    protected override int? ConvertToInt32()
+    /// <inheritdoc/>
+    public override UInt32? AsUInt32()
         => null;
 
-    protected override long? ConvertToInt64()
+    /// <inheritdoc/>
+    public override UInt64? AsUInt64()
         => null;
 
-    protected override byte? ConvertToUInt8()
+    /// <inheritdoc/>
+    public override SByte? AsSByte()
         => null;
 
-    protected override ushort? ConvertToUInt16()
+    /// <inheritdoc/>
+    public override Int16? AsInt16()
         => null;
 
-    protected override uint? ConvertToUInt32()
+    /// <inheritdoc/>
+    public override Int32? AsInt32()
         => null;
 
-    protected override ulong? ConvertToUInt64()
+    /// <inheritdoc/>
+    public override Int64? AsInt64()
         => null;
 
-    protected override float? ConvertToFloat32()
+    /// <inheritdoc/>
+    public override Single? AsSingle()
         => null;
 
-    protected override double? ConvertToFloat64()
+    /// <inheritdoc/>
+    public override Double? AsDouble()
         => null;
 
-    protected override string? ConvertToString()
+    /// <inheritdoc/>
+    public override DateTimeOffset? AsDateTimeOffset()
+        => null;
+
+    /// <inheritdoc/>
+    public override DateOnly? AsDateOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeOnly? AsTimeOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeSpan? AsTimeSpan()
+        => null;
+
+    /// <inheritdoc/>
+    public override String? AsString()
         => ToString();
 
-    protected override ReadOnlyMemory<byte>? ConvertToBinary()
-        => Value.GetAddressBytes();
-
-    protected override DateTimeOffset? ConvertToDateTime()
-        => null;
-
-    protected override DateOnly? ConvertToDate()
-        => null;
-
-    protected override TimeOnly? ConvertToTime()
-        => null;
-
-    protected override TimeSpan? ConvertToDuration()
-        => null;
-
-    protected override IPAddress? ConvertToIPAddress()
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
         => Value;
 
-    protected override IPAddress? ConvertToIPv4Address()
-        => Value.AddressFamily is AddressFamily.InterNetwork ? Value : null;
+    /// <inheritdoc/>
+    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
+        => Value.GetAddressBytes();
 
-    protected override IPAddress? ConvertToIPv6Address()
-        => Value.AddressFamily is AddressFamily.InterNetworkV6 ? Value : null;
-
-    protected override ulong? ConvertToSize()
+    /// <inheritdoc/>
+    public override AAFieldCollection? AsFieldCollection()
         => null;
 
-    protected override AAFieldCollection? ConvertToFieldCollection()
-        => null;
-
-    #endregion Convert
+    #endregion AAValuet
 
 }

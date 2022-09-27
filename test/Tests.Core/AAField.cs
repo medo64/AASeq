@@ -28,7 +28,7 @@ public class AAField_Tests {
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => new AAField("", ""));  // cannot be empty
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => new AAField(".", ""));  // cannot have only dot
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => new AAField("A ", ""));  // no spaces allowed
-        Assert.ThrowsException<ArgumentNullException>(() => new AAField("A", null));
+        Assert.ThrowsException<ArgumentNullException>(() => new AAField("A", default(AAFieldCollection)));
     }
 
 }

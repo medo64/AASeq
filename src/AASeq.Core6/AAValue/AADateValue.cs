@@ -138,76 +138,86 @@ public sealed class AADateValue : AAValue {
     #endregion Operators
 
 
-    #region Convert
+    #region AAValue
 
-    protected override Boolean? ConvertToBoolean()
+    /// <inheritdoc/>
+    public override Boolean? AsBoolean()
         => null;
 
-    protected override SByte? ConvertToInt8()
+    /// <inheritdoc/>
+    public override Byte? AsByte()
         => null;
 
-    protected override Int16? ConvertToInt16()
+    /// <inheritdoc/>
+    public override UInt16? AsUInt16()
         => null;
 
-    protected override Int32? ConvertToInt32()
+    /// <inheritdoc/>
+    public override UInt32? AsUInt32()
         => null;
 
-    protected override Int64? ConvertToInt64()
-        => ConvertToDateTime()?.ToUnixTimeSeconds();
-
-    protected override Byte? ConvertToUInt8()
-        => null;
-
-    protected override UInt16? ConvertToUInt16()
-        => null;
-
-    protected override UInt32? ConvertToUInt32()
-        => null;
-
-    protected override UInt64? ConvertToUInt64() {
-        var seconds = ConvertToDateTime()?.ToUnixTimeSeconds();
+    /// <inheritdoc/>
+    public override UInt64? AsUInt64() {
+        var seconds = AsDateTimeOffset()?.ToUnixTimeSeconds();
         return seconds >= 0 ? (UInt64)seconds : null;
     }
 
-    protected override Single? ConvertToFloat32()
+    /// <inheritdoc/>
+    public override SByte? AsSByte()
         => null;
 
-    protected override Double? ConvertToFloat64()
-        => ConvertToUInt64();
-
-    protected override String? ConvertToString()
-        => ToString();
-
-    protected override ReadOnlyMemory<Byte>? ConvertToBinary()
+    /// <inheritdoc/>
+    public override Int16? AsInt16()
         => null;
 
-    protected override DateTimeOffset? ConvertToDateTime()
+    /// <inheritdoc/>
+    public override Int32? AsInt32()
+        => null;
+
+    /// <inheritdoc/>
+    public override Int64? AsInt64()
+        => AsDateTimeOffset()?.ToUnixTimeSeconds();
+
+    /// <inheritdoc/>
+    public override Single? AsSingle()
+        => null;
+
+    /// <inheritdoc/>
+    public override Double? AsDouble()
+        => AsUInt64();
+
+    /// <inheritdoc/>
+    public override DateTimeOffset? AsDateTimeOffset()
         => new DateTimeOffset(Value.Year, Value.Month, Value.Day, 0, 0, 0, 0, new TimeSpan());
 
-    protected override DateOnly? ConvertToDate()
+    /// <inheritdoc/>
+    public override DateOnly? AsDateOnly()
         => Value;
 
-    protected override TimeOnly? ConvertToTime()
+    /// <inheritdoc/>
+    public override TimeOnly? AsTimeOnly()
         => null;
 
-    protected override TimeSpan? ConvertToDuration()
+    /// <inheritdoc/>
+    public override TimeSpan? AsTimeSpan()
         => null;
 
-    protected override IPAddress? ConvertToIPAddress()
+    /// <inheritdoc/>
+    public override String? AsString()
+        => ToString();
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
         => null;
 
-    protected override IPAddress? ConvertToIPv4Address()
+    /// <inheritdoc/>
+    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
         => null;
 
-    protected override IPAddress? ConvertToIPv6Address()
+    /// <inheritdoc/>
+    public override AAFieldCollection? AsFieldCollection()
         => null;
 
-    protected override UInt64? ConvertToSize()
-        => null;
-
-    protected override AAFieldCollection? ConvertToFieldCollection()
-        => null;
-
-    #endregion Convert
+    #endregion AAValue
 
 }

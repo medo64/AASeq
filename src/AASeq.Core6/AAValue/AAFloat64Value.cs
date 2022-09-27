@@ -133,77 +133,87 @@ public sealed class AAFloat64Value : AAValue {
     #endregion Operators
 
 
-    #region Convert
+    #region AAValue
 
-    protected override Boolean? ConvertToBoolean()
+    /// <inheritdoc/>
+    public override Boolean? AsBoolean()
         => Value != 0;
 
-    protected override SByte? ConvertToInt8()
-        => Value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)Value : null;
-
-    protected override Int16? ConvertToInt16()
-        => Value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)Value : null;
-
-    protected override Int32? ConvertToInt32()
-        => Value is >= Int32.MinValue and <= Int32.MaxValue ? (Int32)Value : null;
-
-    protected override Int64? ConvertToInt64()
-        => Value is >= Int64.MinValue and <= Int64.MaxValue ? (Int32)Value : null;
-
-    protected override Byte? ConvertToUInt8()
+    /// <inheritdoc/>
+    public override Byte? AsByte()
         => Value is >= Byte.MinValue and <= Byte.MaxValue ? (Byte)Value : null;
 
-    protected override UInt16? ConvertToUInt16()
+    /// <inheritdoc/>
+    public override UInt16? AsUInt16()
         => Value is >= UInt16.MinValue and <= UInt16.MaxValue ? (UInt16)Value : null;
 
-    protected override UInt32? ConvertToUInt32()
+    /// <inheritdoc/>
+    public override UInt32? AsUInt32()
         => Value is >= UInt32.MinValue and <= UInt32.MaxValue ? (UInt32)Value : null;
 
-    protected override UInt64? ConvertToUInt64()
+    /// <inheritdoc/>
+    public override UInt64? AsUInt64()
         => Value is >= UInt64.MinValue and <= UInt64.MaxValue ? (UInt64)Value : null;
 
-    protected override Single? ConvertToFloat32()
+    /// <inheritdoc/>
+    public override SByte? AsSByte()
+        => Value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)Value : null;
+
+    /// <inheritdoc/>
+    public override Int16? AsInt16()
+        => Value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)Value : null;
+
+    /// <inheritdoc/>
+    public override Int32? AsInt32()
+        => Value is >= Int32.MinValue and <= Int32.MaxValue ? (Int32)Value : null;
+
+    /// <inheritdoc/>
+    public override Int64? AsInt64()
+        => Value is >= Int64.MinValue and <= Int64.MaxValue ? (Int32)Value : null;
+
+    /// <inheritdoc/>
+    public override Single? AsSingle()
         => (Single)Value;
 
-    protected override Double? ConvertToFloat64()
+    /// <inheritdoc/>
+    public override Double? AsDouble()
         => Value;
 
-    protected override String? ConvertToString()
+    /// <inheritdoc/>
+    public override DateTimeOffset? AsDateTimeOffset()
+        => DateTimeOffset.UnixEpoch.AddSeconds(Value);
+
+    /// <inheritdoc/>
+    public override DateOnly? AsDateOnly()
+        => new DateOnly(1970, 1, 1).AddDays((int)(Value / 86400f));
+
+    /// <inheritdoc/>
+    public override TimeOnly? AsTimeOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeSpan? AsTimeSpan()
+        => null;
+
+    /// <inheritdoc/>
+    public override String? AsString()
         => ToString();
 
-    protected override ReadOnlyMemory<Byte>? ConvertToBinary() {
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
+
+    /// <inheritdoc/>
+    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory() {
         var buffer = new byte[8];
         BinaryPrimitives.WriteDoubleBigEndian(buffer, Value);
         return buffer;
     }
 
-    protected override DateTimeOffset? ConvertToDateTime()
-        => DateTimeOffset.UnixEpoch.AddSeconds(Value);
-
-    protected override DateOnly? ConvertToDate()
-        => new DateOnly(1970, 1, 1).AddDays((int)(Value / 86400f));
-
-    protected override TimeOnly? ConvertToTime()
+    /// <inheritdoc/>
+    public override AAFieldCollection? AsFieldCollection()
         => null;
 
-    protected override TimeSpan? ConvertToDuration()
-        => null;
-
-    protected override IPAddress? ConvertToIPAddress()
-        => null;
-
-    protected override IPAddress? ConvertToIPv4Address()
-        => null;
-
-    protected override IPAddress? ConvertToIPv6Address()
-        => null;
-
-    protected override UInt64? ConvertToSize()
-        => null;
-
-    protected override AAFieldCollection? ConvertToFieldCollection()
-        => null;
-
-    #endregion Convert
+    #endregion AAField
 
 }

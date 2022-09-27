@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
-using System.Text;
 
 namespace AASeq;
 
@@ -466,7 +465,6 @@ public sealed class AAFieldCollection : AAValue, IList<AAField> {
         get { return BaseCollection[index]; }
         set {
             if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
-            var item = this[index];
             BaseCollection.RemoveAt(index);
             BaseCollection.Insert(index, value);
         }
@@ -516,28 +514,79 @@ public sealed class AAFieldCollection : AAValue, IList<AAField> {
 
     #region AAValue
 
-    protected override bool? ConvertToBoolean() => null;
-    protected override sbyte? ConvertToInt8() => null;
-    protected override short? ConvertToInt16() => null;
-    protected override int? ConvertToInt32() => null;
-    protected override long? ConvertToInt64() => null;
-    protected override byte? ConvertToUInt8() => null;
-    protected override ushort? ConvertToUInt16() => null;
-    protected override uint? ConvertToUInt32() => null;
-    protected override ulong? ConvertToUInt64() => null;
-    protected override float? ConvertToFloat32() => null;
-    protected override double? ConvertToFloat64() => null;
-    protected override ReadOnlyMemory<byte>? ConvertToBinary() => null;
-    protected override string? ConvertToString() => null;
-    protected override DateTimeOffset? ConvertToDateTime() => null;
-    protected override DateOnly? ConvertToDate() => null;
-    protected override TimeOnly? ConvertToTime() => null;
-    protected override TimeSpan? ConvertToDuration() => null;
-    protected override IPAddress? ConvertToIPAddress() => null;
-    protected override IPAddress? ConvertToIPv4Address() => null;
-    protected override IPAddress? ConvertToIPv6Address() => null;
-    protected override ulong? ConvertToSize() => null;
-    protected override AAFieldCollection? ConvertToFieldCollection() => this;
+    /// <inheritdoc/>
+    public override Boolean? AsBoolean()
+        => null;
+
+    /// <inheritdoc/>
+    public override Byte? AsByte()
+        => null;
+
+    /// <inheritdoc/>
+    public override UInt16? AsUInt16()
+        => null;
+
+    /// <inheritdoc/>
+    public override UInt32? AsUInt32()
+        => null;
+
+    /// <inheritdoc/>
+    public override UInt64? AsUInt64()
+        => null;
+
+    /// <inheritdoc/>
+    public override SByte? AsSByte()
+        => null;
+
+    /// <inheritdoc/>
+    public override Int16? AsInt16()
+        => null;
+
+    /// <inheritdoc/>
+    public override Int32? AsInt32()
+        => null;
+
+    /// <inheritdoc/>
+    public override Int64? AsInt64()
+        => null;
+
+    /// <inheritdoc/>
+    public override Single? AsSingle()
+        => null;
+
+    /// <inheritdoc/>
+    public override Double? AsDouble()
+        => null;
+
+    /// <inheritdoc/>
+    public override String? AsString()
+        => null;
+
+    /// <inheritdoc/>
+    public override DateTimeOffset? AsDateTimeOffset()
+        => null;
+
+    /// <inheritdoc/>
+    public override DateOnly? AsDateOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeOnly? AsTimeOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeSpan? AsTimeSpan()
+        => null;
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress() => null;
+
+    /// <inheritdoc/>
+    public override ReadOnlyMemory<byte>? AsReadOnlyMemory()
+        => null;
+
+    /// <inheritdoc/>
+    public override AAFieldCollection? AsFieldCollection() => this;
 
     #endregion AAValue
 

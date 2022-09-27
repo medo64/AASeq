@@ -167,70 +167,14 @@ public sealed class AABinaryValue : AAValue {
     #endregion Operations
 
 
-    #region Convert
+    #region AAValue
 
-    protected override Boolean? ConvertToBoolean()
+    /// <inheritdoc/>
+    public override Boolean? AsBoolean()
         => null;
 
-    protected override SByte? ConvertToInt8() {
-        switch (Value.Length) {
-            case 1: return (SByte)Value.Span[0];
-            case 2: {
-                    var value = BinaryPrimitives.ReadInt16BigEndian(Value.Span);
-                    return value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)value : null;
-                }
-            case 4: {
-                    var value = BinaryPrimitives.ReadInt32BigEndian(Value.Span);
-                    return value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)value : null;
-                }
-            case 8: {
-                    var value = BinaryPrimitives.ReadInt64BigEndian(Value.Span);
-                    return value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)value : null;
-                }
-            default: return null;
-        };
-    }
-
-    protected override Int16? ConvertToInt16() {
-        switch (Value.Length) {
-            case 1: return (SByte)Value.Span[0];
-            case 2: return BinaryPrimitives.ReadInt16BigEndian(Value.Span);
-            case 4: {
-                    var value = BinaryPrimitives.ReadInt32BigEndian(Value.Span);
-                    return value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)value : null;
-                }
-            case 8: {
-                    var value = BinaryPrimitives.ReadInt64BigEndian(Value.Span);
-                    return value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)value : null;
-                }
-            default: return null;
-        };
-    }
-
-    protected override Int32? ConvertToInt32() {
-        switch (Value.Length) {
-            case 1: return (SByte)Value.Span[0];
-            case 2: return BinaryPrimitives.ReadInt16BigEndian(Value.Span);
-            case 4: return BinaryPrimitives.ReadInt32BigEndian(Value.Span);
-            case 8: {
-                    var value = BinaryPrimitives.ReadInt64BigEndian(Value.Span);
-                    return value is >= Int32.MinValue and <= Int32.MaxValue ? (Int32)value : null;
-                }
-            default: return null;
-        };
-    }
-
-    protected override Int64? ConvertToInt64() {
-        return Value.Length switch {
-            1 => (SByte)Value.Span[0],
-            2 => BinaryPrimitives.ReadInt16BigEndian(Value.Span),
-            4 => BinaryPrimitives.ReadInt32BigEndian(Value.Span),
-            8 => BinaryPrimitives.ReadInt64BigEndian(Value.Span),
-            _ => null,
-        };
-    }
-
-    protected override Byte? ConvertToUInt8() {
+    /// <inheritdoc/>
+    public override Byte? AsByte() {
         switch (Value.Length) {
             case 1: return Value.Span[0];
             case 2: {
@@ -249,7 +193,8 @@ public sealed class AABinaryValue : AAValue {
         };
     }
 
-    protected override UInt16? ConvertToUInt16() {
+    /// <inheritdoc/>
+    public override UInt16? AsUInt16() {
         switch (Value.Length) {
             case 1: return Value.Span[0];
             case 2: return BinaryPrimitives.ReadUInt16BigEndian(Value.Span);
@@ -265,7 +210,8 @@ public sealed class AABinaryValue : AAValue {
         };
     }
 
-    protected override UInt32? ConvertToUInt32() {
+    /// <inheritdoc/>
+    public override UInt32? AsUInt32() {
         switch (Value.Length) {
             case 1: return Value.Span[0];
             case 2: return BinaryPrimitives.ReadUInt16BigEndian(Value.Span);
@@ -278,7 +224,8 @@ public sealed class AABinaryValue : AAValue {
         };
     }
 
-    protected override UInt64? ConvertToUInt64() {
+    /// <inheritdoc/>
+    public override UInt64? AsUInt64() {
         return Value.Length switch {
             1 => Value.Span[0],
             2 => BinaryPrimitives.ReadUInt16BigEndian(Value.Span),
@@ -288,7 +235,71 @@ public sealed class AABinaryValue : AAValue {
         };
     }
 
-    protected override Single? ConvertToFloat32() {
+
+    /// <inheritdoc/>
+    public override SByte? AsSByte() {
+        switch (Value.Length) {
+            case 1: return (SByte)Value.Span[0];
+            case 2: {
+                    var value = BinaryPrimitives.ReadInt16BigEndian(Value.Span);
+                    return value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)value : null;
+                }
+            case 4: {
+                    var value = BinaryPrimitives.ReadInt32BigEndian(Value.Span);
+                    return value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)value : null;
+                }
+            case 8: {
+                    var value = BinaryPrimitives.ReadInt64BigEndian(Value.Span);
+                    return value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)value : null;
+                }
+            default: return null;
+        };
+    }
+
+    /// <inheritdoc/>
+    public override Int16? AsInt16() {
+        switch (Value.Length) {
+            case 1: return (SByte)Value.Span[0];
+            case 2: return BinaryPrimitives.ReadInt16BigEndian(Value.Span);
+            case 4: {
+                    var value = BinaryPrimitives.ReadInt32BigEndian(Value.Span);
+                    return value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)value : null;
+                }
+            case 8: {
+                    var value = BinaryPrimitives.ReadInt64BigEndian(Value.Span);
+                    return value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)value : null;
+                }
+            default: return null;
+        };
+    }
+
+    /// <inheritdoc/>
+    public override Int32? AsInt32() {
+        switch (Value.Length) {
+            case 1: return (SByte)Value.Span[0];
+            case 2: return BinaryPrimitives.ReadInt16BigEndian(Value.Span);
+            case 4: return BinaryPrimitives.ReadInt32BigEndian(Value.Span);
+            case 8: {
+                    var value = BinaryPrimitives.ReadInt64BigEndian(Value.Span);
+                    return value is >= Int32.MinValue and <= Int32.MaxValue ? (Int32)value : null;
+                }
+            default: return null;
+        };
+    }
+
+    /// <inheritdoc/>
+    public override Int64? AsInt64() {
+        return Value.Length switch {
+            1 => (SByte)Value.Span[0],
+            2 => BinaryPrimitives.ReadInt16BigEndian(Value.Span),
+            4 => BinaryPrimitives.ReadInt32BigEndian(Value.Span),
+            8 => BinaryPrimitives.ReadInt64BigEndian(Value.Span),
+            _ => null,
+        };
+    }
+
+    /// <inheritdoc/>
+    public override Single? AsSingle() {
         return Value.Length switch {
             4 => BinaryPrimitives.ReadSingleBigEndian(Value.Span),
             8 => (float)BinaryPrimitives.ReadDoubleBigEndian(Value.Span),
@@ -296,7 +307,8 @@ public sealed class AABinaryValue : AAValue {
         };
     }
 
-    protected override Double? ConvertToFloat64() {
+    /// <inheritdoc/>
+    public override Double? AsDouble() {
         return Value.Length switch {
             4 => BinaryPrimitives.ReadSingleBigEndian(Value.Span),
             8 => BinaryPrimitives.ReadDoubleBigEndian(Value.Span),
@@ -304,41 +316,40 @@ public sealed class AABinaryValue : AAValue {
         };
     }
 
+    /// <inheritdoc/>
+    public override DateTimeOffset? AsDateTimeOffset()
+        => null;
+
+    /// <inheritdoc/>
+    public override DateOnly? AsDateOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeOnly? AsTimeOnly()
+        => null;
+
+    /// <inheritdoc/>
+    public override TimeSpan? AsTimeSpan()
+        => null;
+
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
-    protected override String? ConvertToString()
+    /// <inheritdoc/>
+    public override String? AsString()
         => Utf8.GetString(Value.Span);
 
-    protected override ReadOnlyMemory<Byte>? ConvertToBinary() {
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => (Value.Length is 4 or 16) ? new IPAddress(Value.Span) : null;
+
+    /// <inheritdoc/>
+    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory() {
         return Value;
     }
 
-    protected override DateTimeOffset? ConvertToDateTime()
+    /// <inheritdoc/>
+    public override AAFieldCollection? AsFieldCollection()
         => null;
 
-    protected override DateOnly? ConvertToDate()
-        => null;
-
-    protected override TimeOnly? ConvertToTime()
-        => null;
-
-    protected override TimeSpan? ConvertToDuration()
-        => null;
-
-    protected override IPAddress? ConvertToIPAddress()
-        => (Value.Length is 4 or 16) ? new IPAddress(Value.Span) : null;
-
-    protected override IPAddress? ConvertToIPv4Address()
-        => (Value.Length is 4) ? new IPAddress(Value.Span) : null;
-
-    protected override IPAddress? ConvertToIPv6Address()
-        => (Value.Length is 16) ? new IPAddress(Value.Span) : null;
-
-    protected override UInt64? ConvertToSize()
-        => ConvertToUInt64();
-
-    protected override AAFieldCollection? ConvertToFieldCollection()
-        => null;
-
-    #endregion Convert
+    #endregion AAValue
 
 }

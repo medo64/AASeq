@@ -43,11 +43,11 @@ public class AAStringValue_Tests {
     }
 
     [TestMethod]
-    public void AAStringValue_AsInt8() {
-        Assert.AreEqual((sbyte)42, new AAStringValue("42").AsInt8());
-        Assert.AreEqual((sbyte)-42, new AAStringValue("-42").AsInt8());
-        Assert.IsNull(new AAStringValue("128").AsInt8());
-        Assert.IsNull(new AAStringValue("-129").AsInt8());
+    public void AAStringValue_AsSByte() {
+        Assert.AreEqual((sbyte)42, new AAStringValue("42").AsSByte());
+        Assert.AreEqual((sbyte)-42, new AAStringValue("-42").AsSByte());
+        Assert.IsNull(new AAStringValue("128").AsSByte());
+        Assert.IsNull(new AAStringValue("-129").AsSByte());
     }
 
     [TestMethod]
@@ -87,11 +87,11 @@ public class AAStringValue_Tests {
     }
 
     [TestMethod]
-    public void AAStringValue_AsUInt8() {
-        Assert.AreEqual((byte)255, new AAStringValue("255").AsUInt8());
-        Assert.AreEqual((byte)0, new AAStringValue("0").AsUInt8());
-        Assert.IsNull(new AAStringValue("256").AsUInt8());
-        Assert.IsNull(new AAStringValue("-1").AsUInt8());
+    public void AAStringValue_AsByte() {
+        Assert.AreEqual((byte)255, new AAStringValue("255").AsByte());
+        Assert.AreEqual((byte)0, new AAStringValue("0").AsByte());
+        Assert.IsNull(new AAStringValue("256").AsByte());
+        Assert.IsNull(new AAStringValue("-1").AsByte());
     }
 
     [TestMethod]
@@ -125,23 +125,23 @@ public class AAStringValue_Tests {
     }
 
     [TestMethod]
-    public void AAStringValue_AsFloat32() {
-        Assert.AreEqual(42.0f, new AAStringValue("42.0").AsFloat32());
-        Assert.AreEqual(-42.0f, new AAStringValue("-42.0").AsFloat32());
-        Assert.AreEqual(42.0f, new AAStringValue("4.2e1").AsFloat32());
-        Assert.IsTrue(float.IsNaN(new AAStringValue("NaN").AsFloat32(0)));
-        Assert.IsNull(new AAStringValue("OFF").AsFloat32());
-        Assert.IsNull(new AAStringValue("").AsFloat32());
+    public void AAStringValue_AsSingle() {
+        Assert.AreEqual(42.0f, new AAStringValue("42.0").AsSingle());
+        Assert.AreEqual(-42.0f, new AAStringValue("-42.0").AsSingle());
+        Assert.AreEqual(42.0f, new AAStringValue("4.2e1").AsSingle());
+        Assert.IsTrue(float.IsNaN(new AAStringValue("NaN").AsSingle(0)));
+        Assert.IsNull(new AAStringValue("OFF").AsSingle());
+        Assert.IsNull(new AAStringValue("").AsSingle());
     }
 
     [TestMethod]
-    public void AAStringValue_AsFloat64() {
-        Assert.AreEqual(42.0, new AAStringValue("42.0").AsFloat64());
-        Assert.AreEqual(-42.0, new AAStringValue("-42.0").AsFloat64());
-        Assert.AreEqual(42.0, new AAStringValue("4.2e1").AsFloat64());
-        Assert.IsTrue(double.IsNaN(new AAStringValue("NaN").AsFloat64(0)));
-        Assert.IsNull(new AAStringValue("OFF").AsFloat64());
-        Assert.IsNull(new AAStringValue("").AsFloat64());
+    public void AAStringValue_AsDouble() {
+        Assert.AreEqual(42.0, new AAStringValue("42.0").AsDouble());
+        Assert.AreEqual(-42.0, new AAStringValue("-42.0").AsDouble());
+        Assert.AreEqual(42.0, new AAStringValue("4.2e1").AsDouble());
+        Assert.IsTrue(double.IsNaN(new AAStringValue("NaN").AsDouble(0)));
+        Assert.IsNull(new AAStringValue("OFF").AsDouble());
+        Assert.IsNull(new AAStringValue("").AsDouble());
     }
 
     [TestMethod]
@@ -152,23 +152,23 @@ public class AAStringValue_Tests {
     [TestMethod]
     public void AAStringValue_AsDateTime() {
         var now = DateTimeOffset.Now;
-        Assert.AreEqual(now, new AAStringValue(now.ToString("o")).AsDateTime());
-        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(0, 0, 0)), new AAStringValue("1929-01-07 13:45:23.122Z").AsDateTime());
-        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(1, 0, 0)), new AAStringValue("1929-01-07 13:45:23.122+01:00").AsDateTime());
-        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 0, new TimeSpan(2, 0, 0)), new AAStringValue("1929-01-07 13:45:23+02:00").AsDateTime());
-        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 23, new TimeSpan(0, 0, 0)).AddTicks(1234567), new AAStringValue("1929-01-07 13:45:23.1234567Z").AsDateTime());
-        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 0, 0, new TimeSpan(-2, 0, 0)), new AAStringValue("1929-01-07 13:45-02:00").AsDateTime());
+        Assert.AreEqual(now, new AAStringValue(now.ToString("o")).AsDateTimeOffset());
+        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(0, 0, 0)), new AAStringValue("1929-01-07 13:45:23.122Z").AsDateTimeOffset());
+        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 122, new TimeSpan(1, 0, 0)), new AAStringValue("1929-01-07 13:45:23.122+01:00").AsDateTimeOffset());
+        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 23, 0, new TimeSpan(2, 0, 0)), new AAStringValue("1929-01-07 13:45:23+02:00").AsDateTimeOffset());
+        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 23, new TimeSpan(0, 0, 0)).AddTicks(1234567), new AAStringValue("1929-01-07 13:45:23.1234567Z").AsDateTimeOffset());
+        Assert.AreEqual(new DateTimeOffset(1929, 01, 07, 13, 45, 0, 0, new TimeSpan(-2, 0, 0)), new AAStringValue("1929-01-07 13:45-02:00").AsDateTimeOffset());
     }
 
     [TestMethod]
     public void AAStringValue_AsDate() {
-        Assert.AreEqual(new DateOnly(1929, 01, 07), new AAStringValue("1929-01-07").AsDate());
+        Assert.AreEqual(new DateOnly(1929, 01, 07), new AAStringValue("1929-01-07").AsDateOnly());
     }
 
     [TestMethod]
     public void AAStringValue_AsTime() {
-        Assert.AreEqual(new TimeOnly(19, 51, 37), new AAStringValue("19:51:37").AsTime());
-        Assert.AreEqual(new TimeOnly(19, 51, 00), new AAStringValue("19:51").AsTime());
+        Assert.AreEqual(new TimeOnly(19, 51, 37), new AAStringValue("19:51:37").AsTimeOnly());
+        Assert.AreEqual(new TimeOnly(19, 51, 00), new AAStringValue("19:51").AsTimeOnly());
     }
 
     [TestMethod]
@@ -180,28 +180,6 @@ public class AAStringValue_Tests {
         Assert.AreEqual(IPAddress.Parse("ff08::152"), new AAStringValue("ff08::152").AsIPAddress());
         Assert.AreEqual(IPAddress.Parse("239.192.111.17"), new AAStringValue("239.192.111.17").AsIPAddress());
         Assert.AreEqual(IPAddress.Parse("ff18::5e:40:6f:11"), new AAStringValue("ff18::5e:40:6f:11").AsIPAddress());
-    }
-
-    [TestMethod]
-    public void AAStringValue_AsIPv6Address() {
-        Assert.AreEqual(IPAddress.IPv6Any, new AAStringValue("::").AsIPv6Address());
-        Assert.IsNull(new AAStringValue("0.0.0.0").AsIPv6Address());
-        Assert.AreEqual(IPAddress.IPv6Loopback, new AAStringValue("::1").AsIPv6Address());
-        Assert.IsNull(new AAStringValue("127.0.0.1").AsIPv6Address());
-        Assert.AreEqual(IPAddress.Parse("ff08::152"), new AAStringValue("ff08::152").AsIPv6Address());
-        Assert.IsNull(new AAStringValue("239.192.111.17").AsIPv6Address());
-        Assert.AreEqual(IPAddress.Parse("ff18::5e:40:6f:11"), new AAStringValue("ff18::5e:40:6f:11").AsIPv6Address());
-    }
-
-    [TestMethod]
-    public void AAStringValue_AsIPv4Address() {
-        Assert.IsNull(new AAStringValue("::").AsIPv4Address());
-        Assert.AreEqual(IPAddress.Any, new AAStringValue("0.0.0.0").AsIPv4Address());
-        Assert.IsNull(new AAStringValue("::1").AsIPv4Address());
-        Assert.AreEqual(IPAddress.Loopback, new AAStringValue("127.0.0.1").AsIPv4Address());
-        Assert.IsNull(new AAStringValue("ff08::152").AsIPv4Address());
-        Assert.AreEqual(IPAddress.Parse("239.192.111.17"), new AAStringValue("239.192.111.17").AsIPv4Address());
-        Assert.IsNull(new AAStringValue("ff18::5e:40:6f:11").AsIPv4Address());
     }
 
 }
