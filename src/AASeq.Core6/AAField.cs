@@ -8,7 +8,7 @@ namespace AASeq;
 /// Field.
 /// </summary>
 [DebuggerDisplay("{Name}: {Value}")]
-public sealed record AAField {
+public sealed class AAField {
 
     /// <summary>
     /// Create a new instance.

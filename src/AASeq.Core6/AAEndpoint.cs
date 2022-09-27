@@ -8,7 +8,7 @@ namespace AASeq;
 /// Endpoint.
 /// </summary>
 [DebuggerDisplay("{Name}")]
-public sealed record AAEndpoint {
+public sealed class AAEndpoint {
 
     /// <summary>
     /// Create a new instance.

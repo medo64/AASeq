@@ -8,7 +8,7 @@ namespace AASeq;
 /// Tag.
 /// </summary>
 [DebuggerDisplay("{State ? Name : \"!\" + Name}")]
-public sealed record AATag {
+public sealed class AATag {
 
     /// <summary>
     /// Create a new instance.
