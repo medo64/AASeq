@@ -358,4 +358,28 @@ public class AAFieldCollection_Tests {
 
     #endregion
 
+    [TestMethod]
+    public void AAFieldCollection_Clone() {
+        var o = new AAFieldCollection() {
+                new AAField("A", "1"),
+                new AAField("B", new AAFieldCollection())
+            };
+        o.FindFirst("B").Subfields.Add(new AAField("C", "3"));
+        o.FindFirst("B").Subfields.Add(new AAField("C", "4"));
+
+        var c = (AAFieldCollection)o.Clone();
+        o[0].Value = "1'";
+        o[1].Value.AsFieldCollection().Clear();
+
+        Assert.AreEqual("1", c["A"]);
+        Assert.AreEqual("3", c["B/C"]);
+
+        var paths = new List<AAFieldNode>(c.AsFieldCollection().AllPaths);
+        Assert.AreEqual(4, paths.Count);
+        Assert.AreEqual("A", paths[0].Path);
+        Assert.AreEqual("B", paths[1].Path);
+        Assert.AreEqual("B/C", paths[2].Path);
+        Assert.AreEqual("B/C", paths[3].Path);
+    }
+
 }

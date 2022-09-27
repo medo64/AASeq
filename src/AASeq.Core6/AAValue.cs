@@ -156,8 +156,8 @@ public abstract class AAValue {
 
     #endregion Operators
 
-    #region As
 
+    #region As
 
     /// <summary>
     /// Returns Boolean value of an object if conversion is possible or null otherwise.
@@ -363,4 +363,15 @@ public abstract class AAValue {
     public abstract AAFieldCollection? AsFieldCollection();
 
     #endregion As
+
+
+    #region Clone
+
+    /// <summary>
+    /// Returns a cloned copy of an object.
+    /// </summary>
+    public abstract AAValue Clone();
+
+    #endregion Clone
+
 }

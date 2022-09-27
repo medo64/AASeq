@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Net;
 using System.Text.RegularExpressions;
 
 namespace AASeq;
@@ -71,6 +72,22 @@ public sealed class AAEndpoint {
     }
 
     #endregion Overrides
+
+
+    #region Clone
+
+    /// <summary>
+    /// Creates a copy of the endpoint.
+    /// </summary>
+    public AAEndpoint Clone() {
+        var endpoint = new AAEndpoint(Name, PluginName);
+        foreach (var field in Data) {
+            endpoint.Data.Add(field.Clone());
+        }
+        return endpoint;
+    }
+
+    #endregion Clone
 
 
     #region Validation

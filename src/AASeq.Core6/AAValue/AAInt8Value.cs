@@ -210,6 +210,11 @@ public sealed class AAInt8Value : AAValue {
     public override AAFieldCollection? AsFieldCollection()
         => null;
 
+
+    /// <inheritdoc/>
+    public override AAValue Clone()
+        => new AAInt8Value(Value);
+
     #endregion AAValuet
 
 }

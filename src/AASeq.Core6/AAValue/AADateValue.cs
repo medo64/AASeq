@@ -218,6 +218,11 @@ public sealed class AADateValue : AAValue {
     public override AAFieldCollection? AsFieldCollection()
         => null;
 
+
+    /// <inheritdoc/>
+    public override AAValue Clone()
+        => new AADateValue(Value);
+
     #endregion AAValue
 
 }

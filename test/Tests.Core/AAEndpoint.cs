@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using AASeq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -56,6 +57,26 @@ public class AAEndpoint_Tests {
         x.Data.Add(new AAField("P1", "V1"));
         x.Data.Add(new AAField("P2", "V2"));
         x.Data.Add(new AAField("P3", "V3"));
+        Assert.AreEqual("P1", x.Data[0].Name);
+        Assert.AreEqual("V1", x.Data[0].Value);
+        Assert.AreEqual("P2", x.Data[1].Name);
+        Assert.AreEqual("V2", x.Data[1].Value);
+        Assert.AreEqual("P3", x.Data[2].Name);
+        Assert.AreEqual("V3", x.Data[2].Value);
+    }
+
+    [TestMethod]
+    public void AAEndpoint_Clone() {
+        var s = new AAEndpoint("Test", "Protocol");
+        s.Data.Add(new AAField("P1", "V1"));
+        s.Data.Add(new AAField("P2", "V2"));
+        s.Data.Add(new AAField("P3", "V3"));
+
+        var x = s.Clone();
+        s.Data.Clear();
+
+        Assert.AreEqual("Test", x.Name);
+        Assert.AreEqual("Protocol", x.PluginName);
         Assert.AreEqual("P1", x.Data[0].Name);
         Assert.AreEqual("V1", x.Data[0].Value);
         Assert.AreEqual("P2", x.Data[1].Name);

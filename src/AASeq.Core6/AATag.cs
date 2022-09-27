@@ -49,6 +49,14 @@ public sealed class AATag {
     #region Overrides
 
     /// <summary>
+    /// Returns if objects are equal.
+    /// </summary>
+    /// <param name="obj">Other object.</param>
+    public override bool Equals(object? obj) {
+        return (obj is AATag tag) && (tag.Name.Equals(Name, AATag.NameComparison)) && (tag.State == State);
+    }
+
+    /// <summary>
     /// Returns a hash code for the current object.
     /// </summary>
     public override int GetHashCode() {
@@ -61,6 +69,7 @@ public sealed class AATag {
     #region Validation
 
     internal static StringComparer NameComparer => StringComparer.OrdinalIgnoreCase;
+    internal static StringComparison NameComparison => StringComparison.OrdinalIgnoreCase;
 
     private static readonly Regex NameRegex = new(@"^@?\p{L}[\p{L}\p{Nd}]*$");  // allowed only letters and numbers; can start with at sign (@)
     /// <summary>
@@ -72,5 +81,17 @@ public sealed class AATag {
     }
 
     #endregion Validation
+
+
+    #region Clone
+
+    /// <summary>
+    /// Creates a copy of the tag.
+    /// </summary>
+    public AATag Clone() {
+        return new AATag(Name, State);
+    }
+
+    #endregion Clone
 
 }

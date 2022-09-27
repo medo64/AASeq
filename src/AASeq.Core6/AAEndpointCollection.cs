@@ -98,7 +98,7 @@ public sealed class AAEndpointCollection : IList<AAEndpoint> {
         }
     }
 
-    #endregion
+    #endregion Index
 
 
     #region ICollection
@@ -245,7 +245,23 @@ public sealed class AAEndpointCollection : IList<AAEndpoint> {
         }
     }
 
-    #endregion
+    #endregion ICollection
+
+
+    #region Clone
+
+    /// <summary>
+    /// Creates a copy of the collection.
+    /// </summary>
+    public AAEndpointCollection Clone() {
+        var collection = new AAEndpointCollection();
+        foreach (var item in this) {
+            collection.Add(item.Clone());
+        }
+        return collection;
+    }
+
+    #endregion Clone
 
 
     /// <summary>

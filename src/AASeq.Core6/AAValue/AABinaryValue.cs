@@ -350,6 +350,11 @@ public sealed class AABinaryValue : AAValue {
     public override AAFieldCollection? AsFieldCollection()
         => null;
 
+
+    /// <inheritdoc/>
+    public override AAValue Clone()
+        => new AABinaryValue(Value);
+
     #endregion AAValue
 
 }

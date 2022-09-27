@@ -42,4 +42,14 @@ public class AATag_Tests {
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => new AATag("@1A"));  // cannot start with a number
     }
 
+    [TestMethod]
+    public void AATag_Clone() {
+        var s = new AATag("Name", false);
+
+        var x = s.Clone();
+
+        Assert.AreEqual("Name", x.Name);
+        Assert.AreEqual(false, x.State);
+    }
+
 }

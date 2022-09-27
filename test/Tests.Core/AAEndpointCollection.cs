@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using AASeq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -106,6 +107,20 @@ public class AAEndpointCollection_Tests {
     public void AAEndpointCollection_GetNewNameInOne() {
         var c = new AAEndpointCollection();
         c.Add(new AAEndpoint(c.GetUniqueName("Test"), "Dummy"));
+        Assert.AreEqual(1, c.Count);
+        Assert.AreEqual("Test", c[0].Name);
+    }
+
+
+    [TestMethod]
+    public void AAEndpointCollection_Clone() {
+        var o = new AAEndpointCollection() {
+                new AAEndpoint("Test")
+            };
+
+        var c = o.Clone();
+        o.Clear();
+
         Assert.AreEqual(1, c.Count);
         Assert.AreEqual("Test", c[0].Name);
     }

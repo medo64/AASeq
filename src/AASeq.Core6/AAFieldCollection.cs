@@ -472,6 +472,7 @@ public sealed class AAFieldCollection : AAValue, IList<AAField> {
 
     #endregion
 
+
     #region Paths
 
     /// <summary>
@@ -511,6 +512,7 @@ public sealed class AAFieldCollection : AAValue, IList<AAField> {
     }
 
     #endregion
+
 
     #region AAValue
 
@@ -589,5 +591,22 @@ public sealed class AAFieldCollection : AAValue, IList<AAField> {
     public override AAFieldCollection? AsFieldCollection() => this;
 
     #endregion AAValue
+
+
+
+    #region Clone
+
+    /// <summary>
+    /// Creates a copy of the collection.
+    /// </summary>
+    public override AAValue Clone() {
+        var collection = new AAFieldCollection();
+        foreach (var item in this) {
+            collection.Add(item.Clone());
+        }
+        return collection;
+    }
+
+    #endregion
 
 }

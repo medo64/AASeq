@@ -204,6 +204,11 @@ public sealed class AAStringValue : AAValue {
     public override AAFieldCollection? AsFieldCollection()
         => null;
 
+
+    /// <inheritdoc/>
+    public override AAValue Clone()
+        => new AAStringValue(Value);
+
     #endregion AAValuet
 
 }

@@ -225,6 +225,11 @@ public sealed class AABooleanValue : AAValue {
     public override AAFieldCollection? AsFieldCollection()
         => null;
 
+
+    /// <inheritdoc/>
+    public override AAValue Clone()
+        => new AABooleanValue(Value);
+
     #endregion AAValue
 
 }

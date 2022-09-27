@@ -44,6 +44,13 @@ public sealed class AAField {
         }
     }
 
+    /// <summary>
+    /// Gets field collection or null if value is not available.
+    /// </summary>
+    public AAFieldCollection? Subfields {
+        get { return Value.AsFieldCollection(); }
+    }
+
     private readonly Lazy<AATagCollection> _tags = new();
     /// <summary>
     /// Gets tags defined for given field.
@@ -101,5 +108,24 @@ public sealed class AAField {
     }
 
     #endregion Validation
+
+
+    #region Clone
+
+    /// <summary>
+    /// Creates the copy of the field.
+    /// </summary>
+    public AAField Clone() {
+        AAField field;
+        if (Value is AAFieldCollection subfields) {
+            field = new AAField(Name, subfields.Clone());
+        } else {
+            field = new AAField(Name, Value);
+        }
+        foreach (var tag in Tags) { field.Tags.Add(tag.Clone()); }
+        return field;
+    }
+
+    #endregion
 
 }

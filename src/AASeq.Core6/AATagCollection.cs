@@ -248,6 +248,22 @@ public sealed class AATagCollection : IList<AATag> {
     #endregion
 
 
+    #region Clone
+
+    /// <summary>
+    /// Creates a copy of the collection.
+    /// </summary>
+    public AATagCollection Clone() {
+        var collection = new AATagCollection();
+        foreach (var item in this) {
+            collection.Add(item.Clone());
+        }
+        return collection;
+    }
+
+    #endregion Clond
+
+
     /// <summary>
     /// Returns state of tag or null if tag is not present.
     /// </summary>

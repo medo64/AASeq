@@ -214,6 +214,11 @@ public sealed class AAFloat32Value : AAValue {
     public override AAFieldCollection? AsFieldCollection()
         => null;
 
+
+    /// <inheritdoc/>
+    public override AAValue Clone()
+        => new AAFloat32Value(Value);
+
     #endregion AAValuet
 
 }

@@ -295,6 +295,11 @@ public sealed class AADurationValue : AAValue {
     public override AAFieldCollection? AsFieldCollection()
         => null;
 
+
+    /// <inheritdoc/>
+    public override AAValue Clone()
+        => new AADurationValue(Value);
+
     #endregion AAValue
 
 }

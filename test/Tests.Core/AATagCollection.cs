@@ -60,4 +60,17 @@ public class AATagCollection_Tests {
         Assert.AreEqual(0, c.Count);
     }
 
+    [TestMethod]
+    public void AATagCollection_Clone() {
+        var o = new AATagCollection();
+        o.Add(new AATag("Test"));
+
+        var c = o.Clone();
+
+        Assert.AreEqual(1, c.Count);
+        Assert.AreEqual("Test", c[0].Name);
+        Assert.AreEqual(true, c[0].State);
+        Assert.AreEqual(true, c.GetState("Test"));
+    }
+
 }

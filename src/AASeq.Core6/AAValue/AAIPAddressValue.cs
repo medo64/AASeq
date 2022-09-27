@@ -213,6 +213,11 @@ public sealed class AAIPAddressValue : AAValue {
     public override AAFieldCollection? AsFieldCollection()
         => null;
 
+
+    /// <inheritdoc/>
+    public override AAValue Clone()
+        => new AAIPAddressValue(Value);
+
     #endregion AAValuet
 
 }
