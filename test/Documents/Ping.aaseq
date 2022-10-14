@@ -11,10 +11,11 @@ Host: 127.0.0.2
 [Local_IPv6: Ping]
 Host: ::1
 
-[Endpoint: Ping]
+[RemoteEP: Ping]
 Host: 192.168.200.100
 
-[> Endpoint Ping]
+
+[> RemoteEP Ping]
 
 [> Local_IPv4 Ping]
 
@@ -37,4 +38,4 @@ Interval: 1s
 
 [< Local_IPv4_Alternate Reply]
 
-[< Endpoint Reply]
+[< RemoteEP Reply]
