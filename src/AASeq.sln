@@ -18,6 +18,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AASeq.Core6", "AASeq.Core6\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Core", "..\test\Tests.Core\Tests.Core.csproj", "{113973FC-1327-4B0B-9A0E-225BEA282D56}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{61139809-6628-4581-B504-F6D29568CEC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B0E5A531-718E-4029-8657-14BC5EA5B861} = {61139809-6628-4581-B504-F6D29568CEC6}
+		{113973FC-1327-4B0B-9A0E-225BEA282D56} = {61139809-6628-4581-B504-F6D29568CEC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {830C2D84-B15A-455B-8645-AA0F6EBBC2D5}

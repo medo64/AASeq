@@ -51,6 +51,13 @@ public sealed class AAField {
         get { return Value.AsFieldCollection(); }
     }
 
+    /// <summary>
+    /// Gets if field has subfields.
+    /// </summary>
+    public bool HasSubfields {
+        get { return Value is AAFieldCollection; }
+    }
+
     private readonly Lazy<AATagCollection> _tags = new();
     /// <summary>
     /// Gets tags defined for given field.
