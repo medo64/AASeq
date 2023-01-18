@@ -20,7 +20,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\AASeq.Core\AASeq.Core.csproj" />
+        <ProjectReference Include="..\AASeq.Core5\AASeq.Core5.csproj" />
     </ItemGroup>
 
     <ItemGroup>

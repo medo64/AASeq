@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\src\AASeq.Core\AASeq.Core.csproj" />
+      <ProjectReference Include="..\..\src\AASeq.Core5\AASeq.Core5.csproj" />
       <ProjectReference Include="..\..\src\AASeq.Engine\AASeq.Engine.csproj" />
       <ProjectReference Include="..\..\src\AASeq.Plugin\AASeq.Plugin.csproj" />
     </ItemGroup>

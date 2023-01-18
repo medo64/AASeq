@@ -1,17 +1,27 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
     <AssemblyName>AASeq</AssemblyName>
     <RootNamespace>AASeq.Console</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net7.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
-    <NoWarn>CA1303</NoWarn>
-    <WarningsAsErrors>CS8625</WarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Deterministic>true</Deterministic>
+    <IncludeSymbols>true</IncludeSymbols>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <AnalysisLevel>latest</AnalysisLevel>
+    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -20,9 +30,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AASeq.Core\AASeq.Core.csproj" />
-    <ProjectReference Include="..\AASeq.Engine\AASeq.Engine.csproj" />
-    <ProjectReference Include="..\AASeq.Plugin\AASeq.Plugin.csproj" />
   </ItemGroup>
 
 </Project>

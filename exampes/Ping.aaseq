@@ -1,0 +1,38 @@
+#!aaseq
+
+[Me]
+
+[Local_IPv4: Ping]
+Destination: 127.0.0.1
+
+[Local_IPv4_Alternate: Ping]
+Destination: 127.0.0.2
+
+[Local_IPv6: Ping]
+Destination: ::1
+
+
+[Me > Local_IPv4: Ping]
+.Size: 64
+.Timeout: 1000
+.TTL: 10
+.DontFragment: true
+Data: "Test"
+
+[Me < Local_IPv4: Reply]
+.Size: 64
+Status: Success
+Time [@regex]: [0-9]+
+Data [@RegEx]: "(Test).*"
+
+[!Wait]
+
+[Me > Local_IPv6: Ping]
+.Size: 128
+.Timeout: 1000
+
+[Me < Local_IPv6: Reply]
+
+[Me > Local_IPv4_Alternate: Ping]
+
+[Me < Local_IPv4_Alternate: Reply]
