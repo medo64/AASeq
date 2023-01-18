@@ -1,12 +1,20 @@
 #!/bin/bash
+BASE_DIRECTORY="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
+PROJECT_FILE="$BASE_DIRECTORY/src/AASeq/AASeq.csproj"
+TEST_PROJECT_FILE="$BASE_DIRECTORY/tests/AASeq.Core.Tests/AASeq.Core.Tests.csproj"
+PACKAGE_CONTENT_FILES="Makefile Make.sh CONTRIBUTING.md ICON.png LICENSE.md README.md .editorconfig"
+PACKAGE_CONTENT_DIRECTORIES="src/ tests/ examples/"
+
 
 if [ -t 1 ]; then
     ANSI_RESET="$(tput sgr0)"
     ANSI_UNDERLINE="$(tput smul)"
-    ANSI_RED="$(tput setaf 1)$(tput bold)"
-    ANSI_YELLOW="$(tput setaf 3)$(tput bold)"
-    ANSI_CYAN="$(tput setaf 6)$(tput bold)"
-    ANSI_WHITE="$(tput setaf 7)$(tput bold)"
+    ANSI_RED="`[ $(tput colors) -ge 16 ] && tput setaf 9 || tput setaf 1 bold`"
+    ANSI_GREEN="`[ $(tput colors) -ge 16 ] && tput setaf 10 || tput setaf 2 bold`"
+    ANSI_YELLOW="`[ $(tput colors) -ge 16 ] && tput setaf 11 || tput setaf 3 bold`"
+    ANSI_CYAN="`[ $(tput colors) -ge 16 ] && tput setaf 14 || tput setaf 6 bold`"
+    ANSI_WHITE="`[ $(tput colors) -ge 16 ] && tput setaf 15 || tput setaf 7 bold`"
 fi
 
 while getopts ":h" OPT; do
@@ -14,18 +22,17 @@ while getopts ":h" OPT; do
         h)
             echo
             echo    "  SYNOPSIS"
-            echo -e "  $(basename "$0") [${ANSI_UNDERLINE}targets${ANSI_RESET}]"
+            echo -e "  $(basename "$0") [${ANSI_UNDERLINE}operation${ANSI_RESET}]"
             echo
-            echo -e "    ${ANSI_UNDERLINE}targets${ANSI_RESET}"
-            echo    "    Targets to make. The following targests are available:"
-            echo    "        clean, distclean dist, release, debug, test"
+            echo -e "    ${ANSI_UNDERLINE}operation${ANSI_RESET}"
+            echo    "    Operation to perform."
             echo
             echo    "  DESCRIPTION"
             echo    "  Make script compatible with both Windows and Linux."
             echo
             echo    "  SAMPLES"
             echo    "  $(basename "$0")"
-            echo    "  $(basename "$0") all"
+            echo    "  $(basename "$0") dist"
             echo
             exit 0
         ;;
@@ -35,117 +42,130 @@ while getopts ":h" OPT; do
     esac
 done
 
+trap "exit 255" SIGHUP SIGINT SIGQUIT SIGPIPE SIGTERM
+trap "echo -n \"$ANSI_RESET\"" EXIT
+
+
 if ! command -v dotnet >/dev/null; then
     echo "${ANSI_RED}No dotnet found!${ANSI_RESET}" >&2
     exit 1
 fi
+echo ".NET `dotnet --version`"
 
-trap "exit 255" SIGHUP SIGINT SIGQUIT SIGPIPE SIGTERM
-trap "echo -n \"$ANSI_RESET\"" EXIT
+if [[ "$PROJECT_FILE" == "" ]]; then
+    echo "${ANSI_RED}No project file found!${ANSI_RESET}" >&2
+    exit 1
+fi
 
-BASE_DIRECTORY="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-
+PACKAGE_ID=`cat "$PROJECT_FILE" | grep "<PackageId>" | sed 's^</\?PackageId>^^g' | xargs`
+PACKAGE_VERSION=`cat "$PROJECT_FILE" | grep "<Version>" | sed 's^</\?Version>^^g' | xargs`
+PACKAGE_FRAMEWORKS=`cat "$PROJECT_FILE" | grep "<TargetFramework" | sed 's^</\?TargetFrameworks\?>^^g' | tr ';' ' ' | xargs`
 
 
 function clean() {
     rm -r "$BASE_DIRECTORY/bin/" 2>/dev/null
     rm -r "$BASE_DIRECTORY/build/" 2>/dev/null
-    rm -r "$BASE_DIRECTORY/src/**/bin/" 2>/dev/null
-    rm -r "$BASE_DIRECTORY/src/**/obj/" 2>/dev/null
-    rm -r "$BASE_DIRECTORY/test/**/obj/" 2>/dev/null
-    rm -r "$BASE_DIRECTORY/docs/web/out" 2>/dev/null
+    find "$BASE_DIRECTORY/src" -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} + 2>/dev/null
+    find "$BASE_DIRECTORY/tests" -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} + 2>/dev/null
+    find "$BASE_DIRECTORY/examples" -type d \( -name "bin" -o -name "obj" \) -exec rm -rf {} + 2>/dev/null
     return 0
 }
 
 function distclean() {
-    clean
     rm -r "$BASE_DIRECTORY/dist/" 2>/dev/null
     rm -r "$BASE_DIRECTORY/target/" 2>/dev/null
     return 0
 }
 
 function dist() {
-    DIST_DIRECTORY="$BASE_DIRECTORY/build/dist/$PACKAGE_ID-$PACKAGE_VERSION"
+    echo
+    DIST_DIRECTORY="$BASE_DIRECTORY/build/dist"
+    DIST_SUBDIRECTORY="$DIST_DIRECTORY/$PACKAGE_ID-$PACKAGE_VERSION"
     DIST_FILE=
-    rm -r "$DIST_DIRECTORY/" 2>/dev/null
-    mkdir -p "$DIST_DIRECTORY/"
-    for DIRECTORY in "Makefile" "Make.sh" "CONTRIBUTING.md" "ICON.png" "LICENSE.md" "README.md" "src" "test"; do
-        cp -r "$BASE_DIRECTORY/$DIRECTORY" "$DIST_DIRECTORY/"
+    rm -r "$DIST_SUBDIRECTORY/" 2>/dev/null
+    mkdir -p "$DIST_SUBDIRECTORY/"
+    for DIRECTORY in $PACKAGE_CONTENT_FILES $PACKAGE_CONTENT_DIRECTORIES; do
+        cp -r "$BASE_DIRECTORY/$DIRECTORY" "$DIST_SUBDIRECTORY/"
     done
-    find "$DIST_DIRECTORY/src/" -name ".vs" -type d -exec rm -rf {} \; 2>/dev/null
-    find "$DIST_DIRECTORY/src/" -name "bin" -type d -exec rm -rf {} \; 2>/dev/null
-    find "$DIST_DIRECTORY/obj/" -name "bin" -type d -exec rm -rf {} \; 2>/dev/null
+    find "$DIST_SUBDIRECTORY/" -name ".vs" -type d -exec rm -rf {} \; 2>/dev/null
+    find "$DIST_SUBDIRECTORY/" -name "bin" -type d -exec rm -rf {} \; 2>/dev/null
+    find "$DIST_SUBDIRECTORY/" -name "obj" -type d -exec rm -rf {} \; 2>/dev/null
+    find "$DIST_SUBDIRECTORY/" -name "TestResults" -type d -exec rm -rf {} \; 2>/dev/null
     tar -cz -C "$BASE_DIRECTORY/build/dist/" \
         --owner=0 --group=0 \
-        -f "$DIST_DIRECTORY.tar.gz" \
+        -f "$DIST_SUBDIRECTORY.tar.gz" \
         "$PACKAGE_ID-$PACKAGE_VERSION/" || return 1
     mkdir -p "$BASE_DIRECTORY/dist/"
-    mv "$DIST_DIRECTORY.tar.gz" "$BASE_DIRECTORY/dist/" || return 1
-    echo "${ANSI_CYAN}Output at 'dist/$PACKAGE_ID-$PACKAGE_VERSION.tar.gz'${ANSI_RESET}"
+    mv "$DIST_SUBDIRECTORY.tar.gz" "$BASE_DIRECTORY/dist/" || return 1
+    echo "${ANSI_GREEN}Output at ${ANSI_CYAN}dist/$PACKAGE_ID-$PACKAGE_VERSION.tar.gz${ANSI_RESET}"
     return 0
 }
 
 function debug() {
+    echo
     mkdir -p "$BASE_DIRECTORY/bin/"
     mkdir -p "$BASE_DIRECTORY/build/debug/"
-    dotnet build "$BASE_DIRECTORY/src/AASeq.sln" \
+    dotnet build "$PROJECT_FILE" \
                  --configuration "Debug" \
-                 --output "$BASE_DIRECTORY/build/debug/" \
                  --verbosity "minimal" \
                  || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "AASeq*.exe" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "AASeq*.dll" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/debug/" -name "AASeq*.pdb" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    echo "${ANSI_CYAN}Output in 'bin/'${ANSI_RESET}"
+    ATLEAST_ONE_COPY=0
+    for FRAMEWORK in $PACKAGE_FRAMEWORKS; do
+        cp -r "$BASE_DIRECTORY/src/bin/Debug/$FRAMEWORK/" "$BASE_DIRECTORY/bin/" 2>/dev/null
+        if [[ $? -eq 0 ]]; then ATLEAST_ONE_COPY=1; fi
+    done
+    if [[ "$ATLEAST_ONE_COPY" -eq 0 ]]; then return 1; fi
+    echo
+    echo "${ANSI_GREEN}Output in ${ANSI_CYAN}bin/${ANSI_RESET}"
 }
 
 function release() {
+    echo
     if [[ `shell git status -s 2>/dev/null | wc -l` -gt 0 ]]; then
         echo "${ANSI_YELLOW}Uncommited changes present.${ANSI_RESET}" >&2
     fi
     mkdir -p "$BASE_DIRECTORY/bin/"
     mkdir -p "$BASE_DIRECTORY/build/release/"
-    dotnet build "$BASE_DIRECTORY/src/AASeq.sln" \
+    dotnet build "$PROJECT_FILE" \
                  --configuration "Release" \
-                 --output "$BASE_DIRECTORY/build/release/" \
                  --verbosity "minimal" \
                  || return 1
-    find "$BASE_DIRECTORY/build/release/" -name "AASeq*.exe" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/release/" -name "AASeq*.dll" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    find "$BASE_DIRECTORY/build/release/" -name "AASeq*.pdb" -exec cp "{}" "$BASE_DIRECTORY/bin/" \; || return 1
-    echo "${ANSI_CYAN}Output in 'bin/'${ANSI_RESET}"
+    ATLEAST_ONE_COPY=0
+    for FRAMEWORK in $PACKAGE_FRAMEWORKS; do
+        cp -r "$BASE_DIRECTORY/src/bin/Release/$FRAMEWORK/" "$BASE_DIRECTORY/bin/" 2>/dev/null
+        if [[ $? -eq 0 ]]; then ATLEAST_ONE_COPY=1; fi
+    done
+    if [[ "$ATLEAST_ONE_COPY" -eq 0 ]]; then return 1; fi
+    echo
+    echo "${ANSI_GREEN}Output in ${ANSI_CYAN}bin/${ANSI_RESET}"
 }
 
 function test() {
+    echo
+    if [[ "$TEST_PROJECT_FILE" == "" ]]; then
+        echo "${ANSI_RED}No test project file found!${ANSI_RESET}" >&2
+        exit 1
+    fi
     mkdir -p "$BASE_DIRECTORY/build/test/"
-    echo ".NET `dotnet --version`"
-    dotnet test "$BASE_DIRECTORY/src/AASeq.sln" \
+    dotnet test "$TEST_PROJECT_FILE" \
                 --configuration "Debug" \
-                --output "$BASE_DIRECTORY/build/test/" \
                 --verbosity "minimal" \
-                --logger "console;verbosity=normal" \
                 || return 1
+    echo
+    echo "${ANSI_GREEN}Testing completed${ANSI_RESET}"
 }
 
-function web() {
-    py -m mkdocs build -f docs/web/mkdocs.yml || return 1
-}
-
-
-PACKAGE_ID=`cat "$BASE_DIRECTORY/src/AASeq/AASeq.csproj" | grep "<PackageId>" | sed 's^</\?PackageId>^^g' | xargs`
-PACKAGE_VERSION=`cat "$BASE_DIRECTORY/src/AASeq/AASeq.csproj" | grep "<Version>" | sed 's^</\?Version>^^g' | xargs`
 
 while [ $# -gt 0 ]; do
     OPERATION="$1"
     case "$OPERATION" in
-        all)        clean && release || break ;;
+        all)        clean || break ;;
         clean)      clean || break ;;
         distclean)  distclean || break ;;
         dist)       dist || break ;;
-        debug)      debug || break ;;
-        release)    release || break ;;
-        test)       test || break ;;
-        web)        web || break ;;
+        debug)      clean && debug || break ;;
+        release)    clean && release || break ;;
+        test)       clean && test || break ;;
 
         *)  echo "${ANSI_RED}Unknown operation '$OPERATION'!${ANSI_RESET}" >&2 ; exit 1 ;;
     esac

@@ -1,12 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>AASeq</AssemblyName>
-    <RootNamespace>AASeqCli</RootNamespace>
+    <AssemblyName>AASeq.Core</AssemblyName>
+    <RootNamespace>AASeq</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net7.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
@@ -26,15 +26,11 @@
 
   <PropertyGroup>
     <Product>AASeq</Product>
-    <Description>Protocol simulator.</Description>
+    <Description>Common AASeq library.</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="../AASeq.Core/AASeq.Core.csproj" />
+    <InternalsVisibleTo Include="AASeq.Core.Tests" />
   </ItemGroup>
 
 </Project>

@@ -1,25 +1,21 @@
 .PHONY: all clean distclean dist debug release test
 
-all:
-	@./Make.sh all
+all: release
 
 clean:
-	@./Make.sh clean
+	@bash ./Make.sh clean
 
-distclean:
-	@./Make.sh distclean
+distclean: clean
+	@bash ./Make.sh distclean
 
 dist:
-	@./Make.sh dist
+	@bash ./Make.sh dist
 
 debug:
-	@./Make.sh debug
+	@bash ./Make.sh debug
 
 release:
-	@./Make.sh release
+	@bash ./Make.sh release
 
-test:
-	@./Make.sh test
-
-web:
-	@./Make.sh web
+test: debug
+	@bash ./Make.sh test
