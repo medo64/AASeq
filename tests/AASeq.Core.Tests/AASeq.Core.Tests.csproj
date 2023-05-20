@@ -26,9 +26,9 @@
 
   <ItemGroup>
     <EmbeddedResource Include="_Resources\Document\Empty.aaseq" />
-    <EmbeddedResource Include="_Resources\Document\Line\EndOfLine.CR.aaseq.bin" />
-    <EmbeddedResource Include="_Resources\Document\Line\EndOfLine.CRLF.aaseq.bin" />
-    <EmbeddedResource Include="_Resources\Document\Line\EndOfLine.LF.aaseq.bin" />
+    <EmbeddedResource Include="_Resources\Document\Lines\EndOfLine.CR.aaseq.bin" />
+    <EmbeddedResource Include="_Resources\Document\Lines\EndOfLine.CRLF.aaseq.bin" />
+    <EmbeddedResource Include="_Resources\Document\Lines\EndOfLine.LF.aaseq.bin" />
   </ItemGroup>
 
   <ItemGroup>
