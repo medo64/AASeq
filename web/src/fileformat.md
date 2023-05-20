@@ -122,6 +122,8 @@ System tags will additionally have at sign (`@`) as a prefix, e.g.:
 
     Key [@tag]: Value
 
+There cannot be multiple tags with the same name (including the system tags).
+
 
 ## Data Types
 

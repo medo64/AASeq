@@ -20,6 +20,11 @@ internal static class Helpers {
         }
     }
 
+    [StackTraceHidden]
+    public static void ThrowArgumentOutOfRange(string argumentName, string exceptionMessage) {
+        throw new ArgumentOutOfRangeException(argumentName, exceptionMessage);
+    }
+
     #endregion Exceptions
 
 }
