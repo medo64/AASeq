@@ -8,3 +8,5 @@
 *.sln     text
 *.input   binary
 *.output  binary
+
+tests/*/_Resources/**/*.bin  binary
