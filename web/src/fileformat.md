@@ -128,17 +128,37 @@ System tags will additionally have at sign (`@`) as a prefix, e.g.:
 Each fields will auto-detect its data type. However, if data type has to be
 forced, one can use system tags. The following types are supported:
 
-| Tag       | Data type      | Example value                      |
-|-----------|----------------|------------------------------------|
-| @int      | 64-bit integer | `42`                               |
-| @double   | 64-bit double  | `42.0`                             |
-| @ip       | IP address     | `1.2.3.4` `2001:db8::/32`          |
-| @datetime | Date/time      | `2021-01-02T03:04:05` `1621824203` |
-| @base64   | Binary         | `TG9yZW0gaXBzdW0K`                 |
-| @hex      | Binary         | `4C6F7265 6D206970 73756D`         |
-| @lf       | String         | `LF` will be used for a new line   |
-| @cr       | String         | `CR` will be used for a new line   |
-| @crlf     | String         | `CRLF` will be used for a new line |
+| Data type      | .NET data type | Tag             | Example value                      |
+|----------------|----------------|-----------------|------------------------------------|
+| AABoolean      | Boolean        | @bool           | `true`                             |
+| AAInt8         | SByte          | @int8           | `42`                               |
+| AAInt16        | Int16          | @int16          | `42`                               |
+| AAInt32        | Int32          | @int32          | `42`                               |
+| AAInt64        | Int64          | @int64          | `42`                               |
+| AAInt64        | Int64          | @int            | `42`                               |
+| AAUInt8        | Byte           | @uint8          | `42`                               |
+| AAUInt16       | UInt16         | @uint16         | `42`                               |
+| AAUInt32       | UInt32         | @uint32         | `42`                               |
+| AAUInt64       | UInt64         | @uint64         | `42`                               |
+| AAUInt64       | UInt64         | @uint           | `42`                               |
+| AAFloat16      | Half           | @float16        | `42.0`                             |
+| AAFloat32      | Single         | @float32        | `42.0`                             |
+| AAFloat64      | Double         | @float64        | `42.0`                             |
+| AAFloat64      | Double         | @float          | `42.0`                             |
+| AADateTime     | DateTimeOffset | @datetime       | `2021-01-02T03:04:05` `1621824203` |
+| AADate         | DateOnly       | @date           | `2021-01-02`                       |
+| AATime         | TimeOnly       | @time           | `03:04:05`                         |
+| AADuration     | TimeSpan       | @duration       | `1d`                               |
+| AAIPAddress    | IPAddress      | @ip             | `1.2.3.4` `2001:db8::/32`          |
+| AAIPAddressv4  | IPAddress      | @ipv4           | `1.2.3.4`                          |
+| AAIPAddressv6  | IPAddress      | @ipv6           | `2001:db8::/32`                    |
+| AAIPEndpoint   | IPEndPoint     | @ep             | `1.2.3.4:443` `[2001:db8::]:443`   |
+| AAIPEndpointv4 | IPEndPoint     | @epv4           | `1.2.3.4:443`                      |
+| AAIPEndpointv6 | IPEndPoint     | @epv6           | `[2001:db8::]:443`                 |
+| AAString       | String         | @string         | `Text`                             |
+| AABinary       | Byte[]         | @binary         | `4C6F7265 6D206970 73756D`         |
+| AABinary       | Byte[]         | @binary @hex    | `4C6F7265 6D206970 73756D`         |
+| AABinary       | Byte[]         | @binary @base64 | `TG9yZW0gaXBzdW0K`                 |
 
 ## Quoting
 
