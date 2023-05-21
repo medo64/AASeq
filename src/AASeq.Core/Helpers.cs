@@ -14,14 +14,15 @@ internal static class Helpers {
     }
 
     [StackTraceHidden]
-    public static void ThrowIfArgumentFalse(bool value, string argumentName, string exceptionMessage) {
+    public static bool ThrowIfArgumentFalse(bool value, string argumentName, string exceptionMessage) {
         if (value == false) {
             throw new ArgumentOutOfRangeException(argumentName, exceptionMessage);
         }
+        return true;
     }
 
     [StackTraceHidden]
-    public static void ThrowArgumentOutOfRange(string argumentName, string exceptionMessage) {
+    public static bool ThrowArgumentOutOfRange(string argumentName, string exceptionMessage) {
         throw new ArgumentOutOfRangeException(argumentName, exceptionMessage);
     }
 
