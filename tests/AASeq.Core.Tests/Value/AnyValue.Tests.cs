@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AASeq;
-using System.ComponentModel.DataAnnotations;
 
 namespace Tests;
 
