@@ -3,6 +3,7 @@ using System;
 using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// Float64 value.
@@ -217,6 +218,10 @@ public sealed class Float64Value : AnyValue {
         return buffer;
     }
 
-    #endregion Field
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
+
+    #endregion AnyValue
 
 }

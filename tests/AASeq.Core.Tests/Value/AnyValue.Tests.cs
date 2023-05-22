@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AASeq;
 
@@ -131,6 +132,18 @@ public class AnyValue_Tests {
         Assert.IsInstanceOfType(x, typeof(BinaryValue));
     }
 
+    [TestMethod]
+    public void AnyValue_ImplicitIPAddress1() {
+        AnyValue x = IPAddress.Parse("127.0.0.1");
+        Assert.IsInstanceOfType(x, typeof(IPAddressValue));
+    }
+
+    [TestMethod]
+    public void AnyValue_ImplicitIPAddress2() {
+        AnyValue x = IPAddress.Parse("::1");
+        Assert.IsInstanceOfType(x, typeof(IPAddressValue));
+    }
+
     #endregion Implicit
 
 
@@ -157,6 +170,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("False", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -180,6 +194,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("True", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -204,6 +219,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42", x.AsString());
         Assert.AreEqual("2A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -227,6 +243,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("-128", x.AsString());
         Assert.AreEqual("80", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -250,6 +267,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("127", x.AsString());
         Assert.AreEqual("7F", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -274,6 +292,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42", x.AsString());
         Assert.AreEqual("002A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -297,6 +316,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("-32768", x.AsString());
         Assert.AreEqual("8000", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -320,6 +340,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("32767", x.AsString());
         Assert.AreEqual("7FFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -344,6 +365,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42", x.AsString());
         Assert.AreEqual("0000002A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -367,6 +389,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("-2147483648", x.AsString());
         Assert.AreEqual("80000000", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -390,6 +413,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("2147483647", x.AsString());
         Assert.AreEqual("7FFFFFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -414,6 +438,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42", x.AsString());
         Assert.AreEqual("00000000 0000002A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -437,6 +462,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("-9223372036854775808", x.AsString());
         Assert.AreEqual("80000000 00000000", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -460,6 +486,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("9223372036854775807", x.AsString());
         Assert.AreEqual("7FFFFFFF FFFFFFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -484,6 +511,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42", x.AsString());
         Assert.AreEqual("2A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -507,6 +535,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("0", x.AsString());
         Assert.AreEqual("00", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -530,6 +559,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("255", x.AsString());
         Assert.AreEqual("FF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -554,6 +584,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42", x.AsString());
         Assert.AreEqual("002A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -577,6 +608,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("0", x.AsString());
         Assert.AreEqual("0000", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -600,6 +632,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("65535", x.AsString());
         Assert.AreEqual("FFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -624,6 +657,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42", x.AsString());
         Assert.AreEqual("0000002A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -647,6 +681,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("0", x.AsString());
         Assert.AreEqual("00000000", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -670,6 +705,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("4294967295", x.AsString());
         Assert.AreEqual("FFFFFFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -694,6 +730,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42", x.AsString());
         Assert.AreEqual("00000000 0000002A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -717,6 +754,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("0", x.AsString());
         Assert.AreEqual("00000000 00000000", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -740,6 +778,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("18446744073709551615", x.AsString());
         Assert.AreEqual("FFFFFFFF FFFFFFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -764,6 +803,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42.2", x.AsString());
         Assert.AreEqual("5146", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -787,6 +827,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("-65500", x.AsString());
         Assert.AreEqual("FBFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -810,6 +851,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("65500", x.AsString());
         Assert.AreEqual("7BFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -834,6 +876,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42.2", x.AsString());
         Assert.AreEqual("4228CCCD", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -857,6 +900,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("-3.4028235E+38", x.AsString());
         Assert.AreEqual("FF7FFFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -880,6 +924,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("3.4028235E+38", x.AsString());
         Assert.AreEqual("7F7FFFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -904,6 +949,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("42.2", x.AsString());
         Assert.AreEqual("40451999 9999999A", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -927,6 +973,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("-1.7976931348623157E+308", x.AsString());
         Assert.AreEqual("FFEFFFFF FFFFFFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -950,6 +997,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("1.7976931348623157E+308", x.AsString());
         Assert.AreEqual("7FEFFFFF FFFFFFFF", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -974,6 +1022,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("1999-01-02T04:12:44+10:00", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -997,6 +1046,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("0001-01-01T00:00:00+00:00", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1020,6 +1070,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("9999-12-31T23:59:59+00:00", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1043,6 +1094,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("1999-01-02T04:12:44+00:00", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -1067,6 +1119,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("1999-01-02", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1090,6 +1143,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("0001-01-01", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1113,6 +1167,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("9999-12-31", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -1137,6 +1192,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("04:12:44.469", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1160,6 +1216,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("00:00:00", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1183,6 +1240,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("23:59:59.9999999", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -1207,6 +1265,7 @@ public class AnyValue_Tests {
         Assert.AreEqual(new TimeSpan(4, 22, 12, 44, 469), x.AsTimeSpan());
         Assert.AreEqual("4.22:12:44.469", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1230,6 +1289,7 @@ public class AnyValue_Tests {
         Assert.AreEqual(TimeSpan.MinValue, x.AsTimeSpan());
         Assert.AreEqual("-02:-48:-05.-4775808", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -1254,6 +1314,7 @@ public class AnyValue_Tests {
         Assert.AreEqual(TimeSpan.MaxValue, x.AsTimeSpan());
         Assert.AreEqual("10675199.02:48:05.4775807", x.AsString());
         Assert.IsNull(x.AsReadOnlyMemory());
+        Assert.IsNull(x.AsIPAddress());
     }
 
 
@@ -1278,6 +1339,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("ABC", x.AsString());
         Assert.AreEqual("414243", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1301,6 +1363,7 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("ABC", x.AsString());
         Assert.AreEqual("414243", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
     }
 
     [TestMethod]
@@ -1324,6 +1387,56 @@ public class AnyValue_Tests {
         Assert.IsNull(x.AsTimeSpan());
         Assert.AreEqual("ABC", x.AsString());
         Assert.AreEqual("414243", x.AsReadOnlyMemory().ToHexString());
+        Assert.IsNull(x.AsIPAddress());
+    }
+
+
+    [TestMethod]
+    public void AnyValue_IPAddress1() {
+        AnyValue x = IPAddress.Parse("127.0.0.1");
+        Assert.IsNull(x.AsBoolean());
+        Assert.IsNull(x.AsSByte());
+        Assert.IsNull(x.AsInt16());
+        Assert.IsNull(x.AsInt32());
+        Assert.IsNull(x.AsInt64());
+        Assert.IsNull(x.AsByte());
+        Assert.IsNull(x.AsUInt16());
+        Assert.IsNull(x.AsUInt32());
+        Assert.IsNull(x.AsUInt64());
+        Assert.IsNull(x.AsHalf());
+        Assert.IsNull(x.AsSingle());
+        Assert.IsNull(x.AsDouble());
+        Assert.IsNull(x.AsDateTimeOffset());
+        Assert.IsNull(x.AsDateOnly());
+        Assert.IsNull(x.AsTimeOnly());
+        Assert.IsNull(x.AsTimeSpan());
+        Assert.AreEqual("127.0.0.1", x.AsString());
+        Assert.AreEqual("7F000001", x.AsReadOnlyMemory().ToHexString());
+        Assert.AreEqual(IPAddress.Parse("127.0.0.1"), x.AsIPAddress());
+    }
+
+    [TestMethod]
+    public void AnyValue_IPAddress2() {
+        AnyValue x = IPAddress.Parse("::1");
+        Assert.IsNull(x.AsBoolean());
+        Assert.IsNull(x.AsSByte());
+        Assert.IsNull(x.AsInt16());
+        Assert.IsNull(x.AsInt32());
+        Assert.IsNull(x.AsInt64());
+        Assert.IsNull(x.AsByte());
+        Assert.IsNull(x.AsUInt16());
+        Assert.IsNull(x.AsUInt32());
+        Assert.IsNull(x.AsUInt64());
+        Assert.IsNull(x.AsHalf());
+        Assert.IsNull(x.AsSingle());
+        Assert.IsNull(x.AsDouble());
+        Assert.IsNull(x.AsDateTimeOffset());
+        Assert.IsNull(x.AsDateOnly());
+        Assert.IsNull(x.AsTimeOnly());
+        Assert.IsNull(x.AsTimeSpan());
+        Assert.AreEqual("::1", x.AsString());
+        Assert.AreEqual("00000000 00000000 00000000 00000001", x.AsReadOnlyMemory().ToHexString());
+        Assert.AreEqual(IPAddress.Parse("::1"), x.AsIPAddress());
     }
 
     #endregion AsValue

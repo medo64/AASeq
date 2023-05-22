@@ -2,6 +2,7 @@ namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// Int8 value.
@@ -209,6 +210,10 @@ public sealed class Int8Value : AnyValue {
     /// <inheritdoc/>
     public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
         => new byte[] { (byte)Value };
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
 
     #endregion AnyValue
 

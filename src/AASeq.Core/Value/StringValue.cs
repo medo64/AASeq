@@ -1,6 +1,7 @@
 namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Net;
 using System.Text;
 
 /// <summary>
@@ -193,6 +194,10 @@ public sealed class StringValue : AnyValue {
     /// <inheritdoc/>
     public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
         => Utf8.GetBytes(Value);
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
 
     #endregion AnyValue
 

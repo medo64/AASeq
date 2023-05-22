@@ -1,20 +1,23 @@
 namespace AASeq;
 using System;
-using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
 using System.Net;
+using System.Net.Sockets;
 
 /// <summary>
-/// Float32 value.
+/// IPAddress value.
 /// </summary>
-public sealed class Float32Value : AnyValue {
+public sealed class IPAddressValue : AnyValue {
 
     /// <summary>
     /// Create a new instance.
     /// </summary>
     /// <param name="value">Value.</param>
-    public Float32Value(Single value) {
+    /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
+    /// <exception cref="ArgumentOutOfRangeException">Address family not supported.</exception>
+    public IPAddressValue(IPAddress value) {
+        if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
+        if (value.AddressFamily is not AddressFamily.InterNetwork and not AddressFamily.InterNetworkV6) { throw new ArgumentOutOfRangeException(nameof(value), "Address family not supported."); }
         Value = value;
     }
 
@@ -22,7 +25,7 @@ public sealed class Float32Value : AnyValue {
     /// <summary>
     /// Gets value.
     /// </summary>
-    public Single Value { get; }
+    public IPAddress Value { get; }
 
 
     #region Parse
@@ -32,9 +35,9 @@ public sealed class Float32Value : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out Float32Value? result) {
+    public static bool TryParse(string? text, [NotNullWhen(true)] out IPAddressValue? result) {
         if (TryParseValue(text, out var value)) {
-            result = new Float32Value(value);
+            result = new IPAddressValue(value);
             return true;
         } else {
             result = default;
@@ -47,8 +50,15 @@ public sealed class Float32Value : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    internal static bool TryParseValue(string? text, out Single result) {
-        return Single.TryParse(text, NumberStyles.Float, CultureInfo.InvariantCulture, out result);
+    internal static bool TryParseValue(string? text, [NotNullWhen(true)] out IPAddress? result) {
+        if (IPAddress.TryParse(text, out var address)) {
+            if (address.AddressFamily is AddressFamily.InterNetwork or AddressFamily.InterNetworkV6) {
+                result = address;
+                return true;
+            }
+        }
+        result = default;
+        return false;
     }
 
     #endregion Parse
@@ -60,15 +70,7 @@ public sealed class Float32Value : AnyValue {
     /// Returns string representation of an object.
     /// </summary>
     public override string ToString() {
-        return Value.ToString(CultureInfo.InvariantCulture);
-    }
-
-    /// <summary>
-    /// Returns string representation of an object.
-    /// </summary>
-    /// <param name="format">Format for the object.</param>
-    public string ToString(string? format) {
-        return Value.ToString(format, CultureInfo.InvariantCulture);
+        return Value.ToString();
     }
 
     #endregion ToString
@@ -81,9 +83,9 @@ public sealed class Float32Value : AnyValue {
     /// </summary>
     /// <param name="obj">The object to compare with the current object.</param>
     public override bool Equals(object? obj) {
-        if (obj is Float32Value otherValue) {
+        if (obj is IPAddressValue otherValue) {
             return Value.Equals(otherValue.Value);
-        } else if (obj is Single objValue) {
+        } else if (obj is IPAddress objValue) {
             return Value.Equals(objValue);
         } else {
             return false;
@@ -103,26 +105,26 @@ public sealed class Float32Value : AnyValue {
     #region Operators
 
     /// <summary>
-    /// Convert object into a Single.
+    /// Conversion into a IPAddress.
     /// </summary>
     /// <param name="obj">Value object.</param>
-    public static Single ToSingle(Float32Value obj) {
+    public static IPAddress ToIPAddress(IPAddressValue obj) {
         Helpers.ThrowIfArgumentNull(obj, nameof(obj), "Parameter cannot be null.");
         return obj.Value;
     }
 
     /// <summary>
-    /// Implicit conversion into a Single.
+    /// Implicit conversion into an IPAddress.
     /// </summary>
     /// <param name="obj">Value object.</param>
-    public static implicit operator Single(Float32Value obj)
-        => ToSingle(obj);
+    public static implicit operator IPAddress(IPAddressValue obj)
+        => ToIPAddress(obj);
 
     /// <summary>
-    /// Convert object into a String.
+    /// Conversion into a String.
     /// </summary>
     /// <param name="obj">Value object.</param>
-    public static string ToString(Float32Value obj) {
+    public static String ToString(IPAddressValue obj) {
         Helpers.ThrowIfArgumentNull(obj, nameof(obj), "Parameter cannot be null.");
         return obj.ToString();
     }
@@ -131,7 +133,7 @@ public sealed class Float32Value : AnyValue {
     /// Implicit conversion into a String.
     /// </summary>
     /// <param name="obj">Value object.</param>
-    public static implicit operator String(Float32Value obj)
+    public static implicit operator String(IPAddressValue obj)
         => ToString(obj);
 
     #endregion Operators
@@ -145,49 +147,47 @@ public sealed class Float32Value : AnyValue {
 
     /// <inheritdoc/>
     public override Byte? AsByte()
-        => Value is >= Byte.MinValue and <= Byte.MaxValue ? (Byte)Value : null;
+        => null;
 
     /// <inheritdoc/>
     public override UInt16? AsUInt16()
-        => Value is >= UInt16.MinValue and <= UInt16.MaxValue ? (UInt16)Value : null;
+        => null;
 
     /// <inheritdoc/>
     public override UInt32? AsUInt32()
-        => Value is >= UInt32.MinValue and <= UInt32.MaxValue ? (UInt32)Value : null;
+        => null;
 
     /// <inheritdoc/>
     public override UInt64? AsUInt64()
-        => Value is >= UInt64.MinValue and <= UInt64.MaxValue ? (UInt64)Value : null;
+        => null;
 
     /// <inheritdoc/>
     public override SByte? AsSByte()
-        => Value is >= SByte.MinValue and <= SByte.MaxValue ? (SByte)Value : null;
+        => null;
 
     /// <inheritdoc/>
     public override Int16? AsInt16()
-        => Value is >= Int16.MinValue and <= Int16.MaxValue ? (Int16)Value : null;
+        => null;
 
     /// <inheritdoc/>
     public override Int32? AsInt32()
-        => Value is >= Int32.MinValue and <= Int32.MaxValue ? (Int32)Value : null;
+        => null;
 
     /// <inheritdoc/>
     public override Int64? AsInt64()
-        => Value is >= Int64.MinValue and <= Int64.MaxValue ? (Int32)Value : null;
+        => null;
 
     /// <inheritdoc/>
-    public override Half? AsHalf() {
-        var res = (Half)Value;
-        return Single.IsFinite(Value) && Half.IsInfinity(res) ? null : res;
-    }
+    public override Half? AsHalf()
+        => null;
 
     /// <inheritdoc/>
     public override Single? AsSingle()
-        => Value;
+        => null;
 
     /// <inheritdoc/>
     public override Double? AsDouble()
-        => Value;
+        => null;
 
     /// <inheritdoc/>
     public override DateTimeOffset? AsDateTimeOffset()
@@ -210,15 +210,12 @@ public sealed class Float32Value : AnyValue {
         => ToString();
 
     /// <inheritdoc/>
-    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory() {
-        var buffer = new byte[4];
-        BinaryPrimitives.WriteSingleBigEndian(buffer, Value);
-        return buffer;
-    }
+    public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
+        => Value.GetAddressBytes();
 
     /// <inheritdoc/>
     public override IPAddress? AsIPAddress()
-        => null;
+        => Value;
 
     #endregion AnyValue
 

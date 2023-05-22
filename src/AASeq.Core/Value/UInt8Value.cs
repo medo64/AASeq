@@ -2,6 +2,7 @@ namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// UInt8 value.
@@ -208,6 +209,10 @@ public sealed class UInt8Value : AnyValue {
     /// <inheritdoc/>
     public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
         => new byte[] { Value };
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
 
     #endregion AnyValue
 

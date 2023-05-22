@@ -2,6 +2,7 @@ namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// Boolean value.
@@ -220,6 +221,10 @@ public sealed class BooleanValue : AnyValue {
 
     /// <inheritdoc/>
     public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
+        => null;
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
         => null;
 
     #endregion AnyValue

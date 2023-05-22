@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 using System.Text;
 
 /// <summary>
@@ -291,6 +292,10 @@ public sealed class DurationValue : AnyValue {
 
     /// <inheritdoc/>
     public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
+        => null;
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
         => null;
 
     #endregion AnyValue

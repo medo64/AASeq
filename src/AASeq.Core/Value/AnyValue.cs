@@ -1,10 +1,8 @@
 namespace AASeq;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Globalization;
-using System.Reflection;
+using System.Net;
 
 /// <summary>
 /// Base value class.
@@ -310,7 +308,7 @@ public abstract class AnyValue {
     }
 
     /// <summary>
-    /// Implicit conversion into a Binary value object.
+    /// Implicit conversion into a BinaryValue object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator AnyValue(ReadOnlyMemory<Byte> value) {
@@ -327,11 +325,28 @@ public abstract class AnyValue {
     }
 
     /// <summary>
-    /// Implicit conversion into a Binary value object.
+    /// Implicit conversion into a BinaryValue object.
     /// </summary>
     /// <param name="value">Value.</param>
     public static implicit operator AnyValue(Byte[] value) {
         return FromByteArray(value);
+    }
+
+
+    /// <summary>
+    /// Conversion into a IPAddressValue object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static IPAddressValue FromIPAddress(IPAddress value) {
+        return new IPAddressValue(value);
+    }
+
+    /// <summary>
+    /// Implicit conversion into a IPAddressValue object.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator AnyValue(IPAddress value) {
+        return FromIPAddress(value);
     }
 
     #endregion Operators
@@ -527,14 +542,25 @@ public abstract class AnyValue {
 
 
     /// <summary>
-    /// Returns Binary value of an object if conversion is possible or null otherwise.
+    /// Returns ReadOnlyMemory value of an object if conversion is possible or null otherwise.
     /// </summary>
     public abstract ReadOnlyMemory<Byte>? AsReadOnlyMemory();
 
     /// <summary>
-    /// Returns Size value of an object if conversion is possible or default value otherwise.
+    /// Returns ReadOnlyMemory value of an object if conversion is possible or default value otherwise.
     /// </summary>
     public ReadOnlyMemory<Byte> AsReadOnlyMemory(ReadOnlyMemory<Byte> defaultValue) => AsReadOnlyMemory() ?? defaultValue;
+
+
+    /// <summary>
+    /// Returns IPAddress value of an object if conversion is possible or null otherwise.
+    /// </summary>
+    public abstract IPAddress? AsIPAddress();
+
+    /// <summary>
+    /// Returns IPAddress value of an object if conversion is possible or default value otherwise.
+    /// </summary>
+    public IPAddress AsIPAddress(IPAddress defaultValue) => AsIPAddress() ?? defaultValue;
 
     #endregion As
 
@@ -666,6 +692,21 @@ public abstract class AnyValue {
                         return success;
                     }
                 }
+            case ConversionType.IPAddress: {
+                    var success = IPAddressValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.IPv4Address: {
+                    var success = IPv4AddressValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.IPv6Address: {
+                    var success = IPv6AddressValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
 
             default: // auto-detect
                 if (text.StartsWith("0x", StringComparison.Ordinal)) {  // binary
@@ -710,6 +751,9 @@ public abstract class AnyValue {
         Duration,
         String,
         Binary,
+        IPAddress,
+        IPv4Address,
+        IPv6Address,
     }
 
     private static ConversionType GetConversionType(TagCollection? tags, out bool forceBase64) {
@@ -759,6 +803,12 @@ public abstract class AnyValue {
                     type = ThrowIfAlreadyPresent(type, ConversionType.String, nameof(tags));
                 } else if (Tag.NameComparer.Equals(tag.Name, "binary")) {
                     type = ThrowIfAlreadyPresent(type, ConversionType.Binary, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "ip")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.IPAddress, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "ipv4")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.IPv4Address, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "ipv6")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.IPv6Address, nameof(tags));
                 } else if (Tag.NameComparer.Equals(tag.Name, "base64")) {
                     forceBase64 = true;
                 }

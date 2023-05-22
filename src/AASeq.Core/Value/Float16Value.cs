@@ -3,6 +3,7 @@ using System;
 using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// Float16 value.
@@ -212,6 +213,10 @@ public sealed class Float16Value : AnyValue {
         BinaryPrimitives.WriteHalfBigEndian(buffer, Value);
         return buffer;
     }
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
 
     #endregion AnyValue
 

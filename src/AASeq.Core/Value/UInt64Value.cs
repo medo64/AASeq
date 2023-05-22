@@ -3,6 +3,7 @@ using System;
 using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// UInt64 value.
@@ -216,6 +217,10 @@ public sealed class UInt64Value : AnyValue {
         BinaryPrimitives.WriteUInt64BigEndian(buffer, Value);
         return buffer;
     }
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
 
     #endregion AnyValue
 

@@ -2,6 +2,7 @@ namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// DateTime value.
@@ -232,6 +233,10 @@ public sealed class DateTimeValue : AnyValue {
     public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
         => null;
 
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
+
     #endregion AnyValue
 
 
@@ -271,11 +276,11 @@ public sealed class DateTimeValue : AnyValue {
         @"m\:ss",
     };
 
-    internal static readonly DateTimeStyles ParseStyle = DateTimeStyles.AllowLeadingWhite
-                                                       | DateTimeStyles.AllowInnerWhite
-                                                       | DateTimeStyles.AllowTrailingWhite
-                                                       | DateTimeStyles.AllowWhiteSpaces
-                                                       | DateTimeStyles.AssumeLocal;
+    internal const DateTimeStyles ParseStyle = DateTimeStyles.AllowLeadingWhite
+                                             | DateTimeStyles.AllowInnerWhite
+                                             | DateTimeStyles.AllowTrailingWhite
+                                             | DateTimeStyles.AllowWhiteSpaces
+                                             | DateTimeStyles.AssumeLocal;
 
     #endregion Constants
 

@@ -3,6 +3,7 @@ using System;
 using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// UInt16 value.
@@ -212,6 +213,10 @@ public sealed class UInt16Value : AnyValue {
         BinaryPrimitives.WriteUInt16BigEndian(buffer, Value);
         return buffer;
     }
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
 
     #endregion AnyValue
 

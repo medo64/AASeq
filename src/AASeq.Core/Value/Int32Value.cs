@@ -3,6 +3,7 @@ using System;
 using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// Int32 value.
@@ -214,6 +215,10 @@ public sealed class Int32Value : AnyValue {
         BinaryPrimitives.WriteInt32BigEndian(buffer, Value);
         return buffer;
     }
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
 
     #endregion AnyValue
 

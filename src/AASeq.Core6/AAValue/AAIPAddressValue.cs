@@ -8,7 +8,7 @@ namespace AASeq;
 /// <summary>
 /// IPAddress value.
 /// </summary>
-public sealed class AAIPAddressValue : AAValue {
+public sealed class IPAddressValue : AnyValue {
 
     /// <summary>
     /// Create a new instance.
@@ -16,7 +16,7 @@ public sealed class AAIPAddressValue : AAValue {
     /// <param name="value">Value.</param>
     /// <exception cref="ArgumentNullException">Value cannot be null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">Address family not supported.</exception>
-    public AAIPAddressValue(IPAddress value) {
+    public IPAddressValue(IPAddress value) {
         if (value == null) { throw new ArgumentNullException(nameof(value), "Value cannot be null."); }
         if (value.AddressFamily is not AddressFamily.InterNetwork and not AddressFamily.InterNetworkV6) { throw new ArgumentOutOfRangeException(nameof(value), "Address family not supported."); }
         Value = value;

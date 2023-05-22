@@ -2,6 +2,7 @@ namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 
 /// <summary>
 /// Date value.
@@ -217,6 +218,10 @@ public sealed class DateValue : AnyValue {
 
     /// <inheritdoc/>
     public override ReadOnlyMemory<Byte>? AsReadOnlyMemory()
+        => null;
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
         => null;
 
     #endregion AnyValue

@@ -4,8 +4,8 @@ using System.Buffers.Binary;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Net;
 using System.Text;
-
 
 /// <summary>
 /// Binary value.
@@ -368,6 +368,10 @@ public sealed class BinaryValue : AnyValue {
     public override ReadOnlyMemory<Byte>? AsReadOnlyMemory() {
         return Value;
     }
+
+    /// <inheritdoc/>
+    public override IPAddress? AsIPAddress()
+        => null;
 
     #endregion AnyValue
 
