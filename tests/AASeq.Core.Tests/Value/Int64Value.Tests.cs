@@ -12,17 +12,13 @@ public class Int64Value_Tests {
         var text = "42";
         Assert.IsTrue(Int64Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
-        Assert.AreEqual(text, Int64Value.Parse(text));
-        Assert.AreEqual(result, Int64Value.Parse(text));
+        Assert.AreEqual(text, result);
         Assert.AreEqual(result, Int64.Parse(text));
     }
 
     [TestMethod]
     public void Int64Value_FailedParse() {
         Assert.IsFalse(Int64Value.TryParse("A", out var _));
-        Assert.ThrowsException<FormatException>(() => {
-            Int64Value.Parse("A");
-        });
     }
 
     [TestMethod]

@@ -1,6 +1,6 @@
-using AASeq;
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using AASeq;
 
 namespace Tests;
 
@@ -12,27 +12,24 @@ public class Float16Value_Tests {
         var text = "42.84";
         Assert.IsTrue(Float16Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
-        Assert.AreEqual(text, Float16Value.Parse(text));
-        Assert.AreEqual(result, Float16Value.Parse(text));
-        Assert.AreEqual(result, Half.Parse(text));
+        Assert.AreEqual(text, result);
     }
 
     [TestMethod]
     public void Float16Value_Exponents() {
-        Assert.AreEqual("4200", Float16Value.Parse("42e2"));
+        Assert.IsTrue(Float16Value.TryParse("42e2", out var result));
+        Assert.AreEqual("4200", result);
     }
 
     [TestMethod]
     public void Float16Value_NaN() {
-        Assert.IsTrue(Half.IsNaN(Float16Value.Parse("NaN")));
+        Assert.IsTrue(Float16Value.TryParse("NaN", out var result));
+        Assert.IsTrue(Half.IsNaN(result));
     }
 
     [TestMethod]
     public void Float16Value_FailedParse() {
         Assert.IsFalse(Float16Value.TryParse("A", out var _));
-        Assert.ThrowsException<FormatException>(() => {
-            Float16Value.Parse("A");
-        });
     }
 
 }

@@ -1,4 +1,3 @@
-using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AASeq;
 
@@ -12,17 +11,12 @@ public class DateValue_Tests {
         var text = "2021-01-14";
         Assert.IsTrue(DateValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
-        Assert.AreEqual(text, DateValue.Parse(text));
-        Assert.AreEqual(result, DateValue.Parse(text));
-        Assert.AreEqual(result, DateOnly.Parse(text));
+        Assert.AreEqual(text, result);
     }
 
     [TestMethod]
     public void DateValue_FailedParse() {
         Assert.IsFalse(DateValue.TryParse("A", out var _));
-        Assert.ThrowsException<FormatException>(() => {
-            DateValue.Parse("A");
-        });
     }
 
 }

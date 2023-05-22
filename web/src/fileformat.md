@@ -152,15 +152,14 @@ forced, one can use system tags. The following types are supported:
 | Time         | TimeOnly       | @time           | `03:04:05`                         |
 | Duration     | TimeSpan       | @duration       | `1d`                               |
 | String       | String         | @string         | `Text`                             |
+| Binary       | Byte[]         | @binary         | `4C6F7265 6D206970 73756D`         |
+| Binary       | Byte[]         | @binary @base64 | `TG9yZSBpcHN1bQ==`                 |
 | IPAddress    | IPAddress      | @ip             | `1.2.3.4` `2001:db8::/32`          |
 | IPAddressv4  | IPAddress      | @ipv4           | `1.2.3.4`                          |
 | IPAddressv6  | IPAddress      | @ipv6           | `2001:db8::/32`                    |
 | IPEndpoint   | IPEndPoint     | @ep             | `1.2.3.4:443` `[2001:db8::]:443`   |
 | IPEndpointv4 | IPEndPoint     | @epv4           | `1.2.3.4:443`                      |
 | IPEndpointv6 | IPEndPoint     | @epv6           | `[2001:db8::]:443`                 |
-| Binary       | Byte[]         | @binary         | `4C6F7265 6D206970 73756D`         |
-| Binary       | Byte[]         | @binary @hex    | `4C6F7265 6D206970 73756D`         |
-| Binary       | Byte[]         | @binary @base64 | `TG9yZW0gaXBzdW0K`                 |
 
 ## Quoting
 

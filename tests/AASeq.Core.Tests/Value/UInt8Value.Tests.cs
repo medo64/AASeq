@@ -12,17 +12,13 @@ public class UInt8Value_Tests {
         var text = "42";
         Assert.IsTrue(UInt8Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
-        Assert.AreEqual(text, UInt8Value.Parse(text));
-        Assert.AreEqual(result, UInt8Value.Parse(text));
+        Assert.AreEqual(text, result);
         Assert.AreEqual(result, Byte.Parse(text));
     }
 
     [TestMethod]
     public void UInt8Value_FailedParse() {
         Assert.IsFalse(UInt8Value.TryParse("A", out var _));
-        Assert.ThrowsException<FormatException>(() => {
-            UInt8Value.Parse("A");
-        });
     }
 
     [TestMethod]

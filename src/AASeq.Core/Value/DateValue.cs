@@ -2,7 +2,6 @@ namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Net;
 
 /// <summary>
 /// Date value.
@@ -25,19 +24,6 @@ public sealed class DateValue : AnyValue {
 
 
     #region Parse
-
-    /// <summary>
-    /// Returns value object converted from given text.
-    /// </summary>
-    /// <param name="text">Text to parse.</param>
-    /// <exception cref="FormatException">Cannot parse text.</exception>
-    public static DateValue Parse(string text) {
-        if (TryParse(text, out var value)) {
-            return value;
-        } else {
-            throw new FormatException("Cannot parse text.");
-        }
-    }
 
     /// <summary>
     /// Returns true if text can be converted with the value object in the output parameter.

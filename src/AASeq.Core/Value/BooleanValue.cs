@@ -26,19 +26,6 @@ public sealed class BooleanValue : AnyValue {
     #region Parse
 
     /// <summary>
-    /// Returns value object converted from given text.
-    /// </summary>
-    /// <param name="text">Text to parse.</param>
-    /// <exception cref="FormatException">Cannot parse text.</exception>
-    public static BooleanValue Parse(string text) {
-        if (TryParse(text, out var value)) {
-            return value;
-        } else {
-            throw new FormatException("Cannot parse text.");
-        }
-    }
-
-    /// <summary>
     /// Returns true if text can be converted with the value object in the output parameter.
     /// </summary>
     /// <param name="text">Text to parse.</param>

@@ -119,7 +119,7 @@ public sealed class TagCollection
     #region IEquatable<TagCollection>
 
     public bool Equals(TagCollection? other) {
-        if (other == null) { return false; }
+        if (other is null) { return false; }
         if (Count != other.Count) { return false; }
 
         using var enum1 = GetEnumerator();

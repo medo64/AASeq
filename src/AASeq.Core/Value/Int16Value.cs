@@ -3,7 +3,6 @@ using System;
 using System.Buffers.Binary;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
-using System.Net;
 
 /// <summary>
 /// Int16 value.
@@ -20,17 +19,10 @@ public sealed class Int16Value : AnyValue {
 
 
     /// <summary>
-    /// Returns value object converted from given text.
+    /// Gets value.
     /// </summary>
-    /// <param name="text">Text to parse.</param>
-    /// <exception cref="FormatException">Cannot parse text.</exception>
-    public static Int16Value Parse(string text) {
-        if (TryParse(text, out var value)) {
-            return value;
-        } else {
-            throw new FormatException("Cannot parse text.");
-        }
-    }
+    public Int16 Value { get; }
+
 
     #region Parse
 
@@ -77,12 +69,6 @@ public sealed class Int16Value : AnyValue {
     public string ToString(string? format) {
         return Value.ToString(format, CultureInfo.InvariantCulture);
     }
-
-
-    /// <summary>
-    /// Gets value.
-    /// </summary>
-    public Int16 Value { get; }
 
     #endregion ToString
 

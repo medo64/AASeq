@@ -14,17 +14,13 @@ public class StringValue_Tests {
         var text = "HG2G";
         Assert.IsTrue(StringValue.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
-        Assert.AreEqual(text, StringValue.Parse(text));
-        Assert.AreEqual(result, StringValue.Parse(text));
+        Assert.AreEqual(text, result);
         Assert.AreEqual(result, text);
     }
 
     [TestMethod]
     public void StringValue_FailedParse() {
         Assert.IsFalse(StringValue.TryParse(null, out var _));
-        Assert.ThrowsException<FormatException>(() => {
-            StringValue.Parse(null);
-        });
     }
 
     [TestMethod]

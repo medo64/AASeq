@@ -1,6 +1,10 @@
 namespace AASeq;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Reflection;
 
 /// <summary>
 /// Base value class.
@@ -533,5 +537,251 @@ public abstract class AnyValue {
     public ReadOnlyMemory<Byte> AsReadOnlyMemory(ReadOnlyMemory<Byte> defaultValue) => AsReadOnlyMemory() ?? defaultValue;
 
     #endregion As
+
+
+    #region Parse
+
+    /// <summary>
+    /// Returns true if text can be converted with the value object in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="result">Conversion result.</param>
+    public static bool TryParse(string? text, [NotNullWhen(true)] out AnyValue? result) {
+        return TryParse(text, tags: null, out result);
+    }
+
+    /// <summary>
+    /// Returns true if text can be converted with the value object in the output parameter.
+    /// </summary>
+    /// <param name="text">Text to parse.</param>
+    /// <param name="tags">Tags to help with conversion.</param>
+    /// <param name="result">Conversion result.</param>
+    /// <exception cref="">Conflicting conversion tags present.</exception>
+    public static bool TryParse(string? text, TagCollection? tags, [NotNullWhen(true)] out AnyValue? result) {
+        var type = GetConversionType(tags, out var forceBase64);
+        if (text is null) {
+            result = null;
+            return false;
+        }
+
+        switch (type) {
+            case ConversionType.Boolean: {
+                    var success = BooleanValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Int8: {
+                    var success = Int8Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Int16: {
+                    var success = Int16Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Int32: {
+                    var success = Int32Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Int64: {
+                    var success = Int64Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.UInt8: {
+                    var success = UInt8Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.UInt16: {
+                    var success = UInt16Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.UInt32: {
+                    var success = UInt32Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.UInt64: {
+                    var success = UInt64Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Float16: {
+                    var success = Float16Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Float32: {
+                    var success = Float32Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Float64: {
+                    var success = Float64Value.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.DateTime: {
+                    var success = DateTimeValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Date: {
+                    var success = DateValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Time: {
+                    var success = TimeValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Duration: {
+                    var success = DurationValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.String: {
+                    var success = StringValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+            case ConversionType.Binary: {
+                    if (forceBase64) {
+                        try {
+                            var bytes = Convert.FromBase64String(text);
+                            result = new BinaryValue(bytes);
+                            return true;
+                        } catch (FormatException) {
+                            result = null;
+                            return false;
+                        }
+                    } else {
+                        var success = BinaryValue.TryParse(text, out var resultValue);
+                        result = resultValue;
+                        return success;
+                    }
+                }
+
+            default: // auto-detect
+                if (text.StartsWith("0x", StringComparison.Ordinal)) {  // binary
+                    var success = BinaryValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                } else if ((text.Length > 0) && (text[0] is >= '0' and <= '9')) {
+                    if (text.Contains('.', StringComparison.Ordinal)) {  // float
+                        var success = Float64Value.TryParse(text, out var resultValue);
+                        result = resultValue;
+                        return success;
+                    } else {  // int
+                        var success = Int64Value.TryParse(text, out var resultValue);
+                        result = resultValue;
+                        return success;
+                    }
+                } else {  // string
+                    var success = StringValue.TryParse(text, out var resultValue);
+                    result = resultValue;
+                    return success;
+                }
+        }
+    }
+
+    private enum ConversionType {
+        Auto = 0,
+        Boolean,
+        Int8,
+        Int16,
+        Int32,
+        Int64,
+        UInt8,
+        UInt16,
+        UInt32,
+        UInt64,
+        Float16,
+        Float32,
+        Float64,
+        DateTime,
+        Date,
+        Time,
+        Duration,
+        String,
+        Binary,
+    }
+
+    private static ConversionType GetConversionType(TagCollection? tags, out bool forceBase64) {
+        if (tags == null) {
+            forceBase64 = false;
+            return ConversionType.Auto;
+        }
+
+        var type = ConversionType.Auto;
+        forceBase64 = false;
+
+        foreach (var tag in tags.EnumerateSystemTags()) {
+            if (tag.State) {  // only consider enabled tags
+                if (Tag.NameComparer.Equals(tag.Name, "bool") || Tag.NameComparer.Equals(tag.Name, "boolean")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Boolean, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "int8")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Int8, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "int16")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Int16, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "int32")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Int32, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "int64") || Tag.NameComparer.Equals(tag.Name, "int")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Int64, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "uint8")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.UInt8, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "uint16")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.UInt16, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "uint32")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.UInt32, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "uint64") || Tag.NameComparer.Equals(tag.Name, "uint")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.UInt64, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "float16")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Float16, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "float32")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Float32, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "float64") || Tag.NameComparer.Equals(tag.Name, "float")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Float64, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "datetime")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.DateTime, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "date")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Date, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "time")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Time, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "duration")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Duration, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "string")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.String, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "binary")) {
+                    type = ThrowIfAlreadyPresent(type, ConversionType.Binary, nameof(tags));
+                } else if (Tag.NameComparer.Equals(tag.Name, "base64")) {
+                    forceBase64 = true;
+                }
+            }
+        }
+
+        if (type == ConversionType.Auto) {
+            if (forceBase64) { return ConversionType.Binary; }
+        } else if (type != ConversionType.Binary) {
+            if (forceBase64) { throw new ArgumentOutOfRangeException(nameof(tags), $"Conflicting conversion tags present (both '{type}' and 'base64' specified)."); }
+        }
+
+        return type;
+    }
+
+    [StackTraceHidden]
+    private static ConversionType ThrowIfAlreadyPresent(ConversionType currentType, ConversionType newType, string argumentName) {
+        if (currentType != ConversionType.Auto) {
+            throw new ArgumentOutOfRangeException(argumentName, $"Conflicting conversion tags present (both '{currentType}' and '{newType}' specified).");
+        }
+        return newType;
+    }
+
+    #endregion Parse
 
 }

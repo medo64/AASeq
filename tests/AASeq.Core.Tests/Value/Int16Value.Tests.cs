@@ -12,17 +12,13 @@ public class Int16Value_Tests {
         var text = "42";
         Assert.IsTrue(Int16Value.TryParse(text, out var result));
         Assert.AreEqual(text, result.ToString());
-        Assert.AreEqual(text, Int16Value.Parse(text));
-        Assert.AreEqual(result, Int16Value.Parse(text));
+        Assert.AreEqual(text, result);
         Assert.AreEqual(result, Int16.Parse(text));
     }
 
     [TestMethod]
     public void Int16Value_FailedParse() {
         Assert.IsFalse(Int16Value.TryParse("A", out var _));
-        Assert.ThrowsException<FormatException>(() => {
-            Int16Value.Parse("A");
-        });
     }
 
     [TestMethod]

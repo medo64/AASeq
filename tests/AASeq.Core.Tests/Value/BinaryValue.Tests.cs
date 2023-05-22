@@ -12,8 +12,7 @@ public class BinaryValue_Tests {
         var text = "0xFEFF";
         Assert.IsTrue(BinaryValue.TryParse(text, out var result));
         Assert.AreEqual("FE-FF", BitConverter.ToString(result));
-        Assert.AreEqual("0xFEFF", BinaryValue.Parse(text).ToString());
-        Assert.AreEqual(result, BinaryValue.Parse(text));
+        Assert.AreEqual("0xFEFF", result.ToString());
         Assert.IsTrue(result.Equals(new byte[] { 0xFE, 0xFF }));
     }
 
@@ -22,7 +21,7 @@ public class BinaryValue_Tests {
         var text = "fefe";
         Assert.IsTrue(BinaryValue.TryParse(text, out var result));
         Assert.AreEqual("FE-FE", BitConverter.ToString(result));
-        Assert.AreEqual("0xFEFE", BinaryValue.Parse(text).ToString());
+        Assert.AreEqual("0xFEFE", result.ToString());
     }
 
 
@@ -242,14 +241,7 @@ public class BinaryValue_Tests {
     [TestMethod]
     public void BinaryValue_FailedParse() {
         Assert.IsFalse(BooleanValue.TryParse("GG", out var _));
-        Assert.ThrowsException<FormatException>(() => {
-            BooleanValue.Parse("GG");
-        });
-
         Assert.IsFalse(BooleanValue.TryParse("A", out var _));
-        Assert.ThrowsException<FormatException>(() => {
-            BooleanValue.Parse("A");
-        });
     }
 
     [TestMethod]
