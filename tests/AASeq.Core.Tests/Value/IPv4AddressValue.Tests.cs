@@ -2,7 +2,7 @@ using System.Net;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AASeq;
 
-namespace Tests.Core;
+namespace Tests;
 
 [TestClass]
 public class IPv4AddressValue_Tests {

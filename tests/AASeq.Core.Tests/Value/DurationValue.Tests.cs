@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AASeq;
 
-namespace Tests.Core;
+namespace Tests;
 
 [TestClass]
 public class DurationValue_Tests {

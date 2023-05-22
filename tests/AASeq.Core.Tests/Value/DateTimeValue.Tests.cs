@@ -2,7 +2,7 @@ using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AASeq;
 
-namespace Tests.Core;
+namespace Tests;
 
 [TestClass]
 public class DateTimeValue_Tests {
