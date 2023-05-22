@@ -3,9 +3,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 
 [DebuggerDisplay("{Count} {Count == 1 ? \"tag\" : \"tags\",nq}")]
-internal sealed class TagCollection : IReadOnlyList<Tag>, IEquatable<TagCollection> {
+public sealed class TagCollection
+    : IReadOnlyList<Tag>
+    , IEquatable<TagCollection>
+    , IEqualityOperators<TagCollection, TagCollection, bool> {
 
     /// <summary>
     /// Create a new instance.
@@ -115,10 +119,35 @@ internal sealed class TagCollection : IReadOnlyList<Tag>, IEquatable<TagCollecti
     #region IEquatable<TagCollection>
 
     public bool Equals(TagCollection? other) {
-        throw new NotImplementedException();
+        if (other == null) { return false; }
+        if (Count != other.Count) { return false; }
+
+        using var enum1 = GetEnumerator();
+        using var enum2 = other.GetEnumerator();
+        while (enum1.MoveNext() && enum2.MoveNext()) {
+            if (enum1.Current != enum2.Current) {
+                return false;
+            }
+        }
+        return true;
     }
 
     #endregion IEquatable<TagCollection>
+
+
+    #region IEqualityOperators<TagCollection, TagCollection, bool>
+
+    /// <inheritdoc/>
+    public static bool operator ==(TagCollection? obj1, TagCollection? obj2) {
+        return (obj1 is not null) && obj1.Equals(obj2);
+    }
+
+    /// <inheritdoc/>
+    public static bool operator !=(TagCollection? obj1, TagCollection? obj2) {
+        return !(obj1 == obj2);
+    }
+
+    #endregion IEqualityOperators<TagCollection, TagCollection, bool>
 
 
     #region Overrides

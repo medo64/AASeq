@@ -1,13 +1,16 @@
 namespace AASeq;
 using System;
 using System.Diagnostics;
+using System.Numerics;
 using System.Text.RegularExpressions;
 
 /// <summary>
 /// Tag.
 /// </summary>
 [DebuggerDisplay("{IsSystem ? \"@\" : \"\",nq}{State ? Name : \"!\" + Name,nq}")]
-public sealed partial class Tag : IEquatable<Tag> {
+public sealed partial class Tag
+    : IEquatable<Tag>
+    , IEqualityOperators<Tag, Tag, bool> {
 
     /// <summary>
     /// Create a new instance.
@@ -61,11 +64,28 @@ public sealed partial class Tag : IEquatable<Tag> {
 
     #region IEquatable<Tag>
 
+    /// <inheritdoc/>
     public bool Equals(Tag? other) {
         return (other is not null) && NameComparer.Equals(Name, other.Name) && (State == other.State) && (IsSystem == other.IsSystem);
     }
 
     #endregion IEquatable<Tag>
+
+
+    #region IEqualityOperators<Tag, Tag, bool>
+
+    /// <inheritdoc/>
+    public static bool operator ==(Tag? obj1, Tag? obj2) {
+        return (obj1 is not null) && obj1.Equals(obj2);
+    }
+
+    /// <inheritdoc/>
+    public static bool operator !=(Tag? obj1, Tag? obj2) {
+        return !(obj1 == obj2);
+    }
+
+    #endregion IEqualityOperators<Tag, Tag, bool>
+
 
     #region Overrides
 

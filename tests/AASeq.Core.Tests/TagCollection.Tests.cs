@@ -59,7 +59,7 @@ public class TagCollection_Tests {
     }
 
     [TestMethod]
-    public void TagCollection__StateLookup() {
+    public void TagCollection_StateLookup() {
         var c = new TagCollection(new Tag[] {
             new Tag("TestE"),
             new Tag("TestD", false),
@@ -83,7 +83,7 @@ public class TagCollection_Tests {
     }
 
     [TestMethod]
-    public void TagCollection__SystemStateLookup() {
+    public void TagCollection_SystemStateLookup() {
         var c = new TagCollection(new Tag[] {
             new Tag("TestE"),
             new Tag("TestD", false),
@@ -107,7 +107,7 @@ public class TagCollection_Tests {
     }
 
     [TestMethod]
-    public void TagCollection__DuplicateName() {
+    public void TagCollection_DuplicateName() {
         Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
             var c = new TagCollection(new Tag[] {
                 new Tag("Test"),
@@ -120,6 +120,42 @@ public class TagCollection_Tests {
                 new Tag("@test")
             });
         });
+    }
+
+
+    [TestMethod]
+    public void TagCollection_Equality1() {
+        var c1 = new TagCollection(new Tag[] {
+            new Tag("Test1"),
+            new Tag("Test2")
+        });
+        var c2 = new TagCollection(new Tag[] {
+            new Tag("Test1"),
+            new Tag("test2")
+        });
+        Assert.IsTrue(c1.Equals(c2));
+    }
+
+    [TestMethod]
+    public void TagCollection_Equality2() {
+        var c1 = new TagCollection(new Tag[] {
+            new Tag("Test1"),
+            new Tag("Test2")
+        });
+        var c2 = new TagCollection(new Tag[] {
+            new Tag("Test1"),
+            new Tag("test2a")
+        });
+        Assert.IsFalse(c1.Equals(c2));
+    }
+
+    [TestMethod]
+    public void TagCollection_Equality3() {
+        var c1 = new TagCollection(new Tag[] {
+            new Tag("Test1"),
+            new Tag("Test2")
+        });
+        Assert.IsFalse(c1.Equals(null));
     }
 
 }
