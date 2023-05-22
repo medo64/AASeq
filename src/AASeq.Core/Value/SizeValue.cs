@@ -97,7 +97,7 @@ public sealed class SizeValue : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out SizeValue? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out SizeValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new SizeValue(value);
             return true;

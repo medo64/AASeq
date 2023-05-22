@@ -31,7 +31,7 @@ public sealed class TimeValue : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out TimeValue? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out TimeValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new TimeValue(value);
             return true;

@@ -33,7 +33,7 @@ public sealed class StringValue : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out StringValue? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out StringValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new StringValue(value);
             return true;

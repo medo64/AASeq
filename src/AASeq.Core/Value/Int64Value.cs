@@ -32,7 +32,7 @@ public sealed class Int64Value : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out Int64Value? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out Int64Value? result) {
         if (TryParseValue(text, out var value)) {
             result = new Int64Value(value);
             return true;

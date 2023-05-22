@@ -31,7 +31,7 @@ public sealed class BooleanValue : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out BooleanValue? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out BooleanValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new BooleanValue(value);
             return true;

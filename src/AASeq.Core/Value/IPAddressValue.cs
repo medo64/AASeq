@@ -35,7 +35,7 @@ public sealed class IPAddressValue : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out IPAddressValue? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out IPAddressValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new IPAddressValue(value);
             return true;

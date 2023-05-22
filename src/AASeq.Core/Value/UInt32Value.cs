@@ -32,7 +32,7 @@ public sealed class UInt32Value : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out UInt32Value? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out UInt32Value? result) {
         if (TryParseValue(text, out var value)) {
             result = new UInt32Value(value);
             return true;

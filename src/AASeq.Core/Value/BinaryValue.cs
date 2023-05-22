@@ -48,7 +48,7 @@ public sealed class BinaryValue : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out BinaryValue? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out BinaryValue? result) {
         if (TryParseValue(text, out var value)) {
             result = new BinaryValue(value);
             return true;

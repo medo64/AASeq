@@ -31,7 +31,7 @@ public sealed class Int8Value : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out Int8Value? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out Int8Value? result) {
         if (TryParseValue(text, out var value)) {
             result = new Int8Value(value);
             return true;

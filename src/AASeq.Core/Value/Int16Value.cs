@@ -32,7 +32,7 @@ public sealed class Int16Value : AnyValue {
     /// </summary>
     /// <param name="text">Text to parse.</param>
     /// <param name="result">Conversion result.</param>
-    public static bool TryParse(string? text, [NotNullWhen(true)] out Int16Value? result) {
+    internal static bool TryParse(string? text, [NotNullWhen(true)] out Int16Value? result) {
         if (TryParseValue(text, out var value)) {
             result = new Int16Value(value);
             return true;
