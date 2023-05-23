@@ -2,11 +2,13 @@
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AASeq", "AASeq\AASeq.csproj", "{D1295947-8F6E-4869-B726-5166D50849E5}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AASeq.Core", "AASeq.Core\AASeq.Core.csproj", "{4E050CC3-AEA6-446C-A377-6533357C9C85}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AASeq.Core.Tests", "..\tests\AASeq.Core.Tests\AASeq.Core.Tests.csproj", "{4CAC4336-86BF-43AA-BB1B-81A69515A0B3}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{53A02AB7-648E-42A2-96A2-4F8782411CA2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AASeq.Core.Tests", "..\tests\AASeq.Core.Tests\AASeq.Core.Tests.csproj", "{4CAC4336-86BF-43AA-BB1B-81A69515A0B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,6 +24,10 @@ Global
 		{4CAC4336-86BF-43AA-BB1B-81A69515A0B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4CAC4336-86BF-43AA-BB1B-81A69515A0B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4CAC4336-86BF-43AA-BB1B-81A69515A0B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1295947-8F6E-4869-B726-5166D50849E5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1295947-8F6E-4869-B726-5166D50849E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1295947-8F6E-4869-B726-5166D50849E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1295947-8F6E-4869-B726-5166D50849E5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
