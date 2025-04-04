@@ -1,0 +1,10 @@
+#!/usr/bin/env aaseq
+
+@Echo
+
+Ping >Echo {
+    Data Test
+}
+Pong <Echo {
+    Data Test
+}

@@ -1,21 +1,29 @@
 #!/usr/bin/env aaseq
 
+$ {
+    Host1   "localhost"
+    Host1   "127.0.0.1"
+    Host2   "::1"
+    Host3   "192.168.200.100"
+    Timeout 1.0
+}
+
 @Me
 
 @Local_IPv4 Ping {
-    Host (ip)localhost
+    Host $Host1
 }
 
 @Local_IPv4_Alternate Ping {
-    Host (ip)"127.0.0.2"
+    Host "$Host2"
 }
 
 @Local_IPv6 Ping {
-    Host (ip)"::1"
+    Host $Host3
 }
 
 @RemoteEP Ping {
-    Host "192.168.200.100"
+    Host $Host4
 }
 
 
@@ -24,7 +32,8 @@ Ping >RemoteEP {
 }
 
 Ping  Me>Local_IPv4 {
-    Data Test
+    Timeout $Timeout
+    Data    Test
 }
 Reply Me<Local_IPv4 {
     Size   64
@@ -39,11 +48,13 @@ Wait {
 
 Ping  >Local_IPv6
 Reply <Local_IPv6 {
-    Size    128
-    Timeout 1000
+    Size 128
+    Timeout (duration)$Timeout
 }
 
 Ping  >Local_IPv4_Alternate
 Reply <Local_IPv4_Alternate
 
 Reply <RemoteEP
+
+Echo $Count

@@ -1,0 +1,19 @@
+#!/usr/bin/env aaseq
+
+@Me
+@File { Root "/tmp" }
+
+Write >File {
+    Path "x.txt"
+    Data "Hello, World!"
+}
+
+Read <File {
+    Path "x.txt"
+    Data "Hello, World!"
+}
+
+Copy >File {
+    Path "y.txt"
+    RawPath "/Data/test.txt"
+}
