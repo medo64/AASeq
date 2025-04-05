@@ -32,6 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../AASeq.Document/AASeq.Document.csproj" />
+    <ProjectReference Include="../AASeq.Engine/AASeq.Engine.csproj" />
   </ItemGroup>
 
 </Project>
