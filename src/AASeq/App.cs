@@ -1,3 +1,4 @@
+namespace AASeqCli;
 using System.CommandLine;
 using System.CommandLine.Builder;
 using System.CommandLine.IO;
@@ -5,20 +6,18 @@ using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using System.IO;
 
-namespace AASeqCli;
-
 internal static class App {
 
     internal static void Main(string[] args) {
         var versionOption = new Option<bool>(
-            aliases: new[] { "--version", "-V" },
+            aliases: ["--version", "-V"],
             description: "Show version information") {
             Arity = ArgumentArity.Zero,
             IsRequired = true,
         };
 
         var verboseOption = new Option<bool>(
-            aliases: new[] { "--verbose", "-v" },
+            aliases: ["--verbose", "-v"],
             description: "Enable verbose output") {
             Arity = ArgumentArity.Zero,
         };
@@ -27,11 +26,7 @@ internal static class App {
             verboseOption,
             versionOption,
         };
-        rootCommand.SetHandler(
-            (showVersion, useVerbose) => {
-                AppExec.Base(showVersion, useVerbose);
-            },
-            versionOption, verboseOption);
+        rootCommand.SetHandler(AppExec.Base, versionOption, verboseOption);
 
         var fileArgument = new Argument<FileInfo>(
             name: "file",

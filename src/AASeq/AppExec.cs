@@ -1,9 +1,8 @@
+namespace AASeqCli;
 using AASeq;
 using System;
 using System.IO;
 using System.Reflection;
-
-namespace AASeqCli;
 
 internal static class AppExec {
 
@@ -21,18 +20,24 @@ internal static class AppExec {
 
 
     public static void New(FileInfo file) {
-        using var stream = file.OpenRead();
-        var document = new Document(stream);
+        var doc = new AASeqDocument();
+        doc.Save(file.FullName);
     }
 
     public static void Lint(FileInfo file) {
-        using var stream = file.OpenRead();
-        var document = new Document(stream);
+        try {
+            var document = AASeqDocument.Load(file.FullName);
+        } catch (InvalidOperationException ex) {
+            Output.ErrorLine("Error parsing the document: " + ex.Message);
+        }
     }
 
     public static void Run(FileInfo file) {
-        using var stream = file.OpenRead();
-        var document = new Document(stream);
+        try {
+            var document = AASeqDocument.Load(file.FullName);
+        } catch (InvalidOperationException ex) {
+            Output.ErrorLine("Error parsing the document: " + ex.Message);
+        }
     }
 
 }

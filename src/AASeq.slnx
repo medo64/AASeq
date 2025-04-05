@@ -3,5 +3,6 @@
     <Project Path="../tests/AASeq.Core.Tests/AASeq.Core.Tests.csproj" />
   </Folder>
   <Project Path="AASeq.Core/AASeq.Core.csproj" />
+  <Project Path="AASeq.Document/AASeq.Document.csproj" />
   <Project Path="AASeq/AASeq.csproj" />
 </Solution>
