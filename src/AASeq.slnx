@@ -2,4 +2,6 @@
   <Project Path="AASeq/AASeq.csproj" />
   <Project Path="AASeq.Document/AASeq.Document.csproj" />
   <Project Path="AASeq.Engine/AASeq.Engine.csproj" />
+  <Project Path="AASeq.Plugin/AASeq.Plugin.csproj" />
+  <Project Path="AASeq.Plugin.Ping/AASeq.Plugin.Ping.csproj" />
 </Solution>

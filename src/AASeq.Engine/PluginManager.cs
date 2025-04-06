@@ -2,6 +2,9 @@ namespace AASeq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.IO;
+using System.Reflection;
 
 /// <summary>
 /// Plugin management.
@@ -9,24 +12,56 @@ using System.Collections.ObjectModel;
 internal sealed class PluginManager {
 
     private PluginManager() {
-        EndpointPluginsByName.Add("Me", new EndpointPlugin(typeof(EndpointPlugins.Me)));  // this one is special
+        var sw = Stopwatch.StartNew();
+        try {
+            EndpointPluginsByName.Add("Me", GetEndpointPlugin((typeof(EndpointPlugins.Me)))!);  // this one is special
 
-        foreach (var type in new Type[] { typeof(EndpointPlugins.Dummy) }) {  // TODO: remove hardcoding
-            var plugin = GetEndpointPlugin(type);
-            if (plugin is not null) {
-                EndpointPluginsByName.Add(plugin.Name, plugin);
+            var currentAssembly = Assembly.GetExecutingAssembly();
+
+            var exePath = Environment.ProcessPath ?? throw new InvalidOperationException("Cannot determine process path,");
+
+            var exeDir = new DirectoryInfo(Path.GetDirectoryName(exePath)!);
+            foreach (var file in exeDir.GetFiles("*.dll")) {
+                Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{file}'");
+
+                Assembly assembly;
+                if (file.Name.Equals("AASeq.Engine.dll", StringComparison.OrdinalIgnoreCase)) {
+                    assembly = Assembly.GetExecutingAssembly();
+                    Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{assembly.FullName}'");
+                } else {
+                    assembly = Assembly.LoadFile(file.FullName);
+                    Metrics.PluginFileLoadCount.Add(1);
+                    Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{assembly.FullName}' ({file.Name})");
+                }
+                Metrics.PluginFileCheckCount.Add(1);
+
+                foreach (var type in assembly.GetTypes()) {
+                    if (!type.IsClass) { continue; }
+
+                    Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{type.Name}' ({assembly.FullName})");
+
+                    var endpointPlugin = GetEndpointPlugin(type);
+                    if (endpointPlugin is not null) {
+                        if (endpointPlugin.Name.Equals("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
+                        EndpointPluginsByName.Add(endpointPlugin.Name, endpointPlugin);
+                        Debug.WriteLine($"[AASeq.Engine] Found endpoint plugin '{endpointPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
+                    }
+
+                    var commandPlugin = GetCommandPlugin(type);
+                    if (commandPlugin is not null) {
+                        CommandPluginsByName.Add(commandPlugin.Name, commandPlugin);
+                        Debug.WriteLine($"[AASeq.Engine] Found command plugin '{commandPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
+                    }
+
+                }
             }
-        }
 
-        foreach (var type in new Type[] { typeof(CommandPlugins.Wait) }) {  // TODO: remove hardcoding
-            var plugin = GetCommandPlugin(type);
-            if (plugin is not null) {
-                CommandPluginsByName.Add(plugin.Name, plugin);
-            }
+            CommandPlugins = new ReadOnlyCollection<CommandPlugin>([.. CommandPluginsByName.Values]);
+            EndpointPlugins = new ReadOnlyCollection<EndpointPlugin>([.. EndpointPluginsByName.Values]);
+        } finally {
+            Debug.WriteLine($"[AASeqEngine] Init: {sw.ElapsedMilliseconds} ms");
+            Metrics.PluginFileLoadMilliseconds.Record(sw.ElapsedMilliseconds);
         }
-
-        CommandPlugins = new ReadOnlyCollection<CommandPlugin>([.. CommandPluginsByName.Values]);
-        EndpointPlugins = new ReadOnlyCollection<EndpointPlugin>([.. EndpointPluginsByName.Values]);
     }
 
 
@@ -71,18 +106,37 @@ internal sealed class PluginManager {
     #region Helpers
 
     private static CommandPlugin? GetCommandPlugin(Type type) {
-        var constructor = type.GetConstructor([typeof(AASeqNodes)]);
-        if (constructor is null) { return null; }
+        if (!type.IsClass) { return null; }
 
-        return new CommandPlugin(type);
+        var mGetInstance = type.GetMethod("GetInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        if (mGetInstance is null) { return null; }
+        if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
+
+        var mExecute = type.GetMethod("Execute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes)]);
+        if (mExecute is null) { return null; }
+        if (!mExecute.ReturnType.Equals(typeof(void))) { return null; }
+
+        return new CommandPlugin(type, mGetInstance, mExecute);
     }
 
     private static EndpointPlugin? GetEndpointPlugin(Type type) {
-        var constructor = type.GetConstructor([typeof(AASeqNodes)]);
-        if (constructor is null) { return null; }
+        if (!type.IsClass) { return null; }
 
-        return new EndpointPlugin(type);
+        var mGetInstance = type.GetMethod("GetInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        if (mGetInstance is null) { return null; }
+        if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
+
+        var mSend = type.GetMethod("Send", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(String), typeof(AASeqNodes)]);
+        if (mSend is null) { return null; }
+        if (!mSend.ReturnType.Equals(typeof(void))) { return null; }
+
+        var mReceive = type.GetMethod("Receive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(String), typeof(AASeqNodes)]);
+        if (mReceive is null) { return null; }
+        if (!mReceive.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
+
+        return new EndpointPlugin(type, mGetInstance, mSend, mReceive);
     }
 
     #endregion Helpers
+
 }

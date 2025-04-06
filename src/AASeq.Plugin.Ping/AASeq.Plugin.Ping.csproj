@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>AASeq</AssemblyName>
-    <RootNamespace>AASeqCli</RootNamespace>
+    <AssemblyName>AASeq.Plugin.Ping</AssemblyName>
+    <RootNamespace>PingPlugin</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>net9.0</TargetFramework>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
@@ -16,28 +16,19 @@
   </PropertyGroup>
 
   <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup>
     <AnalysisLevel>latest</AnalysisLevel>
     <AnalysisMode>AllEnabledByDefault</AnalysisMode>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <Product>AASeq</Product>
-    <Description>Protocol simulator.</Description>
-  </PropertyGroup>
-
   <ItemGroup>
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="../AASeq.Document/AASeq.Document.csproj" />
-    <ProjectReference Include="../AASeq.Engine/AASeq.Engine.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="../AASeq.Plugin.Ping/AASeq.Plugin.Ping.csproj" />
+    <ProjectReference Include="..\AASeq.Document\AASeq.Document.csproj" />
+    <ProjectReference Include="..\AASeq.Plugin\AASeq.Plugin.csproj" />
   </ItemGroup>
 
 </Project>

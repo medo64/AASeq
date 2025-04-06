@@ -28,7 +28,7 @@ public sealed partial class Engine : IDisposable {
             }
         }
         if (!endpoints.ContainsKey("Me")) {
-            endpoints.Add("Me", new EndpointInstance(new EndpointPlugins.Me(AASeqNodes.Empty)));
+            //TODO endpoints.Add("Me", new EndpointInstance(new EndpointPlugins.Me()));
         }
         Endpoints = [.. endpoints.Values];
 

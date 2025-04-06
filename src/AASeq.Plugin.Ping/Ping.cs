@@ -2,11 +2,11 @@ namespace AASeq.EndpointPlugins;
 using System;
 
 /// <summary>
-/// Default local endpoint.
+/// Ping endpoint.
 /// </summary>
-internal sealed class Me {
+internal sealed class Ping : IEndpointPlugin {
 
-    internal Me() {
+    private Ping(AASeqNodes configuration) {
     }
 
 
@@ -33,8 +33,8 @@ internal sealed class Me {
     /// <summary>
     /// Gets the instance.
     /// </summary>
-    public static Object GetInstance(AASeqNodes configuration) {
-        return new Me();
+    public static IEndpointPlugin GetInstance(AASeqNodes configuration) {
+        return new Ping(configuration);
     }
 
 }

@@ -1,5 +1,6 @@
 namespace AASeq;
 using System;
+using System.Reflection;
 
 /// <summary>
 /// Endpoint plugin.
@@ -10,17 +11,29 @@ internal sealed class EndpointPlugin : Plugin {
     /// Create a new instance.
     /// </summary>
     /// <param name="type">Plugin reflection type.</param>
-    public EndpointPlugin(Type type)
+    /// <param name="getInstanceMethodInfo">Reflection data for GetInstance method.</param>
+    /// <param name="sendMethodInfo">Reflection data for Send method.</param>
+    /// <param name="receiveMethodInfo">Reflection data for ReceiveMethod method.</param>
+    public EndpointPlugin(Type type, MethodInfo getInstanceMethodInfo, MethodInfo sendMethodInfo, MethodInfo receiveMethodInfo)
         : base(type) {
+        GetInstanceMethodInfo = getInstanceMethodInfo;
+        SendMethodInfo = sendMethodInfo;
+        ReceiveMethodInfo = receiveMethodInfo;
     }
+
+
+    private readonly MethodInfo GetInstanceMethodInfo;
+    private readonly MethodInfo SendMethodInfo;
+    private readonly MethodInfo ReceiveMethodInfo;
 
 
     /// <summary>
     /// Returns a new instance of the plugin.
     /// </summary>
-    /// <param name="nodes">Configuration nodes.</param>
-    public EndpointInstance GetInstance(AASeqNodes nodes) {
-        return new EndpointInstance(Activator.CreateInstance(Type, nodes)!);
+    /// <param name="configuration">Configuration nodes.</param>
+    public EndpointInstance GetInstance(AASeqNodes configuration) {
+        var instance = GetInstanceMethodInfo.Invoke(null, [configuration])!;
+        return new EndpointInstance(instance, SendMethodInfo, ReceiveMethodInfo);
     }
 
 }
