@@ -27,6 +27,7 @@ internal static class AppExec {
     public static void Lint(FileInfo file) {
         try {
             var document = AASeqDocument.Load(file.FullName);
+            document.Save(Console.Out, AASeqDocumentOutputOptions.Default with { HeaderExecutable = "aaseq", ExtraEmptyRootNodeLines = true });
         } catch (InvalidOperationException ex) {
             Output.ErrorLine("Error parsing the document: " + ex.Message);
         }
@@ -35,6 +36,11 @@ internal static class AppExec {
     public static void Run(FileInfo file) {
         try {
             var document = AASeqDocument.Load(file.FullName);
+            try {
+                using var engine = new Engine(document);
+            } catch (InvalidOperationException ex) {
+                Output.ErrorLine("Error creating the engine: " + ex.Message);
+            }
         } catch (InvalidOperationException ex) {
             Output.ErrorLine("Error parsing the document: " + ex.Message);
         }

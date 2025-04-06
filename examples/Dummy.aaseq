@@ -1,0 +1,15 @@
+#!/usr/bin/env aaseq
+
+@Me
+
+@Remote Dummy
+
+Ping >Remote {
+    Data Test
+}
+
+Wait
+
+Pong <Remote {
+    Data Test
+}
