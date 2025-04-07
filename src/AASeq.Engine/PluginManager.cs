@@ -112,7 +112,7 @@ internal sealed class PluginManager {
         if (mGetInstance is null) { return null; }
         if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
-        var mExecute = type.GetMethod("Execute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes)]);
+        var mExecute = type.GetMethod("Execute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNode)]);
         if (mExecute is null) { return null; }
         if (!mExecute.ReturnType.Equals(typeof(void))) { return null; }
 

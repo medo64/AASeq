@@ -3,6 +3,7 @@ using AASeq;
 using System;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 internal static class AppExec {
 
@@ -36,8 +37,46 @@ internal static class AppExec {
     public static void Run(FileInfo file) {
         try {
             var document = AASeqDocument.Load(file.FullName);
+
             try {
                 using var engine = new Engine(document);
+                engine.Start();
+
+                var prevStepCount = 0;
+                while (true) {
+                    var currStepCount = engine.StepCount;
+                    if (currStepCount != prevStepCount) {
+                        Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
+                        Console.Write(currStepCount);
+                        prevStepCount = currStepCount;
+                    }
+
+                    if (Console.KeyAvailable) {
+                        var key = Console.ReadKey(intercept: true);
+                        switch (key.Key) {
+                            case ConsoleKey.Escape:  // done
+                                engine.Stop();
+                                return;
+
+                            case ConsoleKey.Spacebar:
+                                engine.Step();
+                                break;
+
+                            case ConsoleKey.Enter:
+                                if (engine.IsRunning) {
+                                    engine.Step();
+                                } else {
+                                    engine.Start();
+                                }
+                                break;
+
+                            default: break;
+                        }
+                    } else {
+                        Thread.Sleep(10);
+                    }
+                }
+
             } catch (InvalidOperationException ex) {
                 Output.ErrorLine("Error creating the engine: " + ex.Message);
             }

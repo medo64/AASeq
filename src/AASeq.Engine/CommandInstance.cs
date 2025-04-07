@@ -32,7 +32,7 @@ internal sealed class CommandInstance {
     /// Executes the command.
     /// </summary>
     /// <param name="data">Data.</param>
-    public void Execute(AASeqNodes data) {
+    public void Execute(AASeqNode data) {
         ExecuteMethodInfo.Invoke(Instance, [data]);
     }
 

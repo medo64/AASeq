@@ -10,13 +10,13 @@ public interface ICommandPlugin {
     /// <summary>
     /// Returns the instance.
     /// </summary>
-    public static abstract ICommandPlugin GetInstance(AASeqNodes configuration);
+    public static abstract ICommandPlugin GetInstance();
 
 
     /// <summary>
     /// Executes the command.
     /// </summary>
     /// <param name="data">Data.</param>
-    public void Execute(AASeqNodes data);
+    public void Execute(AASeqNode data);
 
 }

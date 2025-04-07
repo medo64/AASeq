@@ -27,9 +27,8 @@ internal sealed class CommandPlugin : Plugin {
     /// <summary>
     /// Returns a new instance of the plugin.
     /// </summary>
-    /// <param name="configuration">Configuration nodes.</param>
-    public CommandInstance GetInstance(AASeqNodes configuration) {
-        var instance = GetInstanceMethodInfo.Invoke(null, [configuration])!;
+    public CommandInstance GetInstance() {
+        var instance = GetInstanceMethodInfo.Invoke(null, [])!;
         return new CommandInstance(instance, ExecuteMethodInfo);
     }
 

@@ -1,7 +1,11 @@
 namespace AASeq;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 /// <summary>
 /// Main execution engine.
@@ -15,6 +19,7 @@ public sealed partial class Engine : IDisposable {
     public Engine(AASeqDocument document) {
         ArgumentNullException.ThrowIfNull(document);
 
+        // setup endpoints
         var endpoints = new SortedDictionary<string, EndpointInstance>(StringComparer.OrdinalIgnoreCase);
         foreach (var node in document.Nodes) {
             if (node.Name.StartsWith('@')) {
@@ -32,7 +37,8 @@ public sealed partial class Engine : IDisposable {
         }
         Endpoints = [.. endpoints.Values];
 
-        var flows = new List<IFlowAction>();
+        // setup flow sequence
+        var flowSequence = new List<IFlowAction>();
         foreach (var node in document.Nodes) {
             if (!node.Name.StartsWith('@')) {
                 var actionName = node.Name;
@@ -50,7 +56,7 @@ public sealed partial class Engine : IDisposable {
                     }
                     // TODO: check if action exists for endpoint
                     var flow = new FlowMessage(actionName, endpoints[endpointDefinitions[0]], endpoints[endpointDefinitions[1]], node.Nodes);
-                    flows.Add(flow);
+                    flowSequence.Add(flow);
 
                 } else if (endpointDefinition.Contains('<', StringComparison.Ordinal)) {  // incoming message
 
@@ -63,30 +69,140 @@ public sealed partial class Engine : IDisposable {
                     }
                     // TODO: check if action exists for endpoint
                     var flow = new FlowMessage(actionName, endpoints[endpointDefinitions[1]], endpoints[endpointDefinitions[0]], node.Nodes);
-                    flows.Add(flow);
+                    flowSequence.Add(flow);
 
                 } else {  // command
 
                     var plugin = PluginManager.FindCommandPlugin(actionName) ?? throw new InvalidOperationException($"Cannot find command plugin '{actionName}'.");
-                    flows.Add(new FlowCommand(plugin.GetInstance(node.Nodes), node.Nodes));
+                    flowSequence.Add(new FlowCommand(plugin.GetInstance(), node));
 
                 }
             }
         }
 
-        Flows = flows.AsReadOnly();
+        FlowSequence = flowSequence.AsReadOnly();
+
+        Thread = new Thread(Run) {
+            Name = "Engine",
+            IsBackground = true,
+            CurrentCulture = CultureInfo.InvariantCulture
+        };
+        if (FlowSequence.Count > 0) {
+            Thread.Start();
+        }
     }
 
 
     /// <summary>
     /// Gets all endpoints.
     /// </summary>
-    public IReadOnlyCollection<EndpointInstance> Endpoints { get; }
+    internal IReadOnlyList<EndpointInstance> Endpoints { get; }
 
     /// <summary>
     /// Gets all flows.
     /// </summary>
-    public IReadOnlyCollection<IFlowAction> Flows { get; }
+    public IReadOnlyList<IFlowAction> FlowSequence { get; }
+
+
+    #region Execution
+
+    /// <summary>
+    /// Gets number of executed steps so far.
+    /// </summary>
+    public Int32 StepCount { get { return Interlocked.CompareExchange(ref CurrentStepCount, 0, 0); } }
+
+    /// <summary>
+    /// Gets whether the engine is running.
+    /// </summary>
+    public bool IsRunning { get { return Interlocked.CompareExchange(ref CurrentIsRunning, 0, 0) == 1; } }
+
+    /// <summary>
+    /// Starts running the engine.
+    /// </summary>
+    public void Start() {
+        if (FlowSequence.Count > 0) {
+            StepEvent.Reset(0);
+            CanStopEvent.WaitOne();
+            StepEvent.Reset(int.MaxValue);
+        }
+    }
+
+    /// <summary>
+    /// Performs a single step.
+    /// </summary>
+    public void Step() {
+        if (FlowSequence.Count > 0) {
+            StepEvent.Reset(1);
+        }
+    }
+
+    /// <summary>
+    /// Stops the engine.
+    /// </summary>
+    public void Stop() {
+        if (FlowSequence.Count > 0) {
+            StepEvent.Reset(0);
+            CanStopEvent.WaitOne();
+        }
+    }
+
+    #endregion
+
+
+    #region Thread
+
+    private readonly Thread Thread;
+    private readonly ManualResetEvent CancelEvent = new(initialState: false);
+    private readonly CountdownEvent StepEvent = new(initialCount: 0);
+    private readonly ManualResetEvent CanStopEvent = new(initialState: true);
+    private int CurrentIsRunning;  // interlocked
+    private int CurrentStepCount;  // interlocked
+
+    private void Run() {
+        if (FlowSequence.Count == 0) { return; }  // cannot really do anything if nothing in flow
+
+        try {
+            var currIsRunning = false;
+            var actionIndex = 0;
+
+            while (!CancelEvent.WaitOne(0, false)) {
+                var action = FlowSequence[actionIndex];
+                var doStep = !StepEvent.IsSet;
+                if (doStep) {
+                    try {
+                        CanStopEvent.Reset();  // prevent any stop action
+                        if (!currIsRunning) {
+                            currIsRunning = true;
+                            Interlocked.Exchange(ref CurrentIsRunning, 1);
+                        }
+
+                        StepEvent.Signal();  // wait to be allowed to step
+
+                        Interlocked.Increment(ref CurrentStepCount);
+                        Debug.WriteLine(CurrentStepCount);
+
+                        if (action is FlowCommand commandAction) {
+                            commandAction.Instance.Execute(commandAction.Data);
+                        } else if (action is FlowMessage message) {
+                            // TODO
+                        }
+
+                        actionIndex++;
+                        if (actionIndex == FlowSequence.Count) { actionIndex = 0; }
+                    } finally {
+                        CanStopEvent.Set();  // signal it's a good place to stop
+                    }
+                } else if (currIsRunning) {  // stop running
+                    currIsRunning = false;
+                    Interlocked.Exchange(ref CurrentIsRunning, 0);
+                } else {  // wait for the next step
+                    Thread.Sleep(100);
+                }
+            }
+        } catch (ThreadAbortException) { }
+    }
+
+    #endregion
 
 
     #region IDisposable
@@ -95,6 +211,10 @@ public sealed partial class Engine : IDisposable {
     /// Disposes the engine.
     /// </summary>
     public void Dispose() {
+        Stop();
+        CancelEvent.Dispose();
+        StepEvent.Dispose();
+        CanStopEvent.Dispose();
     }
 
     #endregion IDisposable

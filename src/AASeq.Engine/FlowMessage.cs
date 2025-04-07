@@ -21,11 +21,13 @@ public sealed class FlowMessage : IFlowAction {
         MessageName = messageName;
         SourceInstance = sourceInstance;
         DestinationInstance = destinationInstance;
+        Data = data;
     }
 
 
     private readonly string MessageName;
     private readonly EndpointInstance SourceInstance;
     private readonly EndpointInstance DestinationInstance;
+    private readonly AASeqNodes Data;
 
 }

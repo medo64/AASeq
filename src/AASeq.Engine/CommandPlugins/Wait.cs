@@ -1,5 +1,6 @@
 namespace AASeq.CommandPlugins;
 using System;
+using System.Threading;
 
 /// <summary>
 /// Wait plugin command.
@@ -9,8 +10,7 @@ internal sealed class Wait : ICommandPlugin {
     /// <summary>
     /// Creates a new instance. 
     /// </summary>
-    /// <param name="configuration">Configuration.</param>
-    private Wait(AASeqNodes configuration) {
+    private Wait() {
     }
 
 
@@ -18,16 +18,17 @@ internal sealed class Wait : ICommandPlugin {
     /// Executes the command.
     /// </summary>
     /// <param name="data">Data.</param>
-    public void Execute(AASeqNodes data) {
-        throw new NotImplementedException();
+    public void Execute(AASeqNode data) {
+        var duration = data.AsTimeSpan(TimeSpan.FromMilliseconds(1000));
+        Thread.Sleep((int)duration.TotalMilliseconds);
     }
 
 
     /// <summary>
     /// Returns the instance.
     /// </summary>
-    public static ICommandPlugin GetInstance(AASeqNodes configuration) {
-        return new Wait(configuration);
+    public static ICommandPlugin GetInstance() {
+        return new Wait();
     }
 
 }
