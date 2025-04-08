@@ -8,7 +8,7 @@ using System.Threading;
 internal sealed class Wait : ICommandPlugin {
 
     /// <summary>
-    /// Creates a new instance. 
+    /// Creates a new instance.
     /// </summary>
     private Wait() {
     }
@@ -18,8 +18,8 @@ internal sealed class Wait : ICommandPlugin {
     /// Executes the command.
     /// </summary>
     /// <param name="data">Data.</param>
-    public void Execute(AASeqNode data) {
-        var duration = data.AsTimeSpan(TimeSpan.FromMilliseconds(1000));
+    public void Execute(AASeqNodes data) {
+        var duration = data.GetValue("Value", TimeSpan.FromMilliseconds(1000));
         Thread.Sleep((int)duration.TotalMilliseconds);
     }
 

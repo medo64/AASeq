@@ -16,7 +16,7 @@ internal sealed class EndpointInstance {
     /// <param name="instance">Instance.</param>
     /// <param name="sendMethodInfo">Reflection data for Send method.</param>
     /// <param name="receiveMethodInfo">Reflection data for ReceiveMethod method.</param>
-    internal EndpointInstance(Object instance, MethodInfo sendMethodInfo, MethodInfo receiveMethodInfo) {
+    internal EndpointInstance(Object instance, MethodInfo? sendMethodInfo, MethodInfo? receiveMethodInfo) {
         Instance = instance;
         SendMethodInfo = sendMethodInfo;
         ReceiveMethodInfo = receiveMethodInfo;
@@ -24,31 +24,34 @@ internal sealed class EndpointInstance {
 
 
     private readonly Object Instance;
-    private readonly MethodInfo SendMethodInfo;
-    private readonly MethodInfo ReceiveMethodInfo;
+    private readonly MethodInfo? SendMethodInfo;
+    private readonly MethodInfo? ReceiveMethodInfo;
 
     [SuppressMessage("Style", "IDE0051:Remove unused private members", Justification = "Used for IFlowAction DebuggerDisplay")]
     private string PluginName => Instance.GetType().Name;
 
 
     /// <summary>
-    /// Sends the message.
+    /// Sends the message as returns ID for the answer.
     /// </summary>
-    /// <param name="instance">Instance.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
-    public void Send(Object instance, string messageName, AASeqNodes data) {
-        SendMethodInfo.Invoke(instance, [messageName, data]);
+    public Guid Send(string messageName, AASeqNodes data) {
+        if (SendMethodInfo is null) { throw new NotSupportedException(); }
+        return (Guid)SendMethodInfo.Invoke(Instance, [messageName, data])!;
     }
 
     /// <summary>
-    /// Receives the message.
+    /// Returns the received message.
     /// </summary>
-    /// <param name="instance">Instance.</param>
+    /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="expectedData">Expected data.</param>
-    public AASeqNodes Receive(Object instance, string messageName, AASeqNodes expectedData) {
-        return (AASeqNodes)ReceiveMethodInfo.Invoke(instance, [messageName, expectedData])!;
+    public AASeqNodes Receive(Guid id, out string messageName) {
+        if (ReceiveMethodInfo is null) { throw new NotSupportedException(); }
+        var parameters = new object?[] { id, null };
+        var result = (AASeqNodes)ReceiveMethodInfo.Invoke(Instance, parameters)!;
+        messageName = (string)parameters[0]!;
+        return result;
     }
 
 }

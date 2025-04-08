@@ -24,7 +24,7 @@ public sealed partial class Engine : IDisposable {
         foreach (var node in document.Nodes) {
             if (node.Name.StartsWith('@')) {
                 var nodeName = node.Name[1..];
-                var pluginName = node.AsString(nodeName);
+                var pluginName = node.GetValue(nodeName);
                 if (!NameRegex().IsMatch(nodeName)) { throw new InvalidOperationException($"Invalid endpoint name '{nodeName}'."); }
                 if (!NameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
 
@@ -44,7 +44,7 @@ public sealed partial class Engine : IDisposable {
                 var actionName = node.Name;
                 if (!NameRegex().IsMatch(actionName)) { throw new InvalidOperationException($"Invalid message name '{actionName}'."); }
 
-                var endpointDefinition = node.AsString(string.Empty);
+                var endpointDefinition = node.GetValue(string.Empty);
                 if (endpointDefinition.Contains('>', StringComparison.Ordinal)) {  // outgoing message
 
                     var endpointDefinitions = endpointDefinition.Split('>', StringSplitOptions.None);
@@ -74,7 +74,11 @@ public sealed partial class Engine : IDisposable {
                 } else {  // command
 
                     var plugin = PluginManager.FindCommandPlugin(actionName) ?? throw new InvalidOperationException($"Cannot find command plugin '{actionName}'.");
-                    flowSequence.Add(new FlowCommand(plugin.GetInstance(), node));
+                    if (node.Value is not null) {
+                        node.Nodes.Add(new AASeqNode("Value", node.Value));
+                        node.Value = AASeqValue.Null;
+                    }
+                    flowSequence.Add(new FlowCommand(plugin.GetInstance(), node.Nodes));
 
                 }
             }

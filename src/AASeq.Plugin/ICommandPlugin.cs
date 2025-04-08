@@ -17,6 +17,6 @@ public interface ICommandPlugin {
     /// Executes the command.
     /// </summary>
     /// <param name="data">Data.</param>
-    public void Execute(AASeqNode data);
+    public void Execute(AASeqNodes data);
 
 }

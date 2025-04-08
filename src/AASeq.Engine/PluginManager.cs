@@ -112,7 +112,7 @@ internal sealed class PluginManager {
         if (mGetInstance is null) { return null; }
         if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
-        var mExecute = type.GetMethod("Execute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNode)]);
+        var mExecute = type.GetMethod("Execute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes)]);
         if (mExecute is null) { return null; }
         if (!mExecute.ReturnType.Equals(typeof(void))) { return null; }
 
@@ -128,9 +128,9 @@ internal sealed class PluginManager {
 
         var mSend = type.GetMethod("Send", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(String), typeof(AASeqNodes)]);
         if (mSend is null) { return null; }
-        if (!mSend.ReturnType.Equals(typeof(void))) { return null; }
+        if (!mSend.ReturnType.Equals(typeof(Guid))) { return null; }
 
-        var mReceive = type.GetMethod("Receive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(String), typeof(AASeqNodes)]);
+        var mReceive = type.GetMethod("Receive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(string).MakeByRefType()]);
         if (mReceive is null) { return null; }
         if (!mReceive.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
 

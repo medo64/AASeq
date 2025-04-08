@@ -11,22 +11,22 @@ internal sealed class Ping : IEndpointPlugin {
 
 
     /// <summary>
-    /// Sends the message.
+    /// Sends the message as returns ID for the answer.
     /// </summary>
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
-    public void Send(string messageName, AASeqNodes data) {
-        // TODO
+    public Guid Send(string messageName, AASeqNodes data) {
+        return Guid.Empty;
     }
 
     /// <summary>
-    /// Receives the message.
+    /// Returns the received message.
     /// </summary>
+    /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="expectedData">Expected data.</param>
-    public AASeqNodes Receive(string messageName, AASeqNodes expectedData) {
-        // TODO
-        throw new NotSupportedException();
+    public AASeqNodes Receive(Guid id, out string messageName) {
+        messageName = string.Empty;
+        return AASeqNodes.Empty;
     }
 
 

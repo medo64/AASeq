@@ -15,13 +15,13 @@ public sealed class FlowCommand : IFlowAction {
     /// <param name="data">Data nodes.</param>
     /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-    internal FlowCommand(CommandInstance commandInstance, AASeqNode data) {
+    internal FlowCommand(CommandInstance commandInstance, AASeqNodes data) {
         Instance = commandInstance;
         Data = data;
     }
 
 
     internal CommandInstance Instance { get; }
-    internal AASeqNode Data { get; }
+    internal AASeqNodes Data { get; }
 
 }
