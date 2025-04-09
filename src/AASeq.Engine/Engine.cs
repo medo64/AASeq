@@ -109,8 +109,10 @@ public sealed partial class Engine : IDisposable {
             }
         }
 
-        FlowSequence = flowSequence.AsReadOnly();
+        // Figure out who connects to whom
 
+        // Done
+        FlowSequence = flowSequence.AsReadOnly();
         Thread = new Thread(Run) {
             Name = "Engine",
             IsBackground = true,

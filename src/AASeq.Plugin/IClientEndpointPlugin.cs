@@ -6,12 +6,12 @@ using System.Diagnostics.CodeAnalysis;
 /// Endpoint plugin interface marker.
 /// Use is optional since plugin loading is based on method signatures.
 /// </summary>
-public interface IEndpointPlugin {
+public interface IClientEndpointPlugin {
 
     /// <summary>
     /// Returns the instance.
     /// </summary>
-    public static abstract IEndpointPlugin GetInstance(AASeqNodes configuration);
+    public static abstract IClientEndpointPlugin GetInstance(AASeqNodes configuration);
 
 
     /// <summary>
