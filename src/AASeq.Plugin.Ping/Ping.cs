@@ -1,5 +1,6 @@
 namespace AASeq.EndpointPlugins;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
 /// Ping endpoint.
@@ -7,26 +8,28 @@ using System;
 internal sealed class Ping : IEndpointPlugin {
 
     private Ping(AASeqNodes configuration) {
+        //TODO
     }
 
 
     /// <summary>
-    /// Sends the message as returns ID for the answer.
-    /// </summary>
-    /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
-    public Guid Send(string messageName, AASeqNodes data) {
-        return Guid.Empty;
-    }
-
-    /// <summary>
-    /// Returns the received message.
+    /// Returns true, if message was successfully sent.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    public AASeqNodes Receive(Guid id, out string messageName) {
-        messageName = string.Empty;
-        return AASeqNodes.Empty;
+    /// <param name="data">Data.</param>
+    public bool TrySend(Guid id, string messageName, AASeqNodes data) {
+        throw new NotImplementedException();
+    }
+
+    /// <summary>
+    /// Returns true, if message was successfully received.
+    /// </summary>
+    /// <param name="id">ID.</param>
+    /// <param name="messageName">Message name.</param>
+    /// <param name="data">Data.</param>
+    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data) {
+        throw new NotImplementedException();
     }
 
 

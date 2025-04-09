@@ -24,8 +24,8 @@ public sealed class FlowCommand : IFlowAction {
     private CommandInstance Instance { get; }
     private AASeqNodes Data { get; }
 
-    internal void Execute() {
-        Instance.Execute(Data);
+    internal bool TryExecute() {
+        return Instance.TryExecute(Data);
     }
 
 }

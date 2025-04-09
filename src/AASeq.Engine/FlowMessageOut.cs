@@ -27,8 +27,8 @@ public sealed class FlowMessageOut : IFlowAction {
     private EndpointInstance DestinationInstance { get; }
     private AASeqNodes Data { get; }
 
-    internal void Send() {
-        DestinationInstance.Send(MessageName, Data);
+    internal bool TrySend() {
+        return DestinationInstance.TrySend(Guid.Empty, MessageName, Data);
     }
 
 }

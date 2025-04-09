@@ -1,5 +1,6 @@
 namespace AASeq;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 
 /// <summary>
 /// Command plugin interface marker.
@@ -14,9 +15,9 @@ public interface ICommandPlugin {
 
 
     /// <summary>
-    /// Executes the command.
+    /// Returns true, if command was successfully executed.
     /// </summary>
     /// <param name="data">Data.</param>
-    public void Execute(AASeqNodes data);
+    public bool TryExecute(AASeqNodes data);
 
 }

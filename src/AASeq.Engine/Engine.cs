@@ -28,12 +28,13 @@ public sealed partial class Engine : IDisposable {
                 if (!NameRegex().IsMatch(nodeName)) { throw new InvalidOperationException($"Invalid endpoint name '{nodeName}'."); }
                 if (!NameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
 
-                var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
-                endpoints.Add(nodeName, plugin.GetInstance(node.Nodes));
+                if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
+                    // TODO: not a real plugin, but we can use it's data for settings
+                } else {
+                    var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
+                    endpoints.Add(nodeName, plugin.GetInstance(node.Nodes));
+                }
             }
-        }
-        if (!endpoints.ContainsKey("Me")) {
-            endpoints.Add("Me", new EndpointInstance(new EndpointPlugins.Me(), null, null));
         }
         Endpoints = [.. endpoints.Values];
 
@@ -52,6 +53,7 @@ public sealed partial class Engine : IDisposable {
                     if (string.IsNullOrEmpty(endpointDefinitions[0])) { endpointDefinitions[0] = "Me"; }
                     if (string.IsNullOrEmpty(endpointDefinitions[1])) { endpointDefinitions[1] = "Me"; }
                     foreach (var endpointName in endpointDefinitions) {
+                        if (endpointName.Contains("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
                         if (!endpoints.ContainsKey(endpointName)) { throw new InvalidOperationException($"Cannot find endpoint '{endpointName}' in '{endpointDefinition}'."); }
                     }
 
@@ -76,6 +78,7 @@ public sealed partial class Engine : IDisposable {
                     if (string.IsNullOrEmpty(endpointDefinitions[0])) { endpointDefinitions[0] = "Me"; }
                     if (string.IsNullOrEmpty(endpointDefinitions[1])) { endpointDefinitions[1] = "Me"; }
                     foreach (var endpointName in endpointDefinitions) {
+                        if (endpointName.Contains("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
                         if (!endpoints.ContainsKey(endpointName)) { throw new InvalidOperationException($"Cannot find endpoint '{endpointName}' in '{endpointDefinition}'."); }
                     }
 
@@ -208,11 +211,11 @@ public sealed partial class Engine : IDisposable {
                         Debug.WriteLine(CurrentStepCount);
 
                         if (action is FlowCommand commandAction) {
-                            commandAction.Execute();
+                            commandAction.TryExecute();
                         } else if (action is FlowMessageOut messageOutAction) {
-                            messageOutAction.Send();
+                            messageOutAction.TrySend();
                         } else if (action is FlowMessageIn messageInAction) {
-                            messageInAction.Receive();
+                            messageInAction.TryReceive();
                         }
 
                         actionIndex++;

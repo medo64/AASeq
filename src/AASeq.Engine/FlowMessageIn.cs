@@ -25,7 +25,7 @@ public sealed class FlowMessageIn : IFlowAction {
     private string MessageName { get; }
     private EndpointInstance SourceInstance { get; }
 
-    internal void Receive() {
-        SourceInstance.Receive(Guid.Empty, out string messageName);
+    internal bool TryReceive() {
+        return SourceInstance.TryReceive(Guid.Empty, out string? messageName, out AASeqNodes? data);
     }
 }

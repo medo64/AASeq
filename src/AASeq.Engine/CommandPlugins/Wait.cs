@@ -15,12 +15,13 @@ internal sealed class Wait : ICommandPlugin {
 
 
     /// <summary>
-    /// Executes the command.
+    /// Returns true, if command was successfully executed.
     /// </summary>
     /// <param name="data">Data.</param>
-    public void Execute(AASeqNodes data) {
+    public bool TryExecute(AASeqNodes data) {
         var duration = data.GetValue("Value", TimeSpan.FromMilliseconds(1000));
         Thread.Sleep((int)duration.TotalMilliseconds);
+        return true;
     }
 
 

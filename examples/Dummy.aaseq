@@ -2,7 +2,10 @@
 
 @Me
 
-@Remote Dummy
+@Remote Echo {
+    Delay 0.1
+}
+
 
 Ping >Remote {
     Data Test
@@ -10,6 +13,6 @@ Ping >Remote {
 
 Wait "1s"
 
-Pong <Remote {
+Ping <Remote {
     Data Test
 }

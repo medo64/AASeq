@@ -14,10 +14,7 @@ internal sealed class PluginManager {
     private PluginManager() {
         var sw = Stopwatch.StartNew();
         try {
-            EndpointPluginsByName.Add("Me", GetEndpointPlugin((typeof(EndpointPlugins.Me)))!);  // this one is special
-
             var currentAssembly = Assembly.GetExecutingAssembly();
-
             var exePath = Environment.ProcessPath ?? throw new InvalidOperationException("Cannot determine process path,");
 
             var exeDir = new DirectoryInfo(Path.GetDirectoryName(exePath)!);
@@ -112,9 +109,9 @@ internal sealed class PluginManager {
         if (mGetInstance is null) { return null; }
         if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
-        var mExecute = type.GetMethod("Execute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes)]);
+        var mExecute = type.GetMethod("TryExecute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes)]);
         if (mExecute is null) { return null; }
-        if (!mExecute.ReturnType.Equals(typeof(void))) { return null; }
+        if (!mExecute.ReturnType.Equals(typeof(bool))) { return null; }
 
         return new CommandPlugin(type, mGetInstance, mExecute);
     }
@@ -126,13 +123,13 @@ internal sealed class PluginManager {
         if (mGetInstance is null) { return null; }
         if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
-        var mSend = type.GetMethod("Send", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(String), typeof(AASeqNodes)]);
+        var mSend = type.GetMethod("TrySend", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes)]);
         if (mSend is null) { return null; }
-        if (!mSend.ReturnType.Equals(typeof(Guid))) { return null; }
+        if (!mSend.ReturnType.Equals(typeof(bool))) { return null; }
 
-        var mReceive = type.GetMethod("Receive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(string).MakeByRefType()]);
+        var mReceive = type.GetMethod("TryReceive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(string).MakeByRefType(), typeof(AASeqNodes).MakeByRefType()]);
         if (mReceive is null) { return null; }
-        if (!mReceive.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
+        if (!mReceive.ReturnType.Equals(typeof(bool))) { return null; }
 
         return new EndpointPlugin(type, mGetInstance, mSend, mReceive);
     }
