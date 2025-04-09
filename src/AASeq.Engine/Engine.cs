@@ -33,7 +33,7 @@ public sealed partial class Engine : IDisposable {
             }
         }
         if (!endpoints.ContainsKey("Me")) {
-            //TODO endpoints.Add("Me", new EndpointInstance(new EndpointPlugins.Me()));
+            endpoints.Add("Me", new EndpointInstance(new EndpointPlugins.Me(), null, null));
         }
         Endpoints = [.. endpoints.Values];
 
@@ -54,9 +54,20 @@ public sealed partial class Engine : IDisposable {
                     foreach (var endpointName in endpointDefinitions) {
                         if (!endpoints.ContainsKey(endpointName)) { throw new InvalidOperationException($"Cannot find endpoint '{endpointName}' in '{endpointDefinition}'."); }
                     }
-                    // TODO: check if action exists for endpoint
-                    var flow = new FlowMessage(actionName, endpoints[endpointDefinitions[0]], endpoints[endpointDefinitions[1]], node.Nodes);
-                    flowSequence.Add(flow);
+
+                    var left = endpointDefinitions[0];
+                    var right = endpointDefinitions[1];
+                    if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
+                        throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
+                    } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
+                        var flow = new FlowMessageOut(actionName, endpoints[right], node.Nodes);
+                        flowSequence.Add(flow);
+                    } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
+                        var flow = new FlowMessageOut(actionName, endpoints[left], node.Nodes);
+                        flowSequence.Add(flow);
+                    } else {
+                        throw new InvalidOperationException($"Cannot send message to nobody.");
+                    }
 
                 } else if (endpointDefinition.Contains('<', StringComparison.Ordinal)) {  // incoming message
 
@@ -67,9 +78,20 @@ public sealed partial class Engine : IDisposable {
                     foreach (var endpointName in endpointDefinitions) {
                         if (!endpoints.ContainsKey(endpointName)) { throw new InvalidOperationException($"Cannot find endpoint '{endpointName}' in '{endpointDefinition}'."); }
                     }
-                    // TODO: check if action exists for endpoint
-                    var flow = new FlowMessage(actionName, endpoints[endpointDefinitions[1]], endpoints[endpointDefinitions[0]], node.Nodes);
-                    flowSequence.Add(flow);
+
+                    var left = endpointDefinitions[0];
+                    var right = endpointDefinitions[1];
+                    if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
+                        throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
+                    } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
+                        var flow = new FlowMessageIn(actionName, endpoints[right], node.Nodes);
+                        flowSequence.Add(flow);
+                    } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
+                        var flow = new FlowMessageIn(actionName, endpoints[left], node.Nodes);
+                        flowSequence.Add(flow);
+                    } else {
+                        throw new InvalidOperationException($"Cannot receive message.");
+                    }
 
                 } else {  // command
 
@@ -186,9 +208,11 @@ public sealed partial class Engine : IDisposable {
                         Debug.WriteLine(CurrentStepCount);
 
                         if (action is FlowCommand commandAction) {
-                            commandAction.Instance.Execute(commandAction.Data);
-                        } else if (action is FlowMessage message) {
-                            // TODO
+                            commandAction.Execute();
+                        } else if (action is FlowMessageOut messageOutAction) {
+                            messageOutAction.Send();
+                        } else if (action is FlowMessageIn messageInAction) {
+                            messageInAction.Receive();
                         }
 
                         actionIndex++;

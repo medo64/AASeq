@@ -21,7 +21,11 @@ public sealed class FlowCommand : IFlowAction {
     }
 
 
-    internal CommandInstance Instance { get; }
-    internal AASeqNodes Data { get; }
+    private CommandInstance Instance { get; }
+    private AASeqNodes Data { get; }
+
+    internal void Execute() {
+        Instance.Execute(Data);
+    }
 
 }

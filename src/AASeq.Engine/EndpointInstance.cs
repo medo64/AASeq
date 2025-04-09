@@ -50,7 +50,7 @@ internal sealed class EndpointInstance {
         if (ReceiveMethodInfo is null) { throw new NotSupportedException(); }
         var parameters = new object?[] { id, null };
         var result = (AASeqNodes)ReceiveMethodInfo.Invoke(Instance, parameters)!;
-        messageName = (string)parameters[0]!;
+        messageName = (string)parameters[1]!;
         return result;
     }
 

@@ -9,7 +9,7 @@ using System.Diagnostics;
 [DebuggerDisplay("Me")]
 internal sealed class Me : IEndpointPlugin {
 
-    private Me() {
+    internal Me() {
     }
 
 
