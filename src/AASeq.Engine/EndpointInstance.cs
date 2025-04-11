@@ -14,21 +14,34 @@ internal sealed class EndpointInstance : IEndpointPluginInstance {
     /// Creates a new instance.
     /// </summary>
     /// <param name="instance">Instance.</param>
+    /// <param name="getConfigurationMethodInfo">Reflection data for GetConfiguration method.</param>
     /// <param name="trySendMethodInfo">Reflection data for Send method.</param>
     /// <param name="tryReceiveMethodInfo">Reflection data for ReceiveMethod method.</param>
-    internal EndpointInstance(Object instance, MethodInfo? trySendMethodInfo, MethodInfo? tryReceiveMethodInfo) {
+    internal EndpointInstance(Object instance, MethodInfo getConfigurationMethodInfo, MethodInfo trySendMethodInfo, MethodInfo tryReceiveMethodInfo) {
         Instance = instance;
+        GetConfigurationMethodInfo = getConfigurationMethodInfo;
         TrySendMethodInfo = trySendMethodInfo;
         TryReceiveMethodInfo = tryReceiveMethodInfo;
     }
 
 
     private readonly Object Instance;
-    private readonly MethodInfo? TrySendMethodInfo;
-    private readonly MethodInfo? TryReceiveMethodInfo;
+    private readonly MethodInfo GetConfigurationMethodInfo;
+    private readonly MethodInfo TrySendMethodInfo;
+    private readonly MethodInfo TryReceiveMethodInfo;
 
     [SuppressMessage("Style", "IDE0051:Remove unused private members", Justification = "Used for IFlowAction DebuggerDisplay")]
-    private string PluginName => Instance.GetType().Name;
+    internal string PluginName => Instance.GetType().Name;
+
+
+    /// <summary>
+    /// Returns instance configuration.
+    /// </summary>
+    public AASeqNodes GetConfiguration() {
+        if (GetConfigurationMethodInfo is null) { throw new NotSupportedException(); }
+        var result = GetConfigurationMethodInfo.Invoke(Instance, []);
+        return (AASeqNodes)result!;
+    }
 
 
     /// <summary>

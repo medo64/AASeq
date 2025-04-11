@@ -30,4 +30,13 @@ public sealed class FlowMessageIn : IFlowAction {
     internal EndpointInstance SourceInstance { get; }
     internal AASeqNodes BlueprintData { get; }
 
+
+    AASeqNode IFlowAction.GetDefinitionNode() {
+        var definitionNode = new AASeqNode(MessageName, "<" + SourceName);
+        foreach (var dataNode in BlueprintData) {
+            definitionNode.Nodes.Add(dataNode.Clone());
+        }
+        return definitionNode;
+    }
+
 }

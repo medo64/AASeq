@@ -22,6 +22,17 @@ internal sealed class Echo : IEndpointPlugin {
 
 
     /// <summary>
+    /// Returns instance configuration.
+    /// </summary>
+    public AASeqNodes GetConfiguration() {
+        var nodes = new AASeqNodes {
+            new AASeqNode("Delay", TimeSpan.FromMilliseconds(DelayMS))
+        };
+        return nodes;
+    }
+
+
+    /// <summary>
     /// Returns true, if message was successfully sent.
     /// </summary>
     /// <param name="id">ID.</param>

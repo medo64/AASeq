@@ -20,8 +20,7 @@ public sealed partial class Engine : IDisposable {
         ArgumentNullException.ThrowIfNull(document);
 
         // setup endpoints
-        var endpoints = new SortedDictionary<string, EndpointInstance>(StringComparer.OrdinalIgnoreCase);  // instance per name storage
-        var endpointNames = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);  // keep canonical name for instance
+        var endpoints = new SortedDictionary<string, EndpointStore>(StringComparer.OrdinalIgnoreCase);  // instance per name storage
         foreach (var node in document.Nodes) {
             if (node.Name.StartsWith('@')) {
                 var nodeName = node.Name[1..];
@@ -33,8 +32,7 @@ public sealed partial class Engine : IDisposable {
                     // TODO: not a real plugin, but we can use it's data for settings
                 } else {
                     var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
-                    endpoints.Add(nodeName, plugin.GetInstance(node.Nodes));
-                    endpointNames.Add(nodeName, nodeName);
+                    endpoints.Add(nodeName, new EndpointStore(nodeName, plugin.GetInstance(node.Nodes)));
                 }
             }
         }
@@ -64,10 +62,10 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageOut(actionName, endpointNames[right], endpoints[right], node.Nodes);
+                        var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, node.Nodes);
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageOut(actionName, endpointNames[left], endpoints[left], node.Nodes);
+                        var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, node.Nodes);
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot send message to nobody.");
@@ -89,10 +87,10 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageIn(actionName, endpointNames[right], endpoints[right], node.Nodes);
+                        var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, node.Nodes);
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageIn(actionName, endpointNames[left], endpoints[left], node.Nodes);
+                        var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, node.Nodes);
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot receive message.");
@@ -129,7 +127,7 @@ public sealed partial class Engine : IDisposable {
     /// <summary>
     /// Gets all endpoints.
     /// </summary>
-    internal IReadOnlyList<EndpointInstance> Endpoints { get; }
+    public IReadOnlyList<IEndpoint> Endpoints { get; }
 
     /// <summary>
     /// Gets all flows.

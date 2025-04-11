@@ -9,6 +9,12 @@ using System.Diagnostics.CodeAnalysis;
 public interface IEndpointPluginInstance {
 
     /// <summary>
+    /// Returns instance configuration.
+    /// </summary>
+    public AASeqNodes GetConfiguration();
+
+
+    /// <summary>
     /// Returns true, if message was successfully sent.
     /// </summary>
     /// <param name="id">ID.</param>

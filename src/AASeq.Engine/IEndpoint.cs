@@ -1,13 +1,12 @@
 namespace AASeq;
-using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
-/// Flow action.
+/// Endpoint.
 /// </summary>
-public interface IFlowAction {
+public interface IEndpoint {
 
     /// <summary>
-    /// Returns the action definition.
+    /// Returns the endppoint definition.
     /// </summary>
     public AASeqNode GetDefinitionNode();
 

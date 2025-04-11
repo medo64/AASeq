@@ -123,6 +123,10 @@ internal sealed class PluginManager {
         if (mGetInstance is null) { return null; }
         if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
+        var mGetConfiguration = type.GetMethod("GetConfiguration", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, []);
+        if (mGetConfiguration is null) { return null; }
+        if (!mGetConfiguration.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
+
         var mSend = type.GetMethod("TrySend", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes)]);
         if (mSend is null) { return null; }
         if (!mSend.ReturnType.Equals(typeof(bool))) { return null; }
@@ -131,7 +135,7 @@ internal sealed class PluginManager {
         if (mReceive is null) { return null; }
         if (!mReceive.ReturnType.Equals(typeof(bool))) { return null; }
 
-        return new EndpointPlugin(type, mGetInstance, mSend, mReceive);
+        return new EndpointPlugin(type, mGetInstance, mGetConfiguration, mSend, mReceive);
     }
 
     #endregion Helpers

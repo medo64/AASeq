@@ -7,8 +7,18 @@ using System.Diagnostics.CodeAnalysis;
 /// </summary>
 internal sealed class Ping : IEndpointPlugin {
 
-    private Ping(AASeqNodes configuration) {
+    private Ping(AASeqNodes _) {
         //TODO
+    }
+
+
+    /// <summary>
+    /// Returns instance configuration.
+    /// </summary>
+    public AASeqNodes GetConfiguration() {
+        var nodes = new AASeqNodes {
+        };
+        return nodes;
     }
 
 

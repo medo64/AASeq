@@ -40,6 +40,17 @@ internal static class AppExec {
 
             try {
                 using var engine = new Engine(document);
+
+                var newDocument = new AASeqDocument();
+                foreach (var endpoint in engine.Endpoints) {
+                    newDocument.Nodes.Add(endpoint.GetDefinitionNode());
+                }
+                foreach (var action in engine.FlowSequence) {
+                    newDocument.Nodes.Add(action.GetDefinitionNode());
+                }
+                newDocument.Save(Console.Out, AASeqDocumentOutputOptions.Default with { ExtraEmptyRootNodeLines = true });
+                Console.WriteLine();
+
                 engine.Start();
 
                 var prevStepCount = 0;

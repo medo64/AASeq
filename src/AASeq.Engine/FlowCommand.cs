@@ -27,4 +27,13 @@ public sealed class FlowCommand : IFlowAction {
     internal CommandInstance Instance { get; }
     internal AASeqNodes TemplateData { get; }
 
+
+    AASeqNode IFlowAction.GetDefinitionNode() {
+        var definitionNode = new AASeqNode(CommandName);
+        foreach (var dataNode in TemplateData) {
+            definitionNode.Nodes.Add(dataNode.Clone());
+        }
+        return definitionNode;
+    }
+
 }
