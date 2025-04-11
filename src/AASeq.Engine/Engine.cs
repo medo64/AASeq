@@ -16,12 +16,12 @@ public sealed partial class Engine : IDisposable {
     /// Creates a new instance.
     /// </summary>
     /// <param name="document">Document.</param>
-    public Engine(AASeqDocument document) {
+    public Engine(AASeqNodes document) {
         ArgumentNullException.ThrowIfNull(document);
 
         // setup endpoints
         var endpoints = new SortedDictionary<string, EndpointStore>(StringComparer.OrdinalIgnoreCase);  // instance per name storage
-        foreach (var node in document.Nodes) {
+        foreach (var node in document) {
             if (node.Name.StartsWith('@')) {
                 var nodeName = node.Name[1..];
                 var pluginName = node.GetValue(nodeName);
@@ -40,7 +40,7 @@ public sealed partial class Engine : IDisposable {
 
         // setup flow sequence
         var flowSequence = new List<IFlowAction>();
-        foreach (var node in document.Nodes) {
+        foreach (var node in document) {
             if (!node.Name.StartsWith('@')) {  // we already created instances above
                 var actionName = node.Name;
                 if (!NameRegex().IsMatch(actionName)) { throw new InvalidOperationException($"Invalid message name '{actionName}'."); }

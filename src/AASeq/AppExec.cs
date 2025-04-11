@@ -21,14 +21,14 @@ internal static class AppExec {
 
 
     public static void New(FileInfo file) {
-        var doc = new AASeqDocument();
+        var doc = new AASeqNodes();
         doc.Save(file.FullName);
     }
 
     public static void Lint(FileInfo file) {
         try {
-            var document = AASeqDocument.Load(file.FullName);
-            document.Save(Console.Out, AASeqDocumentOutputOptions.Default with { HeaderExecutable = "aaseq", ExtraEmptyRootNodeLines = true });
+            var document = AASeqNodes.Load(file.FullName);
+            document.Save(Console.Out, AASeqOutputOptions.Default with { HeaderExecutable = "aaseq", ExtraEmptyRootNodeLines = true });
         } catch (InvalidOperationException ex) {
             Output.ErrorLine("Error parsing the document: " + ex.Message);
         }
@@ -36,19 +36,19 @@ internal static class AppExec {
 
     public static void Run(FileInfo file) {
         try {
-            var document = AASeqDocument.Load(file.FullName);
+            var document = AASeqNodes.Load(file.FullName);
 
             try {
                 using var engine = new Engine(document);
 
-                var newDocument = new AASeqDocument();
+                var newDocument = new AASeqNodes();
                 foreach (var endpoint in engine.Endpoints) {
-                    newDocument.Nodes.Add(endpoint.GetDefinitionNode());
+                    newDocument.Add(endpoint.GetDefinitionNode());
                 }
                 foreach (var action in engine.FlowSequence) {
-                    newDocument.Nodes.Add(action.GetDefinitionNode());
+                    newDocument.Add(action.GetDefinitionNode());
                 }
-                newDocument.Save(Console.Out, AASeqDocumentOutputOptions.Default with { ExtraEmptyRootNodeLines = true });
+                newDocument.Save(Console.Out, AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true });
                 Console.WriteLine();
 
                 engine.Start();
