@@ -5,7 +5,7 @@ using System.Reflection;
 /// <summary>
 /// Endpoint plugin.
 /// </summary>
-internal sealed class EndpointPlugin : Plugin {
+internal sealed class EndpointPlugin : PluginBase {
 
     /// <summary>
     /// Create a new instance.

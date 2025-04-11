@@ -3,16 +3,10 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
-/// Endpoint plugin interface marker.
+/// Endpoint plugin instance interface marker.
 /// Use is optional since plugin loading is based on method signatures.
 /// </summary>
-public interface IClientEndpointPlugin {
-
-    /// <summary>
-    /// Returns the instance.
-    /// </summary>
-    public static abstract IClientEndpointPlugin GetInstance(AASeqNodes configuration);
-
+public interface IEndpointPluginInstance {
 
     /// <summary>
     /// Returns true, if message was successfully sent.

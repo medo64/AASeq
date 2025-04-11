@@ -20,7 +20,8 @@ public sealed partial class Engine : IDisposable {
         ArgumentNullException.ThrowIfNull(document);
 
         // setup endpoints
-        var endpoints = new SortedDictionary<string, EndpointInstance>(StringComparer.OrdinalIgnoreCase);
+        var endpoints = new SortedDictionary<string, EndpointInstance>(StringComparer.OrdinalIgnoreCase);  // instance per name storage
+        var endpointNames = new SortedDictionary<string, string>(StringComparer.OrdinalIgnoreCase);  // keep canonical name for instance
         foreach (var node in document.Nodes) {
             if (node.Name.StartsWith('@')) {
                 var nodeName = node.Name[1..];
@@ -33,6 +34,7 @@ public sealed partial class Engine : IDisposable {
                 } else {
                     var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
                     endpoints.Add(nodeName, plugin.GetInstance(node.Nodes));
+                    endpointNames.Add(nodeName, nodeName);
                 }
             }
         }
@@ -41,7 +43,7 @@ public sealed partial class Engine : IDisposable {
         // setup flow sequence
         var flowSequence = new List<IFlowAction>();
         foreach (var node in document.Nodes) {
-            if (!node.Name.StartsWith('@')) {
+            if (!node.Name.StartsWith('@')) {  // we already created instances above
                 var actionName = node.Name;
                 if (!NameRegex().IsMatch(actionName)) { throw new InvalidOperationException($"Invalid message name '{actionName}'."); }
 
@@ -62,10 +64,10 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageOut(actionName, endpoints[right], node.Nodes);
+                        var flow = new FlowMessageOut(actionName, endpointNames[right], endpoints[right], node.Nodes);
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageOut(actionName, endpoints[left], node.Nodes);
+                        var flow = new FlowMessageOut(actionName, endpointNames[left], endpoints[left], node.Nodes);
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot send message to nobody.");
@@ -87,10 +89,10 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageIn(actionName, endpoints[right], node.Nodes);
+                        var flow = new FlowMessageIn(actionName, endpointNames[right], endpoints[right], node.Nodes);
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageIn(actionName, endpoints[left], node.Nodes);
+                        var flow = new FlowMessageIn(actionName, endpointNames[left], endpoints[left], node.Nodes);
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot receive message.");
@@ -103,7 +105,7 @@ public sealed partial class Engine : IDisposable {
                         node.Nodes.Add(new AASeqNode("Value", node.Value));
                         node.Value = AASeqValue.Null;
                     }
-                    flowSequence.Add(new FlowCommand(plugin.GetInstance(), node.Nodes));
+                    flowSequence.Add(new FlowCommand(plugin.Name, plugin.GetInstance(), node.Nodes));
 
                 }
             }
@@ -209,15 +211,19 @@ public sealed partial class Engine : IDisposable {
 
                         StepEvent.Signal();  // wait to be allowed to step
 
-                        Interlocked.Increment(ref CurrentStepCount);
-                        Debug.WriteLine(CurrentStepCount);
+                        var stepIndex = Interlocked.Increment(ref CurrentStepCount);
 
                         if (action is FlowCommand commandAction) {
-                            commandAction.TryExecute();
+                            Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Executing {commandAction.CommandName}");
+                            commandAction.Instance.TryExecute(commandAction.TemplateData.Clone());  // TODO: process data instead of clone
                         } else if (action is FlowMessageOut messageOutAction) {
-                            messageOutAction.TrySend();
+                            Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Sending {messageOutAction.MessageName}");
+                            messageOutAction.DestinationInstance.TrySend(Guid.NewGuid(), messageOutAction.MessageName, messageOutAction.TemplateData.Clone());  // TODO: process data instead of clone
                         } else if (action is FlowMessageIn messageInAction) {
-                            messageInAction.TryReceive();
+                            Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Receiving {messageInAction.MessageName}");
+                            messageInAction.SourceInstance.TryReceive(Guid.NewGuid(), out var _, out var _);  // TODO: implement check
+                        } else {
+                            throw new ArgumentException($"Unknown action type '{action.GetType().Name}'.");
                         }
 
                         actionIndex++;

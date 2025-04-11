@@ -5,7 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 /// <summary>
 /// Ping endpoint.
 /// </summary>
-internal sealed class Ping : IClientEndpointPlugin {
+internal sealed class Ping : IEndpointPlugin {
 
     private Ping(AASeqNodes configuration) {
         //TODO
@@ -36,7 +36,7 @@ internal sealed class Ping : IClientEndpointPlugin {
     /// <summary>
     /// Gets the instance.
     /// </summary>
-    public static IClientEndpointPlugin GetInstance(AASeqNodes configuration) {
+    public static IEndpointPlugin GetInstance(AASeqNodes configuration) {
         return new Ping(configuration);
     }
 

@@ -11,7 +11,7 @@ Ping >Remote {
     Data Test
 }
 
-Wait "1s"
+wait "1s"
 
 Ping <Remote {
     Data Test

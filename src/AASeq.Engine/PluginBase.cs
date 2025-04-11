@@ -3,13 +3,13 @@ using System;
 using System.Diagnostics;
 
 [DebuggerDisplay("{Name,nq}")]
-internal abstract class Plugin {
+internal abstract class PluginBase {
 
     /// <summary>
     /// Creates a new instance.
     /// </summary>
     /// <param name="type">Plugin reflection type.</param>
-    protected Plugin(Type type) {
+    protected PluginBase(Type type) {
         Type = type;
     }
 

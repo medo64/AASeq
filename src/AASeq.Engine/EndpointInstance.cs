@@ -8,7 +8,7 @@ using System.Reflection;
 /// Endpoint plugin instance.
 /// </summary>
 [DebuggerDisplay("{Instance.GetType().Name,nq}")]
-internal sealed class EndpointInstance {
+internal sealed class EndpointInstance : IEndpointPluginInstance {
 
     /// <summary>
     /// Creates a new instance.

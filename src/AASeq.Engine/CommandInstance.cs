@@ -8,7 +8,7 @@ using System.Reflection;
 /// Command plugin instance.
 /// </summary>
 [DebuggerDisplay("{Instance.GetType().Name,nq}")]
-internal sealed class CommandInstance {
+internal sealed class CommandInstance : ICommandPluginInstance {
 
     /// <summary>
     /// Creates a new instance.

@@ -5,27 +5,26 @@ using System.Diagnostics;
 /// <summary>
 /// Flow.
 /// </summary>
-[DebuggerDisplay("{Instance.PluginName,nq}")]
+[DebuggerDisplay("{CommandName,nq}")]
 public sealed class FlowCommand : IFlowAction {
 
     /// <summary>
     /// Create a new instance.
     /// </summary>
+    /// <param name="commandName">Canonical command name.</param>
     /// <param name="commandInstance">Command instance.</param>
-    /// <param name="data">Data nodes.</param>
+    /// <param name="templateData">Data nodes.</param>
     /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-    internal FlowCommand(CommandInstance commandInstance, AASeqNodes data) {
+    internal FlowCommand(string commandName, CommandInstance commandInstance, AASeqNodes templateData) {
+        CommandName = commandName;
         Instance = commandInstance;
-        Data = data;
+        TemplateData = templateData;
     }
 
 
-    private CommandInstance Instance { get; }
-    private AASeqNodes Data { get; }
-
-    internal bool TryExecute() {
-        return Instance.TryExecute(Data);
-    }
+    internal string CommandName { get; }
+    internal CommandInstance Instance { get; }
+    internal AASeqNodes TemplateData { get; }
 
 }

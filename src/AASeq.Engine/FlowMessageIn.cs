@@ -5,27 +5,29 @@ using System.Diagnostics;
 /// <summary>
 /// Flow.
 /// </summary>
-[DebuggerDisplay("{MessageName,nq}: ←{SourceInstance.PluginName,nq}")]
+[DebuggerDisplay("{MessageName,nq} ←{SourceName,nq} ({SourceInstance.PluginName,nq})")]
 public sealed class FlowMessageIn : IFlowAction {
 
     /// <summary>
     /// Create a new instance.
     /// </summary>
     /// <param name="messageName">Message name.</param>
+    /// <param name="sourceName">Destination name.</param>
     /// <param name="sourceInstance">Source endpoint instance.</param>
-    /// <param name="data">Data nodes.</param>
+    /// <param name="blueprintData">Data nodes.</param>
     /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-    internal FlowMessageIn(string messageName, EndpointInstance sourceInstance, AASeqNodes data) {
+    internal FlowMessageIn(string messageName, string sourceName, EndpointInstance sourceInstance, AASeqNodes blueprintData) {
         MessageName = messageName;
+        SourceName = sourceName;
         SourceInstance = sourceInstance;
+        BlueprintData = blueprintData;
     }
 
 
-    private string MessageName { get; }
-    private EndpointInstance SourceInstance { get; }
+    internal string MessageName { get; }
+    internal string SourceName { get; }
+    internal EndpointInstance SourceInstance { get; }
+    internal AASeqNodes BlueprintData { get; }
 
-    internal bool TryReceive() {
-        return SourceInstance.TryReceive(Guid.Empty, out string? messageName, out AASeqNodes? data);
-    }
 }

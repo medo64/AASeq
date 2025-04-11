@@ -5,7 +5,7 @@ using System.Reflection;
 /// <summary>
 /// Command plugin.
 /// </summary>
-internal sealed class CommandPlugin : Plugin {
+internal sealed class CommandPlugin : PluginBase {
 
     /// <summary>
     /// Create a new instance.

@@ -10,7 +10,7 @@ using System.Threading;
 /// It will respond with the same data as in the request.
 /// </summary>
 [DebuggerDisplay("Echo")]
-internal sealed class Echo : IClientEndpointPlugin {
+internal sealed class Echo : IEndpointPlugin {
 
     private Echo(AASeqNodes configuration) {
         DelayMS = (int)configuration.GetValue("Delay", TimeSpan.Zero).TotalMilliseconds;
@@ -56,7 +56,7 @@ internal sealed class Echo : IClientEndpointPlugin {
     /// <summary>
     /// Gets the instance.
     /// </summary>
-    public static IClientEndpointPlugin GetInstance(AASeqNodes configuration) {
+    public static IEndpointPlugin GetInstance(AASeqNodes configuration) {
         return new Echo(configuration);
     }
 
