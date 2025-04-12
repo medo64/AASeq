@@ -51,15 +51,16 @@ internal static class AppExec {
                 newDocument.Save(Console.Out, AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true });
                 Console.WriteLine();
 
-                engine.Start();
+                Console.WriteLine("--- Enter: run --- Space: step --- Escape: quit ---");
+                Console.WriteLine();
 
-                var prevStepCount = 0;
+                var prevIndicesOutput = string.Empty;
                 while (true) {
-                    var currStepCount = engine.StepCount;
-                    if (currStepCount != prevStepCount) {
+                    var currIndicesOutput = $"{engine.FlowIndex}:{engine.StepIndex}";
+                    if (prevIndicesOutput != currIndicesOutput) {
                         Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
-                        Console.Write(currStepCount);
-                        prevStepCount = currStepCount;
+                        Console.Write(currIndicesOutput);
+                        prevIndicesOutput = currIndicesOutput;
                     }
 
                     if (Console.KeyAvailable) {

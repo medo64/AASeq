@@ -138,9 +138,16 @@ public sealed partial class Engine : IDisposable {
     #region Execution
 
     /// <summary>
-    /// Gets number of executed steps so far.
+    /// Gets number of executing flow.
+    /// Zero if execution hasn't started.
     /// </summary>
-    public Int32 StepCount { get { return Interlocked.CompareExchange(ref CurrentStepCount, 0, 0); } }
+    public Int32 FlowIndex { get { return Interlocked.CompareExchange(ref CurrentFlowIndex, 0, 0); } }
+
+    /// <summary>
+    /// Gets number of execuring step.
+    /// Zero if execution hasn't started.
+    /// </summary>
+    public Int32 StepIndex { get { return Interlocked.CompareExchange(ref CurrentStepIndex, 0, 0); } }
 
     /// <summary>
     /// Gets whether the engine is running.
@@ -187,17 +194,16 @@ public sealed partial class Engine : IDisposable {
     private readonly CountdownEvent StepEvent = new(initialCount: 0);
     private readonly ManualResetEvent CanStopEvent = new(initialState: true);
     private int CurrentIsRunning;  // interlocked
-    private int CurrentStepCount;  // interlocked
+    private int CurrentFlowIndex;  // interlocked
+    private int CurrentStepIndex;  // interlocked
 
     private void Run() {
         if (FlowSequence.Count == 0) { return; }  // cannot really do anything if nothing in flow
 
         try {
             var currIsRunning = false;
-            var actionIndex = 0;
 
             while (!CancelEvent.WaitOne(0, false)) {
-                var action = FlowSequence[actionIndex];
                 var doStep = !StepEvent.IsSet;
                 if (doStep) {
                     try {
@@ -209,7 +215,14 @@ public sealed partial class Engine : IDisposable {
 
                         StepEvent.Signal();  // wait to be allowed to step
 
-                        var stepIndex = Interlocked.Increment(ref CurrentStepCount);
+                        Interlocked.CompareExchange(ref CurrentStepIndex, 0, FlowSequence.Count);
+                        var stepIndex = Interlocked.Increment(ref CurrentStepIndex);
+
+                        var flowIndex = (stepIndex == 1)
+                                      ? Interlocked.Increment(ref CurrentFlowIndex)
+                                      : Interlocked.CompareExchange(ref CurrentFlowIndex, 0, 0);
+
+                        var action = FlowSequence[stepIndex - 1];
 
                         if (action is FlowCommand commandAction) {
                             Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Executing {commandAction.CommandName}");
@@ -223,9 +236,6 @@ public sealed partial class Engine : IDisposable {
                         } else {
                             throw new ArgumentException($"Unknown action type '{action.GetType().Name}'.");
                         }
-
-                        actionIndex++;
-                        if (actionIndex == FlowSequence.Count) { actionIndex = 0; }
                     } finally {
                         CanStopEvent.Set();  // signal it's a good place to stop
                     }
