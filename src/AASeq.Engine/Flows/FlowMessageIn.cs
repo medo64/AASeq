@@ -5,7 +5,7 @@ using System.Diagnostics;
 /// <summary>
 /// Flow.
 /// </summary>
-[DebuggerDisplay("{MessageName,nq} ←{SourceName,nq} ({SourceInstance.PluginName,nq})")]
+[DebuggerDisplay("{MessageName,nq} ←{SourceName,nq} ({SourceInstance.PluginName,nq}/{SourceInstance.PluginInstanceIndex,nq})")]
 internal sealed class FlowMessageIn : IFlowAction {
 
     /// <summary>

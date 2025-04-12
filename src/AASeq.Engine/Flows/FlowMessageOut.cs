@@ -5,7 +5,7 @@ using System.Diagnostics;
 /// <summary>
 /// Flow.
 /// </summary>
-[DebuggerDisplay("{MessageName,nq} →{DestinationName,nq} ({DestinationInstance.PluginName,nq})")]
+[DebuggerDisplay("{MessageName,nq} →{DestinationName,nq} ({DestinationInstance.PluginName,nq}/{DestinationInstance.PluginInstanceIndex,nq})")]
 internal sealed class FlowMessageOut : IFlowAction {
 
     /// <summary>
