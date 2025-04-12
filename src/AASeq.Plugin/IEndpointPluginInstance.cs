@@ -1,6 +1,7 @@
 namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 
 /// <summary>
 /// Endpoint plugin instance interface marker.
@@ -20,7 +21,8 @@ public interface IEndpointPluginInstance {
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
-    public bool TrySend(Guid id, string messageName, AASeqNodes data);
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken);
 
     /// <summary>
     /// Returns true, if message was successfully received.
@@ -28,6 +30,7 @@ public interface IEndpointPluginInstance {
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
-    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data);
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken);
 
 }

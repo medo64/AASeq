@@ -1,6 +1,7 @@
 namespace AASeq.EndpointPlugins;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Threading;
 
 /// <summary>
 /// Ping endpoint.
@@ -28,7 +29,8 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
-    public bool TrySend(Guid id, string messageName, AASeqNodes data) {
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         throw new NotImplementedException();
     }
 
@@ -38,7 +40,8 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
-    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data) {
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
         throw new NotImplementedException();
     }
 

@@ -65,18 +65,25 @@ internal static class AppExec {
 
                 Console.WriteLine();
                 Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("┌────────────┬─────────────┬──────────────┐");
                 Console.WriteLine("│ Enter: run │ Space: step │ Escape: quit │");
                 Console.WriteLine("└────────────┴─────────────┴──────────────┘");
+                Console.ResetColor();
                 Console.WriteLine();
 
                 engine.FlowBegin += (sender, e) => {
                     Console.WriteLine();
-                    Console.WriteLine($"--- Flow: {e.FlowIndex}");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"# Flow: {e.FlowIndex}");
+                    Console.ResetColor();
                 };
 
                 engine.ActionBegin += (sender, e) => {
                     Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine($"## Action: {e.FlowIndex}:{e.ActionIndex}");
+                    Console.ResetColor();
                 };
 
                 engine.ActionEnd += (sender, e) => {

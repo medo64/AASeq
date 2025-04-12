@@ -9,16 +9,13 @@ using System.Threading;
 /// Replies to any request with the same data.
 /// It will respond with the same data as in the request.
 /// </summary>
-[DebuggerDisplay("Echo/{InstanceIndex}")]
+[DebuggerDisplay("Echo")]
 internal sealed class Echo : IEndpointPlugin {
 
     private Echo(AASeqNodes configuration) {
-        InstanceIndex = Interlocked.Increment(ref RootInstanceIndex);
         DelayMS = (int)configuration.GetValue("Delay", TimeSpan.Zero).TotalMilliseconds;
     }
 
-    private static int RootInstanceIndex;
-    private readonly int InstanceIndex;
 
 
     private readonly int DelayMS;
@@ -42,7 +39,8 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
-    public bool TrySend(Guid id, string messageName, AASeqNodes data) {
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         Storage.Add(id, (messageName, data));
         return true;
     }
@@ -53,7 +51,8 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
-    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data) {
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
         if (Storage.TryGetValue(id, out var value)) {
             Storage.Remove(id);
             messageName = value.Item1;

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Threading;
 
 /// <summary>
 /// Plugin management.
@@ -109,7 +110,7 @@ internal sealed class PluginManager {
         if (mGetInstance is null) { return null; }
         if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
-        var mExecute = type.GetMethod("TryExecute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes)]);
+        var mExecute = type.GetMethod("TryExecute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mExecute is null) { return null; }
         if (!mExecute.ReturnType.Equals(typeof(bool))) { return null; }
 
@@ -127,11 +128,11 @@ internal sealed class PluginManager {
         if (mGetConfiguration is null) { return null; }
         if (!mGetConfiguration.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
 
-        var mSend = type.GetMethod("TrySend", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes)]);
+        var mSend = type.GetMethod("TrySend", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mSend is null) { return null; }
         if (!mSend.ReturnType.Equals(typeof(bool))) { return null; }
 
-        var mReceive = type.GetMethod("TryReceive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(string).MakeByRefType(), typeof(AASeqNodes).MakeByRefType()]);
+        var mReceive = type.GetMethod("TryReceive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(string).MakeByRefType(), typeof(AASeqNodes).MakeByRefType(), typeof(CancellationToken)]);
         if (mReceive is null) { return null; }
         if (!mReceive.ReturnType.Equals(typeof(bool))) { return null; }
 

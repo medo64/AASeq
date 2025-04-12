@@ -1,4 +1,5 @@
 namespace AASeq;
+using System.Threading;
 
 /// <summary>
 /// Command plugin instance interface marker.
@@ -10,6 +11,7 @@ public interface ICommandPluginInstance {
     /// Returns true, if command was successfully executed.
     /// </summary>
     /// <param name="data">Data.</param>
-    public bool TryExecute(AASeqNodes data);
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TryExecute(AASeqNodes data, CancellationToken cancellationToken);
 
 }

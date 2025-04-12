@@ -3,37 +3,34 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Threading;
 
 /// <summary>
 /// Command plugin instance.
 /// </summary>
-[DebuggerDisplay("{Instance.GetType().Name,nq}")]
-internal sealed class CommandInstance : ICommandPluginInstance {
+internal sealed class CommandInstance : PluginInstanceBase, ICommandPluginInstance {
 
     /// <summary>
     /// Creates a new instance.
     /// </summary>
     /// <param name="instance">Instance.</param>
     /// <param name="tryExecuteMethodInfo">Reflection data for TryExecute method.</param>
-    internal CommandInstance(Object instance, MethodInfo tryExecuteMethodInfo) {
-        Instance = instance;
+    internal CommandInstance(Object instance, MethodInfo tryExecuteMethodInfo)
+        : base(instance) {
         TryExecuteMethodInfo = tryExecuteMethodInfo;
     }
 
 
-    private readonly Object Instance;
     private readonly MethodInfo TryExecuteMethodInfo;
-
-    [SuppressMessage("Style", "IDE0051:Remove unused private members", Justification = "Used for IFlowAction DebuggerDisplay")]
-    private string PluginName => Instance.GetType().Name;
 
 
     /// <summary>
     /// Executes the command.
     /// </summary>
     /// <param name="data">Data.</param>
-    public bool TryExecute(AASeqNodes data) {
-        var result = TryExecuteMethodInfo.Invoke(Instance, [data]);
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TryExecute(AASeqNodes data, CancellationToken cancellationToken) {
+        var result = TryExecuteMethodInfo.Invoke(Instance, [data, cancellationToken]);
         return (bool)result!;
     }
 

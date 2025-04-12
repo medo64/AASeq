@@ -6,6 +6,9 @@ using System.Threading;
 public sealed partial class Engine {
 
     private readonly Thread Thread;
+    private readonly TimeSpan ExecuteTimeout = TimeSpan.FromSeconds(1);
+    private readonly TimeSpan ReceiveTimeout = TimeSpan.FromSeconds(1);
+    private readonly TimeSpan SendTimeout = TimeSpan.FromSeconds(1);
     private readonly ManualResetEvent CancelEvent = new(initialState: false);
     private readonly CountdownEvent StepEvent = new(initialCount: 0);
     private readonly ManualResetEvent CanStopEvent = new(initialState: true);
@@ -57,7 +60,8 @@ public sealed partial class Engine {
                             executingFlows[i] = actionNode;
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
-                            commandAction.Instance.TryExecute(actionNode.Nodes);  // TODO: process data instead of clone
+                            using var cts = new CancellationTokenSource(ExecuteTimeout);
+                            commandAction.Instance.TryExecute(actionNode.Nodes, cts.Token);  // TODO: process data instead of clone
                             OnActionEnd(flowIndex, actionIndex, action, actionNode);
 
                         } else if (action is FlowMessageOut messageOutAction) {
@@ -72,7 +76,8 @@ public sealed partial class Engine {
                             executingGuids[i] = id;
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
-                            messageOutAction.DestinationInstance.TrySend(id, messageOutAction.MessageName, actionNode.Nodes);  // TODO: process data instead of clone
+                            using var cts = new CancellationTokenSource(SendTimeout);
+                            messageOutAction.DestinationInstance.TrySend(id, messageOutAction.MessageName, actionNode.Nodes, cts.Token);  // TODO: process data instead of clone
                             OnActionEnd(flowIndex, actionIndex, action, actionNode);
 
                         } else if (action is FlowMessageIn messageInAction) {
@@ -87,7 +92,8 @@ public sealed partial class Engine {
                             executingGuids[i] = id;
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
-                            if (messageInAction.SourceInstance.TryReceive(id, out var messageName, out var nodes)) {
+                            using var cts = new CancellationTokenSource(ReceiveTimeout);
+                            if (messageInAction.SourceInstance.TryReceive(id, out var messageName, out var nodes, cts.Token)) {
                                 OnActionEnd(flowIndex, actionIndex, action, new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes));
                             }
 

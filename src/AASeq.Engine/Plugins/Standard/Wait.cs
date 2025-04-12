@@ -18,7 +18,8 @@ internal sealed class Wait : ICommandPlugin {
     /// Returns true, if command was successfully executed.
     /// </summary>
     /// <param name="data">Data.</param>
-    public bool TryExecute(AASeqNodes data) {
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public bool TryExecute(AASeqNodes data, CancellationToken cancellationToken) {
         var duration = data.GetValue("Value", TimeSpan.FromMilliseconds(1000));
         Thread.Sleep((int)duration.TotalMilliseconds);
         return true;
