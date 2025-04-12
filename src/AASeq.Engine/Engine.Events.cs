@@ -7,16 +7,20 @@ public sealed partial class Engine {
         FlowBegin?.Invoke(this, new FlowEventArgs(flowIndex));
     }
 
-    private void OnFlowEnd(int flowIndex) {
-        FlowEnd?.Invoke(this, new FlowEventArgs(flowIndex));
+    private void OnFlowDone(int flowIndex) {
+        FlowDone?.Invoke(this, new FlowEventArgs(flowIndex));
     }
 
     private void OnActionStart(int flowIndex, int actionIndex, IFlowAction action, AASeqNode node) {
         ActionBegin?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, action, node));
     }
 
-    private void OnActionEnd(int flowIndex, int actionIndex, IFlowAction action, AASeqNode node) {
-        ActionEnd?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, action, node));
+    private void OnActionDone(int flowIndex, int actionIndex, IFlowAction action, AASeqNode node) {
+        ActionDone?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, action, node));
+    }
+
+    private void OnActionException(int flowIndex, int actionIndex, IFlowAction action, Exception exception) {
+        ActionException?.Invoke(this, new ActionExceptionEventArgs(flowIndex, actionIndex, action, exception));
     }
 
 
@@ -28,7 +32,7 @@ public sealed partial class Engine {
     /// <summary>
     /// Raised when flow is completed.
     /// </summary>
-    public event EventHandler<FlowEventArgs>? FlowEnd;
+    public event EventHandler<FlowEventArgs>? FlowDone;
 
 
     /// <summary>
@@ -39,6 +43,11 @@ public sealed partial class Engine {
     /// <summary>
     /// Raised when action is completed.
     /// </summary>
-    public event EventHandler<ActionEventArgs>? ActionEnd;
+    public event EventHandler<ActionEventArgs>? ActionDone;
+
+    /// <summary>
+    /// Raised when action caused an exception.
+    /// </summary>
+    public event EventHandler<ActionExceptionEventArgs>? ActionException;
 
 }

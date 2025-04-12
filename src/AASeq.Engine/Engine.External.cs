@@ -17,6 +17,22 @@ public sealed partial class Engine {
 
 
     /// <summary>
+    /// Gets timeout for command execution.
+    /// </summary>
+    public TimeSpan CommandTimeout { get; }
+
+    /// <summary>
+    /// Gets timeout for message receiving.
+    /// </summary>
+    public TimeSpan ReceiveTimeout { get; }
+
+    /// <summary>
+    /// Gets timeout for message sending.
+    /// </summary>
+    public TimeSpan SendTimeout { get; }
+
+
+    /// <summary>
     /// Gets number of executing flow.
     /// Zero if execution hasn't started.
     /// </summary>
@@ -61,6 +77,24 @@ public sealed partial class Engine {
         if (FlowSequence.Count > 0) {
             StepEvent.Reset(0);
             CanStopEvent.WaitOne();
+        }
+    }
+
+
+    /// <summary>
+    /// Returns own (@Me) endpoint definition.
+    /// </summary>
+    public AASeqNode GetOwnDefinition() {
+        if ((CommandTimeout.Ticks == ReceiveTimeout.Ticks) && (ReceiveTimeout.Ticks == SendTimeout.Ticks)) {
+            return new AASeqNode("@Me", AASeqValue.Null, [
+                new AASeqNode("Timeout", CommandTimeout),
+            ]);
+        } else {
+            return new AASeqNode("@Me", AASeqValue.Null, [
+                new AASeqNode("CommandTimeout", CommandTimeout),
+                new AASeqNode("ReceiveTimeut", ReceiveTimeout),
+                new AASeqNode("SendTimeut", SendTimeout),
+            ]);
         }
     }
 

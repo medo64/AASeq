@@ -54,7 +54,7 @@ internal static class AppExec {
 
                 using var engine = new Engine(document);
 
-                var newDocument = new AASeqNodes();
+                var newDocument = new AASeqNodes([engine.GetOwnDefinition()]);
                 foreach (var endpoint in engine.Endpoints) {
                     newDocument.Add(endpoint.GetDefinitionNode());
                 }
@@ -86,8 +86,14 @@ internal static class AppExec {
                     Console.ResetColor();
                 };
 
-                engine.ActionEnd += (sender, e) => {
+                engine.ActionDone += (sender, e) => {
                     e.Node.Save(Console.Out, outputOptions);
+                };
+
+                engine.ActionException += (sender, e) => {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(e.Exception);
+                    Console.ResetColor();
                 };
 
                 while (true) {

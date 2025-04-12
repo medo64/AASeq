@@ -17,6 +17,10 @@ public sealed partial class Engine : IDisposable {
     public Engine(AASeqNodes document) {
         ArgumentNullException.ThrowIfNull(document);
 
+        var commandTimeout = TimeSpan.FromSeconds(3);
+        var receiveTimeout = TimeSpan.FromSeconds(3);
+        var sendTimeout = TimeSpan.FromSeconds(1);
+
         // setup endpoints
         var endpoints = new SortedDictionary<string, EndpointStore>(StringComparer.OrdinalIgnoreCase);  // instance per name storage
         foreach (var node in document) {
@@ -27,13 +31,18 @@ public sealed partial class Engine : IDisposable {
                 if (!NameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
 
                 if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                    // TODO: not a real plugin, but we can use it's data for settings
+                    commandTimeout = node.Nodes.GetValue("CommandTimeout", node.Nodes.GetValue("Timeout", commandTimeout));
+                    receiveTimeout = node.Nodes.GetValue("ReceiveTimeout", node.Nodes.GetValue("Timeout", receiveTimeout));
+                    sendTimeout = node.Nodes.GetValue("SendTimeout", node.Nodes.GetValue("Timeout", sendTimeout));
                 } else {
                     var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
                     endpoints.Add(nodeName, new EndpointStore(nodeName, plugin.GetInstance(node.Nodes)));
                 }
             }
         }
+        CommandTimeout = commandTimeout;
+        ReceiveTimeout = receiveTimeout;
+        SendTimeout = sendTimeout;
         Endpoints = [.. endpoints.Values];
 
         // setup flow sequence

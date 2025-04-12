@@ -30,8 +30,12 @@ internal sealed class CommandInstance : PluginInstanceBase, ICommandPluginInstan
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public bool TryExecute(AASeqNodes data, CancellationToken cancellationToken) {
-        var result = TryExecuteMethodInfo.Invoke(Instance, [data, cancellationToken]);
-        return (bool)result!;
+        try {
+            var result = TryExecuteMethodInfo.Invoke(Instance, [data, cancellationToken]);
+            return (bool)result!;
+        } catch (TargetInvocationException ex) {
+            throw ex.InnerException is null ? ex : ex.InnerException;
+        }
     }
 
 }

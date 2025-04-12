@@ -1,6 +1,7 @@
 namespace AASeq.Plugins.Standard;
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Wait plugin command.
@@ -21,7 +22,7 @@ internal sealed class Wait : ICommandPlugin {
     /// <param name="cancellationToken">Cancellation token.</param>
     public bool TryExecute(AASeqNodes data, CancellationToken cancellationToken) {
         var duration = data.GetValue("Value", TimeSpan.FromMilliseconds(1000));
-        Thread.Sleep((int)duration.TotalMilliseconds);
+        Task.Delay(duration, cancellationToken).Wait(cancellationToken);
         return true;
     }
 
