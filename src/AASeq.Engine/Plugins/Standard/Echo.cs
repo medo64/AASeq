@@ -9,12 +9,16 @@ using System.Threading;
 /// Replies to any request with the same data.
 /// It will respond with the same data as in the request.
 /// </summary>
-[DebuggerDisplay("Echo")]
+[DebuggerDisplay("Echo/{InstanceIndex}")]
 internal sealed class Echo : IEndpointPlugin {
 
     private Echo(AASeqNodes configuration) {
+        InstanceIndex = Interlocked.Increment(ref RootInstanceIndex);
         DelayMS = (int)configuration.GetValue("Delay", TimeSpan.Zero).TotalMilliseconds;
     }
+
+    private static int RootInstanceIndex;
+    private readonly int InstanceIndex;
 
 
     private readonly int DelayMS;

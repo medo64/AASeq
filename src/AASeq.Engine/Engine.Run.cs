@@ -87,8 +87,9 @@ public sealed partial class Engine {
                             executingGuids[i] = id;
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
-                            messageInAction.SourceInstance.TryReceive(Guid.NewGuid(), out var _, out var _);
-                            OnActionEnd(flowIndex, actionIndex, action, actionNode);
+                            if (messageInAction.SourceInstance.TryReceive(id, out var messageName, out var nodes)) {
+                                OnActionEnd(flowIndex, actionIndex, action, new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes));
+                            }
 
                         } else {
                             throw new ArgumentException($"Unknown action type '{action.GetType().Name}'.");

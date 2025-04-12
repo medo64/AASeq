@@ -73,15 +73,14 @@ internal static class AppExec {
                 engine.FlowBegin += (sender, e) => {
                     Console.WriteLine();
                     Console.WriteLine($"--- Flow: {e.FlowIndex}");
-                    Console.WriteLine();
                 };
 
                 engine.ActionBegin += (sender, e) => {
-                    e.Node.Save(Console.Out, outputOptions);
+                    Console.WriteLine();
                 };
 
                 engine.ActionEnd += (sender, e) => {
-                    Console.WriteLine();
+                    e.Node.Save(Console.Out, outputOptions);
                 };
 
                 while (true) {
