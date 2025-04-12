@@ -6,7 +6,7 @@ using System.Diagnostics;
 /// Flow.
 /// </summary>
 [DebuggerDisplay("{CommandName,nq}")]
-public sealed class FlowCommand : IFlowAction {
+internal sealed class FlowCommand : IFlowAction {
 
     /// <summary>
     /// Create a new instance.

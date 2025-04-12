@@ -1,13 +1,12 @@
 namespace AASeq;
 using System;
 using System.Diagnostics;
-using System.Text.RegularExpressions;
 
 /// <summary>
 /// Flow.
 /// </summary>
 [DebuggerDisplay("{MessageName,nq} ←{SourceName,nq} ({SourceInstance.PluginName,nq})")]
-public sealed class FlowMessageIn : IFlowAction {
+internal sealed class FlowMessageIn : IFlowAction {
 
     /// <summary>
     /// Create a new instance.

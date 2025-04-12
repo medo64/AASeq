@@ -6,7 +6,7 @@ using System.Diagnostics;
 /// Flow.
 /// </summary>
 [DebuggerDisplay("{MessageName,nq} →{DestinationName,nq} ({DestinationInstance.PluginName,nq})")]
-public sealed class FlowMessageOut : IFlowAction {
+internal sealed class FlowMessageOut : IFlowAction {
 
     /// <summary>
     /// Create a new instance.

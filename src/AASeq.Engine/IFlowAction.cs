@@ -1,5 +1,4 @@
 namespace AASeq;
-using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
 /// Flow action.
