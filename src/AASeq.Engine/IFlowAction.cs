@@ -10,4 +10,25 @@ public interface IFlowAction {
     /// </summary>
     public AASeqNode GetDefinitionNode();
 
+    /// <summary>
+    /// Gets if action is a command
+    /// </summary>
+    public bool IsCommand {
+        get { return this is FlowCommand; }
+    }
+
+    /// <summary>
+    /// Gets if action is an outgoing message.
+    /// </summary>
+    public bool IsMessageOut {
+        get { return this is FlowMessageOut; }
+    }
+
+    /// <summary>
+    /// Gets if action is an incoming message.
+    /// </summary>
+    public bool IsMessageIn {
+        get { return this is FlowMessageIn; }
+    }
+
 }

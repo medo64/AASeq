@@ -56,9 +56,9 @@ public sealed partial class Engine {
                             var actionNode = new AASeqNode(commandAction.CommandName, AASeqValue.Null, commandAction.TemplateData.Clone());
                             executingFlows[i] = actionNode;
 
-                            OnActionStart(flowIndex, actionIndex, actionNode);
+                            OnActionStart(flowIndex, actionIndex, action, actionNode);
                             commandAction.Instance.TryExecute(actionNode.Nodes);  // TODO: process data instead of clone
-                            OnActionEnd(flowIndex, actionIndex, actionNode);
+                            OnActionEnd(flowIndex, actionIndex, action, actionNode);
 
                         } else if (action is FlowMessageOut messageOutAction) {
 
@@ -71,9 +71,9 @@ public sealed partial class Engine {
                             executingFlows[i] = actionNode;
                             executingGuids[i] = id;
 
-                            OnActionStart(flowIndex, actionIndex, actionNode);
+                            OnActionStart(flowIndex, actionIndex, action, actionNode);
                             messageOutAction.DestinationInstance.TrySend(id, messageOutAction.MessageName, actionNode.Nodes);  // TODO: process data instead of clone
-                            OnActionEnd(flowIndex, actionIndex, actionNode);
+                            OnActionEnd(flowIndex, actionIndex, action, actionNode);
 
                         } else if (action is FlowMessageIn messageInAction) {
 
@@ -86,9 +86,9 @@ public sealed partial class Engine {
                             executingFlows[i] = actionNode;
                             executingGuids[i] = id;
 
-                            OnActionStart(flowIndex, actionIndex, actionNode);
+                            OnActionStart(flowIndex, actionIndex, action, actionNode);
                             messageInAction.SourceInstance.TryReceive(Guid.NewGuid(), out var _, out var _);
-                            OnActionEnd(flowIndex, actionIndex, actionNode);
+                            OnActionEnd(flowIndex, actionIndex, action, actionNode);
 
                         } else {
                             throw new ArgumentException($"Unknown action type '{action.GetType().Name}'.");

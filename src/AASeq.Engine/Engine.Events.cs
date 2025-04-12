@@ -11,12 +11,12 @@ public sealed partial class Engine {
         FlowEnd?.Invoke(this, new FlowEventArgs(flowIndex));
     }
 
-    private void OnActionStart(int flowIndex, int actionIndex, AASeqNode node) {
-        ActionBegin?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, node));
+    private void OnActionStart(int flowIndex, int actionIndex, IFlowAction action, AASeqNode node) {
+        ActionBegin?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, action, node));
     }
 
-    private void OnActionEnd(int flowIndex, int actionIndex, AASeqNode node) {
-        ActionEnd?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, node));
+    private void OnActionEnd(int flowIndex, int actionIndex, IFlowAction action, AASeqNode node) {
+        ActionEnd?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, action, node));
     }
 
 

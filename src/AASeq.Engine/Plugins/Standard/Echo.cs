@@ -1,4 +1,4 @@
-namespace AASeq.EndpointPlugins;
+namespace AASeq.Plugins.Standard;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

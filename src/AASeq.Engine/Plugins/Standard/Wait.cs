@@ -1,4 +1,4 @@
-namespace AASeq.CommandPlugins;
+namespace AASeq.Plugins.Standard;
 using System;
 using System.Threading;
 
