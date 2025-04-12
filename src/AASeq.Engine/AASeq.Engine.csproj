@@ -13,17 +13,8 @@
     <DebugType>embedded</DebugType>
     <OutputPath>../../build/</OutputPath>
     <Deterministic>true</Deterministic>
-  </PropertyGroup>
-
-  <PropertyGroup>
+    <AnalysisMode>All</AnalysisMode>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <AnalysisLevel>latest</AnalysisLevel>
-    <AnalysisMode>AllEnabledByDefault</AnalysisMode>
-    <EnableNETAnalyzers>true</EnableNETAnalyzers>
-    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
   </PropertyGroup>
 
   <ItemGroup>

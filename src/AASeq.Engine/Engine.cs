@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using System.Reflection.Metadata;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -62,10 +61,10 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, node.Nodes);
+                        var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, node.Nodes, node.GetPropertyValue("match"));
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, node.Nodes);
+                        var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, node.Nodes, node.GetPropertyValue("match"));
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot send message to nobody.");
@@ -87,10 +86,10 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, node.Nodes);
+                        var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, node.Nodes, node.GetPropertyValue("match"));
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, node.Nodes);
+                        var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, node.Nodes, node.GetPropertyValue("match"));
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot receive message.");
@@ -110,6 +109,60 @@ public sealed partial class Engine : IDisposable {
         }
 
         // Figure out who connects to whom
+        for (var i = 0; i < flowSequence.Count; i++) {
+            var action = flowSequence[i];
+            if (action is FlowCommand commandAction) {
+                // nothing to do for commands
+            } else if (action is FlowMessageOut currOutAction) {
+                if (currOutAction.ResponseToActionIndex is null) {  // this is a first out of this kind
+                    for (var j = i + 1; j < flowSequence.Count; j++) {
+                        var nextAction = flowSequence[j];
+                        if (nextAction is FlowMessageIn nextInAction) {
+                            if (!nextInAction.SourceInstance.Equals(currOutAction.DestinationInstance)) { continue; }
+                            if (nextInAction.ResponseToActionIndex is null) {
+                                if (string.Equals(currOutAction.MatchId, nextInAction.MatchId, StringComparison.Ordinal)) {
+                                    currOutAction.RequestForActionIndex = j;
+                                    nextInAction.ResponseToActionIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if (action is FlowMessageIn currInAction) {
+                if (currInAction.ResponseToActionIndex is null) {  // this is a first out of this kind
+                    for (var j = i + 1; j < flowSequence.Count; j++) {
+                        var nextAction = flowSequence[j];
+                        if (nextAction is FlowMessageOut nextOutAction) {
+                            if (nextOutAction.ResponseToActionIndex == null) {
+                                if (!nextOutAction.DestinationInstance.Equals(currInAction.SourceInstance)) { continue; }
+                                if (string.Equals(currInAction.MatchId, nextOutAction.MatchId, StringComparison.Ordinal)) {
+                                    currInAction.RequestForActionIndex = i;
+                                    nextOutAction.ResponseToActionIndex = i;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            } else {
+                throw new InvalidOperationException($"Unknown action type '{action.GetType().Name}'.");
+            }
+        }
+
+        // check if all is matched
+        for (var i = 0; i < flowSequence.Count; i++) {
+            var action = flowSequence[i];
+            if (action is FlowMessageOut outAction) {
+                if ((outAction.RequestForActionIndex is null) && (outAction.ResponseToActionIndex is null)) {
+                    throw new InvalidOperationException($"Cannot match request/response for flow {i + 1}:{outAction.MessageName}.");
+                }
+            } else if (action is FlowMessageIn inAction) {
+                if ((inAction.RequestForActionIndex is null) && (inAction.ResponseToActionIndex is null)) {
+                    throw new InvalidOperationException($"Cannot match request/response for flow {i + 1}:{inAction.MessageName}.");
+                }
+            }
+        }
 
         // Done
         FlowSequence = flowSequence.AsReadOnly();
@@ -202,6 +255,8 @@ public sealed partial class Engine : IDisposable {
 
         try {
             var currIsRunning = false;
+            var executingFlows = new AASeqNode?[FlowSequence.Count];
+            var executingGuids = new Guid?[FlowSequence.Count];
 
             while (!CancelEvent.WaitOne(0, false)) {
                 var doStep = !StepEvent.IsSet;
@@ -217,22 +272,48 @@ public sealed partial class Engine : IDisposable {
 
                         Interlocked.CompareExchange(ref CurrentStepIndex, 0, FlowSequence.Count);
                         var stepIndex = Interlocked.Increment(ref CurrentStepIndex);
-
-                        var flowIndex = (stepIndex == 1)
-                                      ? Interlocked.Increment(ref CurrentFlowIndex)
-                                      : Interlocked.CompareExchange(ref CurrentFlowIndex, 0, 0);
+                        if (StepIndex == 1) {
+                            Interlocked.Increment(ref CurrentFlowIndex);
+                            Array.Clear(executingFlows);
+                            Array.Clear(executingGuids);
+                        } else {
+                            Interlocked.CompareExchange(ref CurrentFlowIndex, 0, 0);
+                        }
+                        var i = stepIndex - 1;
 
                         var action = FlowSequence[stepIndex - 1];
-
                         if (action is FlowCommand commandAction) {
+
                             Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Executing {commandAction.CommandName}");
-                            commandAction.Instance.TryExecute(commandAction.TemplateData.Clone());  // TODO: process data instead of clone
+
+                            var actionNode = new AASeqNode(commandAction.CommandName, AASeqValue.Null, commandAction.TemplateData.Clone());
+                            executingFlows[i] = actionNode;
+                            commandAction.Instance.TryExecute(actionNode.Nodes);  // TODO: process data instead of clone
+
                         } else if (action is FlowMessageOut messageOutAction) {
+
                             Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Sending {messageOutAction.MessageName}");
-                            messageOutAction.DestinationInstance.TrySend(Guid.NewGuid(), messageOutAction.MessageName, messageOutAction.TemplateData.Clone());  // TODO: process data instead of clone
+
+                            var actionNode = new AASeqNode(messageOutAction.MessageName, ">" + messageOutAction.DestinationName, messageOutAction.TemplateData.Clone());
+                            var id = (messageOutAction.ResponseToActionIndex != null)
+                                   ? executingGuids[messageOutAction.ResponseToActionIndex.Value]!.Value
+                                   : Guid.NewGuid();
+                            executingFlows[i] = actionNode;
+                            executingGuids[i] = id;
+                            messageOutAction.DestinationInstance.TrySend(id, messageOutAction.MessageName, actionNode.Nodes);  // TODO: process data instead of clone
+
                         } else if (action is FlowMessageIn messageInAction) {
+
                             Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Receiving {messageInAction.MessageName}");
-                            messageInAction.SourceInstance.TryReceive(Guid.NewGuid(), out var _, out var _);  // TODO: implement check
+
+                            var actionNode = new AASeqNode(messageInAction.MessageName, "<" + messageInAction.SourceName, messageInAction.TemplateData.Clone());  // TODO: process data instead of clone
+                            var id = (messageInAction.ResponseToActionIndex != null)
+                                   ? executingGuids[messageInAction.ResponseToActionIndex.Value]!.Value
+                                   : Guid.NewGuid();
+                            executingFlows[i] = actionNode;
+                            executingGuids[i] = id;
+                            messageInAction.SourceInstance.TryReceive(Guid.NewGuid(), out var _, out var _);
+
                         } else {
                             throw new ArgumentException($"Unknown action type '{action.GetType().Name}'.");
                         }

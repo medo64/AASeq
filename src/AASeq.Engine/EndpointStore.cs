@@ -4,7 +4,7 @@ using System;
 /// <summary>
 /// Endpoint storage class.
 /// </summary>
-internal record EndpointStore : IEndpoint {
+internal sealed record EndpointStore : IEndpoint {
 
     public EndpointStore(string name, EndpointInstance instance) {
         Name = name;
