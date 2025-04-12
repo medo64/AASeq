@@ -27,8 +27,19 @@ internal static class AppExec {
 
     public static void Lint(FileInfo file) {
         try {
+
             var document = AASeqNodes.Load(file.FullName);
-            document.Save(Console.Out, AASeqOutputOptions.Default with { HeaderExecutable = "aaseq", ExtraEmptyRootNodeLines = true });
+            using var engine = new Engine(document);
+
+            var newDocument = new AASeqNodes();
+            foreach (var endpoint in engine.Endpoints) {
+                newDocument.Add(endpoint.GetDefinitionNode());
+            }
+            foreach (var action in engine.FlowSequence) {
+                newDocument.Add(action.GetDefinitionNode());
+            }
+            newDocument.Save(Console.Out, AASeqOutputOptions.Default with { HeaderExecutable = "aaseq", ExtraEmptyRootNodeLines = true });
+
         } catch (InvalidOperationException ex) {
             Output.ErrorLine("Error parsing the document: " + ex.Message);
         }
@@ -37,8 +48,10 @@ internal static class AppExec {
     public static void Run(FileInfo file) {
         try {
             var document = AASeqNodes.Load(file.FullName);
+            var outputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true };
 
             try {
+
                 using var engine = new Engine(document);
 
                 var newDocument = new AASeqNodes();
@@ -48,21 +61,30 @@ internal static class AppExec {
                 foreach (var action in engine.FlowSequence) {
                     newDocument.Add(action.GetDefinitionNode());
                 }
-                newDocument.Save(Console.Out, AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true });
+                newDocument.Save(Console.Out, outputOptions);
+
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine("┌────────────┬─────────────┬──────────────┐");
+                Console.WriteLine("│ Enter: run │ Space: step │ Escape: quit │");
+                Console.WriteLine("└────────────┴─────────────┴──────────────┘");
                 Console.WriteLine();
 
-                Console.WriteLine("--- Enter: run --- Space: step --- Escape: quit ---");
-                Console.WriteLine();
+                engine.FlowBegin += (sender, e) => {
+                    Console.WriteLine();
+                    Console.WriteLine($"--- Flow: {e.FlowIndex}");
+                    Console.WriteLine();
+                };
 
-                var prevIndicesOutput = string.Empty;
+                engine.ActionBegin += (sender, e) => {
+                    e.Node.Save(Console.Out, outputOptions);
+                };
+
+                engine.ActionEnd += (sender, e) => {
+                    Console.WriteLine();
+                };
+
                 while (true) {
-                    var currIndicesOutput = $"{engine.FlowIndex}:{engine.StepIndex}";
-                    if (prevIndicesOutput != currIndicesOutput) {
-                        Console.SetCursorPosition(0, Console.GetCursorPosition().Top);
-                        Console.Write(currIndicesOutput);
-                        prevIndicesOutput = currIndicesOutput;
-                    }
-
                     if (Console.KeyAvailable) {
                         var key = Console.ReadKey(intercept: true);
                         switch (key.Key) {
