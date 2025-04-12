@@ -33,29 +33,36 @@ public sealed partial class Engine {
 
                         StepEvent.Signal();  // wait to be allowed to step
 
+                        // sort out counters
+                        int flowIndex;
                         Interlocked.CompareExchange(ref CurrentStepIndex, 0, FlowSequence.Count);
-                        var stepIndex = Interlocked.Increment(ref CurrentStepIndex);
+                        var actionIndex = Interlocked.Increment(ref CurrentStepIndex);
                         if (StepIndex == 1) {
-                            Interlocked.Increment(ref CurrentFlowIndex);
                             Array.Clear(executingFlows);
                             Array.Clear(executingGuids);
+                            flowIndex = Interlocked.Increment(ref CurrentFlowIndex);
+                            OnFlowBegin(flowIndex);
                         } else {
-                            Interlocked.CompareExchange(ref CurrentFlowIndex, 0, 0);
+                            flowIndex = Interlocked.CompareExchange(ref CurrentFlowIndex, 0, 0);
                         }
-                        var i = stepIndex - 1;
+                        var i = actionIndex - 1;
 
-                        var action = FlowSequence[stepIndex - 1];
+                        // the action
+                        var action = FlowSequence[actionIndex - 1];
                         if (action is FlowCommand commandAction) {
 
-                            Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Executing {commandAction.CommandName}");
+                            Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Executing {commandAction.CommandName}");
 
                             var actionNode = new AASeqNode(commandAction.CommandName, AASeqValue.Null, commandAction.TemplateData.Clone());
                             executingFlows[i] = actionNode;
+
+                            OnActionStart(flowIndex, actionIndex, actionNode);
                             commandAction.Instance.TryExecute(actionNode.Nodes);  // TODO: process data instead of clone
+                            OnActionEnd(flowIndex, actionIndex, actionNode);
 
                         } else if (action is FlowMessageOut messageOutAction) {
 
-                            Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Sending {messageOutAction.MessageName}");
+                            Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Sending {messageOutAction.MessageName}");
 
                             var actionNode = new AASeqNode(messageOutAction.MessageName, ">" + messageOutAction.DestinationName, messageOutAction.TemplateData.Clone());
                             var id = (messageOutAction.ResponseToActionIndex != null)
@@ -63,11 +70,14 @@ public sealed partial class Engine {
                                    : Guid.NewGuid();
                             executingFlows[i] = actionNode;
                             executingGuids[i] = id;
+
+                            OnActionStart(flowIndex, actionIndex, actionNode);
                             messageOutAction.DestinationInstance.TrySend(id, messageOutAction.MessageName, actionNode.Nodes);  // TODO: process data instead of clone
+                            OnActionEnd(flowIndex, actionIndex, actionNode);
 
                         } else if (action is FlowMessageIn messageInAction) {
 
-                            Debug.WriteLine($"[AASeq.Engine] {stepIndex}: Receiving {messageInAction.MessageName}");
+                            Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Receiving {messageInAction.MessageName}");
 
                             var actionNode = new AASeqNode(messageInAction.MessageName, "<" + messageInAction.SourceName, messageInAction.TemplateData.Clone());  // TODO: process data instead of clone
                             var id = (messageInAction.ResponseToActionIndex != null)
@@ -75,11 +85,16 @@ public sealed partial class Engine {
                                    : Guid.NewGuid();
                             executingFlows[i] = actionNode;
                             executingGuids[i] = id;
+
+                            OnActionStart(flowIndex, actionIndex, actionNode);
                             messageInAction.SourceInstance.TryReceive(Guid.NewGuid(), out var _, out var _);
+                            OnActionEnd(flowIndex, actionIndex, actionNode);
 
                         } else {
                             throw new ArgumentException($"Unknown action type '{action.GetType().Name}'.");
                         }
+
+                        if (actionIndex == FlowSequence.Count) { OnFlowEnd(flowIndex); }
                     } finally {
                         CanStopEvent.Set();  // signal it's a good place to stop
                     }
