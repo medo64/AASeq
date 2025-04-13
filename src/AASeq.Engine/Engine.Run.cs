@@ -1,6 +1,7 @@
 namespace AASeq;
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Threading;
 
 public sealed partial class Engine {
@@ -58,11 +59,15 @@ public sealed partial class Engine {
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
                             using var cts = new CancellationTokenSource(CommandTimeout);
+                            var sw = Stopwatch.StartNew();
                             try {
                                 commandAction.Instance.TryExecute(actionNode.Nodes, cts.Token);  // TODO: process data instead of clone
+                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
                             } catch (Exception ex) {
-                                OnActionException(flowIndex, actionIndex, action, ex);
+                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("Exception", ex.Message);
+                                OnActionError(flowIndex, actionIndex, action, actionNode);
                             }
 
                         } else if (action is FlowMessageOut messageOutAction) {
@@ -78,18 +83,22 @@ public sealed partial class Engine {
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
                             using var cts = new CancellationTokenSource(SendTimeout);
+                            var sw = Stopwatch.StartNew();
                             try {
                                 messageOutAction.DestinationInstance.TrySend(id, messageOutAction.MessageName, actionNode.Nodes, cts.Token);  // TODO: process data instead of clone
+                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
                             } catch (Exception ex) {
-                                OnActionException(flowIndex, actionIndex, action, ex);
+                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("Exception", ex.Message);
+                                OnActionError(flowIndex, actionIndex, action, actionNode);
                             }
 
                         } else if (action is FlowMessageIn messageInAction) {
 
                             Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Receiving {messageInAction.MessageName}");
 
-                            var actionNode = new AASeqNode(messageInAction.MessageName, "<" + messageInAction.SourceName, messageInAction.TemplateData.Clone());  // TODO: process data instead of clone
+                            var actionNode = new AASeqNode(messageInAction.MessageName, "<" + messageInAction.SourceName);  // TODO: process data instead of clone
                             var id = (messageInAction.ResponseToActionIndex != null)
                                    ? executingGuids[messageInAction.ResponseToActionIndex.Value]!.Value
                                    : Guid.NewGuid();
@@ -98,12 +107,22 @@ public sealed partial class Engine {
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
                             using var cts = new CancellationTokenSource(ReceiveTimeout);
+                            var sw = Stopwatch.StartNew();
                             try {
                                 if (messageInAction.SourceInstance.TryReceive(id, out var messageName, out var nodes, cts.Token)) {
-                                    OnActionDone(flowIndex, actionIndex, action, new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes));
+                                    sw.Stop();
+                                    var responseNode = new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes);
+                                    responseNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                    OnActionDone(flowIndex, actionIndex, action, responseNode);
+                                } else {
+                                    actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                    actionNode.Nodes.Insert(0, new AASeqNode("*Error*", "No response"));
+                                    OnActionError(flowIndex, actionIndex, action, actionNode);
                                 }
                             } catch (Exception ex) {
-                                OnActionException(flowIndex, actionIndex, action, ex);
+                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("Exception", ex.Message);
+                                OnActionError(flowIndex, actionIndex, action, actionNode);
                             }
 
                         } else {

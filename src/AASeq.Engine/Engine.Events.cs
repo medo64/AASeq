@@ -19,8 +19,8 @@ public sealed partial class Engine {
         ActionDone?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, action, node));
     }
 
-    private void OnActionException(int flowIndex, int actionIndex, IFlowAction action, Exception exception) {
-        ActionException?.Invoke(this, new ActionExceptionEventArgs(flowIndex, actionIndex, action, exception));
+    private void OnActionError(int flowIndex, int actionIndex, IFlowAction action, AASeqNode node) {
+        ActionError?.Invoke(this, new ActionEventArgs(flowIndex, actionIndex, action, node));
     }
 
 
@@ -48,6 +48,6 @@ public sealed partial class Engine {
     /// <summary>
     /// Raised when action caused an exception.
     /// </summary>
-    public event EventHandler<ActionExceptionEventArgs>? ActionException;
+    public event EventHandler<ActionEventArgs>? ActionError;
 
 }

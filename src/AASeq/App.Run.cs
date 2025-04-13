@@ -52,9 +52,9 @@ internal static partial class App {
                     e.Node.Save(Console.Out, outputOptions);
                 };
 
-                engine.ActionException += (sender, e) => {
+                engine.ActionError += (sender, e) => {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine(e.Exception);
+                    e.Node.Save(Console.Out, outputOptions);
                     Console.ResetColor();
                 };
 
