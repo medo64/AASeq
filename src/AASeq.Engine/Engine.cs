@@ -36,7 +36,8 @@ public sealed partial class Engine : IDisposable {
                     sendTimeout = node.Nodes.GetValue("SendTimeout", node.Nodes.GetValue("Timeout", sendTimeout));
                 } else {
                     var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
-                    endpoints.Add(nodeName, new EndpointStore(nodeName, plugin.CreateInstance(node.Nodes)));
+                    var configuration = plugin.ValidateConfiguration(node.Nodes);
+                    endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin.CreateInstance(configuration)));
                 }
             }
         }

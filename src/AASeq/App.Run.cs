@@ -10,7 +10,7 @@ internal static partial class App {
     public static void Run(FileInfo file) {
         try {
             var document = AASeqNodes.Load(file.FullName);
-            var outputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true };
+            var outputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true, NoTypeAnnotation = true };
 
             try {
 

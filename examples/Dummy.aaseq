@@ -9,7 +9,7 @@
 }
 
 @Remote2 Echo {
-    Delay 0.1
+    Delay 0.25
 }
 
 

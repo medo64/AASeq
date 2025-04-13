@@ -35,7 +35,8 @@ Cancellation token (`cancellationToken`) is recommended for handling timeouts bu
 
 The following methods must be defined for all endpoint plugins:
 * `static Object CreateInstance(AASeqNodes configuration)`
-* `AASeqNodes GetConfiguration()`
+* `static AASeqNodes ValidateConfiguration(AASeqNodes configuration)`
+* `static AASeqNodes ValidateMessage(string messageName, AASeqNodes data)`
 * `bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken)`
 * `bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken)`
 
@@ -46,9 +47,9 @@ This static method will return the instance of the endpoint.
 Configuration data (`configuration`) is provided as an argument.
 
 
-#### GetConfiguration Method
+#### ValidateConfiguration Method
 
-This method will return configuration data for the instance.
+This method will return validated configuration data for the instance.
 Note that this data is used for all messages since it belongs in the common instance.
 
 

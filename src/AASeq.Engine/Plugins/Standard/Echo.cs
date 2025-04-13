@@ -23,17 +23,6 @@ internal sealed class Echo : IEndpointPlugin {
 
 
     /// <summary>
-    /// Returns instance configuration.
-    /// </summary>
-    public AASeqNodes GetConfiguration() {
-        var nodes = new AASeqNodes {
-            new AASeqNode("Delay", TimeSpan.FromMilliseconds(DelayMS))
-        };
-        return nodes;
-    }
-
-
-    /// <summary>
     /// Returns true, if message was successfully sent.
     /// </summary>
     /// <param name="id">ID.</param>
@@ -72,6 +61,16 @@ internal sealed class Echo : IEndpointPlugin {
     /// </summary>
     public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
         return new Echo(configuration);
+    }
+
+    /// <summary>
+    /// Returns instance configuration.
+    /// </summary>
+    /// <param name="configuration">Configuration.</param>
+    public static AASeqNodes ValidateConfiguration(AASeqNodes configuration) {
+        return [
+            new AASeqNode("Delay", configuration.GetValue("Delay", configuration.GetValue("Value", TimeSpan.Zero)))
+        ];
     }
 
 }
