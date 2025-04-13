@@ -5,45 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Threading;
 
-internal static class AppExec {
-
-    public static void Base(bool showVersion, bool useVerbose) {
-        if (showVersion) {
-            var assembly = Assembly.GetEntryAssembly();
-            var name = assembly?.GetName().Name ?? string.Empty;
-            var version = assembly?.GetName().Version ?? new Version();
-            Console.WriteLine($"{name} {version.Major}.{version.Minor} {version.Revision}");
-            if (useVerbose) {
-            }
-            return;
-        }
-    }
-
-
-    public static void New(FileInfo file) {
-        var doc = new AASeqNodes();
-        doc.Save(file.FullName);
-    }
-
-    public static void Lint(FileInfo file) {
-        try {
-
-            var document = AASeqNodes.Load(file.FullName);
-            using var engine = new Engine(document);
-
-            var newDocument = new AASeqNodes();
-            foreach (var endpoint in engine.Endpoints) {
-                newDocument.Add(endpoint.GetDefinitionNode());
-            }
-            foreach (var action in engine.FlowSequence) {
-                newDocument.Add(action.GetDefinitionNode());
-            }
-            newDocument.Save(Console.Out, AASeqOutputOptions.Default with { HeaderExecutable = "aaseq", ExtraEmptyRootNodeLines = true });
-
-        } catch (InvalidOperationException ex) {
-            Output.ErrorLine("Error parsing the document: " + ex.Message);
-        }
-    }
+internal static partial class App {
 
     public static void Run(FileInfo file) {
         try {

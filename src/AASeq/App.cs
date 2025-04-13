@@ -6,7 +6,7 @@ using System.CommandLine.Invocation;
 using System.CommandLine.Parsing;
 using System.IO;
 
-internal static class App {
+internal static partial class App {
 
     internal static void Main(string[] args) {
         var versionOption = new Option<bool>(
@@ -26,7 +26,7 @@ internal static class App {
             verboseOption,
             versionOption,
         };
-        rootCommand.SetHandler(AppExec.Base, versionOption, verboseOption);
+        rootCommand.SetHandler(App.Default, versionOption, verboseOption);
 
         var fileArgument = new Argument<FileInfo>(
             name: "file",
@@ -50,7 +50,7 @@ internal static class App {
             versionOption,
             fileArgument,
         };
-        newCommand.SetHandler(AppExec.New, fileArgument);
+        newCommand.SetHandler(App.New, fileArgument);
         rootCommand.Add(newCommand);
 
         var lintCommand = new Command("lint", "Parse file and display it") {
@@ -58,7 +58,7 @@ internal static class App {
             versionOption,
             fileArgument,
         };
-        lintCommand.SetHandler(AppExec.Lint, fileArgument);
+        lintCommand.SetHandler(App.Lint, fileArgument);
         rootCommand.Add(lintCommand);
 
         var runCommand = new Command("run", "Execute flows in the file") {
@@ -66,7 +66,7 @@ internal static class App {
             versionOption,
             fileArgument,
         };
-        runCommand.SetHandler(AppExec.Run, fileArgument);
+        runCommand.SetHandler(App.Run, fileArgument);
         rootCommand.Add(runCommand);
 
         var cliBuilder = new CommandLineBuilder(rootCommand);

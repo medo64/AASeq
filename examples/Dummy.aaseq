@@ -1,18 +1,28 @@
 #!/usr/bin/env aaseq
 
-@Me
+@Me {
+    Timeout "1s"
+}
 
 @Remote Echo {
     Delay 0.1
 }
 
+@Remote2 Echo {
+    Delay 0.1
+}
 
-Ping >Remote {
+
+Message >Remote {
     Data Test
 }
 
-wait "1s"
-
-Ping <Remote {
-    Data Test
+Message >Remote2 {
+    Data Test2
 }
+
+wait "0.5s"
+
+Message <Remote2
+
+Message <Remote
