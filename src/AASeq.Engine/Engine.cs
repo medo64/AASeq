@@ -36,7 +36,7 @@ public sealed partial class Engine : IDisposable {
                     sendTimeout = node.Nodes.GetValue("SendTimeout", node.Nodes.GetValue("Timeout", sendTimeout));
                 } else {
                     var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
-                    endpoints.Add(nodeName, new EndpointStore(nodeName, plugin.GetInstance(node.Nodes)));
+                    endpoints.Add(nodeName, new EndpointStore(nodeName, plugin.CreateInstance(node.Nodes)));
                 }
             }
         }
@@ -110,7 +110,7 @@ public sealed partial class Engine : IDisposable {
                         node.Nodes.Add(new AASeqNode("Value", node.Value));
                         node.Value = AASeqValue.Null;
                     }
-                    flowSequence.Add(new FlowCommand(plugin.Name, plugin.GetInstance(), node.Nodes));
+                    flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(), node.Nodes));
 
                 }
             }

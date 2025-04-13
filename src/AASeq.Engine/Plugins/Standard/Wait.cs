@@ -30,7 +30,7 @@ internal sealed class Wait : ICommandPlugin {
     /// <summary>
     /// Returns the instance.
     /// </summary>
-    public static ICommandPlugin GetInstance() {
+    public static ICommandPlugin CreateInstance() {
         return new Wait();
     }
 

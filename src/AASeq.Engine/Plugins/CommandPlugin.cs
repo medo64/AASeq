@@ -11,24 +11,24 @@ internal sealed class CommandPlugin : PluginBase {
     /// Create a new instance.
     /// </summary>
     /// <param name="type">Plugin reflection type.</param>
-    /// <param name="getInstanceMethodInfo">Reflection data for GetInstance method.</param>
+    /// <param name="createInstanceMethodInfo">Reflection data for CreateInstance method.</param>
     /// <param name="tryExecuteMethodInfo">Reflection data for TryExecute method.</param>
-    public CommandPlugin(Type type, MethodInfo getInstanceMethodInfo, MethodInfo tryExecuteMethodInfo)
+    public CommandPlugin(Type type, MethodInfo createInstanceMethodInfo, MethodInfo tryExecuteMethodInfo)
         : base(type) {
-        GetInstanceMethodInfo = getInstanceMethodInfo;
+        CreateInstanceMethodInfo = createInstanceMethodInfo;
         TryExecuteMethodInfo = tryExecuteMethodInfo;
     }
 
 
-    private readonly MethodInfo GetInstanceMethodInfo;
+    private readonly MethodInfo CreateInstanceMethodInfo;
     private readonly MethodInfo TryExecuteMethodInfo;
 
 
     /// <summary>
     /// Returns a new instance of the plugin.
     /// </summary>
-    public CommandInstance GetInstance() {
-        var instance = GetInstanceMethodInfo.Invoke(null, [])!;
+    public CommandInstance CreateInstance() {
+        var instance = CreateInstanceMethodInfo.Invoke(null, [])!;
         return new CommandInstance(instance, TryExecuteMethodInfo);
     }
 

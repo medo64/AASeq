@@ -70,7 +70,7 @@ internal sealed class Echo : IEndpointPlugin {
     /// <summary>
     /// Gets the instance.
     /// </summary>
-    public static IEndpointPlugin GetInstance(AASeqNodes configuration) {
+    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
         return new Echo(configuration);
     }
 

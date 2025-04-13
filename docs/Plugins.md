@@ -14,11 +14,11 @@ Endpoint plugin allows for handling of messages to/from external system.
 ### Command Methods
 
 The following methods must be defined for all command plugins:
-* `static Object GetInstance()`
+* `static Object CreateInstance()`
 * `bool TryExecute(AASeqNodes data, CancellationToken cancellationToken)`
 
 
-#### GetInstance Method
+#### CreateInstance Method
 
 This static method will return the instance of the command.
 No configuration data is expected as each command execution has a separate instance.
@@ -34,13 +34,13 @@ Cancellation token (`cancellationToken`) is recommended for handling timeouts bu
 ### Endpoint Methods
 
 The following methods must be defined for all endpoint plugins:
-* `static Object GetInstance(AASeqNodes configuration)`
+* `static Object CreateInstance(AASeqNodes configuration)`
 * `AASeqNodes GetConfiguration()`
 * `bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken)`
 * `bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken)`
 
 
-#### GetInstance Method
+#### CreateInstance Method
 
 This static method will return the instance of the endpoint.
 Configuration data (`configuration`) is provided as an argument.

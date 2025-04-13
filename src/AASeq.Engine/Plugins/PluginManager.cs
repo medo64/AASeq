@@ -106,23 +106,23 @@ internal sealed class PluginManager {
     private static CommandPlugin? GetCommandPlugin(Type type) {
         if (!type.IsClass) { return null; }
 
-        var mGetInstance = type.GetMethod("GetInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-        if (mGetInstance is null) { return null; }
-        if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
+        var mCreateInstance = type.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        if (mCreateInstance is null) { return null; }
+        if (!mCreateInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
         var mExecute = type.GetMethod("TryExecute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mExecute is null) { return null; }
         if (!mExecute.ReturnType.Equals(typeof(bool))) { return null; }
 
-        return new CommandPlugin(type, mGetInstance, mExecute);
+        return new CommandPlugin(type, mCreateInstance, mExecute);
     }
 
     private static EndpointPlugin? GetEndpointPlugin(Type type) {
         if (!type.IsClass) { return null; }
 
-        var mGetInstance = type.GetMethod("GetInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
-        if (mGetInstance is null) { return null; }
-        if (!mGetInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
+        var mCreateInstance = type.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        if (mCreateInstance is null) { return null; }
+        if (!mCreateInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
         var mGetConfiguration = type.GetMethod("GetConfiguration", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, []);
         if (mGetConfiguration is null) { return null; }
@@ -136,7 +136,7 @@ internal sealed class PluginManager {
         if (mReceive is null) { return null; }
         if (!mReceive.ReturnType.Equals(typeof(bool))) { return null; }
 
-        return new EndpointPlugin(type, mGetInstance, mGetConfiguration, mSend, mReceive);
+        return new EndpointPlugin(type, mCreateInstance, mGetConfiguration, mSend, mReceive);
     }
 
     #endregion Helpers
