@@ -13,12 +13,12 @@ internal static partial class App {
             var document = AASeqNodes.Load(file.FullName);
             using var engine = new Engine(document);
 
-            var newDocument = new AASeqNodes([engine.GetOwnDefinition()]);
+            var newDocument = new AASeqNodes([engine.OwnDefinitionNode]);
             foreach (var endpoint in engine.Endpoints) {
-                newDocument.Add(endpoint.GetDefinitionNode());
+                newDocument.Add(endpoint.DefinitionNode);
             }
             foreach (var action in engine.FlowSequence) {
-                newDocument.Add(action.GetDefinitionNode());
+                newDocument.Add(action.DefinitionNode);
             }
             newDocument.Save(Console.Out, AASeqOutputOptions.Default with { HeaderExecutable = "aaseq", ExtraEmptyRootNodeLines = true });
 

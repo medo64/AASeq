@@ -28,12 +28,14 @@ internal sealed class FlowCommand : IFlowAction {
     internal AASeqNodes TemplateData { get; }
 
 
-    AASeqNode IFlowAction.GetDefinitionNode() {
-        var definitionNode = new AASeqNode(CommandName);
-        foreach (var dataNode in TemplateData) {
-            definitionNode.Nodes.Add(dataNode.Clone());
+    AASeqNode IFlowAction.DefinitionNode {
+        get {
+            var definitionNode = new AASeqNode(CommandName);
+            foreach (var dataNode in TemplateData) {
+                definitionNode.Nodes.Add(dataNode.Clone());
+            }
+            return definitionNode;
         }
-        return definitionNode;
     }
 
 }

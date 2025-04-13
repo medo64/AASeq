@@ -8,6 +8,6 @@ public interface IEndpoint {
     /// <summary>
     /// Returns the endppoint definition.
     /// </summary>
-    public AASeqNode GetDefinitionNode();
+    public AASeqNode DefinitionNode { get; }
 
 }

@@ -21,7 +21,7 @@ internal sealed class Wait : ICommandPlugin {
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public bool TryExecute(AASeqNodes data, CancellationToken cancellationToken) {
-        var duration = data.GetValue("Value", TimeSpan.FromMilliseconds(1000));
+        var duration = data.GetValue("Delay", DefaultDelay);
         Task.Delay(duration, cancellationToken).Wait(cancellationToken);
         return true;
     }
@@ -33,5 +33,18 @@ internal sealed class Wait : ICommandPlugin {
     public static ICommandPlugin CreateInstance() {
         return new Wait();
     }
+
+    /// <summary>
+    /// Returns validated data.
+    /// </summary>
+    /// <param name="data">Data.</param>
+    public static AASeqNodes ValidateData(AASeqNodes data) {
+        return [
+            new AASeqNode("Delay", data.GetValue("Delay", data.GetValue("Value", DefaultDelay))),
+        ];
+    }
+
+
+    private static readonly TimeSpan DefaultDelay = TimeSpan.FromMilliseconds(1000);
 
 }

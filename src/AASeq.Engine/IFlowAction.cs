@@ -8,7 +8,7 @@ public interface IFlowAction {
     /// <summary>
     /// Returns the action definition.
     /// </summary>
-    public AASeqNode GetDefinitionNode();
+    public AASeqNode DefinitionNode { get; }
 
     /// <summary>
     /// Gets if action is a command

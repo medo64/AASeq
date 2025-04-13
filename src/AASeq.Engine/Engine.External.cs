@@ -84,17 +84,19 @@ public sealed partial class Engine {
     /// <summary>
     /// Returns own (@Me) endpoint definition.
     /// </summary>
-    public AASeqNode GetOwnDefinition() {
-        if ((CommandTimeout.Ticks == ReceiveTimeout.Ticks) && (ReceiveTimeout.Ticks == SendTimeout.Ticks)) {
-            return new AASeqNode("@Me", AASeqValue.Null, [
-                new AASeqNode("Timeout", CommandTimeout),
+    public AASeqNode OwnDefinitionNode {
+        get {
+            if ((CommandTimeout.Ticks == ReceiveTimeout.Ticks) && (ReceiveTimeout.Ticks == SendTimeout.Ticks)) {
+                return new AASeqNode("@Me", AASeqValue.Null, [
+                    new AASeqNode("Timeout", CommandTimeout),
             ]);
-        } else {
-            return new AASeqNode("@Me", AASeqValue.Null, [
-                new AASeqNode("CommandTimeout", CommandTimeout),
+            } else {
+                return new AASeqNode("@Me", AASeqValue.Null, [
+                    new AASeqNode("CommandTimeout", CommandTimeout),
                 new AASeqNode("ReceiveTimeut", ReceiveTimeout),
                 new AASeqNode("SendTimeut", SendTimeout),
             ]);
+            }
         }
     }
 

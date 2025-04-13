@@ -13,7 +13,7 @@ using System.Threading;
 internal sealed class Echo : IEndpointPlugin {
 
     private Echo(AASeqNodes configuration) {
-        DelayMS = (int)configuration.GetValue("Delay", TimeSpan.Zero).TotalMilliseconds;
+        DelayMS = (int)configuration.GetValue("Delay", DefaultDelay).TotalMilliseconds;
     }
 
 
@@ -64,13 +64,25 @@ internal sealed class Echo : IEndpointPlugin {
     }
 
     /// <summary>
-    /// Returns instance configuration.
+    /// Returns validated configuration.
     /// </summary>
     /// <param name="configuration">Configuration.</param>
     public static AASeqNodes ValidateConfiguration(AASeqNodes configuration) {
         return [
-            new AASeqNode("Delay", configuration.GetValue("Delay", configuration.GetValue("Value", TimeSpan.Zero)))
+            new AASeqNode("Delay", configuration.GetValue("Delay", DefaultDelay)),
         ];
     }
+
+    /// <summary>
+    /// Returns validated data.
+    /// </summary>
+    /// <param name="message">Message.</param>
+    /// <param name="data">Data.</param>
+    public static AASeqNodes ValidateData(string message, AASeqNodes data) {
+        return data;
+    }
+
+
+    private static readonly TimeSpan DefaultDelay = TimeSpan.Zero;
 
 }

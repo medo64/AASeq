@@ -37,7 +37,7 @@ public sealed partial class Engine : IDisposable {
                 } else {
                     var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
                     var configuration = plugin.ValidateConfiguration(node.Nodes);
-                    endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin.CreateInstance(configuration)));
+                    endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin, plugin.CreateInstance(configuration)));
                 }
             }
         }
@@ -70,10 +70,12 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, node.Nodes, node.GetPropertyValue("match"));
+                        var data = endpoints[right].Plugin.ValidateData(actionName, node.Nodes);
+                        var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("match"));
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, node.Nodes, node.GetPropertyValue("match"));
+                        var data = endpoints[left].Plugin.ValidateData(actionName, node.Nodes);
+                        var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("match"));
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot send message to nobody.");
@@ -95,10 +97,12 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, node.Nodes, node.GetPropertyValue("match"));
+                        var data = endpoints[right].Plugin.ValidateData(actionName, node.Nodes);
+                        var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("match"));
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, node.Nodes, node.GetPropertyValue("match"));
+                        var data = endpoints[left].Plugin.ValidateData(actionName, node.Nodes);
+                        var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("match"));
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot receive message.");
@@ -111,7 +115,8 @@ public sealed partial class Engine : IDisposable {
                         node.Nodes.Add(new AASeqNode("Value", node.Value));
                         node.Value = AASeqValue.Null;
                     }
-                    flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(), node.Nodes));
+                    var data = plugin.ValidateData(node.Nodes);
+                    flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(), data));
 
                 }
             }

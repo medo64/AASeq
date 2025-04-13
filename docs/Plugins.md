@@ -15,6 +15,7 @@ Endpoint plugin allows for handling of messages to/from external system.
 
 The following methods must be defined for all command plugins:
 * `static Object CreateInstance()`
+* `static AASeqNodes ValidateData(AASeqNodes data)`
 * `bool TryExecute(AASeqNodes data, CancellationToken cancellationToken)`
 
 
@@ -22,6 +23,11 @@ The following methods must be defined for all command plugins:
 
 This static method will return the instance of the command.
 No configuration data is expected as each command execution has a separate instance.
+
+
+#### ValidateData Method
+
+This method will return validated data for the instance.
 
 
 #### TryExecute Method
@@ -36,7 +42,7 @@ Cancellation token (`cancellationToken`) is recommended for handling timeouts bu
 The following methods must be defined for all endpoint plugins:
 * `static Object CreateInstance(AASeqNodes configuration)`
 * `static AASeqNodes ValidateConfiguration(AASeqNodes configuration)`
-* `static AASeqNodes ValidateMessage(string messageName, AASeqNodes data)`
+* `static AASeqNodes ValidateData(string messageName, AASeqNodes data)`
 * `bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken)`
 * `bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken)`
 
@@ -51,6 +57,11 @@ Configuration data (`configuration`) is provided as an argument.
 
 This method will return validated configuration data for the instance.
 Note that this data is used for all messages since it belongs in the common instance.
+
+
+#### ValidateData Method
+
+This method will return validated data for the instance.
 
 
 #### TrySend Method

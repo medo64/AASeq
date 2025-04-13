@@ -36,12 +36,14 @@ internal sealed class FlowMessageOut : IFlowAction {
     internal int? RequestForActionIndex { get; set; }  // used only internally for matching
     internal int? ResponseToActionIndex { get; set; }  // used only internally for matching
 
-    AASeqNode IFlowAction.GetDefinitionNode() {
-        var definitionNode = new AASeqNode(MessageName, ">" + DestinationName);
-        foreach (var dataNode in TemplateData) {
-            definitionNode.Nodes.Add(dataNode.Clone());
+    AASeqNode IFlowAction.DefinitionNode {
+        get {
+            var definitionNode = new AASeqNode(MessageName, ">" + DestinationName);
+            foreach (var dataNode in TemplateData) {
+                definitionNode.Nodes.Add(dataNode.Clone());
+            }
+            return definitionNode;
         }
-        return definitionNode;
     }
 
 }
