@@ -17,7 +17,6 @@ internal sealed class Echo : IEndpointPlugin {
     }
 
 
-
     private readonly int DelayMS;
     private readonly Dictionary<Guid, (string, AASeqNodes)> Storage = [];
 
@@ -69,7 +68,7 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="configuration">Configuration.</param>
     public static AASeqNodes ValidateConfiguration(AASeqNodes configuration) {
         return [
-            new AASeqNode("Delay", configuration.GetValue("Delay", DefaultDelay)),
+            configuration.FindNode("Delay")?? new AASeqNode("Delay", DefaultDelay),
         ];
     }
 

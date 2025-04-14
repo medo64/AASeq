@@ -39,8 +39,10 @@ internal sealed class Wait : ICommandPlugin {
     /// </summary>
     /// <param name="data">Data.</param>
     public static AASeqNodes ValidateData(AASeqNodes data) {
+        var valueNode = data.FindNode("Value");
+        if (valueNode is not null) { valueNode.Name = "Delay"; }
         return [
-            new AASeqNode("Delay", data.GetValue("Delay", data.GetValue("Value", DefaultDelay))),
+            data.FindNode("Delay") ?? valueNode ?? new AASeqNode("Delay", DefaultDelay),
         ];
     }
 
