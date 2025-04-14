@@ -1,0 +1,2135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE dictionary [
+    <!ENTITY tgpp SYSTEM "Diameter_3GPP.xml">
+]>
+
+<dictionary>
+
+    <base>
+
+        <application id="0" name="Diameter Common Messages">
+            <!-- RFC 3688 -->
+        </application>
+
+        <application id="1" name="NASREQ">
+            <!-- RFC 3688 -->
+        </application>
+
+        <application id="2" name="Mobile-IP">
+            <!-- RFC 3688 -->
+        </application>
+
+        <application id="3" name="Diameter Base Accounting">
+            <!-- RFC 3688 -->
+        </application>
+
+        <application id="4294967295" name="Relay">
+            <!-- RFC 3688 -->
+        </application>
+
+
+
+        <command name="Capabilities-Exchange" code="257">
+            <!-- RFC 3688 -->
+        </command>
+
+        <command name="Re-Auth" code="258">
+            <!-- RFC 3688 -->
+        </command>
+
+        <command name="AA" code="265">
+            <!-- RFC 4005 -->
+        </command>
+
+        <command name="Accounting" code="271">
+            <!-- RFC 3688 -->
+        </command>
+
+        <command name="Credit-Control" code="272">
+            <!-- RFC 4006 -->
+        </command>
+
+        <command name="Abort-Session" code="274">
+            <!-- RFC 3688 -->
+        </command>
+
+        <command name="Session-Termination" code="275">
+            <!-- RFC 3688 -->
+        </command>
+
+        <command name="Device-Watchdog" code="280">
+            <!-- RFC 3688 -->
+        </command>
+
+        <command name="Disconnect-Peer" code="282">
+            <!-- RFC 3688 -->
+        </command>
+
+
+
+        <typedefn type-name="OctetString">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Integer32">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Integer64">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Unsigned32">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Unsigned64">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Float32">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Float64">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Grouped">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Address" type-parent="OctetString">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Time" type-parent="OctetString">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="UTF8String" type-parent="OctetString">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="DiameterIdentity" type-parent="OctetString">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="DiameterURI" type-parent="OctetString">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="Enumerated" type-parent="Integer32">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="IPFilterRule" type-parent="OctetString">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+        <typedefn type-name="QoSFilterRule" type-parent="OctetString">
+            <!-- RFC 3688 -->
+        </typedefn>
+
+
+
+        <avp name="User-Name" code="1" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="User-Password" code="2" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="NAS-IP-Address" code="4" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="NAS-Port" code="5" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Service-Type" code="6" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="LOGIN" code="1" />
+            <enum name="FRAMED" code="2" />
+            <enum name="CALLBACK_LOGIN" code="3" />
+            <enum name="CALLBACK_FRAMED" code="4" />
+            <enum name="OUTBOUND" code="5" />
+            <enum name="ADMINISTRATIVE" code="6" />
+            <enum name="NAS_PROMPT" code="7" />
+            <enum name="AUTHENTICATE_ONLY" code="8" />
+            <enum name="CALLBACK_NAS_PROMPT" code="9" />
+            <enum name="CALL_CHECK" code="10" />
+            <enum name="CALLBACK_ADMINISTRATIVE" code="11" />
+            <enum name="VOICE" code="12" />
+            <enum name="FAX" code="13" />
+            <enum name="MODEM_RELAY" code="14" />
+            <enum name="IAPP_AP_REGISTER" code="15" />
+            <enum name="IAPP_AP_CHECK" code="16" />
+            <enum name="AUTHORIZE_ONLY" code="17" />
+        </avp>
+
+        <avp name="Framed-Protocol" code="7" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="PPP" code="1" />
+            <enum name="SLIP" code="2" />
+            <enum name="ARAP" code="3" />
+            <enum name="GANDALF_SLML" code="4" />
+            <enum name="XYLOGICS_IPX_SLIP" code="5" />
+            <enum name="X75_SYNC" code="6" />
+        </avp>
+
+        <avp name="Framed-IP-Address" code="8" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Framed-IP-Netmask" code="9" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Framed-Routing" code="10" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="NONE" code="0" />
+            <enum name="SEND_ROUTING_PACKETS" code="1" />
+            <enum name="LISTEN_FOR_ROUTING_PACKETS" code="2" />
+            <enum name="SEND_AND_LISTEN" code="3" />
+        </avp>
+
+        <avp name="Filter-Id" code="11" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Framed-MTU" code="12" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Framed-Compression" code="13" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="NONE" code="0" />
+            <enum name="VJ_TCP_IP_HEADER" code="1" />
+            <enum name="IPX_HEADER" code="2" />
+            <enum name="STAC_LZS" code="3" />
+        </avp>
+
+        <avp name="Login-IP-Host" code="14" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Login-Service" code="15" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="TELNET" code="0" />
+            <enum name="RLOGIN" code="1" />
+            <enum name="TCP_CLEAR" code="2" />
+            <enum name="PORTMASTER" code="3" />
+            <enum name="LAT" code="4" />
+            <enum name="X25_PAD" code="5" />
+            <enum name="X25_T3POS" code="6" />
+            <enum name="TCP_CLEAR_QUIET" code="8" />
+        </avp>
+
+        <avp name="Login-TCP-Port" code="16" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Reply-Message" code="18" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Callback-Number" code="19" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Callback-Id" code="20" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Framed-Route" code="22" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Framed-IPX-Network" code="23" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="State" code="24" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Class" code="25" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Session-Timeout" code="27" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Idle-Timeout" code="28" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Called-Station-Id" code="30" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Calling-Station-Id" code="31" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="NAS-Identifier" code="32" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Proxy-State" code="33" vendor-bit="mustnot" mandatory="must" protected="mustnot" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Login-LAT-Service" code="34" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Login-LAT-Node" code="35" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Login-LAT-Group" code="36" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Framed-Appletalk-Link" code="37" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Framed-Appletalk-Network" code="38" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Framed-Appletalk-Zone" code="39" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Acct-Delay-Time" code="41" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Accounting-Session-Id" code="44" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Acct-Authentic" code="45" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="RADIUS" code="1" />
+            <enum name="LOCAL" code="2" />
+            <enum name="REMOTE" code="3" />
+            <enum name="DIAMETER" code="4" />
+        </avp>
+
+        <avp name="Acct-Session-Time" code="46" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Acct-Multi-Session-Id" code="50" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Acct-Link-Count" code="51" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Event-Timestamp" code="55" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Time" />
+        </avp>
+
+        <avp name="CHAP-Challenge" code="60" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="NAS-Port-Type" code="61" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="ASYNC" code="0" />
+            <enum name="SYNC" code="1" />
+            <enum name="ISDN_SYNC" code="2" />
+            <enum name="ISDN_ASYNC_V120" code="3" />
+            <enum name="ISDN_ASYNC_V110" code="4" />
+            <enum name="VIRTUAL" code="5" />
+            <enum name="PIAFS" code="6" />
+            <enum name="HDLC_CLEAR_CHANNEL" code="7" />
+            <enum name="X25" code="8" />
+            <enum name="X7 5" code="9" />
+            <enum name="G3_FAX" code="10" />
+            <enum name="SDSL" code="11" />
+            <enum name="ADSL-CAP" code="12" />
+            <enum name="ADSL-DMT" code="13" />
+            <enum name="IDSL" code="14" />
+            <enum name="ETHERNET" code="15" />
+            <enum name="XDSL" code="16" />
+            <enum name="CABLE" code="17" />
+            <enum name="WIRELESS_OTHER" code="18" />
+            <enum name="WIRELESS_IEEE80211" code="19" />
+            <enum name="TOKEN_RING" code="20" />
+            <enum name="FDDI" code="21" />
+            <enum name="WIRELESS_CDMA2000" code="22" />
+            <enum name="WIRELESS_UMTS" code="23" />
+            <enum name="WIRELESS_1X_EV" code="24" />
+            <enum name="IAPP" code="25" />
+        </avp>
+
+        <avp name="Port-Limit" code="62" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Login-LAT-Port" code="63" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Tunnel-Type" code="64" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="PPTP" code="1" />
+            <enum name="L2F" code="2" />
+            <enum name="L2TP" code="3" />
+            <enum name="ATMP" code="4" />
+            <enum name="VTP" code="5" />
+            <enum name="AH" code="6" />
+            <enum name="IP_IP" code="7" />
+            <enum name="MIN_IP_IP" code="8" />
+            <enum name="ESP" code="9" />
+            <enum name="GRE" code="10" />
+            <enum name="DVS" code="11" />
+            <enum name="IP_IN_IP" code="12" />
+            <enum name="VLAN" code="13" />
+        </avp>
+
+        <avp name="Tunnel-Medium-Type" code="65" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="IPV4" code="1" />
+            <enum name="IPV6" code="2" />
+            <enum name="NSAP" code="3" />
+            <enum name="HDLC" code="4" />
+            <enum name="BBN_1822" code="5" />
+            <enum name="802" code="6" />
+            <enum name="E163" code="7" />
+            <enum name="E164" code="8" />
+            <enum name="F69" code="9" />
+            <enum name="X121" code="10" />
+            <enum name="IPX" code="11" />
+            <enum name="APPLETALK" code="12" />
+            <enum name="DECNET_IV" code="13" />
+            <enum name="BANYAN_VINES" code="14" />
+            <enum name="E164_NSAP" code="15" />
+        </avp>
+
+        <avp name="Tunnel-Client-Endpoint" code="66" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Tunnel-Server-Endpoint" code="67" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Acct-Tunnel-Connection" code="68" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Tunnel-Password" code="69" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="ARAP-Password" code="70" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="ARAP-Features" code="71" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="ARAP-Zone-Access" code="72" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="TELNET" code="0" />
+            <enum name="RLOGIN" code="1" />
+            <enum name="TCP_CLEAR" code="2" />
+            <enum name="PORTMASTER" code="3" />
+            <enum name="LAT" code="4" />
+            <enum name="X25_PAD" code="5" />
+            <enum name="X25_T3POS" code="6" />
+            <enum name="TCP_CLEAR_QUIET" code="8" />
+        </avp>
+
+        <avp name="ARAP-Security" code="73" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="ARAP-Security-Data" code="74" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Password-Retry" code="75" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Prompt" code="76" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="NO_ECHO" code="0" />
+            <enum name="ECHO" code="1" />
+        </avp>
+
+        <avp name="Connect-Info" code="77" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Configuration-Token" code="78" vendor-bit="mustnot" mandatory="must" protected="mustnot" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Tunnel-Private-Group-Id" code="81" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Tunnel-Assignment-Id" code="82" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Tunnel-Preference" code="83" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="ARAP-Challenge-Response" code="84" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Acct-Interim-Interval" code="85" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Acct-Tunnel-Packets-Lost" code="86" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="NAS-Port-Id" code="87" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Framed-Pool" code="88" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Tunnel-Client-Auth-Id" code="90" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Tunnel-Server-Auth-Id" code="91" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Originating-Line-Info" code="94" vendor-bit="mustnot" mandatory="may" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="NAS-IPv6-Address" code="95" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Framed-Interface-Id" code="96" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="Framed-IPv6-Prefix" code="97" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Login-IPv6-Host" code="98" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Framed-IPv6-Route" code="99" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Framed-IPv6-Pool" code="100" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Host-IP-Address" code="257" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Address" />
+        </avp>
+
+        <avp name="Auth-Application-Id" code="258" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Acct-Application-Id" code="259" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Vendor-Specific-Application-Id" code="260" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <grouped>
+                <gavp name="Vendor-Id" />
+                <gavp name="Auth-Application-Id" />
+                <gavp name="Acct-Application-Id" />
+            </grouped>
+        </avp>
+
+        <avp name="Redirect-Host-Usage" code="261" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="DONT_CACHE" code="0" />
+            <enum name="ALL_SESSION" code="1" />
+            <enum name="ALL_REALM" code="2" />
+            <enum name="REALM_AND_APPLICATION" code="3" />
+            <enum name="ALL_APPLICATION" code="4" />
+            <enum name="ALL_HOST" code="5" />
+            <enum name="ALL_USER" code="6" />
+        </avp>
+
+        <avp name="Redirect-Max-Cache-Time" code="262" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Session-Id" code="263" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Origin-Host" code="264" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="DiameterIdentity" />
+        </avp>
+
+        <avp name="Supported-Vendor-Id" code="265" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Vendor-Id" code="266" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Firmware-Revision" code="267" vendor-bit="mustnot" mandatory="mustnot" protected="mustnot" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Auth-Request-Type" code="274" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="AUTHENTICATE_ONLY" code="1" />
+            <enum name="AUTHORIZE_ONLY" code="2" />
+            <enum name="AUTHORIZE_AUTHENTICATE" code="3" />
+        </avp>
+
+        <avp name="Auth-Grace-Period" code="276" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Auth-Session-State" code="277" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="STATE_MAINTAINED" code="0" />
+            <enum name="NO_STATE_MAINTAINED" code="1" />
+        </avp>
+
+        <avp name="Failed-AVP" code="279" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <grouped>
+            </grouped>
+        </avp>
+
+        <avp name="Result-Code" code="282" vendor-bit="mustnot" mandatory="must" protected="mustnot" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="DIAMETER_MULTI_ROUND_AUTH" code="1001" />
+            <enum name="DIAMETER_SUCCESS" code="2001" />
+            <enum name="DIAMETER_LIMITED_SUCCESS" code="2002" />
+            <enum name="DIAMETER_COMMAND_UNSUPPORTED" code="3001" />
+            <enum name="DIAMETER_UNABLE_TO_DELIVER" code="3002" />
+            <enum name="DIAMETER_REALM_NOT_SERVED" code="3003" />
+            <enum name="DIAMETER_TOO_BUSY" code="3004" />
+            <enum name="DIAMETER_LOOP_DETECTED" code="3005" />
+            <enum name="DIAMETER_REDIRECT_INDICATION" code="3006" />
+            <enum name="DIAMETER_APPLICATION_UNSUPPORTED" code="3007" />
+            <enum name="DIAMETER_INVALID_HDR_BITS" code="3008" />
+            <enum name="DIAMETER_INVALID_AVP_BITS" code="3009" />
+            <enum name="DIAMETER_UNKNOWN_PEER" code="3010" />
+            <enum name="DIAMETER_AUTHENTICATION_REJECTED" code="4001" />
+            <enum name="DIAMETER_OUT_OF_SPACE" code="4002" />
+            <enum name="ELECTION_LOST" code="4003" />
+            <enum name="DIAMETER_END_USER_SERVICE_DENIED" code="4010" />
+            <!-- RFC 4006 -->
+            <enum name="DIAMETER_CREDIT_CONTROL_NOT_APPLICABLE" code="4011" />
+            <!-- RFC 4006 -->
+            <enum name="DIAMETER_CREDIT_LIMIT_REACHED" code="4012" />
+            <!-- RFC 4006 -->
+            <enum name="DIAMETER_AVP_UNSUPPORTED" code="5001" />
+            <enum name="DIAMETER_UNKNOWN_SESSION_ID" code="5002" />
+            <enum name="DIAMETER_AUTHORIZATION_REJECTED" code="5003" />
+            <enum name="DIAMETER_INVALID_AVP_VALUE" code="5004" />
+            <enum name="DIAMETER_MISSING_AVP" code="5005" />
+            <enum name="DIAMETER_RESOURCES_EXCEEDED" code="5006" />
+            <enum name="DIAMETER_CONTRADICTING_AVPS" code="5007" />
+            <enum name="DIAMETER_AVP_NOT_ALLOWED" code="5008" />
+            <enum name="DIAMETER_AVP_OCCURS_TOO_MANY_TIMES" code="5009" />
+            <enum name="DIAMETER_NO_COMMON_APPLICATION" code="5010" />
+            <enum name="DIAMETER_UNSUPPORTED_VERSION" code="5011" />
+            <enum name="DIAMETER_UNABLE_TO_COMPLY" code="5012" />
+            <enum name="DIAMETER_INVALID_BIT_IN_HEADER" code="5013" />
+            <enum name="DIAMETER_INVALID_AVP_LENGTH" code="5014" />
+            <enum name="DIAMETER_INVALID_MESSAGE_LENGTH" code="5015" />
+            <enum name="DIAMETER_INVALID_AVP_BIT_COMBO" code="5016" />
+            <enum name="DIAMETER_NO_COMMON_SECURITY" code="5017" />
+            <enum name="DIAMETER_USER_UNKNOWN" code="5030" />
+            <!-- RFC 4006 -->
+            <enum name="DIAMETER_RATING_FAILED" code="5031" />
+            <!-- RFC 4006 -->
+        </avp>
+
+        <avp name="Product-Name" code="269" vendor-bit="mustnot" mandatory="mustnot" protected="mustnot" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Session-Binding" code="270" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+            <enum name="RE_AUTH" code="1" />
+            <enum name="STR" code="2" />
+            <enum name="ACCOUNTING" code="4" />
+        </avp>
+
+        <avp name="Session-Server-Failover" code="271" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="REFUSE_SERVICE" code="0" />
+            <enum name="TRY_AGAIN" code="1" />
+            <enum name="ALLOW_SERVICE" code="2" />
+            <enum name="TRY_AGAIN_ALLOW_SERVICE" code="3" />
+        </avp>
+
+        <avp name="Multi-Round-Time-Out" code="272" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Disconnect-Cause" code="273" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="REBOOTING" code="0" />
+            <enum name="BUSY" code="1" />
+            <enum name="DO_NOT_WANT_TO_TALK_TO_YOU" code="2" />
+        </avp>
+
+        <avp name="Origin-State-Id" code="278" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Proxy-Host" code="280" vendor-bit="mustnot" mandatory="must" protected="mustnot" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="DiameterIdentity" />
+        </avp>
+
+        <avp name="Error-Message" code="281" vendor-bit="mustnot" mandatory="mustnot" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Route-Record" code="282" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="DiameterIdentity" />
+        </avp>
+
+        <avp name="Destination-Realm" code="283" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="DiameterIdentity" />
+        </avp>
+
+        <avp name="Proxy-Info" code="284" vendor-bit="mustnot" mandatory="must" protected="mustnot" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <grouped>
+                <gavp name="Proxy-Host" />
+                <gavp name="Proxy-State" />
+            </grouped>
+        </avp>
+
+        <avp name="Re-Auth-Request-Type" code="285" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="AUTHORIZE_ONLY" code="0" />
+            <enum name="AUTHORIZE_AUTHENTICATE" code="1" />
+        </avp>
+
+        <avp name="Accounting-Sub-Session-Id" code="287" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="Authorization-Lifetime" code="291" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Redirect-Host" code="292" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="DiameterURI" />
+        </avp>
+
+        <avp name="Destination-Host" code="293" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="DiameterIdentity" />
+        </avp>
+
+        <avp name="Error-Reporting-Host" code="294" vendor-bit="mustnot" mandatory="mustnot" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="DiameterIdentity" />
+        </avp>
+
+        <avp name="Termination-Cause" code="295" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="DIAMETER_LOGOUT" code="1" />
+            <enum name="DIAMETER_SERVICE_NOT_PROVIDED" code="2" />
+            <enum name="DIAMETER_BAD_ANSWER" code="3" />
+            <enum name="DIAMETER_ADMINISTRATIVE" code="4" />
+            <enum name="DIAMETER_LINK_BROKEN" code="5" />
+            <enum name="DIAMETER_AUTH_EXPIRED" code="6" />
+            <enum name="DIAMETER_USER_MOVED" code="7" />
+            <enum name="DIAMETER_SESSION_TIMEOUT" code="8" />
+            <enum name="USER_REQUEST" code="11" />
+            <!-- RFC 4006 -->
+            <enum name="LOST_CARRIER" code="12" />
+            <!-- RFC 4006 -->
+            <enum name="LOST_SERVICE" code="13" />
+            <!-- RFC 4006 -->
+            <enum name="IDLE_TIMEOUT" code="14" />
+            <!-- RFC 4006 -->
+            <enum name="SESSION_TIMEOUT" code="15" />
+            <!-- RFC 4006 -->
+            <enum name="ADMIN_RESET" code="16" />
+            <!-- RFC 4006 -->
+            <enum name="ADMIN_REBOOT" code="17" />
+            <!-- RFC 4006 -->
+            <enum name="PORT_ERROR" code="18" />
+            <!-- RFC 4006 -->
+            <enum name="NAS_ERROR" code="19" />
+            <!-- RFC 4006 -->
+            <enum name="NAS_REQUEST" code="20" />
+            <!-- RFC 4006 -->
+            <enum name="NAS_REBOOT" code="21" />
+            <!-- RFC 4006 -->
+            <enum name="PORT_UNNEEDED" code="22" />
+            <!-- RFC 4006 -->
+            <enum name="PORT_PREEMPTED" code="23" />
+            <!-- RFC 4006 -->
+            <enum name="PORT_SUSPENDED" code="24" />
+            <!-- RFC 4006 -->
+            <enum name="SERVICE_UNAVAILABLE" code="25" />
+            <!-- RFC 4006 -->
+            <enum name="CALLBACK" code="26" />
+            <!-- RFC 4006 -->
+            <enum name="USER_ERROR" code="27" />
+            <!-- RFC 4006 -->
+            <enum name="HOST_REQUEST" code="28" />
+            <!-- RFC 4006 -->
+            <enum name="SUPPLICANT_RESTART" code="29" />
+            <!-- RFC 4006 -->
+            <enum name="REAUTHENTICATION_FAILURE" code="30" />
+            <!-- RFC 4006 -->
+            <enum name="PORT_REINIT" code="31" />
+            <!-- RFC 4006 -->
+            <enum name="PORT_DISABLED" code="32" />
+            <!-- RFC 4006 -->
+        </avp>
+
+        <avp name="Origin-Realm" code="296" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="DiameterIdentity" />
+        </avp>
+
+        <avp name="Experimental-Result" code="297" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <grouped>
+                <gavp name="Vendor-Id" />
+                <gavp name="Experimental-Result-Code" />
+            </grouped>
+        </avp>
+
+        <avp name="Experimental-Result-Code" code="298" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+            <enum name="DIAMETER_FIRST_REGISTRATION" code="2001" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_SUBSEQUENT_REGISTRATION " code="2002" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_UNREGISTERED_SERVICE" code="2003" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_SUCCESS_SERVER_NAME_NOT_STORED" code="2004" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_PDP_CONTEXT_DELETION_INDICATION" code="2021" />
+            <!-- 3GPP TS 29.061 -->
+            <enum name="DIAMETER_USER_DATA_NOT_AVAILABLE" code="4100" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_PRIOR_UPDATE_IN_PROGRESS" code="4101" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_OUT_OF_RESOURCES" code="4121" />
+            <!-- 3GPP TS 29.061 -->
+            <enum name="DIAMETER_PCC_BEARER_EVENT" code="4141" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_BEARER_EVENT" code="4142" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_AUTHENTICATION_DATA_UNAVAILABLE" code="4181" />
+            <!-- 3GPP TS 32.272 -->
+            <enum name="DIAMETER_ERROR_ABSENT_USER" code="4201" />
+            <!-- 3GPP TS 29.173 -->
+            <enum name="DIAMETER_ERROR_UNREACHABLE_USER" code="4221" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_SUSPENDED_USER" code="4222" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_DETACHED_USER" code="4223" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_POSITIONING_DENIED" code="4224" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_POSITIONING_FAILED" code="4225" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_UNKNOWN_UNREACHABLE LCS_CLIENT" code="4226" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_USER_UNKNOWN" code="5001" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_IDENTITIES_DONT_MATCH" code="5002" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_IDENTITY_NOT_REGISTERED" code="5003" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_ROAMING_NOT_ALLOWED" code="5004" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_IDENTITY_ALREADY_REGISTERED" code="5005" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_AUTH_SCHEME_NOT_SUPPORTED" code="5006" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_IN_ASSIGNMENT_TYPE" code="5007" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_TOO_MUCH_DATA" code="5008" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_NOT_SUPPORTED_USER_DATA" code="5009" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_FEATURE_UNSUPPORTED" code="5011" />
+            <!-- 3GPP TS 29.229 -->
+            <enum name="DIAMETER_ERROR_USER_NO_WLAN_SUBSCRIPTION" code="5041" />
+            <!-- 3GPP TS 29.234 -->
+            <enum name="DIAMETER_ERROR_W_APN_UNUSED_BY_USER" code="5042" />
+            <!-- 3GPP TS 29.234 -->
+            <enum name="DIAMETER_ERROR_NO_ACCESS_INDEPENDENT_SUBSCRIPTION" code="5043" />
+            <!-- 3GPP TS 29.234 -->
+            <enum name="DIAMETER_ERROR_USER_NO_W_APN_SUBSCRIPTION" code="5044" />
+            <!-- 3GPP TS 29.234 -->
+            <enum name="DIAMETER_ERROR_UNSUITABLE_NETWORK" code="5045" />
+            <!-- 3GPP TS 29.234 -->
+            <enum name="INVALID_SERVICE_INFORMATION" code="5061" />
+            <!-- 3GPP TS 29.209 -->
+            <enum name="FILTER_RESTRICTIONS" code="5062" />
+            <!-- 3GPP TS 29.211 -->
+            <enum name="DIAMETER_ERROR_USER_DATA_NOT_RECOGNIZED" code="5100" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_OPERATION_NOT_ALLOWED" code="5101" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_USER_DATA_CANNOT_BE_READ" code="5102" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_USER_DATA_CANNOT_BE_MODIFIED" code="5103" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_USER_DATA_CANNOT_BE_NOTIFIED" code="5104" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_TRANSPARENT_DATA_OUT_OF_SYNC" code="5105" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_SUBS_DATA_ABSENT" code="5106" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_NO_SUBSCRIPTION_TO_DATA" code="5107" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_DSAI_NOT_AVAILABLE" code="5108" />
+            <!-- 3GPP TS 29.329 -->
+            <enum name="DIAMETER_ERROR_START_INDICATION" code="5120" />
+            <!-- 3GPP TS 29.061 -->
+            <enum name="DIAMETER_ERROR_STOP_INDICATION" code="5121" />
+            <!-- 3GPP TS 29.061 -->
+            <enum name="DIAMETER_ERROR_UNKNOWN_MBMS_BEARER_SERVICE" code="5122" />
+            <!-- 3GPP TS 29.061 -->
+            <enum name="DIAMETER_ERROR_SERVICE_AREA" code="5123" />
+            <!-- 3GPP TS 29.061 -->
+            <enum name="DIAMETER_ERROR_INITIAL_PARAMETERS" code="5140" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_ERROR_TRIGGER_EVENT" code="5141" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_PCC_RULE_EVENT" code="5142" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_ERROR_BEARER_NOT_AUTHORIZED" code="5143" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_ERROR_TRAFFIC_MAPPING_INFO_REJECTED" code="5144" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_QOS_RULE_EVENT" code="5145" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_ERROR_CONFLICTING_REQUEST" code="5147" />
+            <!-- 3GPP TS 29.212 -->
+            <enum name="DIAMETER_ERROR_IMPI_UNKNOWN" code="5401" />
+            <!-- 3GPP TS 29.109 -->
+            <enum name="DIAMETER_ERROR_NOT_AUTHORIZED" code="5402" />
+            <!-- 3GPP TS 29.109 -->
+            <enum name="DIAMETER_ERROR_TRANSACTION_IDENTIFIER_INVALID" code="5403" />
+            <!-- 3GPP TS 29.109 -->
+            <enum name="DIAMETER_ERROR_UNKNOWN_EPS_SUBSCRIPTION" code="5420" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_RAT_NOT_ALLOWED" code="5421" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_EQUIPMENT_UNKNOWN" code="5422" />
+            <!-- 3GPP TS 29.272 -->
+            <enum name="DIAMETER_ERROR_UNKNOWN_SERVING_NODE" code="5423" />
+            <!-- 3GPP TS 29.273 -->
+            <enum name="DIAMETER_ERROR_USER_NO_NON_3GPP_SUBSCRIPTION" code="5450" />
+            <!-- 3GPP TS 29.273 -->
+            <enum name="DIAMETER_ERROR_USER_NO_APN_SUBSCRIPTION" code="5451" />
+            <!-- 3GPP TS 29.273 -->
+            <enum name="DIAMETER_ERROR_RAT_TYPE_NOT_ALLOWED" code="5452" />
+            <!-- 3GPP TS 29.273 -->
+            <enum name="DIAMETER_ERROR _SUBSESSION" code="5470" />
+            <!-- 3GPP TS 29.215 -->
+            <enum name="DIAMETER_ERROR_UNAUTHORIZED_REQUESTING_NETWORK" code="5490" />
+            <!-- 3GPP TS 29.173 -->
+        </avp>
+
+        <avp name="Inband-Security-Id" code="299" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="no">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="NO_INBAND_SECURITY" code="0" />
+            <enum name="TLS" code="1" />
+        </avp>
+
+        <avp name="E2E-Sequence" code="300" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Grouped" />
+        </avp>
+
+        <avp name="Accounting-Input-Octets" code="363" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="Accounting-Output-Octets" code="364" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="Accounting-Input-Packets" code="365" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="Accounting-Output-Packets" code="366" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="NAS-Filter-Rule" code="400" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="IPFilterRule" />
+        </avp>
+
+        <avp name="Tunneling" code="401" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <grouped>
+                <gavp name="Tunnel-Type" />
+                <gavp name="Tunnel-Medium-Type" />
+                <gavp name="Tunnel-Client-Endpoint" />
+                <gavp name="Tunnel-Server-Endpoint" />
+                <gavp name="Tunnel-Preference" />
+                <gavp name="Tunnel-Client-Auth-Id" />
+                <gavp name="Tunnel-Server-Auth-Id" />
+                <gavp name="Tunnel-Assignment-Id" />
+                <gavp name="Tunnel-Password" />
+                <gavp name="Tunnel-Private-Group-Id" />
+            </grouped>
+        </avp>
+
+        <avp name="CHAP-Auth" code="402" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <grouped>
+                <gavp name="CHAP-Algorithm" />
+                <gavp name="CHAP-Ident" />
+                <gavp name="CHAP-Response" />
+            </grouped>
+        </avp>
+
+        <avp name="CHAP-Algorithm" code="403" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="CHAP_WITH_MD5" code="5" />
+        </avp>
+
+        <avp name="CHAP-Ident" code="404" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="CHAP-Response" code="405" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Acounting-Auth-Method" code="406" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="PAP" code="1" />
+            <enum name="CHAP" code="2" />
+            <enum name="MS_CHAP_1" code="3" />
+            <enum name="MS_CHAP_2" code="4" />
+            <enum name="EAP" code="5" />
+            <enum name="NONE" code="7" />
+        </avp>
+
+        <avp name="QoS-Filter-Rule" code="407" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="QoSFilterRule" />
+        </avp>
+
+        <avp name="Origin-AAA-Protocol" code="408" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4005 -->
+            <type type-name="Enumerated" />
+            <enum name="RADIUS" code="1" />
+        </avp>
+
+        <avp name="CC-Correlation-Id" code="411" vendor-bit="mustnot" mandatory="may" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="CC-Input-Octets" code="412" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="CC-Money" code="413" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Unit-Value" />
+                <gavp name="Currency-Code" />
+            </grouped>
+        </avp>
+
+        <avp name="CC-Output-Octets" code="414" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="CC-Request-Number" code="415" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="CC-Request-Type" code="416" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="INITIAL_REQUEST" code="1" />
+            <enum name="UPDATE_REQUEST" code="2" />
+            <enum name="TERMINATION_REQUEST" code="3" />
+            <enum name="EVENT_REQUEST" code="4" />
+        </avp>
+
+        <avp name="CC-Service-Specific-Units" code="417" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="CC-Session-Failover" code="418" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="FAILOVER_NOT_SUPPORTED" code="0" />
+            <enum name="FAILOVER_SUPPORTED" code="1" />
+        </avp>
+
+        <avp name="CC-Sub-Session-Id" code="419" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="CC-Time" code="420" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="CC-Total-Octets" code="421" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned64" />
+        </avp>
+
+        <avp name="Check-Balance-Result" code="422" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="ENOUGH_CREDIT" code="0" />
+            <enum name="NO_CREDIT" code="1" />
+        </avp>
+
+        <avp name="Cost-Information" code="423" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Unit-Value" />
+                <gavp name="Currency-Code" />
+                <gavp name="Cost-Unit" />
+            </grouped>
+        </avp>
+
+        <avp name="Cost-Unit" code="424" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Currency-Code" code="425" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Credit-Control" code="426" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="CREDIT_AUTHORIZATION" code="0" />
+            <enum name="RE_AUTHORIZATION" code="1" />
+        </avp>
+
+        <avp name="Credit-Control-Failure-Handling" code="427" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="TERMINATE" code="0" />
+            <enum name="CONTINUE" code="1" />
+            <enum name="RETRY_AND_TERMINATE" code="2" />
+        </avp>
+
+        <avp name="Direct-Debiting-Failure-Handling" code="428" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="TERMINATE_OR_BUFFER" code="0" />
+            <enum name="CONTINUE" code="1" />
+        </avp>
+
+        <avp name="Exponent" code="429" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Integer32" />
+        </avp>
+
+        <avp name="Final-Unit-Indication" code="430" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Final-Unit-Action" />
+                <gavp name="Restriction-Filter-Rule" />
+                <gavp name="Filter-Id" />
+                <gavp name="Redirect-Server" />
+            </grouped>
+        </avp>
+
+        <avp name="Granted-Service-Unit" code="431" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Tariff-Time-Change" />
+                <gavp name="CC-Time" />
+                <gavp name="CC-Money" />
+                <gavp name="CC-Total-Octets" />
+                <gavp name="CC-Input-Octets" />
+                <gavp name="CC-Output-Octets" />
+                <gavp name="CC-Service-Specific-Units" />
+            </grouped>
+        </avp>
+
+        <avp name="Rating-Group" code="432" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Redirect-Address-Type" code="433" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="IPV4_ADDRESS" code="0" />
+            <enum name="IPV6_ADDRESS" code="1" />
+            <enum name="URL" code="2" />
+            <enum name="SIP_URI" code="3" />
+        </avp>
+
+        <avp name="Redirect-Server" code="434" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Redirect-Address-Type" />
+                <gavp name="Redirect-Server-Address" />
+            </grouped>
+        </avp>
+
+        <avp name="Redirect-Server-Address" code="435" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Requested-Action" code="436" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="DIRECT_DEBITING" code="0" />
+            <enum name="REFUND_ACCOUNT" code="1" />
+            <enum name="CHECK_BALANCE" code="2" />
+            <enum name="PRICE_ENQUIRY" code="3" />
+        </avp>
+
+        <avp name="Requested-Service-Unit" code="437" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="CC-Time" />
+                <gavp name="CC-Money" />
+                <gavp name="CC-Total-Octets" />
+                <gavp name="CC-Input-Octets" />
+                <gavp name="CC-Output-Octets" />
+                <gavp name="CC-Service-Specific-Units" />
+            </grouped>
+        </avp>
+
+        <avp name="Restriction-Filter-Rule" code="438" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="IPFilterRule" />
+        </avp>
+
+        <avp name="Service-Identifier" code="439" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Service-Parameter-Info" code="440" vendor-bit="mustnot" mandatory="may" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Service-Parameter-Type" />
+                <gavp name="Service-Parameter-Value" />
+            </grouped>
+        </avp>
+
+        <avp name="Service-Parameter-Type" code="441" vendor-bit="mustnot" mandatory="may" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Service-Parameter-Value" code="442" vendor-bit="mustnot" mandatory="may" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Subscription-Id" code="443" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Subscription-Id-Type" />
+                <gavp name="Subscription-Id-Data" />
+            </grouped>
+        </avp>
+
+        <avp name="Subscription-Id-Data" code="444" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Unit-Value" code="445" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Value-Digits" />
+                <gavp name="Exponent" />
+            </grouped>
+        </avp>
+
+        <avp name="Used-Service-Unit" code="446" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Tariff-Change-Usage" />
+                <gavp name="CC-Time" />
+                <gavp name="CC-Money" />
+                <gavp name="CC-Total-Octets" />
+                <gavp name="CC-Input-Octets" />
+                <gavp name="CC-Output-Octets" />
+                <gavp name="CC-Service-Specific-Units" />
+            </grouped>
+        </avp>
+
+        <avp name="Value-Digits" code="447" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Integer64" />
+        </avp>
+
+        <avp name="Validity-Time" code="448" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Final-Unit-Action" code="449" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="TERMINATE" code="0" />
+            <enum name="REDIRECT" code="1" />
+            <enum name="RESTRICT_ACCESS" code="2" />
+        </avp>
+
+        <avp name="Subscription-Id-Type" code="450" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="END_USER_E164" code="0" />
+            <enum name="END_USER_IMSI" code="1" />
+            <enum name="END_USER_SIP_URI" code="2" />
+            <enum name="END_USER_NAI" code="3" />
+            <enum name="END_USER_PRIVATE" code="4" />
+        </avp>
+
+        <avp name="Tariff-Time-Change" code="451" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Time" />
+        </avp>
+
+        <avp name="Tariff-Change-Usage" code="452" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="UNIT_BEFORE_TARIFF_CHANGE" code="0" />
+            <enum name="UNIT_AFTER_TARIFF_CHANGE" code="1" />
+            <enum name="UNIT_INDETERMINATE" code="2" />
+        </avp>
+
+        <avp name="G-S-U-Pool-Identifier" code="453" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="CC-Unit-Type" code="454" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="TIME" code="0" />
+            <enum name="MONEY" code="1" />
+            <enum name="TOTAL-OCTETS" code="2" />
+            <enum name="INPUT-OCTETS" code="3" />
+            <enum name="OUTPUT-OCTETS" code="4" />
+            <enum name="SERVICE-SPECIFIC-UNITS" code="5" />
+        </avp>
+
+        <avp name="Multiple-Services-Indicator" code="455" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="MULTIPLE_SERVICES_NOT_SUPPORTED" code="0" />
+            <enum name="MULTIPLE_SERVICES_SUPPORTED" code="1" />
+        </avp>
+
+        <avp name="Multiple-Services-Credit-Control" code="456" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="Granted-Service-Unit" />
+                <gavp name="Requested-Service-Unit" />
+                <gavp name="Used-Service-Unit" />
+                <gavp name="Tariff-Change-Usage" />
+                <gavp name="Service-Identifier" />
+                <gavp name="Rating-Group" />
+                <gavp name="G-S-U-Pool-Reference" />
+                <gavp name="Validity-Time" />
+                <gavp name="Result-Code" />
+                <gavp name="Final-Unit-Indication" />
+            </grouped>
+        </avp>
+
+        <avp name="G-S-U-Pool-Reference" code="457" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="G-S-U-Pool-Identifier" />
+                <gavp name="CC-Unit-Type" />
+                <gavp name="Unit-Value" />
+            </grouped>
+        </avp>
+
+        <avp name="User-Equipment-Info" code="458" vendor-bit="mustnot" mandatory="may" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <grouped>
+                <gavp name="User-Equipment-Info-Type" />
+                <gavp name="User-Equipment-Info-Value" />
+            </grouped>
+        </avp>
+
+        <avp name="User-Equipment-Info-Type" code="459" vendor-bit="mustnot" mandatory="may" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="Enumerated" />
+            <enum name="IMEISV" code="0" />
+            <enum name="MAC" code="1" />
+            <enum name="EUI64" code="2" />
+            <enum name="MODIFIED_EUI64" code="3" />
+        </avp>
+
+        <avp name="User-Equipment-Info-Value" code="460" vendor-bit="mustnot" mandatory="may" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Service-Context-Id" code="461" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 4006 -->
+            <type type-name="UTF8String" />
+        </avp>
+
+        <avp name="Accounting-Record-Type" code="480" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="EVENT_RECORD" code="1" />
+            <enum name="START_RECORD" code="2" />
+            <enum name="INTERIM_RECORD" code="3" />
+            <enum name="STOP_RECORD" code="4" />
+        </avp>
+
+        <avp name="Accounting-Realtime-Required" code="483" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Enumerated" />
+            <enum name="DELIVER_AND_GRANT" code="1" />
+            <enum name="GRANT_AND_STORE" code="2" />
+            <enum name="GRANT_AND_LOSE" code="3" />
+        </avp>
+
+        <avp name="Accounting-Record-Number" code="485" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 3688 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="TMOD-1" code="495" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <grouped>
+                <gavp name="Token-Rate" />
+                <gavp name="Bucket-Depth" />
+                <gavp name="Peak-Traffic-Rate" />
+                <gavp name="Minimum-Policed-Unit" />
+                <gavp name="Maximum-Packet-Size" />
+            </grouped>
+        </avp>
+
+        <avp name="Token-Rate" code="496" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <type type-name="Float32" />
+        </avp>
+
+        <avp name="Bucket-Depth" code="497" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <type type-name="Float32" />
+        </avp>
+
+        <avp name="Peak-Traffic-Rate" code="498" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <type type-name="Float32" />
+        </avp>
+
+        <avp name="Minimum-Policed-Unit" code="499" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Maximum-Packet-Size" code="500" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="TMOD-2" code="501" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <grouped>
+                <gavp name="Token-Rate" />
+                <gavp name="Bucket-Depth" />
+                <gavp name="Peak-Traffic-Rate" />
+                <gavp name="Minimum-Policed-Unit" />
+                <gavp name="Maximum-Packet-Size" />
+            </grouped>
+        </avp>
+
+        <avp name="Bandwidth" code="502" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <type type-name="Float32" />
+        </avp>
+
+        <avp name="PHB-Class" code="503" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5624 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="QoS-Resources" code="508" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="Filter-Rule" />
+            </grouped>
+        </avp>
+
+        <avp name="Filter-Rule" code="509" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="Filter-Rule-Precedence" />
+                <gavp name="Classifier" />
+                <gavp name="Time-Of-Day-Condition" />
+                <gavp name="Treatment-Action" />
+                <gavp name="QoS-Semantics" />
+                <gavp name="QoS-Profile-Template" />
+                <gavp name="QoS-Parameters" />
+                <gavp name="Excess-Treatment" />
+            </grouped>
+        </avp>
+
+        <avp name="Filter-Rule-Precedence" code="510" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Classifier" code="511" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="Classifier-ID" />
+                <gavp name="Protocol" />
+                <gavp name="Direction" />
+                <gavp name="From-Spec" />
+                <gavp name="To-Spec" />
+                <gavp name="Diffserv-Code-Point" />
+                <gavp name="Fragmentation-Flag" />
+                <gavp name="IP-Option" />
+                <gavp name="TCP-Option" />
+                <gavp name="TCP-Flags" />
+                <gavp name="ICMP-Type" />
+                <gavp name="ETH-Option" />
+            </grouped>
+        </avp>
+
+        <avp name="Classifier-ID" code="512" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Protocol" code="513" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+        </avp>
+
+        <avp name="Direction" code="514" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+            <enum name="IN" code="0" />
+            <enum name="OUT" code="1" />
+            <enum name="BOTH" code="2" />
+        </avp>
+
+        <avp name="From-Spec" code="515" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="IP-Address" />
+                <gavp name="IP-Address-Range" />
+                <gavp name="IP-Address-Mask" />
+                <gavp name="MAC-Address" />
+                <gavp name="MAC-Address-Mask" />
+                <gavp name="EUI64-Address" />
+                <gavp name="EUI64-Address-Mask" />
+                <gavp name="Port" />
+                <gavp name="Port-Range" />
+                <gavp name="Negated" />
+                <gavp name="Use-Assigned-Address" />
+            </grouped>
+        </avp>
+
+        <avp name="To-Spec" code="516" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="IP-Address" />
+                <gavp name="IP-Address-Range" />
+                <gavp name="IP-Address-Mask" />
+                <gavp name="MAC-Address" />
+                <gavp name="MAC-Address-Mask" />
+                <gavp name="EUI64-Address" />
+                <gavp name="EUI64-Address-Mask" />
+                <gavp name="Port" />
+                <gavp name="Port-Range" />
+                <gavp name="Negated" />
+                <gavp name="Use-Assigned-Address" />
+            </grouped>
+        </avp>
+
+        <avp name="Negated" code="517" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+            <enum name="FALSE" code="0" />
+            <enum name="TRUE" code="1" />
+        </avp>
+
+        <avp name="IP-Address" code="518" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Address" />
+        </avp>
+
+        <avp name="IP-Address-Range" code="519" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="IP-Address-Start" />
+                <gavp name="IP-Address-End" />
+            </grouped>
+        </avp>
+
+        <avp name="IP-Address-Start" code="520" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Address" />
+        </avp>
+
+        <avp name="IP-Address-End" code="521" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Address" />
+        </avp>
+
+        <avp name="IP-Address-Mask" code="522" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="IP-Address" />
+                <gavp name="IP-Bit-Mask-Width" />
+            </grouped>
+        </avp>
+
+        <avp name="IP-Bit-Mask-Width" code="523" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="MAC-Address" code="524" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="MAC-Address-Mask" code="525" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="MAC-Address" />
+                <gavp name="MAC-Address-Mask-Pattern" />
+            </grouped>
+        </avp>
+
+        <avp name="MAC-Address-Mask-Pattern" code="526" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="EUI64-Address" code="527" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="EUI64-Address-Mask" code="528" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="EUI64-Address" />
+                <gavp name="EUI64-Address-Mask-Pattern" />
+            </grouped>
+        </avp>
+
+        <avp name="EUI64-Address-Mask-Pattern" code="529" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="Port" code="530" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Integer32" />
+        </avp>
+
+        <avp name="Port-Range" code="531" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="Port-Start" />
+                <gavp name="Port-End" />
+            </grouped>
+        </avp>
+
+        <avp name="Port-Start" code="532" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Integer32" />
+        </avp>
+
+        <avp name="Port-End" code="533" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Integer32" />
+        </avp>
+
+        <avp name="Use-Assigned-Address" code="534" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+            <enum name="FALSE" code="0" />
+            <enum name="TRUE" code="1" />
+        </avp>
+
+        <avp name="Diffserv-Code-Point" code="535" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+        </avp>
+
+        <avp name="Fragmentation-Flag" code="536" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+            <enum name="DONT_FRAGMENT" code="0" />
+            <enum name="MORE_FRAGMENTS" code="1" />
+        </avp>
+
+        <avp name="IP-Option" code="537" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="IP-Option-Type" />
+                <gavp name="IP-Option-Value" />
+                <gavp name="Negated" />
+            </grouped>
+        </avp>
+
+        <avp name="IP-Option-Type" code="538" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+        </avp>
+
+        <avp name="IP-Option-Value" code="539" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="TCP-Option" code="540" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="TCP-Option-Type" />
+                <gavp name="TCP-Option-Value" />
+                <gavp name="Negated" />
+            </grouped>
+        </avp>
+
+        <avp name="TCP-Option-Type" code="541" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+        </avp>
+
+        <avp name="TCP-Option-Value" code="542" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="TCP-Flags" code="543" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="TCP-Flag-Type" />
+                <gavp name="Negated" />
+            </grouped>
+        </avp>
+
+        <avp name="TCP-Flag-Type" code="544" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="ICMP-Type" code="545" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="ICMP-Type-Number" />
+                <gavp name="ICMP-Code" />
+                <gavp name="Negated" />
+            </grouped>
+        </avp>
+
+        <avp name="ICMP-Type-Number" code="546" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+        </avp>
+
+        <avp name="ICMP-Code" code="547" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Integer32" />
+        </avp>
+
+        <avp name="ETH-Option" code="548" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="ETH-Proto-Type" />
+                <gavp name="VLAN-ID-Range" />
+                <gavp name="User-Priority-Range" />
+            </grouped>
+        </avp>
+
+        <avp name="ETH-Proto-Type" code="549" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="ETH-Ether-Type" />
+                <gavp name="ETH-SAP" />
+            </grouped>
+        </avp>
+
+        <avp name="ETH-Ether-Type" code="550" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="ETH-SAP" code="551" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="OctetString" />
+        </avp>
+
+        <avp name="VLAN-ID-Range" code="552" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="S-VID-Start" />
+                <gavp name="S-VID-End" />
+                <gavp name="C-VID-Start" />
+                <gavp name="C-VID-End" />
+            </grouped>
+        </avp>
+
+        <avp name="S-VID-Start" code="553" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="S-VID-End" code="554" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="C-VID-Start" code="555" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="C-VID-End" code="556" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="User-Priority-Range" code="557" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="Low-User-Priority" />
+                <gavp name="High-User-Priority" />
+            </grouped>
+        </avp>
+
+        <avp name="Low-User-Priority" code="558" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="High-User-Priority" code="559" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Time-Of-Day-Condition" code="560" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="Time-Of-Day-Start" />
+                <gavp name="Time-Of-Day-End" />
+                <gavp name="Day-Of-Week-Mask" />
+                <gavp name="Day-Of-Month-Mask" />
+                <gavp name="Month-Of-Year-Mask" />
+                <gavp name="Absolute-Start-Time" />
+                <gavp name="Absolute-End-Time" />
+                <gavp name="Timezone-Flag" />
+            </grouped>
+        </avp>
+
+        <avp name="Time-Of-Day-Start" code="561" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Time-Of-Day-End" code="562" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Day-Of-Week-Mask" code="563" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+            <enum name="SUNDAY" code="1" />
+            <enum name="MONDAY" code="2" />
+            <enum name="TUESDAY" code="4" />
+            <enum name="WEDNESDAY" code="8" />
+            <enum name="THURSDAY" code="16" />
+            <enum name="FRIDAY" code="32" />
+            <enum name="SATURDAY" code="64" />
+        </avp>
+
+        <avp name="Day-Of-Month-Mask" code="564" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Month-Of-Year-Mask" code="565" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+            <enum name="JANUARY" code="1" />
+            <enum name="FEBRUARY" code="2" />
+            <enum name="MARCH" code="4" />
+            <enum name="APRIL" code="8" />
+            <enum name="MAY" code="16" />
+            <enum name="JUNE" code="32" />
+            <enum name="JULY" code="64" />
+            <enum name="AUGUST" code="128" />
+            <enum name="SEPTEMBER" code="256" />
+            <enum name="OCTOBER" code="512" />
+            <enum name="NOVEMBER" code="1024" />
+            <enum name="DECEMBER" code="2048" />
+        </avp>
+
+        <avp name="Absolute-Start-Time" code="566" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Time" />
+        </avp>
+
+        <avp name="Absolute-Start-Fractional-Seconds" code="567" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Absolute-End-Time" code="568" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Time" />
+        </avp>
+
+        <avp name="Absolute-End-Fractional-Seconds" code="569" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="Timezone-Flag" code="570" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+            <enum name="UTC" code="0" />
+            <enum name="LOCAL" code="1" />
+            <enum name="OFFSET" code="2" />
+        </avp>
+
+        <avp name="Timezone-Offset" code="571" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Integer32" />
+        </avp>
+
+        <avp name="Treatment-Action" code="572" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+            <enum name="DROP" code="0" />
+            <enum name="SHAKE" code="1" />
+            <enum name="MARK" code="2" />
+            <enum name="PERMIT" code="3" />
+        </avp>
+
+        <avp name="QoS-Profile-Id" code="573" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Unsigned32" />
+        </avp>
+
+        <avp name="QoS-Profile-Template" code="574" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="Vendor-Id" />
+                <gavp name="QoS-Profile-Id" />
+            </grouped>
+        </avp>
+
+        <avp name="QoS-Semantics" code="575" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <type type-name="Enumerated" />
+            <enum name="QOS_DESIRED" code="0" />
+            <enum name="QOS_AVAILABLE" code="1" />
+            <enum name="QOS_DELIVERED" code="2" />
+            <enum name="MINIMUM_QOS" code="3" />
+            <enum name="QOS_AUTHORIZED" code="4" />
+        </avp>
+
+        <avp name="QoS-Parameters" code="576" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+            </grouped>
+        </avp>
+
+        <avp name="Excess-Treatment" code="577" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="Treatment-Action" />
+                <gavp name="QoS-Profile-Template" />
+                <gavp name="QoS-Parameters" />
+            </grouped>
+        </avp>
+
+        <avp name="QoS-Capability" code="578" vendor-bit="mustnot" mandatory="must" protected="may" may-encrypt="yes">
+            <!-- RFC 5777 -->
+            <grouped>
+                <gavp name="QoS-Profile-Template" />
+            </grouped>
+        </avp>
+
+    </base>
+
+
+    &tgpp;
+
+</dictionary>
