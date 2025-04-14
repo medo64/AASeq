@@ -1,0 +1,5 @@
+# Special floating number always use the same casing
+
+node nan
+node +inf
+node -inf

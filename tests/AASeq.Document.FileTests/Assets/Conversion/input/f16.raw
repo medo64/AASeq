@@ -1,0 +1,7 @@
+node1 (f16)42.1
+node2 (f16)"42.1"
+node3 (f16)-42.1
+node4 (f16)"-42.1"
+node5 (f16)"NAN"
+node6 (f16)"+INF"
+node7 (f16)"-INF"

@@ -1,0 +1,7 @@
+node1 (i32)-42
+node2 (i32)"-42"
+node3 (i32)0x2A
+node4 (i32)0b101010
+node5 (i32)"0x2A"
+node6 (i32)"0b101010"
+node7 42

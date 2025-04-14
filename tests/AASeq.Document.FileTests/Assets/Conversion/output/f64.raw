@@ -1,0 +1,11 @@
+node1 42.1
+node2 42.1
+node3 -42.1
+node4 -42.1
+node5 NaN
+node6 +Inf
+node7 -Inf
+node8 42.1
+node9 NaN
+node10 +Inf
+node11 -Inf

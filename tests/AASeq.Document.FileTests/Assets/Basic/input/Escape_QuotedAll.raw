@@ -1,0 +1,17 @@
+# All escapes for a simple quoted value
+
+node1 "\""
+node2 "\\"
+node3 "\0"
+node4 "\a"
+node5 "\b"
+node6 "\e"
+node7 "\f"
+node8 "\n"
+node9 "\r"
+node10 "\t"
+node11 "\v"
+node12 "\x41"
+node13 "\u0042"
+node14 "\U00000043"
+node15 "-\"\\\0\a\b\e\f\n\r\t\v\u0041\U00000042\x43-"

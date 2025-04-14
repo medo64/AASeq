@@ -1,0 +1,6 @@
+node1 (u8)42
+node2 (u8)"42"
+node3 (u8)0x2A
+node4 (u8)0b101010
+node5 (u8)"0x2A"
+node6 (u8)"0b101010"

@@ -1,0 +1,16 @@
+node1 """Hello World,
+        in "multiple" lines
+        or something"""
+
+node2 """Hello World,
+in "multiple" lines
+or something"""
+
+node3 """"Hello World,
+        in ""multiple"" lines
+        or something""""
+
+node4 """"""\x41
+            \u0042
+            \U00000043
+            """"""

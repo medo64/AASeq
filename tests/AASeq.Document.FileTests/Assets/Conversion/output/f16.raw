@@ -1,0 +1,7 @@
+node1 (f16)42.094
+node2 (f16)42.094
+node3 (f16)-42.094
+node4 (f16)-42.094
+node5 (f16)NaN
+node6 (f16)+Inf
+node7 (f16)-Inf

@@ -1,0 +1,4 @@
+node1 "Hello World,\nin \"multiple\" lines\nor something"
+node2 "Hello World,\nin \"multiple\" lines\nor something"
+node3 "Hello World,\nin \"\"multiple\"\" lines\nor something"
+node4 "A\nB\nC\n"

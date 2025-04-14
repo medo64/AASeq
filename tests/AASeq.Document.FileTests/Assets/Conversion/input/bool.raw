@@ -1,0 +1,14 @@
+node1 (bool)false
+node2 (bool)true
+
+node3 (bool)0
+node4 (bool)42
+
+node5 (bool)"0"
+node6 (bool)"53"
+
+node7 (bool)0b00
+node8 (bool)0b01
+
+node9 (bool)0x00
+node10 (bool)0x10

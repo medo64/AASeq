@@ -1,0 +1,4 @@
+# Duplicate property will override the existing one
+
+node1 prop=value prop=value2
+node2 prop=value Prop=value2

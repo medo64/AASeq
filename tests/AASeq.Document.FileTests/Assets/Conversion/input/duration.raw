@@ -1,0 +1,14 @@
+node1 (duration)"01:02:03"
+node2 (duration)"1:01:02:03"
+node3 (duration)"1:01:02:03.4564567"
+node4 (duration)"1d1h2m3s456ms456us700ns"
+node5 (duration)"1d 1h 2m 3s 456ms 456us 700ns"
+node6 (duration)"-1:01:02:03"
+node7 (duration)"-1:01:02:03.4564567"
+node8 (duration)"-1d1h2m3s456ms456us700ns"
+node9 (duration)"-1d 1h 2m 3s 456ms 456us 700ns"
+node10 (duration)10
+node11 (duration)"10"
+node12 (duration)10.5
+node13 (duration)"10.5 "
+node14 (duration)121

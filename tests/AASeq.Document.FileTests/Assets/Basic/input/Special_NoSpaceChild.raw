@@ -1,0 +1,23 @@
+# No space is needed to start a child
+
+node1{
+    child1; child2
+}
+node2 p=v{
+    child1; child2
+}
+node3 p="v"{
+    child1; child2
+}
+node4 p=v value{
+    child1; child2
+}
+node5 p=v "value"{
+    child1; child2
+}
+node6 value{
+    child1; child2
+}
+node7 "value"{
+    child1; child2
+}

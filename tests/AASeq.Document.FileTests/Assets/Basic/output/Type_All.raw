@@ -1,0 +1,26 @@
+node
+node (i8)42
+node (u8)42
+node (i16)42
+node (u16)42
+node 42
+node (u32)42
+node (i64)42
+node (u64)42
+node (i128)42
+node (u128)42
+node (f16)42.0
+node (f32)42.0
+node 42.0
+node (d128)42.0
+node (datetime)"1990-09-26T18:00:00+00:00"
+node (dateonly)"1990-09-26"
+node (timeonly)"18:00:00"
+node (duration)"1h 32m"
+node (ip)"127.0.0.1"
+node (regex)".*"
+node (uri)"https://example.com/"
+node (uuid)"8a8fe336-480f-48b8-b781-a7384016166b"
+node (hex)"48656c6c6f20576f726c64"
+node (hex)"48656c6c6f20576f726c64"
+node "Hello World"

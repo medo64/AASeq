@@ -1,0 +1,7 @@
+node1 (f32)42.1
+node2 (f32)"42.1"
+node3 (f32)-42.1
+node4 (f32)"-42.1"
+node5 (f32)"NAN"
+node6 (f32)"+INF"
+node7 (f32)"-INF"

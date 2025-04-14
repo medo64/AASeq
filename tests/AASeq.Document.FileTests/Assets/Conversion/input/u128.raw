@@ -1,0 +1,6 @@
+node1 (u128)42
+node2 (u128)"42"
+node3 (u128)0x2A
+node4 (u128)0b101010
+node5 (u128)"0x2A"
+node6 (u128)"0b101010"

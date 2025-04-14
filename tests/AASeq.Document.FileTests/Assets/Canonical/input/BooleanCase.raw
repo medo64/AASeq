@@ -1,0 +1,4 @@
+# Special boolean always use the same casing
+
+node FALSE
+node TRUE

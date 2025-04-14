@@ -1,0 +1,6 @@
+node1 (i64)-42
+node2 (i64)"-42"
+node3 (i64)0x2A
+node4 (i64)0b101010
+node5 (i64)"0x2A"
+node6 (i64)"0b101010"

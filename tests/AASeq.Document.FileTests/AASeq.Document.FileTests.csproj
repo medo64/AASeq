@@ -1,0 +1,24 @@
+<Project Sdk="MSTest.Sdk/3.7.3">
+
+  <PropertyGroup>
+    <AssemblyName>AASeq.Document.FileTests</AssemblyName>
+    <RootNamespace>Tests</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+    <Nullable>disable</Nullable>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets/**/**/*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/AASeq.Document/AASeq.Document.csproj" />
+  </ItemGroup>
+
+</Project>
