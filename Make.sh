@@ -320,6 +320,7 @@ make_run() {
 
     echo "${ANSI_MAGENTA}$(basename $PROJECT_ENTRYPOINT)${ANSI_RESET}"
     if [ "$PROJECT_OUTPUTTYPE" = "exe" ] || [ "$PROJECT_OUTPUTTYPE" = "winexe" ]; then
+        cd $( dirname "$SCRIPT_DIR/$PROJECT_ENTRYPOINT" )
         dotnet run                                       \
             -p:EnableNETAnalyzers=false                  \
             --project "$SCRIPT_DIR/$PROJECT_ENTRYPOINT"
