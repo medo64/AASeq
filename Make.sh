@@ -320,7 +320,9 @@ make_run() {
 
     echo "${ANSI_MAGENTA}$(basename $PROJECT_ENTRYPOINT)${ANSI_RESET}"
     if [ "$PROJECT_OUTPUTTYPE" = "exe" ] || [ "$PROJECT_OUTPUTTYPE" = "winexe" ]; then
-        dotnet run --project "$SCRIPT_DIR/$PROJECT_ENTRYPOINT"
+        dotnet run                                       \
+            -p:EnableNETAnalyzers=false                  \
+            --project "$SCRIPT_DIR/$PROJECT_ENTRYPOINT"
     else
         echo "${ANSI_RED}Nothing to run${ANSI_RESET}" >&2
         exit 113
@@ -343,10 +345,12 @@ make_test() {
         ANYTHING_DONE=1
         echo "${ANSI_MAGENTA}$(basename $PROJECT_FILE)${ANSI_RESET}"
 
-        dotnet test -p:TestingPlatformCaptureOutput=false \
-                    -l "console;verbosity=detailed"       \
-                    --verbosity detailed                  \
-                    "$PROJECT_FILE"                       || exit 113
+        dotnet test                                \
+            -p:TestingPlatformCaptureOutput=false  \
+            -p:EnableNETAnalyzers=false            \
+            -l "console;verbosity=detailed"        \
+            --verbosity detailed                   \
+            "$PROJECT_FILE"                       || exit 113
         echo
     done
 
@@ -373,7 +377,10 @@ make_benchmark() {
         echo "${ANSI_MAGENTA}$(basename $PROJECT_FILE)${ANSI_RESET}"
 
         cd "$( dirname "$PROJECT_FILE" )"
-        dotnet run --configuration "Release" --project "$PROJECT_FILE" || exit 113
+        dotnet run                       \
+            --configuration "Release"    \
+            -p:EnableNETAnalyzers=false  \
+            --project "$PROJECT_FILE"   || exit 113
         cd "$SCRIPT_DIR"
         echo
     done
@@ -419,7 +426,11 @@ make_debug() {
     echo "${ANSI_MAGENTA}$(basename $PROJECT_ENTRYPOINT)${ANSI_RESET}"
 
     mkdir -p "$SCRIPT_DIR/bin"
-    dotnet build "$SCRIPT_DIR/$PROJECT_ENTRYPOINT" --configuration Debug --output "$SCRIPT_DIR/bin"
+    dotnet build                           \
+        --configuration Debug              \
+        --output "$SCRIPT_DIR/bin"         \
+        -p:EnableNETAnalyzers=false        \
+        "$SCRIPT_DIR/$PROJECT_ENTRYPOINT" || exit 113
 }
 
 make_release() {
@@ -456,12 +467,13 @@ make_release() {
             PUBLISH_OUTPUT_DIR="$SCRIPT_DIR/bin/$RUNTIME"
         fi
 
-        dotnet publish "$SCRIPT_DIR/$PROJECT_ENTRYPOINT"                          \
-            --configuration Release                                               \
-            -p:AssemblyVersion=$ASSEMBLY_VERSION -p:FileVersion=$ASSEMBLY_VERSION \
-            -p:Version=$ASSEMBLY_VERSION+$GIT_HASH                                \
-            $PUBLISH_EXTRA_ARGS --output "$PUBLISH_OUTPUT_DIR"                    \
-        && echo "${ANSI_CYAN}$SCRIPT_DIR/bin${ANSI_RESET}"
+        dotnet publish "$SCRIPT_DIR/$PROJECT_ENTRYPOINT"                           \
+            --configuration Release                                                \
+            -p:AssemblyVersion=$ASSEMBLY_VERSION -p:FileVersion=$ASSEMBLY_VERSION  \
+            -p:Version=$ASSEMBLY_VERSION+$GIT_HASH                                 \
+            -p:EnableNETAnalyzers=false                                            \
+            $PUBLISH_EXTRA_ARGS --output "$PUBLISH_OUTPUT_DIR"                     \
+        && echo "${ANSI_CYAN}$SCRIPT_DIR/bin${ANSI_RESET}"                        || exit 113
         echo
     done
 }
@@ -480,22 +492,22 @@ make_package() {
         echo "${ANSI_MAGENTA}docker${ANSI_RESET}"
 
         if [ "$GIT_VERSION" != "" ]; then
-            docker build \
-                -t $PACKAGE_LINUX_DOCKER:$GIT_VERSION \
-                -t $PACKAGE_LINUX_DOCKER:latest \
-                -t $PACKAGE_LINUX_DOCKER:unstable \
-                -f "$DOCKER_FILE" .  || exit 113
+            docker build                               \
+                -t $PACKAGE_LINUX_DOCKER:$GIT_VERSION  \
+                -t $PACKAGE_LINUX_DOCKER:latest        \
+                -t $PACKAGE_LINUX_DOCKER:unstable      \
+                -f "$DOCKER_FILE" .                   || exit 113
             echo "${ANSI_CYAN}$PACKAGE_LINUX_DOCKER:$GIT_VERSION $PACKAGE_LINUX_DOCKER:latest $PACKAGE_LINUX_DOCKER:unstable${ANSI_RESET}"
 
             mkdir -p "$SCRIPT_DIR/dist"
-            docker save \
-                $PACKAGE_LINUX_DOCKER:$GIT_VERSION \
+            docker save                                                 \
+                $PACKAGE_LINUX_DOCKER:$GIT_VERSION                      \
                 | gzip > ./dist/$PACKAGE_LINUX_DOCKER.$GIT_VERSION.tgz || exit 113
             echo "${ANSI_CYAN}dist/$PACKAGE_LINUX_DOCKER-$GIT_VERSION.tgz${ANSI_RESET}"
         else
-            docker build \
-                -t $PACKAGE_LINUX_DOCKER:unstable \
-                -f "$DOCKER_FILE" . || exit 113
+            docker build                           \
+                -t $PACKAGE_LINUX_DOCKER:unstable  \
+                -f "$DOCKER_FILE" .               || exit 113
             echo "${ANSI_CYAN}$PACKAGE_LINUX_DOCKER:unstable${ANSI_RESET}"
         fi
         echo
@@ -610,16 +622,16 @@ make_package() {
         echo "${ANSI_MAGENTA}nuget${ANSI_RESET}"
 
         mkdir -p "$SCRIPT_DIR/build/nuget"
-        dotnet pack                            \
-            "$PACKAGE_NUGET_ENTRYPOINT"        \
-            --configuration "Release"          \
-            --force                            \
-            --include-source                   \
-            --output "./build/nuget/"          \
-            --verbosity "minimal"              \
-            --p:PackageId=$PACKAGE_NUGET_ID    \
-            --p:Version=$PACKAGE_NUGET_VERSION \
-            || return 1
+        dotnet pack                             \
+            "$PACKAGE_NUGET_ENTRYPOINT"         \
+            --configuration "Release"           \
+            --force                             \
+            --include-source                    \
+            --output "./build/nuget/"           \
+            --p:PackageId=$PACKAGE_NUGET_ID     \
+            --p:Version=$PACKAGE_NUGET_VERSION  \
+            --p:EnableNETAnalyzers=false        \
+            --verbosity "minimal"              || return 1
 
         mkdir -p "$SCRIPT_DIR/dist/"
 
@@ -651,27 +663,27 @@ make_publish() {
         echo "${ANSI_MAGENTA}docker${ANSI_RESET}"
 
         if [ "$GIT_VERSION" != "" ]; then
-            docker tag \
-                $PACKAGE_LINUX_DOCKER:$GIT_VERSION \
+            docker tag                                            \
+                $PACKAGE_LINUX_DOCKER:$GIT_VERSION                \
                 $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:$GIT_VERSION || exit 113
-            docker push \
+            docker push                                           \
                 $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:$GIT_VERSION || exit 113
             echo "${ANSI_CYAN}$DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:$GIT_VERSION${ANSI_RESET}"
             echo
 
-            docker tag \
-                $PACKAGE_LINUX_DOCKER:latest \
+            docker tag                                      \
+                $PACKAGE_LINUX_DOCKER:latest                \
                 $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:latest || exit 113
-            docker push \
+            docker push                                     \
                 $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:latest || exit 113
             echo "${ANSI_CYAN}$DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:latest${ANSI_RESET}"
             echo
         fi
 
-        docker tag \
-            $PACKAGE_LINUX_DOCKER:unstable \
+        docker tag                                        \
+            $PACKAGE_LINUX_DOCKER:unstable                \
             $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:unstable || exit 113
-        docker push \
+        docker push                                       \
             $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:unstable || exit 113
             echo "${ANSI_CYAN}$DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:unstable${ANSI_RESET}"
         echo
@@ -720,11 +732,11 @@ make_publish() {
             echo "${ANSI_RED}Not pushing version 0.0.0!${ANSI_RESET}" >&2
             return 1;
         fi
-        dotnet nuget push "./dist/$PACKAGE_NUGET_ID.$PACKAGE_NUGET_VERSION.nupkg" \
-                            --source "https://api.nuget.org/v3/index.json" \
-                            --api-key "$PUBLISH_NUGET_KEY" \
-                            --symbol-api-key "$PUBLISH_NUGET_KEY" \
-                            || return 1
+        dotnet nuget push   \
+            --source "https://api.nuget.org/v3/index.json"           \
+            --api-key "$PUBLISH_NUGET_KEY"                           \
+            --symbol-api-key "$PUBLISH_NUGET_KEY"                    \
+            "./dist/$PACKAGE_NUGET_ID.$PACKAGE_NUGET_VERSION.nupkg" || return 1
         echo "${ANSI_GREEN}Sent ${ANSI_CYAN}dist/$PACKAGE_NUGET_ID-$PACKAGE_NUGET_VERSION.nupkg${ANSI_RESET}"
         echo
     fi
