@@ -13,10 +13,9 @@
 
 Ping  >Local_IPv4 {
     Size         64
-    Timeout      (duration)1000
+    Timeout      (duration)1
     TTL          (duration)10
     DontFragment true
-    Data         Test
 }
 Reply <Local_IPv4 {
     Size   64

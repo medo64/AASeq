@@ -62,11 +62,11 @@ public sealed partial class Engine {
                             var sw = Stopwatch.StartNew();
                             try {
                                 commandAction.Instance.TryExecute(actionNode.Nodes, cts.Token);  // TODO: process data instead of clone
-                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
                             } catch (Exception ex) {
-                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
-                                actionNode.Properties.Add("Exception", ex.Message);
+                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("exception", ex.Message);
                                 OnActionError(flowIndex, actionIndex, action, actionNode);
                             }
 
@@ -86,11 +86,11 @@ public sealed partial class Engine {
                             var sw = Stopwatch.StartNew();
                             try {
                                 messageOutAction.DestinationInstance.TrySend(id, messageOutAction.MessageName, actionNode.Nodes, cts.Token);  // TODO: process data instead of clone
-                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
                             } catch (Exception ex) {
-                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
-                                actionNode.Properties.Add("Exception", ex.Message);
+                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("exception", ex.Message);
                                 OnActionError(flowIndex, actionIndex, action, actionNode);
                             }
 
@@ -112,16 +112,16 @@ public sealed partial class Engine {
                                 if (messageInAction.SourceInstance.TryReceive(id, out var messageName, out var nodes, cts.Token)) {
                                     sw.Stop();
                                     var responseNode = new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes);
-                                    responseNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                    responseNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                     OnActionDone(flowIndex, actionIndex, action, responseNode);
                                 } else {
-                                    actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                    actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                     actionNode.Nodes.Insert(0, new AASeqNode("*Error*", "No response"));
                                     OnActionError(flowIndex, actionIndex, action, actionNode);
                                 }
                             } catch (Exception ex) {
-                                actionNode.Properties.Add("Elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
-                                actionNode.Properties.Add("Exception", ex.Message);
+                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("exception", ex.Message);
                                 OnActionError(flowIndex, actionIndex, action, actionNode);
                             }
 

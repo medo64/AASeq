@@ -40,6 +40,7 @@ internal sealed class FlowMessageIn : IFlowAction {
     AASeqNode IFlowAction.DefinitionNode {
         get {
             var definitionNode = new AASeqNode(MessageName, "<" + SourceName);
+            if (MatchId is not null) { definitionNode.Properties.Add("match", MatchId); }
             foreach (var dataNode in TemplateData) {
                 definitionNode.Nodes.Add(dataNode.Clone());
             }

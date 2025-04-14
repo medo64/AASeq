@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AASeq.Document\AASeq.Document.csproj" />
-    <ProjectReference Include="..\AASeq.Plugin\AASeq.Plugin.csproj" />
+    <ProjectReference Include="../AASeq.Document/AASeq.Document.csproj" />
+    <ProjectReference Include="../AASeq.Plugin/AASeq.Plugin.csproj" />
   </ItemGroup>
 
 </Project>

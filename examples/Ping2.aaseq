@@ -3,7 +3,7 @@
 @Me
 
 @Local_IPv4 Ping {
-    Host (ip)localhost
+    Host localhost
 }
 
 @Local_IPv4_Alternate Ping {
@@ -15,7 +15,7 @@
 }
 
 @RemoteEP Ping {
-    Host "192.168.200.100"
+    Host "8.8.8.8"
 }
 
 

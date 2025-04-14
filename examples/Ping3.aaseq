@@ -1,7 +1,7 @@
 #!/usr/bin/env aaseq
 
 @Remote Ping {
-    Host (ip)localhost
+    Host localhost
 }
 
 

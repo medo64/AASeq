@@ -1,5 +1,6 @@
 namespace AASeq.Plugins.Standard;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
@@ -18,7 +19,7 @@ internal sealed class Echo : IEndpointPlugin {
 
 
     private readonly int DelayMS;
-    private readonly Dictionary<Guid, (string, AASeqNodes)> Storage = [];
+    private readonly ConcurrentDictionary<Guid, (string, AASeqNodes)> Storage = [];
 
 
     /// <summary>
@@ -29,7 +30,7 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
-        Storage.Add(id, (messageName, data));
+        Storage[id] = (messageName, data);
         return true;
     }
 
@@ -41,8 +42,7 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
-        if (Storage.TryGetValue(id, out var value)) {
-            Storage.Remove(id);
+        if (Storage.Remove(id, out var value)) {
             messageName = value.Item1;
             data = value.Item2;
             if (DelayMS > 0) { Thread.Sleep(DelayMS); }
