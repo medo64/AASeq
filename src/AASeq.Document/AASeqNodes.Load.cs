@@ -688,7 +688,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                     } else if (Double.TryParse(valueText, NumberStyles.Float, CultureInfo.InvariantCulture, out var valueDouble)) {
                         value = valueDouble; return true;
                     } else {  // cannot parse
-                        value = null; return false;
+                        value = valueText; return true;  // not strictly correct, but return as string even if it looks as a number
                     }
                 } else if ((valueText[0] is '0') && (valueText.Length > 1) && (valueText[1] is 'b' or 'B')) {  // binary
                     var valueBin = valueText[2..].Replace("_", "", StringComparison.Ordinal);
@@ -722,7 +722,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                     } else if (Double.TryParse(valueText, NumberStyles.Float, CultureInfo.InvariantCulture, out var valueDouble)) {
                         value = valueDouble; return true;
                     } else {  // cannot parse
-                        value = null; return false;
+                        value = valueText; return true;  // not strictly correct, but return as string even if it looks as a number
                     }
                 }
             }
