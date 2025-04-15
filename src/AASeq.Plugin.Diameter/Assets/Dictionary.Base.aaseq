@@ -1,0 +1,919 @@
+DiameterDictionary {
+
+    Application Diameter Common Messages id=0                               # RFC 3588
+    Application NASREQ                   id=1                               # RFC 3588
+    Application Mobile-IP                id=2                               # RFC 3588
+    Application Diameter Base Accounting id=3                               # RFC 3588
+    Application Relay                    id=4294967295                      # RFC 3588
+
+    Command Capabilities-Exchange code=257                                  # RFC 3588
+    Command Re-Auth               code=258                                  # RFC 3588
+    Command AA                    code=265                                  # RFC 4005
+    Command Accounting            code=271                                  # RFC 3588
+    Command Credit-Control        code=272                                  # RFC 4006
+    Command Abort-Session         code=274                                  # RFC 3588
+    Command Session-Termination   code=275                                  # RFC 3588
+    Command Device-Watchdog       code=280                                  # RFC 3588
+    Command Disconnect-Peer       code=282                                  # RFC 3588
+
+    Avp User-Name                   code=1 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String      # RFC 3588
+    Avp User-Password               code=2 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString     # RFC 4005
+    Avp NAS-IP-Address              code=4 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString     # RFC 4005
+    Avp NAS-Port                    code=5 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32      # RFC 4005
+    Avp Service-Type                code=6 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {    # RFC 4005
+        Enum LOGIN                   code=1
+        Enum FRAMED                  code=2
+        Enum CALLBACK_LOGIN          code=3
+        Enum CALLBACK_FRAMED         code=4
+        Enum OUTBOUND                code=5
+        Enum ADMINISTRATIVE          code=6
+        Enum NAS_PROMPT              code=7
+        Enum AUTHENTICATE_ONLY       code=8
+        Enum CALLBACK_NAS_PROMPT     code=9
+        Enum CALL_CHECK              code=10
+        Enum CALLBACK_ADMINISTRATIVE code=11
+        Enum VOICE                   code=12
+        Enum FAX                     code=13
+        Enum MODEM_RELAY             code=14
+        Enum IAPP_AP_REGISTER        code=15
+        Enum IAPP_AP_CHECK           code=16
+        Enum AUTHORIZE_ONLY          code=17
+    }
+    Avp Framed-Protocol             code=7 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4005
+        Enum PPP               code=1
+        Enum SLIP              code=2
+        Enum ARAP              code=3
+        Enum GANDALF_SLML      code=4
+        Enum XYLOGICS_IPX_SLIP code=5
+        Enum X75_SYNC          code=6
+    }
+    Avp Framed-IP-Address           code=8 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Framed-IP-Netmask           code=9 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Framed-Routing              code=10 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4005
+        Enum NONE                       code=0
+        Enum SEND_ROUTING_PACKETS       code=1
+        Enum LISTEN_FOR_ROUTING_PACKETS code=2
+        Enum SEND_AND_LISTEN            code=3
+    }
+    Avp Filter-Id                   code=11 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String # RFC 4005
+    Avp Framed-MTU                  code=12 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32 # RFC 4005
+    Avp Framed-Compression          code=13 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4005
+        Enum NONE             code=0
+        Enum VJ_TCP_IP_HEADER code=1
+        Enum IPX_HEADER       code=2
+        Enum STAC_LZS         code=3
+    }
+    Avp Login-IP-Host code=14 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString  # RFC 4005
+    Avp Login-Service code=15 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum TELNET          code=0
+        Enum RLOGIN          code=1
+        Enum TCP_CLEAR       code=2
+        Enum PORTMASTER      code=3
+        Enum LAT             code=4
+        Enum X25_PAD         code=5
+        Enum X25_T3POS       code=6
+        Enum TCP_CLEAR_QUIET code=8
+    }
+    Avp Login-TCP-Port              code=16 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=Unsigned32      # RFC 4005
+    Avp Reply-Message               code=18 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=UTF8String      # RFC 4005
+    Avp Callback-Number             code=19 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=UTF8String      # RFC 4005
+    Avp Callback-Id                 code=20 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=UTF8String      # RFC 4005
+    Avp Framed-Route                code=22 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=UTF8String      # RFC 4005
+    Avp Framed-IPX-Network          code=23 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=UTF8String      # RFC 4005
+    Avp State                       code=24 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=OctetString     # RFC 4005
+    Avp Class                       code=25 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=OctetString     # RFC 3588
+    Avp Session-Timeout             code=27 vendor=mustnot mandatory=must protected=may     mayEncrypt=no  type=Unsigned32      # RFC 3588
+    Avp Idle-Timeout                code=28 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=Unsigned32      # RFC 4005
+    Avp Called-Station-Id           code=30 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=UTF8String      # RFC 4005
+    Avp Calling-Station-Id          code=31 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=UTF8String      # RFC 4005
+    Avp NAS-Identifier              code=32 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=UTF8String      # RFC 4005
+    Avp Proxy-State                 code=33 vendor=mustnot mandatory=must protected=mustnot mayEncrypt=no  type=OctetString     # RFC 3588
+    Avp Login-LAT-Service           code=34 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=OctetString     # RFC 4005
+    Avp Login-LAT-Node              code=35 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=OctetString     # RFC 4005
+    Avp Login-LAT-Group             code=36 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=OctetString     # RFC 4005
+    Avp Framed-Appletalk-Link       code=37 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=Unsigned32      # RFC 4005
+    Avp Framed-Appletalk-Network    code=38 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=Unsigned32      # RFC 4005
+    Avp Framed-Appletalk-Zone       code=39 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=OctetString     # RFC 4005
+    Avp Acct-Delay-Time             code=41 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=Unsigned32      # RFC 4005
+    Avp Accounting-Session-Id       code=44 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=OctetString     # RFC 3588
+    Avp Acct-Authentic              code=45 vendor=mustnot mandatory=must protected=may     mayEncrypt=yes type=Enumerated {    # RFC 4005
+        Enum RADIUS   code=1
+        Enum LOCAL    code=2
+        Enum REMOTE   code=3
+        Enum DIAMETER code=4
+    }
+    Avp Acct-Session-Time           code=46 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 4005
+    Avp Acct-Multi-Session-Id       code=50 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String # RFC 3588
+    Avp Acct-Link-Count             code=51 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32 # RFC 4005
+    Avp Event-Timestamp code=55 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Time  # RFC 3588
+    Avp CHAP-Challenge code=60 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString  # RFC 4005
+    Avp NAS-Port-Type code=61 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum ASYNC code=0
+        Enum SYNC code=1
+        Enum ISDN_SYNC code=2
+        Enum ISDN_ASYNC_V120 code=3
+        Enum ISDN_ASYNC_V110 code=4
+        Enum VIRTUAL code=5
+        Enum PIAFS code=6
+        Enum HDLC_CLEAR_CHANNEL code=7
+        Enum X25 code=8
+        Enum X7 5 code=9
+        Enum G3_FAX code=10
+        Enum SDSL code=11
+        Enum ADSL-CAP code=12
+        Enum ADSL-DMT code=13
+        Enum IDSL code=14
+        Enum ETHERNET code=15
+        Enum XDSL code=16
+        Enum CABLE code=17
+        Enum WIRELESS_OTHER code=18
+        Enum WIRELESS_IEEE80211 code=19
+        Enum TOKEN_RING code=20
+        Enum FDDI code=21
+        Enum WIRELESS_CDMA2000 code=22
+        Enum WIRELESS_UMTS code=23
+        Enum WIRELESS_1X_EV code=24
+        Enum IAPP code=25
+    }
+    Avp Port-Limit code=62 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 4005
+    Avp Login-LAT-Port code=63 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Tunnel-Type code=64 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum PPTP code=1
+        Enum L2F code=2
+        Enum L2TP code=3
+        Enum ATMP code=4
+        Enum VTP code=5
+        Enum AH code=6
+        Enum IP_IP code=7
+        Enum MIN_IP_IP code=8
+        Enum ESP code=9
+        Enum GRE code=10
+        Enum DVS code=11
+        Enum IP_IN_IP code=12
+        Enum VLAN code=13
+    }
+    Avp Tunnel-Medium-Type code=65 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum IPV4 code=1
+        Enum IPV6 code=2
+        Enum NSAP code=3
+        Enum HDLC code=4
+        Enum BBN_1822 code=5
+        Enum 802 code=6
+        Enum E163 code=7
+        Enum E164 code=8
+        Enum F69 code=9
+        Enum X121 code=10
+        Enum IPX code=11
+        Enum APPLETALK code=12
+        Enum DECNET_IV code=13
+        Enum BANYAN_VINES code=14
+        Enum E164_NSAP code=15
+    }
+    Avp Tunnel-Client-Endpoint code=66 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String   # RFC 4005
+    Avp Tunnel-Server-Endpoint code=67 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String   # RFC 4005
+    Avp Acct-Tunnel-Connection code=68 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Tunnel-Password code=69 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp ARAP-Password code=70 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp ARAP-Features code=71 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp ARAP-Zone-Access code=72 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum TELNET code=0
+        Enum RLOGIN code=1
+        Enum TCP_CLEAR code=2
+        Enum PORTMASTER code=3
+        Enum LAT code=4
+        Enum X25_PAD code=5
+        Enum X25_T3POS code=6
+        Enum TCP_CLEAR_QUIET code=8
+    }
+    Avp ARAP-Security code=73 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 4005
+    Avp ARAP-Security-Data code=74 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Password-Retry code=75 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 4005
+    Avp Prompt code=76 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum NO_ECHO code=0
+        Enum ECHO code=1
+    }
+    Avp Connect-Info code=77 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String   # RFC 4005
+    Avp Configuration-Token code=78 vendor=mustnot mandatory=must protected=mustnot mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Tunnel-Private-Group-Id code=81 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Tunnel-Assignment-Id code=82 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Tunnel-Preference code=83 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 4005
+    Avp ARAP-Challenge-Response code=84 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Acct-Interim-Interval code=85 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 3588
+    Avp Acct-Tunnel-Packets-Lost code=86 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 4005
+    Avp NAS-Port-Id code=87 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String   # RFC 4005
+    Avp Framed-Pool code=88 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Tunnel-Client-Auth-Id code=90 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String   # RFC 4005
+    Avp Tunnel-Server-Auth-Id code=91 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String   # RFC 4005
+    Avp Originating-Line-Info code=94 vendor=mustnot mandatory=may protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp NAS-IPv6-Address code=95 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Framed-Interface-Id code=96 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64   # RFC 4005
+    Avp Framed-IPv6-Prefix code=97 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Login-IPv6-Host code=98 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Framed-IPv6-Route code=99 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String   # RFC 4005
+    Avp Framed-IPv6-Pool code=100 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Host-IP-Address code=257 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Address # RFC 3588
+    Avp Auth-Application-Id code=258 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32  # RFC 3588
+    Avp Acct-Application-Id code=259 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32 # RFC 3588
+    Avp Vendor-Specific-Application-Id code=260 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Grouped {  # RFC 3588
+        Avp Vendor-Id
+        Avp Auth-Application-Id
+        Avp Acct-Application-Id
+    }
+    Avp Redirect-Host-Usage code=261 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Enumerated { # RFC 3588
+        Enum DONT_CACHE code=0
+        Enum ALL_SESSION code=1
+        Enum ALL_REALM code=2
+        Enum REALM_AND_APPLICATION code=3
+        Enum ALL_APPLICATION code=4
+        Enum ALL_HOST code=5
+        Enum ALL_USER code=6
+    }
+    Avp Redirect-Max-Cache-Time code=262 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32   # RFC 3588
+    Avp Session-Id code=263 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String   # RFC 3588
+    Avp Origin-Host code=264 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=DiameterIdentity   # RFC 3588
+    Avp Supported-Vendor-Id code=265 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32   # RFC 3588
+    Avp Vendor-Id code=266 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32   # RFC 3588
+    Avp Firmware-Revision code=267 vendor=mustnot mandatory=mustnot protected=mustnot mayEncrypt=no type=Unsigned32   # RFC 3588
+    Avp Result-Code code=268 vendor=mustnot mandatory=must protected=mustnot mayEncrypt=no type=Enumerated {  # RFC 3588
+        Enum DIAMETER_MULTI_ROUND_AUTH code=1001
+        Enum DIAMETER_SUCCESS code=2001
+        Enum DIAMETER_LIMITED_SUCCESS code=2002
+        Enum DIAMETER_COMMAND_UNSUPPORTED code=3001
+        Enum DIAMETER_UNABLE_TO_DELIVER code=3002
+        Enum DIAMETER_REALM_NOT_SERVED code=3003
+        Enum DIAMETER_TOO_BUSY code=3004
+        Enum DIAMETER_LOOP_DETECTED code=3005
+        Enum DIAMETER_REDIRECT_INDICATION code=3006
+        Enum DIAMETER_APPLICATION_UNSUPPORTED code=3007
+        Enum DIAMETER_INVALID_HDR_BITS code=3008
+        Enum DIAMETER_INVALID_AVP_BITS code=3009
+        Enum DIAMETER_UNKNOWN_PEER code=3010
+        Enum DIAMETER_AUTHENTICATION_REJECTED code=4001
+        Enum DIAMETER_OUT_OF_SPACE code=4002
+        Enum ELECTION_LOST code=4003
+        Enum DIAMETER_END_USER_SERVICE_DENIED code=4010   # RFC 4006
+        Enum DIAMETER_CREDIT_CONTROL_NOT_APPLICABLE code=4011   # RFC 4006
+        Enum DIAMETER_CREDIT_LIMIT_REACHED code=4012  # RFC 4006
+        Enum DIAMETER_AVP_UNSUPPORTED code=5001
+        Enum DIAMETER_UNKNOWN_SESSION_ID code=5002
+        Enum DIAMETER_AUTHORIZATION_REJECTED code=5003
+        Enum DIAMETER_INVALID_AVP_VALUE code=5004
+        Enum DIAMETER_MISSING_AVP code=5005
+        Enum DIAMETER_RESOURCES_EXCEEDED code=5006
+        Enum DIAMETER_CONTRADICTING_AVPS code=5007
+        Enum DIAMETER_AVP_NOT_ALLOWED code=5008
+        Enum DIAMETER_AVP_OCCURS_TOO_MANY_TIMES code=5009
+        Enum DIAMETER_NO_COMMON_APPLICATION code=5010
+        Enum DIAMETER_UNSUPPORTED_VERSION code=5011
+        Enum DIAMETER_UNABLE_TO_COMPLY code=5012
+        Enum DIAMETER_INVALID_BIT_IN_HEADER code=5013
+        Enum DIAMETER_INVALID_AVP_LENGTH code=5014
+        Enum DIAMETER_INVALID_MESSAGE_LENGTH code=5015
+        Enum DIAMETER_INVALID_AVP_BIT_COMBO code=5016
+        Enum DIAMETER_NO_COMMON_SECURITY code=5017
+        Enum DIAMETER_USER_UNKNOWN code=5030   # RFC 4006
+        Enum DIAMETER_RATING_FAILED code=5031   # RFC 4006
+    }
+    Avp Product-Name code=269 vendor=mustnot mandatory=mustnot protected=mustnot mayEncrypt=no type=UTF8String   # RFC 3588
+    Avp Session-Binding code=270 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32 {  # RFC 3588
+        Bitmask RE_AUTH code=1
+        Bitmask STR code=2
+        Bitmask ACCOUNTING code=4
+    }
+    Avp Session-Server-Failover code=271 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 3588
+        Enum REFUSE_SERVICE code=0
+        Enum TRY_AGAIN code=1
+        Enum ALLOW_SERVICE code=2
+        Enum TRY_AGAIN_ALLOW_SERVICE code=3
+    }
+    Avp Multi-Round-Time-Out code=272 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 3588
+    Avp Disconnect-Cause code=273 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Enumerated {  # RFC 3588
+        Enum REBOOTING code=0
+        Enum BUSY code=1
+        Enum DO_NOT_WANT_TO_TALK_TO_YOU code=2
+    }
+    Avp Auth-Request-Type code=274 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Enumerated {   # RFC 3588
+        Enum AUTHENTICATE_ONLY code=1
+        Enum AUTHORIZE_ONLY code=2
+        Enum AUTHORIZE_AUTHENTICATE code=3
+    }
+    Avp Auth-Grace-Period code=276 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32   # RFC 3588
+    Avp Auth-Session-State code=277 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Enumerated {   # RFC 3588
+        Enum STATE_MAINTAINED code=0
+        Enum NO_STATE_MAINTAINED code=1
+    }
+    Avp Failed-AVP code=279 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Grouped {  # RFC 3588
+    }
+    Avp Origin-State-Id code=278 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32   # RFC 3588
+    Avp Proxy-Host code=280 vendor=mustnot mandatory=must protected=mustnot mayEncrypt=no type=DiameterIdentity   # RFC 3588
+    Avp Error-Message code=281 vendor=mustnot mandatory=mustnot protected=may mayEncrypt=no type=UTF8String   # RFC 3588
+    Avp Route-Record code=282 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=DiameterIdentity   # RFC 3588
+    Avp Destination-Realm code=283 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=DiameterIdentity   # RFC 3588
+    Avp Proxy-Info code=284 vendor=mustnot mandatory=must protected=mustnot mayEncrypt=no type=Grouped {  # RFC 3588
+        Avp Proxy-Host
+        Avp Proxy-State
+    }
+    Avp Re-Auth-Request-Type code=285 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Enumerated {   # RFC 3588
+        Enum AUTHORIZE_ONLY code=0
+        Enum AUTHORIZE_AUTHENTICATE code=1
+    }
+    Avp Accounting-Sub-Session-Id code=287 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64   # RFC 3588
+    Avp Authorization-Lifetime code=291 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32   # RFC 3588
+    Avp Redirect-Host code=292 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=DiameterURI   # RFC 3588
+    Avp Destination-Host code=293 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=DiameterIdentity   # RFC 3588
+    Avp Error-Reporting-Host code=294 vendor=mustnot mandatory=mustnot protected=may mayEncrypt=no type=DiameterIdentity   # RFC 3588
+    Avp Termination-Cause code=295 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Enumerated {  # RFC 3588
+        Enum DIAMETER_LOGOUT code=1
+        Enum DIAMETER_SERVICE_NOT_PROVIDED code=2
+        Enum DIAMETER_BAD_ANSWER code=3
+        Enum DIAMETER_ADMINISTRATIVE code=4
+        Enum DIAMETER_LINK_BROKEN code=5
+        Enum DIAMETER_AUTH_EXPIRED code=6
+        Enum DIAMETER_USER_MOVED code=7
+        Enum DIAMETER_SESSION_TIMEOUT code=8
+        Enum USER_REQUEST code=11   # RFC 4006
+        Enum LOST_CARRIER code=12   # RFC 4006
+        Enum LOST_SERVICE code=13   # RFC 4006
+        Enum IDLE_TIMEOUT code=14   # RFC 4006
+        Enum SESSION_TIMEOUT code=15   # RFC 4006
+        Enum ADMIN_RESET code=16   # RFC 4006
+        Enum ADMIN_REBOOT code=17   # RFC 4006
+        Enum PORT_ERROR code=18   # RFC 4006
+        Enum NAS_ERROR code=19   # RFC 4006
+        Enum NAS_REQUEST code=20   # RFC 4006
+        Enum NAS_REBOOT code=21   # RFC 4006
+        Enum PORT_UNNEEDED code=22   # RFC 4006
+        Enum PORT_PREEMPTED code=23   # RFC 4006
+        Enum PORT_SUSPENDED code=24   # RFC 4006
+        Enum SERVICE_UNAVAILABLE code=25   # RFC 4006
+        Enum CALLBACK code=26   # RFC 4006
+        Enum USER_ERROR code=27   # RFC 4006
+        Enum HOST_REQUEST code=28   # RFC 4006
+        Enum SUPPLICANT_RESTART code=29   # RFC 4006
+        Enum REAUTHENTICATION_FAILURE code=30   # RFC 4006
+        Enum PORT_REINIT code=31   # RFC 4006
+        Enum PORT_DISABLED code=32   # RFC 4006
+    }
+    Avp Origin-Realm code=296 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=DiameterIdentity   # RFC 3588
+    Avp Experimental-Result code=297 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Grouped { # RFC 3588
+        Avp Vendor-Id
+        Avp Experimental-Result-Code
+    }
+    Avp Experimental-Result-Code code=298 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Unsigned32 {  # RFC 3588
+        Enum DIAMETER_FIRST_REGISTRATION code=2001   # 3GPP TS 29.229
+        Enum DIAMETER_SUBSEQUENT_REGISTRATION  code=2002   # 3GPP TS 29.229
+        Enum DIAMETER_UNREGISTERED_SERVICE code=2003   # 3GPP TS 29.229
+        Enum DIAMETER_SUCCESS_SERVER_NAME_NOT_STORED code=2004   # 3GPP TS 29.229
+        Enum DIAMETER_PDP_CONTEXT_DELETION_INDICATION code=2021   # 3GPP TS 29.061
+        Enum DIAMETER_USER_DATA_NOT_AVAILABLE code=4100   # 3GPP TS 29.329
+        Enum DIAMETER_PRIOR_UPDATE_IN_PROGRESS code=4101   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_OUT_OF_RESOURCES code=4121   # 3GPP TS 29.061
+        Enum DIAMETER_PCC_BEARER_EVENT code=4141   # 3GPP TS 29.212
+        Enum DIAMETER_BEARER_EVENT code=4142   # 3GPP TS 29.212
+        Enum DIAMETER_AUTHENTICATION_DATA_UNAVAILABLE code=4181   # 3GPP TS 32.272
+        Enum DIAMETER_ERROR_ABSENT_USER code=4201   # 3GPP TS 29.173
+        Enum DIAMETER_ERROR_UNREACHABLE_USER code=4221   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_SUSPENDED_USER code=4222   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_DETACHED_USER code=4223   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_POSITIONING_DENIED code=4224   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_POSITIONING_FAILED code=4225   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_UNKNOWN_UNREACHABLE LCS_CLIENT code=4226   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_USER_UNKNOWN code=5001   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_IDENTITIES_DONT_MATCH code=5002   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_IDENTITY_NOT_REGISTERED code=5003   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_ROAMING_NOT_ALLOWED code=5004   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_IDENTITY_ALREADY_REGISTERED code=5005   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_AUTH_SCHEME_NOT_SUPPORTED code=5006   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_IN_ASSIGNMENT_TYPE code=5007   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_TOO_MUCH_DATA code=5008   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_NOT_SUPPORTED_USER_DATA code=5009   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_FEATURE_UNSUPPORTED code=5011   # 3GPP TS 29.229
+        Enum DIAMETER_ERROR_USER_NO_WLAN_SUBSCRIPTION code=5041   # 3GPP TS 29.234
+        Enum DIAMETER_ERROR_W_APN_UNUSED_BY_USER code=5042   # 3GPP TS 29.234
+        Enum DIAMETER_ERROR_NO_ACCESS_INDEPENDENT_SUBSCRIPTION code=5043   # 3GPP TS 29.234
+        Enum DIAMETER_ERROR_USER_NO_W_APN_SUBSCRIPTION code=5044   # 3GPP TS 29.234
+        Enum DIAMETER_ERROR_UNSUITABLE_NETWORK code=5045   # 3GPP TS 29.234
+        Enum INVALID_SERVICE_INFORMATION code=5061   # 3GPP TS 29.209
+        Enum FILTER_RESTRICTIONS code=5062   # 3GPP TS 29.211
+        Enum DIAMETER_ERROR_USER_DATA_NOT_RECOGNIZED code=5100   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_OPERATION_NOT_ALLOWED code=5101   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_USER_DATA_CANNOT_BE_READ code=5102   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_USER_DATA_CANNOT_BE_MODIFIED code=5103   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_USER_DATA_CANNOT_BE_NOTIFIED code=5104   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_TRANSPARENT_DATA_OUT_OF_SYNC code=5105   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_SUBS_DATA_ABSENT code=5106   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_NO_SUBSCRIPTION_TO_DATA code=5107   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_DSAI_NOT_AVAILABLE code=5108   # 3GPP TS 29.329
+        Enum DIAMETER_ERROR_START_INDICATION code=5120   # 3GPP TS 29.061
+        Enum DIAMETER_ERROR_STOP_INDICATION code=5121   # 3GPP TS 29.061
+        Enum DIAMETER_ERROR_UNKNOWN_MBMS_BEARER_SERVICE code=5122   # 3GPP TS 29.061
+        Enum DIAMETER_ERROR_SERVICE_AREA code=5123   # 3GPP TS 29.061
+        Enum DIAMETER_ERROR_INITIAL_PARAMETERS code=5140   # 3GPP TS 29.212
+        Enum DIAMETER_ERROR_TRIGGER_EVENT code=5141   # 3GPP TS 29.212
+        Enum DIAMETER_PCC_RULE_EVENT code=5142   # 3GPP TS 29.212
+        Enum DIAMETER_ERROR_BEARER_NOT_AUTHORIZED code=5143   # 3GPP TS 29.212
+        Enum DIAMETER_ERROR_TRAFFIC_MAPPING_INFO_REJECTED code=5144   # 3GPP TS 29.212
+        Enum DIAMETER_QOS_RULE_EVENT code=5145   # 3GPP TS 29.212
+        Enum DIAMETER_ERROR_CONFLICTING_REQUEST code=5147   # 3GPP TS 29.212
+        Enum DIAMETER_ERROR_IMPI_UNKNOWN code=5401   # 3GPP TS 29.109
+        Enum DIAMETER_ERROR_NOT_AUTHORIZED code=5402   # 3GPP TS 29.109
+        Enum DIAMETER_ERROR_TRANSACTION_IDENTIFIER_INVALID code=5403   # 3GPP TS 29.109
+        Enum DIAMETER_ERROR_UNKNOWN_EPS_SUBSCRIPTION code=5420   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_RAT_NOT_ALLOWED code=5421   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_EQUIPMENT_UNKNOWN code=5422   # 3GPP TS 29.272
+        Enum DIAMETER_ERROR_UNKNOWN_SERVING_NODE code=5423   # 3GPP TS 29.273
+        Enum DIAMETER_ERROR_USER_NO_NON_3GPP_SUBSCRIPTION code=5450   # 3GPP TS 29.273
+        Enum DIAMETER_ERROR_USER_NO_APN_SUBSCRIPTION code=5451   # 3GPP TS 29.273
+        Enum DIAMETER_ERROR_RAT_TYPE_NOT_ALLOWED code=5452   # 3GPP TS 29.273
+        Enum DIAMETER_ERROR _SUBSESSION code=5470   # 3GPP TS 29.215
+        Enum DIAMETER_ERROR_UNAUTHORIZED_REQUESTING_NETWORK code=5490   # 3GPP TS 29.173
+    }
+    Avp Inband-Security-Id code=299 vendor=mustnot mandatory=must protected=may mayEncrypt=no type=Enumerated {  # RFC 3588
+        Enum NO_INBAND_SECURITY code=0
+        Enum TLS code=1
+    }
+    Avp E2E-Sequence code=300 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped   # RFC 3588
+    Avp Accounting-Input-Octets code=363 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64   # RFC 4005
+    Avp Accounting-Output-Octets code=364 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64   # RFC 4005
+    Avp Accounting-Input-Packets code=365 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64   # RFC 4005
+    Avp Accounting-Output-Packets code=366 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64   # RFC 4005
+    Avp NAS-Filter-Rule code=400 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=IPFilterRule   # RFC 4005
+    Avp Tunneling code=401 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 4005
+        Avp Tunnel-Type
+        Avp Tunnel-Medium-Type
+        Avp Tunnel-Client-Endpoint
+        Avp Tunnel-Server-Endpoint
+        Avp Tunnel-Preference
+        Avp Tunnel-Client-Auth-Id
+        Avp Tunnel-Server-Auth-Id
+        Avp Tunnel-Assignment-Id
+        Avp Tunnel-Password
+        Avp Tunnel-Private-Group-Id
+    }
+    Avp CHAP-Auth code=402 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 4005
+        Avp CHAP-Algorithm
+        Avp CHAP-Ident
+        Avp CHAP-Response
+    }
+    Avp CHAP-Algorithm code=403 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum CHAP_WITH_MD5 code=5
+    }
+    Avp CHAP-Ident code=404 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp CHAP-Response code=405 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Acounting-Auth-Method code=406 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum PAP code=1
+        Enum CHAP code=2
+        Enum MS_CHAP_1 code=3
+        Enum MS_CHAP_2 code=4
+        Enum EAP code=5
+        Enum NONE code=7
+    }
+    Avp QoS-Filter-Rule code=407 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=QoSFilterRule   # RFC 4005
+    Avp Origin-AAA-Protocol code=408 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4005
+        Enum RADIUS code=1
+    }
+    Avp CC-Correlation-Id code=411 vendor=mustnot mandatory=may protected=may mayEncrypt=yes type=OctetString # RFC 4006
+    Avp CC-Input-Octets code=412 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64 # RFC 4006
+    Avp CC-Money code=413 vendor=mustnot mandatory=must protected=may mayEncrypt=yes  type=Grouped {  # RFC 4006
+        Avp Unit-Value
+        Avp Currency-Code
+    }
+    Avp CC-Output-Octets code=414 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64  # RFC 4006
+    Avp CC-Request-Number code=415 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 4006
+    Avp CC-Request-Type code=416 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum INITIAL_REQUEST code=1
+        Enum UPDATE_REQUEST code=2
+        Enum TERMINATION_REQUEST code=3
+        Enum EVENT_REQUEST code=4
+    }
+    Avp CC-Service-Specific-Units code=417 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64  # RFC 4006
+    Avp CC-Session-Failover code=418 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum FAILOVER_NOT_SUPPORTED code=0
+        Enum FAILOVER_SUPPORTED code=1
+    }
+    Avp CC-Sub-Session-Id code=419 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64  # RFC 4006
+    Avp CC-Time code=420 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 4006
+    Avp CC-Total-Octets code=421 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned64  # RFC 4006
+    Avp Check-Balance-Result code=422 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum ENOUGH_CREDIT code=0
+        Enum NO_CREDIT code=1
+    }
+    Avp Cost-Information code=423 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {  # RFC 4006
+        Avp Unit-Value
+        Avp Currency-Code
+        Avp Cost-Unit
+    }
+    Avp Cost-Unit code=424 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String # RFC 4006
+    Avp Currency-Code code=425 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32 # RFC 4006
+    Avp Credit-Control code=426 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum CREDIT_AUTHORIZATION code=0
+        Enum RE_AUTHORIZATION code=1
+    }
+    Avp Credit-Control-Failure-Handling code=427 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum TERMINATE code=0
+        Enum CONTINUE code=1
+        Enum RETRY_AND_TERMINATE code=2
+    }
+    Avp Direct-Debiting-Failure-Handling code=428 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum TERMINATE_OR_BUFFER code=0
+        Enum CONTINUE code=1
+    }
+    Avp Exponent code=429 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Integer32  # RFC 4006
+    Avp Final-Unit-Indication code=430 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 4006
+        Avp Final-Unit-Action
+        Avp Restriction-Filter-Rule
+        Avp Filter-Id
+        Avp Redirect-Server
+    }
+    Avp Granted-Service-Unit code=431 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {  # RFC 4006
+        Avp Tariff-Time-Change
+        Avp CC-Time
+        Avp CC-Money
+        Avp CC-Total-Octets
+        Avp CC-Input-Octets
+        Avp CC-Output-Octets
+        Avp CC-Service-Specific-Units
+    }
+
+    Avp Rating-Group code=432 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32 # RFC 4006
+    Avp Redirect-Address-Type code=433 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum IPV4_ADDRESS code=0
+        Enum IPV6_ADDRESS code=1
+        Enum URL code=2
+        Enum SIP_URI code=3
+    }
+    Avp Redirect-Server code=434 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 4006
+        Avp Redirect-Address-Type
+        Avp Redirect-Server-Address
+    }
+    Avp Redirect-Server-Address code=435 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String # RFC 4006
+    Avp Requested-Action code=436 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4006
+        Enum DIRECT_DEBITING code=0
+        Enum REFUND_ACCOUNT code=1
+        Enum CHECK_BALANCE code=2
+        Enum PRICE_ENQUIRY code=3
+    }
+    Avp Requested-Service-Unit code=437 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {  # RFC 4006
+        Avp CC-Time
+        Avp CC-Money
+        Avp CC-Total-Octets
+        Avp CC-Input-Octets
+        Avp CC-Output-Octets
+        Avp CC-Service-Specific-Units
+    }
+    Avp Restriction-Filter-Rule code=438 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=IPFilterRule  # RFC 4006
+    Avp Service-Identifier code=439 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 4006
+    Avp Service-Parameter-Info code=440 vendor=mustnot mandatory=may protected=may mayEncrypt=yes type=Grouped { # RFC 4006
+        Avp Service-Parameter-Type
+        Avp Service-Parameter-Value
+    }
+    Avp Service-Parameter-Type code=441 vendor=mustnot mandatory=may protected=may mayEncrypt=yes type=Unsigned32 # RFC 4006
+    Avp Service-Parameter-Value code=442 vendor=mustnot mandatory=may protected=may mayEncrypt=yes type=OctetString # RFC 4006
+    Avp Subscription-Id code=443 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 4006
+        Avp Subscription-Id-Type
+        Avp Subscription-Id-Data
+    }
+    Avp Subscription-Id-Data code=444 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String  # RFC 4006
+    Avp Unit-Value code=445 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 4006
+        Avp Value-Digits
+        Avp Exponent
+    }
+    Avp Used-Service-Unit code=446 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 4006
+        Avp Tariff-Change-Usage
+        Avp CC-Time
+        Avp CC-Money
+        Avp CC-Total-Octets
+        Avp CC-Input-Octets
+        Avp CC-Output-Octets
+        Avp CC-Service-Specific-Units
+    }
+    Avp Value-Digits code=447 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Integer64  # RFC 4006
+    Avp Validity-Time code=448 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 4006
+    Avp Final-Unit-Action code=449 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4006
+        Enum TERMINATE code=0
+        Enum REDIRECT code=1
+        Enum RESTRICT_ACCESS code=2
+    }
+    Avp Subscription-Id-Type code=450 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum END_USER_E164 code=0
+        Enum END_USER_IMSI code=1
+        Enum END_USER_SIP_URI code=2
+        Enum END_USER_NAI code=3
+        Enum END_USER_PRIVATE code=4
+    }
+    Avp Tariff-Time-Change code=451 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Time # RFC 4006
+    Avp Tariff-Change-Usage code=452 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated { # RFC 4006
+        Enum UNIT_BEFORE_TARIFF_CHANGE code=0
+        Enum UNIT_AFTER_TARIFF_CHANGE code=1
+        Enum UNIT_INDETERMINATE code=2
+    }
+    Avp G-S-U-Pool-Identifier code=453 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 4006
+    Avp CC-Unit-Type code=454 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4006
+        Enum TIME code=0
+        Enum MONEY code=1
+        Enum TOTAL-OCTETS code=2
+        Enum INPUT-OCTETS code=3
+        Enum OUTPUT-OCTETS code=4
+        Enum SERVICE-SPECIFIC-UNITS code=5
+    }
+    Avp Multiple-Services-Indicator code=455 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 4006
+        Enum MULTIPLE_SERVICES_NOT_SUPPORTED code=0
+        Enum MULTIPLE_SERVICES_SUPPORTED code=1
+    }
+    Avp Multiple-Services-Credit-Control code=456 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 4006
+        Avp Granted-Service-Unit
+        Avp Requested-Service-Unit
+        Avp Used-Service-Unit
+        Avp Tariff-Change-Usage
+        Avp Service-Identifier
+        Avp Rating-Group
+        Avp G-S-U-Pool-Reference
+        Avp Validity-Time
+        Avp Result-Code
+        Avp Final-Unit-Indication
+    }
+    Avp G-S-U-Pool-Reference code=457 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {  # RFC 4006
+        Avp G-S-U-Pool-Identifier
+        Avp CC-Unit-Type
+        Avp Unit-Value
+    }
+    Avp User-Equipment-Info code=458 vendor=mustnot mandatory=may protected=may mayEncrypt=yes type=Grouped { # RFC 4006
+        Avp User-Equipment-Info-Type
+        Avp User-Equipment-Info-Value
+    }
+    Avp User-Equipment-Info-Type code=459 vendor=mustnot mandatory=may protected=may mayEncrypt=yes type=Enumerated {  # RFC 4006
+        Enum IMEISV code=0
+        Enum MAC code=1
+        Enum EUI64 code=2
+        Enum MODIFIED_EUI64 code=3
+    }
+    Avp User-Equipment-Info-Value code=460 vendor=mustnot mandatory=may protected=may mayEncrypt=yes type=OctetString  # RFC 4006
+    Avp Service-Context-Id code=461 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=UTF8String  # RFC 4006
+    Avp Accounting-Record-Type code=480 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {   # RFC 3588
+        Enum EVENT_RECORD code=1
+        Enum START_RECORD code=2
+        Enum INTERIM_RECORD code=3
+        Enum STOP_RECORD code=4
+    }
+    Avp Accounting-Realtime-Required code=483 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 3588
+        Enum DELIVER_AND_GRANT code=1
+        Enum GRANT_AND_STORE code=2
+        Enum GRANT_AND_LOSE code=3
+    }
+    Avp Accounting-Record-Number code=485 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 3588
+    Avp TMOD-1 code=495 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 5624
+        Avp Token-Rate
+        Avp Bucket-Depth
+        Avp Peak-Traffic-Rate
+        Avp Minimum-Policed-Unit
+        Avp Maximum-Packet-Size
+    }
+    Avp Token-Rate code=496 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Float32 # RFC 5624
+    Avp Bucket-Depth code=497 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Float32  # RFC 5624
+    Avp Peak-Traffic-Rate code=498 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Float32  # RFC 5624
+    Avp Minimum-Policed-Unit code=499 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 5624
+    Avp Maximum-Packet-Size code=500 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 5624
+    Avp TMOD-2 code=501 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {  # RFC 5624
+        Avp Token-Rate
+        Avp Bucket-Depth
+        Avp Peak-Traffic-Rate
+        Avp Minimum-Policed-Unit
+        Avp Maximum-Packet-Size
+    }
+    Avp Bandwidth code=502 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Float32  # RFC 5624
+    Avp PHB-Class code=503 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32  # RFC 5624
+    Avp QoS-Resources code=508 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {  # RFC 5777
+        Avp Filter-Rule
+    }
+    Avp Filter-Rule code=509 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped { # RFC 5777
+        Avp Filter-Rule-Precedence
+        Avp Classifier
+        Avp Time-Of-Day-Condition
+        Avp Treatment-Action
+        Avp QoS-Semantics
+        Avp QoS-Profile-Template
+        Avp QoS-Parameters
+        Avp Excess-Treatment
+    }
+    Avp Filter-Rule-Precedence code=510 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp Classifier code=511 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp Classifier-ID
+        Avp Protocol
+        Avp Direction
+        Avp From-Spec
+        Avp To-Spec
+        Avp Diffserv-Code-Point
+        Avp Fragmentation-Flag
+        Avp IP-Option
+        Avp TCP-Option
+        Avp TCP-Flags
+        Avp ICMP-Type
+        Avp ETH-Option
+    }
+    Avp Classifier-ID code=512 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp Protocol code=513 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated   # RFC 5777
+    Avp Direction code=514 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 5777
+        Enum IN code=0
+        Enum OUT code=1
+        Enum BOTH code=2
+    }
+    Avp From-Spec code=515 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp IP-Address
+        Avp IP-Address-Range
+        Avp IP-Address-Mask
+        Avp MAC-Address
+        Avp MAC-Address-Mask
+        Avp EUI64-Address
+        Avp EUI64-Address-Mask
+        Avp Port
+        Avp Port-Range
+        Avp Negated
+        Avp Use-Assigned-Address
+    }
+    Avp To-Spec code=516 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp IP-Address
+        Avp IP-Address-Range
+        Avp IP-Address-Mask
+        Avp MAC-Address
+        Avp MAC-Address-Mask
+        Avp EUI64-Address
+        Avp EUI64-Address-Mask
+        Avp Port
+        Avp Port-Range
+        Avp Negated
+        Avp Use-Assigned-Address
+    }
+    Avp Negated code=517 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 5777
+        Enum FALSE code=0
+        Enum TRUE code=1
+    }
+    Avp IP-Address code=518 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Address   # RFC 5777
+    Avp IP-Address-Range code=519 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp IP-Address-Start
+        Avp IP-Address-End
+    }
+    Avp IP-Address-Start code=520 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Address   # RFC 5777
+    Avp IP-Address-End code=521 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Address   # RFC 5777
+    Avp IP-Address-Mask code=522 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp IP-Address
+        Avp IP-Bit-Mask-Width
+    }
+    Avp IP-Bit-Mask-Width code=523 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp MAC-Address code=524 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp MAC-Address-Mask code=525 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp MAC-Address
+        Avp MAC-Address-Mask-Pattern
+    }
+    Avp MAC-Address-Mask-Pattern code=526 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp EUI64-Address code=527 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp EUI64-Address-Mask code=528 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp EUI64-Address
+        Avp EUI64-Address-Mask-Pattern
+    }
+    Avp EUI64-Address-Mask-Pattern code=529 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp Port code=530 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Integer32   # RFC 5777
+    Avp Port-Range code=531 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp Port-Start
+        Avp Port-End
+    }
+    Avp Port-Start code=532 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Integer32   # RFC 5777
+    Avp Port-End code=533 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Integer32   # RFC 5777
+    Avp Use-Assigned-Address code=534 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 5777
+        Enum FALSE code=0
+        Enum TRUE code=1
+    }
+    Avp Diffserv-Code-Point code=535 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated   # RFC 5777
+    Avp Fragmentation-Flag code=536 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 5777
+        Enum DONT_FRAGMENT code=0
+        Enum MORE_FRAGMENTS code=1
+    }
+    Avp IP-Option code=537 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp IP-Option-Type
+        Avp IP-Option-Value
+        Avp Negated
+    }
+    Avp IP-Option-Type code=538 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 5777
+    }
+    Avp IP-Option-Value code=539 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp TCP-Option code=540 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp TCP-Option-Type
+        Avp TCP-Option-Value
+        Avp Negated
+    }
+    Avp TCP-Option-Type code=541 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated   # RFC 5777
+    Avp TCP-Option-Value code=542 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp TCP-Flags code=543 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp TCP-Flag-Type
+        Avp Negated
+    }
+    Avp TCP-Flag-Type code=544 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp ICMP-Type code=545 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp ICMP-Type-Number
+        Avp ICMP-Code
+        Avp Negated
+    }
+    Avp ICMP-Type-Number code=546 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated   # RFC 5777
+    Avp ICMP-Code code=547 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Integer32   # RFC 5777
+    Avp ETH-Option code=548 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp ETH-Proto-Type
+        Avp VLAN-ID-Range
+        Avp User-Priority-Range
+    }
+    Avp ETH-Proto-Type code=549 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp ETH-Ether-Type
+        Avp ETH-SAP
+    }
+    Avp ETH-Ether-Type code=550 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp ETH-SAP code=551 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=OctetString   # RFC 5777
+    Avp VLAN-ID-Range code=552 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp S-VID-Start
+        Avp S-VID-End
+        Avp C-VID-Start
+        Avp C-VID-End
+    }
+    Avp S-VID-Start code=553 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp S-VID-End code=554 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp C-VID-Start code=555 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp C-VID-End code=556 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp User-Priority-Range code=557 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp Low-User-Priority
+        Avp High-User-Priority
+    }
+    Avp Low-User-Priority code=558 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp High-User-Priority code=559 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp Time-Of-Day-Condition code=560 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp Time-Of-Day-Start
+        Avp Time-Of-Day-End
+        Avp Day-Of-Week-Mask
+        Avp Day-Of-Month-Mask
+        Avp Month-Of-Year-Mask
+        Avp Absolute-Start-Time
+        Avp Absolute-End-Time
+        Avp Timezone-Flag
+    }
+    Avp Time-Of-Day-Start code=561 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp Time-Of-Day-End code=562 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp Day-Of-Week-Mask code=563 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32 {  # RFC 5777
+        Bitmask SUNDAY code=1
+        Bitmask MONDAY code=2
+        Bitmask TUESDAY code=4
+        Bitmask WEDNESDAY code=8
+        Bitmask THURSDAY code=16
+        Bitmask FRIDAY code=32
+        Bitmask SATURDAY code=64
+    }
+    Avp Day-Of-Month-Mask code=564 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp Month-Of-Year-Mask code=565 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32 {  # RFC 5777
+        Bitmask JANUARY code=1
+        Bitmask FEBRUARY code=2
+        Bitmask MARCH code=4
+        Bitmask APRIL code=8
+        Bitmask MAY code=16
+        Bitmask JUNE code=32
+        Bitmask JULY code=64
+        Bitmask AUGUST code=128
+        Bitmask SEPTEMBER code=256
+        Bitmask OCTOBER code=512
+        Bitmask NOVEMBER code=1024
+        Bitmask DECEMBER code=2048
+    }
+    Avp Absolute-Start-Time code=566 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Time   # RFC 5777
+    Avp Absolute-Start-Fractional-Seconds code=567 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp Absolute-End-Time code=568 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Time   # RFC 5777
+    Avp Absolute-End-Fractional-Seconds code=569 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp Timezone-Flag code=570 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 5777
+        Enum UTC code=0
+        Enum LOCAL code=1
+        Enum OFFSET code=2
+    }
+    Avp Timezone-Offset code=571 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Integer32   # RFC 5777
+    Avp Treatment-Action code=572 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 5777
+        Enum DROP code=0
+        Enum SHAKE code=1
+        Enum MARK code=2
+        Enum PERMIT code=3
+    }
+    Avp QoS-Profile-Id code=573 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Unsigned32   # RFC 5777
+    Avp QoS-Profile-Template code=574 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp Vendor-Id
+        Avp QoS-Profile-Id
+    }
+    Avp QoS-Semantics code=575 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Enumerated {  # RFC 5777
+        Enum QOS_DESIRED code=0
+        Enum QOS_AVAILABLE code=1
+        Enum QOS_DELIVERED code=2
+        Enum MINIMUM_QOS code=3
+        Enum QOS_AUTHORIZED code=4
+    }
+    Avp QoS-Parameters code=576 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+    }
+    Avp Excess-Treatment code=577 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp Treatment-Action
+        Avp QoS-Profile-Template
+        Avp QoS-Parameters
+    }
+    Avp QoS-Capability code=578 vendor=mustnot mandatory=must protected=may mayEncrypt=yes type=Grouped {   # RFC 5777
+        Avp QoS-Profile-Template
+    }
+
+}
