@@ -9,17 +9,17 @@ public sealed record AASeqOutputOptions {
     /// <summary>
     /// If true, new lines will be avoided when possible.
     /// </summary>
-    public bool CompactRepresentation { get; set; }
+    public bool CompactRepresentation { get; init; }
 
     /// <summary>
     /// If true, extra empty line is written between main nodes.
     /// </summary>
-    public bool ExtraEmptyRootNodeLines { get; set; }
+    public bool ExtraEmptyRootNodeLines { get; init; }
 
     /// <summary>
     /// Gets/sets executable name for output (hash-bang).
     /// </summary>
-    public string? HeaderExecutable { get; set; }
+    public string? HeaderExecutable { get; init; }
 
     private string _newLine = Environment.NewLine;
     /// <summary>
@@ -41,12 +41,13 @@ public sealed record AASeqOutputOptions {
     /// <summary>
     /// If true, type annotation be omitted.
     /// </summary>
-    public bool NoTypeAnnotation { get; set; }
+    public bool NoTypeAnnotation { get; init; }
 
     /// <summary>
     /// If true, the last new line character will be omitted.
     /// </summary>
-    public bool SkipLastNewLine { get; set; }
+    public bool SkipLastNewLine { get; init; }
+
 
     /// <summary>
     /// Default output options.
