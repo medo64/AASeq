@@ -15,11 +15,20 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
     /// </summary>
     /// <param name="stream">Stream containing the UTF-8 text.</param>
     public static AASeqNodes Load(Stream stream) {
+        return Load(stream, AASeqInputOptions.Permissive);
+    }
+
+    /// <summary>
+    /// Loads document from a stream.
+    /// </summary>
+    /// <param name="stream">Stream containing the UTF-8 text.</param>
+    /// <param name="options">Parsing options.</param>
+    public static AASeqNodes Load(Stream stream, AASeqInputOptions options) {
         ArgumentNullException.ThrowIfNull(stream);
 
         using var bufferStream = new BufferedStream(stream, BufferSize);
         using var readerStream = new StreamReader(bufferStream, Utf8);
-        return LoadDocument(readerStream);
+        return LoadDocument(readerStream, options);
     }
 
     /// <summary>
@@ -27,9 +36,18 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
     /// </summary>
     /// <param name="reader">Text reader.</param>
     public static AASeqNodes Load(TextReader reader) {
+        return Load(reader, AASeqInputOptions.Permissive);
+    }
+
+    /// <summary>
+    /// Loads document from a reader.
+    /// </summary>
+    /// <param name="reader">Text reader.</param>
+    /// <param name="options">Parsing options.</param>
+    public static AASeqNodes Load(TextReader reader, AASeqInputOptions options) {
         ArgumentNullException.ThrowIfNull(reader);
 
-        return LoadDocument(reader);
+        return LoadDocument(reader, options);
     }
 
     /// <summary>
@@ -37,10 +55,19 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
     /// </summary>
     /// <param name="filePath">Path to the UTF-8 encoded file.</param>
     public static AASeqNodes Load(string filePath) {
+        return Load(filePath, AASeqInputOptions.Permissive);
+    }
+
+    /// <summary>
+    /// Loads document from a file.
+    /// </summary>
+    /// <param name="filePath">Path to the UTF-8 encoded file.</param>
+    /// <param name="options">Parsing options.</param>
+    public static AASeqNodes Load(string filePath, AASeqInputOptions options) {
         ArgumentNullException.ThrowIfNull(filePath);
 
         using var stream = File.OpenRead(filePath);
-        return Load(stream);
+        return Load(stream, options);
     }
 
 
@@ -51,7 +78,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
     /// </summary>
     /// <param name="s">Text.</param>
     public static AASeqNodes Parse(string s) {
-        return Parse(s, provider: null);
+        return Parse(s, AASeqInputOptions.Permissive);
     }
 
     /// <summary>
@@ -60,11 +87,20 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
     /// <param name="s">Text.</param>
     /// <param name="provider">Provider; not used.</param>
     public static AASeqNodes Parse(string s, IFormatProvider? provider) {
+        return Parse(s, AASeqInputOptions.Permissive);
+    }
+
+    /// <summary>
+    /// Parses a string into a KDL document.
+    /// </summary>
+    /// <param name="s">Text.</param>
+    /// <param name="options">Parsing options.</param>
+    public static AASeqNodes Parse(string s, AASeqInputOptions options) {
         ArgumentNullException.ThrowIfNull(s);
 
         using var memoryStream = new MemoryStream(Utf8.GetBytes(s));
         using var readerStream = new StreamReader(memoryStream, Utf8);
-        return LoadDocument(readerStream);
+        return LoadDocument(readerStream, options);
     }
 
     /// <summary>
@@ -73,7 +109,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
     /// <param name="s">Text.</param>
     /// <param name="result">Document.</param>
     public static bool TryParse([NotNullWhen(true)] string? s, [MaybeNullWhen(false)] out AASeqNodes result) {
-        return TryParse(s, provider: null, out result);
+        return TryParse(s, AASeqInputOptions.Permissive, out result);
     }
 
     /// <summary>
@@ -83,10 +119,20 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
     /// <param name="provider">Provider; not used.</param>
     /// <param name="result">Document.</param>
     public static bool TryParse([NotNullWhen(true)] string? s, IFormatProvider? provider, [MaybeNullWhen(false)] out AASeqNodes result) {
+        return TryParse(s, AASeqInputOptions.Permissive, out result);
+    }
+
+    /// <summary>
+    /// Returns true if document can be parsed.
+    /// </summary>
+    /// <param name="s">Text.</param>
+    /// <param name="options">Input options.</param>
+    /// <param name="result">Document.</param>
+    public static bool TryParse([NotNullWhen(true)] string? s, AASeqInputOptions options, [MaybeNullWhen(false)] out AASeqNodes result) {
         try {
             using var memoryStream = new MemoryStream(Utf8.GetBytes(s ?? string.Empty));
             using var readerStream = new StreamReader(memoryStream, Utf8);
-            result = LoadDocument(readerStream);
+            result = LoadDocument(readerStream, options);
             return true;
         } catch (InvalidOperationException) {  // not really main use case so no specific non-exception parsing
             result = null;
@@ -107,11 +153,12 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
         LineComment, BlockComment
     }
 
-    private static AASeqNodes LoadDocument(TextReader reader) {
+    private static AASeqNodes LoadDocument(TextReader reader, AASeqInputOptions options) {
         var sw = Stopwatch.StartNew();
         try {
             var document = new AASeqNodes();
 
+            var hadValue = false;
             var sbNodeName = StringBuilderPool.Get();
             var sbValueAnnotation = StringBuilderPool.Get();
             var sbArgument = StringBuilderPool.Get();
@@ -138,6 +185,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                         var newNode = new AASeqNode(nodeNameRes);
                         nodeTree.Peek().Nodes.Add(newNode);
                         lastNode = newNode;
+                        hadValue = false;
                         Debug.WriteLine($"[AASeqDocument] Added node '{newNode.Name}'");
                     } catch (ArgumentException ex) {
                         throw new InvalidOperationException($"Cannot add node at line {nLine}, character {nChar}.", ex);
@@ -151,8 +199,13 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                         string annotationRes = sbValueAnnotation.ToString().Trim();
                         string valueRes = sbArgument.ToString();
                         if ((sbValueAnnotation.Length > 0) && (annotationRes.Length == 0)) { throw new InvalidOperationException($"Cannot add value at line {nLine}, character {nChar}."); }
-                        if (!TryParseValue(valueRes, annotationRes, out var newValue)) { throw new InvalidOperationException($"Cannot convert value at line {nLine}, character {nChar}."); }
-                        lastNode.Value = new AASeqValue(newValue);
+                        if (!TryParseValue(valueRes, annotationRes, out var newValue, options)) { throw new InvalidOperationException($"Cannot convert value at line {nLine}, character {nChar}."); }
+                        if (hadValue && options.NoDuplicatesValues) {
+                            throw new InvalidOperationException($"Cannot duplicate value at line {nLine}, character {nChar}.");
+                        } else {
+                            lastNode.Value = new AASeqValue(newValue);
+                            hadValue = true;
+                        }
                         Debug.WriteLine($"[AASeqDocument] Added value '{newValue}'");
                     } catch (ArgumentException ex) {
                         throw new InvalidOperationException($"Cannot convert value at line {nLine}, character {nChar}.", ex);
@@ -167,7 +220,13 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                         var propertyNameRes = sbArgument.ToString();
                         var propertyValueRes = sbPropertyValue.ToString();
                         var propertyValue = Dequote(propertyValueRes);
-                        lastNode.Properties[propertyNameRes] = propertyValue;
+                        if (!options.NoDuplicatesProperties) {  // keep last property set
+                            lastNode.Properties[propertyNameRes] = propertyValue;
+                        } else if (lastNode.Properties.ContainsKey(propertyNameRes)) {
+                            throw new InvalidOperationException($"Cannot add duplicate property '{propertyNameRes}' at line {nLine}, character {nChar}.");
+                        } else {
+                            lastNode.Properties.Add(propertyNameRes, propertyValue);
+                        }
                         Debug.WriteLine($"[AASeqDocument] Added property '{propertyValueRes}'='{propertyValue}'");
                     } finally {
                         sbArgument.Length = 0;
@@ -658,7 +717,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
         return output.ToString();
     }
 
-    private static bool TryParseValue(string valueText, string typeAnnotationText, out object? value) {
+    private static bool TryParseValue(string valueText, string typeAnnotationText, out object? value, AASeqInputOptions options) {
         var typeAnnotation = Dequote(typeAnnotationText);
         if (valueText is null) { value = null; return false; }
 
@@ -687,7 +746,9 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                         value = value128; return true;
                     } else if (Double.TryParse(valueText, NumberStyles.Float, CultureInfo.InvariantCulture, out var valueDouble)) {
                         value = valueDouble; return true;
-                    } else {  // cannot parse
+                    } else if (options.StrictNumberQuoting) {  // cannot parse
+                        value = null; return false;
+                    } else {  // parse permissively
                         value = valueText; return true;  // not strictly correct, but return as string even if it looks as a number
                     }
                 } else if ((valueText[0] is '0') && (valueText.Length > 1) && (valueText[1] is 'b' or 'B')) {  // binary
@@ -721,7 +782,9 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                         value = value128 > (UInt128)Int128.MaxValue ? value128 : (Int128)value128; return true;
                     } else if (Double.TryParse(valueText, NumberStyles.Float, CultureInfo.InvariantCulture, out var valueDouble)) {
                         value = valueDouble; return true;
-                    } else {  // cannot parse
+                    } else if (options.StrictNumberQuoting) {  // cannot parse
+                        value = null; return false;
+                    } else {  // parse permissively
                         value = valueText; return true;  // not strictly correct, but return as string even if it looks as a number
                     }
                 }
@@ -730,7 +793,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
             value = Dequote(valueText); return true;
         } else {
             if (typeAnnotation.Equals("bool", StringComparison.OrdinalIgnoreCase)) {
-                return AASeqValue.TryParseBoolean(Dequote(valueText), out value);
+                 return AASeqValue.TryParseBoolean(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("i8", StringComparison.OrdinalIgnoreCase) || typeAnnotation.Equals("int8", StringComparison.OrdinalIgnoreCase) || typeAnnotation.Equals("sbyte", StringComparison.OrdinalIgnoreCase)) {
                 return AASeqValue.TryParseSByte(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("u8", StringComparison.OrdinalIgnoreCase) || typeAnnotation.Equals("uint8", StringComparison.OrdinalIgnoreCase) || typeAnnotation.Equals("byte", StringComparison.OrdinalIgnoreCase)) {
