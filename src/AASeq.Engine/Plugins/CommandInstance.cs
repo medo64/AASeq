@@ -14,14 +14,14 @@ internal sealed class CommandInstance : PluginInstanceBase, ICommandPluginInstan
     /// Creates a new instance.
     /// </summary>
     /// <param name="instance">Instance.</param>
-    /// <param name="tryExecuteMethodInfo">Reflection data for TryExecute method.</param>
-    internal CommandInstance(Object instance, MethodInfo tryExecuteMethodInfo)
+    /// <param name="executeMethodInfo">Reflection data for Execute method.</param>
+    internal CommandInstance(Object instance, MethodInfo executeMethodInfo)
         : base(instance) {
-        TryExecuteMethodInfo = tryExecuteMethodInfo;
+        ExecuteMethodInfo = executeMethodInfo;
     }
 
 
-    private readonly MethodInfo TryExecuteMethodInfo;
+    private readonly MethodInfo ExecuteMethodInfo;
 
 
     /// <summary>
@@ -29,10 +29,9 @@ internal sealed class CommandInstance : PluginInstanceBase, ICommandPluginInstan
     /// </summary>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TryExecute(AASeqNodes data, CancellationToken cancellationToken) {
+    public void Execute(AASeqNodes data, CancellationToken cancellationToken) {
         try {
-            var result = TryExecuteMethodInfo.Invoke(Instance, [data, cancellationToken]);
-            return (bool)result!;
+            ExecuteMethodInfo.Invoke(Instance, [data, cancellationToken]);
         } catch (TargetInvocationException ex) {
             throw ex.InnerException is null ? ex : ex.InnerException;
         }

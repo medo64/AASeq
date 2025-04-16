@@ -13,19 +13,19 @@ internal sealed class CommandPlugin : PluginBase {
     /// <param name="type">Plugin reflection type.</param>
     /// <param name="createInstanceMethodInfo">Reflection data for CreateInstance method.</param>
     /// <param name="validateDataMethodInfo">Reflection data for ValidateData method</param>
-    /// <param name="tryExecuteMethodInfo">Reflection data for TryExecute method.</param>
-    public CommandPlugin(Type type, MethodInfo createInstanceMethodInfo, MethodInfo validateDataMethodInfo, MethodInfo tryExecuteMethodInfo)
+    /// <param name="executeMethodInfo">Reflection data for Execute method.</param>
+    public CommandPlugin(Type type, MethodInfo createInstanceMethodInfo, MethodInfo validateDataMethodInfo, MethodInfo executeMethodInfo)
         : base(type) {
         CreateInstanceMethodInfo = createInstanceMethodInfo;
         ValidateDataMethodInfo = validateDataMethodInfo;
-        TryExecuteMethodInfo = tryExecuteMethodInfo;
+        ExecuteMethodInfo = executeMethodInfo;
     }
 
 
     private readonly MethodInfo CreateInstanceMethodInfo;
     private readonly MethodInfo ValidateDataMethodInfo;
 
-    private readonly MethodInfo TryExecuteMethodInfo;
+    private readonly MethodInfo ExecuteMethodInfo;
 
 
     /// <summary>
@@ -33,7 +33,7 @@ internal sealed class CommandPlugin : PluginBase {
     /// </summary>
     public CommandInstance CreateInstance() {
         var instance = CreateInstanceMethodInfo.Invoke(null, [])!;
-        return new CommandInstance(instance, TryExecuteMethodInfo);
+        return new CommandInstance(instance, ExecuteMethodInfo);
     }
 
     /// <summary>

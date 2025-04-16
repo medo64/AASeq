@@ -29,9 +29,8 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         Storage[id] = (messageName, data);
-        return true;
     }
 
     /// <summary>
@@ -41,17 +40,14 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
+    public void Receive(Guid id, [MaybeNullWhen(false)] out string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
         if (Storage.Remove(id, out var value)) {
             messageName = value.Item1;
             data = value.Item2;
             if (DelayMS > 0) { Thread.Sleep(DelayMS); }
-            return true;
         }
 
-        messageName = null;
-        data = null;
-        return false;
+        throw new InvalidOperationException("Message not received.");
     }
 
 
