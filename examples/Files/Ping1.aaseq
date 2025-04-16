@@ -1,33 +1,33 @@
 #!/usr/bin/env aaseq
 
 @Me
+
 @Local_IPv4 Ping {
-    Host (ip)"127.0.0.1"
-}
-@Local_IPv4_Alternate Ping {
-    Host (ip)"127.0.0.2"
-}
-@Local_IPv6 Ping {
-    Host (ip)::1
+    Host 127.0.0.1
 }
 
+@Local_IPv4_Alternate Ping {
+    Host 127.0.0.2
+}
+
+@Local_IPv6 Ping {
+    Host ::1
+}
+
+
 Ping  >Local_IPv4 {
-    Size         64
-    Timeout      (duration)1
-    TTL          (duration)10
+    Timeout      1s
+    TTL          10
     DontFragment true
 }
 Reply <Local_IPv4 {
-    Size   64
     Status Success
-    Time   (regex)"[0-9]+"
-    Data   (regex)"(Test).*"
+    RoundtripTime op=lt 10
 }
 
 Wait
 
 Ping  >Local_IPv6 {
-    Size    128
     Timeout 1000
 }
 Reply <Local_IPv6

@@ -5,19 +5,14 @@
 }
 
 
-Ping >Remote match=1 {
+Ping >Remote match=1
 
-}
-
-Ping  Me>Remote match=2 {
-    Data Test
-}
+Ping  Me>Remote match=2
 
 Reply Me<Remote match=2 {
-    Size   64
     Status Success
-    Time   (regex)".*"
-    Data   (regex)"(Test).*"
 }
 
-Reply <Remote match=1
+Reply <Remote match=1 {
+    Status Success
+}

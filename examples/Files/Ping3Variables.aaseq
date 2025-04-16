@@ -1,10 +1,10 @@
 #!/usr/bin/env aaseq
 
 $ {
-    Host1   "localhost"
-    Host1   "127.0.0.1"
-    Host2   "::1"
-    Host3   "192.168.200.100"
+    Host1   localhost
+    Host1   127.0.0.1
+    Host2   ::1
+    Host3   192.168.200.100
     Timeout 1.0
 }
 
