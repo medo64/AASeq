@@ -115,7 +115,7 @@ DOCKER_FILE="$(find "$SCRIPT_DIR/src" -type f -name "Dockerfile" -print | sed -n
 
 PACKAGE_LINUX_DOCKER=$( cat "$SCRIPT_DIR/.meta" | grep -E "^PACKAGE_LINUX_DOCKER:" | sed  -n 1p | cut -d: -sf2- | xargs )
 if [ "$PACKAGE_LINUX_DOCKER" = "" ] && [ "$DOCKER_FILE" != "" ]; then
-    PACKAGE_LINUX_DOCKER=$PROJECT_NAME
+    PACKAGE_LINUX_DOCKER=$( echo $PROJECT_NAME | tr [:upper:] [:lower:] )
 fi
 if [ "$PACKAGE_LINUX_DOCKER" != "" ]; then
     if [ "$DOCKER_FILE" != "" ]; then
