@@ -1,0 +1,5 @@
+services:
+  aaseq:
+    container_name: aaseq
+    image: aaseq/aaseq:latest
+    restart: unless-stopped
