@@ -14,15 +14,15 @@ internal sealed class EndpointPlugin : PluginBase {
     /// <param name="createInstanceMethodInfo">Reflection data for CreateInstance method.</param>
     /// <param name="validateConfigurationMethodInfo">Reflection data for ValidateConfiguration method</param>
     /// <param name="validateDataMethodInfo">Reflection data for ValidateData method</param>
-    /// <param name="trySendMethodInfo">Reflection data for Send method.</param>
-    /// <param name="tryReceiveMethodInfo">Reflection data for ReceiveMethod method.</param>
-    public EndpointPlugin(Type type, MethodInfo createInstanceMethodInfo, MethodInfo validateConfigurationMethodInfo, MethodInfo validateDataMethodInfo, MethodInfo trySendMethodInfo, MethodInfo tryReceiveMethodInfo)
+    /// <param name="sendMethodInfo">Reflection data for Send method.</param>
+    /// <param name="receiveMethodInfo">Reflection data for ReceiveMethod method.</param>
+    public EndpointPlugin(Type type, MethodInfo createInstanceMethodInfo, MethodInfo validateConfigurationMethodInfo, MethodInfo validateDataMethodInfo, MethodInfo sendMethodInfo, MethodInfo receiveMethodInfo)
         : base(type) {
         CreateInstanceMethodInfo = createInstanceMethodInfo;
         ValidateConfigurationMethodInfo = validateConfigurationMethodInfo;
         ValidateDataMethodInfo = validateDataMethodInfo;
-        TrySendMethodInfo = trySendMethodInfo;
-        TryReceiveMethodInfo = tryReceiveMethodInfo;
+        SendMethodInfo = sendMethodInfo;
+        ReceiveMethodInfo = receiveMethodInfo;
     }
 
 
@@ -30,8 +30,8 @@ internal sealed class EndpointPlugin : PluginBase {
     private readonly MethodInfo ValidateConfigurationMethodInfo;
     private readonly MethodInfo ValidateDataMethodInfo;
 
-    private readonly MethodInfo TrySendMethodInfo;
-    private readonly MethodInfo TryReceiveMethodInfo;
+    private readonly MethodInfo SendMethodInfo;
+    private readonly MethodInfo ReceiveMethodInfo;
 
 
     /// <summary>
@@ -40,7 +40,7 @@ internal sealed class EndpointPlugin : PluginBase {
     /// <param name="configuration">Configuration nodes.</param>
     public EndpointInstance CreateInstance(AASeqNodes configuration) {
         var instance = CreateInstanceMethodInfo.Invoke(null, [configuration])!;
-        return new EndpointInstance(instance, TrySendMethodInfo, TryReceiveMethodInfo);
+        return new EndpointInstance(instance, SendMethodInfo, ReceiveMethodInfo);
     }
 
     /// <summary>

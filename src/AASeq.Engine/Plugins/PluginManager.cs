@@ -114,9 +114,9 @@ internal sealed class PluginManager {
         if (mValidateData is null) { return null; }
         if (!mValidateData.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
 
-        var mExecute = type.GetMethod("TryExecute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes), typeof(CancellationToken)]);
+        var mExecute = type.GetMethod("Execute", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mExecute is null) { return null; }
-        if (!mExecute.ReturnType.Equals(typeof(bool))) { return null; }
+        if (!mExecute.ReturnType.Equals(typeof(void))) { return null; }
 
         return new CommandPlugin(type, mCreateInstance, mValidateData, mExecute);
     }
@@ -136,13 +136,13 @@ internal sealed class PluginManager {
         if (mValidateData is null) { return null; }
         if (!mValidateData.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
 
-        var mSend = type.GetMethod("TrySend", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes), typeof(CancellationToken)]);
+        var mSend = type.GetMethod("Send", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mSend is null) { return null; }
-        if (!mSend.ReturnType.Equals(typeof(bool))) { return null; }
+        if (!mSend.ReturnType.Equals(typeof(void))) { return null; }
 
-        var mReceive = type.GetMethod("TryReceive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(string).MakeByRefType(), typeof(AASeqNodes).MakeByRefType(), typeof(CancellationToken)]);
+        var mReceive = type.GetMethod("Receive", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(string).MakeByRefType(), typeof(AASeqNodes).MakeByRefType(), typeof(CancellationToken)]);
         if (mReceive is null) { return null; }
-        if (!mReceive.ReturnType.Equals(typeof(bool))) { return null; }
+        if (!mReceive.ReturnType.Equals(typeof(void))) { return null; }
 
         return new EndpointPlugin(type, mCreateInstance, mValidateConfiguration, mValidateData, mSend, mReceive);
     }

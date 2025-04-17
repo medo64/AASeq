@@ -13,17 +13,17 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     /// Creates a new instance.
     /// </summary>
     /// <param name="instance">Instance.</param>
-    /// <param name="trySendMethodInfo">Reflection data for Send method.</param>
-    /// <param name="tryReceiveMethodInfo">Reflection data for ReceiveMethod method.</param>
-    internal EndpointInstance(Object instance, MethodInfo trySendMethodInfo, MethodInfo tryReceiveMethodInfo)
+    /// <param name="sendMethodInfo">Reflection data for Send method.</param>
+    /// <param name="receiveMethodInfo">Reflection data for ReceiveMethod method.</param>
+    internal EndpointInstance(Object instance, MethodInfo sendMethodInfo, MethodInfo receiveMethodInfo)
         : base(instance) {
-        TrySendMethodInfo = trySendMethodInfo;
-        TryReceiveMethodInfo = tryReceiveMethodInfo;
+        SendMethodInfo = sendMethodInfo;
+        ReceiveMethodInfo = receiveMethodInfo;
     }
 
 
-    private readonly MethodInfo TrySendMethodInfo;
-    private readonly MethodInfo TryReceiveMethodInfo;
+    private readonly MethodInfo SendMethodInfo;
+    private readonly MethodInfo ReceiveMethodInfo;
 
 
     /// <summary>
@@ -33,11 +33,10 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
-        if (TrySendMethodInfo is null) { throw new NotSupportedException(); }
+    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+        if (SendMethodInfo is null) { throw new NotSupportedException(); }
         try {
-            var result = TrySendMethodInfo.Invoke(Instance, [id, messageName, data, cancellationToken]);
-            return (bool)result!;
+            SendMethodInfo.Invoke(Instance, [id, messageName, data, cancellationToken]);
         } catch (TargetInvocationException ex) {
             throw ex.InnerException is null ? ex : ex.InnerException;
         }
@@ -50,14 +49,13 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
-        if (TryReceiveMethodInfo is null) { throw new NotSupportedException(); }
+    public void Receive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
+        if (ReceiveMethodInfo is null) { throw new NotSupportedException(); }
         try {
             var parameters = new object?[] { id, null, null, cancellationToken };
-            var result = TryReceiveMethodInfo.Invoke(Instance, parameters)!;
+            ReceiveMethodInfo.Invoke(Instance, parameters);
             messageName = (string)parameters[1]!;
             data = (AASeqNodes)parameters[2]!;
-            return (bool)result!;
         } catch (TargetInvocationException ex) {
             throw ex.InnerException is null ? ex : ex.InnerException;
         }

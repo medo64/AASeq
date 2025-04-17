@@ -4,7 +4,7 @@ Plugins are identified by method signature only.
 While there are `ICommandPlugin` and `IEndpointPlugin` definitions, their usage is not mandatory.
 
 All plugin operations are also cooperative in nature.
-For example, once engine sends control to any of the plugin methods (e.g., `TryReceive`), it will not interrupt the same, even if cancellation token expires.
+For example, once engine sends control to any of the plugin methods (e.g., `Receive`), it will not interrupt the same, even if cancellation token expires.
 
 There are two kinds of plugins: Command and Endpoint.
 Command plugin executes an action that is not dependant on the external systems.
@@ -16,7 +16,7 @@ Endpoint plugin allows for handling of messages to/from external system.
 The following methods must be defined for all command plugins:
 * `static Object CreateInstance()`
 * `static AASeqNodes ValidateData(AASeqNodes data)`
-* `bool TryExecute(AASeqNodes data, CancellationToken cancellationToken)`
+* `void Execute(AASeqNodes data, CancellationToken cancellationToken)`
 
 
 #### CreateInstance Method
@@ -30,7 +30,7 @@ No configuration data is expected as each command execution has a separate insta
 This method will return validated data for the instance.
 
 
-#### TryExecute Method
+#### Execute Method
 
 This method will attempt to execute an command.
 Data (`data`) containts any configuration needed.
@@ -43,8 +43,8 @@ The following methods must be defined for all endpoint plugins:
 * `static Object CreateInstance(AASeqNodes configuration)`
 * `static AASeqNodes ValidateConfiguration(AASeqNodes configuration)`
 * `static AASeqNodes ValidateData(string messageName, AASeqNodes data)`
-* `bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken)`
-* `bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken)`
+* `void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken)`
+* `void Receive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken)`
 
 
 #### CreateInstance Method
@@ -64,19 +64,19 @@ Note that this data is used for all messages since it belongs in the common inst
 This method will return validated data for the instance.
 
 
-#### TrySend Method
+#### Send Method
 
 Attempts to send a message.
-Id (`id`) provided is used to match with message received in `TryReceive` (if needed).
+Id (`id`) provided is used to match with message received in `Receive` (if needed).
 Message name (`messageName`) contains name of the message to send.
 Provided data (`data`) contains any message-specific data needed.
 Cancellation token (`cancellationToken`) is recommended for handling timeouts but its usage is not mandatory if operation has short duration.
 
 
-#### TryReceive Method
+#### Receive Method
 
 Attempts to send a message.
-Id (`id`) provided is used to match with message sent in `TrySend` (if needed).
+Id (`id`) provided is used to match with message sent in `Send` (if needed).
 Message name (`messageName`) contains name of the message received.
 Data (`data`) contains any message-specific data received.
 Cancellation token (`cancellationToken`) is recommended for handling timeouts but its usage is not mandatory if operation has short duration.

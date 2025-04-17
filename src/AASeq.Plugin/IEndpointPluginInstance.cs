@@ -16,7 +16,7 @@ public interface IEndpointPluginInstance {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken);
+    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken);
 
     /// <summary>
     /// Returns true, if message was successfully received.
@@ -25,6 +25,6 @@ public interface IEndpointPluginInstance {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken);
+    public void Receive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken);
 
 }

@@ -34,7 +34,7 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TrySend(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         var pingOptions = new PingOptions {
             DontFragment = data.GetValue("DontFragment", DontFragment),
             Ttl = data.GetValue("TTL", TimeToLive),
@@ -51,7 +51,6 @@ internal sealed class Ping : IEndpointPlugin {
             };
             Storage[id] = ("Reply", data);
         }, CancellationToken.None);
-        return true;
     }
 
     /// <summary>
@@ -61,20 +60,17 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public bool TryReceive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
+    public void Receive(Guid id, out string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
         while (!cancellationToken.IsCancellationRequested) {
             if (Storage.Remove(id, out var value)) {
                 messageName = value.Item1;
                 data = value.Item2;
-                return true;
+                return;
             } else {
                 Thread.Sleep(1);
             }
         }
-
-        messageName = null;
-        data = null;
-        return false;
+        throw new InvalidOperationException("No reply.");
     }
 
 
