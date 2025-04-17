@@ -1,3 +1,4 @@
 PROJECT_NAME:           AASeq
 PROJECT_ENTRYPOINT:     src/AASeq/AASeq.csproj
+PROJECT_SINGLEFILE:     false
 PROJECT_RUNTIMES:       current linux-x64 linux-musl-x64 win-x64

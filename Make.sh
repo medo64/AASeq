@@ -104,6 +104,19 @@ else
     exit 113
 fi
 
+PROJECT_SINGLEFILE=$( cat "$SCRIPT_DIR/.meta" | grep -E "^PROJECT_SINGLEFILE:" | sed  -n 1p | cut -d: -sf2- | xargs | tr '[:upper:]' '[:lower:]' )
+if [ "$PROJECT_SINGLEFILE" = "true" ] || [ "$PROJECT_SINGLEFILE" = "false" ]; then
+    echo "${ANSI_PURPLE}Project single-file .: ${ANSI_MAGENTA}$PROJECT_SINGLEFILE${ANSI_RESET}"
+elif [ "$PROJECT_OUTPUTTYPE" = "exe" ] || [ "$PROJECT_OUTPUTTYPE" = "winexe" ]; then
+    PROJECT_SINGLEFILE=true
+    echo "${ANSI_PURPLE}Project single-file .: ${ANSI_MAGENTA}$PROJECT_SINGLEFILE${ANSI_RESET}"
+elif [ "$PROJECT_OUTPUTTYPE" = "library" ]; then  # libraries cannot be published as a single file
+    PROJECT_SINGLEFILE=false
+    echo "${ANSI_PURPLE}Project single-file .: ${ANSI_MAGENTA}$PROJECT_SINGLEFILE${ANSI_RESET}"
+else
+    PROJECT_SINGLEFILE=
+fi
+
 PROJECT_RUNTIMES=$( cat "$SCRIPT_DIR/.meta" | grep -E "^PROJECT_RUNTIMES:" | sed  -n 1p | cut -d: -sf2- | xargs )
 if [ "$PROJECT_RUNTIMES" = "" ]; then
     PROJECT_RUNTIMES=current
@@ -452,14 +465,21 @@ make_release() {
         echo "${ANSI_MAGENTA}$(basename $PROJECT_ENTRYPOINT) ($RUNTIME)${ANSI_RESET}"
 
         PUBLISH_EXTRA_ARGS=
+        if [ "$PROJECT_SINGLEFILE" = "true" ]; then
+            PUBLISH_EXTRA_ARGS="$PUBLISH_EXTRA_ARGS --self-contained true -p:PublishSingleFile=true"
+        elif [ "$PROJECT_SINGLEFILE" = "false" ]; then
+            PUBLISH_EXTRA_ARGS="$PUBLISH_EXTRA_ARGS --self-contained false -p:PublishSingleFile=false"
+        fi
+
         if [ "$PROJECT_OUTPUTTYPE" = "exe" ] || [ "$PROJECT_OUTPUTTYPE" = "winexe" ]; then
-            PUBLISH_EXTRA_ARGS="$PUBLISH_EXTRA_ARGS --self-contained true -p:PublishSingleFile=true -p:PublishReadyToRun=true"
+            PUBLISH_EXTRA_ARGS="$PUBLISH_EXTRA_ARGS -p:PublishReadyToRun=true"
         elif [ "$PROJECT_OUTPUTTYPE" = "library" ]; then  # libraries cannot be published as a single file
-            PUBLISH_EXTRA_ARGS="$PUBLISH_EXTRA_ARGS --self-contained false -p:PublishSingleFile=false -p:GenerateDocumentationFile=true"
+            PUBLISH_EXTRA_ARGS="$PUBLISH_EXTRA_ARGS -p:GenerateDocumentationFile=true"
         else
             echo "${ANSI_RED}Cannot compile project type'$PROJECT_OUTPUTTYPE'${ANSI_RESET}" >&2
             exit 113
         fi
+
         if [ "$RUNTIME" = "current" ]; then
             PUBLISH_EXTRA_ARGS="$PUBLISH_EXTRA_ARGS --use-current-runtime"
             PUBLISH_OUTPUT_DIR="$SCRIPT_DIR/bin"
