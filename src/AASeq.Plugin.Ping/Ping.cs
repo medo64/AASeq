@@ -13,10 +13,10 @@ using System.Threading.Tasks;
 internal sealed class Ping : IEndpointPlugin {
 
     private Ping(AASeqNodes configuration) {
-        DontFragment = configuration.GetValue("DontFragment", DefaultDontFragment);
-        Host = configuration.GetValue("Host", DefaultHost);
-        Timeout = configuration.GetValue("Timeout", DefaultTimeout);
-        TimeToLive = configuration.GetValue("TTL", configuration.GetValue("TimeToLive", DefaultTTL));
+        DontFragment = configuration["DontFragment"].AsBoolean(DefaultDontFragment);
+        Host = configuration["Host"].AsString(DefaultHost);
+        Timeout = configuration["Timeout"].AsTimeSpan(DefaultTimeout);
+        TimeToLive = configuration["TTL"].AsInt32(configuration["TimeToLive"].AsInt32(DefaultTTL));
     }
 
     private readonly bool DontFragment;
@@ -36,11 +36,11 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="cancellationToken">Cancellation token.</param>
     public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         var pingOptions = new PingOptions {
-            DontFragment = data.GetValue("DontFragment", DontFragment),
-            Ttl = data.GetValue("TTL", TimeToLive),
+            DontFragment = data["DontFragment"].AsBoolean(DontFragment),
+            Ttl = data["TTL"].AsInt32(TimeToLive),
         };
 
-        var timeout = data.GetValue("Timeout", Timeout);
+        var timeout = data["Timeout"].AsTimeSpan(Timeout);
         Task.Run(() => {
             using var ping = new System.Net.NetworkInformation.Ping();
             var reply = ping.Send(Host, timeout, null, pingOptions);

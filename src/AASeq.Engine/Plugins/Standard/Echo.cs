@@ -14,7 +14,7 @@ using System.Threading;
 internal sealed class Echo : IEndpointPlugin {
 
     private Echo(AASeqNodes configuration) {
-        DelayMS = (int)configuration.GetValue("Delay", DefaultDelay).TotalMilliseconds;
+        DelayMS = (int)configuration["Delay"].AsTimeSpan(DefaultDelay).TotalMilliseconds;
     }
 
 

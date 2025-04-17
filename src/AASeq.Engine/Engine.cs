@@ -31,9 +31,9 @@ public sealed partial class Engine : IDisposable {
                 if (!NameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
 
                 if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                    commandTimeout = node.Nodes.GetValue("CommandTimeout", node.Nodes.GetValue("Timeout", commandTimeout));
-                    receiveTimeout = node.Nodes.GetValue("ReceiveTimeout", node.Nodes.GetValue("Timeout", receiveTimeout));
-                    sendTimeout = node.Nodes.GetValue("SendTimeout", node.Nodes.GetValue("Timeout", sendTimeout));
+                    commandTimeout = node.Nodes["CommandTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(commandTimeout));
+                    receiveTimeout = node.Nodes["ReceiveTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(receiveTimeout));
+                    sendTimeout = node.Nodes["SendTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(sendTimeout));
                 } else {
                     var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
                     var configuration = plugin.ValidateConfiguration(node.Nodes);

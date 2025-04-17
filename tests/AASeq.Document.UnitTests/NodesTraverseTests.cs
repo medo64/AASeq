@@ -104,7 +104,7 @@ public sealed class NodesTraverseTests {
     public void NodesTraverse_Empty() {
         var document = new AASeqNodes();
 
-        Assert.IsNull(document["test"]);
+        Assert.IsTrue(document["test"].IsNull);
         Assert.AreEqual("", document.ToString());
     }
 
@@ -152,15 +152,28 @@ public sealed class NodesTraverseTests {
         Assert.AreEqual("test1 { test2 value { test3 value3 } }", document.ToString());
     }
 
+    [TestMethod]
+    public void NodesTraverse_TwoThreeLevel_DifferentCase_Multiset() {
+        var document = new AASeqNodes();
+        document.Add("test1");
+        document[0].Nodes.Add(new AASeqNode("test2", "value"));
+
+        document["TEST1/TEST2/test3"] = "value3";
+        document["TEST1/TEST2/test3"] = "value4";
+        Assert.AreEqual("value4", document["test1/test2/TEST3"].AsString());
+
+        Assert.AreEqual("test1 { test2 value { test3 value4 } }", document.ToString());
+    }
+
 
     [TestMethod]
     public void NodesTraverse_GetValue() {
         var doc = AASeqNodes.Parse("node1 { node2 value2 { node3 3 { node4 4.1 } } }");
 
-        Assert.AreEqual("value2", doc.GetValue("node1/node2", ""));
-        Assert.AreEqual(3, doc.GetValue("node1/node2/node3", 3));
-        Assert.AreEqual(4.1, doc.GetValue("node1/node2/node3/node4", 4.1));
-        Assert.AreEqual(5, doc.GetValue("node1/node2/node3/node4/node5", 5));
+        Assert.AreEqual("value2", doc["node1/node2"].AsString());
+        Assert.AreEqual(3, doc["node1/node2/node3"].AsInt32());
+        Assert.AreEqual(4.1, doc["node1/node2/node3/node4"].AsDouble());
+        Assert.AreEqual(5, doc["node1/node2/node3/node4/node5"].AsInt32(5));
     }
 
 }

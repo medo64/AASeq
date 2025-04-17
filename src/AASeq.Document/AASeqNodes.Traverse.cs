@@ -63,7 +63,7 @@ public sealed partial class AASeqNodes {
     /// If there are any duplicates, along the path, only last one will remain.
     /// </summary>
     /// <param name="nodePath">Path to the node.</param>
-    public AASeqValue? this[string nodePath] {
+    public AASeqValue this[string nodePath] {
         get {
             ArgumentNullException.ThrowIfNull(nodePath);
             var nodeNames = nodePath.Split('/', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
@@ -81,7 +81,7 @@ public sealed partial class AASeqNodes {
                     }
                 }
             }
-            return null;
+            return AASeqValue.Null;
         }
         set {
             ArgumentNullException.ThrowIfNull(nodePath);
@@ -107,7 +107,7 @@ public sealed partial class AASeqNodes {
                     nodes.Add(foundNode);
                 }
                 if (isLast) {  // all traversed
-                    foundNode.Value = value ?? AASeqValue.Null;
+                    foundNode.Value = value;
                 } else {  // continue
                     nodes = foundNode.Nodes;
                 }

@@ -26,6 +26,14 @@ public sealed partial record AASeqValue {
 
 
     /// <summary>
+    /// Gets if value is null.
+    /// </summary>
+    public bool IsNull {
+        get { return Value is null; }
+    }
+
+
+    /// <summary>
     /// Gets/sets value.
     /// </summary>
     public object? Value { get; private init; }
