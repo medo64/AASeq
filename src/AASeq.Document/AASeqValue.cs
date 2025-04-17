@@ -8,7 +8,13 @@ using System.Text.RegularExpressions;
 /// AASeq value.
 /// </summary>
 [DebuggerDisplay("{Value,nq}")]
-public sealed partial class AASeqValue {
+public sealed partial record AASeqValue {
+
+    /// <summary>
+    /// Creates a new null value.
+    /// </summary>
+    private AASeqValue() {
+    }
 
     /// <summary>
     /// Creates a new value.
@@ -19,14 +25,10 @@ public sealed partial class AASeqValue {
     }
 
 
-    private object? _value;
     /// <summary>
     /// Gets/sets value.
     /// </summary>
-    public object? Value {
-        get { return _value; }
-        set { _value = ValidateValue(value); }
-    }
+    public object? Value { get; private init; }
 
 
     /// <summary>
@@ -37,10 +39,11 @@ public sealed partial class AASeqValue {
     }
 
 
+    private static AASeqValue _Null => new();
     /// <summary>
     /// Gets a null value.
     /// </summary>
-    public static AASeqValue Null => new(null);
+    public static AASeqValue Null => _Null;
 
 
     #region Helpers

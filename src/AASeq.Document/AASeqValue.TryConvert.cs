@@ -7,7 +7,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-public sealed partial class AASeqValue {
+public sealed partial record AASeqValue {
 
     /// <summary>
     /// Returns true if value can be converted to String.

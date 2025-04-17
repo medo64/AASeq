@@ -7,7 +7,7 @@ using System.IO;
 using System.Net;
 using System.Text.RegularExpressions;
 
-public sealed partial class AASeqValue {
+public sealed partial record AASeqValue {
 
     /// <summary>
     /// Returns true if value can be parsed as Boolean.

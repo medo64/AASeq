@@ -2412,4 +2412,11 @@ public sealed class NodeValueTests {
         Assert.IsNull(data17n.Value.AsUInt128());
     }
 
+    [TestMethod]
+    public void NodeValue_NotSupported() {
+        Assert.ThrowsException<ArgumentOutOfRangeException>(() => {
+            var data = new AASeqValue(new NotSupportedException());
+        });
+    }
+
 }

@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using System.Text.RegularExpressions;
 
-public sealed partial class AASeqValue {
+public sealed partial record AASeqValue {
 
     /// <summary>
     /// Returns value as a String.
