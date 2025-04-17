@@ -4,4 +4,11 @@
   <Project Path="AASeq.Engine/AASeq.Engine.csproj" />
   <Project Path="AASeq.Plugin/AASeq.Plugin.csproj" />
   <Project Path="AASeq.Plugin.Ping/AASeq.Plugin.Ping.csproj" />
+  <Folder Name="/Examples/" Id="02ea681e-c7d8-13c7-8484-4ac65e1b71e8">
+    <Project Path="../examples/AASeq.Document.BasicParsing/AASeq.Document.BasicParsing.csproj" />
+  </Folder>
+  <Folder Name="/Tests/" Id="f4193310-f20b-425e-b55a-606624987d67">
+    <Project Path="../tests/AASeq.Document.FileTests/AASeq.Document.FileTests.csproj" />
+    <Project Path="../tests/AASeq.Document.UnitTests/AASeq.Document.UnitTests.csproj" />
+  </Folder>
 </Solution>
