@@ -9,24 +9,11 @@ using System.IO;
 internal static partial class App {
 
     internal static void Main(string[] args) {
-        var versionOption = new Option<bool>(
-            aliases: ["--version", "-V"],
-            description: "Show version information") {
-            Arity = ArgumentArity.Zero,
-            IsRequired = true,
-        };
-
         var verboseOption = new Option<bool>(
             aliases: ["--verbose", "-v"],
             description: "Enable verbose output") {
             Arity = ArgumentArity.Zero,
         };
-
-        var rootCommand = new RootCommand("Protocol simulator") {
-            verboseOption,
-            versionOption,
-        };
-        rootCommand.SetHandler(App.Default, versionOption, verboseOption);
 
         var fileArgument = new Argument<FileInfo>(
             name: "file",
@@ -43,32 +30,48 @@ internal static partial class App {
                 commandResult.ErrorMessage = "Must specify file";
             }
         });
-        rootCommand.AddArgument(fileArgument);
 
-        var newCommand = new Command("new", "Creates a new file") {
+        // Default command
+        var rootCommand = new RootCommand("Protocol simulator") {
             verboseOption,
-            versionOption,
             fileArgument,
         };
-        newCommand.SetHandler(App.New, fileArgument);
-        rootCommand.Add(newCommand);
+        rootCommand.SetHandler(App.Default, fileArgument);
+        rootCommand.AddArgument(fileArgument);
 
+        // Command: lint
         var lintCommand = new Command("lint", "Parse file and display it") {
             verboseOption,
-            versionOption,
             fileArgument,
         };
         lintCommand.SetHandler(App.Lint, fileArgument);
         rootCommand.Add(lintCommand);
 
+        // Command: new
+        var newCommand = new Command("new", "Creates a new file") {
+            verboseOption,
+            fileArgument,
+        };
+        newCommand.SetHandler(App.New, fileArgument);
+        rootCommand.Add(newCommand);
+
+        // Command: run
         var runCommand = new Command("run", "Execute flows in the file") {
             verboseOption,
-            versionOption,
             fileArgument,
         };
         runCommand.SetHandler(App.Run, fileArgument);
         rootCommand.Add(runCommand);
 
+        // Command: version
+        var versionCommand = new Command("version", "Shows current version") {
+            verboseOption,
+        };
+        versionCommand.SetHandler(App.Version, verboseOption);
+        rootCommand.Add(versionCommand);
+
+
+        // Done
         var cliBuilder = new CommandLineBuilder(rootCommand);
         cliBuilder.UseHelp();
         var cliParser = cliBuilder.Build();

@@ -8,6 +8,10 @@ using System.Threading;
 internal static partial class App {
 
     public static void Run(FileInfo file) {
+        Run(file, startPaused: false);
+    }
+
+    public static void Run(FileInfo file, bool startPaused = false) {
         try {
             var document = AASeqNodes.Load(file.FullName);
             var outputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true, NoTypeAnnotation = true };
@@ -33,6 +37,10 @@ internal static partial class App {
                 Console.WriteLine("└────────────┴─────────────┴──────────────┘");
                 Console.ResetColor();
                 Console.WriteLine();
+
+                if (!startPaused) {
+                    engine.Start();
+                }
 
                 engine.FlowBegin += (sender, e) => {
                     Console.WriteLine();
