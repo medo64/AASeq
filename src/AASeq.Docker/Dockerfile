@@ -12,6 +12,9 @@ COPY src/AASeq.Docker/bash-default.sh /etc/bash/default.sh
 # Helper packages
 RUN apk add bash bind-tools tcpdump
 
+# Examples
+COPY examples/Files/* /app/examples/
+
 # Executables
 WORKDIR /app
 COPY src/AASeq.Docker/aaseq.sh aaseq
