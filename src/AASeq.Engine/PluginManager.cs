@@ -10,7 +10,7 @@ using System.Threading;
 /// <summary>
 /// Plugin management.
 /// </summary>
-internal sealed class PluginManager {
+public sealed class PluginManager {
 
     private PluginManager() {
         var sw = Stopwatch.StartNew();
@@ -70,12 +70,12 @@ internal sealed class PluginManager {
     /// <summary>
     /// Gets all command plugins.
     /// </summary>
-    public IReadOnlyCollection<CommandPlugin> CommandPlugins { get; }
+    public IReadOnlyCollection<IPluginDefinition> CommandPlugins { get; }
 
     /// <summary>
     /// Gets all endpoint plugins.
     /// </summary>
-    public IReadOnlyCollection<EndpointPlugin> EndpointPlugins { get; }
+    public IReadOnlyCollection<IPluginDefinition> EndpointPlugins { get; }
 
 
     /// <summary>
@@ -88,7 +88,7 @@ internal sealed class PluginManager {
     /// Finds a command plugin by name.
     /// </summary>
     /// <param name="pluginName">Plugin name.</param>
-    public static CommandPlugin? FindCommandPlugin(string pluginName) {
+    internal static CommandPlugin? FindCommandPlugin(string pluginName) {
         return Instance.CommandPluginsByName.TryGetValue(pluginName, out var plugin) ? plugin : null;
     }
 
@@ -96,7 +96,7 @@ internal sealed class PluginManager {
     /// Finds a endpoint plugin by name.
     /// </summary>
     /// <param name="pluginName">Plugin name.</param>
-    public static EndpointPlugin? FindEndpointPlugin(string pluginName) {
+    internal static EndpointPlugin? FindEndpointPlugin(string pluginName) {
         return Instance.EndpointPluginsByName.TryGetValue(pluginName, out var plugin) ? plugin : null;
     }
 

@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 
 [DebuggerDisplay("{Name,nq}")]
-internal abstract class PluginBase {
+internal abstract class PluginBase : IPluginDefinition {
 
     /// <summary>
     /// Creates a new instance.
