@@ -6,7 +6,7 @@ using System.Diagnostics;
 /// Flow.
 /// </summary>
 [DebuggerDisplay("{CommandName,nq}")]
-internal sealed class FlowCommand : IFlowAction {
+internal sealed class FlowCommand : IFlowCommandAction {
 
     /// <summary>
     /// Create a new instance.
@@ -23,7 +23,11 @@ internal sealed class FlowCommand : IFlowAction {
     }
 
 
-    internal string CommandName { get; }
+    /// <summary>
+    /// Gets command name.
+    /// </summary>
+    public string CommandName { get; }
+
     internal CommandInstance Instance { get; }
     internal AASeqNodes TemplateData { get; }
 

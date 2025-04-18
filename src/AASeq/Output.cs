@@ -9,7 +9,7 @@ internal static class Output {
 
     public static void WriteLine(string s) {
         lock (SyncRoot) {
-            Console.Error.WriteLine(s);
+            Console.WriteLine(s);
         }
     }
 

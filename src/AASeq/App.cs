@@ -47,6 +47,13 @@ internal static partial class App {
         lintCommand.SetHandler(App.Lint, fileArgument);
         rootCommand.Add(lintCommand);
 
+        // Command: mermaid
+        var mermaidCommand = new Command("mermaid", "Mermaid diagram definitions") {
+            fileArgument,
+        };
+        mermaidCommand.SetHandler(App.Mermaid, fileArgument);
+        rootCommand.Add(mermaidCommand);
+
         // Command: new
         var newCommand = new Command("new", "Creates a new file") {
             verboseOption,

@@ -6,7 +6,7 @@ using System.Diagnostics;
 /// Flow.
 /// </summary>
 [DebuggerDisplay("{MessageName,nq} →{DestinationName,nq} ({DestinationInstance.PluginName,nq}/{DestinationInstance.PluginInstanceIndex,nq})")]
-internal sealed class FlowMessageOut : IFlowAction {
+internal sealed class FlowMessageOut : IFlowMessageOutAction {
 
     /// <summary>
     /// Create a new instance.
@@ -27,8 +27,16 @@ internal sealed class FlowMessageOut : IFlowAction {
     }
 
 
-    internal string MessageName { get; }
-    internal string DestinationName { get; }
+    /// <summary>
+    /// Gets destination name.
+    /// </summary>
+    public string DestinationName { get; }
+
+    /// <summary>
+    /// Gets message name.
+    /// </summary>
+    public string MessageName { get; }
+
     internal EndpointInstance DestinationInstance { get; }
     internal AASeqNodes TemplateData { get; }
     internal string MatchId { get; }  // used for matching out/in or in/out pairs
