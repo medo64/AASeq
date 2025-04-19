@@ -1,21 +1,40 @@
 namespace AASeq;
-using System;
 using System.Text.RegularExpressions;
+using System;
+using System.Diagnostics.CodeAnalysis;
 
-public sealed partial class Engine {
+public sealed partial class AASeqNodes {
 
-    internal static void Validate(AASeqNodes nodes, AASeqNodes matches) {
-        nodes = nodes.Clone();
-        matches = matches.Clone();
+    /// <summary>
+    /// Tries to validate if current nodes match the given nodes.
+    /// </summary>
+    /// <param name="matchNodes">Nodes to match.</param>
+    public bool TryValidate(AASeqNodes matchNodes) {
+        return TryValidate(matchNodes, out _);
+    }
 
-        for (var i = matches.Count - 1; i >= 0; i--) {
-            var j = GetMatchIndex(nodes, matches[i], 0);
+    /// <summary>
+    /// Tries to validate if current nodes match the given nodes.
+    /// </summary>
+    /// <param name="matchNodes">Nodes to match.</param>
+    /// <param name="failedNode">Node that failed to match.</param>
+    public bool TryValidate(AASeqNodes matchNodes, [MaybeNullWhen(true)] out AASeqNode failedNode) {
+        ArgumentNullException.ThrowIfNull(matchNodes);
+        var nodes = Clone();
+        matchNodes = matchNodes.Clone();
+
+        for (var i = matchNodes.Count - 1; i >= 0; i--) {
+            var j = GetMatchIndex(nodes, matchNodes[i], 0);
             if (j is not null) {
                 nodes.RemoveAt(j.Value);
             } else {
-                throw new InvalidOperationException($"Cannot find match for node {matches[i].Name}.");
+                failedNode = matchNodes[i];
+                return false;
             }
         }
+
+        failedNode = null;
+        return true;
     }
 
     private static int? GetMatchIndex(AASeqNodes nodes, AASeqNode match, int level) {
@@ -66,4 +85,5 @@ public sealed partial class Engine {
 
         return null;  // no match
     }
+
 }
