@@ -22,4 +22,8 @@
     <ProjectReference Include="../AASeq.Plugin/AASeq.Plugin.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="AASeq.Engine.UnitTests" />
+  </ItemGroup>
+
 </Project>

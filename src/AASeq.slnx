@@ -10,5 +10,6 @@
   <Folder Name="/Tests/" Id="f4193310-f20b-425e-b55a-606624987d67">
     <Project Path="../tests/AASeq.Document.FileTests/AASeq.Document.FileTests.csproj" />
     <Project Path="../tests/AASeq.Document.UnitTests/AASeq.Document.UnitTests.csproj" />
+    <Project Path="../tests/AASeq.Engine.UnitTests/AASeq.Engine.UnitTests.csproj" />
   </Folder>
 </Solution>

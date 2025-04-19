@@ -1,0 +1,21 @@
+<Project Sdk="MSTest.Sdk/3.7.3">
+
+  <PropertyGroup>
+    <AssemblyName>AASeq.Engine.UnitTests</AssemblyName>
+    <RootNamespace>Tests</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+    <Nullable>disable</Nullable>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/AASeq.Document/AASeq.Document.csproj" />
+    <ProjectReference Include="../../src/AASeq.Engine/AASeq.Engine.csproj" />
+  </ItemGroup>
+
+</Project>
