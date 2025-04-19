@@ -24,8 +24,8 @@ Message >Remote2 {
 
 wait "0.5s"
 
-Message <Remote2 {
-    Data (regex)"Test[0-9]"
+Message <Remote2  {
+    Data /op=regex "Test[0-9]"
 }
 
 Message <Remote {

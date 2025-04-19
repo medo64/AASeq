@@ -38,6 +38,20 @@ public sealed partial class AASeqNodes {
     }
 
     private static int? GetMatchIndex(AASeqNodes nodes, AASeqNode match, int level) {
+        // special matching for /op property
+        Regex? regex = null;
+        if (match.Tag is Regex regex2) {
+            regex = regex2;
+        } else {
+            var value = match.GetPropertyValue("/op");
+            if (value is not null) {
+                if (value.Equals("regex", StringComparison.OrdinalIgnoreCase)) {
+                    regex = new Regex(match.Value.AsString(""), RegexOptions.Compiled);
+                    match.Tag = regex;
+                }
+            }
+        }
+
         for (var i = 0; i < nodes.Count; i++) {
             var node = nodes[i];
 
@@ -49,7 +63,7 @@ public sealed partial class AASeqNodes {
                 } else if (!match.Value.IsNull && node.Value.IsNull) {
                     return null;  // missing value
                 } else if (!match.Value.IsNull && !node.Value.IsNull) {
-                    if (match.Value.Value is Regex regex) {  // special behavior for regex
+                    if (regex is not null) {  // special behavior for regex
                         if (!regex.Match(node.Value.AsString("")).Success) { return null; }
                     } else {
                         var matchValue = match.Value.AsString("");
@@ -59,6 +73,7 @@ public sealed partial class AASeqNodes {
 
                 // check if properties are the same
                 foreach (var property in match.Properties) {
+                    if (property.Key.StartsWith('/')) { continue; }  // skip any property starting with slash (e.g. /op)
                     var propValue = node.GetPropertyValue(property.Key);
                     if (propValue is null) { return null; }  // missing property
                     if (!string.Equals(propValue, property.Value, StringComparison.OrdinalIgnoreCase)) { return null; }

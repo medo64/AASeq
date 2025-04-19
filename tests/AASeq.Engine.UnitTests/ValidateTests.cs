@@ -115,18 +115,18 @@ public sealed class ValidateTests {
     }
 
 
-    //[TestMethod]
-    //public void Validate_ValueRegexMatch() {
-    //    var nodes = AASeqNodes.Parse("A Test");
-    //    var match = AASeqNodes.Parse("a /op=regex Te..");
-    //    Engine.Validate(nodes, match);
-    //}
+    [TestMethod]
+    public void Validate_ValueRegexMatch() {
+        var nodes = AASeqNodes.Parse("A Test");
+        var match = AASeqNodes.Parse("a /op=regex Te..");
+        Engine.Validate(nodes, match);
+    }
 
-    //[TestMethod]
-    //public void Validate_ValueRegexNonMatch() {
-    //    var nodes = AASeqNodes.Parse("A Test");
-    //    var match = AASeqNodes.Parse("a /op=regex TeX.");
-    //    Assert.ThrowsException<InvalidOperationException>(() => Engine.Validate(nodes, match));
-    //}
+    [TestMethod]
+    public void Validate_ValueRegexNonMatch() {
+        var nodes = AASeqNodes.Parse("A Test");
+        var match = AASeqNodes.Parse("a /op=regex TeX.");
+        Assert.ThrowsException<InvalidOperationException>(() => Engine.Validate(nodes, match));
+    }
 
 }

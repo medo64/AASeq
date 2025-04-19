@@ -109,6 +109,12 @@ public sealed partial class AASeqNode {
 
 
     /// <summary>
+    /// Any value used for internal processing (e.g. cached Regex).
+    /// </summary>
+    internal object? Tag;
+
+
+    /// <summary>
     /// Returns the clone of given node.
     /// </summary>
     public AASeqNode Clone() {

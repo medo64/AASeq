@@ -298,7 +298,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                                     EnterNode();
                                 } else if (ch is '}') {
                                     ExitNode();
-                                } else if (ch is '(' or ')' or '\\' or '/' or '=' or '"' or '#') {
+                                } else if (ch is '(' or ')' or '\\' or '=' or '"' or '#') {
                                     throw new InvalidOperationException($"Unexpected character at line {nLine}, character {nChar}.");
                                 } else {
                                     sbNodeName.Append(ch);
@@ -322,7 +322,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                                     AddNode();
                                     ExitNode();
                                     SetState(State.AwaitNode);
-                                } else if (ch is '(' or ')' or '\\' or '/' or '=' or '"' or '#') {
+                                } else if (ch is '(' or ')' or '\\' or '=' or '"' or '#') {
                                     throw new InvalidOperationException($"Unexpected character at line {nLine}, character {nChar}.");
                                 } else {  // just continue with name
                                     sbNodeName.Append(ch);
@@ -347,7 +347,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                                     sbQuotedString.Append(ch);  // include quotes in quoted string (will be sorted out later)
                                     SetState(State.ValueOrPropertyName);
                                     PushState(State.QuotedString);
-                                } else if (ch is ')' or '\\' or '/' or '=' or '#') {
+                                } else if (ch is ')' or '\\' or '=' or '#') {
                                     throw new InvalidOperationException($"Unexpected character at line {nLine}, character {nChar}.");
                                 } else {
                                     sbArgument.Append(ch);
@@ -380,7 +380,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                                     } else {
                                         SetState(State.PropertyValue);
                                     }
-                                } else if (ch is '(' or ')' or '\\' or '/' or '"' or '#') {
+                                } else if (ch is '(' or ')' or '\\' or '"' or '#') {
                                     throw new InvalidOperationException($"Unexpected character at line {nLine}, character {nChar}.");
                                 } else {  // just continue value
                                     sbArgument.Append(ch);
@@ -403,7 +403,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                                     AddProperty();
                                     ExitNode();
                                     SetState(State.AwaitNode);
-                                } else if (ch is '(' or ')' or '\\' or '/' or '"' or '#') {
+                                } else if (ch is '(' or ')' or '\\' or '"' or '#') {
                                     throw new InvalidOperationException($"Unexpected character at line {nLine}, character {nChar}.");
                                 } else {  // just continue with value
                                     sbPropertyValue.Append(ch);
@@ -416,7 +416,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                                     throw new InvalidOperationException($"Cannot end annotation at line {nLine}, character {nChar}.");
                                 } else if (ch is ')') {
                                     SetState(State.AwaitArgument);
-                                } else if (ch is '{' or '}' or '(' or '\\' or '/' or '"' or '#') {
+                                } else if (ch is '{' or '}' or '(' or '\\' or '"' or '#') {
                                     throw new InvalidOperationException($"Unexpected character at line {nLine}, character {nChar}.");
                                 } else {
                                     sbValueAnnotation.Append(ch);
