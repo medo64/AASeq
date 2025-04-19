@@ -1,5 +1,6 @@
 namespace AASeq;
 using System;
+using System.Text.RegularExpressions;
 
 public sealed partial class Engine {
 
@@ -24,13 +25,17 @@ public sealed partial class Engine {
             // check if name matches
             if (string.Equals(node.Name, match.Name, StringComparison.OrdinalIgnoreCase)) {
                 // check if values are the same
-                 if (match.Value.IsNull && !node.Value.IsNull) {
+                if (match.Value.IsNull && !node.Value.IsNull) {
                     return null;  // missing value
                 } else if (!match.Value.IsNull && node.Value.IsNull) {
                     return null;  // missing value
                 } else if (!match.Value.IsNull && !node.Value.IsNull) {
-                    var matchValue = match.Value.AsString("");
-                    if (!string.Equals(node.Value.AsString(""), matchValue, StringComparison.Ordinal)) { return null; }
+                    if (match.Value.Value is Regex regex) {  // special behavior for regex
+                        if (!regex.Match(node.Value.AsString("")).Success) { return null; }
+                    } else {
+                        var matchValue = match.Value.AsString("");
+                        if (!string.Equals(node.Value.AsString(""), matchValue, StringComparison.Ordinal)) { return null; }
+                    }
                 }
 
                 // check if properties are the same
