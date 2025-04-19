@@ -40,14 +40,35 @@ public sealed partial class AASeqNodes {
     private static int? GetMatchIndex(AASeqNodes nodes, AASeqNode match, int level) {
         // special matching for /op property
         Regex? regex = null;
+        ComparisonOp? comparisonOp = null;
         if (match.Tag is Regex regex2) {
             regex = regex2;
+        } else if (match.Tag is ComparisonOp comparisonOp2) {
+            comparisonOp = comparisonOp2;
         } else {
             var value = match.GetPropertyValue("/op");
             if (value is not null) {
                 if (value.Equals("regex", StringComparison.OrdinalIgnoreCase)) {
                     regex = new Regex(match.Value.AsString(""), RegexOptions.Compiled);
                     match.Tag = regex;
+                } else if (value.Equals("eq", StringComparison.OrdinalIgnoreCase) || value.Equals('=')) {
+                    comparisonOp = new ComparisonOp(ComparisonKind.eq, match.Value);
+                    match.Tag = comparisonOp;
+                } else if (value.Equals("ne", StringComparison.OrdinalIgnoreCase) || value.Equals("!=", StringComparison.Ordinal)) {
+                    comparisonOp = new ComparisonOp(ComparisonKind.ne, match.Value);
+                    match.Tag = comparisonOp;
+                } else if (value.Equals("lt", StringComparison.OrdinalIgnoreCase) || value.Equals('<')) {
+                    comparisonOp = new ComparisonOp(ComparisonKind.lt, match.Value);
+                    match.Tag = comparisonOp;
+                } else if (value.Equals("le", StringComparison.OrdinalIgnoreCase) || value.Equals("<=", StringComparison.Ordinal)) {
+                    comparisonOp = new ComparisonOp(ComparisonKind.le, match.Value);
+                    match.Tag = comparisonOp;
+                } else if (value.Equals("gt", StringComparison.OrdinalIgnoreCase) || value.Equals('>')) {
+                    comparisonOp = new ComparisonOp(ComparisonKind.gt, match.Value);
+                    match.Tag = comparisonOp;
+                } else if (value.Equals("ge", StringComparison.OrdinalIgnoreCase) || value.Equals(">=", StringComparison.Ordinal)) {
+                    comparisonOp = new ComparisonOp(ComparisonKind.ge, match.Value);
+                    match.Tag = comparisonOp;
                 }
             }
         }
@@ -65,6 +86,8 @@ public sealed partial class AASeqNodes {
                 } else if (!match.Value.IsNull && !node.Value.IsNull) {
                     if (regex is not null) {  // special behavior for regex
                         if (!regex.Match(node.Value.AsString("")).Success) { return null; }
+                    } else if (comparisonOp is not null) {
+                        if (!comparisonOp.Match(node.Value)) { return null; }
                     } else {
                         var matchValue = match.Value.AsString("");
                         if (!string.Equals(node.Value.AsString(""), matchValue, StringComparison.Ordinal)) { return null; }
@@ -99,6 +122,35 @@ public sealed partial class AASeqNodes {
         }
 
         return null;  // no match
+    }
+
+
+    private enum ComparisonKind { eq, ne, lt, le, gt, ge }
+    private sealed class ComparisonOp {
+        public ComparisonOp(ComparisonKind kind, AASeqValue match) {
+            Kind = kind;
+            MatchValue = match.AsDouble();
+        }
+
+        private readonly ComparisonKind Kind;
+        private readonly double? MatchValue;
+
+        public bool Match(AASeqValue value) {
+            if (MatchValue is null) { return false; }  // not equal if null
+
+            var nodeValue = value.AsDouble();
+            if (nodeValue is null) { return false; }  // not equal if null
+
+            return Kind switch {
+                ComparisonKind.eq => (MatchValue == nodeValue),
+                ComparisonKind.ne => (MatchValue != nodeValue),
+                ComparisonKind.lt => (MatchValue < nodeValue),
+                ComparisonKind.le => (MatchValue <= nodeValue),
+                ComparisonKind.gt => (MatchValue > nodeValue),
+                ComparisonKind.ge => (MatchValue >= nodeValue),
+                _ => false,
+            };
+        }
     }
 
 }
