@@ -6,39 +6,48 @@ internal static class Metrics {
     private static readonly Meter Meter = new("AASeq.Document");
 
     /// <summary>
-    /// Document creation count.
+    /// Document Load count.
     /// </summary>
-    public static Counter<long> DocumentNewCount = Meter.CreateCounter<long>("aaseq.document.new.count");
+    public static Counter<long> NodesLoadCount = Meter.CreateCounter<long>("aaseq.nodes.load.count");
 
     /// <summary>
-    /// Document load count.
+    /// Time needed for document Load operation.
     /// </summary>
-    public static Counter<long> DocumentLoadCount = Meter.CreateCounter<long>("aaseq.document.load.count");
-
-    /// <summary>
-    /// Document save count.
-    /// </summary>
-    public static Counter<long> DocumentSaveCount = Meter.CreateCounter<long>("aaseq.document.save.count");
-
-    /// <summary>
-    /// Document clone count.
-    /// </summary>
-    public static Counter<long> DocumentCloneCount = Meter.CreateCounter<long>("aaseq.document.clone.count");
+    public static Histogram<long> NodesLoadMilliseconds = Meter.CreateHistogram<long>("aaseq.nodes.load.milliseconds");
 
 
     /// <summary>
-    /// Time needed for document load.
+    /// Document Save count.
     /// </summary>
-    public static Histogram<long> DocumentLoadMilliseconds = Meter.CreateHistogram<long>("aaseq.document.load.milliseconds");
+    public static Counter<long> NodesSaveCount = Meter.CreateCounter<long>("aaseq.nodes.save.count");
 
     /// <summary>
-    /// Time needed for document save.
+    /// Time needed for document Save operation.
     /// </summary>
-    public static Histogram<long> DocumentSaveMilliseconds = Meter.CreateHistogram<long>("aaseq.document.save.milliseconds");
+    public static Histogram<long> NodesSaveMilliseconds = Meter.CreateHistogram<long>("aaseq.nodes.save.milliseconds");
+
 
     /// <summary>
-    /// Time needed for document clone.
+    /// Document Clone count.
     /// </summary>
-    public static Histogram<long> DocumentCloneMilliseconds = Meter.CreateHistogram<long>("aaseq.document.clone.milliseconds");
+    public static Counter<long> NodesCloneCount = Meter.CreateCounter<long>("aaseq.nodes.clone.count");
+
+
+    /// <summary>
+    /// Time needed for document Clone operation.
+    /// </summary>
+    public static Histogram<long> NodesCloneMilliseconds = Meter.CreateHistogram<long>("aaseq.nodes.clone.milliseconds");
+
+
+    /// <summary>
+    /// Document Validate count.
+    /// </summary>
+    public static Counter<long> NodesValidateCount = Meter.CreateCounter<long>("aaseq.nodes.validate.count");
+
+
+    /// <summary>
+    /// Time needed for document Validate operation.
+    /// </summary>
+    public static Histogram<long> NodesValidateMilliseconds = Meter.CreateHistogram<long>("aaseq.nodes.validate.milliseconds");
 
 }

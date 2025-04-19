@@ -2,6 +2,7 @@ namespace AASeq;
 using System.Text.RegularExpressions;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics;
 
 public sealed partial class AASeqNodes {
 
@@ -19,22 +20,30 @@ public sealed partial class AASeqNodes {
     /// <param name="matchNodes">Nodes to match.</param>
     /// <param name="failedNode">Node that failed to match.</param>
     public bool TryValidate(AASeqNodes matchNodes, [MaybeNullWhen(true)] out AASeqNode failedNode) {
-        ArgumentNullException.ThrowIfNull(matchNodes);
-        var nodes = Clone();
-        matchNodes = matchNodes.Clone();
+        var sw = Stopwatch.StartNew();
+        try {
 
-        for (var i = matchNodes.Count - 1; i >= 0; i--) {
-            var j = GetMatchIndex(nodes, matchNodes[i], 0);
-            if (j is not null) {
-                nodes.RemoveAt(j.Value);
-            } else {
-                failedNode = matchNodes[i];
-                return false;
+            ArgumentNullException.ThrowIfNull(matchNodes);
+            var nodes = Clone();
+            matchNodes = matchNodes.Clone();
+
+            for (var i = matchNodes.Count - 1; i >= 0; i--) {
+                var j = GetMatchIndex(nodes, matchNodes[i], 0);
+                if (j is not null) {
+                    nodes.RemoveAt(j.Value);
+                } else {
+                    failedNode = matchNodes[i];
+                    return false;
+                }
             }
-        }
 
-        failedNode = null;
-        return true;
+            failedNode = null;
+            return true;
+        } finally {
+            Debug.WriteLine($"[AASeq.Document] Validate: {sw.ElapsedMilliseconds} ms");
+            Metrics.NodesValidateMilliseconds.Record(sw.ElapsedMilliseconds);
+            Metrics.NodesValidateCount.Add(1);
+        }
     }
 
     private static int? GetMatchIndex(AASeqNodes nodes, AASeqNode match, int level) {
@@ -102,7 +111,7 @@ public sealed partial class AASeqNodes {
                     if (!string.Equals(propValue, property.Value, StringComparison.OrdinalIgnoreCase)) { return null; }
                 }
 
-                // check if nodes are the same 
+                // check if nodes are the same
                 if ((match.Nodes.Count > 0) && (node.Nodes.Count > 0)) {
                     for (var j = 0; j < match.Nodes.Count; j++) {
                         var k = GetMatchIndex(node.Nodes, match.Nodes[j], level + 1);

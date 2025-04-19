@@ -147,7 +147,7 @@ public sealed partial class AASeqNodes : IList<AASeqNode> {
             }
             return clone;
         } finally {
-            Debug.WriteLine($"[AASeqNodes] Clone: {sw.ElapsedMilliseconds} ms");
+            Debug.WriteLine($"[AASeq.Document] Clone: {sw.ElapsedMilliseconds} ms");
         }
     }
 

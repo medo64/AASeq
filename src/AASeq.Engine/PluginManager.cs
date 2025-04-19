@@ -57,7 +57,7 @@ public sealed class PluginManager {
             CommandPlugins = new ReadOnlyCollection<CommandPlugin>([.. CommandPluginsByName.Values]);
             EndpointPlugins = new ReadOnlyCollection<EndpointPlugin>([.. EndpointPluginsByName.Values]);
         } finally {
-            Debug.WriteLine($"[AASeqEngine] Init: {sw.ElapsedMilliseconds} ms");
+            Debug.WriteLine($"[AASeq.Engine] Init: {sw.ElapsedMilliseconds} ms");
             Metrics.PluginFileLoadMilliseconds.Record(sw.ElapsedMilliseconds);
         }
     }
