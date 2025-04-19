@@ -113,7 +113,7 @@ public sealed class NodesTraverseTests {
         var document = new AASeqNodes();
 
         document["test"] = "value";
-        Assert.AreEqual("value", document["test"].Value.ToString());
+        Assert.AreEqual("value", document["test"].RawValue.ToString());
 
         Assert.AreEqual("test value", document.ToString());
     }

@@ -2,7 +2,6 @@ namespace AASeq;
 using System;
 using System.Diagnostics;
 using System.Net;
-using System.Text.RegularExpressions;
 
 /// <summary>
 /// AASeq value.
@@ -21,7 +20,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="value">Value.</param>
     public AASeqValue(Object? value) {
-        Value = ValidateValue(value);
+        RawValue = ValidateValue(value);
     }
 
 
@@ -29,14 +28,14 @@ public sealed partial record AASeqValue {
     /// Gets if value is null.
     /// </summary>
     public bool IsNull {
-        get { return Value is null; }
+        get { return RawValue is null; }
     }
 
 
     /// <summary>
     /// Gets/sets value.
     /// </summary>
-    public object? Value { get; private init; }
+    public object? RawValue { get; private init; }
 
 
     /// <summary>

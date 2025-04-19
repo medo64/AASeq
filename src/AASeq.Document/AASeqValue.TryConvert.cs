@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Net;
 using System.Numerics;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 
 public sealed partial record AASeqValue {
 
@@ -16,7 +15,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertString(object? value, [NotNullWhen(true)] out String? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             null => null,
             DateTimeOffset val => val.ToString("yyyy-MM-dd'T'HH:mm:ss.FFFFFFFzzz", CultureInfo.InvariantCulture),
@@ -38,7 +37,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertBoolean(object? value, [NotNullWhen(true)] out Boolean? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val,
             SByte val => val != 0,
@@ -65,7 +64,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertSByte(object? value, [NotNullWhen(true)] out SByte? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? (SByte)1 : (SByte)0,
             SByte val => val,
@@ -96,7 +95,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertByte(object? value, [NotNullWhen(true)] out Byte? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? (Byte)1 : (Byte)0,
             SByte val => (val >= 0) ? (Byte)val : null,
@@ -127,7 +126,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertInt16(object? value, [NotNullWhen(true)] out Int16? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? (Int16)1 : (Int16)0,
             SByte val => val,
@@ -158,7 +157,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertUInt16(object? value, [NotNullWhen(true)] out UInt16? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? (UInt16)1 : (UInt16)0,
             SByte val => (val >= 0) ? (UInt16)val : null,
@@ -189,7 +188,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertInt32(object? value, [NotNullWhen(true)] out Int32? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? 1 : 0,
             SByte val => val,
@@ -221,7 +220,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertUInt32(object? value, [NotNullWhen(true)] out UInt32? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? (UInt32)1 : 0,
             SByte val => (val >= 0) ? (UInt32)val : null,
@@ -253,7 +252,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertInt64(object? value, [NotNullWhen(true)] out Int64? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? 1 : 0,
             SByte val => val,
@@ -285,7 +284,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertUInt64(object? value, [NotNullWhen(true)] out UInt64? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? (UInt64)1 : (UInt64)0,
             SByte val => (val >= 0) ? (UInt64)val : null,
@@ -317,7 +316,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertInt128(object? value, [NotNullWhen(true)] out Int128? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? 1 : 0,
             SByte val => val,
@@ -348,7 +347,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertUInt128(object? value, [NotNullWhen(true)] out UInt128? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Boolean val => val ? (UInt128)1 : 0,
             SByte val => (val >= 0) ? (UInt64)val : null,
@@ -380,7 +379,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertHalf(object? value, [NotNullWhen(true)] out Half? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             SByte val => ConvertOrBust<Half, SByte>(val),
             Byte val => ConvertOrBust<Half, Byte>(val),
@@ -409,7 +408,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertSingle(object? value, [NotNullWhen(true)] out Single? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             SByte val => ConvertOrBust<Single, SByte>(val),
             Byte val => ConvertOrBust<Single, Byte>(val),
@@ -438,7 +437,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertDouble(object? value, [NotNullWhen(true)] out Double? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             SByte val => ConvertOrBust<Double, SByte>(val),
             Byte val => ConvertOrBust<Double, Byte>(val),
@@ -467,7 +466,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertDecimal(object? value, [NotNullWhen(true)] out Decimal? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             SByte val => ConvertOrBust<Decimal, SByte>(val),
             Byte val => ConvertOrBust<Decimal, Byte>(val),
@@ -496,7 +495,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertDateTimeOffset(object? value, [NotNullWhen(true)] out DateTimeOffset? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Int32 val => DateTimeOffset.FromUnixTimeSeconds(val),
             UInt32 val => DateTimeOffset.FromUnixTimeSeconds(val),
@@ -519,7 +518,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertDateOnly(object? value, [NotNullWhen(true)] out DateOnly? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             DateTimeOffset val => new DateOnly(val.Year, val.Month, val.Day),
             DateOnly val => val,
@@ -536,7 +535,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertTimeOnlyValue(object? value, [NotNullWhen(true)] out TimeOnly? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             DateTimeOffset val => new TimeOnly(val.Ticks % (TimeOnly.MaxValue.Ticks + 1)),
             TimeOnly val => val,
@@ -553,7 +552,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertTimeSpan(object? value, [NotNullWhen(true)] out TimeSpan? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             SByte val => TimeSpan.FromSeconds(val),
             Byte val => TimeSpan.FromSeconds(val),
@@ -586,7 +585,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertIPAddress(object? value, [NotNullWhen(true)] out IPAddress? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             IPAddress val => val,
             String val => TryParseIPAddress(val, out var res) ? (IPAddress)res! : null,
@@ -602,7 +601,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertUri(object? value, [NotNullWhen(true)] out Uri? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Uri val => val,
             String val => TryParseUri(val, out var res) ? (Uri)res! : null,
@@ -618,7 +617,7 @@ public sealed partial record AASeqValue {
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
     public static bool TryConvertGuid(object? value, [NotNullWhen(true)] out Guid? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             Guid val => val,
             String val => TryParseGuid(val, out var res) ? (Guid)res! : null,

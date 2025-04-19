@@ -2,7 +2,6 @@ namespace AASeq;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using System.Text.RegularExpressions;
 
 [SuppressMessage("Usage", "CA2225:Operator overloads have named alternates", Justification = "As* methods exist")]
 public sealed partial record AASeqValue {
@@ -18,7 +17,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(String value) => new() { Value = value };
+    public static implicit operator AASeqValue(String value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -36,7 +35,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Boolean value) => new() { Value = value };
+    public static implicit operator AASeqValue(Boolean value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -54,7 +53,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(SByte value) => new() { Value = value };
+    public static implicit operator AASeqValue(SByte value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -72,7 +71,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Byte value) => new() { Value = value };
+    public static implicit operator AASeqValue(Byte value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -90,7 +89,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Int16 value) => new() { Value = value };
+    public static implicit operator AASeqValue(Int16 value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -108,7 +107,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(UInt16 value) => new() { Value = value };
+    public static implicit operator AASeqValue(UInt16 value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -126,7 +125,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Int32 value) => new() { Value = value };
+    public static implicit operator AASeqValue(Int32 value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -144,7 +143,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(UInt32 value) => new() { Value = value };
+    public static implicit operator AASeqValue(UInt32 value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -162,7 +161,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Int64 value) => new() { Value = value };
+    public static implicit operator AASeqValue(Int64 value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -180,7 +179,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(UInt64 value) => new() { Value = value };
+    public static implicit operator AASeqValue(UInt64 value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -198,7 +197,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Int128 value) => new() { Value = value };
+    public static implicit operator AASeqValue(Int128 value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -216,7 +215,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(UInt128 value) => new() { Value = value };
+    public static implicit operator AASeqValue(UInt128 value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -234,7 +233,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Half value) => new() { Value = value };
+    public static implicit operator AASeqValue(Half value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -252,7 +251,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Single value) => new() { Value = value };
+    public static implicit operator AASeqValue(Single value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -270,7 +269,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Double value) => new() { Value = value };
+    public static implicit operator AASeqValue(Double value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -288,7 +287,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Decimal value) => new() { Value = value };
+    public static implicit operator AASeqValue(Decimal value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -306,7 +305,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(DateTimeOffset value) => new() { Value = value };
+    public static implicit operator AASeqValue(DateTimeOffset value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -324,7 +323,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(DateOnly value) => new() { Value = value };
+    public static implicit operator AASeqValue(DateOnly value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -342,7 +341,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(TimeOnly value) => new() { Value = value };
+    public static implicit operator AASeqValue(TimeOnly value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -360,7 +359,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(TimeSpan value) => new() { Value = value };
+    public static implicit operator AASeqValue(TimeSpan value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -373,7 +372,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(IPAddress value) => new() { Value = value };
+    public static implicit operator AASeqValue(IPAddress value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -386,7 +385,7 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Uri value) => new() { Value = value };
+    public static implicit operator AASeqValue(Uri value) => new() { RawValue = value };
 
 
     /// <summary>
@@ -404,6 +403,6 @@ public sealed partial record AASeqValue {
     /// Returns AASeqValue.
     /// </summary>
     /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Guid value) => new() { Value = value };
+    public static implicit operator AASeqValue(Guid value) => new() { RawValue = value };
 
 }

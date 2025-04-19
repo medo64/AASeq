@@ -1,7 +1,6 @@
 namespace AASeq;
 using System;
 using System.Net;
-using System.Text.RegularExpressions;
 
 public sealed partial class AASeqNode {
 

@@ -3,7 +3,6 @@ using System;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Text.RegularExpressions;
 
 public sealed partial class AASeqNodes : IFormattable {
 
@@ -201,7 +200,7 @@ public sealed partial class AASeqNodes : IFormattable {
             }
         }
 
-        if (node.Value.Value is not null) {
+        if (node.Value.RawValue is not null) {
             writer.Write(' ');
             if (!options.NoTypeAnnotation) {
                 var typeAnnotation = GetTypeAnnotation(node.Value);
@@ -248,7 +247,7 @@ public sealed partial class AASeqNodes : IFormattable {
     }
 
     private static string? GetTypeAnnotation(AASeqValue value) {
-        return value.Value switch {
+        return value.RawValue switch {
             null => null,
             Boolean => null,
             SByte => "i8",
@@ -279,7 +278,7 @@ public sealed partial class AASeqNodes : IFormattable {
     }
 
     private static string GetStringFromValue(AASeqValue valueObject) {
-        return valueObject.Value switch {
+        return valueObject.RawValue switch {
             null => "null",
             Boolean value => value ? "true" : "false",
             SByte value => value.ToString(CultureInfo.InvariantCulture),

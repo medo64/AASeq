@@ -5,7 +5,6 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net;
-using System.Text.RegularExpressions;
 
 public sealed partial record AASeqValue {
 

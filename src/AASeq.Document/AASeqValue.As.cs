@@ -1,7 +1,6 @@
 namespace AASeq;
 using System;
 using System.Net;
-using System.Text.RegularExpressions;
 
 public sealed partial record AASeqValue {
 
@@ -10,7 +9,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public String? AsString() {
-        return TryConvertString(Value, out String? result) ? result : null;
+        return TryConvertString(RawValue, out String? result) ? result : null;
     }
 
     /// <summary>
@@ -18,7 +17,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public String AsString(String defaultValue) {
-        return TryConvertString(Value, out String? result) ? result : defaultValue;
+        return TryConvertString(RawValue, out String? result) ? result : defaultValue;
     }
 
 
@@ -27,7 +26,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Boolean? AsBoolean() {
-        return TryConvertBoolean(Value, out Boolean? result) ? result.Value : null;
+        return TryConvertBoolean(RawValue, out Boolean? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -35,7 +34,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Boolean AsBoolean(Boolean defaultValue) {
-        return TryConvertBoolean(Value, out Boolean? result) ? result.Value : defaultValue;
+        return TryConvertBoolean(RawValue, out Boolean? result) ? result.Value : defaultValue;
     }
 
 
@@ -44,7 +43,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public SByte? AsSByte() {
-        return TryConvertSByte(Value, out SByte? result) ? result.Value : null;
+        return TryConvertSByte(RawValue, out SByte? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -52,7 +51,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public SByte AsSByte(SByte defaultValue) {
-        return TryConvertSByte(Value, out SByte? result) ? result.Value : defaultValue;
+        return TryConvertSByte(RawValue, out SByte? result) ? result.Value : defaultValue;
     }
 
 
@@ -61,7 +60,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Byte? AsByte() {
-        return TryConvertByte(Value, out Byte? result) ? result.Value : null;
+        return TryConvertByte(RawValue, out Byte? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -69,7 +68,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Byte AsByte(Byte defaultValue) {
-        return TryConvertByte(Value, out Byte? result) ? result.Value : defaultValue;
+        return TryConvertByte(RawValue, out Byte? result) ? result.Value : defaultValue;
     }
 
 
@@ -78,7 +77,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Int16? AsInt16() {
-        return TryConvertInt16(Value, out Int16? result) ? result.Value : null;
+        return TryConvertInt16(RawValue, out Int16? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -86,7 +85,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Int16 AsInt16(Int16 defaultValue) {
-        return TryConvertInt16(Value, out Int16? result) ? result.Value : defaultValue;
+        return TryConvertInt16(RawValue, out Int16? result) ? result.Value : defaultValue;
     }
 
 
@@ -95,7 +94,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public UInt16? AsUInt16() {
-        return TryConvertUInt16(Value, out UInt16? result) ? result.Value : null;
+        return TryConvertUInt16(RawValue, out UInt16? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -103,7 +102,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public UInt16 AsUInt16(UInt16 defaultValue) {
-        return TryConvertUInt16(Value, out UInt16? result) ? result.Value : defaultValue;
+        return TryConvertUInt16(RawValue, out UInt16? result) ? result.Value : defaultValue;
     }
 
 
@@ -112,7 +111,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Int32? AsInt32() {
-        return TryConvertInt32(Value, out Int32? result) ? result.Value : null;
+        return TryConvertInt32(RawValue, out Int32? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -120,7 +119,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Int32 AsInt32(Int32 defaultValue) {
-        return TryConvertInt32(Value, out Int32? result) ? result.Value : defaultValue;
+        return TryConvertInt32(RawValue, out Int32? result) ? result.Value : defaultValue;
     }
 
 
@@ -129,7 +128,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public UInt32? AsUInt32() {
-        return TryConvertUInt32(Value, out UInt32? result) ? result.Value : null;
+        return TryConvertUInt32(RawValue, out UInt32? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -137,7 +136,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public UInt32 AsUInt32(UInt32 defaultValue) {
-        return TryConvertUInt32(Value, out UInt32? result) ? result.Value : defaultValue;
+        return TryConvertUInt32(RawValue, out UInt32? result) ? result.Value : defaultValue;
     }
 
 
@@ -146,7 +145,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Int64? AsInt64() {
-        return TryConvertInt64(Value, out Int64? result) ? result.Value : null;
+        return TryConvertInt64(RawValue, out Int64? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -154,7 +153,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Int64 AsInt64(Int64 defaultValue) {
-        return TryConvertInt64(Value, out Int64? result) ? result.Value : defaultValue;
+        return TryConvertInt64(RawValue, out Int64? result) ? result.Value : defaultValue;
     }
 
 
@@ -163,7 +162,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public UInt64? AsUInt64() {
-        return TryConvertUInt64(Value, out UInt64? result) ? result.Value : null;
+        return TryConvertUInt64(RawValue, out UInt64? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -171,7 +170,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public UInt64 AsUInt64(UInt64 defaultValue) {
-        return TryConvertUInt64(Value, out UInt64? result) ? result.Value : defaultValue;
+        return TryConvertUInt64(RawValue, out UInt64? result) ? result.Value : defaultValue;
     }
 
 
@@ -180,7 +179,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Int128? AsInt128() {
-        return TryConvertInt128(Value, out Int128? result) ? result.Value : null;
+        return TryConvertInt128(RawValue, out Int128? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -188,7 +187,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Int128 AsInt128(Int128 defaultValue) {
-        return TryConvertInt128(Value, out Int128? result) ? result.Value : defaultValue;
+        return TryConvertInt128(RawValue, out Int128? result) ? result.Value : defaultValue;
     }
 
 
@@ -197,7 +196,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public UInt128? AsUInt128() {
-        return TryConvertUInt128(Value, out UInt128? result) ? result.Value : null;
+        return TryConvertUInt128(RawValue, out UInt128? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -205,7 +204,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public UInt128 AsUInt128(UInt128 defaultValue) {
-        return TryConvertUInt128(Value, out UInt128? result) ? result.Value : defaultValue;
+        return TryConvertUInt128(RawValue, out UInt128? result) ? result.Value : defaultValue;
     }
 
 
@@ -214,7 +213,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Half? AsHalf() {
-        return TryConvertHalf(Value, out Half? result) ? result.Value : null;
+        return TryConvertHalf(RawValue, out Half? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -222,7 +221,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Half AsHalf(Half defaultValue) {
-        return TryConvertHalf(Value, out Half? result) ? result.Value : defaultValue;
+        return TryConvertHalf(RawValue, out Half? result) ? result.Value : defaultValue;
     }
 
 
@@ -231,7 +230,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Single? AsSingle() {
-        return TryConvertSingle(Value, out Single? result) ? result.Value : null;
+        return TryConvertSingle(RawValue, out Single? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -239,7 +238,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Single AsSingle(Single defaultValue) {
-        return TryConvertSingle(Value, out Single? result) ? result.Value : defaultValue;
+        return TryConvertSingle(RawValue, out Single? result) ? result.Value : defaultValue;
     }
 
 
@@ -248,7 +247,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Double? AsDouble() {
-        return TryConvertDouble(Value, out Double? result) ? result.Value : null;
+        return TryConvertDouble(RawValue, out Double? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -256,7 +255,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Double AsDouble(Double defaultValue) {
-        return TryConvertDouble(Value, out Double? result) ? result.Value : defaultValue;
+        return TryConvertDouble(RawValue, out Double? result) ? result.Value : defaultValue;
     }
 
 
@@ -265,7 +264,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Decimal? AsDecimal() {
-        return TryConvertDecimal(Value, out Decimal? result) ? result.Value : null;
+        return TryConvertDecimal(RawValue, out Decimal? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -273,7 +272,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Decimal AsDecimal(Decimal defaultValue) {
-        return TryConvertDecimal(Value, out Decimal? result) ? result.Value : defaultValue;
+        return TryConvertDecimal(RawValue, out Decimal? result) ? result.Value : defaultValue;
     }
 
 
@@ -282,7 +281,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public DateTimeOffset? AsDateTimeOffset() {
-        return TryConvertDateTimeOffset(Value, out DateTimeOffset? result) ? result.Value : null;
+        return TryConvertDateTimeOffset(RawValue, out DateTimeOffset? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -290,7 +289,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public DateTimeOffset AsDateTimeOffset(DateTimeOffset defaultValue) {
-        return TryConvertDateTimeOffset(Value, out DateTimeOffset? result) ? result.Value : defaultValue;
+        return TryConvertDateTimeOffset(RawValue, out DateTimeOffset? result) ? result.Value : defaultValue;
     }
 
 
@@ -299,7 +298,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public DateOnly? AsDateOnly() {
-        return TryConvertDateOnly(Value, out DateOnly? result) ? result.Value : null;
+        return TryConvertDateOnly(RawValue, out DateOnly? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -307,7 +306,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public DateOnly AsDateOnly(DateOnly defaultValue) {
-        return TryConvertDateOnly(Value, out DateOnly? result) ? result.Value : defaultValue;
+        return TryConvertDateOnly(RawValue, out DateOnly? result) ? result.Value : defaultValue;
     }
 
 
@@ -316,7 +315,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public TimeOnly? AsTimeOnly() {
-        return TryConvertTimeOnlyValue(Value, out TimeOnly? result) ? result.Value : null;
+        return TryConvertTimeOnlyValue(RawValue, out TimeOnly? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -324,7 +323,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public TimeOnly AsTimeOnly(TimeOnly defaultValue) {
-        return TryConvertTimeOnlyValue(Value, out TimeOnly? result) ? result.Value : defaultValue;
+        return TryConvertTimeOnlyValue(RawValue, out TimeOnly? result) ? result.Value : defaultValue;
     }
 
 
@@ -333,7 +332,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public TimeSpan? AsTimeSpan() {
-        return TryConvertTimeSpan(Value, out TimeSpan? result) ? result.Value : null;
+        return TryConvertTimeSpan(RawValue, out TimeSpan? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -341,7 +340,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public TimeSpan AsTimeSpan(TimeSpan defaultValue) {
-        return TryConvertTimeSpan(Value, out TimeSpan? result) ? result.Value : defaultValue;
+        return TryConvertTimeSpan(RawValue, out TimeSpan? result) ? result.Value : defaultValue;
     }
 
 
@@ -350,7 +349,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public IPAddress? AsIPAddress() {
-        return TryConvertIPAddress(Value, out IPAddress? result) ? result : null;
+        return TryConvertIPAddress(RawValue, out IPAddress? result) ? result : null;
     }
 
     /// <summary>
@@ -358,7 +357,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public IPAddress AsIPAddress(IPAddress defaultValue) {
-        return TryConvertIPAddress(Value, out IPAddress? result) ? result : defaultValue;
+        return TryConvertIPAddress(RawValue, out IPAddress? result) ? result : defaultValue;
     }
 
 
@@ -367,7 +366,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Uri? AsUri() {
-        return TryConvertUri(Value, out Uri? result) ? result : null;
+        return TryConvertUri(RawValue, out Uri? result) ? result : null;
     }
 
     /// <summary>
@@ -375,7 +374,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Uri AsUri(Uri defaultValue) {
-        return TryConvertUri(Value, out Uri? result) ? result : defaultValue;
+        return TryConvertUri(RawValue, out Uri? result) ? result : defaultValue;
     }
 
 
@@ -384,7 +383,7 @@ public sealed partial record AASeqValue {
     /// Null is returned if value cannot be converted.
     /// </summary>
     public Guid? AsGuid() {
-        return TryConvertGuid(Value, out Guid? result) ? result.Value : null;
+        return TryConvertGuid(RawValue, out Guid? result) ? result.Value : null;
     }
 
     /// <summary>
@@ -392,7 +391,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Guid AsGuid(Guid defaultValue) {
-        return TryConvertGuid(Value, out Guid? result) ? result.Value : defaultValue;
+        return TryConvertGuid(RawValue, out Guid? result) ? result.Value : defaultValue;
     }
 
 }

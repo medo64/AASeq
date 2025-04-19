@@ -11,7 +11,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_Null() {
         var data = new AASeqNode("node");
-        Assert.IsNull(data.Value.Value);
+        Assert.IsNull(data.Value.RawValue);
 
         Assert.IsNull(data.Value.AsString());
         Assert.AreEqual("Default", data.Value.AsString("Default"));
@@ -71,7 +71,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_I8() {
         var data = new AASeqNode("node", (sbyte)42);
-        Assert.AreEqual((sbyte)42, data.Value.Value);
+        Assert.AreEqual((sbyte)42, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -130,7 +130,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_U8() {
         var data = new AASeqNode("node", (byte)42);
-        Assert.AreEqual((byte)42, data.Value.Value);
+        Assert.AreEqual((byte)42, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -180,7 +180,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_I16() {
         var data = new AASeqNode("node", (short)42);
-        Assert.AreEqual((short)42, data.Value.Value);
+        Assert.AreEqual((short)42, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -239,7 +239,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_U16() {
         var data = new AASeqNode("node", (ushort)42);
-        Assert.AreEqual((ushort)42, data.Value.Value);
+        Assert.AreEqual((ushort)42, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -289,7 +289,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_I32() {
         var data = new AASeqNode("node", (int)42);
-        Assert.AreEqual(42, data.Value.Value);
+        Assert.AreEqual(42, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -348,7 +348,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_U32() {
         var data = new AASeqNode("node", (uint)42);
-        Assert.AreEqual(42U, data.Value.Value);
+        Assert.AreEqual(42U, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -398,7 +398,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_I64() {
         var data = new AASeqNode("node", (long)42);
-        Assert.AreEqual(42L, data.Value.Value);
+        Assert.AreEqual(42L, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -457,7 +457,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_U64() {
         var data = new AASeqNode("node", (ulong)42);
-        Assert.AreEqual(42UL, data.Value.Value);
+        Assert.AreEqual(42UL, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -507,7 +507,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_I128() {
         var data = new AASeqNode("node", (Int128)42);
-        Assert.AreEqual((Int128)42, data.Value.Value);
+        Assert.AreEqual((Int128)42, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -566,7 +566,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_U128() {
         var data = new AASeqNode("node", (UInt128)42);
-        Assert.AreEqual((UInt128)42, data.Value.Value);
+        Assert.AreEqual((UInt128)42, data.Value.RawValue);
 
         Assert.AreEqual("42", data.Value.AsString());
         Assert.AreEqual("42", data.Value.AsString("Default"));
@@ -617,7 +617,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_F16() {
         var data = new AASeqNode("node", (Half)42.4);
-        Assert.AreEqual((Half)42.4, data.Value.Value);
+        Assert.AreEqual((Half)42.4, data.Value.RawValue);
 
         Assert.AreEqual("42.4", data.Value.AsString());
         Assert.AreEqual("42.4", data.Value.AsString("Default"));
@@ -677,7 +677,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_F32() {
         var data = new AASeqNode("node", (float)42.42);
-        Assert.AreEqual(42.42f, data.Value.Value);
+        Assert.AreEqual(42.42f, data.Value.RawValue);
 
         Assert.AreEqual("42.42", data.Value.AsString());
         Assert.AreEqual("42.42", data.Value.AsString("Default"));
@@ -736,7 +736,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_F64() {
         var data = new AASeqNode("node", (double)42.4242);
-        Assert.AreEqual(42.4242, data.Value.Value);
+        Assert.AreEqual(42.4242, data.Value.RawValue);
 
         Assert.AreEqual("42.4242", data.Value.AsString());
         Assert.AreEqual("42.4242", data.Value.AsString("Default"));
@@ -796,7 +796,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_Decimal128() {
         var data = new AASeqNode("node", (decimal)42.4242);
-        Assert.AreEqual(42.4242M, data.Value.Value);
+        Assert.AreEqual(42.4242M, data.Value.RawValue);
 
         Assert.AreEqual("42.4242", data.Value.AsString());
         Assert.AreEqual("42.4242", data.Value.AsString("Default"));
@@ -857,7 +857,7 @@ public sealed class NodeValueTests {
     public void NodeValue_DateTimeOffset() {
         var value = new DateTimeOffset(1969, 07, 20, 20, 17, 00, new TimeSpan(0, 0, 0));
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("1969-07-20T20:17:00+00:00", data.Value.AsString());
         Assert.AreEqual("1969-07-20T20:17:00+00:00", data.Value.AsString("Default"));
@@ -917,7 +917,7 @@ public sealed class NodeValueTests {
     public void NodeValue_DateTimeOffset_MS() {
         var value = new DateTimeOffset(1969, 07, 20, 20, 17, 00, new TimeSpan(0, 0, 0)).AddMilliseconds(1);
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("1969-07-20T20:17:00.001+00:00", data.Value.AsString());
         Assert.AreEqual("1969-07-20T20:17:00.001+00:00", data.Value.AsString("Default"));
@@ -977,7 +977,7 @@ public sealed class NodeValueTests {
     public void NodeValue_DateTimeOffset_US() {
         var value = new DateTimeOffset(1969, 07, 20, 20, 17, 00, new TimeSpan(0, 0, 0)).AddMicroseconds(1);
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("1969-07-20T20:17:00.000001+00:00", data.Value.AsString());
         Assert.AreEqual("1969-07-20T20:17:00.000001+00:00", data.Value.AsString("Default"));
@@ -1037,7 +1037,7 @@ public sealed class NodeValueTests {
     public void NodeValue_DateTimeOffset_NS() {
         var value = new DateTimeOffset(1969, 07, 20, 20, 17, 00, new TimeSpan(0, 0, 0)).AddTicks(1);
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("1969-07-20T20:17:00.0000001+00:00", data.Value.AsString());
         Assert.AreEqual("1969-07-20T20:17:00.0000001+00:00", data.Value.AsString("Default"));
@@ -1097,7 +1097,7 @@ public sealed class NodeValueTests {
     public void NodeValue_DateTimeOffset_TZ() {
         var value = new DateTimeOffset(1969, 07, 20, 14, 17, 00, new TimeSpan(-6, 0, 0));
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("1969-07-20T14:17:00-06:00", data.Value.AsString());
         Assert.AreEqual("1969-07-20T14:17:00-06:00", data.Value.AsString("Default"));
@@ -1157,7 +1157,7 @@ public sealed class NodeValueTests {
     public void NodeValue_DateOnly() {
         var value = new DateOnly(1969, 07, 20);
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("1969-07-20", data.Value.AsString());
         Assert.AreEqual("1969-07-20", data.Value.AsString("Default"));
@@ -1217,7 +1217,7 @@ public sealed class NodeValueTests {
     public void NodeValue_TimeOnly() {
         var value = new TimeOnly(20, 17, 00);
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("20:17:00", data.Value.AsString());
         Assert.AreEqual("20:17:00", data.Value.AsString("Default"));
@@ -1277,7 +1277,7 @@ public sealed class NodeValueTests {
     public void NodeValue_TimeOnly_MS() {
         var value = new TimeOnly(20, 17, 00).Add(new TimeSpan(0, 0, 0, 0, 1));
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("20:17:00.001", data.Value.AsString());
         Assert.AreEqual("20:17:00.001", data.Value.AsString("Default"));
@@ -1337,7 +1337,7 @@ public sealed class NodeValueTests {
     public void NodeValue_TimeOnly_US() {
         var value = new TimeOnly(20, 17, 00).Add(new TimeSpan(0, 0, 0, 0, 0, 1));
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("20:17:00.000001", data.Value.AsString());
         Assert.AreEqual("20:17:00.000001", data.Value.AsString("Default"));
@@ -1397,7 +1397,7 @@ public sealed class NodeValueTests {
     public void NodeValue_TimeOnly_NS() {
         var value = new TimeOnly(20, 17, 00).Add(new TimeSpan(1));
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("20:17:00.0000001", data.Value.AsString());
         Assert.AreEqual("20:17:00.0000001", data.Value.AsString("Default"));
@@ -1457,7 +1457,7 @@ public sealed class NodeValueTests {
     public void NodeValue_Duration() {
         var value = new TimeSpan(21, 36, 0);
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("21h 36m", data.Value.AsString());
         Assert.AreEqual("21h 36m", data.Value.AsString("Default"));
@@ -1517,7 +1517,7 @@ public sealed class NodeValueTests {
     public void NodeValue_Duration_MS() {
         var value = new TimeSpan(21, 36, 0).Add(new TimeSpan(0, 00, 00, 00, 001));
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("21h 36m 0.001s", data.Value.AsString());
         Assert.AreEqual("21h 36m 0.001s", data.Value.AsString("Default"));
@@ -1577,7 +1577,7 @@ public sealed class NodeValueTests {
     public void NodeValue_Duration_US() {
         var value = new TimeSpan(21, 36, 0).Add(new TimeSpan(0, 00, 00, 00, 000, 001));
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("21h 36m 0.000001s", data.Value.AsString());
         Assert.AreEqual("21h 36m 0.000001s", data.Value.AsString("Default"));
@@ -1637,7 +1637,7 @@ public sealed class NodeValueTests {
     public void NodeValue_Duration_NS() {
         var value = new TimeSpan(21, 36, 0).Add(new TimeSpan(1));
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("21h 36m 0.0000001s", data.Value.AsString());
         Assert.AreEqual("21h 36m 0.0000001s", data.Value.AsString("Default"));
@@ -1698,7 +1698,7 @@ public sealed class NodeValueTests {
     public void NodeValue_IPv4() {
         var value = IPAddress.Parse("1.2.3.4");
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("1.2.3.4", data.Value.AsString());
         Assert.AreEqual("1.2.3.4", data.Value.AsString("Default"));
@@ -1758,7 +1758,7 @@ public sealed class NodeValueTests {
     public void NodeValue_IPv6() {
         var value = IPAddress.Parse("1:2:3:4:5678::9");
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("1:2:3:4:5678::9", data.Value.AsString());
         Assert.AreEqual("1:2:3:4:5678::9", data.Value.AsString("Default"));
@@ -1819,7 +1819,7 @@ public sealed class NodeValueTests {
     public void NodeValue_Url() {
         var value = new Uri("https://aaseq.com");
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("https://aaseq.com/", data.Value.AsString());
         Assert.AreEqual("https://aaseq.com/", data.Value.AsString("Default"));
@@ -1880,7 +1880,7 @@ public sealed class NodeValueTests {
     public void NodeValue_Uuid() {
         var value = Guid.Parse("3CF8DFD4-83D9-4D47-AF93-1C3FE190E3C8");
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("3cf8dfd4-83d9-4d47-af93-1c3fe190e3c8", data.Value.AsString());
         Assert.AreEqual("3cf8dfd4-83d9-4d47-af93-1c3fe190e3c8", data.Value.AsString("Default"));
@@ -1941,7 +1941,7 @@ public sealed class NodeValueTests {
     public void NodeValue_Base64() {
         var value = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 };
         var data = new AASeqNode("node", value);
-        Assert.AreEqual(value, data.Value.Value);
+        Assert.AreEqual(value, data.Value.RawValue);
 
         Assert.AreEqual("0102030405060708090a0b0c0d0e0f1011", data.Value.AsString());
         Assert.AreEqual("0102030405060708090a0b0c0d0e0f1011", data.Value.AsString("Default"));
@@ -2001,7 +2001,7 @@ public sealed class NodeValueTests {
     [TestMethod]
     public void NodeValue_String() {
         var data = new AASeqNode("node", "Test");
-        Assert.AreEqual("Test", data.Value.Value);
+        Assert.AreEqual("Test", data.Value.RawValue);
 
         Assert.AreEqual("Test", data.Value.AsString());
         Assert.AreEqual("Test", data.Value.AsString("Default"));
