@@ -60,8 +60,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -122,8 +120,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -173,8 +169,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -235,8 +229,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -286,8 +278,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -348,8 +338,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -399,8 +387,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -461,8 +447,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -512,8 +496,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -574,8 +556,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -625,8 +605,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -688,8 +666,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -750,8 +726,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -810,8 +784,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -872,8 +844,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -936,8 +906,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -997,8 +965,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1060,8 +1026,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -1121,8 +1085,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1184,8 +1146,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -1245,8 +1205,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1308,8 +1266,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -1369,8 +1325,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1432,8 +1386,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -1493,8 +1445,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1556,8 +1506,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -1617,8 +1565,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1680,8 +1626,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -1741,8 +1685,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1805,8 +1747,6 @@ public sealed class NodeValueTests {
         Assert.AreEqual(IPAddress.Parse("1.2.3.4"), data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Parse("1.2.3.4"), data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -1866,74 +1806,6 @@ public sealed class NodeValueTests {
 
         Assert.AreEqual(IPAddress.Parse("1:2:3:4:5678::9"), data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Parse("1:2:3:4:5678::9"), data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
-
-        Assert.IsNull(data.Value.AsUri());
-        Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
-
-        Assert.IsNull(data.Value.AsGuid());
-        Assert.AreEqual(Guid.Empty, data.Value.AsGuid(Guid.Empty));
-    }
-
-
-    [TestMethod]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "SYSLIB1045:Convert to 'GeneratedRegexAttribute'.", Justification = "Intentional, for purpose of testing")]
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("CodeQuality", "IDE0079:Remove unnecessary suppression", Justification = "It's not unnecessary, you twat")]
-    public void NodeValue_Regex() {
-        var regex = new Regex(".*");
-        var data = new AASeqNode("node", regex);
-        Assert.AreEqual(regex, data.Value.Value);
-
-        Assert.AreEqual(".*", data.Value.AsString());
-        Assert.AreEqual(".*", data.Value.AsString("Default"));
-
-        Assert.IsNull(data.Value.AsBoolean());
-        Assert.IsFalse(data.Value.AsBoolean(false));
-        Assert.IsNull(data.Value.AsSByte());
-        Assert.AreEqual(-28, data.Value.AsSByte(-28));
-        Assert.IsNull(data.Value.AsByte());
-        Assert.AreEqual(28, data.Value.AsByte(28));
-        Assert.IsNull(data.Value.AsInt16());
-        Assert.AreEqual(-28, data.Value.AsInt16(-28));
-        Assert.IsNull(data.Value.AsUInt16());
-        Assert.AreEqual(28, data.Value.AsUInt16(28));
-        Assert.IsNull(data.Value.AsInt32());
-        Assert.AreEqual(-28, data.Value.AsInt32(-28));
-        Assert.IsNull(data.Value.AsUInt32());
-        Assert.AreEqual(28U, data.Value.AsUInt32(28));
-        Assert.IsNull(data.Value.AsInt64());
-        Assert.AreEqual(-28L, data.Value.AsInt64(-28));
-        Assert.IsNull(data.Value.AsUInt64());
-        Assert.AreEqual(28UL, data.Value.AsUInt64(28));
-        Assert.IsNull(data.Value.AsInt128());
-        Assert.AreEqual((Int128)(-28), data.Value.AsInt128(-28));
-        Assert.IsNull(data.Value.AsUInt128());
-        Assert.AreEqual((UInt128)28, data.Value.AsUInt128(28));
-
-        Assert.IsNull(data.Value.AsHalf());
-        Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
-        Assert.IsNull(data.Value.AsSingle());
-        Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.IsNull(data.Value.AsDouble());
-        Assert.AreEqual(28, data.Value.AsDouble(28));
-        Assert.IsNull(data.Value.AsDecimal());
-        Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
-
-        Assert.IsNull(data.Value.AsDateTimeOffset());
-        Assert.AreEqual(DateTimeOffset.UnixEpoch, data.Value.AsDateTimeOffset(DateTimeOffset.UnixEpoch));
-        Assert.IsNull(data.Value.AsDateOnly());
-        Assert.AreEqual(DateOnly.MinValue, data.Value.AsDateOnly(DateOnly.MinValue));
-        Assert.IsNull(data.Value.AsTimeOnly());
-        Assert.AreEqual(TimeOnly.MinValue, data.Value.AsTimeOnly(TimeOnly.MinValue));
-        Assert.IsNull(data.Value.AsTimeSpan());
-        Assert.AreEqual(TimeSpan.MinValue, data.Value.AsTimeSpan(TimeSpan.MinValue));
-
-        Assert.IsNull(data.Value.AsIPAddress());
-        Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.AreEqual(regex, data.Value.AsRegex());
-        Assert.AreEqual(regex, data.Value.AsRegex(new Regex("something else")));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1996,8 +1868,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://example.com")));
 
@@ -2058,8 +1928,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -2122,8 +1990,6 @@ public sealed class NodeValueTests {
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
 
-        Assert.IsNull(data.Value.AsRegex());
-
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
 
@@ -2183,8 +2049,6 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
-
-        Assert.IsNotNull(data.Value.AsRegex());
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));

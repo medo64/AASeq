@@ -596,22 +596,6 @@ public sealed partial record AASeqValue {
     }
 
     /// <summary>
-    /// Returns true if value can be converted to Regex.
-    /// Null is returned if value cannot be converted.
-    /// </summary>
-    /// <param name="value">Value to convert.</param>
-    /// <param name="result">Converted value.</param>
-    public static bool TryConvertRegex(object? value, [NotNullWhen(true)] out Regex? result) {
-        if (value is AASeqValue innerValue) { value = innerValue.Value; }
-        result = value switch {
-            Regex val => val,
-            String val => TryParseRegex(val, out var res) ? (Regex)res! : null,
-            _ => null,
-        };
-        return (result is not null);
-    }
-
-    /// <summary>
     /// Returns true if value can be converted to Uri.
     /// Null is returned if value cannot be converted.
     /// </summary>

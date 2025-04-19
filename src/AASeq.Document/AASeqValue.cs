@@ -79,7 +79,6 @@ public sealed partial record AASeqValue {
             TimeOnly => value,        // time
             TimeSpan => value,        // duration
             IPAddress => value,       // ip
-            Regex => value,           // regex
             Uri => value,             // uri
             Guid => value,            // uuid
             Byte[] => value,          // hex

@@ -377,19 +377,6 @@ public sealed partial record AASeqValue {
 
 
     /// <summary>
-    /// Returns value as a Regex.
-    /// Null is returned if value cannot be converted.
-    /// </summary>
-    public static implicit operator Regex?(AASeqValue value) => value?.AsRegex();
-
-    /// <summary>
-    /// Returns AASeqValue.
-    /// </summary>
-    /// <param name="value">Value.</param>
-    public static implicit operator AASeqValue(Regex value) => new() { Value = value };
-
-
-    /// <summary>
     /// Returns value as a Uri.
     /// Null is returned if value cannot be converted.
     /// </summary>

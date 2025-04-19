@@ -179,15 +179,6 @@ public sealed partial class AASeqNode {
 
 
     /// <summary>
-    /// Returns value as a Regex.
-    /// </summary>
-    /// <param name="defaultValue">Default value.</param>
-    public Regex GetValue(Regex defaultValue) {
-        return AASeqValue.TryConvertRegex(Value, out Regex? result) ? result : defaultValue;
-    }
-
-
-    /// <summary>
     /// Returns value as a Uri.
     /// </summary>
     /// <param name="defaultValue">Default value.</param>

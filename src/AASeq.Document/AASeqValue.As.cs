@@ -363,23 +363,6 @@ public sealed partial record AASeqValue {
 
 
     /// <summary>
-    /// Returns value as a Regex.
-    /// Null is returned if value cannot be converted.
-    /// </summary>
-    public Regex? AsRegex() {
-        return TryConvertRegex(Value, out Regex? result) ? result : null;
-    }
-
-    /// <summary>
-    /// Returns value as a Regex.
-    /// </summary>
-    /// <param name="defaultValue">Default value.</param>
-    public Regex AsRegex(Regex defaultValue) {
-        return TryConvertRegex(Value, out Regex? result) ? result : defaultValue;
-    }
-
-
-    /// <summary>
     /// Returns value as a Uri.
     /// Null is returned if value cannot be converted.
     /// </summary>

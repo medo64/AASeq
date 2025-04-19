@@ -118,7 +118,6 @@ The following data types are supported for the value:
 | `timeonly` | `TimeOnly`                | Only time component                 |
 | `duration` | `TimeSpan`                | Time duration                       |
 | `ip`       | `IPAddress`               | IP address                          |
-| `regex`    | `Regex`                   | Regular expression                  |
 | `uri`      | `Uri`                     | URI                                 |
 | `uuid`     | `Guid`                    | UUID                                |
 | `base64`   | `Byte[]` (`byte[]`)       | Raw bytes, `hex` is preferred       |

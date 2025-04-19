@@ -582,22 +582,6 @@ public sealed partial record AASeqValue {
 
 
     /// <summary>
-    /// Returns true if value can be parsed as Regex.
-    /// </summary>
-    /// <param name="s">s.</param>
-    /// <param name="result">Result.</param>
-    public static bool TryParseRegex(string s, [MaybeNullWhen(false)] out object? result) {
-        try {
-            result = new Regex(s, RegexOptions.None);
-            return true;
-        } catch (ArgumentException) {
-            result = null;
-            return false;
-        }
-    }
-
-
-    /// <summary>
     /// Returns true if value can be parsed as Uri.
     /// </summary>
     /// <param name="s">s.</param>
