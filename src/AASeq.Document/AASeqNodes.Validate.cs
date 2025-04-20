@@ -151,12 +151,12 @@ public sealed partial class AASeqNodes {
             if (nodeValue is null) { return false; }  // not equal if null
 
             return Kind switch {
-                ComparisonKind.eq => (MatchValue == nodeValue),
-                ComparisonKind.ne => (MatchValue != nodeValue),
-                ComparisonKind.lt => (MatchValue < nodeValue),
-                ComparisonKind.le => (MatchValue <= nodeValue),
-                ComparisonKind.gt => (MatchValue > nodeValue),
-                ComparisonKind.ge => (MatchValue >= nodeValue),
+                ComparisonKind.eq => (nodeValue == MatchValue),
+                ComparisonKind.ne => (nodeValue != MatchValue),
+                ComparisonKind.lt => (nodeValue < MatchValue),
+                ComparisonKind.le => (nodeValue <= MatchValue),
+                ComparisonKind.gt => (nodeValue > MatchValue),
+                ComparisonKind.ge => (nodeValue >= MatchValue),
                 _ => false,
             };
         }

@@ -160,8 +160,8 @@ public sealed class ValidateTests {
 
     [TestMethod]
     public void Validate_ValueLt() {
-        var nodes = AASeqNodes.Parse("A \"11\"");
-        var match = AASeqNodes.Parse("a /op=lt 10");
+        var nodes = AASeqNodes.Parse("A \"10\"");
+        var match = AASeqNodes.Parse("a /op=lt 11");
         Assert.IsTrue(nodes.TryValidate(match));
     }
 
@@ -181,15 +181,15 @@ public sealed class ValidateTests {
 
     [TestMethod]
     public void Validate_ValueLeNonMatch() {
-        var nodes = AASeqNodes.Parse("A 9.0");
-        var match = AASeqNodes.Parse("a /op=le 10");
+        var nodes = AASeqNodes.Parse("A 10");
+        var match = AASeqNodes.Parse("a /op=le 9.0");
         Assert.IsFalse(nodes.TryValidate(match));
     }
 
     [TestMethod]
     public void Validate_ValueGt() {
-        var nodes = AASeqNodes.Parse("A (i8)9");
-        var match = AASeqNodes.Parse("a /op=gt 10");
+        var nodes = AASeqNodes.Parse("A (i8)10");
+        var match = AASeqNodes.Parse("a /op=gt 9");
         Assert.IsTrue(nodes.TryValidate(match));
     }
 
@@ -209,8 +209,8 @@ public sealed class ValidateTests {
 
     [TestMethod]
     public void Validate_ValueGeNonMatch() {
-        var nodes = AASeqNodes.Parse("A (decimal)11");
-        var match = AASeqNodes.Parse("a /op=ge 10");
+        var nodes = AASeqNodes.Parse("A (decimal)10");
+        var match = AASeqNodes.Parse("a /op=ge 11");
         Assert.IsFalse(nodes.TryValidate(match));
     }
 

@@ -6,7 +6,7 @@ using System.Net;
 /// <summary>
 /// AASeq value.
 /// </summary>
-[DebuggerDisplay("{Value,nq}")]
+[DebuggerDisplay("{RawValue,nq}")]
 public sealed partial record AASeqValue {
 
     /// <summary>
