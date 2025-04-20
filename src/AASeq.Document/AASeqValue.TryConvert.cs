@@ -453,8 +453,10 @@ public sealed partial record AASeqValue {
             Single val => ConvertOrBust<Double, Single>(val),
             Double val => val,
             Decimal val => ConvertOrBust<Double, Double>((double)val),
+            DateTimeOffset val => (val - DateTimeOffset.UnixEpoch).TotalSeconds,
+            DateOnly val => (new DateTimeOffset(val, TimeOnly.MinValue, TimeSpan.Zero) - DateTimeOffset.UnixEpoch).TotalSeconds,
+            TimeOnly val => (new DateTimeOffset(DateOnly.FromDateTime(DateTime.UnixEpoch), val, TimeSpan.Zero) - DateTimeOffset.UnixEpoch).TotalSeconds,
             TimeSpan val => val.TotalSeconds,
-            DateTimeOffset val => val.ToUnixTimeSeconds(),
             String val => TryParseDouble(val, out var res) ? (Double)res! : null,
             _ => null,
         };

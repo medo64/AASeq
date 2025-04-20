@@ -949,8 +949,8 @@ public sealed class NodeValueTests {
         Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
         Assert.IsNull(data.Value.AsSingle());
         Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.AreEqual(-14182980.0, data.Value.AsDouble());
-        Assert.AreEqual(-14182980.0, data.Value.AsDouble(28));
+        Assert.AreEqual(-14182979.999, data.Value.AsDouble());
+        Assert.AreEqual(-14182979.999, data.Value.AsDouble(28));
         Assert.IsNull(data.Value.AsDecimal());
         Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
 
@@ -1009,8 +1009,8 @@ public sealed class NodeValueTests {
         Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
         Assert.IsNull(data.Value.AsSingle());
         Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.AreEqual(-14182980.0, data.Value.AsDouble());
-        Assert.AreEqual(-14182980.0, data.Value.AsDouble(-28));
+        Assert.AreEqual(-14182979.999999, data.Value.AsDouble());
+        Assert.AreEqual(-14182979.999999, data.Value.AsDouble(-28));
         Assert.IsNull(data.Value.AsDecimal());
         Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
 
@@ -1069,8 +1069,8 @@ public sealed class NodeValueTests {
         Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
         Assert.IsNull(data.Value.AsSingle());
         Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.AreEqual(-14182980.0, data.Value.AsDouble());
-        Assert.AreEqual(-14182980.0, data.Value.AsDouble(-28));
+        Assert.AreEqual(-14182979.9999999, data.Value.AsDouble());
+        Assert.AreEqual(-14182979.9999999, data.Value.AsDouble(-28));
         Assert.IsNull(data.Value.AsDecimal());
         Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
 
@@ -1189,8 +1189,8 @@ public sealed class NodeValueTests {
         Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
         Assert.IsNull(data.Value.AsSingle());
         Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.IsNull(data.Value.AsDouble());
-        Assert.AreEqual(28, data.Value.AsDouble(28));
+        Assert.AreEqual(-14256000.0, data.Value.AsDouble());
+        Assert.AreEqual(-14256000.0, data.Value.AsDouble(28));
         Assert.IsNull(data.Value.AsDecimal());
         Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
 
@@ -1249,8 +1249,8 @@ public sealed class NodeValueTests {
         Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
         Assert.IsNull(data.Value.AsSingle());
         Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.IsNull(data.Value.AsDouble());
-        Assert.AreEqual(28, data.Value.AsDouble(28));
+        Assert.AreEqual(73020.0, data.Value.AsDouble());
+        Assert.AreEqual(73020.0, data.Value.AsDouble(28));
         Assert.IsNull(data.Value.AsDecimal());
         Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
 
@@ -1309,8 +1309,8 @@ public sealed class NodeValueTests {
         Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
         Assert.IsNull(data.Value.AsSingle());
         Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.IsNull(data.Value.AsDouble());
-        Assert.AreEqual(28, data.Value.AsDouble(28));
+        Assert.AreEqual(73020.001, data.Value.AsDouble());
+        Assert.AreEqual(73020.001, data.Value.AsDouble(28));
         Assert.IsNull(data.Value.AsDecimal());
         Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
 
@@ -1369,8 +1369,8 @@ public sealed class NodeValueTests {
         Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
         Assert.IsNull(data.Value.AsSingle());
         Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.IsNull(data.Value.AsDouble());
-        Assert.AreEqual(28, data.Value.AsDouble(28));
+        Assert.AreEqual(73020.000001, data.Value.AsDouble());
+        Assert.AreEqual(73020.000001, data.Value.AsDouble(28));
         Assert.IsNull(data.Value.AsDecimal());
         Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
 
@@ -1429,8 +1429,8 @@ public sealed class NodeValueTests {
         Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
         Assert.IsNull(data.Value.AsSingle());
         Assert.AreEqual((Single)28, data.Value.AsSingle(28));
-        Assert.IsNull(data.Value.AsDouble());
-        Assert.AreEqual(28, data.Value.AsDouble(28));
+        Assert.AreEqual(73020.0000001, data.Value.AsDouble());
+        Assert.AreEqual(73020.0000001, data.Value.AsDouble(28));
         Assert.IsNull(data.Value.AsDecimal());
         Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
 
