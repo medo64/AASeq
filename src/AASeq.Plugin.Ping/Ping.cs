@@ -47,7 +47,7 @@ internal sealed class Ping : IEndpointPlugin {
             var data = new AASeqNodes {
                 new AASeqNode("Address", reply.Address.ToString()),
                 new AASeqNode("Status", reply.Status.ToString()),
-                new AASeqNode("RoundtripTime", TimeSpan.FromMilliseconds(reply.RoundtripTime > 0 ? reply.RoundtripTime : 1)),
+                new AASeqNode("RoundtripTime", TimeSpan.FromMilliseconds(reply.RoundtripTime)),
             };
             Storage[id] = ("Reply", data);
         }, CancellationToken.None);
