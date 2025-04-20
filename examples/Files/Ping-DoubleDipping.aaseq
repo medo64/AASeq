@@ -1,0 +1,28 @@
+#!/usr/bin/env aaseq
+
+# Single client
+@Remote Ping {
+    Host 8.8.8.8
+}
+
+
+# Send first ping
+Ping >Remote match=1
+
+# Send second ping
+Ping  Me>Remote match=2
+
+# Check second ping (notice match property)
+Reply Me<Remote match=2 {
+    Status Success
+    RoundtripTime 0.020 /op=le
+}
+
+# Check first ping (notice match property)
+Reply <Remote match=1 {
+    Status Success
+    RoundtripTime 0.020 /op=le
+}
+
+# Don't send too quickly
+Wait 0.2s

@@ -1,33 +1,41 @@
 #!/usr/bin/env aaseq
 
+# Configuration
 @Me {
-    Timeout "1s"
+    Timeout 1s
 }
 
+# First endpoint
 @Remote Echo {
     Delay 0.1
 }
 
+# Second endpoint
 @Remote2 Echo {
     Delay 0.25
     NotExisting "Hello"
 }
 
 
+# Message 1 out
 Message >Remote {
     Data Test
 }
 
+# Message 2 out
 Message >Remote2 {
     Data Test2
 }
 
+# Just pause
 wait "0.5s"
 
+# Message 2 reply
 Message <Remote2  {
-    Data /op=regex "Test[0-9]"
+    Data "Test[0-9]" /op=regex
 }
 
+# Message 1 reply
 Message <Remote {
     Data Test
 }

@@ -1,0 +1,36 @@
+#!/usr/bin/env aaseq
+
+# Define endpoint 127.0.0.1
+@Local_IPv4 Ping {
+    Host 127.0.0.1
+}
+
+# Define endpoint 127.0.0.2
+@Local_IPv4_Alt Ping {
+    Host 127.0.0.2
+    TTL 1
+}
+
+# Define IPv6 endpoint
+@Local_IPv6 Ping {
+    Host ::1
+}
+
+
+Ping  >Local_IPv4
+Reply <Local_IPv4 {
+    Status Success
+    RoundtripTime /op=eq 0
+}
+
+Ping  >Local_IPv6
+Reply <Local_IPv6 {
+    Status Success
+    RoundtripTime /op=eq 0
+}
+
+Ping  >Local_IPv4_Alt
+Reply <Local_IPv4_Alt {
+    Status Success
+    RoundtripTime /op=eq 0
+}
