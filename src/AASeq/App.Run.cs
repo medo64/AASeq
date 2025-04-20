@@ -38,10 +38,6 @@ internal static partial class App {
                 Console.ResetColor();
                 Console.WriteLine();
 
-                if (!startPaused) {
-                    engine.Start();
-                }
-
                 engine.FlowBegin += (sender, e) => {
                     Console.WriteLine();
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -65,6 +61,10 @@ internal static partial class App {
                     e.Node.Save(Console.Out, outputOptions);
                     Console.ResetColor();
                 };
+
+                if (!startPaused) {
+                    engine.Start();
+                }
 
                 while (true) {
                     if (Console.KeyAvailable) {

@@ -2,7 +2,7 @@
   "profiles": {
     "AASeq": {
         "commandName": "Project",
-        "commandLineArgs": "run ../../examples/Files/Ping3.aaseq",
+        "commandLineArgs": "../../examples/Files/Ping-DNSv4.aaseq",
         "workingDirectory": "."
     }
   }

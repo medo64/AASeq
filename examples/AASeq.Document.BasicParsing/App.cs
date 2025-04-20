@@ -5,10 +5,10 @@ using AASeq;
 
 internal class App {
     public static void Main() {
-        var document = AASeqDocument.Load("test.aaseq");
+        var document = AASeqNodes.Load("test.aaseq");
 
         Console.WriteLine("---");
-        document.Save(Console.Out, AASeqDocumentOutputOptions.Default with { ExtraEmptyRootNodeLines = true });
+        document.Save(Console.Out, AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true });
         Console.WriteLine("---");
 
         Console.WriteLine();

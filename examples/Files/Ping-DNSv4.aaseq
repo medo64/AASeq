@@ -1,0 +1,53 @@
+#!/usr/bin/env aaseq
+
+# Define primary Cloudflare DNS server
+@CloudFlare-1 Ping {
+    Host 1.1.1.1
+}
+
+# Define secondary Cloudflare DNS server
+@CloudFlare-2 Ping {
+    Host 1.0.0.1
+}
+
+# Define primary Google DNS server
+@Google-1 Ping {
+    Host 8.8.8.8
+}
+
+# Define secondary Google DNS server
+@Google-2 Ping {
+    Host 8.8.4.4
+}
+
+
+# Send both CloudFlare ping requests
+Ping >CloudFlare-1
+Ping >CloudFlare-2
+
+# Check both replies (considered successful based on Status and roundtrip time less than 15ms)
+Reply <CloudFlare-1 {
+    Status Success
+    RoundtripTime /op=le (duration)15ms
+}
+Reply <CloudFlare-2 {
+    Status Success
+    RoundtripTime /op=le (duration)15ms
+}
+
+# Send both Google ping requests
+Ping >Google-1
+Ping >Google-2
+
+# Check both replies (considered successful based on Status and roundtrip time less than 15ms)
+Reply <Google-1 {
+    Status Success
+    RoundtripTime /op=le (duration)15ms
+}
+Reply <Google-2 {
+    Status Success
+    RoundtripTime /op=le (duration)15ms
+}
+
+# Wait a bit so we don't trigger flood protection
+Wait 1s
