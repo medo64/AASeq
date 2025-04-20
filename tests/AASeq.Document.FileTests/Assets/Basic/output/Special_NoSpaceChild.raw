@@ -10,11 +10,11 @@ node3 p=v {
     child1
     child2
 }
-node4 p=v value {
+node4 value p=v {
     child1
     child2
 }
-node5 p=v value {
+node5 value p=v {
     child1
     child2
 }

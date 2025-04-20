@@ -33,35 +33,6 @@ author lastName=John firstName=Green isAlive=true
 ~~~
 
 
-### Property
-
-Any number of properties can follow node name. Property name follows the same
-limitations as the node name.
-
-Property is defined by its name, followed immediately with equals character
-(`=`), and finally value. No space is to be used before or after equals.
-~~~
-author firstName=John lastName=Green
-~~~
-
-Property value is always a string.
-
-If there are duplicates, the later defined property will overwrite previously
-defined one. Please note that names are case-insensitive by design and thus `P1`
-and `p1` are considered to be the same property name.
-
-~~~
-author firstName=John lastName=Green
-~~~
-
-Property value can also use simple quoting.
-~~~
-author fullName="John Green"
-~~~
-
-Multiline quoting for properties is not supported.
-
-
 ### Value
 
 Each node can also contain a single value.
@@ -183,6 +154,35 @@ string also cannot contain any of the following:
 
 Values will use unquoted strings if they don't match any of the null, boolean,
 or number characteristics.
+
+
+### Property
+
+Any number of properties can follow value. Property name follows the same
+limitations as the node name.
+
+Property is defined by its name, followed immediately with equals character
+(`=`), and finally value. No space is to be used before or after equals.
+~~~
+author firstName=John lastName=Green
+~~~
+
+Property value is always a string.
+
+If there are duplicates, the later defined property will overwrite previously
+defined one. Please note that names are case-insensitive by design and thus `P1`
+and `p1` are considered to be the same property name.
+
+~~~
+author firstName=John lastName=Green
+~~~
+
+Property value can also use simple quoting.
+~~~
+author fullName="John Green"
+~~~
+
+Multiline quoting for properties is not supported.
 
 
 ### Child Node

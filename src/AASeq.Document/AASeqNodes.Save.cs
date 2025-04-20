@@ -191,15 +191,6 @@ public sealed partial class AASeqNodes : IFormattable {
 
         writer.Write(node.Name);
 
-        if (node.Properties.Count > 0) {
-            foreach (var property in node.Properties) {
-                writer.Write(' ');
-                writer.Write(property.Key);
-                writer.Write('=');
-                writer.Write(GetPotentiallyQuotedString(property.Value));
-            }
-        }
-
         if (node.Value.RawValue is not null) {
             writer.Write(' ');
             if (!options.NoTypeAnnotation) {
@@ -211,6 +202,15 @@ public sealed partial class AASeqNodes : IFormattable {
                 }
             }
             writer.Write(GetStringFromValue(node.Value));
+        }
+
+        if (node.Properties.Count > 0) {
+            foreach (var property in node.Properties) {
+                writer.Write(' ');
+                writer.Write(property.Key);
+                writer.Write('=');
+                writer.Write(GetPotentiallyQuotedString(property.Value));
+            }
         }
 
         var hasSubnodes = node.Nodes.Count > 0;

@@ -1,1 +1,1 @@
-nodeX p=v "Hello World!"
+nodeX "Hello World!" p=v
