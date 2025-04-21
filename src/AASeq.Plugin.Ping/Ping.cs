@@ -103,7 +103,7 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="data">Data.</param>
     public static AASeqNodes ValidateData(string message, AASeqNodes data) {
         return message switch {
-            "Ping" => [
+            "Send" => [
                         data.FindNode("DontFragment"),
                         data.FindNode("Timeout"),
                         data.FindNode("TTL") ?? data.FindNode("TimeToLive"),

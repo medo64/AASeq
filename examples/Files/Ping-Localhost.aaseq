@@ -17,19 +17,19 @@
 }
 
 
-Ping  >Local_IPv4
+Send  >Local_IPv4
 Reply <Local_IPv4 {
     Status Success
     RoundtripTime /op=eq 0
 }
 
-Ping  >Local_IPv6
+Send  >Local_IPv6
 Reply <Local_IPv6 {
     Status Success
     RoundtripTime /op=eq 0
 }
 
-Ping  >Local_IPv4_Alt
+Send  >Local_IPv4_Alt
 Reply <Local_IPv4_Alt {
     Status Success
     RoundtripTime /op=eq 0

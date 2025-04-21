@@ -22,8 +22,8 @@
 
 
 # Send both CloudFlare ping requests
-Ping >CloudFlare-1
-Ping >CloudFlare-2
+Send >CloudFlare-1
+Send >CloudFlare-2
 
 # Check both replies (considered successful based on Status and roundtrip time less than 15ms)
 Reply <CloudFlare-1 {
@@ -36,8 +36,8 @@ Reply <CloudFlare-2 {
 }
 
 # Send both Google ping requests
-Ping >Google-1
-Ping >Google-2
+Send >Google-1
+Send >Google-2
 
 # Check both replies (considered successful based on Status and roundtrip time less than 15ms)
 Reply <Google-1 {
