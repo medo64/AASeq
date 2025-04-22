@@ -34,44 +34,10 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
-        try {
-            var task = SendAsync(id, messageName, data, cancellationToken);
-            task.Wait(cancellationToken);
-        } catch (TargetInvocationException ex) {
-            throw ex.InnerException is null ? ex : ex.InnerException;
-        }
-    }
-
-    /// <summary>
-    /// Returns true, if message was successfully sent.
-    /// </summary>
-    /// <param name="id">ID.</param>
-    /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
     public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         if (SendMethodInfo is null) { throw new NotSupportedException(); }
         var task = (Task)SendMethodInfo.Invoke(Instance, [id, messageName, data, cancellationToken])!;
         await task.ConfigureAwait(false);
-    }
-
-    /// <summary>
-    /// Returns true, if message was successfully received.
-    /// </summary>
-    /// <param name="id">ID.</param>
-    /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, ref string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
-        try {
-            var task = ReceiveAsync(id, messageName, cancellationToken);
-            task.Wait(cancellationToken);
-            messageName = task.Result.Item1;
-            data = task.Result.Item2;
-        } catch (TargetInvocationException ex) {
-            throw ex.InnerException is null ? ex : ex.InnerException;
-        }
     }
 
     /// <summary>

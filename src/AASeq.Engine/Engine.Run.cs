@@ -59,11 +59,19 @@ public sealed partial class Engine {
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
                             using var cts = new CancellationTokenSource(CommandTimeout);
+                            var token = cts.Token;
+
                             var sw = Stopwatch.StartNew();
                             try {
-                                commandAction.Instance.Execute(actionNode.Nodes, cts.Token);  // TODO: process data instead of clone
+                                commandAction.Instance
+                                    .ExecuteAsync(actionNode.Nodes, token)  // TODO: process data instead of clone
+                                    .Wait(token);
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
+                            } catch (OperationCanceledException) {
+                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("exception", "Timeout");
+                                OnActionError(flowIndex, actionIndex, action, actionNode);
                             } catch (Exception ex) {
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 actionNode.Properties.Add("exception", ex.Message);
@@ -83,11 +91,19 @@ public sealed partial class Engine {
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
                             using var cts = new CancellationTokenSource(SendTimeout);
+                            var token = cts.Token;
+
                             var sw = Stopwatch.StartNew();
                             try {
-                                messageOutAction.DestinationInstance.Send(id, messageOutAction.MessageName, actionNode.Nodes, cts.Token);  // TODO: process data instead of clone
+                                messageOutAction.DestinationInstance
+                                    .SendAsync(id, messageOutAction.MessageName, actionNode.Nodes, token)  // TODO: process data instead of clone
+                                    .Wait(token);
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
+                            } catch (OperationCanceledException) {
+                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("exception", "Timeout");
+                                OnActionError(flowIndex, actionIndex, action, actionNode);
                             } catch (Exception ex) {
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 actionNode.Properties.Add("exception", ex.Message);
@@ -107,10 +123,15 @@ public sealed partial class Engine {
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
                             using var cts = new CancellationTokenSource(ReceiveTimeout);
+                            var token = cts.Token;
+
                             var sw = Stopwatch.StartNew();
                             try {
                                 var messageName = messageInAction.MessageName;
-                                messageInAction.SourceInstance.Receive(id, ref messageName, out var nodes, cts.Token);
+                                var task = messageInAction.SourceInstance
+                                    .ReceiveAsync(id, messageName, token);
+                                task.Wait(token);
+                                (messageName, var nodes) = task.Result;
                                 sw.Stop();
                                 var responseNode = new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes);
                                 responseNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
@@ -121,6 +142,10 @@ public sealed partial class Engine {
                                     responseNode.Properties.Add("exception", ex2.Message);
                                     OnActionError(flowIndex, actionIndex, action, responseNode);
                                 }
+                            } catch (OperationCanceledException) {
+                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                actionNode.Properties.Add("exception", "Timeout");
+                                OnActionError(flowIndex, actionIndex, action, actionNode);
                             } catch (Exception ex) {
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 actionNode.Properties.Add("exception", ex.Message);
