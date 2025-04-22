@@ -1,0 +1,162 @@
+namespace AASeq;
+using System;
+using System.IO.Ports;
+using System.Text;
+using System.Threading;
+
+/// <summary>
+/// Ping endpoint.
+/// </summary>
+internal sealed class Serial : IEndpointPlugin, IDisposable {
+
+    private Serial(AASeqNodes configuration) {
+        var portName = configuration["PortName"].AsString(GetDefaultPortName());
+        var baudRate = configuration["BaudRate"].AsInt32(DefaultBaudRate);
+        var parity = configuration["Parity"].AsString(DefaultParity) switch {
+            "N" or "None" => Parity.None,
+            "O" or "Odd" => Parity.Odd,
+            "E" or "Even" => Parity.Even,
+            "M" or "Mark" => Parity.Mark,
+            "S" or "Space" => Parity.Space,
+            _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unknown parity: {configuration["Parity"]}."),
+        };
+        var dataBits = configuration["DataBits"].AsInt32(DefaultDataBits);
+        var stopBits = configuration["StopBits"].AsDouble(DefaultStopBits) switch {
+            1.0 => StopBits.One,
+            1.5 => StopBits.OnePointFive,
+            2.0 => StopBits.Two,
+            _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unknown stop bits: {configuration["StopBits"]}."),
+        };
+
+        Eol = configuration["EOL"].AsString(DefaultEol).ToUpperInvariant() switch {
+            "LF" or "\n" => "\n",
+            "CRLF" or "\r\n" => "\r\n",
+            "CR" or "\r" => "\r",
+            _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unsupported line ending."),
+        };
+
+        Port = new SerialPort(portName, baudRate, parity, dataBits, stopBits) {
+            Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
+            NewLine = Eol
+        };
+        Port.Open();
+    }
+
+    private readonly SerialPort Port;
+    private readonly string Eol;
+
+    /// <summary>
+    /// Returns true, if message was successfully sent.
+    /// </summary>
+    /// <param name="id">ID.</param>
+    /// <param name="messageName">Message name.</param>
+    /// <param name="data">Data.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+        switch (messageName.ToUpperInvariant()) {
+            case "WRITELINE": {
+                    var text = data["Text"].AsString("");
+                    Port.WriteLine(text);
+                }
+                break;
+
+            default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
+        }
+    }
+
+    /// <summary>
+    /// Returns true, if message was successfully received.
+    /// </summary>
+    /// <param name="id">ID.</param>
+    /// <param name="messageName">Message name.</param>
+    /// <param name="data">Data.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public void Receive(Guid id, ref string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
+        // id is ignored because
+
+        switch (messageName.ToUpperInvariant()) {
+            case "READLINE": {
+                    messageName = "ReadLine";
+                    Port.ReadLine();
+                    var text = Port.ReadLine();
+                    data = [new AASeqNode("Text", text)];
+                }
+                break;
+
+            default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
+        }
+    }
+
+
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
+        return new Serial(configuration);
+    }
+
+    /// <summary>
+    /// Returns validated configuration.
+    /// </summary>
+    /// <param name="configuration">Configuration.</param>
+    public static AASeqNodes ValidateConfiguration(AASeqNodes configuration) {
+        return [
+            configuration.FindNode("PortName") ?? new AASeqNode("PortName", GetDefaultPortName()),
+            configuration.FindNode("BaudRate") ?? new AASeqNode("BaudRate", DefaultBaudRate),
+            configuration.FindNode("Parity") ?? new AASeqNode("Parity", DefaultParity),
+            configuration.FindNode("DataBits") ?? new AASeqNode("DataBits", DefaultDataBits),
+            configuration.FindNode("StopBits") ?? new AASeqNode("StopBits", DefaultStopBits),
+            configuration.FindNode("EOL") ?? new AASeqNode("EOL", DefaultEol),
+        ];
+    }
+
+    /// <summary>
+    /// Returns validated data.
+    /// </summary>
+    /// <param name="message">Message.</param>
+    /// <param name="data">Data.</param>
+    public static AASeqNodes ValidateData(string message, AASeqNodes data) {
+        return message.ToUpperInvariant() switch {
+            "WRITE" => [
+                         data.FindNode("Data")
+                       ],
+            "READ" => [
+                        data.FindNode("Data"),
+                      ],
+            "WRITELINE" => [
+                             data.FindNode("Text")
+                            ],
+            "READLINE" => [
+                            data.FindNode("Text"),
+                          ],
+            _ => throw new ArgumentOutOfRangeException(nameof(message), $"Unknown message: {message}"),
+        };
+    }
+
+
+    private static string GetDefaultPortName() {
+        string? firstSerialPort = null;
+        foreach (var port in SerialPort.GetPortNames()) {
+            firstSerialPort = port;
+            break;
+        }
+        return firstSerialPort ?? throw new InvalidOperationException("No serial ports available.");
+    }
+
+
+    private const int DefaultBaudRate = 9600;
+    private const string DefaultParity = "None";
+    private const int DefaultDataBits = 8;
+    private const double DefaultStopBits = 1.0;
+    private const string DefaultEol = "\n";
+
+
+    #region IDisposable
+
+    void IDisposable.Dispose() {
+        Port.Dispose();
+    }
+
+    #endregion IDisposable
+
+}

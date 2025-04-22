@@ -102,16 +102,16 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="message">Message.</param>
     /// <param name="data">Data.</param>
     public static AASeqNodes ValidateData(string message, AASeqNodes data) {
-        return message switch {
-            "Send" => [
+        return message.ToUpperInvariant() switch {
+            "SEND" => [
                         data.FindNode("DontFragment"),
                         data.FindNode("Timeout"),
                         data.FindNode("TTL") ?? data.FindNode("TimeToLive"),
                       ],
-            "Reply" => [
-                        data.FindNode("Status"),
-                        data.FindNode("RoundtripTime"),
-                      ],
+            "REPLY" => [
+                         data.FindNode("Status"),
+                         data.FindNode("RoundtripTime"),
+                       ],
             _ => throw new ArgumentOutOfRangeException(nameof(message), $"Unknown message: {message}"),
         };
     }

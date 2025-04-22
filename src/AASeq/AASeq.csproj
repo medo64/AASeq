@@ -33,6 +33,7 @@
     <ProjectReference Include="../AASeq.Engine/AASeq.Engine.csproj" />
     <ProjectReference Include="../AASeq.Plugin/AASeq.Plugin.csproj" />
     <ProjectReference Include="../AASeq.Plugin.Ping/AASeq.Plugin.Ping.csproj" />
+    <ProjectReference Include="../AASeq.Plugin.Serial/AASeq.Plugin.Serial.csproj" />
   </ItemGroup>
 
 </Project>
