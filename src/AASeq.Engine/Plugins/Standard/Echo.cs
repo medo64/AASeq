@@ -40,7 +40,7 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, [MaybeNullWhen(false)] out string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
+    public void Receive(Guid id, [MaybeNullWhen(false)] ref string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
         if (Storage.Remove(id, out var value)) {
             messageName = value.Item1;
             data = value.Item2;

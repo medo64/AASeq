@@ -62,7 +62,7 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, out string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
+    public void Receive(Guid id, ref string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
         while (!cancellationToken.IsCancellationRequested) {
             if (Storage.Remove(id, out var value)) {
                 messageName = value.Item1;

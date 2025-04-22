@@ -49,10 +49,10 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, [MaybeNullWhen(false)] out string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
+    public void Receive(Guid id, [MaybeNullWhen(false)] ref string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
         if (ReceiveMethodInfo is null) { throw new NotSupportedException(); }
         try {
-            var parameters = new object?[] { id, null, null, cancellationToken };
+            var parameters = new object?[] { id, messageName, null, cancellationToken };
             ReceiveMethodInfo.Invoke(Instance, parameters);
             messageName = (string)parameters[1]!;
             data = (AASeqNodes)parameters[2]!;

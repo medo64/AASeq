@@ -109,7 +109,8 @@ public sealed partial class Engine {
                             using var cts = new CancellationTokenSource(ReceiveTimeout);
                             var sw = Stopwatch.StartNew();
                             try {
-                                messageInAction.SourceInstance.Receive(id, out var messageName, out var nodes, cts.Token);
+                                var messageName = messageInAction.MessageName;
+                                messageInAction.SourceInstance.Receive(id, ref messageName, out var nodes, cts.Token);
                                 sw.Stop();
                                 var responseNode = new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes);
                                 responseNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
