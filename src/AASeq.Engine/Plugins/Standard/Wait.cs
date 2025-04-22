@@ -9,6 +9,14 @@ using System.Threading.Tasks;
 internal sealed class Wait : ICommandPlugin {
 
     /// <summary>
+    /// Returns the instance.
+    /// </summary>
+    public static ICommandPlugin CreateInstance() {
+        return new Wait();
+    }
+
+
+    /// <summary>
     /// Creates a new instance.
     /// </summary>
     private Wait() {
@@ -23,26 +31,6 @@ internal sealed class Wait : ICommandPlugin {
     public async Task ExecuteAsync(AASeqNodes data, CancellationToken cancellationToken) {
         var duration = data["Delay"].AsTimeSpan(DefaultDelay);
         await Task.Delay(duration, cancellationToken).ConfigureAwait(false);
-    }
-
-
-    /// <summary>
-    /// Returns the instance.
-    /// </summary>
-    public static ICommandPlugin CreateInstance() {
-        return new Wait();
-    }
-
-    /// <summary>
-    /// Returns validated data.
-    /// </summary>
-    /// <param name="data">Data.</param>
-    public static AASeqNodes ValidateData(AASeqNodes data) {
-        var valueNode = data.FindNode("Value");
-        if (valueNode is not null) { valueNode.Name = "Delay"; }
-        return [
-            data.FindNode("Delay") ?? valueNode ?? new AASeqNode("Delay", DefaultDelay),
-        ];
     }
 
 

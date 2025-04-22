@@ -11,17 +11,4 @@ public interface IEndpointPlugin : IEndpointPluginInstance {
     /// </summary>
     public static abstract IEndpointPlugin CreateInstance(AASeqNodes configuration);
 
-    /// <summary>
-    /// Returns validated configuration.
-    /// </summary>
-    /// <param name="configuration">Configuration.</param>
-    public static abstract AASeqNodes ValidateConfiguration(AASeqNodes configuration);
-
-    /// <summary>
-    /// Returns validated data.
-    /// </summary>
-    /// <param name="message">Message.</param>
-    /// <param name="data">Data.</param>
-    public static abstract AASeqNodes ValidateData(string message, AASeqNodes data);
-
 }

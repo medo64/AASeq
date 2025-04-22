@@ -111,15 +111,11 @@ public sealed class PluginManager {
         if (mCreateInstance is null) { return null; }
         if (!mCreateInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
-        var mValidateData = type.GetMethod("ValidateData", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, [typeof(AASeqNodes)]);
-        if (mValidateData is null) { return null; }
-        if (!mValidateData.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
-
         var mExecute = type.GetMethod("ExecuteAsync", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mExecute is null) { return null; }
         if (!mExecute.ReturnType.Equals(typeof(Task))) { return null; }
 
-        return new CommandPlugin(type, mCreateInstance, mValidateData, mExecute);
+        return new CommandPlugin(type, mCreateInstance, mExecute);
     }
 
     private static EndpointPlugin? GetEndpointPlugin(Type type) {
@@ -129,14 +125,6 @@ public sealed class PluginManager {
         if (mCreateInstance is null) { return null; }
         if (!mCreateInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
-        var mValidateConfiguration = type.GetMethod("ValidateConfiguration", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, [typeof(AASeqNodes)]);
-        if (mValidateConfiguration is null) { return null; }
-        if (!mValidateConfiguration.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
-
-        var mValidateData = type.GetMethod("ValidateData", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, [typeof(string), typeof(AASeqNodes)]);
-        if (mValidateData is null) { return null; }
-        if (!mValidateData.ReturnType.Equals(typeof(AASeqNodes))) { return null; }
-
         var mSend = type.GetMethod("SendAsync", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mSend is null) { return null; }
         if (!mSend.ReturnType.Equals(typeof(Task))) { return null; }
@@ -145,7 +133,7 @@ public sealed class PluginManager {
         if (mReceive is null) { return null; }
         if (!mReceive.ReturnType.Equals(typeof(Task<Tuple<string, AASeqNodes>>))) { return null; }
 
-        return new EndpointPlugin(type, mCreateInstance, mValidateConfiguration, mValidateData, mSend, mReceive);
+        return new EndpointPlugin(type, mCreateInstance, mSend, mReceive);
     }
 
     #endregion Helpers

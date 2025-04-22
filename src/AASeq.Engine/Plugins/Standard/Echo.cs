@@ -13,6 +13,14 @@ using System.Threading.Tasks;
 [DebuggerDisplay("Echo")]
 internal sealed class Echo : IEndpointPlugin {
 
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
+        return new Echo(configuration);
+    }
+
+
     private Echo(AASeqNodes configuration) {
         Delay = configuration["Delay"].AsTimeSpan(DefaultDelay);
     }
@@ -51,33 +59,6 @@ internal sealed class Echo : IEndpointPlugin {
         }
 
         throw new InvalidOperationException("Message not received.");
-    }
-
-
-    /// <summary>
-    /// Gets the instance.
-    /// </summary>
-    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
-        return new Echo(configuration);
-    }
-
-    /// <summary>
-    /// Returns validated configuration.
-    /// </summary>
-    /// <param name="configuration">Configuration.</param>
-    public static AASeqNodes ValidateConfiguration(AASeqNodes configuration) {
-        return [
-            configuration.FindNode("Delay")?? new AASeqNode("Delay", DefaultDelay),
-        ];
-    }
-
-    /// <summary>
-    /// Returns validated data.
-    /// </summary>
-    /// <param name="message">Message.</param>
-    /// <param name="data">Data.</param>
-    public static AASeqNodes ValidateData(string message, AASeqNodes data) {
-        return data;
     }
 
 

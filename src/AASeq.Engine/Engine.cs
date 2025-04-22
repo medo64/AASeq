@@ -36,7 +36,7 @@ public sealed partial class Engine : IDisposable {
                     sendTimeout = node.Nodes["SendTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(sendTimeout));
                 } else {
                     var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
-                    var configuration = plugin.ValidateConfiguration(node.Nodes);
+                    var configuration = node.Nodes;
                     endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin, plugin.CreateInstance(configuration)));
                 }
             }
@@ -70,11 +70,11 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var data = endpoints[right].Plugin.ValidateData(actionName, node.Nodes);
+                        var data = node.Nodes;
                         var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("/match"));
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var data = endpoints[left].Plugin.ValidateData(actionName, node.Nodes);
+                        var data = node.Nodes;
                         var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("/match"));
                         flowSequence.Add(flow);
                     } else {
@@ -97,11 +97,11 @@ public sealed partial class Engine : IDisposable {
                     if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var data = endpoints[right].Plugin.ValidateData(actionName, node.Nodes);
+                        var data = node.Nodes;
                         var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("/match"));
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var data = endpoints[left].Plugin.ValidateData(actionName, node.Nodes);
+                        var data = node.Nodes;
                         var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("/match"));
                         flowSequence.Add(flow);
                     } else {
@@ -115,7 +115,7 @@ public sealed partial class Engine : IDisposable {
                         node.Nodes.Add(new AASeqNode("Value", node.Value));
                         node.Value = AASeqValue.Null;
                     }
-                    var data = plugin.ValidateData(node.Nodes);
+                    var data = node.Nodes;
                     flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(), data));
 
                 }

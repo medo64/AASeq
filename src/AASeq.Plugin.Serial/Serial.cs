@@ -10,6 +10,14 @@ using System.Threading.Tasks;
 /// </summary>
 internal sealed class Serial : IEndpointPlugin, IDisposable {
 
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
+        return new Serial(configuration);
+    }
+
+
     private Serial(AASeqNodes configuration) {
         var portName = configuration["PortName"].AsString(GetDefaultPortName());
         var baudRate = configuration["BaudRate"].AsInt32(DefaultBaudRate);
@@ -85,52 +93,6 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
 
             default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
         }
-    }
-
-
-    /// <summary>
-    /// Gets the instance.
-    /// </summary>
-    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
-        return new Serial(configuration);
-    }
-
-    /// <summary>
-    /// Returns validated configuration.
-    /// </summary>
-    /// <param name="configuration">Configuration.</param>
-    public static AASeqNodes ValidateConfiguration(AASeqNodes configuration) {
-        return [
-            configuration.FindNode("PortName") ?? new AASeqNode("PortName", GetDefaultPortName()),
-            configuration.FindNode("BaudRate") ?? new AASeqNode("BaudRate", DefaultBaudRate),
-            configuration.FindNode("Parity") ?? new AASeqNode("Parity", DefaultParity),
-            configuration.FindNode("DataBits") ?? new AASeqNode("DataBits", DefaultDataBits),
-            configuration.FindNode("StopBits") ?? new AASeqNode("StopBits", DefaultStopBits),
-            configuration.FindNode("EOL") ?? new AASeqNode("EOL", DefaultEol),
-        ];
-    }
-
-    /// <summary>
-    /// Returns validated data.
-    /// </summary>
-    /// <param name="message">Message.</param>
-    /// <param name="data">Data.</param>
-    public static AASeqNodes ValidateData(string message, AASeqNodes data) {
-        return message.ToUpperInvariant() switch {
-            "WRITE" => [
-                         data.FindNode("Data")
-                       ],
-            "READ" => [
-                        data.FindNode("Data"),
-                      ],
-            "WRITELINE" => [
-                             data.FindNode("Text")
-                            ],
-            "READLINE" => [
-                            data.FindNode("Text"),
-                          ],
-            _ => throw new ArgumentOutOfRangeException(nameof(message), $"Unknown message: {message}"),
-        };
     }
 
 

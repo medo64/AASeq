@@ -12,6 +12,14 @@ using System.Threading.Tasks;
 /// </summary>
 internal sealed class Ping : IEndpointPlugin {
 
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
+        return new Ping(configuration);
+    }
+
+
     private Ping(AASeqNodes configuration) {
         DontFragment = configuration["DontFragment"].AsBoolean(DefaultDontFragment);
         Host = configuration["Host"].AsString(DefaultHost);
@@ -79,46 +87,6 @@ internal sealed class Ping : IEndpointPlugin {
         throw new InvalidOperationException("No reply.");
     }
 
-
-    /// <summary>
-    /// Gets the instance.
-    /// </summary>
-    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
-        return new Ping(configuration);
-    }
-
-    /// <summary>
-    /// Returns validated configuration.
-    /// </summary>
-    /// <param name="configuration">Configuration.</param>
-    public static AASeqNodes ValidateConfiguration(AASeqNodes configuration) {
-        return [
-            configuration.FindNode("DontFragment") ?? new AASeqNode("DontFragment", DefaultDontFragment),
-            configuration.FindNode("Host") ?? new AASeqNode("Host", DefaultHost),
-            configuration.FindNode("Timeout") ?? new AASeqNode("Timeout", DefaultTimeout),
-            configuration.FindNode("TTL") ?? configuration.FindNode("TimeToLive") ?? new AASeqNode("TTL", DefaultTTL),
-        ];
-    }
-
-    /// <summary>
-    /// Returns validated data.
-    /// </summary>
-    /// <param name="message">Message.</param>
-    /// <param name="data">Data.</param>
-    public static AASeqNodes ValidateData(string message, AASeqNodes data) {
-        return message.ToUpperInvariant() switch {
-            "SEND" => [
-                        data.FindNode("DontFragment"),
-                        data.FindNode("Timeout"),
-                        data.FindNode("TTL") ?? data.FindNode("TimeToLive"),
-                      ],
-            "REPLY" => [
-                         data.FindNode("Status"),
-                         data.FindNode("RoundtripTime"),
-                       ],
-            _ => throw new ArgumentOutOfRangeException(nameof(message), $"Unknown message: {message}"),
-        };
-    }
 
     private const bool DefaultDontFragment = false;
     private const string DefaultHost = "localhost";

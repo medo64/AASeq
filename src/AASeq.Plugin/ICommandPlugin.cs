@@ -11,10 +11,4 @@ public interface ICommandPlugin : ICommandPluginInstance {
     /// </summary>
     public static abstract ICommandPlugin CreateInstance();
 
-    /// <summary>
-    /// Returns validated data.
-    /// </summary>
-    /// <param name="data">Data.</param>
-    public static abstract AASeqNodes ValidateData(AASeqNodes data);
-
 }
