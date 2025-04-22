@@ -1,6 +1,5 @@
 namespace AASeq;
 using System;
-using static System.Collections.Specialized.BitVector32;
 
 /// <summary>
 /// Action event arguments.

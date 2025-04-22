@@ -19,7 +19,14 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
 
 
     private Serial(AASeqNodes configuration) {
-        var portName = configuration["PortName"].AsString(GetDefaultPortName());
+        string? firstSerialPort = null;
+        foreach (var port in SerialPort.GetPortNames()) {
+            firstSerialPort = port;
+            break;
+        }
+        if (firstSerialPort is null) { throw new InvalidOperationException("No serial ports available."); }
+
+        var portName = configuration["PortName"].AsString(firstSerialPort);
         var baudRate = configuration["BaudRate"].AsInt32(DefaultBaudRate);
         var parity = configuration["Parity"].AsString(DefaultParity) switch {
             "N" or "None" => Parity.None,
@@ -44,10 +51,7 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
             _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unsupported line ending."),
         };
 
-        Port = new SerialPort(portName, baudRate, parity, dataBits, stopBits) {
-            Encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false),
-            NewLine = Eol
-        };
+        Port = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
         Port.Open();
     }
 
@@ -64,15 +68,17 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         switch (messageName.ToUpperInvariant()) {
             case "WRITELINE": {
-                    var text = data["Text"].AsString("");
-                    Port.WriteLine(text);
-                    await Task.CompletedTask.ConfigureAwait(false);
+                    var bytes = Utf8.GetBytes(data["Text"].AsString("") + Eol);
+                    await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
                 }
                 break;
 
             default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
         }
     }
+
+    private readonly byte[] Bytes = new byte[1024 * 1024];
+    private int BytesIndex;
 
     /// <summary>
     /// Returns true, if message was successfully received.
@@ -81,28 +87,46 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     /// <param name="messageName">Message name.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken) {
-        // id is ignored because
+        // id is ignored because serial port is always sequential
 
         switch (messageName.ToUpperInvariant()) {
             case "READLINE": {
-                    messageName = "ReadLine";
-                    Port.ReadLine();
-                    var text = Port.ReadLine();
-                    return await Task.FromResult(new Tuple<string, AASeqNodes>("ReadLine", [new AASeqNode("Text", text)])).ConfigureAwait(false);
+                    var i = 0;
+                    var readMore = false;
+                    while (true) {
+                        if (i >= BytesIndex) { readMore = true; }
+                        if (readMore) {
+                            var read = await Port.BaseStream.ReadAsync(Bytes.AsMemory(BytesIndex, Bytes.Length - BytesIndex), cancellationToken).ConfigureAwait(false);
+                            if (read > 0) { BytesIndex += read; }
+                            readMore = false;
+                        }
+
+                        if (Bytes[i] == Eol[0]) {
+                            if (Eol.Length == 2) {  // crlf special
+                                if (i + 1 >= BytesIndex) {
+                                    readMore = true;
+                                    continue;
+                                }
+                                if (Bytes[i + 1] == Eol[1]) {
+                                    Buffer.BlockCopy(Bytes, i + 2, Bytes, 0, BytesIndex - i - 2);
+                                    BytesIndex = 0;
+                                    var text = Utf8.GetString(Bytes, 0, i);
+                                    return await Task.FromResult(new Tuple<string, AASeqNodes>("ReadLine", [new AASeqNode("Text", text)])).ConfigureAwait(false);
+                                }
+                            } else {
+                                Buffer.BlockCopy(Bytes, i + 1, Bytes, 0, BytesIndex - i - 1);
+                                BytesIndex = 0;
+                                var text = Utf8.GetString(Bytes, 0, i);
+                                return await Task.FromResult(new Tuple<string, AASeqNodes>("ReadLine", [new AASeqNode("Text", text)])).ConfigureAwait(false);
+                            }
+                        }
+
+                        i++;
+                    }
                 }
 
             default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
         }
-    }
-
-
-    private static string GetDefaultPortName() {
-        string? firstSerialPort = null;
-        foreach (var port in SerialPort.GetPortNames()) {
-            firstSerialPort = port;
-            break;
-        }
-        return firstSerialPort ?? throw new InvalidOperationException("No serial ports available.");
     }
 
 
@@ -111,6 +135,8 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     private const int DefaultDataBits = 8;
     private const double DefaultStopBits = 1.0;
     private const string DefaultEol = "\n";
+
+    private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
 
     #region IDisposable
