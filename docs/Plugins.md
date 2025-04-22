@@ -43,8 +43,8 @@ The following methods must be defined for all endpoint plugins:
 * `static Object CreateInstance(AASeqNodes configuration)`
 * `static AASeqNodes ValidateConfiguration(AASeqNodes configuration)`
 * `static AASeqNodes ValidateData(string messageName, AASeqNodes data)`
-* `void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken)`
-* `void Receive(Guid id, [MaybeNullWhen(false)] ref string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken)`
+* `void SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken)`
+* `void ReceiveAsync(Guid id, [MaybeNullWhen(false)] ref string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken)`
 
 
 #### CreateInstance Method

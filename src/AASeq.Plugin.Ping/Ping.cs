@@ -34,13 +34,15 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         var pingOptions = new PingOptions {
             DontFragment = data["DontFragment"].AsBoolean(DontFragment),
             Ttl = data["TTL"].AsInt32(TimeToLive),
         };
 
         var timeout = data["Timeout"].AsTimeSpan(Timeout);
+
+#pragma warning disable CS4014
         Task.Run(() => {
             using var ping = new System.Net.NetworkInformation.Ping();
             var reply = ping.Send(Host, timeout, null, pingOptions);
@@ -53,6 +55,9 @@ internal sealed class Ping : IEndpointPlugin {
             }
             Storage[id] = ("Reply", data);
         }, CancellationToken.None);
+#pragma warning restore CS4014
+
+        await Task.CompletedTask.ConfigureAwait(false);
     }
 
     /// <summary>
@@ -60,16 +65,15 @@ internal sealed class Ping : IEndpointPlugin {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, ref string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken) {
         while (!cancellationToken.IsCancellationRequested) {
             if (Storage.Remove(id, out var value)) {
                 messageName = value.Item1;
-                data = value.Item2;
-                return;
+                var data = value.Item2;
+                return await Task.FromResult(new Tuple<string, AASeqNodes>(messageName, data)).ConfigureAwait(false);
             } else {
-                Thread.Sleep(1);
+                await Task.Delay(1, cancellationToken).ConfigureAwait(false);
             }
         }
         throw new InvalidOperationException("No reply.");

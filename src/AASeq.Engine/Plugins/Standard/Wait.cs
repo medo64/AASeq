@@ -20,9 +20,9 @@ internal sealed class Wait : ICommandPlugin {
     /// </summary>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Execute(AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task ExecuteAsync(AASeqNodes data, CancellationToken cancellationToken) {
         var duration = data["Delay"].AsTimeSpan(DefaultDelay);
-        Task.Delay(duration, cancellationToken).Wait(cancellationToken);
+        await Task.Delay(duration, cancellationToken).ConfigureAwait(false);
     }
 
 

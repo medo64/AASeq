@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Command plugin instance.
@@ -31,10 +32,22 @@ internal sealed class CommandInstance : PluginInstanceBase, ICommandPluginInstan
     /// <param name="cancellationToken">Cancellation token.</param>
     public void Execute(AASeqNodes data, CancellationToken cancellationToken) {
         try {
-            ExecuteMethodInfo.Invoke(Instance, [data, cancellationToken]);
+            var task = ExecuteAsync(data, cancellationToken);
+            task.Wait(cancellationToken);
         } catch (TargetInvocationException ex) {
             throw ex.InnerException is null ? ex : ex.InnerException;
         }
+    }
+
+    /// <summary>
+    /// Executes the command.
+    /// </summary>
+    /// <param name="data">Data.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task ExecuteAsync(AASeqNodes data, CancellationToken cancellationToken) {
+        if (ExecuteMethodInfo is null) { throw new NotSupportedException(); }
+        var task = (Task)ExecuteMethodInfo.Invoke(Instance, [data, cancellationToken])!;
+        await task.ConfigureAwait(false);
     }
 
 }

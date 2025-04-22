@@ -3,6 +3,7 @@ using System;
 using System.IO.Ports;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Ping endpoint.
@@ -52,11 +53,12 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         switch (messageName.ToUpperInvariant()) {
             case "WRITELINE": {
                     var text = data["Text"].AsString("");
                     Port.WriteLine(text);
+                    await Task.CompletedTask.ConfigureAwait(false);
                 }
                 break;
 
@@ -69,9 +71,8 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, ref string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken) {
         // id is ignored because
 
         switch (messageName.ToUpperInvariant()) {
@@ -79,9 +80,8 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
                     messageName = "ReadLine";
                     Port.ReadLine();
                     var text = Port.ReadLine();
-                    data = [new AASeqNode("Text", text)];
+                    return await Task.FromResult(new Tuple<string, AASeqNodes>("ReadLine", [new AASeqNode("Text", text)])).ConfigureAwait(false);
                 }
-                break;
 
             default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
         }

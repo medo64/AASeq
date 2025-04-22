@@ -3,8 +3,8 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Replies to any request with the same data.
@@ -14,11 +14,11 @@ using System.Threading;
 internal sealed class Echo : IEndpointPlugin {
 
     private Echo(AASeqNodes configuration) {
-        DelayMS = (int)configuration["Delay"].AsTimeSpan(DefaultDelay).TotalMilliseconds;
+        Delay = configuration["Delay"].AsTimeSpan(DefaultDelay);
     }
 
 
-    private readonly int DelayMS;
+    private readonly TimeSpan Delay;
     private readonly ConcurrentDictionary<Guid, (string, AASeqNodes)> Storage = [];
 
 
@@ -29,8 +29,9 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
         Storage[id] = (messageName, data);
+        await Task.CompletedTask.ConfigureAwait(false);
     }
 
     /// <summary>
@@ -38,13 +39,15 @@ internal sealed class Echo : IEndpointPlugin {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, [MaybeNullWhen(false)] ref string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken) {
         if (Storage.Remove(id, out var value)) {
             messageName = value.Item1;
-            data = value.Item2;
-            if (DelayMS > 0) { Thread.Sleep(DelayMS); }
+            var data = value.Item2;
+            if (Delay.Ticks > 0) {
+                await Task.Delay(Delay, cancellationToken).ConfigureAwait(false);
+            }
+            await Task.FromResult(new Tuple<string, AASeqNodes>(messageName, data)).ConfigureAwait(false);
         }
 
         throw new InvalidOperationException("Message not received.");

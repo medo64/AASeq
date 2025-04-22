@@ -1,7 +1,7 @@
 namespace AASeq;
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Endpoint plugin instance interface marker.
@@ -16,15 +16,14 @@ public interface IEndpointPluginInstance {
     /// <param name="messageName">Message name.</param>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken);
+    public Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken);
 
     /// <summary>
     /// Returns true, if message was successfully received.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, [MaybeNullWhen(false)] ref string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken);
+    public Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken);
 
 }

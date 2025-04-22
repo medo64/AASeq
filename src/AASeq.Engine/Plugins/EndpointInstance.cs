@@ -3,6 +3,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Endpoint plugin instance.
@@ -34,9 +35,40 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public void Send(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
-        if (SendMethodInfo is null) { throw new NotSupportedException(); }
         try {
-            SendMethodInfo.Invoke(Instance, [id, messageName, data, cancellationToken]);
+            var task = SendAsync(id, messageName, data, cancellationToken);
+            task.Wait(cancellationToken);
+        } catch (TargetInvocationException ex) {
+            throw ex.InnerException is null ? ex : ex.InnerException;
+        }
+    }
+
+    /// <summary>
+    /// Returns true, if message was successfully sent.
+    /// </summary>
+    /// <param name="id">ID.</param>
+    /// <param name="messageName">Message name.</param>
+    /// <param name="data">Data.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+        if (SendMethodInfo is null) { throw new NotSupportedException(); }
+        var task = (Task)SendMethodInfo.Invoke(Instance, [id, messageName, data, cancellationToken])!;
+        await task.ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Returns true, if message was successfully received.
+    /// </summary>
+    /// <param name="id">ID.</param>
+    /// <param name="messageName">Message name.</param>
+    /// <param name="data">Data.</param>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public void Receive(Guid id, ref string messageName, out AASeqNodes data, CancellationToken cancellationToken) {
+        try {
+            var task = ReceiveAsync(id, messageName, cancellationToken);
+            task.Wait(cancellationToken);
+            messageName = task.Result.Item1;
+            data = task.Result.Item2;
         } catch (TargetInvocationException ex) {
             throw ex.InnerException is null ? ex : ex.InnerException;
         }
@@ -47,18 +79,11 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Receive(Guid id, [MaybeNullWhen(false)] ref string messageName, [MaybeNullWhen(false)] out AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken) {
         if (ReceiveMethodInfo is null) { throw new NotSupportedException(); }
-        try {
-            var parameters = new object?[] { id, messageName, null, cancellationToken };
-            ReceiveMethodInfo.Invoke(Instance, parameters);
-            messageName = (string)parameters[1]!;
-            data = (AASeqNodes)parameters[2]!;
-        } catch (TargetInvocationException ex) {
-            throw ex.InnerException is null ? ex : ex.InnerException;
-        }
+        var task = (Task<Tuple<string, AASeqNodes>>)ReceiveMethodInfo.Invoke(Instance, [id, messageName, cancellationToken])!;
+        return await task.ConfigureAwait(false);
     }
 
 }

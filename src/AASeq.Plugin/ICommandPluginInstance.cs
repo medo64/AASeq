@@ -1,5 +1,6 @@
 namespace AASeq;
 using System.Threading;
+using System.Threading.Tasks;
 
 /// <summary>
 /// Command plugin instance interface marker.
@@ -12,6 +13,6 @@ public interface ICommandPluginInstance {
     /// </summary>
     /// <param name="data">Data.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Execute(AASeqNodes data, CancellationToken cancellationToken);
+    public Task ExecuteAsync(AASeqNodes data, CancellationToken cancellationToken);
 
 }
