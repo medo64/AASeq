@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <AssemblyName>AASeq.Plugin.Ping</AssemblyName>
-    <RootNamespace>PingPlugin</RootNamespace>
+    <RootNamespace>AASeq</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>

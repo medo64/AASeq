@@ -1,4 +1,4 @@
-namespace AASeq.EndpointPlugins;
+namespace AASeq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
