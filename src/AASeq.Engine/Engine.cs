@@ -71,11 +71,11 @@ public sealed partial class Engine : IDisposable {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
                         var data = endpoints[right].Plugin.ValidateData(actionName, node.Nodes);
-                        var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("match"));
+                        var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("/match"));
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
                         var data = endpoints[left].Plugin.ValidateData(actionName, node.Nodes);
-                        var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("match"));
+                        var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("/match"));
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot send message to nobody.");
@@ -98,11 +98,11 @@ public sealed partial class Engine : IDisposable {
                         throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
                         var data = endpoints[right].Plugin.ValidateData(actionName, node.Nodes);
-                        var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("match"));
+                        var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("/match"));
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
                         var data = endpoints[left].Plugin.ValidateData(actionName, node.Nodes);
-                        var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("match"));
+                        var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("/match"));
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot receive message.");

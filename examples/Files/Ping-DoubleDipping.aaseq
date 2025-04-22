@@ -7,19 +7,19 @@
 
 
 # Send first ping
-Send >Remote match=1
+Send >Remote /match=1
 
 # Send second ping
-Send  Me>Remote match=2
+Send  Me>Remote /match=2
 
 # Check second ping (notice match property)
-Reply Me<Remote match=2 {
+Reply Me<Remote /match=2 {
     Status Success
     RoundtripTime 0.020 /op=le
 }
 
 # Check first ping (notice match property)
-Reply <Remote match=1 {
+Reply <Remote /match=1 {
     Status Success
     RoundtripTime 0.020 /op=le
 }
