@@ -14,7 +14,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="value">Value to convert.</param>
     /// <param name="result">Converted value.</param>
-    public static bool TryConvertString(object? value, [NotNullWhen(true)] out String? result) {
+    public static bool TryConvertString(object? value, out String? result) {
         if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
         result = value switch {
             null => null,

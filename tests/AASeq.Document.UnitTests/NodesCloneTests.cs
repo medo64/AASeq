@@ -26,4 +26,11 @@ public sealed class NodesCloneTests {
         Assert.AreEqual(text, clone.ToString());
     }
 
+    [TestMethod]
+    public void NodesClone_HiddenValues() {
+        var document = AASeqNodes.Parse("test1 .p1=v1 { test2 p2=v2 { .test3a value3a; test3b p3b=v3b; .test3c } }");
+        var clone = document.Clone(removeHidden: true);
+        Assert.AreEqual("test1 { test2 p2=v2 { test3b p3b=v3b } }", clone.ToString());
+    }
+
 }

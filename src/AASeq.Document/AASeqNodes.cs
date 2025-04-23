@@ -136,14 +136,23 @@ public sealed partial class AASeqNodes : IList<AASeqNode> {
 
 
     /// <summary>
-    /// Returns the clone of the nodes.
+    /// Returns the clone of the nodes .
     /// </summary>
     public AASeqNodes Clone() {
+        return Clone(removeHidden: false);
+    }
+
+    /// <summary>
+    /// Returns the clone of the nodes.
+    /// </summary>
+    /// <param name="removeHidden">If true, nodes starting with dot (.) are not cloned.</param>
+    internal AASeqNodes Clone(bool removeHidden) {
         var sw = Stopwatch.StartNew();
         try {
             var clone = new AASeqNodes();
             foreach (var node in this) {
-                clone.Add(node.Clone());
+                if (removeHidden && node.Name.StartsWith('.')) { continue; }
+                clone.Add(node.Clone(removeHidden));
             }
             return clone;
         } finally {

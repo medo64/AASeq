@@ -17,7 +17,7 @@ public sealed partial record AASeqValue {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public String AsString(String defaultValue) {
-        return TryConvertString(RawValue, out String? result) ? result : defaultValue;
+        return TryConvertString(RawValue, out String? result) ? (result ?? "") : defaultValue;
     }
 
 

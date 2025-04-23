@@ -11,7 +11,16 @@ public sealed partial class AASeqNodes {
     /// </summary>
     /// <param name="matchNodes">Nodes to match.</param>
     public bool TryValidate(AASeqNodes matchNodes) {
-        return TryValidate(matchNodes, out _);
+        return TryValidate(matchNodes, ignoreHidden: false, out _);
+    }
+
+    /// <summary>
+    /// Tries to validate if current nodes match the given nodes.
+    /// </summary>
+    /// <param name="matchNodes">Nodes to match.</param>
+    /// <param name="ignoreHidden">If true, properties starting with dot (.) are not checked.</param>
+    public bool TryValidate(AASeqNodes matchNodes, bool ignoreHidden) {
+        return TryValidate(matchNodes, ignoreHidden, out _);
     }
 
     /// <summary>
@@ -20,12 +29,21 @@ public sealed partial class AASeqNodes {
     /// <param name="matchNodes">Nodes to match.</param>
     /// <param name="failedNode">Node that failed to match.</param>
     public bool TryValidate(AASeqNodes matchNodes, [MaybeNullWhen(true)] out AASeqNode failedNode) {
+        return TryValidate(matchNodes, ignoreHidden: false, out failedNode);
+    }
+
+    /// <summary>
+    /// Tries to validate if current nodes match the given nodes.
+    /// </summary>
+    /// <param name="matchNodes">Nodes to match.</param>
+    /// <param name="ignoreHidden">If true, properties starting with dot (.) are not checked.</param>
+    /// <param name="failedNode">Node that failed to match.</param>
+    public bool TryValidate(AASeqNodes matchNodes, bool ignoreHidden, [MaybeNullWhen(true)] out AASeqNode failedNode) {
         var sw = Stopwatch.StartNew();
         try {
-
             ArgumentNullException.ThrowIfNull(matchNodes);
-            var nodes = Clone();
-            matchNodes = matchNodes.Clone();
+            var nodes = Clone(removeHidden: ignoreHidden);
+            matchNodes = matchNodes.Clone(removeHidden: ignoreHidden);
 
             for (var i = matchNodes.Count - 1; i >= 0; i--) {
                 var j = GetMatchIndex(nodes, matchNodes[i], 0);

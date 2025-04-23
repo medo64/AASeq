@@ -97,7 +97,9 @@ public sealed partial class AASeqNode {
     /// <summary>
     /// Gets/sets value.
     /// </summary>
+#pragma warning disable CA1721
     public AASeqValue Value {
+#pragma warning restore CA1721
         get { return _value; }
         set { _value = value ?? AASeqValue.Null; }
     }
@@ -118,13 +120,23 @@ public sealed partial class AASeqNode {
     /// Returns the clone of given node.
     /// </summary>
     public AASeqNode Clone() {
+        return Clone(removeHidden: false);
+    }
+
+    /// <summary>
+    /// Returns the clone of given node.
+    /// </summary>
+    /// <param name="removeHidden">If true, properties starting with dot (.) are not cloned.</param>
+    internal AASeqNode Clone(bool removeHidden) {
         var clone = new AASeqNode(Name, Value);
         foreach (var property in Properties) {
+            if (removeHidden && property.Key.StartsWith('.')) { continue; }
             clone.Properties.Add(property.Key, property.Value);
         }
         if (Nodes.Count > 0) {
             foreach (var node in Nodes) {
-                clone.Nodes.Add(node.Clone());
+                if (removeHidden && node.Name.StartsWith('.')) { continue; }
+                clone.Nodes.Add(node.Clone(removeHidden));
             }
         }
         return clone;

@@ -214,4 +214,11 @@ public sealed class ValidateTests {
         Assert.IsFalse(nodes.TryValidate(match));
     }
 
+    [TestMethod]
+    public void Validate_MultiProp_IgnoreHidden() {
+        var nodes = AASeqNodes.Parse("A { B { C } } A { B { .D } } A { B { F } }");
+        var match = AASeqNodes.Parse("A { B { C } } A { B { .E } } A { B { F .k=v } }");
+        Assert.IsTrue(nodes.TryValidate(match, ignoreHidden: true));
+    }
+
 }
