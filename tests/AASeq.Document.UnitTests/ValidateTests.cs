@@ -221,4 +221,19 @@ public sealed class ValidateTests {
         Assert.IsTrue(nodes.TryValidate(match, ignoreHidden: true));
     }
 
+
+    [TestMethod]
+    public void Validate_Bytes() {
+        var nodes = new AASeqNodes([new AASeqNode("Test", new byte[] { 0, 1, 2 })]);
+        var match = new AASeqNodes([new AASeqNode("Test", new byte[] { 0, 1, 2 })]);
+        Assert.IsTrue(nodes.TryValidate(match));
+    }
+
+    [TestMethod]
+    public void Validate_Utf8() {
+        var nodes = new AASeqNodes([new AASeqNode("Test", "ABC")]);
+        var match = new AASeqNodes([new AASeqNode("Test", new byte[] { 0x41, 0x42, 0x43 })]);
+        Assert.IsTrue(nodes.TryValidate(match));
+    }
+
 }

@@ -11,12 +11,6 @@
 }
 
 
-## Clean any data
-#@Port >Discard {
-#    In true
-#    Out true
-#}
-
 # Send line
 WriteLine >Port {
     Text Test
@@ -25,4 +19,25 @@ WriteLine >Port {
 # Check we received the same line
 ReadLine <Port  {
     Text Test
+}
+
+# Send 3 bytes
+WriteBytes >Port {
+    Bytes ABC
+}
+
+# Receive 3 bytes
+ReadBytes <Port {
+    .Count 3                        # if not here, use Bytes length
+    Bytes ABC
+}
+
+# Send 1 byte
+WriteBytes >Port {
+    Bytes (hex)"00"
+}
+
+# Receive 1 byte
+ReadBytes <Port {
+    Bytes (hex)"00"
 }

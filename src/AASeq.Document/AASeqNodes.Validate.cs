@@ -115,6 +115,13 @@ public sealed partial class AASeqNodes {
                         if (!regex.Match(node.Value.AsString("")).Success) { return null; }
                     } else if (comparisonOp is not null) {
                         if (!comparisonOp.Match(node.Value)) { return null; }
+                    } else if ((match.Value.RawValue is byte[]) || (node.Value.RawValue is byte[])) {  // special handling for byte array
+                        var bytesMatch = match.Value.AsByteArray([]);
+                        var bytesNode = node.Value.AsByteArray([]);
+                        if (bytesMatch.Length != bytesNode.Length) { return null; }
+                        for (var j = 0; j < bytesMatch.Length; j++) {
+                            if (bytesMatch[j] != bytesNode[j]) { return null; }
+                        }
                     } else {
                         var matchValue = match.Value.AsString("");
                         if (!string.Equals(node.Value.AsString(""), matchValue, StringComparison.Ordinal)) { return null; }
