@@ -39,15 +39,15 @@ internal sealed class Ping : IEndpointPlugin {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         var pingOptions = new PingOptions {
-            DontFragment = data["DontFragment"].AsBoolean(DontFragment),
-            Ttl = data["TTL"].AsInt32(TimeToLive),
+            DontFragment = parameters["DontFragment"].AsBoolean(DontFragment),
+            Ttl = parameters["TTL"].AsInt32(TimeToLive),
         };
 
-        var timeout = data["Timeout"].AsTimeSpan(Timeout);
+        var timeout = parameters["Timeout"].AsTimeSpan(Timeout);
 
 #pragma warning disable CS4014
         Task.Run(() => {
@@ -72,8 +72,9 @@ internal sealed class Ping : IEndpointPlugin {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken) {
+    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         while (!cancellationToken.IsCancellationRequested) {
             if (Storage.Remove(id, out var value)) {
                 messageName = value.Item1;

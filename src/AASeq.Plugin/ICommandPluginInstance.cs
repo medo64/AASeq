@@ -11,8 +11,8 @@ public interface ICommandPluginInstance {
     /// <summary>
     /// Returns true, if command was successfully executed.
     /// </summary>
-    /// <param name="data">Data.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public Task ExecuteAsync(AASeqNodes data, CancellationToken cancellationToken);
+    public Task ExecuteAsync(AASeqNodes parameters, CancellationToken cancellationToken);
 
 }

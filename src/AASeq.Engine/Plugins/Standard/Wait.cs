@@ -26,10 +26,10 @@ internal sealed class Wait : ICommandPlugin {
     /// <summary>
     /// Returns true, if command was successfully executed.
     /// </summary>
-    /// <param name="data">Data.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task ExecuteAsync(AASeqNodes data, CancellationToken cancellationToken) {
-        var duration = data["Delay"].AsTimeSpan(data["Value"].AsTimeSpan(DefaultDelay));
+    public async Task ExecuteAsync(AASeqNodes parameters, CancellationToken cancellationToken) {
+        var duration = parameters["Delay"].AsTimeSpan(parameters["Value"].AsTimeSpan(DefaultDelay));
         await Task.Delay(duration, cancellationToken).ConfigureAwait(false);
     }
 

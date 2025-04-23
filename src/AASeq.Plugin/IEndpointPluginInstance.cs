@@ -14,16 +14,17 @@ public interface IEndpointPluginInstance {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken);
+    public Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken);
 
     /// <summary>
     /// Returns true, if message was successfully received.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken);
+    public Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken);
 
 }

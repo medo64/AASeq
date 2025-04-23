@@ -63,12 +63,12 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         switch (messageName.ToUpperInvariant()) {
             case "WRITELINE": {
-                    var bytes = Utf8.GetBytes(data["Text"].AsString("") + Eol);
+                    var bytes = Utf8.GetBytes(parameters["Text"].AsString("") + Eol);
                     await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
                 }
                 break;
@@ -85,8 +85,9 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken) {
+    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         // id is ignored because serial port is always sequential
 
         switch (messageName.ToUpperInvariant()) {

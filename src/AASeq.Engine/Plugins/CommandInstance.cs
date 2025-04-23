@@ -28,11 +28,11 @@ internal sealed class CommandInstance : PluginInstanceBase, ICommandPluginInstan
     /// <summary>
     /// Executes the command.
     /// </summary>
-    /// <param name="data">Data.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task ExecuteAsync(AASeqNodes data, CancellationToken cancellationToken) {
+    public async Task ExecuteAsync(AASeqNodes parameters, CancellationToken cancellationToken) {
         if (ExecuteMethodInfo is null) { throw new NotSupportedException(); }
-        var task = (Task)ExecuteMethodInfo.Invoke(Instance, [data, cancellationToken])!;
+        var task = (Task)ExecuteMethodInfo.Invoke(Instance, [parameters, cancellationToken])!;
         await task.ConfigureAwait(false);
     }
 

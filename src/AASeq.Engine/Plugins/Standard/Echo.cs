@@ -35,10 +35,10 @@ internal sealed class Echo : IEndpointPlugin {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
-    /// <param name="data">Data.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendAsync(Guid id, string messageName, AASeqNodes data, CancellationToken cancellationToken) {
-        Storage[id] = (messageName, data);
+    public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+        Storage[id] = (messageName, parameters);
         await Task.CompletedTask.ConfigureAwait(false);
     }
 
@@ -47,8 +47,9 @@ internal sealed class Echo : IEndpointPlugin {
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
+    /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, CancellationToken cancellationToken) {
+    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         if (Storage.Remove(id, out var value)) {
             messageName = value.Item1;
             var data = value.Item2;

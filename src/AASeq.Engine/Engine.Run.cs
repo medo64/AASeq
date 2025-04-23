@@ -129,7 +129,7 @@ public sealed partial class Engine {
                             try {
                                 var messageName = messageInAction.MessageName;
                                 var task = messageInAction.SourceInstance
-                                    .ReceiveAsync(id, messageName, token);
+                                    .ReceiveAsync(id, messageName, actionNode.Nodes, token);
                                 task.Wait(token);
                                 (messageName, var nodes) = task.Result;
                                 sw.Stop();
