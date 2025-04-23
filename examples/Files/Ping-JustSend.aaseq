@@ -1,0 +1,15 @@
+#!/usr/bin/env aaseq
+
+# Keep repeating it forever
+@Me {
+    Repeat +Inf
+}
+
+# Define primary Cloudflare DNS server
+@Localhost Ping {
+    Host localhost
+}
+
+
+# Send to localhost without expecting a reply
+Send >>Localhost

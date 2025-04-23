@@ -82,7 +82,7 @@ public sealed partial class Engine {
 
                             Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Sending {messageOutAction.MessageName}");
 
-                            var actionNode = new AASeqNode(messageOutAction.MessageName, ">" + messageOutAction.DestinationName, messageOutAction.TemplateData.Clone());
+                            var actionNode = new AASeqNode(messageOutAction.MessageName, (messageOutAction.SkipMatching ? ">>" : ">") + messageOutAction.DestinationName, messageOutAction.TemplateData.Clone());
                             var id = (messageOutAction.ResponseToActionIndex != null)
                                    ? executingGuids[messageOutAction.ResponseToActionIndex.Value]!.Value
                                    : Guid.NewGuid();
@@ -114,7 +114,7 @@ public sealed partial class Engine {
 
                             Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Receiving {messageInAction.MessageName}");
 
-                            var actionNode = new AASeqNode(messageInAction.MessageName, "<" + messageInAction.SourceName, messageInAction.TemplateData.Clone());  // TODO: process data instead of clone
+                            var actionNode = new AASeqNode(messageInAction.MessageName, (messageInAction.SkipMatching ? "<<" : "<") + messageInAction.SourceName, messageInAction.TemplateData.Clone());  // TODO: process data instead of clone
                             var id = (messageInAction.ResponseToActionIndex != null)
                                    ? executingGuids[messageInAction.ResponseToActionIndex.Value]!.Value
                                    : Guid.NewGuid();

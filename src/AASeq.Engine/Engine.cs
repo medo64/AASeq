@@ -56,6 +56,9 @@ public sealed partial class Engine : IDisposable {
                 var endpointDefinition = node.GetValue(string.Empty);
                 if (endpointDefinition.Contains('>', StringComparison.Ordinal)) {  // outgoing message
 
+                    var isDouble = endpointDefinition.Contains(">>", StringComparison.Ordinal);
+                    if (isDouble) { endpointDefinition = endpointDefinition.Replace(">>", ">", StringComparison.Ordinal); }
+
                     var endpointDefinitions = endpointDefinition.Split('>', StringSplitOptions.None);
                     if (endpointDefinitions.Length != 2) { throw new InvalidOperationException($"Cannot determine endpoints for '{endpointDefinition}'."); }
                     if (string.IsNullOrEmpty(endpointDefinitions[0])) { endpointDefinitions[0] = "Me"; }
@@ -72,16 +75,21 @@ public sealed partial class Engine : IDisposable {
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
                         var data = node.Nodes;
                         var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("/match"));
+                        if (isDouble) { flow.SkipMatching = true; }  // no response expected
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
                         var data = node.Nodes;
                         var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("/match"));
+                        if (isDouble) { flow.SkipMatching = true; }  // no response expected
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot send message to nobody.");
                     }
 
                 } else if (endpointDefinition.Contains('<', StringComparison.Ordinal)) {  // incoming message
+
+                    var isDouble = endpointDefinition.Contains("<<", StringComparison.Ordinal);
+                    if (isDouble) { endpointDefinition = endpointDefinition.Replace("<<", "<", StringComparison.Ordinal); }
 
                     var endpointDefinitions = endpointDefinition.Split('<', StringSplitOptions.None);
                     if (endpointDefinitions.Length != 2) { throw new InvalidOperationException($"Cannot determine endpoints for '{endpointDefinition}'."); }
@@ -99,10 +107,12 @@ public sealed partial class Engine : IDisposable {
                     } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
                         var data = node.Nodes;
                         var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("/match"));
+                        if (isDouble) { flow.SkipMatching = true; }  // no response expected
                         flowSequence.Add(flow);
                     } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
                         var data = node.Nodes;
                         var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("/match"));
+                        if (isDouble) { flow.SkipMatching = true; }  // no response expected
                         flowSequence.Add(flow);
                     } else {
                         throw new InvalidOperationException($"Cannot receive message.");
@@ -128,6 +138,7 @@ public sealed partial class Engine : IDisposable {
             if (action is FlowCommand commandAction) {
                 // nothing to do for commands
             } else if (action is FlowMessageOut currOutAction) {
+                if (currOutAction.SkipMatching) { continue; }  // no response expected
                 if (currOutAction.ResponseToActionIndex is null) {  // this is a first out of this kind
                     for (var j = i + 1; j < flowSequence.Count; j++) {
                         var nextAction = flowSequence[j];
@@ -144,6 +155,7 @@ public sealed partial class Engine : IDisposable {
                     }
                 }
             } else if (action is FlowMessageIn currInAction) {
+                if (currInAction.SkipMatching) { continue; }  // no response expected
                 if (currInAction.ResponseToActionIndex is null) {  // this is a first out of this kind
                     for (var j = i + 1; j < flowSequence.Count; j++) {
                         var nextAction = flowSequence[j];
@@ -168,10 +180,12 @@ public sealed partial class Engine : IDisposable {
         for (var i = 0; i < flowSequence.Count; i++) {
             var action = flowSequence[i];
             if (action is FlowMessageOut outAction) {
+                if (outAction.SkipMatching) { continue; }
                 if ((outAction.RequestForActionIndex is null) && (outAction.ResponseToActionIndex is null)) {
                     throw new InvalidOperationException($"Cannot match request/response for flow {i + 1}:{outAction.MessageName}.");
                 }
             } else if (action is FlowMessageIn inAction) {
+                if (inAction.SkipMatching) { continue; }
                 if ((inAction.RequestForActionIndex is null) && (inAction.ResponseToActionIndex is null)) {
                     throw new InvalidOperationException($"Cannot match request/response for flow {i + 1}:{inAction.MessageName}.");
                 }

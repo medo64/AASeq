@@ -11,6 +11,9 @@
 }
 
 
+# Discard existing data without expecting response
+Discard >>Port
+
 # Send line
 WriteLine >Port {
     Text Test

@@ -80,6 +80,13 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
                 }
                 break;
 
+            case "DISCARD": {
+                    Port.DiscardInBuffer();
+                    Port.DiscardOutBuffer();
+                    BytesIndex = 0;
+                }
+                break;
+
             default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
         }
     }

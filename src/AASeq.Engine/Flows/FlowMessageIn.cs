@@ -41,13 +41,14 @@ internal sealed class FlowMessageIn : IFlowMessageInAction {
     internal AASeqNodes TemplateData { get; }
     internal string MatchId { get; }  // used for matching out/in or in/out pairs
 
+    internal bool SkipMatching { get; set; }  // used only internally for matching
     internal int? RequestForActionIndex { get; set; }  // used only internally for matching
     internal int? ResponseToActionIndex { get; set; }  // used only internally for matching
 
 
     AASeqNode IFlowAction.DefinitionNode {
         get {
-            var definitionNode = new AASeqNode(MessageName, "<" + SourceName);
+            var definitionNode = new AASeqNode(MessageName, (SkipMatching ? "<<" : "<") + SourceName);
             if (!string.IsNullOrEmpty(MatchId)) { definitionNode.Properties.Add("/match", MatchId); }
             foreach (var dataNode in TemplateData) {
                 definitionNode.Nodes.Add(dataNode.Clone());
