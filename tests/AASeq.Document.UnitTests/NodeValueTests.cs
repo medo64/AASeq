@@ -2283,4 +2283,31 @@ public sealed class NodeValueTests {
         });
     }
 
+
+    [TestMethod]
+    public void NodeValue_CheckIsNull() {
+        var value = new AASeqValue(null);
+        Assert.IsTrue(value.IsNull);
+    }
+
+    [TestMethod]
+    public void NodeValue_CheckIsPositiveInfinity() {
+        Assert.IsFalse(new AASeqValue(double.NegativeInfinity).IsPositiveInfinity);
+        Assert.IsFalse(new AASeqValue(float.NegativeInfinity).IsPositiveInfinity);
+        Assert.IsFalse(new AASeqValue(Half.NegativeInfinity).IsPositiveInfinity);
+        Assert.IsTrue(new AASeqValue(double.PositiveInfinity).IsPositiveInfinity);
+        Assert.IsTrue(new AASeqValue(float.PositiveInfinity).IsPositiveInfinity);
+        Assert.IsTrue(new AASeqValue(Half.PositiveInfinity).IsPositiveInfinity);
+    }
+
+    [TestMethod]
+    public void NodeValue_CheckIsNegativeInfinity() {
+        Assert.IsTrue(new AASeqValue(double.NegativeInfinity).IsNegativeInfinity);
+        Assert.IsTrue(new AASeqValue(float.NegativeInfinity).IsNegativeInfinity);
+        Assert.IsTrue(new AASeqValue(Half.NegativeInfinity).IsNegativeInfinity);
+        Assert.IsFalse(new AASeqValue(double.PositiveInfinity).IsNegativeInfinity);
+        Assert.IsFalse(new AASeqValue(float.PositiveInfinity).IsNegativeInfinity);
+        Assert.IsFalse(new AASeqValue(Half.PositiveInfinity).IsNegativeInfinity);
+    }
+
 }

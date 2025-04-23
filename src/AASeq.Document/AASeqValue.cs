@@ -31,6 +31,38 @@ public sealed partial record AASeqValue {
         get { return RawValue is null; }
     }
 
+    /// <summary>
+    /// Gets if value is positive infinity.
+    /// </summary>
+    public bool IsPositiveInfinity {
+        get {
+            if (RawValue is Double f64) {
+                return Double.IsPositiveInfinity(f64);
+            } else if (RawValue is Single f32) {
+                return Single.IsPositiveInfinity(f32);
+            } else if (RawValue is Half f16) {
+                return Half.IsPositiveInfinity(f16);
+            }
+            return false;
+        }
+    }
+
+    /// <summary>
+    /// Gets if value is negative infinity.
+    /// </summary>
+    public bool IsNegativeInfinity {
+        get {
+            if (RawValue is Double f64) {
+                return Double.IsNegativeInfinity(f64);
+            } else if (RawValue is Single f32) {
+                return Single.IsNegativeInfinity(f32);
+            } else if (RawValue is Half f16) {
+                return Half.IsNegativeInfinity(f16);
+            }
+            return false;
+        }
+    }
+
 
     /// <summary>
     /// Gets/sets value.
