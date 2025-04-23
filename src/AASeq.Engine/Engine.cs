@@ -2,6 +2,7 @@ namespace AASeq;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 
@@ -24,21 +25,20 @@ public sealed partial class Engine : IDisposable {
         // setup endpoints
         var endpoints = new SortedDictionary<string, EndpointStore>(StringComparer.OrdinalIgnoreCase);  // instance per name storage
         foreach (var node in document) {
-            if (node.Name.StartsWith('@')) {
-                var nodeName = node.Name[1..];
-                var pluginName = node.GetValue(nodeName);
-                if (!NameRegex().IsMatch(nodeName)) { throw new InvalidOperationException($"Invalid endpoint name '{nodeName}'."); }
-                if (!NameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
+            if (!node.Name.StartsWith('@')) { continue; }  // messages and commands will be processed later
+            var nodeName = node.Name[1..];
+            var pluginName = node.GetValue(nodeName);
+            if (!NameRegex().IsMatch(nodeName)) { throw new InvalidOperationException($"Invalid endpoint name '{nodeName}'."); }
+            if (!NameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
 
-                if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                    commandTimeout = node.Nodes["CommandTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(commandTimeout));
-                    receiveTimeout = node.Nodes["ReceiveTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(receiveTimeout));
-                    sendTimeout = node.Nodes["SendTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(sendTimeout));
-                } else {
-                    var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
-                    var configuration = node.Nodes;
-                    endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin, plugin.CreateInstance(configuration)));
-                }
+            if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
+                commandTimeout = node.Nodes["CommandTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(commandTimeout));
+                receiveTimeout = node.Nodes["ReceiveTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(receiveTimeout));
+                sendTimeout = node.Nodes["SendTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(sendTimeout));
+            } else {
+                var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
+                var configuration = node.Nodes;
+                endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin, plugin.CreateInstance(configuration)));
             }
         }
         CommandTimeout = commandTimeout;
@@ -49,86 +49,105 @@ public sealed partial class Engine : IDisposable {
         // setup flow sequence
         var flowSequence = new List<IFlowAction>();
         foreach (var node in document) {
-            if (!node.Name.StartsWith('@')) {  // we already created instances above
-                var actionName = node.Name;
-                if (!NameRegex().IsMatch(actionName)) { throw new InvalidOperationException($"Invalid message name '{actionName}'."); }
+            if (node.Name.StartsWith('@')) { continue; }  // we already created instances above
+            var actionName = node.Name;
+            if (!NameRegex().IsMatch(actionName)) { throw new InvalidOperationException($"Invalid message name '{actionName}'."); }
 
-                var endpointDefinition = node.GetValue(string.Empty);
-                if (endpointDefinition.Contains('>', StringComparison.Ordinal)) {  // outgoing message
-
-                    var isDouble = endpointDefinition.Contains(">>", StringComparison.Ordinal);
-                    if (isDouble) { endpointDefinition = endpointDefinition.Replace(">>", ">", StringComparison.Ordinal); }
-
-                    var endpointDefinitions = endpointDefinition.Split('>', StringSplitOptions.None);
-                    if (endpointDefinitions.Length != 2) { throw new InvalidOperationException($"Cannot determine endpoints for '{endpointDefinition}'."); }
-                    if (string.IsNullOrEmpty(endpointDefinitions[0])) { endpointDefinitions[0] = "Me"; }
-                    if (string.IsNullOrEmpty(endpointDefinitions[1])) { endpointDefinitions[1] = "Me"; }
-                    foreach (var endpointName in endpointDefinitions) {
-                        if (endpointName.Contains("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
-                        if (!endpoints.ContainsKey(endpointName)) { throw new InvalidOperationException($"Cannot find endpoint '{endpointName}' in '{endpointDefinition}'."); }
-                    }
-
-                    var left = endpointDefinitions[0];
-                    var right = endpointDefinitions[1];
-                    if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
-                        throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
-                    } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var data = node.Nodes;
-                        var flow = new FlowMessageOut(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("/match"));
-                        if (isDouble) { flow.SkipMatching = true; }  // no response expected
-                        flowSequence.Add(flow);
-                    } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var data = node.Nodes;
-                        var flow = new FlowMessageOut(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("/match"));
-                        if (isDouble) { flow.SkipMatching = true; }  // no response expected
-                        flowSequence.Add(flow);
-                    } else {
-                        throw new InvalidOperationException($"Cannot send message to nobody.");
-                    }
-
-                } else if (endpointDefinition.Contains('<', StringComparison.Ordinal)) {  // incoming message
-
-                    var isDouble = endpointDefinition.Contains("<<", StringComparison.Ordinal);
-                    if (isDouble) { endpointDefinition = endpointDefinition.Replace("<<", "<", StringComparison.Ordinal); }
-
-                    var endpointDefinitions = endpointDefinition.Split('<', StringSplitOptions.None);
-                    if (endpointDefinitions.Length != 2) { throw new InvalidOperationException($"Cannot determine endpoints for '{endpointDefinition}'."); }
-                    if (string.IsNullOrEmpty(endpointDefinitions[0])) { endpointDefinitions[0] = "Me"; }
-                    if (string.IsNullOrEmpty(endpointDefinitions[1])) { endpointDefinitions[1] = "Me"; }
-                    foreach (var endpointName in endpointDefinitions) {
-                        if (endpointName.Contains("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
-                        if (!endpoints.ContainsKey(endpointName)) { throw new InvalidOperationException($"Cannot find endpoint '{endpointName}' in '{endpointDefinition}'."); }
-                    }
-
-                    var left = endpointDefinitions[0];
-                    var right = endpointDefinitions[1];
-                    if (left.Equals(right, StringComparison.OrdinalIgnoreCase)) {
-                        throw new InvalidOperationException($"Cannot send message to self '{left}' in '{endpointDefinition}'.");
-                    } else if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var data = node.Nodes;
-                        var flow = new FlowMessageIn(actionName, endpoints[right].Name, endpoints[right].Instance, data, node.GetPropertyValue("/match"));
-                        if (isDouble) { flow.SkipMatching = true; }  // no response expected
-                        flowSequence.Add(flow);
-                    } else if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                        var data = node.Nodes;
-                        var flow = new FlowMessageIn(actionName, endpoints[left].Name, endpoints[left].Instance, data, node.GetPropertyValue("/match"));
-                        if (isDouble) { flow.SkipMatching = true; }  // no response expected
-                        flowSequence.Add(flow);
-                    } else {
-                        throw new InvalidOperationException($"Cannot receive message.");
-                    }
-
-                } else {  // command
-
-                    var plugin = PluginManager.FindCommandPlugin(actionName) ?? throw new InvalidOperationException($"Cannot find command plugin '{actionName}'.");
-                    if (node.Value is not null) {
-                        node.Nodes.Add(new AASeqNode("Value", node.Value));
-                        node.Value = AASeqValue.Null;
-                    }
-                    var data = node.Nodes;
-                    flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(), data));
-
+            var endpointDefinition = node.GetValue(string.Empty).Trim();
+            var parsingState = 'L';
+            var sbParamLeft = new StringBuilder();
+            var sbParamOperator = new StringBuilder();
+            var sbParamRight = new StringBuilder();
+            foreach (var ch in endpointDefinition) {
+                if (parsingState is 'L') {
+                    if (ch is '<' or '>') { parsingState = 'O'; } else { sbParamLeft.Append(ch); }
                 }
+                if (parsingState is 'O') {
+                    if (ch is '<' or '>') { sbParamOperator.Append(ch); } else { parsingState = 'R'; }
+                }
+                if (parsingState is 'R') {
+                    if (ch is '<' or '>') { parsingState = 'Z'; } else { sbParamRight.Append(ch); }
+                }
+            }
+            if (parsingState == 'Z') { throw new InvalidOperationException($"Cannot parse endpoint definition '{endpointDefinition}'."); }
+
+            var isCommand = false;
+            var isMessageIn = false;
+            var isMessageOut = false;
+            var skipMatching = false;
+            var endpointName = "";
+
+            var left = sbParamLeft.ToString();
+            var op = sbParamOperator.ToString();
+            var right = sbParamRight.ToString();
+
+            if (!string.IsNullOrEmpty(op)) {
+                if (left.Equals("Me", StringComparison.OrdinalIgnoreCase)) { left = ""; }
+                if (right.Equals("Me", StringComparison.OrdinalIgnoreCase)) { right = ""; }
+                if (string.IsNullOrEmpty(left) && string.IsNullOrEmpty(right)) { throw new InvalidOperationException($"Cannot parse endpoint defitiniton '{endpointDefinition}' (both endpoints local)."); }
+                if (!string.IsNullOrEmpty(left) && !string.IsNullOrEmpty(right)) { throw new InvalidOperationException($"Cannot parse endpoint defitiniton '{endpointDefinition}' (both endpoints remote)."); }
+
+                switch (op) {
+                    case ">":
+                    case ">>":
+                        if (string.IsNullOrEmpty(left)) {
+                            isMessageOut = true;
+                            endpointName = right;
+                        } else {
+                            isMessageIn = true;
+                            endpointName = left;
+                        }
+                        if (op == ">>") { skipMatching = true; }
+                        break;
+
+                    case "<":
+                    case "<<":
+                        if (string.IsNullOrEmpty(left)) {
+                            isMessageIn = true;
+                            endpointName = right;
+                        } else {
+                            isMessageOut = true;
+                            endpointName = left;
+                        }
+                        if (op == "<<") { skipMatching = true; }
+                        break;
+
+                    default: throw new InvalidOperationException($"Cannot parse endpoint defitiniton '{endpointDefinition}' (unknown operator {op}).");
+                }
+            } else {
+                isCommand = true;
+            }
+
+            if (isCommand) {  // command
+
+                var plugin = PluginManager.FindCommandPlugin(actionName) ?? throw new InvalidOperationException($"Cannot find command plugin '{actionName}'.");
+                if (node.Value is not null) {
+                    node.Nodes.Add(new AASeqNode("Value", node.Value));
+                    node.Value = AASeqValue.Null;
+                }
+                var data = node.Nodes;
+                flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(), data));
+
+                //} else if (string.IsNullOrEmpty(leftX)) {
+
+            } else if (isMessageOut) {
+
+                var data = node.Nodes;
+                var flow = new FlowMessageOut(actionName, endpoints[endpointName].Name, endpoints[endpointName].Instance, data, node.GetPropertyValue("/match")) {
+                    SkipMatching = skipMatching
+                };
+                flowSequence.Add(flow);
+
+            } else if (isMessageIn) {
+
+                var data = node.Nodes;
+                var flow = new FlowMessageIn(actionName, endpoints[endpointName].Name, endpoints[endpointName].Instance, data, node.GetPropertyValue("/match")) {
+                    SkipMatching = skipMatching
+                };
+                flowSequence.Add(flow);
+
+            } else {
+                throw new InvalidOperationException($"Cannot parse endpoint defitiniton '{endpointDefinition}'.");
             }
         }
 
