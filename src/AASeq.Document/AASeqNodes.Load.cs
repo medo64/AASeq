@@ -847,9 +847,9 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
             } else if (typeAnnotation.Equals("uuid", StringComparison.OrdinalIgnoreCase) || typeAnnotation.Equals("guid", StringComparison.OrdinalIgnoreCase)) {
                 return AASeqValue.TryParseGuid(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("base64", StringComparison.OrdinalIgnoreCase)) {
-                return AASeqValue.TryParseBase64ByteArray(Dequote(valueText), out value);
+                return AASeqValue.TryParseBase64AsByteArray(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("hex", StringComparison.OrdinalIgnoreCase)) {
-                return AASeqValue.TryParseByteArray(Dequote(valueText), out value);
+                return AASeqValue.TryParseHexAsByteArray(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("string", StringComparison.OrdinalIgnoreCase)) {
                 value = Dequote(valueText);
                 return true;

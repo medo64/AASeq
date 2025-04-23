@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.IO;
 using System.Net;
+using System.Text;
 
 public sealed partial record AASeqValue {
 
@@ -613,11 +614,11 @@ public sealed partial record AASeqValue {
 
 
     /// <summary>
-    /// Returns true if value can be parsed as Guid.
+    /// Returns true if value can be parsed as byte array.
     /// </summary>
     /// <param name="s">s.</param>
     /// <param name="result">Result.</param>
-    internal static bool TryParseBase64ByteArray(string s, [MaybeNullWhen(false)] out object? result) {
+    internal static bool TryParseBase64AsByteArray(string s, [MaybeNullWhen(false)] out object? result) {
         try {
             result = Convert.FromBase64String(s);
             return true;
@@ -627,13 +628,29 @@ public sealed partial record AASeqValue {
         }
     }
 
-
     /// <summary>
-    /// Returns true if value can be parsed as Guid.
+    /// Returns true if value can be parsed as byte array.
+    /// Input value is expected to be a text string that will be converted to UTF-8 bytes.
     /// </summary>
     /// <param name="s">s.</param>
     /// <param name="result">Result.</param>
-    public static bool TryParseByteArray(string s, [MaybeNullWhen(false)] out object? result) {
+    internal static bool TryParseTextAsByteArray(string s, [MaybeNullWhen(false)] out object? result) {
+        try {
+            result = Utf8.GetBytes(s);
+            return true;
+        } catch (FormatException) {
+            result = null;
+            return false;
+        }
+    }
+
+
+    /// <summary>
+    /// Returns true if value can be parsed as byte array.
+    /// </summary>
+    /// <param name="s">s.</param>
+    /// <param name="result">Result.</param>
+    public static bool TryParseHexAsByteArray(string s, [MaybeNullWhen(false)] out object? result) {
         if (s is null) { result = false; return false; }
 
         var buffer = new MemoryStream();
@@ -674,6 +691,8 @@ public sealed partial record AASeqValue {
 
 
     #region Helpers
+
+    private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
     private static readonly string[] DateTimeOffsetFormats = [
         "yyyy-MM-dd'T'HH:mm:ss.FFFFFFF zzz",

@@ -387,11 +387,28 @@ public sealed partial record AASeqValue {
     }
 
     /// <summary>
-    /// Returns value as a Uri.
+    /// Returns value as a Guid.
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public Guid AsGuid(Guid defaultValue) {
         return TryConvertGuid(RawValue, out Guid? result) ? result.Value : defaultValue;
+    }
+
+
+    /// <summary>
+    /// Returns value as a byte array.
+    /// Null is returned if value cannot be converted.
+    /// </summary>
+    public byte[]? AsByteArray() {
+        return TryConvertByteArray(RawValue, out byte[]? result) ? result : null;
+    }
+
+    /// <summary>
+    /// Returns value as a byte array.
+    /// </summary>
+    /// <param name="defaultValue">Default value.</param>
+    public byte[] AsByteArray(byte[] defaultValue) {
+        return TryConvertByteArray(RawValue, out byte[]? result) ? result : defaultValue;
     }
 
 }

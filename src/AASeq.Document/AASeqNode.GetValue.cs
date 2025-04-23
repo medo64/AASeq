@@ -194,4 +194,13 @@ public sealed partial class AASeqNode {
         return AASeqValue.TryConvertGuid(Value, out Guid? result) ? result.Value : defaultValue;
     }
 
+
+    /// <summary>
+    /// Returns value as a Uri.
+    /// </summary>
+    /// <param name="defaultValue">Default value.</param>
+    public byte[] GetValue(byte[] defaultValue) {
+        return AASeqValue.TryConvertByteArray(Value, out byte[]? result) ? result : defaultValue;
+    }
+
 }

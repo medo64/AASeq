@@ -630,6 +630,22 @@ public sealed partial record AASeqValue {
         return (result is not null);
     }
 
+    /// <summary>
+    /// Returns true if value can be converted to byte array.
+    /// Null is returned if value cannot be converted.
+    /// </summary>
+    /// <param name="value">Value to convert.</param>
+    /// <param name="result">Converted value.</param>
+    public static bool TryConvertByteArray(object? value, [NotNullWhen(true)] out byte[]? result) {
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
+        result = value switch {
+            String val => TryParseTextAsByteArray(val, out var res) ? (byte[])res! : null,
+            byte[] val => val,
+            _ => null,
+        };
+        return (result is not null);
+    }
+
 
     #region Conversions
 
