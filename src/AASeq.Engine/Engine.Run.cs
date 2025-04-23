@@ -114,7 +114,7 @@ public sealed partial class Engine {
 
                             Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Receiving {messageInAction.MessageName}");
 
-                            var actionNode = new AASeqNode(messageInAction.MessageName, "<" + messageInAction.SourceName);  // TODO: process data instead of clone
+                            var actionNode = new AASeqNode(messageInAction.MessageName, "<" + messageInAction.SourceName, messageInAction.TemplateData.Clone());  // TODO: process data instead of clone
                             var id = (messageInAction.ResponseToActionIndex != null)
                                    ? executingGuids[messageInAction.ResponseToActionIndex.Value]!.Value
                                    : Guid.NewGuid();
@@ -172,7 +172,7 @@ public sealed partial class Engine {
 
 
     internal static void Validate(AASeqNodes nodes, AASeqNodes matchNodes) {
-        if (!nodes.TryValidate(matchNodes, out var failedNode)) {
+        if (!nodes.TryValidate(matchNodes, ignoreHidden: true, out var failedNode)) {
             throw new InvalidOperationException($"Cannot find match for node {failedNode.Name}.");
         }
     }

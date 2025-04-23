@@ -73,11 +73,18 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
                 }
                 break;
 
+            case "WRITEBYTES": {
+                    var bytes = parameters["Bytes"].AsByteArray() ?? throw new ArgumentNullException(nameof(parameters), "Bytes are null.");
+                    if (bytes.Length == 0) { throw new ArgumentOutOfRangeException(nameof(parameters), "Bytes are empty."); }
+                    await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+                }
+                break;
+
             default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
         }
     }
 
-    private readonly byte[] Bytes = new byte[1024 * 1024];
+    private readonly byte[] Bytes = new byte[4 * 1024 * 1024];
     private int BytesIndex;
 
     /// <summary>
@@ -126,6 +133,33 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
                     }
                 }
 
+            case "READBYTES": {
+                    var count = parameters[".Count"].AsInt32(0);
+                    if (count == 0) {
+                        var expected = parameters["Bytes"].AsByteArray();
+                        if ((expected != null) && (expected.Length > 0)) {
+                            count = expected.Length;
+                        }
+                    }
+                    if (count == 0) { throw new InvalidOperationException("Byte count is 0."); }
+
+                    while (true) {
+                        if (BytesIndex >= count) {
+                            var bytes = new byte[count];
+                            Buffer.BlockCopy(Bytes, 0, bytes, 0, count);
+                            Buffer.BlockCopy(Bytes, 0, Bytes, 0, BytesIndex);
+                            BytesIndex = 0;
+                            return await Task.FromResult(new Tuple<string, AASeqNodes>(
+                                    "ReadBytes",
+                                    [new AASeqNode(".Count", bytes.Length), new AASeqNode("Bytes", bytes)]
+                                )).ConfigureAwait(false);
+                        }
+
+                        var read = await Port.BaseStream.ReadAsync(Bytes.AsMemory(BytesIndex, Bytes.Length - BytesIndex), cancellationToken).ConfigureAwait(false);
+                        if (read > 0) { BytesIndex += read; }
+                    }
+                }
+
             default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
         }
     }
@@ -135,7 +169,7 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     private const string DefaultParity = "None";
     private const int DefaultDataBits = 8;
     private const double DefaultStopBits = 1.0;
-    private const string DefaultEol = "\n";
+    private const string DefaultEol = "CRLF";
 
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
