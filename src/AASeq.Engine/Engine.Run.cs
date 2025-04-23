@@ -173,7 +173,7 @@ public sealed partial class Engine {
 
     internal static void Validate(AASeqNodes nodes, AASeqNodes matchNodes) {
         if (!nodes.TryValidate(matchNodes, ignoreHidden: true, out var failedNode)) {
-            throw new InvalidOperationException($"Cannot find match for node {failedNode.Name}.");
+            throw new InvalidOperationException($"Cannot validate {failedNode.Name}");
         }
     }
 
