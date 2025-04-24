@@ -9,7 +9,7 @@ public sealed partial class AASeqNode {
     /// </summary>
     /// <param name="defaultValue">Default value.</param>
     public String GetValue(String defaultValue) {
-        return AASeqValue.TryConvertString(Value, out String? result) ? result : defaultValue;
+        return AASeqValue.TryConvertString(Value, out String? result) ? (result ?? string.Empty) : defaultValue;
     }
 
 
