@@ -16,11 +16,16 @@ RUN apk add bash bind-tools tcpdump
 COPY examples/Files/* /app/examples/
 
 # Executables
+WORKDIR /app/bin
+COPY bin/linux-musl-x64/AASeq ./
+COPY bin/linux-musl-x64/*.dll ./
+COPY bin/linux-musl-x64/*.so  ./
+RUN  chmod +x AASeq
+
+# Executables
 WORKDIR /app
 COPY src/AASeq.Docker/aaseq.sh aaseq
 RUN chmod +x aaseq
-COPY bin/linux-musl-x64/* bin/
-RUN chmod +x bin/AASeq
 
 # Done
 ENTRYPOINT [ "bash" ]
