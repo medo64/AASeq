@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,40 +20,26 @@ public sealed class PluginManager {
             var currentAssembly = Assembly.GetExecutingAssembly();
             var exePath = Environment.ProcessPath ?? throw new InvalidOperationException("Cannot determine process path,");
 
+            var ownAssembly = Assembly.GetExecutingAssembly();
+            Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{ownAssembly.FullName}'");
+            CheckAssembly(ownAssembly);
+
             var exeDir = new DirectoryInfo(Path.GetDirectoryName(exePath)!);
             foreach (var file in exeDir.GetFiles("*.dll")) {
-                Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{file}'");
+                if (file.Name.Equals("AASeq.Engine.dll", StringComparison.OrdinalIgnoreCase)) { continue; }
 
-                Assembly assembly;
-                if (file.Name.Equals("AASeq.Engine.dll", StringComparison.OrdinalIgnoreCase)) {
-                    assembly = Assembly.GetExecutingAssembly();
-                    Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{assembly.FullName}'");
+                Debug.WriteLine($"[AASeq.Engine] Loading file '{file}'");
+                var loadContext = new AssemblyLoadContext(file.FullName, isCollectible: true);
+                var assembly = loadContext.LoadFromAssemblyPath(file.FullName);
+                Metrics.PluginFileLoadCount.Add(1);
+
+                Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{assembly.FullName}' ({file.Name})");
+                if (CheckAssembly(assembly)) {
+                    PluginLoadContexts.Add(loadContext);
                 } else {
-                    assembly = Assembly.LoadFile(file.FullName);
-                    Metrics.PluginFileLoadCount.Add(1);
-                    Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{assembly.FullName}' ({file.Name})");
+                    loadContext.Unload();
                 }
                 Metrics.PluginFileCheckCount.Add(1);
-
-                foreach (var type in assembly.GetTypes()) {
-                    if (!type.IsClass) { continue; }
-
-                    Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{type.Name}' ({assembly.FullName})");
-
-                    var endpointPlugin = GetEndpointPlugin(type);
-                    if (endpointPlugin is not null) {
-                        if (endpointPlugin.Name.Equals("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
-                        EndpointPluginsByName.Add(endpointPlugin.Name, endpointPlugin);
-                        Debug.WriteLine($"[AASeq.Engine] Found endpoint plugin '{endpointPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
-                    }
-
-                    var commandPlugin = GetCommandPlugin(type);
-                    if (commandPlugin is not null) {
-                        CommandPluginsByName.Add(commandPlugin.Name, commandPlugin);
-                        Debug.WriteLine($"[AASeq.Engine] Found command plugin '{commandPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
-                    }
-
-                }
             }
 
             CommandPlugins = new ReadOnlyCollection<CommandPlugin>([.. CommandPluginsByName.Values]);
@@ -63,7 +50,33 @@ public sealed class PluginManager {
         }
     }
 
+    private bool CheckAssembly(Assembly assembly) {
+        var anyFound = false;
+        foreach (var type in assembly.GetTypes()) {
+            if (!type.IsClass) { continue; }
 
+            Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{type.Name}' ({assembly.FullName})");
+
+            var endpointPlugin = GetEndpointPlugin(type);
+            if (endpointPlugin is not null) {
+                anyFound = true;
+                if (endpointPlugin.Name.Equals("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
+                EndpointPluginsByName.Add(endpointPlugin.Name, endpointPlugin);
+                Debug.WriteLine($"[AASeq.Engine] Found endpoint plugin '{endpointPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
+            }
+
+            var commandPlugin = GetCommandPlugin(type);
+            if (commandPlugin is not null) {
+                anyFound = true;
+                CommandPluginsByName.Add(commandPlugin.Name, commandPlugin);
+                Debug.WriteLine($"[AASeq.Engine] Found command plugin '{commandPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
+            }
+
+        }
+        return anyFound;
+    }
+
+    private static readonly List<AssemblyLoadContext> PluginLoadContexts = [];  // just to keep them around
     private readonly SortedDictionary<string, EndpointPlugin> EndpointPluginsByName = new(StringComparer.OrdinalIgnoreCase);
     private readonly SortedDictionary<string, CommandPlugin> CommandPluginsByName = new(StringComparer.OrdinalIgnoreCase);
 
