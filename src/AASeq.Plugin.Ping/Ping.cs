@@ -1,10 +1,11 @@
-namespace AASeq;
+namespace AASeqPlugin;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
+using AASeq;
 
 /// <summary>
 /// Ping endpoint.

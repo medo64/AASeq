@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <AssemblyName>AASeq.Plugin.Serial</AssemblyName>
-    <RootNamespace>AASeq</RootNamespace>
+    <RootNamespace>AASeqPlugin</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
