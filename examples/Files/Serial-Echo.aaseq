@@ -37,10 +37,10 @@ ReadBytes <Port {
 
 # Send 1 byte
 WriteBytes >Port {
-    Bytes (hex)"00"
+    Bytes 0x00
 }
 
 # Receive 1 byte
 ReadBytes <Port {
-    Bytes (hex)"00"
+    Bytes 0x00
 }

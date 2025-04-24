@@ -644,7 +644,6 @@ public sealed partial record AASeqValue {
         }
     }
 
-
     /// <summary>
     /// Returns true if value can be parsed as byte array.
     /// </summary>
@@ -653,11 +652,14 @@ public sealed partial record AASeqValue {
     public static bool TryParseHexAsByteArray(string s, [MaybeNullWhen(false)] out object? result) {
         if (s is null) { result = false; return false; }
 
+        var startAt = s.StartsWith("0x", StringComparison.OrdinalIgnoreCase) ? 2 : 0;
+
         var buffer = new MemoryStream();
 
         var secondHalf = false;
         byte b = 0;
-        foreach (var ch in s) {
+        for (var i = startAt; i < s.Length; i++) {
+            var ch = s[i];
             if (ch is >= '0' and <= '9') {
                 b |= (byte)(ch - '0');
             } else if (ch is >= 'A' and <= 'F') {
@@ -687,6 +689,61 @@ public sealed partial record AASeqValue {
             result = null;
             return false;
         }
+    }
+
+    /// <summary>
+    /// Returns true if value can be parsed as byte array.
+    /// </summary>
+    /// <param name="s">s.</param>
+    /// <param name="result">Result.</param>
+    public static bool TryParseBinAsByteArray(string s, [MaybeNullWhen(false)] out object? result) {
+        if (s is null) { result = false; return false; }
+
+        var startAt = s.StartsWith("0b", StringComparison.OrdinalIgnoreCase) ? 2 : 0;
+
+        var buffer = new MemoryStream();
+
+        var nextBitPosition = 0;
+        byte b = 0;
+        for (var i = startAt; i < s.Length; i++) {
+            var ch = s[i];
+            if (ch is >= '0' and <= '1') {
+                b |= (byte)(ch - '0');
+            } else if (ch is 'H' or 'h') {
+                b |= 0b1;
+            } else if (ch is 'L' or 'l') {
+                // no need to enter 0-bit but we do need to pass over this to shift right
+            } else if (char.IsWhiteSpace(ch) || (ch is '-' or '_')) {
+                continue;
+            } else {
+                result = null;
+                return false;
+            }
+
+            nextBitPosition++;
+            if (nextBitPosition == 8) {
+                buffer.WriteByte(b);
+                nextBitPosition = 0;  // reset for the next byte
+                b = 0;  // reset for the next byte
+            } else {
+                b <<= 1;  // shift left 1 bit to prepare for the arrival of the next bit
+            }
+        }
+
+        if (nextBitPosition == 0) {  // no partial bits
+            result = buffer.ToArray();
+        } else if (buffer.Length == 0) {  // only a single byte gets a special treatment
+            result = new byte[] { (byte)(b >> 1) };  // just undo the last bit shift
+        } else {  // shift the whole damned thing
+            buffer.WriteByte((byte)(b << (8 - nextBitPosition - 1)));
+            var bytes = buffer.ToArray();
+            for (var i = bytes.Length - 1; i >= 1; i--) {
+                bytes[i] = (byte)((bytes[i] >> (8 - nextBitPosition)) | (bytes[i - 1] << nextBitPosition));
+            }
+            bytes[0] >>= (8 - nextBitPosition);
+            result = bytes;
+        }
+        return true;
     }
 
 

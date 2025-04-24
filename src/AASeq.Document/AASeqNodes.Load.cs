@@ -734,6 +734,10 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                 value = double.PositiveInfinity; return true;
             } else if (valueText.Equals("-inf", StringComparison.OrdinalIgnoreCase)) {
                 value = double.NegativeInfinity; return true;
+            } else if (valueText.StartsWith("0x", StringComparison.OrdinalIgnoreCase)) {
+                return AASeqValue.TryParseHexAsByteArray(valueText, out value);
+            } else if (valueText.StartsWith("0b", StringComparison.OrdinalIgnoreCase)) {
+                return AASeqValue.TryParseBinAsByteArray(valueText, out value);
             } else if (((valueText.Length >= 1) && (valueText[0] is >= '0' and <= '9'))
                 || ((valueText.Length >= 2) && (valueText[0] is '+' or '-' or '.') && (valueText[1] is >= '0' and <= '9'))
                 || ((valueText.Length >= 3) && (valueText[0] is '+' or '-' or '.') && (valueText[1] is >= '.') && (valueText[2] is >= '0' and <= '9'))) {
@@ -750,28 +754,6 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                         value = null; return false;
                     } else {  // parse permissively
                         value = valueText; return true;  // not strictly correct, but return as string even if it looks as a number
-                    }
-                } else if ((valueText[0] is '0') && (valueText.Length > 1) && (valueText[1] is 'b' or 'B')) {  // binary
-                    var valueBin = valueText[2..].Replace("_", "", StringComparison.Ordinal);
-                    if (UInt32.TryParse(valueBin, NumberStyles.BinaryNumber, CultureInfo.InvariantCulture, out var value32)) {
-                        value = value32 > (UInt32)int.MaxValue ? value32 : (Int32)value32; return true;
-                    } else if (UInt64.TryParse(valueBin, NumberStyles.BinaryNumber, CultureInfo.InvariantCulture, out var value64)) {
-                        value = value64 > (UInt64)long.MaxValue ? value64 : (Int64)value64; return true;
-                    } else if (UInt128.TryParse(valueBin, NumberStyles.BinaryNumber, CultureInfo.InvariantCulture, out var value128)) {
-                        value = value128 > (UInt128)Int128.MaxValue ? value128 : (Int128)value128; return true;
-                    } else {  // cannot parse
-                        value = null; return false;
-                    }
-                } else if ((valueText[0] is '0') && (valueText.Length > 1) && (valueText[1] is 'x' or 'X')) {  // hex
-                    var valueHex = valueText[2..].Replace("_", "", StringComparison.Ordinal);
-                    if (UInt32.TryParse(valueHex, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var value32)) {
-                        value = value32 > (UInt32)int.MaxValue ? value32 : (Int32)value32; return true;
-                    } else if (UInt64.TryParse(valueHex, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var value64)) {
-                        value = value64 > (ulong)long.MaxValue ? value64 : (long)value64; return true;
-                    } else if (UInt128.TryParse(valueHex, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out var value128)) {
-                        value = value128 > (UInt128)Int128.MaxValue ? value128 : (Int128)value128; return true;
-                    } else {  // cannot parse
-                        value = null; return false;
                     }
                 } else {  // positive numbers
                     if (UInt32.TryParse(valueText, NumberStyles.Integer, CultureInfo.InvariantCulture, out var value32)) {
@@ -791,6 +773,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
             }
 
             value = Dequote(valueText); return true;
+
         } else {
             if (typeAnnotation.Equals("bool", StringComparison.OrdinalIgnoreCase)) {
                  return AASeqValue.TryParseBoolean(Dequote(valueText), out value);
@@ -850,6 +833,8 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                 return AASeqValue.TryParseBase64AsByteArray(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("hex", StringComparison.OrdinalIgnoreCase)) {
                 return AASeqValue.TryParseHexAsByteArray(Dequote(valueText), out value);
+            } else if (typeAnnotation.Equals("bin", StringComparison.OrdinalIgnoreCase)) {
+                return AASeqValue.TryParseBinAsByteArray(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("string", StringComparison.OrdinalIgnoreCase)) {
                 value = Dequote(valueText);
                 return true;

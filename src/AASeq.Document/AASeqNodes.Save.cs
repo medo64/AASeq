@@ -271,7 +271,7 @@ public sealed partial class AASeqNodes : IFormattable {
             IPAddress => "ip",
             Uri => "uri",
             Guid => "uuid",
-            Byte[] => "hex",
+            Byte[] => null,
             String => null,
             _ => throw new InvalidOperationException("Unknown value type."),
         };
@@ -302,7 +302,7 @@ public sealed partial class AASeqNodes : IFormattable {
             IPAddress value => '"' + value.ToString() + '"',
             Uri value => '"' + value.ToString() + '"',
             Guid value => '"' + value.ToString() + '"',
-            Byte[] value => '"' + (AASeqValue.TryConvertString(value, out String? res) ? res : "") + '"',
+            Byte[] value => "0x" + (AASeqValue.TryConvertString(value, out String? res) ? res : ""),
             String value => GetPotentiallyQuotedString(value),
             _ => throw new InvalidOperationException("Unknown value type."),
         };

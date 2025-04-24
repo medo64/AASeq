@@ -22,4 +22,6 @@ node (uri)"https://example.com"
 node (uuid)"8a8fe336-480f-48b8-b781-a7384016166b"
 node (base64)"SGVsbG8gV29ybGQ="
 node (hex)"48656c6c6f20576f726c64"
+node 0b101010101010101
+node (bin)"101010101010101"
 node (string)"Hello World"

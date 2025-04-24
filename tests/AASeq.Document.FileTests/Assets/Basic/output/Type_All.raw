@@ -20,6 +20,8 @@ node (duration)"1h 32m"
 node (ip)"127.0.0.1"
 node (uri)"https://example.com/"
 node (uuid)"8a8fe336-480f-48b8-b781-a7384016166b"
-node (hex)"48656c6c6f20576f726c64"
-node (hex)"48656c6c6f20576f726c64"
+node 0x48656c6c6f20576f726c64
+node 0x48656c6c6f20576f726c64
+node 0x5555
+node 0x5555
 node "Hello World"
