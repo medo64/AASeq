@@ -6,6 +6,8 @@ using System.Threading;
 
 internal static partial class App {
 
+    private static readonly ManualResetEvent DoneEvent = new(initialState: false);
+
     public static void Run(FileInfo file) {
         Run(file, isInteractive: false);
     }
@@ -13,6 +15,7 @@ internal static partial class App {
     public static void Run(FileInfo file, bool isInteractive = false) {
         Console.CancelKeyPress += delegate {
             Output.WriteError("^C", prependEmptyLine: true);
+            DoneEvent.Set();
             Environment.Exit(1);
         };
 
@@ -59,6 +62,17 @@ internal static partial class App {
                     Output.WriteActionNok(e.Action, e.Node);
                 };
 
+                engine.FlowDone += (sender, e) => {
+                    if (e.FlowIndex == engine.RepeatCount) {
+                        engine.Pause();  // just pause
+                        if (isInteractive) {
+                            Output.WriteNote($"# Paused", prependEmptyLine: true);
+                        } else {
+                            DoneEvent.Set();
+                        }
+                    }
+                };
+
                 if (isInteractive) {
                     while (true) {
                         if (Console.KeyAvailable) {
@@ -90,6 +104,7 @@ internal static partial class App {
                     }
                 } else {
                     engine.Start();
+                    DoneEvent.WaitOne();
                 }
 
             } catch (InvalidOperationException ex) {

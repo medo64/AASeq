@@ -31,6 +31,11 @@ public sealed partial class Engine {
     /// </summary>
     public TimeSpan SendTimeout { get; }
 
+    /// <summary>
+    /// Gets repeat count.
+    /// </summary>
+    public int RepeatCount { get; }
+
 
     /// <summary>
     /// Gets number of executing flow.
@@ -62,11 +67,11 @@ public sealed partial class Engine {
     }
 
     /// <summary>
-    /// Performs a single step.
+    /// Pauses the engine.
     /// </summary>
-    public void Step() {
+    public void Pause() {
         if (FlowSequence.Count > 0) {
-            StepEvent.Reset(1);
+            StepEvent.Reset(0);
         }
     }
 
@@ -77,6 +82,15 @@ public sealed partial class Engine {
         if (FlowSequence.Count > 0) {
             StepEvent.Reset(0);
             CanStopEvent.WaitOne();
+        }
+    }
+
+    /// <summary>
+    /// Performs a single step.
+    /// </summary>
+    public void Step() {
+        if (FlowSequence.Count > 0) {
+            StepEvent.Reset(1);
         }
     }
 
@@ -92,10 +106,11 @@ public sealed partial class Engine {
             ]);
             } else {
                 return new AASeqNode("@Me", AASeqValue.Null, [
+                    new AASeqNode("Repeat", RepeatCount),
                     new AASeqNode("CommandTimeout", CommandTimeout),
-                new AASeqNode("ReceiveTimeut", ReceiveTimeout),
-                new AASeqNode("SendTimeut", SendTimeout),
-            ]);
+                    new AASeqNode("ReceiveTimeut", ReceiveTimeout),
+                    new AASeqNode("SendTimeut", SendTimeout),
+                ]);
             }
         }
     }

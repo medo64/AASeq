@@ -18,6 +18,7 @@ public sealed partial class Engine : IDisposable {
     public Engine(AASeqNodes document) {
         ArgumentNullException.ThrowIfNull(document);
 
+        var repeatCount = 1;
         var commandTimeout = TimeSpan.FromSeconds(3);
         var receiveTimeout = TimeSpan.FromSeconds(3);
         var sendTimeout = TimeSpan.FromSeconds(1);
@@ -32,6 +33,7 @@ public sealed partial class Engine : IDisposable {
             if (!NameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
 
             if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
+                repeatCount = node.Nodes["Repeat"].IsPositiveInfinity ? int.MaxValue: Math.Max(1, node.Nodes["Repeat"].AsInt32(1));
                 commandTimeout = node.Nodes["CommandTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(commandTimeout));
                 receiveTimeout = node.Nodes["ReceiveTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(receiveTimeout));
                 sendTimeout = node.Nodes["SendTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(sendTimeout));
@@ -41,6 +43,8 @@ public sealed partial class Engine : IDisposable {
                 endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin, plugin.CreateInstance(configuration)));
             }
         }
+
+        RepeatCount = repeatCount;
         CommandTimeout = commandTimeout;
         ReceiveTimeout = receiveTimeout;
         SendTimeout = sendTimeout;

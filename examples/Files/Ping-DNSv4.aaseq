@@ -1,5 +1,10 @@
 #!/usr/bin/env aaseq
 
+# Keep repeating it forever
+@Me {
+    Repeat 10
+}
+
 # Define primary Cloudflare DNS server
 @CloudFlare-1 Ping {
     Host 1.1.1.1

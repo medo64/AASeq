@@ -1,5 +1,10 @@
 #!/usr/bin/env aaseq
 
+@Me {
+    Repeat 2                        # execute 2 times
+}
+
+
 # First endpoint
 @Port Serial {
     PortName /dev/ttyUSB1
