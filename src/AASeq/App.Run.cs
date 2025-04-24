@@ -2,19 +2,22 @@ namespace AASeqCli;
 using AASeq;
 using System;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 
 internal static partial class App {
 
     public static void Run(FileInfo file) {
-        Run(file, startPaused: false);
+        Run(file, isInteractive: false);
     }
 
-    public static void Run(FileInfo file, bool startPaused = false) {
+    public static void Run(FileInfo file, bool isInteractive = false) {
+        Console.CancelKeyPress += delegate {
+            Output.WriteError("^C", prependEmptyLine: true);
+            Environment.Exit(1);
+        };
+
         try {
             var document = AASeqNodes.Load(file.FullName);
-            var outputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true, NoTypeAnnotation = true };
 
             try {
 
@@ -27,77 +30,73 @@ internal static partial class App {
                 foreach (var action in engine.FlowSequence) {
                     newDocument.Add(action.DefinitionNode);
                 }
-                newDocument.Save(Console.Out, outputOptions);
+                Output.WriteDocument(newDocument);
 
-                Console.WriteLine();
-                Console.WriteLine();
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                Console.WriteLine("┌────────────┬─────────────┬──────────────┐");
-                Console.WriteLine("│ Enter: run │ Space: step │ Escape: quit │");
-                Console.WriteLine("└────────────┴─────────────┴──────────────┘");
-                Console.ResetColor();
-                Console.WriteLine();
+                if (isInteractive) {
+                    Console.WriteLine();
+                    Console.WriteLine();
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine("┌────────────┬─────────────┬──────────────┐");
+                    Console.WriteLine("│ Enter: run │ Space: step │ Escape: quit │");
+                    Console.WriteLine("└────────────┴─────────────┴──────────────┘");
+                    Console.ResetColor();
+                    Console.WriteLine();
+                }
 
                 engine.FlowBegin += (sender, e) => {
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"# Flow: {e.FlowIndex}");
-                    Console.ResetColor();
+                    Output.WriteNote($"# Flow: {e.FlowIndex}", prependEmptyLine: true);
                 };
 
                 engine.ActionBegin += (sender, e) => {
-                    Console.WriteLine();
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine($"## Action: {e.FlowIndex}:{e.ActionIndex}");
-                    Console.ResetColor();
+                    Output.WriteNote($"## Action: {e.FlowIndex}:{e.ActionIndex}", prependEmptyLine: true);
                 };
 
                 engine.ActionDone += (sender, e) => {
-                    e.Node.Save(Console.Out, outputOptions);
+                    Output.WriteActionOk(e.Action, e.Node);
                 };
 
                 engine.ActionError += (sender, e) => {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    e.Node.Save(Console.Out, outputOptions);
-                    Console.ResetColor();
+                    Output.WriteActionNok(e.Action, e.Node);
                 };
 
-                if (!startPaused) {
+                if (isInteractive) {
+                    while (true) {
+                        if (Console.KeyAvailable) {
+                            var key = Console.ReadKey(intercept: true);
+#pragma warning disable IDE0010
+                            switch (key.Key) {
+                                case ConsoleKey.Escape:  // done
+                                    engine.Stop();
+                                    return;
+
+                                case ConsoleKey.Spacebar:
+                                    engine.Step();
+                                    break;
+
+                                case ConsoleKey.Enter:
+                                    if (engine.IsRunning) {
+                                        engine.Step();
+                                    } else {
+                                        engine.Start();
+                                    }
+                                    break;
+
+                                default: break;
+                            }
+#pragma warning restore IDE0010
+                        } else {
+                            Thread.Sleep(10);
+                        }
+                    }
+                } else {
                     engine.Start();
                 }
 
-                while (true) {
-                    if (Console.KeyAvailable) {
-                        var key = Console.ReadKey(intercept: true);
-                        switch (key.Key) {
-                            case ConsoleKey.Escape:  // done
-                                engine.Stop();
-                                return;
-
-                            case ConsoleKey.Spacebar:
-                                engine.Step();
-                                break;
-
-                            case ConsoleKey.Enter:
-                                if (engine.IsRunning) {
-                                    engine.Step();
-                                } else {
-                                    engine.Start();
-                                }
-                                break;
-
-                            default: break;
-                        }
-                    } else {
-                        Thread.Sleep(10);
-                    }
-                }
-
             } catch (InvalidOperationException ex) {
-                Output.ErrorLine("Error creating the engine: " + ex.Message);
+                Output.WriteError("Error creating the engine: " + ex.Message);
             }
         } catch (InvalidOperationException ex) {
-            Output.ErrorLine("Error parsing the document: " + ex.Message);
+            Output.WriteError("Error parsing the document: " + ex.Message);
         }
     }
 

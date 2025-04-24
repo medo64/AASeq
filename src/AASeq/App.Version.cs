@@ -14,15 +14,6 @@ internal static partial class App {
         if (isVerbose) {
             var manager = PluginManager.Instance;  // this loads plugins
 
-            var hadCommands = false;
-            Console.Write("Commands : ");
-            foreach (var plugin in manager.CommandPlugins) {
-                if (hadCommands) { Console.Write(" "); } else { hadCommands = true; }
-                Console.Write(plugin.Name);
-            }
-            if (!hadCommands) { Console.Write("(none)"); }
-            Console.WriteLine();
-
             var hadEndpoints = false;
             Console.Write("Endpoints: ");
             foreach (var plugin in manager.EndpointPlugins) {
@@ -31,6 +22,15 @@ internal static partial class App {
                 hadEndpoints = true;
             }
             if (!hadEndpoints) { Console.Write("(none)"); }
+            Console.WriteLine();
+
+            var hadCommands = false;
+            Console.Write("Commands : ");
+            foreach (var plugin in manager.CommandPlugins) {
+                if (hadCommands) { Console.Write(" "); } else { hadCommands = true; }
+                Console.Write(plugin.Name);
+            }
+            if (!hadCommands) { Console.Write("(none)"); }
             Console.WriteLine();
         }
     }

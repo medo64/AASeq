@@ -8,7 +8,7 @@ using System.Threading;
 internal static partial class App {
 
     public static void Default(FileInfo file) {
-        App.Run(file, startPaused: true);
+        App.Run(file, isInteractive: true);
     }
 
 }

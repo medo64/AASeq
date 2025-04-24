@@ -23,7 +23,7 @@ internal static partial class App {
             newDocument.Save(Console.Out, AASeqOutputOptions.Default with { HeaderExecutable = "aaseq", ExtraEmptyRootNodeLines = true });
 
         } catch (InvalidOperationException ex) {
-            Output.ErrorLine("Error parsing the document: " + ex.Message);
+            Output.WriteError("Error parsing the document: " + ex.Message);
         }
     }
 

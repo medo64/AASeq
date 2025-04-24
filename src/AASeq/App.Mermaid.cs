@@ -12,7 +12,7 @@ internal static partial class App {
             using var engine = new Engine(document);
 
             if (engine.FlowSequence.Count == 0) {
-                Output.ErrorLine("No flows found in the document.");
+                Output.WriteError("No flows found in the document.");
                 Environment.Exit(1);
             }
 
@@ -28,7 +28,7 @@ internal static partial class App {
             }
 
         } catch (InvalidOperationException ex) {
-            Output.ErrorLine("Error parsing the document: " + ex.Message);
+            Output.WriteError("Error parsing the document: " + ex.Message);
         }
     }
 
