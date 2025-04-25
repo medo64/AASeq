@@ -34,7 +34,8 @@ public sealed class DictionaryLookupTests {
 
     [TestMethod]
     public void DictionaryLookup_ApplicationByName() {
-        Assert.IsNotNull(DictionaryLookup.Instance.FindApplicationByName("Diameter Common Messages"));
+        Assert.IsNotNull(DictionaryLookup.Instance.FindApplicationByName("Common"));
+        Assert.IsNotNull(DictionaryLookup.Instance.FindApplicationByName("Gx"));
         Assert.IsNull(DictionaryLookup.Instance.FindApplicationByName("Unknown"));
     }
 
@@ -48,6 +49,7 @@ public sealed class DictionaryLookupTests {
     [TestMethod]
     public void DictionaryLookup_CommandByName() {
         Assert.IsNotNull(DictionaryLookup.Instance.FindCommandByName("Capabilities-Exchange"));
+        Assert.IsNotNull(DictionaryLookup.Instance.FindCommandByName("Push-Notification"));
         Assert.IsNull(DictionaryLookup.Instance.FindCommandByName("Unknown"));
     }
 

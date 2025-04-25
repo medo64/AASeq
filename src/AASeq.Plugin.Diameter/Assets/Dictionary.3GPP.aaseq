@@ -1,33 +1,33 @@
 DiameterDictionary {
     Vendor 3GPP id=TGPP code=10415
 
-    Application "3Gpp Cx/Px"      id=16777216                                 # 3GPP TS 29.228, 29.229
-    Application "3GPP Sh/Ph"      id=16777217                                 # 3GPP TS 29.328, 29.329
-    Application "3GPP Re"         id=16777218                                 # 3GPP TS 32.296
-    Application "3GPP Wx"         id=16777219                                 # 3GPP TS 29.234
-    Application "3GPP Zn"         id=16777220                                 # 3GPP TS 29.109
-    Application "3GPP Zh"         id=16777221                                 # 3GPP TS 29.109
-    Application "3GPP Gq"         id=16777222                                 # 3GPP TS 29.209
-    Application "3GPP Gmb"        id=16777223                                 # 3GPP TS 29.061
-    Application "3GPP Gx#224"     id=16777224                                 # 3GPP TS 29.210
-    Application "3GPP Gx over Gy" id=16777225                                 # 3GPP TS 29.210
-    Application "3GPP MM10"       id=16777226                                 # 3GPP TS 29.140
-    Application "3GPP Rx#229"     id=16777229                                 # 3GPP TS 29.211
-    Application "3GPP Pr"         id=16777230                                 # 3GPP TS 29.234
-    Application "3GPP Rx"         id=16777236                                 # 3GPP TS 29.214
-    Application "3GPP Gx"         id=16777238                                 # 3GPP TS 29.212
-    Application "3GPP STa"        id=16777250                                 # 3GPP TS 29.273
-    Application "3GPP S6a"        id=16777251                                 # 3GPP TS 29.272
-    Application "3GPP S13/S13"    id=16777252                                 # 3GPP TS 29.272
-    Application "3GPP SLg"        id=16777255                                 # 3GPP TS 29.172
-    Application "3GPP SWm"        id=16777264                                 # 3GPP TS 29.273
-    Application "3GPP SWx"        id=16777265                                 # 3GPP TS 29.273
-    Application "3GPP Gxx"        id=16777266                                 # 3GPP TS 29.212
-    Application "3GPP S9"         id=16777267                                 # 3GPP TS 29.215
-    Application "3GPP Zpn"        id=16777268                                 # 3GPP TS 29.109
-    Application "3GPP S6b"        id=16777272                                 # 3GPP TS 29.273
-    Application "3GPP SLh"        id=16777291                                 # 3GPP TS 29.173
-    Application "3GPP SGmb"       id=16777292                                 # 3GPP TS 29.061
+    Application Cx/Dx      id=16777216                                 # 3GPP TS 29.228, 29.229
+    Application Sh/Ph      id=16777217                                 # 3GPP TS 29.328, 29.329
+    Application Re         id=16777218                                 # 3GPP TS 32.296
+    Application Wx         id=16777219                                 # 3GPP TS 29.234
+    Application Zn         id=16777220                                 # 3GPP TS 29.109
+    Application Zh         id=16777221                                 # 3GPP TS 29.109
+    Application Gq         id=16777222                                 # 3GPP TS 29.209
+    Application Gmb        id=16777223                                 # 3GPP TS 29.061
+    Application "Gx#224"   id=16777224                                 # 3GPP TS 29.210
+    Application GxOverGy   id=16777225                                 # 3GPP TS 29.210
+    Application MM10       id=16777226                                 # 3GPP TS 29.140
+    Application "Rx#229"   id=16777229                                 # 3GPP TS 29.211
+    Application Pr         id=16777230                                 # 3GPP TS 29.234
+    Application Rx         id=16777236                                 # 3GPP TS 29.214
+    Application Gx         id=16777238                                 # 3GPP TS 29.212
+    Application STa        id=16777250                                 # 3GPP TS 29.273
+    Application S6a        id=16777251                                 # 3GPP TS 29.272
+    Application S13        id=16777252                                 # 3GPP TS 29.272
+    Application SLg        id=16777255                                 # 3GPP TS 29.172
+    Application SWm        id=16777264                                 # 3GPP TS 29.273
+    Application SWx        id=16777265                                 # 3GPP TS 29.273
+    Application Gxx        id=16777266                                 # 3GPP TS 29.212
+    Application S9         id=16777267                                 # 3GPP TS 29.215
+    Application Zpn        id=16777268                                 # 3GPP TS 29.109
+    Application S6b        id=16777272                                 # 3GPP TS 29.273
+    Application SLh        id=16777291                                 # 3GPP TS 29.173
+    Application SGmb       id=16777292                                 # 3GPP TS 29.061
 
     Command User-Authorization         code=300     vendorId=TGPP             # 3GPP TS 29.229
     Command Server-Assignment          code=301     vendorId=TGPP             # 3GPP TS 29.229
