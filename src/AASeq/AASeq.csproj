@@ -33,6 +33,9 @@
     <ProjectReference Include="../AASeq.Engine/AASeq.Engine.csproj" />
     <ProjectReference Include="../AASeq.Plugin/AASeq.Plugin.csproj" />
 
+    <ProjectReference Include="../AASeq.Plugin.Diameter/AASeq.Plugin.Diameter.csproj">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+    </ProjectReference>
     <ProjectReference Include="../AASeq.Plugin.Ping/AASeq.Plugin.Ping.csproj">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </ProjectReference>

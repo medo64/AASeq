@@ -1,0 +1,20 @@
+<Project Sdk="MSTest.Sdk/3.7.3">
+
+  <PropertyGroup>
+    <AssemblyName>AASeq.Plugin.Diameter.UnitTests</AssemblyName>
+    <RootNamespace>Tests</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <IsPackable>false</IsPackable>
+    <Nullable>disable</Nullable>
+    <EnableNETAnalyzers>false</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/AASeq.Plugin.Diameter/AASeq.Plugin.Diameter.csproj" />
+  </ItemGroup>
+
+</Project>
