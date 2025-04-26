@@ -1,8 +1,6 @@
 namespace AASeqPlugin;
 using System;
 using System.Buffers.Binary;
-using System.Diagnostics;
-using System.IO;
 
 /// <summary>
 /// Diameter AVP.
@@ -50,7 +48,7 @@ internal sealed record DiameterAvp {
     /// <summary>
     /// Gets whether AVP is vendor-specific.
     /// </summary>
-    public bool IsVendor {
+    public bool HasVendorFlag {
         get { return (Flags & 0x80) != 0; }
     }
 
@@ -58,7 +56,7 @@ internal sealed record DiameterAvp {
     /// Gets whether AVP is mandatory.
     /// This indicates whether support of the AVP is required.
     /// </summary>
-    public bool IsMandatory {
+    public bool HasMandatoryFlag {
         get { return (Flags & 0x40) != 0; }
     }
 
@@ -66,7 +64,7 @@ internal sealed record DiameterAvp {
     /// Gets whether AVP is protected.
     /// This indicates the need for encryption for end-to-end security.
     /// </summary>
-    public bool IsProtected {
+    public bool HasProtectedFlag {
         get { return (Flags & 0x20) != 0; }
     }
 
@@ -133,6 +131,27 @@ internal sealed record DiameterAvp {
         } else {
             new Span<byte>(Data).CopyTo(destination[8..]);
         }
+    }
+
+    /// <summary>
+    /// Reads AVP from the span.
+    /// </summary>
+    /// <param name="source">Source span.</param>
+    public static DiameterAvp ReadFrom(Span<byte> source) {
+        var code = BinaryPrimitives.ReadUInt32BigEndian(source[0..4]);
+
+        var flagsAndLength = BinaryPrimitives.ReadUInt32BigEndian(source[4..8]);
+        var flags = (byte)(flagsAndLength >> 24);
+        var length = (int)(flagsAndLength & 0x00FFFFFF);
+
+        var vendorId = (flags & 0x80) != 0 ? BinaryPrimitives.ReadUInt32BigEndian(source[8..12]) : default(uint?);
+        var dataOffset = vendorId is null ? 8 : 12;
+        var dataLength = length - dataOffset;
+
+        var bytes = new byte[dataLength];
+        source.Slice(dataOffset, dataLength).CopyTo(bytes);
+
+        return new DiameterAvp(code, flags, vendorId, bytes);
     }
 
 }

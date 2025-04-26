@@ -1,12 +1,8 @@
-﻿namespace AASeqPlugin;
+namespace AASeqPlugin;
 using System;
 using System.Buffers.Binary;
-using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.Security.Cryptography;
-using System.Text;
 using System.Threading;
 
 /// <summary>
@@ -38,12 +34,12 @@ internal sealed record DiameterMessage {
     /// <summary>
     /// Creates new instance.
     /// </summary>
-    /// <param name="commandFlags">Command flags.</param>
+    /// <param name="flags">Command flags.</param>
     /// <param name="commandCode">Command code.</param>
     /// <param name="applicationId">Application ID.</param>
     /// <param name="avps">AVP collection.</param>
-    public DiameterMessage(byte commandFlags, uint commandCode, uint applicationId, IList<DiameterAvp> avps)
-        : this(commandFlags, commandCode, applicationId, GetNewHopByHopIdentifier(), GetNewEndToEndIdentifier(), avps) {
+    public DiameterMessage(byte flags, uint commandCode, uint applicationId, IList<DiameterAvp> avps)
+        : this(flags, commandCode, applicationId, GetNewHopByHopIdentifier(), GetNewEndToEndIdentifier(), avps) {
     }
 
 
@@ -70,28 +66,28 @@ internal sealed record DiameterMessage {
     /// Get if request flag is set.
     /// </summary>
     public bool HasRequestFlag {
-        get { return (this.Flags & 0x80) != 0; }
+        get { return (Flags & 0x80) != 0; }
     }
 
     /// <summary>
     /// Get if proxiable flag is set.
     /// </summary>
     public bool HasProxiableFlag {
-        get { return (this.Flags & 0x40) != 0; }
+        get { return (Flags & 0x40) != 0; }
     }
 
     /// <summary>
     /// Get if error flag is set.
     /// </summary>
     public bool HasErrorFlag {
-        get { return (this.Flags & 0x20) != 0; }
+        get { return (Flags & 0x20) != 0; }
     }
 
     /// <summary>
     /// Get if potentially re-transmitted message flag is set.
     /// </summary>
     public bool HasRetransmittedFlag {
-        get { return (this.Flags & 0x20) != 0; }
+        get { return (Flags & 0x20) != 0; }
     }
 
 
@@ -131,8 +127,8 @@ internal sealed record DiameterMessage {
         BinaryPrimitives.WriteUInt32BigEndian(destination[0..4], (uint)((1 << 24) | Length));
         BinaryPrimitives.WriteUInt32BigEndian(destination[4..8], (uint)((uint)(Flags << 24) | (uint)CommandCode));
         BinaryPrimitives.WriteUInt32BigEndian(destination[8..12], ApplicationId);
-        BinaryPrimitives.WriteUInt32BigEndian(destination[8..12], HopByHopIdentifier);
-        BinaryPrimitives.WriteUInt32BigEndian(destination[8..12], EndToEndIdentifier);
+        BinaryPrimitives.WriteUInt32BigEndian(destination[12..16], HopByHopIdentifier);
+        BinaryPrimitives.WriteUInt32BigEndian(destination[16..20], EndToEndIdentifier);
 
         var offset = 20;
         foreach (var avp in Avps) {
@@ -140,6 +136,35 @@ internal sealed record DiameterMessage {
             avp.WriteTo(destination[offset..(offset + length)]);
             offset += length;
         }
+    }
+
+    /// <summary>
+    /// Reads message from the span.
+    /// </summary>
+    /// <param name="source">Source span.</param>
+    public static DiameterMessage ReadFrom(Span<byte> source) {
+        var versionAndLength = BinaryPrimitives.ReadUInt32BigEndian(source[0..4]);
+        //var version = versionAndLength >> 24;  // already read in calling function
+        //var length = (int)(versionAndLength & 0x00FFFFFF);  // already read in calling function
+
+        var flagsAndCommandCode = BinaryPrimitives.ReadUInt32BigEndian(source[4..8]);
+        var flags = (byte)(flagsAndCommandCode >> 24);
+        var commandCode = (uint)(flagsAndCommandCode & 0x00FFFFFF);
+
+        var applicationId = BinaryPrimitives.ReadUInt32BigEndian(source[8..12]);
+
+        var hopByHopIdentifier = BinaryPrimitives.ReadUInt32BigEndian(source[12..16]);
+        var endToEndIdentifier = BinaryPrimitives.ReadUInt32BigEndian(source[16..20]);
+
+        var offset = 20;
+        var avps = new List<DiameterAvp>();
+        while (offset < source.Length) {
+            var avp = DiameterAvp.ReadFrom(source[offset..]);
+            avps.Add(avp);
+            offset += avp.LengthWithPadding;
+        }
+
+        return new DiameterMessage(flags, commandCode, applicationId, hopByHopIdentifier, endToEndIdentifier, avps);
     }
 
 
