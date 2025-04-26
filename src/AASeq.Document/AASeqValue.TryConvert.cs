@@ -599,6 +599,22 @@ public sealed partial record AASeqValue {
     }
 
     /// <summary>
+    /// Returns true if value can be converted to IPEndPoint.
+    /// Null is returned if value cannot be converted.
+    /// </summary>
+    /// <param name="value">Value to convert.</param>
+    /// <param name="result">Converted value.</param>
+    public static bool TryConvertIPEndPoint(object? value, [NotNullWhen(true)] out IPEndPoint? result) {
+        if (value is AASeqValue innerValue) { value = innerValue.RawValue; }
+        result = value switch {
+            IPEndPoint val => val,
+            String val => TryParseIPEndPoint(val, out var res) ? (IPEndPoint)res! : null,
+            _ => null,
+        };
+        return (result is not null);
+    }
+
+    /// <summary>
     /// Returns true if value can be converted to Uri.
     /// Null is returned if value cannot be converted.
     /// </summary>

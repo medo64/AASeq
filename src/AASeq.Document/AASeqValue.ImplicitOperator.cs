@@ -376,6 +376,19 @@ public sealed partial record AASeqValue {
 
 
     /// <summary>
+    /// Returns value as a IPEndPoint.
+    /// Null is returned if value cannot be converted.
+    /// </summary>
+    public static implicit operator IPEndPoint?(AASeqValue value) => value?.AsIPEndPoint();
+
+    /// <summary>
+    /// Returns AASeqValue.
+    /// </summary>
+    /// <param name="value">Value.</param>
+    public static implicit operator AASeqValue(IPEndPoint value) => new() { RawValue = value };
+
+
+    /// <summary>
     /// Returns value as a Uri.
     /// Null is returned if value cannot be converted.
     /// </summary>

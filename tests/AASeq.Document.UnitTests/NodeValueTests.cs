@@ -59,6 +59,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -119,6 +121,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -169,6 +173,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -228,6 +234,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -278,6 +286,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -337,6 +347,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -387,6 +399,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -446,6 +460,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -496,6 +512,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -555,6 +573,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -605,6 +625,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -665,6 +687,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -725,6 +749,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -784,6 +810,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -844,6 +872,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -905,6 +935,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -965,6 +997,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1025,6 +1059,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1085,6 +1121,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1145,6 +1183,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1205,6 +1245,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1265,6 +1307,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1325,6 +1369,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1385,6 +1431,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1445,6 +1493,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1505,6 +1555,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1565,6 +1617,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1625,6 +1679,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1685,6 +1741,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1746,6 +1804,8 @@ public sealed class NodeValueTests {
 
         Assert.AreEqual(IPAddress.Parse("1.2.3.4"), data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Parse("1.2.3.4"), data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1806,6 +1866,132 @@ public sealed class NodeValueTests {
 
         Assert.AreEqual(IPAddress.Parse("1:2:3:4:5678::9"), data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Parse("1:2:3:4:5678::9"), data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
+
+        Assert.IsNull(data.Value.AsUri());
+        Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
+
+        Assert.IsNull(data.Value.AsGuid());
+        Assert.AreEqual(Guid.Empty, data.Value.AsGuid(Guid.Empty));
+    }
+
+    [TestMethod]
+    public void NodeValue_IPEndPointV4() {
+        var value = IPEndPoint.Parse("1.2.3.4:5678");
+        var data = new AASeqNode("node", value);
+        Assert.AreEqual(value, data.Value.RawValue);
+
+        Assert.AreEqual("1.2.3.4:5678", data.Value.AsString());
+        Assert.AreEqual("1.2.3.4:5678", data.Value.AsString("Default"));
+
+        Assert.IsNull(data.Value.AsBoolean());
+        Assert.IsFalse(data.Value.AsBoolean(false));
+        Assert.IsNull(data.Value.AsSByte());
+        Assert.AreEqual(-28, data.Value.AsSByte(-28));
+        Assert.IsNull(data.Value.AsByte());
+        Assert.AreEqual(28, data.Value.AsByte(28));
+        Assert.IsNull(data.Value.AsInt16());
+        Assert.AreEqual(-28, data.Value.AsInt16(-28));
+        Assert.IsNull(data.Value.AsUInt16());
+        Assert.AreEqual(28, data.Value.AsUInt16(28));
+        Assert.IsNull(data.Value.AsInt32());
+        Assert.AreEqual(-28, data.Value.AsInt32(-28));
+        Assert.IsNull(data.Value.AsUInt32());
+        Assert.AreEqual(28U, data.Value.AsUInt32(28));
+        Assert.IsNull(data.Value.AsInt64());
+        Assert.AreEqual(-28L, data.Value.AsInt64(-28));
+        Assert.IsNull(data.Value.AsUInt64());
+        Assert.AreEqual(28UL, data.Value.AsUInt64(28));
+        Assert.IsNull(data.Value.AsInt128());
+        Assert.AreEqual((Int128)(-28), data.Value.AsInt128(-28));
+        Assert.IsNull(data.Value.AsUInt128());
+        Assert.AreEqual((UInt128)28, data.Value.AsUInt128(28));
+
+        Assert.IsNull(data.Value.AsHalf());
+        Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
+        Assert.IsNull(data.Value.AsSingle());
+        Assert.AreEqual((Single)28, data.Value.AsSingle(28));
+        Assert.IsNull(data.Value.AsDouble());
+        Assert.AreEqual(28, data.Value.AsDouble(28));
+        Assert.IsNull(data.Value.AsDecimal());
+        Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
+
+        Assert.IsNull(data.Value.AsDateTimeOffset());
+        Assert.AreEqual(DateTimeOffset.UnixEpoch, data.Value.AsDateTimeOffset(DateTimeOffset.UnixEpoch));
+        Assert.IsNull(data.Value.AsDateOnly());
+        Assert.AreEqual(DateOnly.MinValue, data.Value.AsDateOnly(DateOnly.MinValue));
+        Assert.IsNull(data.Value.AsTimeOnly());
+        Assert.AreEqual(TimeOnly.MinValue, data.Value.AsTimeOnly(TimeOnly.MinValue));
+        Assert.IsNull(data.Value.AsTimeSpan());
+        Assert.AreEqual(TimeSpan.MinValue, data.Value.AsTimeSpan(TimeSpan.MinValue));
+
+        Assert.IsNull(data.Value.AsIPAddress());
+        Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.AreEqual(new IPEndPoint(IPAddress.Parse("1.2.3.4"), 5678), data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Parse("1.2.3.4"), 5678), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
+
+        Assert.IsNull(data.Value.AsUri());
+        Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
+
+        Assert.IsNull(data.Value.AsGuid());
+        Assert.AreEqual(Guid.Empty, data.Value.AsGuid(Guid.Empty));
+    }
+
+    [TestMethod]
+    public void NodeValue_IPEndPointV6() {
+        var value = IPEndPoint.Parse("[2001:0db8:85a3::8a2e:0370:7334]:5678");
+        var data = new AASeqNode("node", value);
+        Assert.AreEqual(value, data.Value.RawValue);
+
+        Assert.AreEqual("[2001:db8:85a3::8a2e:370:7334]:5678", data.Value.AsString());
+        Assert.AreEqual("[2001:db8:85a3::8a2e:370:7334]:5678", data.Value.AsString("Default"));
+
+        Assert.IsNull(data.Value.AsBoolean());
+        Assert.IsFalse(data.Value.AsBoolean(false));
+        Assert.IsNull(data.Value.AsSByte());
+        Assert.AreEqual(-28, data.Value.AsSByte(-28));
+        Assert.IsNull(data.Value.AsByte());
+        Assert.AreEqual(28, data.Value.AsByte(28));
+        Assert.IsNull(data.Value.AsInt16());
+        Assert.AreEqual(-28, data.Value.AsInt16(-28));
+        Assert.IsNull(data.Value.AsUInt16());
+        Assert.AreEqual(28, data.Value.AsUInt16(28));
+        Assert.IsNull(data.Value.AsInt32());
+        Assert.AreEqual(-28, data.Value.AsInt32(-28));
+        Assert.IsNull(data.Value.AsUInt32());
+        Assert.AreEqual(28U, data.Value.AsUInt32(28));
+        Assert.IsNull(data.Value.AsInt64());
+        Assert.AreEqual(-28L, data.Value.AsInt64(-28));
+        Assert.IsNull(data.Value.AsUInt64());
+        Assert.AreEqual(28UL, data.Value.AsUInt64(28));
+        Assert.IsNull(data.Value.AsInt128());
+        Assert.AreEqual((Int128)(-28), data.Value.AsInt128(-28));
+        Assert.IsNull(data.Value.AsUInt128());
+        Assert.AreEqual((UInt128)28, data.Value.AsUInt128(28));
+
+        Assert.IsNull(data.Value.AsHalf());
+        Assert.AreEqual((Half)28, data.Value.AsHalf((Half)28));
+        Assert.IsNull(data.Value.AsSingle());
+        Assert.AreEqual((Single)28, data.Value.AsSingle(28));
+        Assert.IsNull(data.Value.AsDouble());
+        Assert.AreEqual(28, data.Value.AsDouble(28));
+        Assert.IsNull(data.Value.AsDecimal());
+        Assert.AreEqual((Decimal)28, data.Value.AsDecimal(28));
+
+        Assert.IsNull(data.Value.AsDateTimeOffset());
+        Assert.AreEqual(DateTimeOffset.UnixEpoch, data.Value.AsDateTimeOffset(DateTimeOffset.UnixEpoch));
+        Assert.IsNull(data.Value.AsDateOnly());
+        Assert.AreEqual(DateOnly.MinValue, data.Value.AsDateOnly(DateOnly.MinValue));
+        Assert.IsNull(data.Value.AsTimeOnly());
+        Assert.AreEqual(TimeOnly.MinValue, data.Value.AsTimeOnly(TimeOnly.MinValue));
+        Assert.IsNull(data.Value.AsTimeSpan());
+        Assert.AreEqual(TimeSpan.MinValue, data.Value.AsTimeSpan(TimeSpan.MinValue));
+
+        Assert.IsNull(data.Value.AsIPAddress());
+        Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.AreEqual(new IPEndPoint(IPAddress.Parse("2001:db8:85a3::8a2e:370:7334"), 5678), data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Parse("2001:db8:85a3::8a2e:370:7334"), 5678), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1867,6 +2053,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://example.com")));
@@ -1928,6 +2116,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -1989,6 +2179,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));
@@ -2049,6 +2241,8 @@ public sealed class NodeValueTests {
 
         Assert.IsNull(data.Value.AsIPAddress());
         Assert.AreEqual(IPAddress.Loopback, data.Value.AsIPAddress(IPAddress.Loopback));
+        Assert.IsNull(data.Value.AsIPEndPoint());
+        Assert.AreEqual(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort), data.Value.AsIPEndPoint(new IPEndPoint(IPAddress.Loopback, IPEndPoint.MaxPort)));
 
         Assert.IsNull(data.Value.AsUri());
         Assert.AreEqual(new Uri("https://aaseq.com"), data.Value.AsUri(new Uri("https://aaseq.com")));

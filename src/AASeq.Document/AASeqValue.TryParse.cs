@@ -580,6 +580,21 @@ public sealed partial record AASeqValue {
         return false;
     }
 
+    /// <summary>
+    /// Returns true if value can be parsed as IPEndPoint.
+    /// </summary>
+    /// <param name="s">s.</param>
+    /// <param name="result">Result.</param>
+    public static bool TryParseIPEndPoint(string s, [MaybeNullWhen(false)] out object? result) {
+        if (IPEndPoint.TryParse(s, out var value)) {
+            result = value;
+            return true;
+        }
+
+        result = null;
+        return false;
+    }
+
 
     /// <summary>
     /// Returns true if value can be parsed as Uri.

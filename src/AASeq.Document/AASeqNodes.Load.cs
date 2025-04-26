@@ -825,6 +825,8 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                     if (((IPAddress)value!).AddressFamily == System.Net.Sockets.AddressFamily.InterNetworkV6) { return true; }
                 }
                 value = null; return false;
+            } else if (typeAnnotation.Equals("ipendpoint", StringComparison.OrdinalIgnoreCase)) {
+                return AASeqValue.TryParseIPEndPoint(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("uri", StringComparison.OrdinalIgnoreCase) || typeAnnotation.Equals("url", StringComparison.OrdinalIgnoreCase)) {
                 return AASeqValue.TryParseUri(Dequote(valueText), out value);
             } else if (typeAnnotation.Equals("uuid", StringComparison.OrdinalIgnoreCase) || typeAnnotation.Equals("guid", StringComparison.OrdinalIgnoreCase)) {

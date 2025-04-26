@@ -176,6 +176,14 @@ public sealed partial class AASeqNode {
         return AASeqValue.TryConvertIPAddress(Value, out IPAddress? result) ? result : defaultValue;
     }
 
+    /// <summary>
+    /// Returns value as a IPEndpoint.
+    /// </summary>
+    /// <param name="defaultValue">Default value.</param>
+    public IPEndPoint GetValue(IPEndPoint defaultValue) {
+        return AASeqValue.TryConvertIPEndPoint(Value, out IPEndPoint? result) ? result : defaultValue;
+    }
+
 
     /// <summary>
     /// Returns value as a Uri.

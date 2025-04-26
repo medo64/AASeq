@@ -362,6 +362,23 @@ public sealed partial record AASeqValue {
 
 
     /// <summary>
+    /// Returns value as a IPEndpoint.
+    /// Null is returned if value cannot be converted.
+    /// </summary>
+    public IPEndPoint? AsIPEndPoint() {
+        return TryConvertIPEndPoint(RawValue, out IPEndPoint? result) ? result : null;
+    }
+
+    /// <summary>
+    /// Returns value as a IPEndPoint.
+    /// </summary>
+    /// <param name="defaultValue">Default value.</param>
+    public IPEndPoint AsIPEndPoint(IPEndPoint defaultValue) {
+        return TryConvertIPEndPoint(RawValue, out IPEndPoint? result) ? result : defaultValue;
+    }
+
+
+    /// <summary>
     /// Returns value as a Uri.
     /// Null is returned if value cannot be converted.
     /// </summary>
