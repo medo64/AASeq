@@ -122,7 +122,7 @@ internal sealed record DiameterAvp {
     /// <summary>
     /// Write AVP into the span.
     /// </summary>
-    /// <param name="stream">Stream</param>
+    /// <param name="destination">Destination span.</param>
     public void WriteTo(Span<byte> destination) {
         BinaryPrimitives.WriteUInt32BigEndian(destination[0..4], Code);
         var flagsAndLength = (uint)((uint)(Flags << 24) | (uint)Length);
