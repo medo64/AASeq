@@ -38,21 +38,21 @@ internal class DictionaryLookup {
                             var name = node.Value.AsString() ?? throw new NotSupportedException("No command name.");
                             var codeVal = node.GetPropertyValue("code") ?? throw new NotSupportedException($"No command Code ({name}).");
                             if (!uint.TryParse(codeVal, NumberStyles.Integer, CultureInfo.InvariantCulture, out var code)) { throw new NotSupportedException($"Unknown command code ({name})."); }
+                            var proxiableBit = node.GetPropertyValue("proxiableBit")?.ToUpperInvariant() switch {
+                                "MUSTNOT" => AvpBitState.MustNot,
+                                "MAY" => AvpBitState.May,
+                                "MUST" => AvpBitState.Must,
+                                _ => throw new NotSupportedException($"Unknown proxiableBit parameter ({name}).")
+                            };
                             var vendorId = node.GetPropertyValue("vendorId");
                             var vendor = (vendorId is null) ? null : (FindVendorById(vendorId) ?? throw new NotSupportedException($"Unknown command vendor ({name})."));
-                            var entry = new CommandDictionaryEntry(name, code, vendor);
-                            CommandsById.Add(entry.Id, entry);
+                            var entry = new CommandDictionaryEntry(name, code, proxiableBit, vendor);
+                            CommandsById.Add(entry.Code, entry);
                             CommandsByName.Add(entry.Name, entry);
                         } else if (node.Name.Equals("AVP", StringComparison.OrdinalIgnoreCase)) {
                             var name = node.Value.AsString() ?? throw new NotSupportedException("No avp name.");
                             var codeVal = node.GetPropertyValue("code") ?? throw new NotSupportedException($"No avp code ({name}).");
                             if (!uint.TryParse(codeVal, NumberStyles.Integer, CultureInfo.InvariantCulture, out var code)) { throw new NotSupportedException($"Unknown avp code ({name})."); }
-                            var vendorBit = node.GetPropertyValue("vendorBit")?.ToUpperInvariant() switch {
-                                "MUSTNOT" => AvpBitState.MustNot,
-                                "MAY" => AvpBitState.May,
-                                "MUST" => AvpBitState.Must,
-                                _ => throw new NotSupportedException($"Unknown vendorBit parameter ({name}).")
-                            };
                             var mandatoryBit = node.GetPropertyValue("mandatoryBit")?.ToUpperInvariant() switch {
                                 "MUSTNOT" => AvpBitState.MustNot,
                                 "MAY" => AvpBitState.May,
@@ -90,7 +90,7 @@ internal class DictionaryLookup {
                                 "UTF8STRING" => AvpType.UTF8String,
                                 _ => throw new NotSupportedException($"Unknown type parameter ({name}).")
                             };
-                            var entry = new AvpDictionaryEntry(name, code, vendorBit, mandatoryBit, protectedBit, mayEncrypt, vendor, avpType);
+                            var entry = new AvpDictionaryEntry(name, code, mandatoryBit, protectedBit, mayEncrypt, vendor, avpType);
                             AvpsByCode.Add((entry.Vendor?.Code ?? 0, entry.Code), entry);
                             AvpsByName.Add(entry.Name, entry);
                         }

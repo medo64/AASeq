@@ -1,4 +1,4 @@
 namespace AASeqPlugin;
 
-internal record CommandDictionaryEntry (string Name, uint Id, VendorDictionaryEntry? vendor) {
+internal record CommandDictionaryEntry (string Name, uint Code, AvpBitState ProxiableBit, VendorDictionaryEntry? Vendor) {
 }
