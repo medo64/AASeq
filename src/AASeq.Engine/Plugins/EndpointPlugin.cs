@@ -1,6 +1,7 @@
 namespace AASeq;
 using System;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Endpoint plugin.
@@ -10,9 +11,10 @@ internal sealed class EndpointPlugin : PluginBase {
     /// <summary>
     /// Returns a new instance of the plugin.
     /// </summary>
+    /// <param name="logger">Logger.</param>
     /// <param name="configuration">Configuration nodes.</param>
-    public EndpointInstance CreateInstance(AASeqNodes configuration) {
-        var instance = CreateInstanceMethodInfo.Invoke(null, [configuration])!;
+    public EndpointInstance CreateInstance(ILogger logger, AASeqNodes configuration) {
+        var instance = CreateInstanceMethodInfo.Invoke(null, [logger, configuration])!;
         return new EndpointInstance(instance, SendMethodInfo, ReceiveMethodInfo);
     }
 

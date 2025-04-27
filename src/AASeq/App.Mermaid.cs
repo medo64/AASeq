@@ -9,7 +9,9 @@ internal static partial class App {
         try {
 
             var document = AASeqNodes.Load(file.FullName);
-            using var engine = new Engine(document);
+
+            var pluginManager = new PluginManager(Logger.Instance);
+            using var engine = new Engine(Logger.Instance, pluginManager, document);
 
             if (engine.FlowSequence.Count == 0) {
                 Output.WriteError("No flows found in the document.");

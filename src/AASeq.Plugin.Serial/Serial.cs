@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AASeq;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Ping endpoint.
@@ -14,7 +15,7 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     /// <summary>
     /// Gets the instance.
     /// </summary>
-    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
+    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
         return new Serial(configuration);
     }
 

@@ -12,7 +12,7 @@ internal static partial class App {
         Console.WriteLine($"{name} {version.Major}.{version.Minor} {version.Revision}");
 
         if (isVerbose) {
-            var manager = PluginManager.Instance;  // this loads plugins
+            var manager = new PluginManager(Logger.Instance);  // this loads plugins
 
             var hadEndpoints = false;
             Console.Write("Endpoints: ");

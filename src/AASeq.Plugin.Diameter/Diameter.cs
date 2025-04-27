@@ -4,6 +4,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using AASeq;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Diameter endpoint.
@@ -13,12 +14,12 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     /// <summary>
     /// Gets the instance.
     /// </summary>
-    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
-        return new Diameter(configuration);
+    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
+        return new Diameter(logger, configuration);
     }
 
 
-    private Diameter(AASeqNodes configuration) {
+    private Diameter(ILogger logger, AASeqNodes configuration) {
         var remoteIP = configuration["Remote"].AsIPAddress();
         var localIP = configuration["Local"].AsIPAddress();
 
@@ -29,9 +30,9 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
         var dwNodes = configuration.FindNode("Diameter-Watchdog")?.Nodes ?? [];
 
         if ((remoteEndpoint is not null) && (localEndpoint is null)) {
-            DiameterThread = new DiameterClientThread(remoteEndpoint, ceNodes, dwNodes);
+            DiameterThread = new DiameterClientThread(logger, remoteEndpoint, ceNodes, dwNodes);
         } else if ((remoteEndpoint is null) && (localEndpoint is not null)) {
-            DiameterThread = new DiameterServerThread(localEndpoint, ceNodes, dwNodes);
+            DiameterThread = new DiameterServerThread(logger, localEndpoint, ceNodes, dwNodes);
         } else {
             throw new InvalidOperationException("Either remote or local endpoint must be specified.");
         }

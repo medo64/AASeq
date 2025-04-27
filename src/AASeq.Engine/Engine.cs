@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Main execution engine.
@@ -14,8 +15,9 @@ public sealed partial class Engine : IDisposable {
     /// <summary>
     /// Creates a new instance.
     /// </summary>
+    /// <param name="logger">Logger.</param>
     /// <param name="document">Document.</param>
-    public Engine(AASeqNodes document) {
+    public Engine(ILogger logger, PluginManager pluginManager, AASeqNodes document) {
         ArgumentNullException.ThrowIfNull(document);
 
         var repeatCount = 1;
@@ -38,9 +40,9 @@ public sealed partial class Engine : IDisposable {
                 receiveTimeout = node.Nodes["ReceiveTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(receiveTimeout));
                 sendTimeout = node.Nodes["SendTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(sendTimeout));
             } else {
-                var plugin = PluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
+                var plugin = pluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
                 var configuration = node.Nodes;
-                endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin, plugin.CreateInstance(configuration)));
+                endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin, plugin.CreateInstance(logger, configuration)));
             }
         }
 
@@ -124,13 +126,13 @@ public sealed partial class Engine : IDisposable {
 
             if (isCommand) {  // command
 
-                var plugin = PluginManager.FindCommandPlugin(actionName) ?? throw new InvalidOperationException($"Cannot find command plugin '{actionName}'.");
+                var plugin = pluginManager.FindCommandPlugin(actionName) ?? throw new InvalidOperationException($"Cannot find command plugin '{actionName}'.");
                 if (node.Value is not null) {
                     node.Nodes.Add(new AASeqNode("Value", node.Value));
                     node.Value = AASeqValue.Null;
                 }
                 var data = node.Nodes;
-                flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(), data));
+                flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(logger), data));
 
                 //} else if (string.IsNullOrEmpty(leftX)) {
 

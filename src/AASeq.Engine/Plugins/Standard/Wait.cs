@@ -2,6 +2,7 @@ namespace AASeq.Plugins.Standard;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Wait plugin command.
@@ -11,7 +12,7 @@ internal sealed class Wait : ICommandPlugin {
     /// <summary>
     /// Returns the instance.
     /// </summary>
-    public static ICommandPlugin CreateInstance() {
+    public static ICommandPlugin CreateInstance(ILogger logger) {
         return new Wait();
     }
 

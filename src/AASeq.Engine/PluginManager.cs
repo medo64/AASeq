@@ -8,13 +8,18 @@ using System.Reflection;
 using System.Runtime.Loader;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Plugin management.
 /// </summary>
 public sealed class PluginManager {
 
-    private PluginManager() {
+    /// <summary>
+    /// Creates a new instance.
+    /// </summary>
+    /// <param name="logger">Logger.</param>
+    public PluginManager(ILogger logger) {
         var sw = Stopwatch.StartNew();
         try {
             var currentAssembly = Assembly.GetExecutingAssembly();
@@ -93,25 +98,19 @@ public sealed class PluginManager {
 
 
     /// <summary>
-    /// Gets plugin loader instance.
-    /// </summary>
-    public static PluginManager Instance { get; } = new PluginManager();
-
-
-    /// <summary>
     /// Finds a command plugin by name.
     /// </summary>
     /// <param name="pluginName">Plugin name.</param>
-    internal static CommandPlugin? FindCommandPlugin(string pluginName) {
-        return Instance.CommandPluginsByName.TryGetValue(pluginName, out var plugin) ? plugin : null;
+    internal CommandPlugin? FindCommandPlugin(string pluginName) {
+        return CommandPluginsByName.TryGetValue(pluginName, out var plugin) ? plugin : null;
     }
 
     /// <summary>
     /// Finds a endpoint plugin by name.
     /// </summary>
     /// <param name="pluginName">Plugin name.</param>
-    internal static EndpointPlugin? FindEndpointPlugin(string pluginName) {
-        return Instance.EndpointPluginsByName.TryGetValue(pluginName, out var plugin) ? plugin : null;
+    internal EndpointPlugin? FindEndpointPlugin(string pluginName) {
+        return EndpointPluginsByName.TryGetValue(pluginName, out var plugin) ? plugin : null;
     }
 
 
@@ -120,7 +119,7 @@ public sealed class PluginManager {
     private static CommandPlugin? GetCommandPlugin(Type type) {
         if (!type.IsClass) { return null; }
 
-        var mCreateInstance = type.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        var mCreateInstance = type.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, [typeof(ILogger)]);
         if (mCreateInstance is null) { return null; }
         if (!mCreateInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
@@ -134,7 +133,7 @@ public sealed class PluginManager {
     private static EndpointPlugin? GetEndpointPlugin(Type type) {
         if (!type.IsClass) { return null; }
 
-        var mCreateInstance = type.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static);
+        var mCreateInstance = type.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, [typeof(ILogger), typeof(AASeqNodes)]);
         if (mCreateInstance is null) { return null; }
         if (!mCreateInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 

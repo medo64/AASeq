@@ -1,6 +1,7 @@
 namespace AASeq;
 using System;
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Command plugin.
@@ -28,8 +29,8 @@ internal sealed class CommandPlugin : PluginBase {
     /// <summary>
     /// Returns a new instance of the plugin.
     /// </summary>
-    public CommandInstance CreateInstance() {
-        var instance = CreateInstanceMethodInfo.Invoke(null, [])!;
+    public CommandInstance CreateInstance(ILogger logger) {
+        var instance = CreateInstanceMethodInfo.Invoke(null, [logger])!;
         return new CommandInstance(instance, ExecuteMethodInfo);
     }
 

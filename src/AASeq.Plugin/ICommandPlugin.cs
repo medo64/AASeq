@@ -1,4 +1,5 @@
 namespace AASeq;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Command plugin interface marker.
@@ -9,6 +10,6 @@ public interface ICommandPlugin : ICommandPluginInstance {
     /// <summary>
     /// Returns the instance.
     /// </summary>
-    public static abstract ICommandPlugin CreateInstance();
+    public static abstract ICommandPlugin CreateInstance(ILogger logger);
 
 }

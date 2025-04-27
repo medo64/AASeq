@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Threading;
 using AASeq;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Diameter client.
@@ -14,14 +15,22 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
     /// <summary>
     /// Creates new instance.
     /// </summary>
+    /// <param name="logger">Logger.</param>
     /// <param name="remote">Remote endpoint.</param>
     /// <param name="capabilityExchangeNodes">Nodes for Capability-Exchange-Request.</param>
     /// <param name="diameterWatchdogNodes">Nodes for Diameter-Watchdog-Request.</param>
-    public DiameterClientThread(IPEndPoint remote, AASeqNodes capabilityExchangeNodes, AASeqNodes diameterWatchdogNodes) {
+    public DiameterClientThread(ILogger logger, IPEndPoint remote, AASeqNodes capabilityExchangeNodes, AASeqNodes diameterWatchdogNodes) {
         Remote = remote;
+        Logger = logger;
 
         Client = new TcpClient();
-        Client.Connect(Remote);
+        var connectResult = Client.BeginConnect(Remote.Address, Remote.Port, requestCallback: null, state: null);
+        var waitSuccess = connectResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1));
+        if (waitSuccess) {
+            Client.EndConnect(connectResult);
+        } else {
+            throw new TimeoutException("Timeout waiting for connection to establish.");
+        }
 
         Thread = new Thread(Run) {
             IsBackground = true,
@@ -30,6 +39,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
         Thread.Start();
     }
 
+    private readonly ILogger Logger;
     private readonly IPEndPoint Remote;
     private TcpClient Client;
     private readonly Thread Thread;
@@ -41,31 +51,43 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
         while (true) {
             if (cancel.IsCancellationRequested) { return; }
 
-            try {
-                using var stream = Client.GetStream();
-                using var diameter = new DiameterStream(stream);
+            if (Client.Connected) {
+                try {
+                    using var stream = Client.GetStream();
+                    using var diameter = new DiameterStream(stream);
 
-                var cer = new DiameterMessage(0, 0, 0, 0, 0, []);
-                diameter.WriteMessage(cer);
+                    //var cer = new DiameterMessage(0, 0, 0, 0, 0, []);
+                    //diameter.WriteMessage(cer);
 
-                var cea = diameter.ReadMessage();
+                    //var cea = diameter.ReadMessage();
 
-                while (true) {
-                    var message = diameter.ReadMessage();
+                    while (true) {
+                        var message = diameter.ReadMessage();
+                    }
+                } catch (Exception ex) {
+                    if (cancel.IsCancellationRequested) { return; }
+                    Log.ReadError(Logger, Remote, ex, ex.Message);
+                    Debug.WriteLine($"[AASeq.Plugin.Diameter] {Remote}: {ex.Message}");
+                    Thread.Sleep(1000);
                 }
-            } catch (Exception ex) {
-                if (cancel.IsCancellationRequested) { return; }
-                Debug.WriteLine($"[AASeq.Plugin.Diameter] {Remote}: {ex.Message}");
-                Thread.Sleep(1000);
             }
 
             try {
                 Client.Close();
                 Client = new TcpClient();
-                Client.Connect(Remote);
-                Debug.WriteLine($"[AASeq.Plugin.Diameter] {Remote}: Connection reestablished");
+
+                Client = new TcpClient();
+                var connectResult = Client.BeginConnect(Remote.Address, Remote.Port, requestCallback: null, state: null);
+                var waitSuccess = connectResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1));
+                if (waitSuccess) {
+                    Client.EndConnect(connectResult);
+                } else {
+                    throw new TimeoutException("Timeout waiting for connection to establish.");
+                }
+
+                Log.Reconnected(Logger, Remote);
             } catch (Exception ex) {
-                Debug.WriteLine($"[AASeq.Plugin.Diameter] {Remote}: {ex.Message}");
+                Log.ConnectionError(Logger, Remote, ex, ex.Message);
                 Thread.Sleep(1000);
             }
         }

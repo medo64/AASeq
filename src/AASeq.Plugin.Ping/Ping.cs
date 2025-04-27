@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using AASeq;
 
 /// <summary>
@@ -15,7 +16,7 @@ internal sealed class Ping : IEndpointPlugin {
     /// <summary>
     /// Gets the instance.
     /// </summary>
-    public static IEndpointPlugin CreateInstance(AASeqNodes configuration) {
+    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
         return new Ping(configuration);
     }
 

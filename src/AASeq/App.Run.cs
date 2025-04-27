@@ -23,8 +23,8 @@ internal static partial class App {
             var document = AASeqNodes.Load(file.FullName);
 
             try {
-
-                using var engine = new Engine(document);
+                var pluginManager = new PluginManager(Logger.Instance);
+                using var engine = new Engine(Logger.Instance, pluginManager, document);
 
                 var newDocument = new AASeqNodes([engine.OwnDefinitionNode]);
                 foreach (var endpoint in engine.Endpoints) {
