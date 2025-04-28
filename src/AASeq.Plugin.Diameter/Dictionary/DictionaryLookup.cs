@@ -36,6 +36,7 @@ internal class DictionaryLookup {
                             ApplicationsByName.Add(entry.Name, entry);
                         } else if (node.Name.Equals("Command", StringComparison.OrdinalIgnoreCase)) {
                             var name = node.Value.AsString() ?? throw new NotSupportedException("No command name.");
+                            var abbrev = node.GetPropertyValue("abbrev");
                             var codeVal = node.GetPropertyValue("code") ?? throw new NotSupportedException($"No command Code ({name}).");
                             if (!uint.TryParse(codeVal, NumberStyles.Integer, CultureInfo.InvariantCulture, out var code)) { throw new NotSupportedException($"Unknown command code ({name})."); }
                             var proxiableBit = node.GetPropertyValue("proxiableBit")?.ToUpperInvariant() switch {
@@ -49,6 +50,7 @@ internal class DictionaryLookup {
                             var entry = new CommandDictionaryEntry(name, code, proxiableBit, vendor);
                             CommandsByCode.Add(entry.Code, entry);
                             CommandsByName.Add(entry.Name, entry);
+                            if (!string.IsNullOrEmpty(abbrev) && !abbrev.Equals(entry.Name, StringComparison.Ordinal)) { CommandsByName.Add(abbrev, entry); }
                         } else if (node.Name.Equals("AVP", StringComparison.OrdinalIgnoreCase)) {
                             var name = node.Value.AsString() ?? throw new NotSupportedException("No avp name.");
                             var codeVal = node.GetPropertyValue("code") ?? throw new NotSupportedException($"No avp code ({name}).");

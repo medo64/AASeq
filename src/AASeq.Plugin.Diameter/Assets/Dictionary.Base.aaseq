@@ -6,16 +6,17 @@ DiameterDictionary {
     Application Accounting id=3                                               # RFC 3588
     Application Relay      id=4294967295                                      # RFC 3588
 
-    Command Capabilities-Exchange code=257 proxiableBit=mustnot               # RFC 3588
-    Command Re-Auth               code=258 proxiableBit=may                   # RFC 3588
-    Command AA                    code=265 proxiableBit=may                   # RFC 4005
-    Command Diameter-EAP          code=268 proxiableBit=may                   # RFC 4072
-    Command Accounting            code=271 proxiableBit=may                   # RFC 3588
-    Command Credit-Control        code=272 proxiableBit=may                   # RFC 4006
-    Command Abort-Session         code=274 proxiableBit=may                   # RFC 3588
-    Command Session-Termination   code=275 proxiableBit=may                   # RFC 3588
-    Command Device-Watchdog       code=280 proxiableBit=mustnot               # RFC 3588
-    Command Disconnect-Peer       code=282 proxiableBit=may                   # RFC 3588
+    Command Capabilities-Exchange abbrev=CE code=257 proxiableBit=mustnot               # RFC 3588
+    Command Re-Auth               abbrev=RA code=258 proxiableBit=may                   # RFC 3588
+    Command AA                    abbrev=AA code=265 proxiableBit=may                   # RFC 4005
+    Command Diameter-EAP          abbrev=DE code=268 proxiableBit=may                   # RFC 4072
+    Command Accounting            abbrev=AC code=271 proxiableBit=may                   # RFC 3588
+    Command Credit-Control        abbrev=CC code=272 proxiableBit=may                   # RFC 4006
+    Command Abort-Session         abbrev=AS code=274 proxiableBit=may                   # RFC 3588
+    Command Session-Termination   abbrev=ST code=275 proxiableBit=may                   # RFC 3588
+    Command Device-Watchdog       abbrev=DW code=280 proxiableBit=mustnot               # RFC 3588
+    Command Disconnect-Peer       abbrev=DP code=282 proxiableBit=may                   # RFC 3588
+    Command MIP6                  abbrev=MI code=325 proxiableBit=may                   # RFC 5778
 
     Avp User-Name                   code=1 mandatoryBit=must protectedBit=may mayEncrypt=yes type=UTF8String      # RFC 3588
     Avp User-Password               code=2 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString     # RFC 4005

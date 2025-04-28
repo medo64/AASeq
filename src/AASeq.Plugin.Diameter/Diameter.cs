@@ -1,5 +1,7 @@
 namespace AASeqPlugin;
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,6 +49,9 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     /// </summary>
     internal DiameterStream? DiameterStream { get; set; }
 
+    internal readonly ConcurrentDictionary<(uint, uint), Guid> StorageAwaiting = [];
+    internal readonly ConcurrentDictionary<Guid, (string, AASeqNodes)> Storage = [];
+
 
     #region IDisposable
 
@@ -68,7 +73,9 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
         while (DiameterStream is null) {
             await Task.Delay(100, cancellationToken).ConfigureAwait(false);
         }
-        DiameterStream.WriteMessage(DiameterEncoder.Encode(messageName, parameters));
+        var message = DiameterEncoder.Encode(messageName, parameters);
+        StorageAwaiting[(message.HopByHopIdentifier, message.EndToEndIdentifier)] = id;
+        DiameterStream.WriteMessage(message);
     }
 
     /// <summary>
@@ -79,11 +86,16 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
-        //throw new NotImplementedException();
-        while (DiameterStream is null) {
-            await Task.Delay(100, cancellationToken).ConfigureAwait(false);
+        while (!cancellationToken.IsCancellationRequested) {
+            if (Storage.Remove(id, out var value)) {
+                messageName = value.Item1;
+                var data = value.Item2;
+                return await Task.FromResult(new Tuple<string, AASeqNodes>(messageName, data)).ConfigureAwait(false);
+            } else {
+                await Task.Delay(1, cancellationToken).ConfigureAwait(false);
+            }
         }
-        return new Tuple<string, AASeqNodes>("", new AASeqNodes());  // TODO
+        throw new InvalidOperationException("No reply.");
     }
 
 }

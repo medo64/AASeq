@@ -29,31 +29,31 @@ DiameterDictionary {
     Application SLh        id=16777291                                 # 3GPP TS 29.173
     Application SGmb       id=16777292                                 # 3GPP TS 29.061
 
-    Command User-Authorization         code=300     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Server-Assignment          code=301     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Location-Info              code=302     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Multimedia-Auth            code=303     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Registration-Termination   code=304     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Push-Profile               code=305     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command User-Data                  code=306     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
-    Command Profile-Update             code=307     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
-    Command Subscribe-Notifications    code=308     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
-    Command Push-Notification          code=309     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
-    Command Boostrapping-Info          code=310     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.109
-    Command Message-Process            code=311     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.140
-    Command GBAPush-Info               code=312     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.109
-    Command Update-Location            code=316     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Cancel-Location            code=317     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Authentication-Information code=318     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Insert-Subscriber-Data     code=319     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Delete-Subscriber-Data     code=320     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Purge-UE                   code=321     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Reset                      code=322     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Notify                     code=323     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command ME-Identity-Check          code=324     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Provide-Location           code=8388620 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.172
-    Command Location-Report            code=8388621 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.172
-    Command LCS-Routing-Info           code=8388622 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.173
+    Command User-Authorization         abbrev=UA code=300     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
+    Command Server-Assignment          abbrev=SA code=301     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
+    Command Location-Info              abbrev=LI code=302     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
+    Command Multimedia-Auth            abbrev=MA code=303     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
+    Command Registration-Termination   abbrev=RT code=304     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
+    Command Push-Profile               abbrev=PP code=305     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
+    Command User-Data                  abbrev=UD code=306     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
+    Command Profile-Update             abbrev=   code=307     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
+    Command Subscribe-Notifications    abbrev=SN code=308     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
+    Command Push-Notification          abbrev=PN code=309     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
+    Command Boostrapping-Info          abbrev=BI code=310     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.109
+    Command Message-Process            abbrev=MP code=311     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.140
+    Command GBAPush-Info               abbrev=GI code=312     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.109
+    Command Update-Location            abbrev=UL code=316     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command Cancel-Location            abbrev=CL code=317     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command Authentication-Information abbrev=AI code=318     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command Insert-Subscriber-Data     abbrev=ID code=319     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command Delete-Subscriber-Data     abbrev=DS code=320     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command Purge-UE                   abbrev=   code=321     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command Reset                      abbrev=RS code=322     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command Notify                     abbrev=NO code=323     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command ME-Identity-Check          abbrev=EC code=324     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
+    Command Provide-Location           abbrev=PL code=8388620 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.172
+    Command Location-Report            abbrev=LR code=8388621 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.172
+    Command LCS-Routing-Info           abbrev=RI code=8388622 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.173
 
     Avp 3GPP-WLAN-APN-Id            code=100 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=OctetString    # 3GPP TS 29.234
     Avp 3GPP-WLAN-QoS-Filter-Rule   code=101 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=QoSFilterRule  # 3GPP TS 29.234

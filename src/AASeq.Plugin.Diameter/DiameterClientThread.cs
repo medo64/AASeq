@@ -1,6 +1,7 @@
 namespace AASeqPlugin;
 using System;
 using System.Buffers.Binary;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
@@ -90,6 +91,11 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                             }
                         } else {
                             var nodes = DiameterEncoder.Decode(Logger, message, out var messageName);
+                            if (PluginClass.StorageAwaiting.Remove((message.HopByHopIdentifier, message.EndToEndIdentifier), out var guid)) {
+                                PluginClass.Storage[guid] = (messageName, nodes);
+                            } else {
+                                //TODO Log.MessageIn(Logger, Remote, $"Diameter message {messageName} (no matching HopByHopIdentifier/EndToEndIdentifier)");
+                            }
                         }
                     }
                 } catch (Exception ex) {
