@@ -26,13 +26,14 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
         var remoteEndpoint = remoteIP is null ? configuration["Remote"].AsIPEndPoint() : new IPEndPoint(remoteIP, 3868);
         var localEndpoint = localIP is null ? configuration["Local"].AsIPEndPoint() : new IPEndPoint(localIP, 3868);
 
-        var ceNodes = configuration.FindNode("Capability-Exchange")?.Nodes ?? [];
-        var dwNodes = configuration.FindNode("Diameter-Watchdog")?.Nodes ?? [];
-
         if ((remoteEndpoint is not null) && (localEndpoint is null)) {
-            DiameterThread = new DiameterClientThread(logger, remoteEndpoint, ceNodes, dwNodes);
+            var cerNodes = configuration.FindNode("Capability-Exchange-Request")?.Nodes ?? [];
+            var dwrNodes = configuration.FindNode("Diameter-Watchdog-Request")?.Nodes ?? [];
+            DiameterThread = new DiameterClientThread(logger, remoteEndpoint, cerNodes, dwrNodes);
         } else if ((remoteEndpoint is null) && (localEndpoint is not null)) {
-            DiameterThread = new DiameterServerThread(logger, localEndpoint, ceNodes, dwNodes);
+            var ceaNodes = configuration.FindNode("Capability-Exchange-Answer")?.Nodes ?? [];
+            var dwrNodes = configuration.FindNode("Diameter-Watchdog-Request")?.Nodes ?? [];
+            DiameterThread = new DiameterServerThread(logger, localEndpoint, ceaNodes, dwrNodes);
         } else {
             throw new InvalidOperationException("Either remote or local endpoint must be specified.");
         }
@@ -40,6 +41,7 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
 
 
     private readonly IDiameterThread DiameterThread;
+
 
     #region IDisposable
 

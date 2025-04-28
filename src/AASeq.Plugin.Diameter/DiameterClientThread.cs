@@ -1,5 +1,6 @@
 namespace AASeqPlugin;
 using System;
+using System.Buffers.Binary;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
@@ -17,11 +18,13 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
     /// </summary>
     /// <param name="logger">Logger.</param>
     /// <param name="remote">Remote endpoint.</param>
-    /// <param name="capabilityExchangeNodes">Nodes for Capability-Exchange-Request.</param>
-    /// <param name="diameterWatchdogNodes">Nodes for Diameter-Watchdog-Request.</param>
-    public DiameterClientThread(ILogger logger, IPEndPoint remote, AASeqNodes capabilityExchangeNodes, AASeqNodes diameterWatchdogNodes) {
-        Remote = remote;
+    /// <param name="capabilityExchangeRequestNodes">Nodes for Capability-Exchange-Request.</param>
+    /// <param name="diameterWatchdogRequestNodes">Nodes for Diameter-Watchdog-Request.</param>
+    public DiameterClientThread(ILogger logger, IPEndPoint remote, AASeqNodes capabilityExchangeRequestNodes, AASeqNodes diameterWatchdogRequestNodes) {
         Logger = logger;
+        Remote = remote;
+        CapabilityExchangeRequestNodes = capabilityExchangeRequestNodes;
+        DeviceWatchdogRequestNodes = diameterWatchdogRequestNodes;
 
         Client = new TcpClient();
         var connectResult = Client.BeginConnect(Remote.Address, Remote.Port, requestCallback: null, state: null);
@@ -41,6 +44,8 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
 
     private readonly ILogger Logger;
     private readonly IPEndPoint Remote;
+    private readonly AASeqNodes CapabilityExchangeRequestNodes;
+    private readonly AASeqNodes DeviceWatchdogRequestNodes;
     private TcpClient Client;
     private readonly Thread Thread;
     private readonly CancellationTokenSource Cancellation = new();
@@ -56,13 +61,30 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                     using var stream = Client.GetStream();
                     using var diameter = new DiameterStream(stream);
 
-                    //var cer = new DiameterMessage(0, 0, 0, 0, 0, []);
-                    //diameter.WriteMessage(cer);
-
-                    //var cea = diameter.ReadMessage();
+                    var cer = DiameterEncoder.Encode("Capabilities-Exchange-Request", CapabilityExchangeRequestNodes);
+                    diameter.WriteMessage(cer);
+                    Log.MessageOut(Logger, Remote, "Capabilities-Exchange-Request");
 
                     while (true) {
                         var message = diameter.ReadMessage();
+                        if ((message.ApplicationId == 0) && (message.CommandCode == 257)) {
+                            var resultCode = default(uint?);
+                            foreach (var avp in message.Avps) {
+                                if (avp.Code == 268) {
+                                    resultCode = BinaryPrimitives.ReadUInt32BigEndian(avp.GetData());
+                                    break;
+                                }
+                            }
+                            if (resultCode is null) {
+                                Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (no Result-Code)");
+                            } else if (resultCode == 2001) {
+                                Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (DIAMETER_SUCCESS)");
+                            } else {
+                                Log.MessageIn(Logger, Remote, $"Capabilities-Exchange-Answer ({resultCode})");
+                            }
+                        } else {
+                            var nodes = DiameterEncoder.Decode(Logger, message, out var messageName);
+                        }
                     }
                 } catch (Exception ex) {
                     if (cancel.IsCancellationRequested) { return; }

@@ -47,7 +47,7 @@ internal class DictionaryLookup {
                             var vendorId = node.GetPropertyValue("vendorId");
                             var vendor = (vendorId is null) ? null : (FindVendorById(vendorId) ?? throw new NotSupportedException($"Unknown command vendor ({name})."));
                             var entry = new CommandDictionaryEntry(name, code, proxiableBit, vendor);
-                            CommandsById.Add(entry.Code, entry);
+                            CommandsByCode.Add(entry.Code, entry);
                             CommandsByName.Add(entry.Name, entry);
                         } else if (node.Name.Equals("AVP", StringComparison.OrdinalIgnoreCase)) {
                             var name = node.Value.AsString() ?? throw new NotSupportedException("No avp name.");
@@ -106,7 +106,7 @@ internal class DictionaryLookup {
     private readonly Dictionary<string, VendorDictionaryEntry> VendorsByName = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<uint, ApplicationDictionaryEntry> ApplicationsById = [];
     private readonly Dictionary<string, ApplicationDictionaryEntry> ApplicationsByName = new(StringComparer.OrdinalIgnoreCase);
-    private readonly Dictionary<uint, CommandDictionaryEntry> CommandsById = [];
+    private readonly Dictionary<uint, CommandDictionaryEntry> CommandsByCode = [];
     private readonly Dictionary<string, CommandDictionaryEntry> CommandsByName = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<(uint, uint), AvpDictionaryEntry> AvpsByCode = [];
     private readonly Dictionary<string, AvpDictionaryEntry> AvpsByName = new(StringComparer.OrdinalIgnoreCase);
@@ -155,9 +155,9 @@ internal class DictionaryLookup {
     /// <summary>
     /// Returns command, if found; null otherwise.
     /// </summary>
-    /// <param name="id">Command ID.</param>
-    public CommandDictionaryEntry? FindCommandById(uint id) {
-        return CommandsById.TryGetValue(id, out var entry) ? entry : null;
+    /// <param name="code">Command code.</param>
+    public CommandDictionaryEntry? FindCommandByCode(uint code) {
+        return CommandsByCode.TryGetValue(code, out var entry) ? entry : null;
     }
 
     /// <summary>

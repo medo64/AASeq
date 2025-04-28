@@ -14,9 +14,9 @@ internal sealed class DiameterServerThread : IDiameterThread, IDisposable {
     /// </summary>
     /// <param name="logger">Logger.</param>
     /// <param name="local">Local endpoint.</param>
-    /// <param name="capabilityExchangeNodes">Nodes for Capability-Exchange-Answer.</param>
-    /// <param name="diameterWatchdogNodes">Nodes for Diameter-Watchdog-Request.</param>
-    public DiameterServerThread(ILogger logger, IPEndPoint local, AASeqNodes capabilityExchangeNodes, AASeqNodes diameterWatchdogNodes) {
+    /// <param name="capabilityExchangeAnswerNodes">Nodes for Capability-Exchange-Answer.</param>
+    /// <param name="diameterWatchdogRequestNodes">Nodes for Diameter-Watchdog-Request.</param>
+    public DiameterServerThread(ILogger logger, IPEndPoint local, AASeqNodes capabilityExchangeAnswerNodes, AASeqNodes diameterWatchdogRequestNodes) {
         throw new NotSupportedException("Diameter server not supported.");
     }
 

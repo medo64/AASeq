@@ -42,8 +42,8 @@ public sealed class DictionaryLookupTests {
 
     [TestMethod]
     public void DictionaryLookup_CommandById() {
-        Assert.IsNotNull(DictionaryLookup.Instance.FindCommandById(257));
-        Assert.IsNull(DictionaryLookup.Instance.FindCommandById(5104));
+        Assert.IsNotNull(DictionaryLookup.Instance.FindCommandByCode(257));
+        Assert.IsNull(DictionaryLookup.Instance.FindCommandByCode(5104));
     }
 
     [TestMethod]

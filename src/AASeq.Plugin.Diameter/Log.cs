@@ -18,4 +18,10 @@ internal sealed partial class Log {
     [LoggerMessage(LogLevel.Information, "[Diameter] {endpoint}: Reconnected")]
     public static partial void Reconnected(ILogger logger, IPEndPoint endpoint);
 
+    [LoggerMessage(LogLevel.Information, "[Diameter] {endpoint}: >{messageName}")]
+    public static partial void MessageOut(ILogger logger, IPEndPoint endpoint, string messageName);
+
+    [LoggerMessage(LogLevel.Information, "[Diameter] {endpoint}: <{messageName}")]
+    public static partial void MessageIn(ILogger logger, IPEndPoint endpoint, string messageName);
+
 }
