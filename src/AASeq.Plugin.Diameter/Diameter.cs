@@ -29,11 +29,11 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
         if ((remoteEndpoint is not null) && (localEndpoint is null)) {
             var cerNodes = configuration.FindNode("Capability-Exchange-Request")?.Nodes ?? [];
             var dwrNodes = configuration.FindNode("Diameter-Watchdog-Request")?.Nodes ?? [];
-            DiameterThread = new DiameterClientThread(logger, remoteEndpoint, cerNodes, dwrNodes);
+            DiameterThread = new DiameterClientThread(this, logger, remoteEndpoint, cerNodes, dwrNodes);
         } else if ((remoteEndpoint is null) && (localEndpoint is not null)) {
             var ceaNodes = configuration.FindNode("Capability-Exchange-Answer")?.Nodes ?? [];
             var dwrNodes = configuration.FindNode("Diameter-Watchdog-Request")?.Nodes ?? [];
-            DiameterThread = new DiameterServerThread(logger, localEndpoint, ceaNodes, dwrNodes);
+            DiameterThread = new DiameterServerThread(this, logger, localEndpoint, ceaNodes, dwrNodes);
         } else {
             throw new InvalidOperationException("Either remote or local endpoint must be specified.");
         }
@@ -41,6 +41,11 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
 
 
     private readonly IDiameterThread DiameterThread;
+
+    /// <summary>
+    /// Gets/sets the diameter stream.
+    /// </summary>
+    internal DiameterStream? DiameterStream { get; set; }
 
 
     #region IDisposable
@@ -60,7 +65,10 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
-        throw new NotImplementedException();
+        while (DiameterStream is null) {
+            await Task.Delay(100, cancellationToken).ConfigureAwait(false);
+        }
+        DiameterStream.WriteMessage(DiameterEncoder.Encode(messageName, parameters));
     }
 
     /// <summary>
@@ -71,7 +79,11 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
-        throw new NotImplementedException();
+        //throw new NotImplementedException();
+        while (DiameterStream is null) {
+            await Task.Delay(100, cancellationToken).ConfigureAwait(false);
+        }
+        return new Tuple<string, AASeqNodes>("", new AASeqNodes());  // TODO
     }
 
 }

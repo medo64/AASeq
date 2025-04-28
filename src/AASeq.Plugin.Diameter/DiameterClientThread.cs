@@ -16,11 +16,13 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
     /// <summary>
     /// Creates new instance.
     /// </summary>
+    /// <param name="pluginClass">Plugin class.</param>
     /// <param name="logger">Logger.</param>
     /// <param name="remote">Remote endpoint.</param>
     /// <param name="capabilityExchangeRequestNodes">Nodes for Capability-Exchange-Request.</param>
     /// <param name="diameterWatchdogRequestNodes">Nodes for Diameter-Watchdog-Request.</param>
-    public DiameterClientThread(ILogger logger, IPEndPoint remote, AASeqNodes capabilityExchangeRequestNodes, AASeqNodes diameterWatchdogRequestNodes) {
+    public DiameterClientThread(Diameter pluginClass, ILogger logger, IPEndPoint remote, AASeqNodes capabilityExchangeRequestNodes, AASeqNodes diameterWatchdogRequestNodes) {
+        PluginClass = pluginClass;
         Logger = logger;
         Remote = remote;
         CapabilityExchangeRequestNodes = capabilityExchangeRequestNodes;
@@ -40,8 +42,11 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
             Name = "DiameterClientThread",
         };
         Thread.Start();
+
+        Thread.Sleep(1000);
     }
 
+    private readonly Diameter PluginClass;
     private readonly ILogger Logger;
     private readonly IPEndPoint Remote;
     private readonly AASeqNodes CapabilityExchangeRequestNodes;
@@ -79,6 +84,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                                 Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (no Result-Code)");
                             } else if (resultCode == 2001) {
                                 Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (DIAMETER_SUCCESS)");
+                                PluginClass.DiameterStream = diameter;
                             } else {
                                 Log.MessageIn(Logger, Remote, $"Capabilities-Exchange-Answer ({resultCode})");
                             }
@@ -87,6 +93,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                         }
                     }
                 } catch (Exception ex) {
+                    PluginClass.DiameterStream = null;
                     if (cancel.IsCancellationRequested) { return; }
                     Log.ReadError(Logger, Remote, ex, ex.Message);
                     Debug.WriteLine($"[AASeq.Plugin.Diameter] {Remote}: {ex.Message}");

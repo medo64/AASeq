@@ -9,6 +9,7 @@ DiameterDictionary {
     Command Capabilities-Exchange code=257 proxiableBit=mustnot               # RFC 3588
     Command Re-Auth               code=258 proxiableBit=may                   # RFC 3588
     Command AA                    code=265 proxiableBit=may                   # RFC 4005
+    Command Diameter-EAP          code=268 proxiableBit=may                   # RFC 4072
     Command Accounting            code=271 proxiableBit=may                   # RFC 3588
     Command Credit-Control        code=272 proxiableBit=may                   # RFC 4006
     Command Abort-Session         code=274 proxiableBit=may                   # RFC 3588
@@ -211,6 +212,7 @@ DiameterDictionary {
     Avp Login-IPv6-Host code=98 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4005
     Avp Framed-IPv6-Route code=99 mandatoryBit=must protectedBit=may mayEncrypt=yes type=UTF8String   # RFC 4005
     Avp Framed-IPv6-Pool code=100 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp EAP-Key-Name code=102 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4072
     Avp Host-IP-Address code=257 mandatoryBit=must protectedBit=may mayEncrypt=no type=Address # RFC 3588
     Avp Auth-Application-Id code=258 mandatoryBit=must protectedBit=may mayEncrypt=no type=Unsigned32  # RFC 3588
     Avp Acct-Application-Id code=259 mandatoryBit=must protectedBit=may mayEncrypt=no type=Unsigned32 # RFC 3588
@@ -655,6 +657,10 @@ DiameterDictionary {
         Enum INTERIM_RECORD code=3
         Enum STOP_RECORD code=4
     }
+    Avp EAP-Payload                code=462 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString    # RFC 4072
+    Avp EAP-Reissued-Payload       code=463 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString    # RFC 4072
+    Avp EAP-Master-Session-Key     code=464 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString    # RFC 4072
+    Avp Accounting-EAP-Auth-Method code=465 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned64     # RFC 4072
     Avp Accounting-Realtime-Required code=483 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Enumerated {  # RFC 3588
         Enum DELIVER_AND_GRANT code=1
         Enum GRANT_AND_STORE code=2

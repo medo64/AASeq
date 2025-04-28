@@ -16,6 +16,7 @@ public sealed partial class Engine : IDisposable {
     /// Creates a new instance.
     /// </summary>
     /// <param name="logger">Logger.</param>
+    /// <param name="pluginManager">Plugin manager.</param>
     /// <param name="document">Document.</param>
     public Engine(ILogger logger, PluginManager pluginManager, AASeqNodes document) {
         ArgumentNullException.ThrowIfNull(document);
