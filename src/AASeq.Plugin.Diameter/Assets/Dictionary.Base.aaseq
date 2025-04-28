@@ -204,6 +204,7 @@ DiameterDictionary {
     Avp Acct-Tunnel-Packets-Lost code=86 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned32   # RFC 4005
     Avp NAS-Port-Id code=87 mandatoryBit=must protectedBit=may mayEncrypt=yes type=UTF8String   # RFC 4005
     Avp Framed-Pool code=88 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4005
+    Avp Chargeable-User-Identity code=89 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 5778
     Avp Tunnel-Client-Auth-Id code=90 mandatoryBit=must protectedBit=may mayEncrypt=yes type=UTF8String   # RFC 4005
     Avp Tunnel-Server-Auth-Id code=91 mandatoryBit=must protectedBit=may mayEncrypt=yes type=UTF8String   # RFC 4005
     Avp Originating-Line-Info code=94 mandatoryBit=may protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4005
@@ -214,6 +215,8 @@ DiameterDictionary {
     Avp Framed-IPv6-Route code=99 mandatoryBit=must protectedBit=may mayEncrypt=yes type=UTF8String   # RFC 4005
     Avp Framed-IPv6-Pool code=100 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4005
     Avp EAP-Key-Name code=102 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4072
+    Avp MIP6-Feature-Vector code=124 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned64   # RFC 5447
+    Avp MIP6-Home-Link-Prefix code=125 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 5447
     Avp Host-IP-Address code=257 mandatoryBit=must protectedBit=may mayEncrypt=no type=Address # RFC 3588
     Avp Auth-Application-Id code=258 mandatoryBit=must protectedBit=may mayEncrypt=no type=Unsigned32  # RFC 3588
     Avp Acct-Application-Id code=259 mandatoryBit=must protectedBit=may mayEncrypt=no type=Unsigned32 # RFC 3588
@@ -436,10 +439,35 @@ DiameterDictionary {
         Enum TLS code=1
     }
     Avp E2E-Sequence code=300 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped   # RFC 3588
+    Avp MIP-Reg-Request code=320 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped   # RFC 4004
+    Avp MIP-Reg-Reply code=321 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4004
+    Avp MIP-MN-AAA-Auth code=322 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped   # RFC 4004
+    Avp MIP-Mobile-Node-Address code=333 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Address   # RFC 4004
+    Avp "MIP-Home-Agent-Address#334" code=334 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Address   # RFC 4004
+    Avp MIP-Candidate-Home-Agent-Host code=336 mandatoryBit=must protectedBit=may mayEncrypt=yes type=DiameterIdentity   # RFC 4004
+    Avp MIP-Feature-Vector code=337 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned32   # RFC 4004
+    Avp MIP-Auth-Input-Data-Length code=338 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned32   # RFC 4004
+    Avp MIP-Authenticator-Length code=339 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned32   # RFC 4004
+    Avp MIP-Authenticator-Offset code=340 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned32   # RFC 4004
+    Avp MIP-MN-AAA-SPI code=341 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned32   # RFC 4004
+    Avp MIP-Filter-Rule code=342 mandatoryBit=must protectedBit=may mayEncrypt=yes type=IPFilterRule   # RFC 4004
+    Avp MIP-Session-Key code=343 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString  # RFC 5778
+    Avp MIP-FA-Challenge code=344 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString   # RFC 4004
+    Avp MIP-Algorithm-Type code=345 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Enumerated {   # RFC 4004
+        Enum HMAC-SHA-1 code=2
+    }
+    Avp MIP-Replay-Mode code=346 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Enumerated {   # RFC 4004
+        Enum NONE code=1
+        Enum TIMESTAMPS code=2
+        Enum NONCES code=3
+    }
+    Avp MIP-Originating-Foreign-AAA code=347 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped   # RFC 4004
+    Avp MIP-Home-Agent-Address code=348 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped   # RFC 5447
     Avp Accounting-Input-Octets code=363 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned64   # RFC 4005
     Avp Accounting-Output-Octets code=364 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned64   # RFC 4005
     Avp Accounting-Input-Packets code=365 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned64   # RFC 4005
     Avp Accounting-Output-Packets code=366 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned64   # RFC 4005
+    Avp MIP-MSA-Lifetime code=367 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned64   # RFC 4004
     Avp NAS-Filter-Rule code=400 mandatoryBit=must protectedBit=may mayEncrypt=yes type=IPFilterRule   # RFC 4005
     Avp Tunneling code=401 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped { # RFC 4005
         Avp Tunnel-Type
@@ -668,6 +696,17 @@ DiameterDictionary {
         Enum GRANT_AND_LOSE code=3
     }
     Avp Accounting-Record-Number code=485 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned32   # RFC 3588
+    Avp MIP6-Agent-Info code=486 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped { # RFC 5447
+        Avp MIP6-Agent-Info-Type
+        Avp MIP6-Agent-Info-Value
+    }
+    Avp MIP-Careof-Address code=487 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Address  # RFC 5778
+    Avp MIP-Authenticator code=488 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString  # RFC 5778
+    Avp MIP-MAC-Mobility-Data code=489 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString  # RFC 5778
+    Avp MIP-Timestamp code=490 mandatoryBit=must protectedBit=may mayEncrypt=yes type=OctetString  # RFC 5778
+    Avp MIP-MN-HA-SPI code=491 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Unsigned32  # RFC 5778
+    Avp MIP-MN-HA-MSA code=492 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped  # RFC 5778
+    Avp Service-Selection code=493 mandatoryBit=must protectedBit=may mayEncrypt=yes type=UTF8String  # RFC 5778
     Avp TMOD-1 code=495 mandatoryBit=must protectedBit=may mayEncrypt=yes type=Grouped { # RFC 5624
         Avp Token-Rate
         Avp Bucket-Depth

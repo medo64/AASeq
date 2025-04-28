@@ -36,7 +36,7 @@ internal static class App {
                     if (node.Name.Equals("Vendor")) {
                         countVendor++;
 
-                        if (node.Value.Value is not string) { WriteError($"Node '{node.Value} is not string."); }
+                        if (node.Value.RawValue is not string) { WriteError($"Node '{node.Value} is not string."); }
                         if ((node.Properties["id"] ?? "").Length == 0) { WriteError($"Unexpected id for '{node.Value}."); }
                         if (!int.TryParse(node.Properties["code"], out var vendorCode)) { WriteError($"Unexpected code for '{node.Value}."); }
                         if (node.Properties.Count != 2) { WriteError($"Unexpected property count for '{node.Value}."); }
@@ -47,7 +47,7 @@ internal static class App {
                     } else if (node.Name.Equals("Application")) {
                         countApplication++;
 
-                        if (node.Value.Value is not string) { WriteError($"Node '{node.Value} is not string."); }
+                        if (node.Value.RawValue is not string) { WriteError($"Node '{node.Value} is not string."); }
                         if (!uint.TryParse(node.Properties["id"], out var appId)) { WriteError($"Unexpected id for '{node.Value}."); }
                         if (node.Properties.Count != 1) { WriteError($"Unexpected property count for '{node.Value}."); }
                         if (node.Nodes.Count != 0) { WriteError($"Unexpected subnode for '{node.Value}."); }
@@ -58,10 +58,10 @@ internal static class App {
                     } else if (node.Name.Equals("Command")) {
                         countCommand++;
 
-                        if (node.Value.Value is not string) { WriteError($"Node '{node.Value} is not string."); }
+                        if (node.Value.RawValue is not string) { WriteError($"Node '{node.Value} is not string."); }
                         if (!int.TryParse(node.Properties["code"], out var commandCode)) { WriteError($"Unexpected code for '{node.Value}."); }
-                        if (node.Properties.Count == 1) {
-                        } else if (node.Properties.Count == 2) {
+                        if (node.Properties.Count == 3) {
+                        } else if (node.Properties.Count == 4) {
                             if (!vendorsPerId.TryGetValue(node.Properties["vendorId"], out var _)) { WriteError($"Unexpected vendorId='{node.Properties["vendor"]}' for '{node.Value}."); }
                         } else {
                             WriteError($"Unexpected property count for '{node.Value}.");
@@ -74,14 +74,13 @@ internal static class App {
                     } else if (node.Name.Equals("Avp")) {
                         countAvp++;
 
-                        if (node.Value.Value is not string) { WriteError($"Node '{node.Value} is not string."); }
+                        if (node.Value.RawValue is not string) { WriteError($"Node '{node.Value} is not string."); }
                         if (!int.TryParse(node.Properties["code"], out var avpCode)) { WriteError($"Unexpected code for '{node.Value}."); }
-                        if (!"must".Equals(node.Properties["vendor"]) && !"mustnot".Equals(node.Properties["vendor"])) { WriteError($"Unexpected vendor={node.Properties["vendor"]} for '{node.Value}."); }
-                        if (!"must".Equals(node.Properties["mandatory"]) && !"may".Equals(node.Properties["mandatory"]) && !"mustnot".Equals(node.Properties["mandatory"])) { WriteError($"Unexpected mandatory={node.Properties["mandatory"]} for '{node.Value}."); }
-                        if (!"must".Equals(node.Properties["protected"]) && !"may".Equals(node.Properties["protected"]) && !"mustnot".Equals(node.Properties["protected"])) { WriteError($"Unexpected protected={node.Properties["protected"]} for '{node.Value}."); }
+                        if (!"must".Equals(node.Properties["mandatoryBit"]) && !"may".Equals(node.Properties["mandatoryBit"]) && !"mustnot".Equals(node.Properties["mandatoryBit"])) { WriteError($"Unexpected mandatory={node.Properties["mandatoryBit"]} for '{node.Value}."); }
+                        if (!"must".Equals(node.Properties["protectedBit"]) && !"may".Equals(node.Properties["protectedBit"]) && !"mustnot".Equals(node.Properties["protectedBit"])) { WriteError($"Unexpected protected={node.Properties["protectedBit"]} for '{node.Value}."); }
                         if (!"yes".Equals(node.Properties["mayEncrypt"]) && !"no".Equals(node.Properties["mayEncrypt"])) { WriteError($"Unexpected mayEncrypt={node.Properties["mayEncrypt"]} for '{node.Value}."); }
-                        if (node.Properties.Count == 6) {
-                        } else if (node.Properties.Count == 7) {
+                        if (node.Properties.Count == 5) {
+                        } else if (node.Properties.Count == 6) {
                             if (!vendorsPerId.TryGetValue(node.Properties["vendorId"], out var _)) { WriteError($"Unexpected vendorId='{node.Properties["vendor"]}' for '{node.Value}."); }
                         } else {
                             WriteError($"Unexpected property count for '{node.Value}.");
