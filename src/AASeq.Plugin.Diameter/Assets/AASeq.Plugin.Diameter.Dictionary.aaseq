@@ -6,6 +6,7 @@ DiameterDictionary {
     Application NASREQ id=1
     Application Mobile-IP id=2
     Application Accounting id=3
+
     Application Cx/Dx id=16777216
     Application Sh/Ph id=16777217
     Application Re id=16777218
@@ -33,6 +34,7 @@ DiameterDictionary {
     Application S6b id=16777272
     Application SLh id=16777291
     Application SGmb id=16777292
+
     Application Relay id=4294967295
 
     Command Capabilities-Exchange abbrev=CE code=257
@@ -45,6 +47,7 @@ DiameterDictionary {
     Command Session-Termination abbrev=ST code=275
     Command Device-Watchdog abbrev=DW code=280
     Command Disconnect-Peer abbrev=DP code=282
+
     Command User-Authorization abbrev=UA code=300
     Command Server-Assignment abbrev=SA code=301
     Command Location-Info abbrev=LI code=302
@@ -68,15 +71,18 @@ DiameterDictionary {
     Command Notify abbrev=NO code=323
     Command ME-Identity-Check abbrev=EC code=324
     Command MIP6 abbrev=MI code=325
+
     Command Provide-Location abbrev=PL code=8388620
     Command Location-Report abbrev=LR code=8388621
     Command LCS-Routing-Info abbrev=RI code=8388622
 
     Avp User-Name code=1 mandatoryBit=must type=UTF8String
     Avp User-Password code=2 mandatoryBit=must type=OctetString
+    Avp CHAP-Password code=3 mandatoryBit=must type=OctetString
     Avp NAS-IP-Address code=4 mandatoryBit=must type=OctetString
     Avp NAS-Port code=5 mandatoryBit=must type=Unsigned32
     Avp Service-Type code=6 mandatoryBit=must type=Enumerated {
+        Enum UNKNOWN code=0
         Enum LOGIN code=1
         Enum FRAMED code=2
         Enum CALLBACK_LOGIN code=3
@@ -94,6 +100,7 @@ DiameterDictionary {
         Enum IAPP_AP_REGISTER code=15
         Enum IAPP_AP_CHECK code=16
         Enum AUTHORIZE_ONLY code=17
+        Enum FRAMED_MANAGEMENT code=18
     }
     Avp Framed-Protocol code=7 mandatoryBit=must type=Enumerated {
         Enum PPP code=1
@@ -102,9 +109,17 @@ DiameterDictionary {
         Enum GANDALF_SLML code=4
         Enum XYLOGICS_IPX_SLIP code=5
         Enum X75_SYNC code=6
+        Enum GPRS_PDP_CONTEXT code=7
+        Enum ASCEND_ARA code=255
+        Enum MPP code=256
+        Enum EURAW code=257
+        Enum EUUI code=258
+        Enum X25 code=259
+        Enum COMB code=260
+        Enum FR code=261
     }
-    Avp Framed-IP-Address code=8 mandatoryBit=must type=OctetString
-    Avp Framed-IP-Netmask code=9 mandatoryBit=must type=OctetString
+    Avp Framed-IP-Address code=8 mandatoryBit=must type=Address
+    Avp Framed-IP-Netmask code=9 mandatoryBit=must type=Address
     Avp Framed-Routing code=10 mandatoryBit=must type=Enumerated {
         Enum NONE code=0
         Enum SEND_ROUTING_PACKETS code=1
@@ -119,7 +134,7 @@ DiameterDictionary {
         Enum IPX_HEADER code=2
         Enum STAC_LZS code=3
     }
-    Avp Login-IP-Host code=14 mandatoryBit=must type=OctetString
+    Avp Login-IP-Host code=14 mandatoryBit=must type=Address
     Avp Login-Service code=15 mandatoryBit=must type=Enumerated {
         Enum TELNET code=0
         Enum RLOGIN code=1
@@ -138,8 +153,13 @@ DiameterDictionary {
     Avp Framed-IPX-Network code=23 mandatoryBit=must type=UTF8String
     Avp State code=24 mandatoryBit=must type=OctetString
     Avp Class code=25 mandatoryBit=must type=OctetString
+    Avp Vendor-Specific code=26 mandatoryBit=must type=Unsigned32
     Avp Session-Timeout code=27 mandatoryBit=must type=Unsigned32
     Avp Idle-Timeout code=28 mandatoryBit=must type=Unsigned32
+    Avp Termination-Action code=29 mandatoryBit=must type=Enumerated {
+        Enum DEFAULT code=0
+        Enum RADIUS_REQUEST code=1
+    }
     Avp Called-Station-Id code=30 mandatoryBit=must type=UTF8String
     Avp Calling-Station-Id code=31 mandatoryBit=must type=UTF8String
     Avp NAS-Identifier code=32 mandatoryBit=must type=UTF8String
@@ -150,18 +170,73 @@ DiameterDictionary {
     Avp Framed-Appletalk-Link code=37 mandatoryBit=must type=Unsigned32
     Avp Framed-Appletalk-Network code=38 mandatoryBit=must type=Unsigned32
     Avp Framed-Appletalk-Zone code=39 mandatoryBit=must type=OctetString
+    Avp Acct-Status-Type code=40 mandatoryBit=may type=Enumerated {
+        Enum START code=1
+        Enum STOP code=2
+        Enum INTERIM_UPDATE code=3
+        Enum MODEM_START code=4
+        Enum MODEM_STOP code=5
+        Enum CANCEL code=6
+        Enum ACCOUNTING_ON code=7
+        Enum ACCOUNTING_OFF code=8
+        Enum TUNNEL_START code=9
+        Enum TUNNEL_STOP code=10
+        Enum TUNNEL_REJECT code=11
+        Enum TUNNEL_LINK_START code=12
+        Enum TUNNEL_LINK_STOP code=13
+        Enum TUNNEL_LINK_REJECTF code=14
+        Enum FAILED code=15
+    }
     Avp Acct-Delay-Time code=41 mandatoryBit=must type=Unsigned32
+    Avp Acct-Input-Octets code=42 mandatoryBit=may type=Unsigned32
+    Avp Acct-Output-Octets code=43 mandatoryBit=may type=Unsigned32
     Avp Accounting-Session-Id code=44 mandatoryBit=must type=OctetString
     Avp Acct-Authentic code=45 mandatoryBit=must type=Enumerated {
+        Enum NONE code=0
         Enum RADIUS code=1
         Enum LOCAL code=2
         Enum REMOTE code=3
         Enum DIAMETER code=4
     }
     Avp Acct-Session-Time code=46 mandatoryBit=must type=Unsigned32
+    Avp Acct-Input-Packets code=47 mandatoryBit=may type=Integer32
+    Avp Acct-Output-Packets code=48 mandatoryBit=may type=Integer32
+    Avp Acct-Terminate-Cause code=49 mandatoryBit=may type=Enumerated {
+        Enum USER_REQUEST code=1
+        Enum LOST_CARRIER code=2
+        Enum LOST_SERVICE code=3
+        Enum IDLE_TIMEOUT code=4
+        Enum SESSION_TIMEOUT code=5
+        Enum ADMIN_RESET code=6
+        Enum ADMIN_REBOOT code=7
+        Enum PORT_ERROR code=8
+        Enum NAS_ERROR code=9
+        Enum NAS_REQUEST code=10
+        Enum NAS_REBOOT code=11
+        Enum PORT_UNNEEDED code=12
+        Enum PORT_PREEMPTED code=13
+        Enum PORT_SUSPENDED code=14
+        Enum SERVICE_UNAVAILABLE code=15
+        Enum CALLBACK code=16
+        Enum USER_ERROR code=17
+        Enum HOST_REQUEST code=18
+        Enum SUPPLICANT_RESTART code=19
+        Enum REAUTHENTICATION_FAILURE code=20
+        Enum PORT_REINITIALIZED code=21
+        Enum PORT_ADMINISTRATIVELY_DISABLED code=22
+    }
     Avp Acct-Multi-Session-Id code=50 mandatoryBit=must type=UTF8String
     Avp Acct-Link-Count code=51 mandatoryBit=must type=Unsigned32
+    Avp Acct-Input-Gigawords code=52 mandatoryBit=may type=Integer32
+    Avp Acct-Output-Gigawords code=53 mandatoryBit=may type=Integer32
     Avp Event-Timestamp code=55 mandatoryBit=must type=Time
+    Avp Egress-VLANID code=56 mandatoryBit=must type=OctetString
+    Avp Ingress-Filters code=57 mandatoryBit=must type=Enumerated {
+        Enum ENABLED code=1
+        Enum DISABLED code=2
+    }
+    Avp Egress-VLAN-Name code=58 mandatoryBit=must type=UTF8String
+    Avp User-Priority-Table code=59 mandatoryBit=must type=OctetString
     Avp CHAP-Challenge code=60 mandatoryBit=must type=OctetString
     Avp NAS-Port-Type code=61 mandatoryBit=must type=Enumerated {
         Enum ASYNC code=0
@@ -173,11 +248,11 @@ DiameterDictionary {
         Enum PIAFS code=6
         Enum HDLC_CLEAR_CHANNEL code=7
         Enum X25 code=8
-        Enum 5 code=9
+        Enum X75 code=9
         Enum G3_FAX code=10
         Enum SDSL code=11
-        Enum ADSL-CAP code=12
-        Enum ADSL-DMT code=13
+        Enum ADSL_CAP code=12
+        Enum ADSL_DMT code=13
         Enum IDSL code=14
         Enum ETHERNET code=15
         Enum XDSL code=16
@@ -250,6 +325,8 @@ DiameterDictionary {
     }
     Avp Connect-Info code=77 mandatoryBit=must type=UTF8String
     Avp Configuration-Token code=78 mandatoryBit=must type=OctetString
+    Avp EAP-Message code=79 mandatoryBit=may type=OctetString
+    Avp Signature code=80 mandatoryBit=may type=OctetString
     Avp Tunnel-Private-Group-Id code=81 mandatoryBit=must type=OctetString
     Avp Tunnel-Assignment-Id code=82 mandatoryBit=must type=OctetString
     Avp Tunnel-Preference code=83 mandatoryBit=must type=Unsigned32
@@ -261,24 +338,95 @@ DiameterDictionary {
     Avp Chargeable-User-Identity code=89 mandatoryBit=must type=OctetString
     Avp Tunnel-Client-Auth-Id code=90 mandatoryBit=must type=UTF8String
     Avp Tunnel-Server-Auth-Id code=91 mandatoryBit=must type=UTF8String
+    Avp RADIUS-NAS-Filter-Rule code=92 mandatoryBit=must type=UTF8String
     Avp Originating-Line-Info code=94 mandatoryBit=may type=OctetString
     Avp NAS-IPv6-Address code=95 mandatoryBit=must type=OctetString
     Avp Framed-Interface-Id code=96 mandatoryBit=must type=Unsigned64
     Avp Framed-IPv6-Prefix code=97 mandatoryBit=must type=OctetString
     Avp Login-IPv6-Host code=98 mandatoryBit=must type=OctetString
     Avp Framed-IPv6-Route code=99 mandatoryBit=must type=UTF8String
+
     Avp Framed-IPv6-Pool code=100 mandatoryBit=must type=OctetString
+    Avp Error-Cause code=101 mandatoryBit=may type=Enumerated {
+        Enum DIAMETER_COMMON_MESSAGES code=0
+        Enum RESIDUAL_SESSION_CONTEXT_REMOVED code=201
+        Enum "INVALID_EAP_PACKET_(IGNORED)" code=202
+        Enum UNSUPPORTED_ATTRIBUTE code=401
+        Enum MISSING_ATTRIBUTE code=402
+        Enum NAS_IDENTIFICATION_MISMATCH code=403
+        Enum INVALID_REQUEST code=404
+        Enum UNSUPPORTED_SERVICE code=405
+        Enum UNSUPPORTED_EXTENSION code=406
+        Enum INVALID_ATTRIBUTE_VALUE code=407
+        Enum ADMINISTRATIVELY_PROHIBITED code=501
+        Enum "REQUEST_NOT_ROUTABLE_(PROXY)" code=502
+        Enum SESSION_CONTEXT_NOT_FOUND code=503
+        Enum SESSION_CONTEXT_NOT_REMOVABLE code=504
+        Enum OTHER_PROXY_PROCESSING_ERROR code=505
+        Enum RESOURCES_UNAVAILABLE code=506
+        Enum REQUEST_INITIATED code=507
+        Enum MULTIPLE_SESSION_SELECTION_UNSUPPORTED code=508
+    }
     Avp EAP-Key-Name code=102 mandatoryBit=must type=OctetString
+    Avp Digest-Response code=103 mandatoryBit=may type=UTF8String
+    Avp Digest-Realm code=104 mandatoryBit=may type=UTF8String
+    Avp Digest-Nonce code=105 mandatoryBit=may type=UTF8String
+    Avp Digest-Response-Auth code=106 mandatoryBit=may type=UTF8String
+    Avp Digest-Nextnonce code=107 mandatoryBit=may type=UTF8String
+    Avp Digest-Method code=108 mandatoryBit=may type=UTF8String
+    Avp Digest-URI code=109 mandatoryBit=may type=UTF8String
+    Avp Digest-Qop code=110 mandatoryBit=may type=UTF8String
+    Avp Digest-Algorithm code=111 mandatoryBit=may type=UTF8String
+    Avp Digest-Entity-Body-Hash code=112 mandatoryBit=may type=UTF8String
+    Avp Digest-CNonce code=113 mandatoryBit=may type=UTF8String
+    Avp Digest-Nonce-Count code=114 mandatoryBit=may type=UTF8String
+    Avp Digest-Username code=115 mandatoryBit=may type=UTF8String
+    Avp Digest-Opaque code=116 mandatoryBit=may type=UTF8String
+    Avp Digest-Auth-Param code=117 mandatoryBit=may type=UTF8String
+    Avp Digest-AKA-Auts code=118 mandatoryBit=may type=UTF8String
+    Avp Digest-Domain code=119 mandatoryBit=may type=UTF8String
+    Avp Digest-Stale code=120 mandatoryBit=may type=UTF8String
+    Avp Digest-HA1 code=121 mandatoryBit=may type=UTF8String
+    Avp SIP-AOR code=122 mandatoryBit=may type=UTF8String
+    Avp Delegated-IPv6-Prefix code=123 mandatoryBit=may type=OctetString
     Avp MIP6-Feature-Vector code=124 mandatoryBit=must type=Unsigned64
     Avp MIP6-Home-Link-Prefix code=125 mandatoryBit=must type=OctetString
+    Avp Operator-Name code=126 mandatoryBit=may type=OctetString
+    Avp Location-Information code=127 mandatoryBit=may type=OctetString
+    Avp Location-Data code=128 mandatoryBit=may type=OctetString
+    Avp Basic-Location-Policy-Rules code=129 mandatoryBit=may type=OctetString
+    Avp Extended-Location-Policy-Rules code=130 mandatoryBit=may type=OctetString
+    Avp Location-Capable code=131 mandatoryBit=may type=OctetString
+    Avp Requested-Location-Info code=132 mandatoryBit=may type=OctetString
+    Avp Framed-Management-Protocol code=133 mandatoryBit=must type=Enumerated {
+        Enum SNMP code=1
+        Enum WEB_BASED code=2
+        Enum NETCONF code=3
+        Enum FTP code=4
+        Enum TFTP code=5
+        Enum SFTP code=6
+        Enum RCP code=7
+        Enum SCP code=8
+    }
+    Avp Management-Transport-Protection code=134 mandatoryBit=must type=Enumerated {
+        Enum NO_PROTECTION code=1
+        Enum INTEGRITY_PROTECTION code=2
+        Enum INTEGRITY_CONFIDENTIALITY_PROTECTION code=3
+    }
+    Avp Management-Policy-Id code=135 mandatoryBit=may type=UTF8String
+    Avp Management-Privilege-Level code=136 mandatoryBit=must type=Integer32
+    Avp PKM-SS-Cert code=137 mandatoryBit=may type=OctetString
+    Avp PKM-CA-Cert code=138 mandatoryBit=may type=OctetString
+    Avp PKM-Config-Settings code=139 mandatoryBit=may type=OctetString
+    Avp PKM-Cryptosuite-List code=140 mandatoryBit=may type=OctetString
+    Avp PPKM-SAID code=141 mandatoryBit=may type=OctetString
+    Avp PKM-SA-Descriptor code=142 mandatoryBit=may type=OctetString
+    Avp PKM-Auth-Key code=143 mandatoryBit=may type=OctetString
+
     Avp Host-IP-Address code=257 mandatoryBit=must type=Address
     Avp Auth-Application-Id code=258 mandatoryBit=must type=Unsigned32
     Avp Acct-Application-Id code=259 mandatoryBit=must type=Unsigned32
-    Avp Vendor-Specific-Application-Id code=260 mandatoryBit=must type=Grouped {
-        Avp Vendor-Id
-        Avp Auth-Application-Id
-        Avp Acct-Application-Id
-    }
+    Avp Vendor-Specific-Application-Id code=260 mandatoryBit=must type=Grouped
     Avp Redirect-Host-Usage code=261 mandatoryBit=must type=Enumerated {
         Enum DONT_CACHE code=0
         Enum ALL_SESSION code=1
@@ -298,6 +446,13 @@ DiameterDictionary {
         Enum DIAMETER_MULTI_ROUND_AUTH code=1001
         Enum DIAMETER_SUCCESS code=2001
         Enum DIAMETER_LIMITED_SUCCESS code=2002
+        Enum DIAMETER_FIRST_REGISTRATION code=2003
+        Enum DIAMETER_SUBSEQUENT_REGISTRATION code=2004
+        Enum DIAMETER_UNREGISTERED_SERVICE code=2005
+        Enum DIAMETER_SUCCESS_SERVER_NAME_NOT_STORED code=2006
+        Enum DIAMETER_SERVER_SELECTION code=2007
+        Enum DIAMETER_SUCCESS_AUTH_SENT_SERVER_NOT_STORED code=2008
+        Enum DIAMETER_SUCCESS_RELOCATE_HA code=2009
         Enum DIAMETER_COMMAND_UNSUPPORTED code=3001
         Enum DIAMETER_UNABLE_TO_DELIVER code=3002
         Enum DIAMETER_REALM_NOT_SERVED code=3003
@@ -308,12 +463,20 @@ DiameterDictionary {
         Enum DIAMETER_INVALID_HDR_BITS code=3008
         Enum DIAMETER_INVALID_AVP_BITS code=3009
         Enum DIAMETER_UNKNOWN_PEER code=3010
+        Enum DIAMETER_REALM_REDIRECT_INDICATION code=3011
         Enum DIAMETER_AUTHENTICATION_REJECTED code=4001
         Enum DIAMETER_OUT_OF_SPACE code=4002
-        Enum ELECTION_LOST code=4003
+        Enum DIAMETER_ELECTION_LOST code=4003
+        Enum DIAMETER_ERROR_MIP_REPLY_FAILURE code=4005
+        Enum DIAMETER_ERROR_HA_NOT_AVAILABLE code=4006
+        Enum DIAMETER_ERROR_BAD_KEY code=4007
+        Enum DIAMETER_ERROR_MIP_FILTER_NOT_SUPPORTED code=4008
         Enum DIAMETER_END_USER_SERVICE_DENIED code=4010
         Enum DIAMETER_CREDIT_CONTROL_NOT_APPLICABLE code=4011
         Enum DIAMETER_CREDIT_LIMIT_REACHED code=4012
+        Enum DIAMETER_USER_NAME_REQUIRED code=4013
+        Enum RESOURCE_FAILURE code=4014
+        Enum "DIAMETER_END_USER_SERVICE_DENIED#4241" code=4241
         Enum DIAMETER_AVP_UNSUPPORTED code=5001
         Enum DIAMETER_UNKNOWN_SESSION_ID code=5002
         Enum DIAMETER_AUTHORIZATION_REJECTED code=5003
@@ -331,8 +494,24 @@ DiameterDictionary {
         Enum DIAMETER_INVALID_MESSAGE_LENGTH code=5015
         Enum DIAMETER_INVALID_AVP_BIT_COMBO code=5016
         Enum DIAMETER_NO_COMMON_SECURITY code=5017
+        Enum DIAMETER_RADIUS_AVP_UNTRANSLATABLE code=5018
+        Enum DIAMETER_ERROR_NO_FOREIGN_HA_SERVICE code=5024
+        Enum DIAMETER_ERROR_END_TO_END_MIP_KEY_ENCRYPTION code=5025
         Enum DIAMETER_USER_UNKNOWN code=5030
         Enum DIAMETER_RATING_FAILED code=5031
+        Enum DIAMETER_ERROR_USER_UNKNOWN code=5032
+        Enum DIAMETER_ERROR_IDENTITIES_DONT_MATCH code=5033
+        Enum DIAMETER_ERROR_IDENTITY_NOT_REGISTERED code=5034
+        Enum DIAMETER_ERROR_ROAMING_NOT_ALLOWED code=5035
+        Enum DIAMETER_ERROR_IDENTITY_ALREADY_REGISTERED code=5036
+        Enum DIAMETER_ERROR_AUTH_SCHEME_NOT_SUPPORTED code=5037
+        Enum DIAMETER_ERROR_IN_ASSIGNMENT_TYPE code=5038
+        Enum DIAMETER_ERROR_TOO_MUCH_DATA code=5039
+        Enum DIAMETER_ERROR_NOT_SUPPORTED_USER_DATA code=5040
+        Enum DIAMETER_ERROR_MIP6_AUTH_MODE code=5041
+        Enum INSUFFICIENT_CLASSIFIERS code=5047
+        Enum DIAMETER_ERROR_EAP_CODE_UNKNOWN code=5048
+        Enum DIAMETER_END_USER_NOT_FOUND code=5241
     }
     Avp Product-Name code=269 mandatoryBit=mustnot type=UTF8String
     Avp Session-Binding code=270 mandatoryBit=must type=Unsigned32 {
@@ -357,21 +536,19 @@ DiameterDictionary {
         Enum AUTHORIZE_ONLY code=2
         Enum AUTHORIZE_AUTHENTICATE code=3
     }
+    Avp Alternate-Peer code=275 mandatoryBit=must type=DiameterIdentity
     Avp Auth-Grace-Period code=276 mandatoryBit=must type=Unsigned32
     Avp Auth-Session-State code=277 mandatoryBit=must type=Enumerated {
         Enum STATE_MAINTAINED code=0
         Enum NO_STATE_MAINTAINED code=1
     }
-    Avp Failed-AVP code=279 mandatoryBit=must type=Grouped
     Avp Origin-State-Id code=278 mandatoryBit=must type=Unsigned32
+    Avp Failed-AVP code=279 mandatoryBit=must type=Grouped
     Avp Proxy-Host code=280 mandatoryBit=must type=DiameterIdentity
     Avp Error-Message code=281 mandatoryBit=mustnot type=UTF8String
     Avp Route-Record code=282 mandatoryBit=must type=DiameterIdentity
     Avp Destination-Realm code=283 mandatoryBit=must type=DiameterIdentity
-    Avp Proxy-Info code=284 mandatoryBit=must type=Grouped {
-        Avp Proxy-Host
-        Avp Proxy-State
-    }
+    Avp Proxy-Info code=284 mandatoryBit=must type=Grouped
     Avp Re-Auth-Request-Type code=285 mandatoryBit=must type=Enumerated {
         Enum AUTHORIZE_ONLY code=0
         Enum AUTHORIZE_AUTHENTICATE code=1
@@ -414,11 +591,8 @@ DiameterDictionary {
         Enum PORT_DISABLED code=32
     }
     Avp Origin-Realm code=296 mandatoryBit=must type=DiameterIdentity
-    Avp Experimental-Result code=297 mandatoryBit=must type=Grouped {
-        Avp Vendor-Id
-        Avp Experimental-Result-Code
-    }
-    Avp Experimental-Result-Code code=298 mandatoryBit=must type=Unsigned32 {
+    Avp Experimental-Result code=297 mandatoryBit=must type=Grouped
+    Avp Experimental-Result-Code code=298 mandatoryBit=must type=Enumerated {
         Enum DIAMETER_FIRST_REGISTRATION code=2001
         Enum DIAMETER_SUBSEQUENT_REGISTRATION code=2002
         Enum DIAMETER_UNREGISTERED_SERVICE code=2003
@@ -429,7 +603,10 @@ DiameterDictionary {
         Enum DIAMETER_ERROR_OUT_OF_RESOURCES code=4121
         Enum DIAMETER_PCC_BEARER_EVENT code=4141
         Enum DIAMETER_BEARER_EVENT code=4142
+        Enum DIAMETER_AN_GW_FAILED code=4143
+        Enum DIAMETER_PENDING_TRANSACTION code=4144
         Enum DIAMETER_AUTHENTICATION_DATA_UNAVAILABLE code=4181
+        Enum DIAMETER_ERROR_CAMEL_SUBSCRIPTION_PRESENT code=4182
         Enum DIAMETER_ERROR_ABSENT_USER code=4201
         Enum DIAMETER_ERROR_UNREACHABLE_USER code=4221
         Enum DIAMETER_ERROR_SUSPENDED_USER code=4222
@@ -446,7 +623,9 @@ DiameterDictionary {
         Enum DIAMETER_ERROR_IN_ASSIGNMENT_TYPE code=5007
         Enum DIAMETER_ERROR_TOO_MUCH_DATA code=5008
         Enum DIAMETER_ERROR_NOT_SUPPORTED_USER_DATA code=5009
+        Enum DIAMETER_MISSING_USER_ID code=5010
         Enum DIAMETER_ERROR_FEATURE_UNSUPPORTED code=5011
+        Enum DIAMETER_ERROR_SERVING_NODE_FEATURE_UNSUPPORTED code=5012
         Enum DIAMETER_ERROR_USER_NO_WLAN_SUBSCRIPTION code=5041
         Enum DIAMETER_ERROR_W_APN_UNUSED_BY_USER code=5042
         Enum DIAMETER_ERROR_NO_ACCESS_INDEPENDENT_SUBSCRIPTION code=5043
@@ -454,6 +633,12 @@ DiameterDictionary {
         Enum DIAMETER_ERROR_UNSUITABLE_NETWORK code=5045
         Enum INVALID_SERVICE_INFORMATION code=5061
         Enum FILTER_RESTRICTIONS code=5062
+        Enum REQUESTED_SERVICE_NOT_AUTHORIZED code=5063
+        Enum DUPLICATED_AF_SESSION code=5064
+        Enum IP_CAN_SESSION_NOT_AVAILABLE code=5065
+        Enum UNAUTHORIZED_NON_EMERGENCY_SESSION code=5066
+        Enum UNAUTHORIZED_SPONSORED_DATA_CONNECTIVITY code=5067
+        Enum TEMPORARY_NETWORK_FAILURE code=5068
         Enum DIAMETER_ERROR_USER_DATA_NOT_RECOGNIZED code=5100
         Enum DIAMETER_ERROR_OPERATION_NOT_ALLOWED code=5101
         Enum DIAMETER_ERROR_USER_DATA_CANNOT_BE_READ code=5102
@@ -474,6 +659,8 @@ DiameterDictionary {
         Enum DIAMETER_ERROR_TRAFFIC_MAPPING_INFO_REJECTED code=5144
         Enum DIAMETER_QOS_RULE_EVENT code=5145
         Enum DIAMETER_ERROR_CONFLICTING_REQUEST code=5147
+        Enum DIAMETER_ADC_RULE_EVENT code=5148
+        Enum DIAMETER_ERROR_NBIFOM_NOT_AUTHORIZED code=5149
         Enum DIAMETER_ERROR_IMPI_UNKNOWN code=5401
         Enum DIAMETER_ERROR_NOT_AUTHORIZED code=5402
         Enum DIAMETER_ERROR_TRANSACTION_IDENTIFIER_INVALID code=5403
@@ -484,14 +671,92 @@ DiameterDictionary {
         Enum DIAMETER_ERROR_USER_NO_NON_3GPP_SUBSCRIPTION code=5450
         Enum DIAMETER_ERROR_USER_NO_APN_SUBSCRIPTION code=5451
         Enum DIAMETER_ERROR_RAT_TYPE_NOT_ALLOWED code=5452
-        Enum _SUBSESSION code=5470
+        Enum DIAMETER_ERROR_LATE_OVERLAPPING_REQUEST code=5453
+        Enum DIAMETER_ERROR_TIMED_OUT_REQUEST code=5454
+        Enum DIAMETER_ERROR_SUBSESSION code=5470
+        Enum DIAMETER_ERROR_ONGOING_SESSION_ESTABLISHMENT code=5471
         Enum DIAMETER_ERROR_UNAUTHORIZED_REQUESTING_NETWORK code=5490
+        Enum DIAMETER_ERROR_UNAUTHORIZED_REQUESTING_ENTITY code=5510
+        Enum DIAMETER_ERROR_UNAUTHORIZED_SERVICE code=5511
+        Enum DIAMETER_ERROR_REQUESTED_RANGE_IS_NOT_ALLOWED code=5512
+        Enum DIAMETER_ERROR_CONFIGURATION_EVENT_STORAGE_NOT_SUCCESSFUL code=5513
+        Enum DIAMETER_ERROR_CONFIGURATION_EVENT_NON_EXISTANT code=5514
+        Enum DIAMETER_ERROR_SCEF_REFERENCE_ID_UNKNOWN code=5515
+        Enum DIAMETER_ERROR_INVALID_SME_ADDRESS code=5530
+        Enum DIAMETER_ERROR_SC_CONGESTION code=5531
+        Enum DIAMETER_ERROR_SM_PROTOCOL code=5532
+        Enum DIAMETER_ERROR_TRIGGER_REPLACE_FAILURE code=5533
+        Enum DIAMETER_ERROR_TRIGGER_RECALL_FAILURE code=5534
+        Enum DIAMETER_ERROR_ORIGINAL_MESSAGE_NOT_PENDING code=5535
+        Enum DIAMETER_ERROR_USER_BUSY_FOR_MT_SMS code=5551
+        Enum DIAMETER_ERROR_FACILITY_NOT_SUPPORTED code=5552
+        Enum DIAMETER_ERROR_ILLEGAL_USER code=5553
+        Enum DIAMETER_ERROR_ILLEGAL_EQUIPMENT code=5554
+        Enum DIAMETER_ERROR_SM_DELIVERY_FAILURE code=5555
+        Enum DIAMETER_ERROR_SERVICE_NOT_SUBSCRIBED code=5556
+        Enum DIAMETER_ERROR_SERVICE_BARRED code=5557
+        Enum DIAMETER_ERROR_MWD_LIST_FULL code=5558
+        Enum DIAMETER_ERROR_UNKNOWN_POLICY_COUNTERS code=5570
+        Enum DIAMETER_ERROR_ORIGIN_ALUID_UNKNOWN code=5590
+        Enum DIAMETER_ERROR_TARGET_ALUID_UNKNOWN code=5591
+        Enum DIAMETER_ERROR_PFID_UNKNOWN code=5592
+        Enum DIAMETER_ERROR_APP_REGISTER_REJECT code=5593
+        Enum DIAMETER_ERROR_PROSE_MAP_REQUEST_DISALLOWED code=5594
+        Enum DIAMETER_ERROR_MAP_REQUEST_REJECT code=5595
+        Enum DIAMETER_ERROR_REQUESTING_RPAUID_UNKNOWN code=5596
+        Enum DIAMETER_ERROR_UNKNOWN_OR_INVALID_TARGET_SET code=5597
+        Enum DIAMETER_ERROR_MISSING_APPLICATION_DATA code=5598
+        Enum DIAMETER_ERROR_AUTHORIZATION_REJECT code=5599
+        Enum DIAMETER_ERROR_DISCOVERY_NOT_PERMITTED code=5600
+        Enum DIAMETER_ERROR_TARGET_RPAUID_UNKNOWN code=5601
+        Enum DIAMETER_ERROR_INVALID_APPLICATION_DATA code=5602
+        Enum DIAMETER_ERROR_UNKNOWN_PROSE_SUBSCRIPTION code=5610
+        Enum PROSE_NOT_ALLOWED code=5611
+        Enum DIAMETER_ERROR_UE_LOCATION_UNKNOWN code=5612
+        Enum DIAMETER_ERROR_NO_ASSOCIATED_DISCOVERY_FILTER code=5630
+        Enum DIAMETER_ERROR_ANNOUNCING_UNAUTHORIZED_IN_PLMN code=5631
+        Enum DIAMETER_ERROR_INVALID_APPLICATION_CODE code=5632
+        Enum DIAMETER_ERROR_PROXIMITY_UNAUTHORIZED code=5633
+        Enum DIAMETER_ERROR_PROXIMITY_REJECTED code=5634
+        Enum DIAMETER_ERROR_NO_PROXIMITY_REQUEST code=5635
+        Enum DIAMETER_ERROR_UNAUTHORIZED_SERVICE_IN_THIS_PLMN code=5636
+        Enum DIAMETER_ERROR_PROXIMITY_CANCELLED code=5637
+        Enum DIAMETER_ERROR_INVALID_TARGET_PDUID code=5638
+        Enum DIAMETER_ERROR_INVALID_TARGET_RPAUID code=5639
+        Enum DIAMETER_ERROR_NO_ASSOCIATED_RESTRICTED_CODE code=5640
+        Enum DIAMETER_ERROR_INVALID_DISCOVERY_TYPE code=5641
+        Enum DIAMETER_ERROR_REQUESTED_LOCATION_NOT_SERVED code=5650
+        Enum DIAMETER_ERROR_INVALID_EPS_BEARER code=5651
+        Enum DIAMETER_ERROR_NIDD_CONFIGURATION_NOT_AVAILABLE code=5652
+        Enum DIAMETER_ERROR_USER_TEMPORARILY_UNREACHABLE code=5653
+        Enum DIAMETER_ERROR_UNKNKOWN_DATA code=5670
+        Enum DIAMETER_ERROR_REQUIRED_KEY_NOT_PROVIDED code=5671
+        Enum DIAMETER_ERROR_UNKNOWN_V2X_SUBSCRIPTION code=5690
+        Enum DIAMETER_ERROR_V2X_NOT_ALLOWED code=5691
     }
     Avp Inband-Security-Id code=299 mandatoryBit=must type=Enumerated {
         Enum NO_INBAND_SECURITY code=0
         Enum TLS code=1
     }
     Avp E2E-Sequence code=300 mandatoryBit=must type=Grouped
+    Avp DRMP code=301 mandatoryBit=may type=Enumerated {
+        Enum PRIORITY_0 code=0
+        Enum PRIORITY_1 code=1
+        Enum PRIORITY_2 code=2
+        Enum PRIORITY_3 code=3
+        Enum PRIORITY_4 code=4
+        Enum PRIORITY_5 code=5
+        Enum PRIORITY_6 code=6
+        Enum PRIORITY_7 code=7
+        Enum PRIORITY_8 code=8
+        Enum PRIORITY_9 code=9
+        Enum PRIORITY_10 code=10
+        Enum PRIORITY_11 code=11
+        Enum PRIORITY_12 code=12
+        Enum PRIORITY_13 code=13
+        Enum PRIORITY_14 code=14
+        Enum PRIORITY_15 code=15
+    }
     Avp MIP-Reg-Request code=320 mandatoryBit=must type=Grouped
     Avp MIP-Reg-Reply code=321 mandatoryBit=must type=OctetString
     Avp MIP-MN-AAA-Auth code=322 mandatoryBit=must type=Grouped
@@ -521,6 +786,7 @@ DiameterDictionary {
     Avp Accounting-Input-Packets code=365 mandatoryBit=must type=Unsigned64
     Avp Accounting-Output-Packets code=366 mandatoryBit=must type=Unsigned64
     Avp MIP-MSA-Lifetime code=367 mandatoryBit=must type=Unsigned64
+
     Avp NAS-Filter-Rule code=400 mandatoryBit=must type=IPFilterRule
     Avp Tunneling code=401 mandatoryBit=must type=Grouped {
         Avp Tunnel-Type
@@ -732,16 +998,16 @@ DiameterDictionary {
     }
     Avp User-Equipment-Info-Value code=460 mandatoryBit=may type=OctetString
     Avp Service-Context-Id code=461 mandatoryBit=must type=UTF8String
+    Avp EAP-Payload code=462 mandatoryBit=must type=OctetString
+    Avp EAP-Reissued-Payload code=463 mandatoryBit=must type=OctetString
+    Avp EAP-Master-Session-Key code=464 mandatoryBit=must type=OctetString
+    Avp Accounting-EAP-Auth-Method code=465 mandatoryBit=must type=Unsigned64
     Avp Accounting-Record-Type code=480 mandatoryBit=must type=Enumerated {
         Enum EVENT_RECORD code=1
         Enum START_RECORD code=2
         Enum INTERIM_RECORD code=3
         Enum STOP_RECORD code=4
     }
-    Avp EAP-Payload code=462 mandatoryBit=must type=OctetString
-    Avp EAP-Reissued-Payload code=463 mandatoryBit=must type=OctetString
-    Avp EAP-Master-Session-Key code=464 mandatoryBit=must type=OctetString
-    Avp Accounting-EAP-Auth-Method code=465 mandatoryBit=must type=Unsigned64
     Avp Accounting-Realtime-Required code=483 mandatoryBit=must type=Enumerated {
         Enum DELIVER_AND_GRANT code=1
         Enum GRANT_AND_STORE code=2
@@ -770,6 +1036,7 @@ DiameterDictionary {
     Avp Bucket-Depth code=497 mandatoryBit=must type=Float32
     Avp Peak-Traffic-Rate code=498 mandatoryBit=must type=Float32
     Avp Minimum-Policed-Unit code=499 mandatoryBit=must type=Unsigned32
+
     Avp Maximum-Packet-Size code=500 mandatoryBit=must type=Unsigned32
     Avp TMOD-2 code=501 mandatoryBit=must type=Grouped {
         Avp Token-Rate
@@ -1127,6 +1394,7 @@ DiameterDictionary {
     Avp Sponsored-Connectivity-Data code=530 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Sponsor-Identity code=531 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Application-Service-Provider-Identity code=532 mandatoryBit=must type=OctetString vendor=3GPP
+
     Avp Visited-Network-Identifier code=600 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Public-Identity code=601 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Server-Name code=602 mandatoryBit=must type=UTF8String vendor=3GPP
@@ -1180,6 +1448,7 @@ DiameterDictionary {
     Avp Session-Priority code=650 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp Identity-with-Emergency-Registration code=651 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Priviledged-Sender-Indication code=652 mandatoryBit=must type=Enumerated vendor=3GPP
+
     Avp User-Identity code=700 mandatoryBit=must type=Grouped vendor=3GPP
     Avp MSISDN code=701 mandatoryBit=must type=OctetString vendor=3GPP
     Avp User-Data code=702 mandatoryBit=must type=OctetString vendor=3GPP
@@ -1198,6 +1467,7 @@ DiameterDictionary {
     Avp Repository-Data-ID code=715 mandatoryBit=must type=Grouped vendor=3GPP
     Avp "Sequence-Number#716" code=716 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Pre-paging-Supported code=717 mandatoryBit=must type=Enumerated vendor=3GPP
+
     Avp Event-Type code=823 mandatoryBit=must type=Grouped vendor=3GPP
     Avp SIP-Method code=824 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Event code=825 mandatoryBit=must type=UTF8String vendor=3GPP
@@ -1275,6 +1545,7 @@ DiameterDictionary {
     Avp Address-Data code=897 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Address-Domain code=898 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Address-Type code=899 mandatoryBit=must type=Enumerated vendor=3GPP
+
     Avp TMGI code=900 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Required-MBMS-Bearer-Capabilities code=901 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp MBMS-StartStop-Indication code=902 mandatoryBit=must type=Enumerated vendor=3GPP
@@ -1304,6 +1575,7 @@ DiameterDictionary {
     Avp MBMS-BMSC-SSM-UDP-Port code=926 mandatoryBit=must type=OctetString vendor=3GPP
     Avp MBMS-GW-UDP-Port code=927 mandatoryBit=must type=OctetString vendor=3GPP
     Avp MBMS-GW-UDP-Port-Indicator code=928 mandatoryBit=must type=Enumerated vendor=3GPP
+
     Avp Bearer-Usage code=1000 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp Charging-Rule-Install code=1001 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Charging-Rule-Remove code=1002 mandatoryBit=must type=Grouped vendor=3GPP
@@ -1384,6 +1656,7 @@ DiameterDictionary {
     Avp Routing-IP-Address code=1079 mandatoryBit=must type=Address vendor=3GPP
     Avp Flow-Direction code=1080 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp Routing-Rule-Install code=1081 mandatoryBit=must type=Grouped vendor=3GPP
+
     Avp Served-User-Identity code=1100 mandatoryBit=must type=Grouped vendor=3GPP
     Avp VASP-ID code=1101 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp VAS-ID code=1102 mandatoryBit=must type=UTF8String vendor=3GPP
@@ -1403,6 +1676,7 @@ DiameterDictionary {
     Avp Status code=1116 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Status-Code code=1117 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Status-Text code=1118 mandatoryBit=must type=UTF8String vendor=3GPP
+
     Avp Domain-Name code=1200 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Recipient-Address code=1201 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Submission-Time code=1202 mandatoryBit=must type=Time vendor=3GPP
@@ -1492,6 +1766,7 @@ DiameterDictionary {
     Avp Talk-Burst-Time code=1286 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Talk-Burst-Volume code=1287 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Media-Initiator-Party code=1288 mandatoryBit=must type=UTF8String vendor=3GPP
+
     Avp Subscription-Data code=1400 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Terminal-Information code=1401 mandatoryBit=must type=Grouped vendor=3GPP
     Avp IMEI code=1402 mandatoryBit=must type=UTF8String vendor=3GPP
@@ -1588,6 +1863,7 @@ DiameterDictionary {
     Avp MME-User-State code=1497 mandatoryBit=must type=Grouped vendor=3GPP
     Avp SGSN-User-State code=1498 mandatoryBit=must type=Grouped vendor=3GPP
     Avp User-State code=1499 mandatoryBit=must type=Enumerated vendor=3GPP
+
     Avp Non-3GPP-User-Data code=1500 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Non-3GPP-IP-Access code=1501 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp Non-3GPP-IP-Access-APN code=1502 mandatoryBit=must type=Enumerated vendor=3GPP
@@ -1596,6 +1872,7 @@ DiameterDictionary {
     Avp Trace-Info code=1505 mandatoryBit=must type=Grouped vendor=3GPP
     Avp MIP-FA-RK code=1506 mandatoryBit=must type=OctetString vendor=3GPP
     Avp MIP-FA-RK-SPI code=1507 mandatoryBit=must type=Unsigned32 vendor=3GPP
+
     Avp MME-Location-Information code=1600 mandatoryBit=must type=Grouped vendor=3GPP
     Avp SGSN-Location-Information code=1601 mandatoryBit=must type=Grouped vendor=3GPP
     Avp E-UTRAN-Cell-Global-Identity code=1602 mandatoryBit=must type=OctetString vendor=3GPP
@@ -1632,6 +1909,7 @@ DiameterDictionary {
     Avp Relay-Node-Indicator code=1633 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp MDT-User-Consent code=1634 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp PUR-Flags code=1635 mandatoryBit=must type=Unsigned32 vendor=3GPP
+
     Avp SMS-Information code=2000 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Data-Coding-Scheme code=2001 mandatoryBit=must type=Integer32 vendor=3GPP
     Avp Destination-Interface code=2002 mandatoryBit=must type=Grouped vendor=3GPP
@@ -1700,6 +1978,7 @@ DiameterDictionary {
     Avp SGW-Change code=2065 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp Charging-Characteristic-Selection-Mode code=2066 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp SGW-Address code=2067 mandatoryBit=must type=Address vendor=3GPP
+
     Avp Application-Server-ID code=2101 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Application-Service-Type code=2102 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp Application-Session-ID code=2103 mandatoryBit=must type=Unsigned32 vendor=3GPP
@@ -1712,11 +1991,13 @@ DiameterDictionary {
     Avp DCD-Information code=2115 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Content-ID code=2116 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Content-provider-ID code=2117 mandatoryBit=must type=UTF8String vendor=3GPP
+
     Avp Subsession-Decision-Info code=2200 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Subsession-Enforcement-Info code=2201 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Subsession-Id code=2202 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Subsession-Operation code=2203 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp Multiple-BBERF-Action code=2204 mandatoryBit=must type=Enumerated vendor=3GPP
+
     Avp SIP-Request-Timestamp-Fraction code=2301 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp SIP-Response-Timestamp-Fraction code=2302 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Online-Charging-Flag code=2303 mandatoryBit=must type=Enumerated vendor=3GPP
@@ -1738,6 +2019,7 @@ DiameterDictionary {
     Avp User-CSG-Information code=2319 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Outgoing-Session-Id code=2320 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Initial-IMS-Charging-Identifier code=2321 mandatoryBit=must type=UTF8String vendor=3GPP
+
     Avp LMSI code=2400 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Serving-Node code=2401 mandatoryBit=must type=Grouped vendor=3GPP
     Avp MME-Name code=2402 mandatoryBit=must type=DiameterIdentity vendor=3GPP
@@ -1747,6 +2029,7 @@ DiameterDictionary {
     Avp Additional-Serving-Node code=2406 mandatoryBit=must type=Grouped vendor=3GPP
     Avp PPR-Address code=2407 mandatoryBit=must type=Address vendor=3GPP
     Avp MME-Realm code=2408 mandatoryBit=must type=DiameterIdentity vendor=3GPP
+
     Avp Location-Type code=2500 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp LCS-EPS-Client-Name code=2501 mandatoryBit=must type=Grouped vendor=3GPP
     Avp LCS-Requestor-Name code=2502 mandatoryBit=must type=Grouped vendor=3GPP
@@ -1771,6 +2054,7 @@ DiameterDictionary {
     Avp LCS-Privacy-Check-Non-Session code=2521 mandatoryBit=must type=Grouped vendor=3GPP
     Avp LCS-Privacy-Check-Session code=2522 mandatoryBit=must type=Grouped vendor=3GPP
     Avp LCS-QoS-Class code=2523 mandatoryBit=must type=Enumerated vendor=3GPP
+
     Avp IMS-Application-Reference-Identifier code=2601 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Low-Priority-Indicator code=2602 mandatoryBit=must type=Enumerated vendor=3GPP
     Avp IP-Realm-Default-Indicator code=2603 mandatoryBit=must type=Enumerated vendor=3GPP

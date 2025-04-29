@@ -38,11 +38,10 @@ internal static class App {
                         countVendor++;
 
                         if (node.Value.RawValue is not string) { WriteError($"Node '{node.Value} is not string."); }
-                        if ((node.Properties["id"] ?? "").Length == 0) { WriteError($"Unexpected id for '{node.Value}."); }
                         if (!int.TryParse(node.Properties["code"], out var vendorCode)) { WriteError($"Unexpected code for '{node.Value}."); }
-                        if (node.Properties.Count != 2) { WriteError($"Unexpected property count for '{node.Value}."); }
+                        if (node.Properties.Count != 1) { WriteError($"Unexpected property count for '{node.Value}."); }
 
-                        vendorsPerName.Add(node.Properties["id"], null);
+                        vendorsPerName.Add(node.Value.AsString(""), null);
                         vendorsPerCode.Add(vendorCode, null);
 
                     } else if (node.Name.Equals("Application")) {
@@ -140,6 +139,9 @@ internal static class App {
                     }
                 }
 
+                Console.WriteLine();
+                Console.WriteLine("Press Enter to save file");
+                Console.ReadLine();
                 doc.Save(file);
             }
 
