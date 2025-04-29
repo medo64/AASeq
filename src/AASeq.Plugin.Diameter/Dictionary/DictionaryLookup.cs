@@ -183,7 +183,7 @@ internal class DictionaryLookup {
 
     private static IEnumerable<string> GetDictionaryResourceNames() {
         foreach (var resName in Assembly.GetExecutingAssembly().GetManifestResourceNames()) {
-            if (resName.StartsWith("AASeqPlugin.Assets.Dictionary.", StringComparison.Ordinal) && resName.EndsWith(".aaseq", StringComparison.Ordinal)) {
+            if (resName.StartsWith("AASeqPlugin.Assets.", StringComparison.Ordinal) && resName.EndsWith("Dictionary.aaseq", StringComparison.Ordinal)) {
                 yield return resName;
             }
         }
