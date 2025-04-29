@@ -211,7 +211,7 @@ public sealed partial class AASeqNodes : IFormattable {
                 writer.Write(' ');
                 writer.Write(property.Key);
                 writer.Write('=');
-                writer.Write(GetPotentiallyQuotedString(property.Value));
+                writer.Write(GetPotentiallyQuotedString(property.Value, propertyQuoting: true));
             }
         }
 
@@ -312,15 +312,19 @@ public sealed partial class AASeqNodes : IFormattable {
         };
     }
 
-    private static string GetPotentiallyQuotedString(string text) {
-        if (text.Length == 0) { return "\"\""; }
-        if (text.Equals("null", StringComparison.OrdinalIgnoreCase)
-            || text.Equals("false", StringComparison.OrdinalIgnoreCase)
-            || text.Equals("true", StringComparison.OrdinalIgnoreCase)
-            || text.Equals("+inf", StringComparison.OrdinalIgnoreCase)
-            || text.Equals("-inf", StringComparison.OrdinalIgnoreCase)
-            || text.Equals("nan", StringComparison.OrdinalIgnoreCase)) {
-            return "\"" + text + "\"";
+    private static string GetPotentiallyQuotedString(string text, bool propertyQuoting = false) {
+        if (propertyQuoting) {
+            if (text.Length == 0) { return ""; }
+        } else {
+            if (text.Length == 0) { return "\"\""; }
+            if (text.Equals("null", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("false", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("true", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("+inf", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("-inf", StringComparison.OrdinalIgnoreCase)
+                || text.Equals("nan", StringComparison.OrdinalIgnoreCase)) {
+                return "\"" + text + "\"";
+            }
         }
 
         var sbOutQuote = StringBuilderPool.Get();
@@ -329,6 +333,8 @@ public sealed partial class AASeqNodes : IFormattable {
             var shouldQuote = (text[0] is '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9')
                 || ((text.Length > 1) && (text[0] is '+' or '-' or '.') && (text[1] is '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9'))
                 || ((text.Length > 2) && (text[0] is '+' or '-') && (text[1] is '.') && (text[2] is '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9'));
+            shouldQuote = shouldQuote && !propertyQuoting;
+
             if (shouldQuote) { sbOutQuote.Append('"'); }
             foreach (var ch in text) {
                 if (!shouldQuote) {  // just handle if quote is needed; escaping will be handled later
