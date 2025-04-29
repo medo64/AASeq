@@ -1,69 +1,70 @@
 DiameterDictionary {
-    Vendor 3GPP id=TGPP code=10415
 
-    Application Cx/Dx      id=16777216                                 # 3GPP TS 29.228, 29.229
-    Application Sh/Ph      id=16777217                                 # 3GPP TS 29.328, 29.329
-    Application Re         id=16777218                                 # 3GPP TS 32.296
-    Application Wx         id=16777219                                 # 3GPP TS 29.234
-    Application Zn         id=16777220                                 # 3GPP TS 29.109
-    Application Zh         id=16777221                                 # 3GPP TS 29.109
-    Application Gq         id=16777222                                 # 3GPP TS 29.209
-    Application Gmb        id=16777223                                 # 3GPP TS 29.061
-    Application "Gx#224"   id=16777224                                 # 3GPP TS 29.210
-    Application GxOverGy   id=16777225                                 # 3GPP TS 29.210
-    Application MM10       id=16777226                                 # 3GPP TS 29.140
-    Application "Rx#229"   id=16777229                                 # 3GPP TS 29.211
-    Application Pr         id=16777230                                 # 3GPP TS 29.234
-    Application Rx         id=16777236                                 # 3GPP TS 29.214
-    Application Gx         id=16777238                                 # 3GPP TS 29.212
-    Application STa        id=16777250                                 # 3GPP TS 29.273
-    Application S6a        id=16777251                                 # 3GPP TS 29.272
-    Application S13        id=16777252                                 # 3GPP TS 29.272
-    Application SLg        id=16777255                                 # 3GPP TS 29.172
-    Application SWm        id=16777264                                 # 3GPP TS 29.273
-    Application SWx        id=16777265                                 # 3GPP TS 29.273
-    Application Gxx        id=16777266                                 # 3GPP TS 29.212
-    Application S9         id=16777267                                 # 3GPP TS 29.215
-    Application Zpn        id=16777268                                 # 3GPP TS 29.109
-    Application S6b        id=16777272                                 # 3GPP TS 29.273
-    Application SLh        id=16777291                                 # 3GPP TS 29.173
-    Application SGmb       id=16777292                                 # 3GPP TS 29.061
+    Vendor 3GPP code=10415
 
-    Command User-Authorization         abbrev=UA code=300     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Server-Assignment          abbrev=SA code=301     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Location-Info              abbrev=LI code=302     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Multimedia-Auth            abbrev=MA code=303     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Registration-Termination   abbrev=RT code=304     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command Push-Profile               abbrev=PP code=305     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.229
-    Command User-Data                  abbrev=UD code=306     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
-    Command Profile-Update             abbrev=   code=307     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
-    Command Subscribe-Notifications    abbrev=SN code=308     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
-    Command Push-Notification          abbrev=PN code=309     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.329
-    Command Boostrapping-Info          abbrev=BI code=310     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.109
-    Command Message-Process            abbrev=MP code=311     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.140
-    Command GBAPush-Info               abbrev=GI code=312     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.109
-    Command Update-Location            abbrev=UL code=316     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Cancel-Location            abbrev=CL code=317     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Authentication-Information abbrev=AI code=318     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Insert-Subscriber-Data     abbrev=ID code=319     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Delete-Subscriber-Data     abbrev=DS code=320     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Purge-UE                   abbrev=   code=321     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Reset                      abbrev=RS code=322     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Notify                     abbrev=NO code=323     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command ME-Identity-Check          abbrev=EC code=324     proxiableBit=may vendorId=TGPP             # 3GPP TS 29.272
-    Command Provide-Location           abbrev=PL code=8388620 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.172
-    Command Location-Report            abbrev=LR code=8388621 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.172
-    Command LCS-Routing-Info           abbrev=RI code=8388622 proxiableBit=may vendorId=TGPP             # 3GPP TS 29.173
+    Application "Cx/Dx" id=16777216
+    Application "Sh/Ph" id=16777217
+    Application Re id=16777218
+    Application Wx id=16777219
+    Application Zn id=16777220
+    Application Zh id=16777221
+    Application Gq id=16777222
+    Application Gmb id=16777223
+    Application "Gx#224" id=16777224
+    Application GxOverGy id=16777225
+    Application MM10 id=16777226
+    Application "Rx#229" id=16777229
+    Application Pr id=16777230
+    Application Rx id=16777236
+    Application Gx id=16777238
+    Application STa id=16777250
+    Application S6a id=16777251
+    Application S13 id=16777252
+    Application SLg id=16777255
+    Application SWm id=16777264
+    Application SWx id=16777265
+    Application Gxx id=16777266
+    Application S9 id=16777267
+    Application Zpn id=16777268
+    Application S6b id=16777272
+    Application SLh id=16777291
+    Application SGmb id=16777292
 
-    Avp 3GPP-WLAN-APN-Id            code=100 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=OctetString    # 3GPP TS 29.234
-    Avp 3GPP-WLAN-QoS-Filter-Rule   code=101 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=QoSFilterRule  # 3GPP TS 29.234
-    Avp Authentication-Method       code=300 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=Enumerated {   # 3GPP TS 29.234
+    Command User-Authorization abbrev=UA code=300
+    Command Server-Assignment abbrev=SA code=301
+    Command Location-Info abbrev=LI code=302
+    Command Multimedia-Auth abbrev=MA code=303
+    Command Registration-Termination abbrev=RT code=304
+    Command Push-Profile abbrev=PP code=305
+    Command User-Data abbrev=UD code=306
+    Command Profile-Update abbrev= code=307
+    Command Subscribe-Notifications abbrev=SN code=308
+    Command Push-Notification abbrev=PN code=309
+    Command Boostrapping-Info abbrev=BI code=310
+    Command Message-Process abbrev=MP code=311
+    Command GBAPush-Info abbrev=GI code=312
+    Command Update-Location abbrev=UL code=316
+    Command Cancel-Location abbrev=CL code=317
+    Command Authentication-Information abbrev=AI code=318
+    Command Insert-Subscriber-Data abbrev=ID code=319
+    Command Delete-Subscriber-Data abbrev=DS code=320
+    Command Purge-UE abbrev= code=321
+    Command Reset abbrev=RS code=322
+    Command Notify abbrev=NO code=323
+    Command ME-Identity-Check abbrev=EC code=324
+    Command Provide-Location abbrev=PL code=8388620
+    Command Location-Report abbrev=LR code=8388621
+    Command LCS-Routing-Info abbrev=RI code=8388622
+
+    Avp "3GPP-WLAN-APN-Id" code=100 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp "3GPP-WLAN-QoS-Filter-Rule" code=101 mandatoryBit=must type=QoSFilterRule vendor=TGPP
+    Avp Authentication-Method code=300 mandatoryBit=must type=Enumerated vendor=TGPP {
         Enum WLAN_EAP_SIM code=0
         Enum WLAN_EAP_AKA code=1
     }
-    Avp Authentication-Information-SIM code=301 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=OctetString  # 3GPP TS 29.234
-    Avp Authorization-Information-SIM code=302 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=OctetString  # 3GPP TS 29.234
-    Avp WLAN-User-Data code=303 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=Grouped {   # 3GPP TS 29.234
+    Avp Authentication-Information-SIM code=301 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Authorization-Information-SIM code=302 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp WLAN-User-Data code=303 mandatoryBit=must type=Grouped vendor=TGPP {
         Avp Subscription-Id
         Avp WLAN-Access
         Avp WLAN-3GPP-IP-Access
@@ -73,750 +74,751 @@ DiameterDictionary {
         Avp WLAN-Direct-IP-Access
         Avp QoS-Resources
     }
-    Avp Charging-Data code=304 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=Grouped {  # 3GPP TS 29.234
+    Avp Charging-Data code=304 mandatoryBit=must type=Grouped vendor=TGPP {
         Avp Charging-Characteristics
         Avp Charging-Nodes
     }
-    Avp WLAN-Access code=305 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=Enumerated {  # 3GPP TS 29.234
+    Avp WLAN-Access code=305 mandatoryBit=must type=Enumerated vendor=TGPP {
         Enum WLAN_SUBSCRIPTION_ALLOWED code=0
         Enum WLAN_SUBSCRIPTION_BARRED code=1
     }
-    Avp WLAN-3GPP-IP-Access code=306 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=Enumerated {  # 3GPP TS 29.234
-        Enum WLAN_ APNS _ENABLE code=0
-        Enum WLAN_ APNS _DISABLE code=1
+    Avp WLAN-3GPP-IP-Access code=306 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum _ENABLE code=0
+        Enum _DISABLE code=1
     }
-    Avp APN-Authorized code=307 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=Grouped {  # 3GPP TS 29.234
-        Avp 3GPP-WLAN-APN-Id
+    Avp APN-Authorized code=307 mandatoryBit=must type=Grouped vendor=TGPP {
+        Avp "3GPP-WLAN-APN-Id"
         Avp APN-Barring-Type
         Avp Framed-IP-Address
         Avp Framed-IPv6-Prefix
-        Avp Max-Requested-Bandwidth#313
+        Avp Max-Requested-Bandwidth
         Avp QoS-Resources
     }
-    Avp APN-Barring-Type code=309 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=Enumerated {  # 3GPP TS 29.234
+    Avp APN-Barring-Type code=309 mandatoryBit=must type=Enumerated vendor=TGPP {
         Enum WLAN_APN_NO_BARRING code=0
         Enum WLAN_APN_HOME_BARRED_WHEN_ROAMING code=1
         Enum WLAN_APN_VISITED_BARRED code=2
         Enum WLAN_APN_HOME_BARRED code=3
         Enum WLAN_APN_INTERNET_ACCESS_BARRED code=4
     }
-    Avp WLAN-Direct-IP-Access code=310 mandatoryBit=must protectedBit=may mayEncrypt=no vendorId=TGPP type=Enumerated {  # 3GPP TS 29.234
-        Enum WLAN_ DIRECT_IP_ACCESS code=0
+    Avp WLAN-Direct-IP-Access code=310 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum DIRECT_IP_ACCESS code=0
         Enum WLAN_NO_DIRECT_IP_ACCESS code=1
     }
-    Avp Session-Request-Type                                code=311       mandatoryBit=must  protectedBit=may   mayEncrypt=no  vendorId=TGPP  type=Enumerated {  # 3GPP TS 29.234
+    Avp Session-Request-Type code=311 mandatoryBit=must type=Enumerated vendor=TGPP {
         Enum AUTHORIZATION_REQUEST code=0
         Enum ROUTING_POLICY code=1
     }
-    Avp  Routing-Policy                                    code=312  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=IPFilterRule      # 3GPP TS 29.234
-    Avp  "Max-Requested-Bandwidth#313"                     code=313  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.234
-    Avp  Charging-Characteristics                          code=314  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Integer32         # 3GPP TS 29.234
-    Avp  Charging-Nodes                                    code=315  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.234
-    Avp  Primary-OCS-Charging-Function-Name                code=316  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterIdentity  # 3GPP TS 29.234
-    Avp  Secondary-OCS-Charging-Function-Name              code=317  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterIdentity  # 3GPP TS 29.234
-    Avp  3GPP-AAA-Server-Name                              code=318  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterIdentity  # 3GPP TS 29.234
-    Avp  Maximum-Number-Accesses                           code=319  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.234
-    Avp  GBA-UserSecSettings                               code=400  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  Transaction-Identifier                            code=401  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  NAF-Hostname                                      code=402  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  GAA-Service-Identifier                            code=403  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  Key-ExpiryTime                                    code=404  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.109
-    Avp  ME-Key-Material                                   code=405  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  UICC-Key-Material                                 code=406  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  GBA_U-Awareness-Indicator                         code=407  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.109
-    Avp  BootstrapInfoCreationTime                         code=408  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.109
-    Avp  GUSS-Timestamp                                    code=409  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.109
-    Avp  GBA-Type                                          code=410  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.109
-    Avp  UE-Id                                             code=411  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  UE-Id-Type                                        code=412  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.109
-    Avp  UICC-App-Label                                    code=413  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  UICC-ME                                           code=414  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.109
-    Avp  Requested-Key-Lifetime                            code=415  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.109
-    Avp  Private-Identity-Request                          code=416  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.109
-    Avp  GBA-Push-Info                                     code=417  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  NAF-SA-Identifier                                 code=418  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  Security-Feature-Request                          code=419  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  Security-Feature-Response                         code=420  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.109
-    Avp  Abort-Cause                                       code=500  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Access-Network-Charging-Address                   code=501  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Access-Network-Charging-Identifier                code=502  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Access-Network-Charging-Identifier-Value          code=503  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  AF-Application-Identifier                         code=504  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  AF-Charging-Identifier                            code=505  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Authorization-Token                               code=506  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Flow-Description                                  code=507  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=IPFilterRule      # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Flow-Grouping                                     code=508  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Flow-Number                                       code=509  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Flows                                             code=510  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Flow-Status                                       code=511  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Flow-Usage                                        code=512  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Specific-Action                                   code=513  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Max-Requested-Bandwidth                           code=514  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Max-Requested-Bandwidth-DL                        code=515  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Max-Requested-Bandwidth-UL                        code=516  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Media-Component-Description                       code=517  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Media-Component-Number                            code=518  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Media-Sub-Component                               code=519  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Media-Type                                        code=520  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  RR-Bandwidth                                      code=521  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  RS-Bandwidth                                      code=522  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  SIP-Forking-Indication                            code=523  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Codec-Data                                        code=524  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Service-URN                                       code=525  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Acceptable-Service-Info                           code=526  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Service-Info-Status                               code=527  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  MPS-Identifier                                    code=528  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  AF-Signalling-Protocol                            code=529  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Sponsored-Connectivity-Data                       code=530  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Sponsor-Identity                                  code=531  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Application-Service-Provider-Identity             code=532  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.209, 29.211, 29.214
-    Avp  Visited-Network-Identifier                        code=600  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  Public-Identity                                   code=601  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.229
-    Avp  Server-Name                                       code=602  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.229
-    Avp  Server-Capabilities                               code=603  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Mandatory-Capability                              code=604  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.229
-    Avp  Optional-Capability                               code=605  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.229
-    Avp  "User-Data#606"                                   code=606  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  SIP-Number-Auth-Items                             code=607  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.229
-    Avp  SIP-Authentication-Scheme                         code=608  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.229
-    Avp  SIP-Authenticate                                  code=609  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  SIP-Authorization                                 code=610  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  SIP-Authentication-Context                        code=611  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  SIP-Auth-Data-Item                                code=612  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  SIP-Item-Number                                   code=613  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.229
-    Avp  Server-Assignment-Type                            code=614  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  Deregistration-Reason                             code=615  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  "Reason-Code#616"                                 code=616  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  Reason-Info                                       code=617  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.229
-    Avp  Charging-Information                              code=618  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Primary-Event-Charging-Function-Name              code=619  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterURI       # 3GPP TS 29.229
-    Avp  Secondary-Event-Charging-Function-Name            code=620  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterURI       # 3GPP TS 29.229
-    Avp  Primary-Charging-Collection-Function-Name         code=621  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterURI       # 3GPP TS 29.229
-    Avp  Secondary-Charging-Collection-Function-Name       code=622  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterURI       # 3GPP TS 29.229
-    Avp  User-Authorization-Type                           code=623  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  User-Data-Already-Available                       code=624  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  Confidentiality-Key                               code=625  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  Integrity-Key                                     code=626  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  User-Data-Request-Type                            code=627  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  Supported-Features                                code=628  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Feature-List-ID                                   code=629  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.229
-    Avp  Feature-List                                      code=630  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.229
-    Avp  Supported-Applications                            code=631  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Associated-Identities                             code=632  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Originating-Request                               code=633  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  Wildcarded-Public-Identity                        code=634  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.229
-    Avp  SIP-Digest-Authenticate                           code=635  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Wildcarded-IMPU                                   code=636  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.229
-    Avp  UAR-Flags                                         code=637  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.229
-    Avp  Loose-Route-Indication                            code=638  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  SCSCF-Restoration-Info                            code=639  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Path                                              code=640  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  Contact                                           code=641  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  Subscription-Info                                 code=642  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Call-ID-SIP-Header                                code=643  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  From-SIP-Header                                   code=644  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  To-SIP-Header                                     code=645  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  Record-Route                                      code=646  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.229
-    Avp  Associated-Registered-Identities                  code=647  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Multiple-Registration-Indication                  code=648  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  Restoration-Info                                  code=649  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Session-Priority                                  code=650  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  Identity-with-Emergency-Registration              code=651  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.229
-    Avp  Priviledged-Sender-Indication                     code=652  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.229
-    Avp  User-Identity                                     code=700  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.329
-    Avp  MSISDN                                            code=701  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.329
-    Avp  User-Data                                         code=702  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.329
-    Avp  Data-Reference                                    code=703  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  Service-Indication                                code=704  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.329
-    Avp  Subs-Req-Type                                     code=705  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  Requested-Domain                                  code=706  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  Current-Location                                  code=707  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  Identity-Set                                      code=708  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  Expiry-Time                                       code=709  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.329
-    Avp  Send-Data-Indication                              code=710  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  DSAI-Tag                                          code=711  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.329
-    Avp  One-Time-Notification                             code=712  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  Requested-Nodes                                   code=713  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.329
-    Avp  Serving-Node-Indication                           code=714  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  Repository-Data-ID                                code=715  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.329
-    Avp  "Sequence-Number#716"                             code=716  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.329
-    Avp  Pre-paging-Supported                              code=717  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.329
-    Avp  Event-Type                                        code=823  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  SIP-Method                                        code=824  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Event                                             code=825  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Content-Type                                      code=826  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Content-Length                                    code=827  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Content-Disposition                               code=828  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Role-of-Node                                      code=829  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  User-Session-Id                                   code=830  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Calling-Party-Address                             code=831  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Called-Party-Address                              code=832  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Time-Stamps                                       code=833  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  SIP-Request-Timestamp                             code=834  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  SIP-Response-Timestamp                            code=835  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Application-Server                                code=836  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Application-provided-called-party-address         code=837  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Inter-Operator-Identifier                         code=838  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Originating-IOI                                   code=839  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Terminating-IOI                                   code=840  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  IMS-Charging-Identifier                           code=841  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  SDP-Session-Description                           code=842  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  SDP-Media-Component                               code=843  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  SDP-Media-Name                                    code=844  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  SDP-Media-Description                             code=845  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  CG-Address                                        code=846  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  GGSN-Address                                      code=847  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  Served-Party-IP-Address                           code=848  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  Authorized-QoS                                    code=849  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Application-Server-Information                    code=850  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Trunk-Group-Id                                    code=851  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Incoming-Trunk-Group-Id                           code=852  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Outgoing-Trunk-Group-Id                           code=853  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Bearer-Service                                    code=854  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  Service-Id                                        code=855  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Associated-URI                                    code=856  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Charged-Party                                     code=857  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  PoC-Controlling-Address                           code=858  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  PoC-Group-Name                                    code=859  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Cause                                             code=860  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Cause-Code                                        code=861  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Integer32         # 3GPP TS 32.299
-    Avp  Node-Functionality                                code=862  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Service-Specific-Data                             code=863  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Originator                                        code=864  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  PS-Furnish-Charging-Information                   code=865  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  PS-Free-Format-Data                               code=866  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  PS-Append-Free-Format-Data                        code=867  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Time-Quota-Threshold                              code=868  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Volume-Quota-Threshold                            code=869  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Trigger-Type                                      code=870  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Quota-Holding-Time                                code=871  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Reporting-Reason                                  code=872  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Service-Information                               code=873  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  PS-Information                                    code=874  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  WLAN-Information                                  code=875  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  IMS-Information                                   code=876  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  MMS-Information                                   code=877  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  LCS-Information                                   code=878  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  PoC-Information                                   code=879  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  MBMS-Information                                  code=880  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Quota-Consumption-Time                            code=881  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Media-Initiator-Flag                              code=882  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  PoC-Server-Role                                   code=883  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  PoC-Session-Type                                  code=884  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Number-Of-Participants                            code=885  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Originator-Address                                code=886  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Participants-Involved                             code=887  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Expires                                           code=888  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Message-Body                                      code=889  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  WAG-Address                                       code=890  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  WAG-PLMN-Id                                       code=891  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  WLAN-Radio-Container                              code=892  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  WLAN-Technology                                   code=893  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  WLAN-UE-Local-IPAddress                           code=894  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  PDG-Address                                       code=895  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  PDG-Charging-Id                                   code=896  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Address-Data                                      code=897  mandatoryBit=must protectedBit=may  mayEncrypt=yes vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Address-Domain                                    code=898  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Address-Type                                      code=899  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  TMGI                                              code=900  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  Required-MBMS-Bearer-Capabilities                 code=901  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.061
-    Avp  MBMS-StartStop-Indication                         code=902  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  MBMS-Service-Area                                 code=903  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  MBMS-Session-Duration                             code=904  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.061
-    Avp  Alternative-APN                                   code=905  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.061
-    Avp  MBMS-Service-Type                                 code=906  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  MBMS-2G-3G-Indicator                              code=907  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  MBMS-Session-Identity                             code=908  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  RAI                                               code=909  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.061
-    Avp  Additional-MBMS-Trace-Info                        code=910  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  MBMS-Time-To-Data-Transfer                        code=911  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.061
-    Avp  MBMS-Session-Identity-Repetition-Number           code=912  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.061
-    Avp  MBMS-Required-QoS                                 code=913  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.061
-    Avp  MBMS-Counting-Information                         code=914  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  MBMS-User-Data-Mode-Indication                    code=915  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  MBMS-GGSN-Address                                 code=916  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.061
-    Avp  MBMS-GGSN-IPv6-Address                            code=917  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.061
-    Avp  MBMS-BMSC-SSM-IP-Address                          code=918  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.061
-    Avp  MBMS-BMSC-SSM-IPv6-Address                        code=919  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.061
-    Avp  MBMS-Flow-Identifier                              code=920  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  CN-IP-Multicast-Distribution                      code=921  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  MBMS-HC-Indicator                                 code=922  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  MBMS-Access-Indicator                             code=923  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  MBMS-GW-SSM-IP-Address                            code=924  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  MBMS-GW-SSM-IPv6-Address                          code=925  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  MBMS-BMSC-SSM-UDP-Port                            code=926  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  MBMS-GW-UDP-Port                                  code=927  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.061
-    Avp  MBMS-GW-UDP-Port-Indicator                        code=928  mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.061
-    Avp  Bearer-Usage                                      code=1000 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Charging-Rule-Install                             code=1001 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Charging-Rule-Remove                              code=1002 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Charging-Rule-Definition                          code=1003 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Charging-Rule-Base-Name                           code=1004 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.212
-    Avp  Charging-Rule-Name                                code=1005 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  Event-Trigger                                     code=1006 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Metering-Method                                   code=1007 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Offline                                           code=1008 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Online                                            code=1009 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Precedence                                        code=1010 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.212
-    Avp  Reporting-Level                                   code=1011 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  TFT-Filter                                        code=1012 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=IPFilterRule      # 3GPP TS 29.212
-    Avp  TFT-Packet-Filter-Information                     code=1013 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  ToS-Traffic-Class                                 code=1014 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  QoS-Information                                   code=1016 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Charging-Rule-Report                              code=1018 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  PCC-Rule-Status                                   code=1019 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Bearer-Identifier                                 code=1020 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  Bearer-Operation                                  code=1021 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Access-Network-Charging-Identifier-Gx             code=1022 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Bearer-Control-Mode                               code=1023 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Network-Request-Support                           code=1024 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Guaranteed-Bitrate-DL                             code=1025 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.212
-    Avp  Guaranteed-Bitrate-UL                             code=1026 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.212
-    Avp  IP-CAN-Type                                       code=1027 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  QoS-Class-Identifier                              code=1028 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  QoS-Negotiation                                   code=1029 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  QoS-Upgrade                                       code=1030 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Rule-Failure-Code                                 code=1031 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  RAT-Type                                          code=1032 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Event-Report-Indication                           code=1033 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Allocation-Retention-Priority                     code=1034 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  CoA-IP-Address                                    code=1035 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 29.212
-    Avp  Tunnel-Header-Filter                              code=1036 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=IPFilterRule      # 3GPP TS 29.212
-    Avp  Tunnel-Header-Length                              code=1037 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.212
-    Avp  Tunnel-Information                                code=1038 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  CoA-Information                                   code=1039 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  APN-Aggregate-Max-Bitrate-DL                      code=1040 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.212
-    Avp  APN-Aggregate-Max-Bitrate-UL                      code=1041 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.212
-    Avp  Revalidation-Time                                 code=1042 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.212
-    Avp  Rule-Activation-Time                              code=1043 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.212
-    Avp  Rule-DeActivation-Time                            code=1044 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.212
-    Avp  Session-Release-Cause                             code=1045 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Priority-Level                                    code=1046 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.212
-    Avp  Pre-emption-Capability                            code=1047 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Pre-emption-Vulnerability                         code=1048 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Default-EPS-Bearer-QoS                            code=1049 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  AN-GW-Address                                     code=1050 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 29.212
-    Avp  QoS-Rule-Install                                  code=1051 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  QoS-Rule-Remove                                   code=1052 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  QoS-Rule-Definition                               code=1053 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  QoS-Rule-Name                                     code=1054 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  QoS-Rule-Report                                   code=1055 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Security-Parameter-Index                          code=1056 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  Flow-Label                                        code=1057 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  Flow-Information                                  code=1058 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Packet-Filter-Content                             code=1059 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=IPFilterRule      # 3GPP TS 29.212
-    Avp  Packet-Filter-Identifier                          code=1060 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  Packet-Filter-Information                         code=1061 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Packet-Filter-Operation                           code=1062 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Resource-Allocation-Notification                  code=1063 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Session-Linking-Indicator                         code=1064 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  "PDN-Connection-ID#1065"                          code=1065 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  Monitoring-Key                                    code=1066 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  Usage-Monitoring-Information                      code=1067 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Usage-Monitoring-Level                            code=1068 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Usage-Monitoring-Report                           code=1069 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Usage-Monitoring-Support                          code=1070 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  CSG-Information-Reporting                         code=1071 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Packet-Filter-Usage                               code=1072 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Charging-Correlation-Indicator                    code=1073 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  QoS-Rule-Base-Name                                code=1074 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.212
-    Avp  Routing-Rule-Remove                               code=1075 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Routing-Rule-Definition                           code=1076 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Routing-Rule-Identifier                           code=1077 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.212
-    Avp  Routing-Filter                                    code=1078 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Routing-IP-Address                                code=1079 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 29.212
-    Avp  Flow-Direction                                    code=1080 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.212
-    Avp  Routing-Rule-Install                              code=1081 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.212
-    Avp  Served-User-Identity                              code=1100 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.140
-    Avp  VASP-ID                                           code=1101 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  VAS-ID                                            code=1102 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  Trigger-Event                                     code=1103 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.140
-    Avp  Sender-Address                                    code=1104 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  Initial-Recipient-Address                         code=1105 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.140
-    Avp  Result-Recipient-Address                          code=1106 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.140
-    Avp  Sequence-Number                                   code=1107 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.140
-    Avp  "Recipient-Address#1108"                          code=1108 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  Routeing-Address                                  code=1109 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  Originating-Interface                             code=1110 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.140
-    Avp  Delivery-Report                                   code=1111 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.140
-    Avp  Read-Reply                                        code=1112 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.140
-    Avp  Sender-Visibility                                 code=1113 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.140
-    Avp  Service-Key                                       code=1114 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  Billing-Information                               code=1115 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  Status                                            code=1116 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.140
-    Avp  Status-Code                                       code=1117 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  Status-Text                                       code=1118 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.140
-    Avp  Domain-Name                                       code=1200 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Recipient-Address                                 code=1201 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Submission-Time                                   code=1202 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  MM-Content-Type                                   code=1203 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Type-Number                                       code=1204 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Additional-Type-Information                       code=1205 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Content-Size                                      code=1206 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Additional-Content-Information                    code=1207 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Addressee-Type                                    code=1208 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Priority                                          code=1209 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Message-ID                                        code=1210 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Message-Type                                      code=1211 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Message-Size                                      code=1212 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Message-Class                                     code=1213 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Class-Identifier                                  code=1214 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Token-Text                                        code=1215 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Delivery-Report-Requested                         code=1216 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Adaptations                                       code=1217 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Applic-ID                                         code=1218 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Aux-Applic-Info                                   code=1219 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Content-Class                                     code=1220 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  DRM-Content                                       code=1221 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Read-Reply-Report-Requested                       code=1222 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Reply-Applic-ID                                   code=1223 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  File-Repair-Supported                             code=1224 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  MBMS-User-Service-Type                            code=1225 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Unit-Quota-Threshold                              code=1226 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  PDP-Address                                       code=1227 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  SGSN-Address                                      code=1228 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  PoC-Session-Id                                    code=1229 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Deferred-Location-Even-Type                       code=1230 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  "LCS-Client-Name#1231"                            code=1231 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  LCS-Client-Id                                     code=1232 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  LCS-Client-Dialed-By-MS                           code=1233 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  LCS-Client-External-ID                            code=1234 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  LCS-Client-Name                                   code=1235 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  LCS-Data-Coding-Scheme                            code=1236 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  LCS-Format-Indicator                              code=1237 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  LCS-Name-String                                   code=1238 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  LCS-Requestor-Id                                  code=1239 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  LCS-Requestor-Id-String                           code=1240 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  LCS-Client-Type                                   code=1241 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Location-Estimate                                 code=1242 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  Location-Estimate-Type                            code=1243 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  "Location-Type#1244"                              code=1244 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Positioning-Data                                  code=1245 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  WLAN-Session-Id                                   code=1246 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  PDP-Context-Type                                  code=1247 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  MMBox-Storage-Requested                           code=1248 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Service-Specific-Info                             code=1249 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Called-Asserted-Identity                          code=1250 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Requested-Party-Address                           code=1251 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  PoC-User-Role                                     code=1252 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  PoC-User-Role-IDs                                 code=1253 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  PoC-User-Role-info-Units                          code=1254 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Talk-Burst-Exchange                               code=1255 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Service-Generic-Information                       code=1256 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Service-Specific-Type                             code=1257 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Event-Charging-TimeStamp                          code=1258 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Participant-Access-Priority                       code=1259 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Participant-Group                                 code=1260 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  PoC-Change-Conditions                             code=1261 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  PoC-Change-Time                                   code=1262 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Access-Network-Information                        code=1263 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  Trigger                                           code=1264 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Base-Time-Interval                                code=1265 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Envelope                                          code=1266 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Envelope-End-Time                                 code=1267 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Envelope-Reporting                                code=1268 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Envelope-Start-Time                               code=1269 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Time-Quota-Mechanism                              code=1270 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Time-Quota-Type                                   code=1271 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Early-Media-Description                           code=1272 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  SDP-TimeStamps                                    code=1273 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  SDP-Offer-Timestamp                               code=1274 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  SDP-Answer-Timestamp                              code=1275 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  AF-Correlation-Information                        code=1276 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  PoC-Session-Initiation-type                       code=1277 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Offline-Charging                                  code=1278 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  User-Participating-Type                           code=1279 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Alternate-Charged-Party-Address                   code=1280 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  IMS-Communication-Service-Identifier              code=1281 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Number-Of-Received-Talk-Bursts                    code=1282 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Number-Of-Talk-Bursts                             code=1283 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Received-Talk-Burst-Time                          code=1284 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Received-Talk-Burst-Volume                        code=1285 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Talk-Burst-Time                                   code=1286 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Talk-Burst-Volume                                 code=1287 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Media-Initiator-Party                             code=1288 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Subscription-Data                                 code=1400 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Terminal-Information                              code=1401 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  IMEI                                              code=1402 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.272
-    Avp  Software-Version                                  code=1403 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.272
-    Avp  QoS-Subscribed                                    code=1404 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.272
-    Avp  ULR-Flags                                         code=1405 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  ULA-Flags                                         code=1406 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  Visited-PLMN-Id                                   code=1407 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  Requested-EUTRAN-Authentication-Info              code=1408 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Requested-UTRAN-GERAN-Authentication-Info         code=1409 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Number-Of-Requested-Vectors                       code=1410 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  Re-Synchronization-Info                           code=1411 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  Immediate-Response-Preferred                      code=1412 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  Authentication-Info                               code=1413 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  E-UTRAN-Vector                                    code=1414 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  UTRAN-Vector                                      code=1415 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  GERAN-Vector                                      code=1416 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Network-Access-Mode                               code=1417 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  HPLMN-ODB                                         code=1418 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Item-Number                                       code=1419 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  Cancellation-Type                                 code=1420 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  DSR-Flags                                         code=1421 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  DSA-Flags                                         code=1422 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  Context-Identifier                                code=1423 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  Subscriber-Status                                 code=1424 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Operator-Determined-Barring                       code=1425 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  Access-Restriction-Data                           code=1426 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.272
-    Avp  APN-OI-Replacement                                code=1427 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.272
-    Avp  All-APN-Configurations-Included-Indicator         code=1428 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  APN-Configuration-Profile                         code=1429 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  APN-Configuration                                 code=1430 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  EPS-Subscribed-QoS-Profile                        code=1431 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  VPLMN-Dynamic-Address-Allowed                     code=1432 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  STN-SR                                            code=1433 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  Alert-Reason                                      code=1434 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  AMBR                                              code=1435 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  CSG-Subscription-Data                             code=1436 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  CSG-Id                                            code=1437 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  PDN-GW-Allocation-Type                            code=1438 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Expiration-Date                                   code=1439 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.272
-    Avp  RAT-Frequency-Selection-Priority-ID               code=1440 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  IDA-Flags                                         code=1441 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  PUA-Flags                                         code=1442 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  NOR-Flags                                         code=1443 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  User-Id                                           code=1444 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.272
-    Avp  Equipment-Status                                  code=1445 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Regional-Subscription-Zone-Code                   code=1446 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  RAND                                              code=1447 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  XRES                                              code=1448 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  AUTN                                              code=1449 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  KASME                                             code=1450 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  Trace-Collection-Entity                           code=1452 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 29.272
-    Avp  Kc                                                code=1453 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  SRES                                              code=1454 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  PDN-Type                                          code=1456 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Roaming-Restricted-Due-To-Unsupported-Feature     code=1457 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Trace-Data                                        code=1458 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Trace-Reference                                   code=1459 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  Trace-Depth                                       code=1462 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Trace-NE-Type-List                                code=1463 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  Trace-Interface-List                              code=1464 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  Trace-Event-List                                  code=1465 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  OMC-Id                                            code=1466 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  GPRS-Subscription-Data                            code=1467 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Complete-Data-List-Included-Indicator             code=1468 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  PDP-Context                                       code=1469 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  PDP-Type                                          code=1470 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  3GPP2-MEID                                        code=1471 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  Specific-APN-Info                                 code=1472 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  LCS-Info                                          code=1473 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  GMLC-Number                                       code=1474 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  LCS-PrivacyException                              code=1475 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  SS-Code                                           code=1476 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  SS-Status                                         code=1477 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Notification-To-UE-User                           code=1478 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  External-Client                                   code=1479 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Client-Identity                                   code=1480 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  GMLC-Restriction                                  code=1481 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  PLMN-Client                                       code=1482 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  "Service-Type#1483"                               code=1483 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Service-Type-Identity                             code=1484 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  MO-LR                                             code=1485 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  Teleservice-List                                  code=1486 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  TS-Code                                           code=1487 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Call-Barring-Infor-List                           code=1488 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  SGSN-Number                                       code=1489 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.272
-    Avp  IDR-Flags                                         code=1490 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.272
-    Avp  ICS-Indicator                                     code=1491 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  IMS-Voice-Over-PS-Sessions-Supported              code=1492 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Homogeneous-Support-of-IMS-Voice-Over-PS-Sessions code=1493 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Last-UE-Activity-Time                             code=1494 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 29.272
-    Avp  EPS-User-State                                    code=1495 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  EPS-Location-Information                          code=1496 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  MME-User-State                                    code=1497 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  SGSN-User-State                                   code=1498 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.272
-    Avp  User-State                                        code=1499 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.272
-    Avp  Non-3GPP-User-Data                                code=1500 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.273
-    Avp  Non-3GPP-IP-Access                                code=1501 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Non-3GPP-IP-Access-APN                            code=1502 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  AN-Trusted                                        code=1503 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  ANID                                              code=1504 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.273
-    Avp  Trace-Info                                        code=1505 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.273
-    Avp  MIP-FA-RK                                         code=1506 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  MIP-FA-RK-SPI                                     code=1507 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  MME-Location-Information                          code=1600 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.273
-    Avp  SGSN-Location-Information                         code=1601 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.273
-    Avp  E-UTRAN-Cell-Global-Identity                      code=1602 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Tracking-Area-Identity                            code=1603 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Cell-Global-Identity                              code=1604 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Routing-Area-Identity                             code=1605 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Location-Area-Identity                            code=1606 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Service-Area-Identity                             code=1607 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Geographical-Information                          code=1608 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Geodetic-Information                              code=1609 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Current-Location-Retrieved                        code=1610 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Age-Of-Location-Information                       code=1611 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  Active-APN                                        code=1612 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.273
-    Avp  SIPTO-Permission                                  code=1613 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Error-Diagnostic                                  code=1614 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  UE-SRVCC-Capability                               code=1615 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  MPS-Priority                                      code=1616 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  VPLMN-LIPA-Allowed                                code=1617 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  LIPA-Permission                                   code=1618 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Subscribed-Periodic-RAU-TAU-Timer                 code=1619 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  Ext-PDP-Type                                      code=1620 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.273
-    Avp  Ext-PDP-Address                                   code=1621 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 29.273
-    Avp  MDT-Configuration                                 code=1622 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.273
-    Avp  Job-Type                                          code=1623 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Area-Scope                                        code=1624 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.273
-    Avp  List-Of-Measurements                              code=1625 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  Reporting-Trigger                                 code=1626 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  Report-Interval                                   code=1627 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Report-Amount                                     code=1628 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Event-ThresholdRSRP                               code=1629 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  Event-ThresholdRSRQ                               code=1630 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  Logging-Interval                                  code=1631 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Logging-Duration                                  code=1632 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  Relay-Node-Indicator                              code=1633 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  MDT-User-Consent                                  code=1634 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.273
-    Avp  PUR-Flags                                         code=1635 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.273
-    Avp  SMS-Information                                   code=2000 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Data-Coding-Scheme                                code=2001 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Integer32         # 3GPP TS 32.299
-    Avp  Destination-Interface                             code=2002 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Interface-Id                                      code=2003 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Interface-Port                                    code=2004 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Interface-Text                                    code=2005 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Interface-Type                                    code=2006 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  SM-Message-Type                                   code=2007 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Originating-SCCP-Address                          code=2008 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  Originator-Interface                              code=2009 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Recipient-SCCP-Address                            code=2010 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  Reply-Path-Requested                              code=2011 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  SM-Discharge-Time                                 code=2012 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  SM-Protocol-ID                                    code=2013 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  SM-Status                                         code=2014 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  SM-User-Data-Header                               code=2015 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  SMS-Node                                          code=2016 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  SMSC-Address                                      code=2017 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  Client-Address                                    code=2018 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  Number-of-Messages-Sent                           code=2019 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Low-Balance-Indication                            code=2020 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Remaining-Balance                                 code=2021 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Refund-Information                                code=2022 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  Carrier-Select-Routing-Information                code=2023 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Number-Portability-Routing-Information            code=2024 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  PoC-Event-Type                                    code=2025 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Recipient-Info                                    code=2026 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Originator-Received-Address                       code=2027 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Recipient-Received-Address                        code=2028 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  SM-Service-Type                                   code=2029 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  MMTel-Information                                 code=2030 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  "Service-Type#2031"                               code=2031 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Service-Mode                                      code=2032 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Subscriber-Role                                   code=2033 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Number-Of-Diversions                              code=2034 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Associated-Party-Address                          code=2035 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  SDP-Type                                          code=2036 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Change-Condition                                  code=2037 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Integer32         # 3GPP TS 32.299
-    Avp  Change-Time                                       code=2038 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Diagnostics                                       code=2039 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Integer32         # 3GPP TS 32.299
-    Avp  Service-Data-Container                            code=2040 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Start-Time                                        code=2041 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Stop-Time                                         code=2042 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Time-First-Usage                                  code=2043 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Time-Last-Usage                                   code=2044 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  Time-Usage                                        code=2045 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Traffic-Data-Volumes                              code=2046 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Serving-Node-Type                                 code=2047 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Supplementary-Service                             code=2048 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Participant-Action-Type                           code=2049 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  PDN-Connection-Id                                 code=2050 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Dynamic-Address-Flag                              code=2051 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Accumulated-Cost                                  code=2052 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  AoC-Cost-Information                              code=2053 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  AoC-Information                                   code=2054 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  AoC-Request-Type                                  code=2055 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Current-Tariff                                    code=2056 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Next-Tariff                                       code=2057 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Rate-Element                                      code=2058 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Scale-Factor                                      code=2059 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Tariff-Information                                code=2060 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Unit-Cost                                         code=2061 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Incremental-Cost                                  code=2062 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Local-Sequence-Number                             code=2063 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Node-Id                                           code=2064 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  SGW-Change                                        code=2065 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Charging-Characteristic-Selection-Mode            code=2066 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  SGW-Address                                       code=2067 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  Application-Server-ID                             code=2101 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Application-Service-Type                          code=2102 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Application-Session-ID                            code=2103 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Delivery-Status                                   code=2104 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  IM-Information                                    code=2110 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Number-Of-Messages-Successfully-Exploded          code=2111 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Number-Of-Messages-Successfully-Sent              code=2112 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Total-Number-Of-Messages-Exploded                 code=2113 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Total-Number-Of-Messages-Sent                     code=2114 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  DCD-Information                                   code=2115 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Content-ID                                        code=2116 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Content-provider-ID                               code=2117 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Subsession-Decision-Info                          code=2200 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Subsession-Enforcement-Info                       code=2201 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Subsession-Id                                     code=2202 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Subsession-Operation                              code=2203 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Multiple-BBERF-Action                             code=2204 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  SIP-Request-Timestamp-Fraction                    code=2301 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  SIP-Response-Timestamp-Fraction                   code=2302 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Online-Charging-Flag                              code=2303 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  CUG-Information                                   code=2304 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 32.299
-    Avp  Real-Time-Tariff-Information                      code=2305 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Tariff-XML                                        code=2306 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  MBMS-GW-Address                                   code=2307 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 32.299
-    Avp  IMSI-Unauthenticated-Flag                         code=2308 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Account-Expiration                                code=2309 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Time              # 3GPP TS 32.299
-    Avp  AoC-Format                                        code=2310 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  AoC-Service                                       code=2311 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  AoC-Service-Obligatory-Type                       code=2312 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  AoC-Service-Type                                  code=2313 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  AoC-Subscription-Information                      code=2314 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Preferred-AoC-Currency                            code=2315 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 32.299
-    Avp  Reason-Code                                       code=2316 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  CSG-Access-Mode                                   code=2317 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  CSG-Membership-Indication                         code=2318 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  User-CSG-Information                              code=2319 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 32.299
-    Avp  Outgoing-Session-Id                               code=2320 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Initial-IMS-Charging-Identifier                   code=2321 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  LMSI                                              code=2400 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.173
-    Avp  Serving-Node                                      code=2401 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.173
-    Avp  MME-Name                                          code=2402 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterIdentity  # 3GPP TS 29.173
-    Avp  MSC-Number                                        code=2403 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.173
-    Avp  LCS-Capabilities-Sets                             code=2404 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.173
-    Avp  GMLC-Address                                      code=2405 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 29.173
-    Avp  Additional-Serving-Node                           code=2406 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.173
-    Avp  PPR-Address                                       code=2407 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Address           # 3GPP TS 29.173
-    Avp  MME-Realm                                         code=2408 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=DiameterIdentity  # 3GPP TS 29.173
-    Avp  Location-Type                                     code=2500 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  LCS-EPS-Client-Name                               code=2501 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.172
-    Avp  LCS-Requestor-Name                                code=2502 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.172
-    Avp  LCS-Priority                                      code=2503 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.172
-    Avp  LCS-QoS                                           code=2504 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.172
-    Avp  Horizontal-Accuracy                               code=2505 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.172
-    Avp  Vertical-Accuracy                                 code=2506 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.172
-    Avp  Vertical-Requested                                code=2507 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  Velocity-Requested                                code=2508 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  Response-Time                                     code=2509 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  Supported-GAD-Shapes                              code=2510 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.172
-    Avp  LCS-Codeword                                      code=2511 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 29.172
-    Avp  LCS-Privacy-Check                                 code=2512 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  Accuracy-Fulfilment-Indicator                     code=2513 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  Age-Of-Location-Estimate                          code=2514 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.172
-    Avp  Velocity-Estimate                                 code=2515 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.172
-    Avp  EUTRAN-Positioning-Data                           code=2516 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.172
-    Avp  ECGI                                              code=2517 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=OctetString       # 3GPP TS 29.172
-    Avp  Location-Event                                    code=2518 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  Pseudonym-Indicator                               code=2519 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  LCS-Service-Type-ID                               code=2520 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Unsigned32        # 3GPP TS 29.172
-    Avp  LCS-Privacy-Check-Non-Session                     code=2521 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.172
-    Avp  LCS-Privacy-Check-Session                         code=2522 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Grouped           # 3GPP TS 29.172
-    Avp  LCS-QoS-Class                                     code=2523 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 29.172
-    Avp  IMS-Application-Reference-Identifier              code=2601 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=UTF8String        # 3GPP TS 32.299
-    Avp  Low-Priority-Indicator                            code=2602 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  IP-Realm-Default-Indicator                        code=2603 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Local-GW-Inserted-Indicator                       code=2604 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
-    Avp  Transcoder-Inserted-Indicator                     code=2605 mandatoryBit=must protectedBit=may  mayEncrypt=no  vendorId=TGPP type=Enumerated        # 3GPP TS 32.299
+    Avp Routing-Policy code=312 mandatoryBit=must type=IPFilterRule vendor=TGPP
+    Avp "Max-Requested-Bandwidth#313" code=313 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Charging-Characteristics code=314 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Charging-Nodes code=315 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Primary-OCS-Charging-Function-Name code=316 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp Secondary-OCS-Charging-Function-Name code=317 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp "3GPP-AAA-Server-Name" code=318 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp Maximum-Number-Accesses code=319 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp GBA-UserSecSettings code=400 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Transaction-Identifier code=401 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp NAF-Hostname code=402 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp GAA-Service-Identifier code=403 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Key-ExpiryTime code=404 mandatoryBit=must type=Time vendor=TGPP
+    Avp ME-Key-Material code=405 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp UICC-Key-Material code=406 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp GBA_U-Awareness-Indicator code=407 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp BootstrapInfoCreationTime code=408 mandatoryBit=must type=Time vendor=TGPP
+    Avp GUSS-Timestamp code=409 mandatoryBit=must type=Time vendor=TGPP
+    Avp GBA-Type code=410 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp UE-Id code=411 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp UE-Id-Type code=412 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp UICC-App-Label code=413 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp UICC-ME code=414 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Requested-Key-Lifetime code=415 mandatoryBit=must type=Time vendor=TGPP
+    Avp Private-Identity-Request code=416 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp GBA-Push-Info code=417 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp NAF-SA-Identifier code=418 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Security-Feature-Request code=419 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Security-Feature-Response code=420 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Abort-Cause code=500 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Access-Network-Charging-Address code=501 mandatoryBit=must type=Address vendor=TGPP
+    Avp Access-Network-Charging-Identifier code=502 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Access-Network-Charging-Identifier-Value code=503 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp AF-Application-Identifier code=504 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp AF-Charging-Identifier code=505 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Authorization-Token code=506 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Flow-Description code=507 mandatoryBit=must type=IPFilterRule vendor=TGPP
+    Avp Flow-Grouping code=508 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Flow-Number code=509 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Flows code=510 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Flow-Status code=511 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Flow-Usage code=512 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Specific-Action code=513 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Max-Requested-Bandwidth code=514 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Max-Requested-Bandwidth-DL code=515 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Max-Requested-Bandwidth-UL code=516 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Media-Component-Description code=517 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Media-Component-Number code=518 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Media-Sub-Component code=519 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Media-Type code=520 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp RR-Bandwidth code=521 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp RS-Bandwidth code=522 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp SIP-Forking-Indication code=523 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Codec-Data code=524 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Service-URN code=525 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Acceptable-Service-Info code=526 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Service-Info-Status code=527 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MPS-Identifier code=528 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp AF-Signalling-Protocol code=529 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Sponsored-Connectivity-Data code=530 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Sponsor-Identity code=531 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Application-Service-Provider-Identity code=532 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Visited-Network-Identifier code=600 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Public-Identity code=601 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Server-Name code=602 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Server-Capabilities code=603 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Mandatory-Capability code=604 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Optional-Capability code=605 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp "User-Data#606" code=606 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SIP-Number-Auth-Items code=607 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp SIP-Authentication-Scheme code=608 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SIP-Authenticate code=609 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SIP-Authorization code=610 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SIP-Authentication-Context code=611 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SIP-Auth-Data-Item code=612 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SIP-Item-Number code=613 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Server-Assignment-Type code=614 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Deregistration-Reason code=615 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp "Reason-Code#616" code=616 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Reason-Info code=617 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Charging-Information code=618 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Primary-Event-Charging-Function-Name code=619 mandatoryBit=must type=DiameterURI vendor=TGPP
+    Avp Secondary-Event-Charging-Function-Name code=620 mandatoryBit=must type=DiameterURI vendor=TGPP
+    Avp Primary-Charging-Collection-Function-Name code=621 mandatoryBit=must type=DiameterURI vendor=TGPP
+    Avp Secondary-Charging-Collection-Function-Name code=622 mandatoryBit=must type=DiameterURI vendor=TGPP
+    Avp User-Authorization-Type code=623 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp User-Data-Already-Available code=624 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Confidentiality-Key code=625 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Integrity-Key code=626 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp User-Data-Request-Type code=627 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Supported-Features code=628 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Feature-List-ID code=629 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Feature-List code=630 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Supported-Applications code=631 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Associated-Identities code=632 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Originating-Request code=633 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Wildcarded-Public-Identity code=634 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SIP-Digest-Authenticate code=635 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Wildcarded-IMPU code=636 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp UAR-Flags code=637 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Loose-Route-Indication code=638 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp SCSCF-Restoration-Info code=639 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Path code=640 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Contact code=641 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Subscription-Info code=642 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Call-ID-SIP-Header code=643 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp From-SIP-Header code=644 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp To-SIP-Header code=645 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Record-Route code=646 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Associated-Registered-Identities code=647 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Multiple-Registration-Indication code=648 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Restoration-Info code=649 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Session-Priority code=650 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Identity-with-Emergency-Registration code=651 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Priviledged-Sender-Indication code=652 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp User-Identity code=700 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MSISDN code=701 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp User-Data code=702 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Data-Reference code=703 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Service-Indication code=704 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Subs-Req-Type code=705 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Requested-Domain code=706 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Current-Location code=707 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Identity-Set code=708 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Expiry-Time code=709 mandatoryBit=must type=Time vendor=TGPP
+    Avp Send-Data-Indication code=710 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp DSAI-Tag code=711 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp One-Time-Notification code=712 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Requested-Nodes code=713 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Serving-Node-Indication code=714 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Repository-Data-ID code=715 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp "Sequence-Number#716" code=716 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Pre-paging-Supported code=717 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Event-Type code=823 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SIP-Method code=824 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Event code=825 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Content-Type code=826 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Content-Length code=827 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Content-Disposition code=828 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Role-of-Node code=829 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp User-Session-Id code=830 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Calling-Party-Address code=831 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Called-Party-Address code=832 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Time-Stamps code=833 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SIP-Request-Timestamp code=834 mandatoryBit=must type=Time vendor=TGPP
+    Avp SIP-Response-Timestamp code=835 mandatoryBit=must type=Time vendor=TGPP
+    Avp Application-Server code=836 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Application-provided-called-party-address code=837 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Inter-Operator-Identifier code=838 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Originating-IOI code=839 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Terminating-IOI code=840 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp IMS-Charging-Identifier code=841 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SDP-Session-Description code=842 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SDP-Media-Component code=843 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SDP-Media-Name code=844 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SDP-Media-Description code=845 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp CG-Address code=846 mandatoryBit=must type=Address vendor=TGPP
+    Avp GGSN-Address code=847 mandatoryBit=must type=Address vendor=TGPP
+    Avp Served-Party-IP-Address code=848 mandatoryBit=must type=Address vendor=TGPP
+    Avp Authorized-QoS code=849 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Application-Server-Information code=850 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Trunk-Group-Id code=851 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Incoming-Trunk-Group-Id code=852 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Outgoing-Trunk-Group-Id code=853 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Bearer-Service code=854 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Service-Id code=855 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Associated-URI code=856 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Charged-Party code=857 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PoC-Controlling-Address code=858 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PoC-Group-Name code=859 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Cause code=860 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Cause-Code code=861 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Node-Functionality code=862 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Service-Specific-Data code=863 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Originator code=864 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp PS-Furnish-Charging-Information code=865 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PS-Free-Format-Data code=866 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp PS-Append-Free-Format-Data code=867 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Time-Quota-Threshold code=868 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Volume-Quota-Threshold code=869 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Trigger-Type code=870 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Quota-Holding-Time code=871 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Reporting-Reason code=872 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Service-Information code=873 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PS-Information code=874 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp WLAN-Information code=875 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp IMS-Information code=876 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MMS-Information code=877 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Information code=878 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PoC-Information code=879 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MBMS-Information code=880 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Quota-Consumption-Time code=881 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Media-Initiator-Flag code=882 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp PoC-Server-Role code=883 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp PoC-Session-Type code=884 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Number-Of-Participants code=885 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Originator-Address code=886 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Participants-Involved code=887 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Expires code=888 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Message-Body code=889 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp WAG-Address code=890 mandatoryBit=must type=Address vendor=TGPP
+    Avp WAG-PLMN-Id code=891 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp WLAN-Radio-Container code=892 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp WLAN-Technology code=893 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp WLAN-UE-Local-IPAddress code=894 mandatoryBit=must type=Address vendor=TGPP
+    Avp PDG-Address code=895 mandatoryBit=must type=Address vendor=TGPP
+    Avp PDG-Charging-Id code=896 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Address-Data code=897 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Address-Domain code=898 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Address-Type code=899 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp TMGI code=900 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Required-MBMS-Bearer-Capabilities code=901 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp MBMS-StartStop-Indication code=902 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-Service-Area code=903 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp MBMS-Session-Duration code=904 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Alternative-APN code=905 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp MBMS-Service-Type code=906 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-2G-3G-Indicator code=907 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-Session-Identity code=908 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp RAI code=909 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Additional-MBMS-Trace-Info code=910 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp MBMS-Time-To-Data-Transfer code=911 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp MBMS-Session-Identity-Repetition-Number code=912 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp MBMS-Required-QoS code=913 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp MBMS-Counting-Information code=914 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-User-Data-Mode-Indication code=915 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-GGSN-Address code=916 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp MBMS-GGSN-IPv6-Address code=917 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp MBMS-BMSC-SSM-IP-Address code=918 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp MBMS-BMSC-SSM-IPv6-Address code=919 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp MBMS-Flow-Identifier code=920 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp CN-IP-Multicast-Distribution code=921 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-HC-Indicator code=922 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-Access-Indicator code=923 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-GW-SSM-IP-Address code=924 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp MBMS-GW-SSM-IPv6-Address code=925 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp MBMS-BMSC-SSM-UDP-Port code=926 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp MBMS-GW-UDP-Port code=927 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp MBMS-GW-UDP-Port-Indicator code=928 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Bearer-Usage code=1000 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Charging-Rule-Install code=1001 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Charging-Rule-Remove code=1002 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Charging-Rule-Definition code=1003 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Charging-Rule-Base-Name code=1004 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Charging-Rule-Name code=1005 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Event-Trigger code=1006 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Metering-Method code=1007 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Offline code=1008 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Online code=1009 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Precedence code=1010 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Reporting-Level code=1011 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp TFT-Filter code=1012 mandatoryBit=must type=IPFilterRule vendor=TGPP
+    Avp TFT-Packet-Filter-Information code=1013 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp ToS-Traffic-Class code=1014 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp QoS-Information code=1016 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Charging-Rule-Report code=1018 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PCC-Rule-Status code=1019 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Bearer-Identifier code=1020 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Bearer-Operation code=1021 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Access-Network-Charging-Identifier-Gx code=1022 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Bearer-Control-Mode code=1023 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Network-Request-Support code=1024 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Guaranteed-Bitrate-DL code=1025 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Guaranteed-Bitrate-UL code=1026 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp IP-CAN-Type code=1027 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp QoS-Class-Identifier code=1028 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp QoS-Negotiation code=1029 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp QoS-Upgrade code=1030 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Rule-Failure-Code code=1031 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp RAT-Type code=1032 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Event-Report-Indication code=1033 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Allocation-Retention-Priority code=1034 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CoA-IP-Address code=1035 mandatoryBit=must type=Address vendor=TGPP
+    Avp Tunnel-Header-Filter code=1036 mandatoryBit=must type=IPFilterRule vendor=TGPP
+    Avp Tunnel-Header-Length code=1037 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Tunnel-Information code=1038 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CoA-Information code=1039 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp APN-Aggregate-Max-Bitrate-DL code=1040 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp APN-Aggregate-Max-Bitrate-UL code=1041 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Revalidation-Time code=1042 mandatoryBit=must type=Time vendor=TGPP
+    Avp Rule-Activation-Time code=1043 mandatoryBit=must type=Time vendor=TGPP
+    Avp Rule-DeActivation-Time code=1044 mandatoryBit=must type=Time vendor=TGPP
+    Avp Session-Release-Cause code=1045 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Priority-Level code=1046 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Pre-emption-Capability code=1047 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Pre-emption-Vulnerability code=1048 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Default-EPS-Bearer-QoS code=1049 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp AN-GW-Address code=1050 mandatoryBit=must type=Address vendor=TGPP
+    Avp QoS-Rule-Install code=1051 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp QoS-Rule-Remove code=1052 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp QoS-Rule-Definition code=1053 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp QoS-Rule-Name code=1054 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp QoS-Rule-Report code=1055 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Security-Parameter-Index code=1056 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Flow-Label code=1057 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Flow-Information code=1058 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Packet-Filter-Content code=1059 mandatoryBit=must type=IPFilterRule vendor=TGPP
+    Avp Packet-Filter-Identifier code=1060 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Packet-Filter-Information code=1061 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Packet-Filter-Operation code=1062 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Resource-Allocation-Notification code=1063 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Session-Linking-Indicator code=1064 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp "PDN-Connection-ID#1065" code=1065 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Monitoring-Key code=1066 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Usage-Monitoring-Information code=1067 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Usage-Monitoring-Level code=1068 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Usage-Monitoring-Report code=1069 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Usage-Monitoring-Support code=1070 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp CSG-Information-Reporting code=1071 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Packet-Filter-Usage code=1072 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Charging-Correlation-Indicator code=1073 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp QoS-Rule-Base-Name code=1074 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Routing-Rule-Remove code=1075 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Routing-Rule-Definition code=1076 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Routing-Rule-Identifier code=1077 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Routing-Filter code=1078 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Routing-IP-Address code=1079 mandatoryBit=must type=Address vendor=TGPP
+    Avp Flow-Direction code=1080 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Routing-Rule-Install code=1081 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Served-User-Identity code=1100 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp VASP-ID code=1101 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp VAS-ID code=1102 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Trigger-Event code=1103 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Sender-Address code=1104 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Initial-Recipient-Address code=1105 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Result-Recipient-Address code=1106 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Sequence-Number code=1107 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp "Recipient-Address#1108" code=1108 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Routeing-Address code=1109 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Originating-Interface code=1110 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Delivery-Report code=1111 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Read-Reply code=1112 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Sender-Visibility code=1113 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Service-Key code=1114 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Billing-Information code=1115 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Status code=1116 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Status-Code code=1117 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Status-Text code=1118 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Domain-Name code=1200 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Recipient-Address code=1201 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Submission-Time code=1202 mandatoryBit=must type=Time vendor=TGPP
+    Avp MM-Content-Type code=1203 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Type-Number code=1204 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Additional-Type-Information code=1205 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Content-Size code=1206 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Additional-Content-Information code=1207 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Addressee-Type code=1208 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Priority code=1209 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Message-ID code=1210 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Message-Type code=1211 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Message-Size code=1212 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Message-Class code=1213 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Class-Identifier code=1214 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Token-Text code=1215 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Delivery-Report-Requested code=1216 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Adaptations code=1217 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Applic-ID code=1218 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Aux-Applic-Info code=1219 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Content-Class code=1220 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp DRM-Content code=1221 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Read-Reply-Report-Requested code=1222 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Reply-Applic-ID code=1223 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp File-Repair-Supported code=1224 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MBMS-User-Service-Type code=1225 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Unit-Quota-Threshold code=1226 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp PDP-Address code=1227 mandatoryBit=must type=Address vendor=TGPP
+    Avp SGSN-Address code=1228 mandatoryBit=must type=Address vendor=TGPP
+    Avp PoC-Session-Id code=1229 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Deferred-Location-Even-Type code=1230 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp "LCS-Client-Name#1231" code=1231 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Client-Id code=1232 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Client-Dialed-By-MS code=1233 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Client-External-ID code=1234 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Client-Name code=1235 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Data-Coding-Scheme code=1236 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Format-Indicator code=1237 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp LCS-Name-String code=1238 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Requestor-Id code=1239 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Requestor-Id-String code=1240 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Client-Type code=1241 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Location-Estimate code=1242 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Location-Estimate-Type code=1243 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp "Location-Type#1244" code=1244 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Positioning-Data code=1245 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp WLAN-Session-Id code=1246 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PDP-Context-Type code=1247 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MMBox-Storage-Requested code=1248 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Service-Specific-Info code=1249 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Called-Asserted-Identity code=1250 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Requested-Party-Address code=1251 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PoC-User-Role code=1252 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PoC-User-Role-IDs code=1253 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PoC-User-Role-info-Units code=1254 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Talk-Burst-Exchange code=1255 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Service-Generic-Information code=1256 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Service-Specific-Type code=1257 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Event-Charging-TimeStamp code=1258 mandatoryBit=must type=Time vendor=TGPP
+    Avp Participant-Access-Priority code=1259 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Participant-Group code=1260 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PoC-Change-Conditions code=1261 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp PoC-Change-Time code=1262 mandatoryBit=must type=Time vendor=TGPP
+    Avp Access-Network-Information code=1263 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trigger code=1264 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Base-Time-Interval code=1265 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Envelope code=1266 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Envelope-End-Time code=1267 mandatoryBit=must type=Time vendor=TGPP
+    Avp Envelope-Reporting code=1268 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Envelope-Start-Time code=1269 mandatoryBit=must type=Time vendor=TGPP
+    Avp Time-Quota-Mechanism code=1270 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Time-Quota-Type code=1271 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Early-Media-Description code=1272 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SDP-TimeStamps code=1273 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SDP-Offer-Timestamp code=1274 mandatoryBit=must type=Time vendor=TGPP
+    Avp SDP-Answer-Timestamp code=1275 mandatoryBit=must type=Time vendor=TGPP
+    Avp AF-Correlation-Information code=1276 mandatoryBit=must type=Time vendor=TGPP
+    Avp PoC-Session-Initiation-type code=1277 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Offline-Charging code=1278 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp User-Participating-Type code=1279 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Alternate-Charged-Party-Address code=1280 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp IMS-Communication-Service-Identifier code=1281 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Number-Of-Received-Talk-Bursts code=1282 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Number-Of-Talk-Bursts code=1283 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Received-Talk-Burst-Time code=1284 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Received-Talk-Burst-Volume code=1285 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Talk-Burst-Time code=1286 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Talk-Burst-Volume code=1287 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Media-Initiator-Party code=1288 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Subscription-Data code=1400 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Terminal-Information code=1401 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp IMEI code=1402 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Software-Version code=1403 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp QoS-Subscribed code=1404 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp ULR-Flags code=1405 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp ULA-Flags code=1406 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Visited-PLMN-Id code=1407 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Requested-EUTRAN-Authentication-Info code=1408 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Requested-UTRAN-GERAN-Authentication-Info code=1409 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Number-Of-Requested-Vectors code=1410 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Re-Synchronization-Info code=1411 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Immediate-Response-Preferred code=1412 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Authentication-Info code=1413 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp E-UTRAN-Vector code=1414 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp UTRAN-Vector code=1415 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp GERAN-Vector code=1416 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Network-Access-Mode code=1417 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp HPLMN-ODB code=1418 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Item-Number code=1419 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Cancellation-Type code=1420 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp DSR-Flags code=1421 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp DSA-Flags code=1422 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Context-Identifier code=1423 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Subscriber-Status code=1424 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Operator-Determined-Barring code=1425 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Access-Restriction-Data code=1426 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp APN-OI-Replacement code=1427 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp All-APN-Configurations-Included-Indicator code=1428 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp APN-Configuration-Profile code=1429 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp APN-Configuration code=1430 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp EPS-Subscribed-QoS-Profile code=1431 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp VPLMN-Dynamic-Address-Allowed code=1432 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp STN-SR code=1433 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Alert-Reason code=1434 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp AMBR code=1435 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CSG-Subscription-Data code=1436 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CSG-Id code=1437 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp PDN-GW-Allocation-Type code=1438 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Expiration-Date code=1439 mandatoryBit=must type=Time vendor=TGPP
+    Avp RAT-Frequency-Selection-Priority-ID code=1440 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp IDA-Flags code=1441 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp PUA-Flags code=1442 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp NOR-Flags code=1443 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp User-Id code=1444 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Equipment-Status code=1445 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Regional-Subscription-Zone-Code code=1446 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp RAND code=1447 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp XRES code=1448 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp AUTN code=1449 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp KASME code=1450 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trace-Collection-Entity code=1452 mandatoryBit=must type=Address vendor=TGPP
+    Avp Kc code=1453 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SRES code=1454 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp PDN-Type code=1456 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Roaming-Restricted-Due-To-Unsupported-Feature code=1457 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Trace-Data code=1458 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Trace-Reference code=1459 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trace-Depth code=1462 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Trace-NE-Type-List code=1463 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trace-Interface-List code=1464 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trace-Event-List code=1465 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp OMC-Id code=1466 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp GPRS-Subscription-Data code=1467 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Complete-Data-List-Included-Indicator code=1468 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp PDP-Context code=1469 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PDP-Type code=1470 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp "3GPP2-MEID" code=1471 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Specific-APN-Info code=1472 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Info code=1473 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp GMLC-Number code=1474 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp LCS-PrivacyException code=1475 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SS-Code code=1476 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SS-Status code=1477 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Notification-To-UE-User code=1478 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp External-Client code=1479 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Client-Identity code=1480 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp GMLC-Restriction code=1481 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp PLMN-Client code=1482 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp "Service-Type#1483" code=1483 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Service-Type-Identity code=1484 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp MO-LR code=1485 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Teleservice-List code=1486 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp TS-Code code=1487 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Call-Barring-Infor-List code=1488 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SGSN-Number code=1489 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp IDR-Flags code=1490 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp ICS-Indicator code=1491 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp IMS-Voice-Over-PS-Sessions-Supported code=1492 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Homogeneous-Support-of-IMS-Voice-Over-PS-Sessions code=1493 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Last-UE-Activity-Time code=1494 mandatoryBit=must type=Time vendor=TGPP
+    Avp EPS-User-State code=1495 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp EPS-Location-Information code=1496 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MME-User-State code=1497 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SGSN-User-State code=1498 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp User-State code=1499 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Non-3GPP-User-Data code=1500 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Non-3GPP-IP-Access code=1501 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Non-3GPP-IP-Access-APN code=1502 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp AN-Trusted code=1503 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp ANID code=1504 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Trace-Info code=1505 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MIP-FA-RK code=1506 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp MIP-FA-RK-SPI code=1507 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp MME-Location-Information code=1600 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SGSN-Location-Information code=1601 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp E-UTRAN-Cell-Global-Identity code=1602 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Tracking-Area-Identity code=1603 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Cell-Global-Identity code=1604 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Routing-Area-Identity code=1605 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Location-Area-Identity code=1606 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Service-Area-Identity code=1607 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Geographical-Information code=1608 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Geodetic-Information code=1609 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Current-Location-Retrieved code=1610 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Age-Of-Location-Information code=1611 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Active-APN code=1612 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SIPTO-Permission code=1613 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Error-Diagnostic code=1614 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp UE-SRVCC-Capability code=1615 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MPS-Priority code=1616 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp VPLMN-LIPA-Allowed code=1617 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp LIPA-Permission code=1618 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Subscribed-Periodic-RAU-TAU-Timer code=1619 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Ext-PDP-Type code=1620 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Ext-PDP-Address code=1621 mandatoryBit=must type=Address vendor=TGPP
+    Avp MDT-Configuration code=1622 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Job-Type code=1623 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Area-Scope code=1624 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp List-Of-Measurements code=1625 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Reporting-Trigger code=1626 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Report-Interval code=1627 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Report-Amount code=1628 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Event-ThresholdRSRP code=1629 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Event-ThresholdRSRQ code=1630 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Logging-Interval code=1631 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Logging-Duration code=1632 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Relay-Node-Indicator code=1633 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MDT-User-Consent code=1634 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp PUR-Flags code=1635 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp SMS-Information code=2000 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Data-Coding-Scheme code=2001 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Destination-Interface code=2002 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Interface-Id code=2003 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Interface-Port code=2004 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Interface-Text code=2005 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Interface-Type code=2006 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp SM-Message-Type code=2007 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Originating-SCCP-Address code=2008 mandatoryBit=must type=Address vendor=TGPP
+    Avp Originator-Interface code=2009 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Recipient-SCCP-Address code=2010 mandatoryBit=must type=Address vendor=TGPP
+    Avp Reply-Path-Requested code=2011 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp SM-Discharge-Time code=2012 mandatoryBit=must type=Time vendor=TGPP
+    Avp SM-Protocol-ID code=2013 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SM-Status code=2014 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SM-User-Data-Header code=2015 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SMS-Node code=2016 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp SMSC-Address code=2017 mandatoryBit=must type=Address vendor=TGPP
+    Avp Client-Address code=2018 mandatoryBit=must type=Address vendor=TGPP
+    Avp Number-of-Messages-Sent code=2019 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Low-Balance-Indication code=2020 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Remaining-Balance code=2021 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Refund-Information code=2022 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Carrier-Select-Routing-Information code=2023 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Number-Portability-Routing-Information code=2024 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PoC-Event-Type code=2025 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Recipient-Info code=2026 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Originator-Received-Address code=2027 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Recipient-Received-Address code=2028 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SM-Service-Type code=2029 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp MMTel-Information code=2030 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp "Service-Type#2031" code=2031 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Service-Mode code=2032 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Subscriber-Role code=2033 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Number-Of-Diversions code=2034 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Associated-Party-Address code=2035 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SDP-Type code=2036 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Change-Condition code=2037 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Change-Time code=2038 mandatoryBit=must type=Time vendor=TGPP
+    Avp Diagnostics code=2039 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Service-Data-Container code=2040 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Start-Time code=2041 mandatoryBit=must type=Time vendor=TGPP
+    Avp Stop-Time code=2042 mandatoryBit=must type=Time vendor=TGPP
+    Avp Time-First-Usage code=2043 mandatoryBit=must type=Time vendor=TGPP
+    Avp Time-Last-Usage code=2044 mandatoryBit=must type=Time vendor=TGPP
+    Avp Time-Usage code=2045 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Traffic-Data-Volumes code=2046 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Serving-Node-Type code=2047 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Supplementary-Service code=2048 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Participant-Action-Type code=2049 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp PDN-Connection-Id code=2050 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Dynamic-Address-Flag code=2051 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Accumulated-Cost code=2052 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp AoC-Cost-Information code=2053 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp AoC-Information code=2054 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp AoC-Request-Type code=2055 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Current-Tariff code=2056 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Next-Tariff code=2057 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Rate-Element code=2058 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Scale-Factor code=2059 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Tariff-Information code=2060 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Unit-Cost code=2061 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Incremental-Cost code=2062 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Local-Sequence-Number code=2063 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Node-Id code=2064 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SGW-Change code=2065 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Charging-Characteristic-Selection-Mode code=2066 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp SGW-Address code=2067 mandatoryBit=must type=Address vendor=TGPP
+    Avp Application-Server-ID code=2101 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Application-Service-Type code=2102 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Application-Session-ID code=2103 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Delivery-Status code=2104 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp IM-Information code=2110 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Number-Of-Messages-Successfully-Exploded code=2111 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Number-Of-Messages-Successfully-Sent code=2112 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Total-Number-Of-Messages-Exploded code=2113 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Total-Number-Of-Messages-Sent code=2114 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp DCD-Information code=2115 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Content-ID code=2116 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Content-provider-ID code=2117 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Subsession-Decision-Info code=2200 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Subsession-Enforcement-Info code=2201 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Subsession-Id code=2202 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Subsession-Operation code=2203 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Multiple-BBERF-Action code=2204 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp SIP-Request-Timestamp-Fraction code=2301 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp SIP-Response-Timestamp-Fraction code=2302 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Online-Charging-Flag code=2303 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp CUG-Information code=2304 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Real-Time-Tariff-Information code=2305 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Tariff-XML code=2306 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp MBMS-GW-Address code=2307 mandatoryBit=must type=Address vendor=TGPP
+    Avp IMSI-Unauthenticated-Flag code=2308 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Account-Expiration code=2309 mandatoryBit=must type=Time vendor=TGPP
+    Avp AoC-Format code=2310 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp AoC-Service code=2311 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp AoC-Service-Obligatory-Type code=2312 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp AoC-Service-Type code=2313 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp AoC-Subscription-Information code=2314 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Preferred-AoC-Currency code=2315 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Reason-Code code=2316 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp CSG-Access-Mode code=2317 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp CSG-Membership-Indication code=2318 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp User-CSG-Information code=2319 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Outgoing-Session-Id code=2320 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Initial-IMS-Charging-Identifier code=2321 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LMSI code=2400 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Serving-Node code=2401 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MME-Name code=2402 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp MSC-Number code=2403 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp LCS-Capabilities-Sets code=2404 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp GMLC-Address code=2405 mandatoryBit=must type=Address vendor=TGPP
+    Avp Additional-Serving-Node code=2406 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PPR-Address code=2407 mandatoryBit=must type=Address vendor=TGPP
+    Avp MME-Realm code=2408 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp Location-Type code=2500 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp LCS-EPS-Client-Name code=2501 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Requestor-Name code=2502 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Priority code=2503 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp LCS-QoS code=2504 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Horizontal-Accuracy code=2505 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Vertical-Accuracy code=2506 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Vertical-Requested code=2507 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Velocity-Requested code=2508 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Response-Time code=2509 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Supported-GAD-Shapes code=2510 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp LCS-Codeword code=2511 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Privacy-Check code=2512 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Accuracy-Fulfilment-Indicator code=2513 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Age-Of-Location-Estimate code=2514 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Velocity-Estimate code=2515 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp EUTRAN-Positioning-Data code=2516 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp ECGI code=2517 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Location-Event code=2518 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Pseudonym-Indicator code=2519 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp LCS-Service-Type-ID code=2520 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp LCS-Privacy-Check-Non-Session code=2521 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Privacy-Check-Session code=2522 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-QoS-Class code=2523 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp IMS-Application-Reference-Identifier code=2601 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Low-Priority-Indicator code=2602 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp IP-Realm-Default-Indicator code=2603 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Local-GW-Inserted-Indicator code=2604 mandatoryBit=must type=Enumerated vendor=TGPP
+    Avp Transcoder-Inserted-Indicator code=2605 mandatoryBit=must type=Enumerated vendor=TGPP
+
 }
