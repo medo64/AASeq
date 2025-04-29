@@ -1,4 +1,4 @@
-﻿namespace DiamDictCheck;
+namespace DiamDictCheck;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,14 +13,15 @@ internal static class App {
             var countCommand = 0;
             var countAvp = 0;
 
-            var vendorsPerId = new Dictionary<string, object?>();
+            var vendorsPerName = new Dictionary<string, object?>();
             var vendorsPerCode = new Dictionary<int, object?>();
-            var applicationsPerId = new Dictionary<uint, object?>();
             var applicationsPerName = new Dictionary<string, object?>();
-            var commandsPerCode = new Dictionary<int, object?>();
+            var applicationsPerId = new Dictionary<uint, object?>();
             var commandsPerName = new Dictionary<string, object?>();
-            var avpsPerVendorAndCode = new Dictionary<(string, int), object?>();
+            var commandsPerCode = new Dictionary<int, object?>();
+            var commandsPerAbbrev = new Dictionary<string, object?>();
             var avpsPerVendorAndName = new Dictionary<(string, string), object?>();
+            var avpsPerVendorAndCode = new Dictionary<(string, int), object?>();
 
             foreach (var file in Directory.GetFiles("../../src/AASeq.Plugin.Diameter/Assets/", "*.aaseq")) {
                 Console.WriteLine($"Processing {file}...");
@@ -41,7 +42,7 @@ internal static class App {
                         if (!int.TryParse(node.Properties["code"], out var vendorCode)) { WriteError($"Unexpected code for '{node.Value}."); }
                         if (node.Properties.Count != 2) { WriteError($"Unexpected property count for '{node.Value}."); }
 
-                        vendorsPerId.Add(node.Properties["id"], null);
+                        vendorsPerName.Add(node.Properties["id"], null);
                         vendorsPerCode.Add(vendorCode, null);
 
                     } else if (node.Name.Equals("Application")) {
@@ -60,10 +61,7 @@ internal static class App {
 
                         if (node.Value.RawValue is not string) { WriteError($"Node '{node.Value} is not string."); }
                         if (!int.TryParse(node.Properties["code"], out var commandCode)) { WriteError($"Unexpected code for '{node.Value}."); }
-                        if (node.Properties.Count == 3) {
-                        } else if (node.Properties.Count == 4) {
-                            if (!vendorsPerId.TryGetValue(node.Properties["vendorId"], out var _)) { WriteError($"Unexpected vendorId='{node.Properties["vendor"]}' for '{node.Value}."); }
-                        } else {
+                        if (node.Properties.Count != 2) {
                             WriteError($"Unexpected property count for '{node.Value}.");
                         }
                         if (node.Nodes.Count != 0) { WriteError($"Unexpected subnode for '{node.Value}."); }
@@ -71,17 +69,20 @@ internal static class App {
                         commandsPerCode.Add(commandCode, null);
                         commandsPerName.Add(node.Value.AsString(""), null);
 
+                        var abbrev = node.Properties.GetPropertyValue("abbrev", "");
+                        if (!string.IsNullOrEmpty(abbrev)) {
+                            commandsPerAbbrev.Add(abbrev, null);
+                        }
+
                     } else if (node.Name.Equals("Avp")) {
                         countAvp++;
 
                         if (node.Value.RawValue is not string) { WriteError($"Node '{node.Value} is not string."); }
                         if (!int.TryParse(node.Properties["code"], out var avpCode)) { WriteError($"Unexpected code for '{node.Value}."); }
                         if (!"must".Equals(node.Properties["mandatoryBit"]) && !"may".Equals(node.Properties["mandatoryBit"]) && !"mustnot".Equals(node.Properties["mandatoryBit"])) { WriteError($"Unexpected mandatory={node.Properties["mandatoryBit"]} for '{node.Value}."); }
-                        if (!"must".Equals(node.Properties["protectedBit"]) && !"may".Equals(node.Properties["protectedBit"]) && !"mustnot".Equals(node.Properties["protectedBit"])) { WriteError($"Unexpected protected={node.Properties["protectedBit"]} for '{node.Value}."); }
-                        if (!"yes".Equals(node.Properties["mayEncrypt"]) && !"no".Equals(node.Properties["mayEncrypt"])) { WriteError($"Unexpected mayEncrypt={node.Properties["mayEncrypt"]} for '{node.Value}."); }
-                        if (node.Properties.Count == 5) {
-                        } else if (node.Properties.Count == 6) {
-                            if (!vendorsPerId.TryGetValue(node.Properties["vendorId"], out var _)) { WriteError($"Unexpected vendorId='{node.Properties["vendor"]}' for '{node.Value}."); }
+                        if (node.Properties.Count == 3) {
+                        } else if (node.Properties.Count == 4) {
+                            if (!vendorsPerName.TryGetValue(node.Properties["vendor"], out var _)) { WriteError($"Unexpected vendor='{node.Properties["vendor"]}' for '{node.Value}."); }
                         } else {
                             WriteError($"Unexpected property count for '{node.Value}.");
                         }
@@ -131,13 +132,15 @@ internal static class App {
                                 break;
                         }
 
-                        avpsPerVendorAndCode.Add((node.Properties.GetPropertyValue("vendorId", ""), avpCode), null);
-                        avpsPerVendorAndName.Add((node.Properties.GetPropertyValue("vendorId", ""), node.Value.AsString("")), null);
+                        avpsPerVendorAndCode.Add((node.Properties.GetPropertyValue("vendor", ""), avpCode), null);
+                        avpsPerVendorAndName.Add((node.Properties.GetPropertyValue("vendor", ""), node.Value.AsString("")), null);
 
                     } else {
                         WriteError($"Unrecognized node type '{node.Name}'.");
                     }
                 }
+
+                doc.Save(file);
             }
 
             Console.ForegroundColor = ConsoleColor.Green;

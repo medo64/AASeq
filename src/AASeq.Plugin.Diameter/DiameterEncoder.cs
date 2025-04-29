@@ -108,7 +108,6 @@ internal static class DiameterEncoder {
         var flags = (byte)0;
         if (avpEntry.Vendor is not null) { flags |= 0x80; }
         if (avpEntry.MandatoryBit == AvpBitState.Must) { flags |= 0x40; }
-        if (avpEntry.ProtectedBit == AvpBitState.Must) { flags |= 0x20; }
         return flags;
     }
 

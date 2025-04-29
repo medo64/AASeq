@@ -1,4 +1,4 @@
 namespace AASeqPlugin;
+using System;
 
-internal record ApplicationDictionaryEntry(string Name, uint Id) {
-}
+internal record ApplicationDictionaryEntry(String Name, UInt32 Id);

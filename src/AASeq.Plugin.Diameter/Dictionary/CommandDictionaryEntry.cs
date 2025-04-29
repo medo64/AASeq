@@ -1,4 +1,4 @@
 namespace AASeqPlugin;
+using System;
 
-internal record CommandDictionaryEntry (string Name, uint Code, AvpBitState ProxiableBit, VendorDictionaryEntry? Vendor) {
-}
+internal record CommandDictionaryEntry (String Name, UInt32 Code);

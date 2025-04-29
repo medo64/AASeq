@@ -9,8 +9,8 @@ public class DiameterEncoderTests {
 
     [TestMethod]
     public void DiameterEncoder_EncodeCER() {
-        var message = DiameterEncoder.EncodeRequest(
-            "Common:Capabilities-Exchange", [
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
                 new AASeqNode("Origin-Host", "me.aaseq.com"),
                 new AASeqNode("Origin-Realm", "aaseq.com"),
                 new AASeqNode("Product-Name", "AASeq"),
@@ -54,8 +54,8 @@ public class DiameterEncoderTests {
 
     [TestMethod]
     public void DiameterEncoder_EncodeDWR() {
-        var message = DiameterEncoder.EncodeRequest(
-            "Device-Watchdog", [
+        var message = DiameterEncoder.Encode(
+            "Device-Watchdog-Request", [
                 new AASeqNode("Origin-Host", "me.aaseq.com"),
                 new AASeqNode("Origin-Realm", "aaseq.com"),
             ]);

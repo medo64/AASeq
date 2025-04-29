@@ -19,14 +19,12 @@ internal class DictionaryLookup {
                 if (rootNode.Name.Equals("DiameterDictionary", StringComparison.OrdinalIgnoreCase)) {
                     foreach (var node in rootNode.Nodes) {
                         if (node.Name.Equals("Vendor", StringComparison.OrdinalIgnoreCase)) {
-                            var name = node.Value.AsString() ?? throw new NotSupportedException("No vendor name.");
-                            var id = node.GetPropertyValue("id") ?? throw new NotSupportedException($"No vendor ID ({name}).");
+                            var name = node.Value.AsString() ?? throw new NotSupportedException($"No vendor name.");
                             var codeVal = node.GetPropertyValue("code") ?? throw new NotSupportedException($"No vendor code ({name}).");
                             if (!uint.TryParse(codeVal, NumberStyles.Integer, CultureInfo.InvariantCulture, out var code)) { throw new NotSupportedException($"Unknown vendor code ({name})."); }
-                            var entry = new VendorDictionaryEntry(name, id, code);
-                            VendorsByCode.Add(entry.Code, entry);
-                            VendorsById.Add(entry.Id, entry);
+                            var entry = new VendorDictionaryEntry(name, code);
                             VendorsByName.Add(entry.Name, entry);
+                            VendorsByCode.Add(entry.Code, entry);
                         } else if (node.Name.Equals("Application", StringComparison.OrdinalIgnoreCase)) {
                             var name = node.Value.AsString() ?? throw new NotSupportedException("No application name.");
                             var idVal = node.GetPropertyValue("id") ?? throw new NotSupportedException($"No application ID ({name}).");
@@ -39,15 +37,9 @@ internal class DictionaryLookup {
                             var abbrev = node.GetPropertyValue("abbrev");
                             var codeVal = node.GetPropertyValue("code") ?? throw new NotSupportedException($"No command Code ({name}).");
                             if (!uint.TryParse(codeVal, NumberStyles.Integer, CultureInfo.InvariantCulture, out var code)) { throw new NotSupportedException($"Unknown command code ({name})."); }
-                            var proxiableBit = node.GetPropertyValue("proxiableBit")?.ToUpperInvariant() switch {
-                                "MUSTNOT" => AvpBitState.MustNot,
-                                "MAY" => AvpBitState.May,
-                                "MUST" => AvpBitState.Must,
-                                _ => throw new NotSupportedException($"Unknown proxiableBit parameter ({name}).")
-                            };
-                            var vendorId = node.GetPropertyValue("vendorId");
-                            var vendor = (vendorId is null) ? null : (FindVendorById(vendorId) ?? throw new NotSupportedException($"Unknown command vendor ({name})."));
-                            var entry = new CommandDictionaryEntry(name, code, proxiableBit, vendor);
+                            var vendorName = node.GetPropertyValue("vendor");
+                            var vendor = (vendorName is null) ? null : (FindVendorByName(vendorName) ?? throw new NotSupportedException($"Unknown command vendor ({name})."));
+                            var entry = new CommandDictionaryEntry(name, code);
                             CommandsByCode.Add(entry.Code, entry);
                             CommandsByName.Add(entry.Name, entry);
                             if (!string.IsNullOrEmpty(abbrev) && !abbrev.Equals(entry.Name, StringComparison.Ordinal)) { CommandsByName.Add(abbrev, entry); }
@@ -61,19 +53,8 @@ internal class DictionaryLookup {
                                 "MUST" => AvpBitState.Must,
                                 _ => throw new NotSupportedException($"Unknown mandatoryBit parameter ({name}).")
                             };
-                            var protectedBit = node.GetPropertyValue("protectedBit")?.ToUpperInvariant() switch {
-                                "MUSTNOT" => AvpBitState.MustNot,
-                                "MAY" => AvpBitState.May,
-                                "MUST" => AvpBitState.Must,
-                                _ => throw new NotSupportedException($"Unknown protectedBit parameter ({name}).")
-                            };
-                            var mayEncrypt = node.GetPropertyValue("mayEncrypt")?.ToUpperInvariant() switch {
-                                "NO" => false,
-                                "YES" => true,
-                                _ => throw new NotSupportedException($"Unknown mayEnrypt parameter ({name}).")
-                            };
-                            var vendorId = node.GetPropertyValue("vendorId");
-                            var vendor = (vendorId is null) ? null : (FindVendorById(vendorId) ?? throw new NotSupportedException($"Unknown AVP vendor ({name})."));
+                            var vendorName = node.GetPropertyValue("vendor");
+                            var vendor = (vendorName is null) ? null : (FindVendorByName(vendorName) ?? throw new NotSupportedException($"Unknown AVP vendor ({name})."));
                             var avpType = node.GetPropertyValue("type")?.ToUpperInvariant() switch {
                                 "ADDRESS" => AvpType.Address,
                                 "DIAMETERIDENTITY" => AvpType.DiameterIdentity,
@@ -92,7 +73,19 @@ internal class DictionaryLookup {
                                 "UTF8STRING" => AvpType.UTF8String,
                                 _ => throw new NotSupportedException($"Unknown type parameter ({name}).")
                             };
-                            var entry = new AvpDictionaryEntry(name, code, mandatoryBit, protectedBit, mayEncrypt, vendor, avpType);
+                            AvpDictionaryEntry entry;
+                            if (avpType == AvpType.Enumerated) {
+                                var enumList = new List<AvpEnumDictionaryEntry>();
+                                foreach (var enumNode in node.Nodes) {
+                                    var enumName = enumNode.Value.AsString() ?? throw new NotSupportedException($"No enum name in {name}.");
+                                    var enumCodeVal = enumNode.GetPropertyValue("code") ?? throw new NotSupportedException($"No enum code ({name}).");
+                                    if (!int.TryParse(enumCodeVal, NumberStyles.Integer, CultureInfo.InvariantCulture, out var enumCode)) { throw new NotSupportedException($"Unknown enum code ({name})."); }
+                                    enumList.Add(new AvpEnumDictionaryEntry(enumName, enumCode));
+                                }
+                                entry = new AvpDictionaryEntry(name, code, mandatoryBit, vendor, enumList);
+                            } else {
+                                entry = new AvpDictionaryEntry(name, code, mandatoryBit, vendor, avpType);
+                            }
                             AvpsByCode.Add((entry.Vendor?.Code ?? 0, entry.Code), entry);
                             AvpsByName.Add(entry.Name, entry);
                         }
@@ -104,7 +97,6 @@ internal class DictionaryLookup {
 
 
     private readonly Dictionary<uint, VendorDictionaryEntry> VendorsByCode = [];
-    private readonly Dictionary<string, VendorDictionaryEntry> VendorsById = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<string, VendorDictionaryEntry> VendorsByName = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<uint, ApplicationDictionaryEntry> ApplicationsById = [];
     private readonly Dictionary<string, ApplicationDictionaryEntry> ApplicationsByName = new(StringComparer.OrdinalIgnoreCase);
@@ -120,14 +112,6 @@ internal class DictionaryLookup {
     /// <param name="code">Vendor code.</param>
     public VendorDictionaryEntry? FindVendorByCode(uint code) {
         return VendorsByCode.TryGetValue(code, out var entry) ? entry : null;
-    }
-
-    /// <summary>
-    /// Returns vendor, if found; null otherwise.
-    /// </summary>
-    /// <param name="id">Vendor ID.</param>
-    public VendorDictionaryEntry? FindVendorById(string id) {
-        return VendorsById.TryGetValue(id, out var entry) ? entry : null;
     }
 
     /// <summary>

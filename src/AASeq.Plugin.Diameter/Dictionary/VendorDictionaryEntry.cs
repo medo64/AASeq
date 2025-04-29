@@ -1,4 +1,4 @@
 namespace AASeqPlugin;
+using System;
 
-internal record VendorDictionaryEntry(string Name, string Id, uint Code) {
-}
+internal record VendorDictionaryEntry(String Name, UInt32 Code);

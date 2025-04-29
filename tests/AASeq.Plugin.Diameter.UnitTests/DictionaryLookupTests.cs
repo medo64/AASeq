@@ -14,12 +14,6 @@ public sealed class DictionaryLookupTests {
     }
 
     [TestMethod]
-    public void DictionaryLookup_VendorById() {
-        Assert.IsNotNull(DictionaryLookup.Instance.FindVendorById("TGPP"));
-        Assert.IsNull(DictionaryLookup.Instance.FindVendorById("Unknown"));
-    }
-
-    [TestMethod]
     public void DictionaryLookup_VendorByName() {
         Assert.IsNotNull(DictionaryLookup.Instance.FindVendorByName("3GPP"));
         Assert.IsNull(DictionaryLookup.Instance.FindVendorByName("Unknown"));
