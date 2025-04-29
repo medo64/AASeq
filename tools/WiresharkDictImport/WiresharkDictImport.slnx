@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="WiresharkDictImport.csproj" />
+  <Project Path="..\..\src\AASeq.Document\AASeq.Document.csproj" />
+</Solution>

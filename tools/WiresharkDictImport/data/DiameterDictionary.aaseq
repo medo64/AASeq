@@ -1,0 +1,3633 @@
+DiameterDictionary {
+    Vendor Merit code=61
+    Vendor USR code=429
+    Vendor Lucent code=1751
+    Vendor DeutscheTelekomAG code=2937
+    Vendor Acision code=3830
+    Vendor SKT code=5806
+    Vendor TGPP code=10415
+    Vendor ETSI code=13019
+    Vendor Tango code=13421
+    Vendor ChinaTelecom code=81000
+    Vendor TGPPCX code=16777216
+    Application "Diameter Common Messages" id=0
+    Application "Diameter Base Accounting" id=3
+    Application "Diameter QoS application" id=9
+    Application "Diameter Capabilities Update" id=10
+    Application "Diameter IKE SK (IKESK)" id=11
+    Application "Diameter NAT Control Application" id=12
+    Application "Diameter ERP" id=13
+    Application "3GPP Re/Rf" id=16777218
+    Application "3GPP Wx" id=16777219
+    Application "3GPP Zn" id=16777220
+    Application "3GPP Zh" id=16777221
+    Application "3GPP Gx#16777224" id=16777224
+    Application "3GPP Gx over Gy" id=16777225
+    Application "3GPP MM10" id=16777226
+    Application "3GPP Rx Release 6" id=16777229
+    Application "3GPP Pr" id=16777230
+    Application "ITU-T Rs" id=16777235
+    Application "3GPP Gx" id=16777238
+    Application "Juniper Cluster" id=16777239
+    Application "Juniper Policy-Control-AAA" id=16777240
+    Application "iptego USPI" id=16777241
+    Application "Covergence-specific SIP routing" id=16777242
+    Application "Policy Processing" id=16777243
+    Application "Juniper Policy-Control-JSRC" id=16777244
+    Application "ITU-T S-TC1" id=16777245
+    Application "3GPP2 CAN Access Authentication and Authorization" id=16777247
+    Application "3GPP2 WLAN Interworking Access Authentication and Authorization" id=16777248
+    Application "3GPP2 WLAN Interworking Accounting" id=16777249
+    Application "3GPP STa" id=16777250
+    Application "3GPP S6a/S6d" id=16777251
+    Application "3GPP S13/S13'" id=16777252
+    Application "ETSI Re" id=16777253
+    Application "ETSI GOCAP" id=16777254
+    Application "3GPP SLg" id=16777255
+    Application "ITU-T Rw" id=16777256
+    Application "ETSI a4" id=16777257
+    Application "ITU-T Rt" id=16777258
+    Application CARA id=16777259
+    Application CAMA id=16777260
+    Application "Femtocell extension to Diameter EAP Application" id=16777261
+    Application "ITU-T Ru" id=16777262
+    Application "ITU-T Ng" id=16777263
+    Application "3GPP SWm" id=16777264
+    Application "3GPP SWx" id=16777265
+    Application "3GPP Gxx" id=16777266
+    Application "3GPP Zpn" id=16777268
+    Application Juniper-Example id=16777270
+    Application "ITU-T Ri" id=16777271
+    Application "3GPP S6b" id=16777272
+    Application "Juniper JGx" id=16777273
+    Application "ITU-T Rd" id=16777274
+    Application "ADMI Notification Application" id=16777275
+    Application "ADMI Messaging Interface Application" id=16777276
+    Application "Peter-Service VSI" id=16777277
+    Application "ETSI Rr request model" id=16777278
+    Application "ETSI Rr delegated model" id=16777279
+    Application "3GPP SLh" id=16777291
+    Application "Cloudmark Diameter Interface" id=16777293
+    Application "Camiant DRMA" id=16777294
+    Application "PiLTE Interworking Diameter Application" id=16777295
+    Application Juniper-Sessions-Recovery id=16777296
+    Application "Vedicis LiveProxy" id=16777297
+    Application "Pi*3GPP2 Diameter Application" id=16777298
+    Application "Sandvine Rf+" id=16777299
+    Application "Subscription Information Application" id=16777300
+    Application "3GPP Sy" id=16777302
+    Application "3GPP Sd" id=16777303
+    Application "HP DTD" id=16777305
+    Application "ITU-T M9" id=16777306
+    Application "ITU-T M13" id=16777307
+    Application "3GPP S7a" id=16777308
+    Application "3GPP Tsp" id=16777309
+    Application "3GPP S6m" id=16777310
+    Application "3GPP T4" id=16777311
+    Application "3GPP SGd" id=16777313
+    Application Intrado-SLg id=16777314
+    Application Verizon-Femto-Loc id=16777316
+    Application "3GPP S15" id=16777318
+    Application "3GPP S9a" id=16777319
+    Application "3GPP S9a*" id=16777320
+    Application "Gateway Location Application" id=16777321
+    Application "Verizon Session Recovery" id=16777322
+    Application "MAGIC Client Interface Protocol (CIP)" id=16777324
+    Application "ITU-T Nc" id=16777325
+    Application "ITU-T Ne" id=16777326
+    Application "Rivada Xd" id=16777329
+    Application "Rivada Xm" id=16777330
+    Application "Rivada Xh" id=16777331
+    Application "Rivada Xf#16777332" id=16777332
+    Application "Rivada Xf" id=16777333
+    Application "Rivada Xp" id=16777334
+    Application "3GPP MB2-C" id=16777335
+    Application "3GPP PC2" id=16777337
+    Application "Juniper Domain Policy" id=16777338
+    Application "Host Observer" id=16777339
+    Application "3GPP PC6/PC7" id=16777340
+    Application "3GPP Np" id=16777342
+    Application "3GPP S6t" id=16777345
+    Application "S6b Application (One-AAA)" id=16777999
+    Application Relay id=4294967295
+    Command Capabilities-Exchange code=257
+    Command Re-Auth code=258
+    Command Accounting code=271
+    Command Abort-Session code=274
+    Command Session-Termination code=275
+    Command Device-Watchdog code=280
+    Command Disconnect-Peer code=282
+    Command Boostrapping-Info code=310
+    Command Message-Process code=311
+    Command GBAPush-Info code=312
+    Command Policy-Data code=314
+    Command Policy-Install code=315
+    Command "3GPP-Update-Location" code=316
+    Command "3GPP-Cancel-Location" code=317
+    Command "3GPP-Authentication-Information" code=318
+    Command "3GPP-Insert-Subscriber-Data" code=319
+    Command "3GPP-Delete-Subscriber-Data" code=320
+    Command "3GPP-Purge-UE" code=321
+    Command "3GPP-Reset" code=322
+    Command "3GPP-Notify" code=323
+    Command "3GPP-ME-Identity-Check" code=324
+    Command MIP6 code=325
+    Command QoS-Authorization code=326
+    Command QoS-Install code=327
+    Command Capabilities-Update code=328
+    Command IKEv2-SK code=329
+    Command NAT-Control code=330
+    Command "3GPP-Provide-Location" code=8388620
+    Command "3GPP-Location-Report" code=8388621
+    Command "3GPP-LCS-Routing-Info" code=8388622
+    Command Subscription-Information-Application code=8388631
+    Command Distributed-Charging code=8388632
+    Command Ericsson-SL code=8388633
+    Command Ericsson-SN code=8388634
+    Command Spending-Limit code=8388635
+    Command Spending-Status-Notification code=8388636
+    Command TDF-Session code=8388637
+    Command "3GPP-Update-VCSG-Location" code=8388638
+    Command "3GPP-Device-Action" code=8388639
+    Command "3GPP-Device-Notification" code=8388640
+    Command "3GPP-Subscriber-Information" code=8388641
+    Command Cancel-VCSG-Location code=8388642
+    Command "3GPP-Device-Trigger" code=8388643
+    Command "3GPP-Delivery-Report" code=8388644
+    Command MO-Forward-Short-Message code=8388645
+    Command MT-Forward-Short-Message code=8388646
+    Command Send-Routing-Info-for-SM code=8388647
+    Command Alert-Service-Centre code=8388648
+    Command Report-SM-Delivery-Status code=8388649
+    Command NSN-Cancel-LocationMS code=8388650
+    Command NSN-User-DataMS code=8388651
+    Command NSN-Profile-UpdateMS code=8388652
+    Command NSN-Subscribe-NotificationsMS code=8388653
+    Command NSN-Push-NotificationMS code=8388654
+    Command Get-Gateway code=8388655
+    Command Trigger-Establishment code=8388656
+    Command Ericsson-Binding-Data code=8388657
+    Command Ericsson-Trace-Report code=8388717
+    Command Configuration-Information code=8388718
+    Command Reporting-Information code=8388719
+    Command Non-Aggregated-RUCI-Report code=8388720
+    Command Aggregated-RUCI-Report code=8388721
+    Command Modify-Uecontext code=8388722
+    Command NIDD-Information code=8388726
+    Command Connection-Management code=8388732
+    Command MO-Data code=8388733
+    Command MT-Data code=8388734
+    Avp User-Name code=1 mandatoryBit=must type=UTF8String
+    Avp User-Password code=2 mandatoryBit=must type=OctetString
+    Avp CHAP-Password code=3 mandatoryBit=must type=OctetString
+    Avp NAS-IP-Address code=4 mandatoryBit=must type=OctetString
+    Avp NAS-Port code=5 mandatoryBit=must type=Unsigned32
+    Avp Service-Type code=6 mandatoryBit=must type=Enumerated {
+        Enum UNKNOWN code=0
+        Enum LOGIN code=1
+        Enum FRAMED code=2
+        Enum CALLBACK_LOGIN code=3
+        Enum CALLBACK_FRAMED code=4
+        Enum OUTBOUND code=5
+        Enum ADMINISTRATIVE code=6
+        Enum NAS_PROMPT code=7
+        Enum AUTHENTICATE_ONLY code=8
+        Enum CALLBACK_NAS_PROMPT code=9
+        Enum CALL_CHECK code=10
+        Enum CALLBACK_ADMINISTRATIVE code=11
+        Enum VOICE code=12
+        Enum FAX code=13
+        Enum MODEM_RELAY code=14
+        Enum IAPP_REGISTER code=15
+        Enum IAPP_AP_CHECK code=16
+        Enum AUTHORIZE_ONLY code=17
+        Enum FRAMED_MANAGEMENT code=18
+    }
+    Avp Framed-Protocol code=7 mandatoryBit=must type=Enumerated {
+        Enum PPP code=1
+        Enum SLIP code=2
+        Enum ARAP code=3
+        Enum GANDALF code=4
+        Enum XYLOGICS code=5
+        Enum X.75 code=6
+        Enum GPRS_PDP_CONTEXT code=7
+        Enum ASCEND_ARA code=255
+        Enum MPP code=256
+        Enum EURAW code=257
+        Enum EUUI code=258
+        Enum X25 code=259
+        Enum COMB code=260
+        Enum FR code=261
+    }
+    Avp Framed-IP-Address code=8 mandatoryBit=must type=Address
+    Avp Framed-IP-Netmask code=9 mandatoryBit=must type=Address
+    Avp Framed-Routing code=10 mandatoryBit=must type=Enumerated {
+        Enum NONE code=0
+        Enum SEND_ROUTING_PACKETS code=1
+        Enum LISTEN_FOR_ROUTING_PACKETS code=2
+        Enum SEND_AND_LISTEN code=3
+    }
+    Avp Filter-Id code=11 mandatoryBit=must type=UTF8String
+    Avp Framed-MTU code=12 mandatoryBit=must type=Unsigned32
+    Avp Framed-Compression code=13 mandatoryBit=must type=Enumerated {
+        Enum NONE code=0
+        Enum "VAN_JACOBSON_TCP/IP_HEADER_COMPRESSION" code=1
+        Enum IPX_HEADER_COMPRESSION code=2
+        Enum STAC_LZS_COMPRESSION code=3
+    }
+    Avp Login-IP-Host code=14 mandatoryBit=must type=Address
+    Avp Login-Service code=15 mandatoryBit=must type=Enumerated {
+        Enum TELNET code=0
+        Enum RLOGIN code=1
+        Enum TCP_CLEAR code=2
+        Enum PORTMASTER code=3
+        Enum LAT code=4
+        Enum X25_PAD code=5
+        Enum X25_T3POS code=6
+        Enum UNASSIGNED code=7
+        Enum "TCP_CLEAR_QUIET_(SUPPRESSES_ANY_NAS_GENERATED_CONNECT_STRING)" code=8
+    }
+    Avp Login-TCP-Port code=16 mandatoryBit=must type=Unsigned32
+    Avp Reply-Message code=18 mandatoryBit=must type=UTF8String
+    Avp Callback-Number code=19 mandatoryBit=must type=UTF8String
+    Avp Callback-Id code=20 mandatoryBit=must type=UTF8String
+    Avp Framed-Route code=22 mandatoryBit=must type=UTF8String
+    Avp Framed-IPX-Network code=23 mandatoryBit=must type=UTF8String
+    Avp State code=24 mandatoryBit=must type=OctetString
+    Avp Class code=25 mandatoryBit=must type=OctetString
+    Avp Vendor-Specific code=26 mandatoryBit=must type=Unsigned32
+    Avp Session-Timeout code=27 mandatoryBit=must type=Unsigned32
+    Avp Idle-Timeout code=28 mandatoryBit=must type=Unsigned32
+    Avp Termination-Action code=29 mandatoryBit=must type=Enumerated {
+        Enum DEFAULT code=0
+        Enum RADIUS_REQUEST code=1
+    }
+    Avp Called-Station-Id code=30 mandatoryBit=must type=UTF8String
+    Avp Calling-Station-Id code=31 mandatoryBit=must type=UTF8String
+    Avp NAS-Identifier code=32 mandatoryBit=must type=UTF8String
+    Avp Proxy-State code=33 mandatoryBit=must type=OctetString
+    Avp Login-LAT-Service code=34 mandatoryBit=must type=OctetString
+    Avp Login-LAT-Node code=35 mandatoryBit=must type=OctetString
+    Avp Login-LAT-Group code=36 mandatoryBit=must type=OctetString
+    Avp Framed-AppleTalk-Link code=37 mandatoryBit=must type=Unsigned32
+    Avp Framed-AppleTalk-Network code=38 mandatoryBit=must type=Unsigned32
+    Avp Framed-AppleTalk-Zone code=39 mandatoryBit=must type=OctetString
+    Avp Acct-Status-Type code=40 mandatoryBit=may type=Enumerated {
+        Enum START code=1
+        Enum STOP code=2
+        Enum INTERIM_UPDATE code=3
+        Enum MODEM_START code=4
+        Enum MODEM_STOP code=5
+        Enum CANCEL code=6
+        Enum ACCOUNTING_ON code=7
+        Enum ACCOUNTING_OFF code=8
+        Enum TUNNEL_START code=9
+        Enum TUNNEL_STOP code=10
+        Enum TUNNEL_REJECT code=11
+        Enum TUNNEL_LINK_START code=12
+        Enum TUNNEL_LINK_STOP code=13
+        Enum TUNNEL_LINK_REJECTF code=14
+        Enum FAILED code=15
+    }
+    Avp Acct-Delay-Time code=41 mandatoryBit=must type=Unsigned32
+    Avp Acct-Input-Octets code=42 mandatoryBit=may type=Unsigned32
+    Avp Acct-Output-Octets code=43 mandatoryBit=may type=Unsigned32
+    Avp Acct-Session-Id code=44 mandatoryBit=must type=OctetString
+    Avp Acct-Authentic code=45 mandatoryBit=must type=Enumerated {
+        Enum NONE code=0
+        Enum RADIUS code=1
+        Enum LOCAL code=2
+        Enum REMOTE code=3
+        Enum DIAMETER code=4
+    }
+    Avp Acct-Session-Time code=46 mandatoryBit=must type=Unsigned32
+    Avp Acct-Input-Packets code=47 mandatoryBit=may type=Integer32
+    Avp Acct-Output-Packets code=48 mandatoryBit=may type=Integer32
+    Avp Acct-Terminate-Cause code=49 mandatoryBit=may type=Enumerated {
+        Enum USER_REQUEST code=1
+        Enum LOST_CARRIER code=2
+        Enum LOST_SERVICE code=3
+        Enum IDLE_TIMEOUT code=4
+        Enum SESSION_TIMEOUT code=5
+        Enum ADMIN_RESET code=6
+        Enum ADMIN_REBOOT code=7
+        Enum PORT_ERROR code=8
+        Enum NAS_ERROR code=9
+        Enum NAS_REQUEST code=10
+        Enum NAS_REBOOT code=11
+        Enum PORT_UNNEEDED code=12
+        Enum PORT_PREEMPTED code=13
+        Enum PORT_SUSPENDED code=14
+        Enum SERVICE_UNAVAILABLE code=15
+        Enum CALLBACK code=16
+        Enum USER_ERROR code=17
+        Enum HOST_REQUEST code=18
+        Enum SUPPLICANT_RESTART code=19
+        Enum REAUTHENTICATION_FAILURE code=20
+        Enum PORT_REINITIALIZED code=21
+        Enum PORT_ADMINISTRATIVELY_DISABLED code=22
+    }
+    Avp Accounting-Multi-Session-Id code=50 mandatoryBit=must type=UTF8String
+    Avp Acct-Link-Count code=51 mandatoryBit=must type=Unsigned32
+    Avp Acct-Input-Gigawords code=52 mandatoryBit=may type=Integer32
+    Avp Acct-Output-Gigawords code=53 mandatoryBit=may type=Integer32
+    Avp Event-Timestamp code=55 mandatoryBit=must type=Time
+    Avp Egress-VLANID code=56 mandatoryBit=must type=OctetString
+    Avp Ingress-Filters code=57 mandatoryBit=must type=Enumerated {
+        Enum ENABLED code=1
+        Enum DISABLED code=2
+    }
+    Avp Egress-VLAN-Name code=58 mandatoryBit=must type=UTF8String
+    Avp User-Priority-Table code=59 mandatoryBit=must type=OctetString
+    Avp CHAP-Challenge code=60 mandatoryBit=must type=OctetString
+    Avp NAS-Port-Type code=61 mandatoryBit=must type=Enumerated {
+        Enum ASYNC code=0
+        Enum SYNC code=1
+        Enum ISDN_SYNC code=2
+        Enum ISDN_ASYNC_V120 code=3
+        Enum ISDN_ASYNC_V110 code=4
+        Enum VIRTUAL code=5
+        Enum PIAFS code=6
+        Enum HDLC_CLEAR_CHANNEL code=7
+        Enum X25 code=8
+        Enum X75 code=9
+        Enum G.3_FAX code=10
+        Enum SDSL___SYMMETRIC_DSL code=11
+        Enum ADSL_CAP___ASYMMETRIC_DSL,_CARRIERLESS_AMPLITUDE_PHASE_MODULATION code=12
+        Enum ADSL_DMT___ASYMMETRIC_DSL,_DISCRETE_MULTI_TONE code=13
+        Enum IDSL___ISDN_DIGITAL_SUBSCRIBER_LINE code=14
+        Enum ETHERNET code=15
+        Enum XDSL___DIGITAL_SUBSCRIBER_LINE_OF_UNKNOWN_TYPE code=16
+        Enum CABLE code=17
+        Enum WIRELESS___OTHER code=18
+        Enum WIRELESS___IEEE_802.11 code=19
+        Enum TOKEN_RING code=20
+        Enum FDDI code=21
+        Enum WIRELESS___CDMA2000 code=22
+        Enum WIRELESS___UMTS code=23
+        Enum WIRELESS___1X_EV code=24
+        Enum IAPP code=25
+        Enum FTTP___FIBER_TO_THE_PREMISES code=26
+        Enum WIRELESS___IEEE_802.16 code=27
+        Enum WIRELESS___IEEE_802.20 code=28
+        Enum WIRELESS___IEEE_802.22 code=29
+        Enum PPPOA___PPP_OVER_ATM code=30
+        Enum PPPOEOA___PPP_OVER_ETHERNET_OVER_ATM code=31
+        Enum PPPOEOE___PPP_OVER_ETHERNET_OVER_ETHERNET code=32
+        Enum PPPOEOVLAN___PPP_OVER_ETHERNET_OVER_VLAN code=33
+        Enum PPPOEOQINQ___PPP_OVER_ETHERNET_OVER_IEEE_802.1QINQ code=34
+        Enum XPON___PASSIVE_OPTICAL_NETWORK code=35
+        Enum WIRELESS___XGP code=36
+    }
+    Avp Port-Limit code=62 mandatoryBit=must type=Unsigned32
+    Avp Login-LAT-Port code=63 mandatoryBit=must type=OctetString
+    Avp Tunnel-Type code=64 mandatoryBit=must type=Enumerated {
+        Enum PPTP code=1
+        Enum L2F code=2
+        Enum L2TP code=3
+        Enum ATMP code=4
+        Enum VTP code=5
+        Enum AH code=6
+        Enum IP_IP_ENCAP code=7
+        Enum MIN_IP_IP code=8
+        Enum ESP code=9
+        Enum GRE code=10
+        Enum DVS code=11
+        Enum IP_IN_IP_TUNNELING code=12
+        Enum VLAN code=13
+    }
+    Avp Tunnel-Medium-Type code=65 mandatoryBit=must type=Enumerated {
+        Enum IPV4 code=1
+        Enum IPV6 code=2
+        Enum NSAP code=3
+        Enum HDLC code=4
+        Enum BBN code=5
+        Enum IEEE_802 code=6
+        Enum E_163 code=7
+        Enum E_164 code=8
+        Enum F_69 code=9
+        Enum X_121 code=10
+        Enum IPX code=11
+        Enum APPLETALK_802 code=12
+        Enum DECNET4 code=13
+        Enum VINES code=14
+        Enum E_164_NSAP code=15
+    }
+    Avp Tunnel-Client-Endpoint code=66 mandatoryBit=must type=UTF8String
+    Avp Tunnel-Server-Endpoint code=67 mandatoryBit=must type=UTF8String
+    Avp Tunnel-Connection-ID code=68 mandatoryBit=must type=OctetString
+    Avp Tunnel-Password code=69 mandatoryBit=must type=OctetString
+    Avp ARAP-Password code=70 mandatoryBit=must type=OctetString
+    Avp ARAP-Features code=71 mandatoryBit=must type=OctetString
+    Avp ARAP-Zone-Access code=72 mandatoryBit=must type=Enumerated {
+        Enum ONLY_ALLOW_ACCESS_TO_DEFAULT_ZONE code=1
+        Enum USE_ZONE_FILTER_INCLUSIVELY code=2
+        Enum USE_ZONE_FILTER_EXCLUSIVELY code=3
+    }
+    Avp ARAP-Security code=73 mandatoryBit=must type=Unsigned32
+    Avp ARAP-Security-Data code=74 mandatoryBit=must type=OctetString
+    Avp Password-Retry code=75 mandatoryBit=must type=Unsigned32
+    Avp Prompt code=76 mandatoryBit=must type=Enumerated {
+        Enum NO_ECHO code=0
+        Enum ECHO code=1
+    }
+    Avp Connect-Info code=77 mandatoryBit=must type=UTF8String
+    Avp Configuration-Token code=78 mandatoryBit=must type=OctetString
+    Avp EAP-Message code=79 mandatoryBit=may type=OctetString
+    Avp Signature code=80 mandatoryBit=may type=OctetString
+    Avp Tunnel-Private-Group-Id code=81 mandatoryBit=must type=OctetString
+    Avp Tunnel-Assignment-Id code=82 mandatoryBit=must type=OctetString
+    Avp Tunnel-Preference code=83 mandatoryBit=must type=Unsigned32
+    Avp ARAP-Challenge-Response code=84 mandatoryBit=must type=OctetString
+    Avp Acct-Interim-Interval code=85 mandatoryBit=must type=Unsigned32
+    Avp Acct-Tunnel-Packets-Lost code=86 mandatoryBit=must type=Unsigned32
+    Avp NAS-Port-Id code=87 mandatoryBit=must type=UTF8String
+    Avp Framed-Pool code=88 mandatoryBit=must type=UTF8String
+    Avp CUI code=89 mandatoryBit=must type=UTF8String
+    Avp Tunnel-Client-Auth-Id code=90 mandatoryBit=must type=UTF8String
+    Avp Tunnel-Server-Auth-Id code=91 mandatoryBit=must type=UTF8String
+    Avp RADIUS-NAS-Filter-Rule code=92 mandatoryBit=must type=UTF8String
+    Avp Originating-Line-Info code=94 mandatoryBit=may type=OctetString
+    Avp NAS-IPv6-Address code=95 mandatoryBit=must type=OctetString
+    Avp Framed-Interface-Id code=96 mandatoryBit=must type=Unsigned64
+    Avp Framed-IPv6-Prefix code=97 mandatoryBit=must type=OctetString
+    Avp Login-IPv6-Host code=98 mandatoryBit=must type=OctetString
+    Avp Framed-IPv6-Route code=99 mandatoryBit=must type=UTF8String
+    Avp Framed-IPv6-Pool code=100 mandatoryBit=must type=OctetString
+    Avp Error-Cause code=101 mandatoryBit=may type=Enumerated {
+        Enum DIAMETER_COMMON_MESSAGES code=0
+        Enum RESIDUAL_SESSION_CONTEXT_REMOVED code=201
+        Enum "INVALID_EAP_PACKET_(IGNORED)" code=202
+        Enum UNSUPPORTED_ATTRIBUTE code=401
+        Enum MISSING_ATTRIBUTE code=402
+        Enum NAS_IDENTIFICATION_MISMATCH code=403
+        Enum INVALID_REQUEST code=404
+        Enum UNSUPPORTED_SERVICE code=405
+        Enum UNSUPPORTED_EXTENSION code=406
+        Enum INVALID_ATTRIBUTE_VALUE code=407
+        Enum ADMINISTRATIVELY_PROHIBITED code=501
+        Enum "REQUEST_NOT_ROUTABLE_(PROXY)" code=502
+        Enum SESSION_CONTEXT_NOT_FOUND code=503
+        Enum SESSION_CONTEXT_NOT_REMOVABLE code=504
+        Enum OTHER_PROXY_PROCESSING_ERROR code=505
+        Enum RESOURCES_UNAVAILABLE code=506
+        Enum REQUEST_INITIATED code=507
+        Enum MULTIPLE_SESSION_SELECTION_UNSUPPORTED code=508
+    }
+    Avp EAP-Key-Name code=102 mandatoryBit=may type=UTF8String
+    Avp Digest-Response code=103 mandatoryBit=may type=UTF8String
+    Avp Digest-Realm code=104 mandatoryBit=may type=UTF8String
+    Avp Digest-Nonce code=105 mandatoryBit=may type=UTF8String
+    Avp Digest-Response-Auth code=106 mandatoryBit=may type=UTF8String
+    Avp Digest-Nextnonce code=107 mandatoryBit=may type=UTF8String
+    Avp Digest-Method code=108 mandatoryBit=may type=UTF8String
+    Avp Digest-URI code=109 mandatoryBit=may type=UTF8String
+    Avp Digest-Qop code=110 mandatoryBit=may type=UTF8String
+    Avp Digest-Algorithm code=111 mandatoryBit=may type=UTF8String
+    Avp Digest-Entity-Body-Hash code=112 mandatoryBit=may type=UTF8String
+    Avp Digest-CNonce code=113 mandatoryBit=may type=UTF8String
+    Avp Digest-Nonce-Count code=114 mandatoryBit=may type=UTF8String
+    Avp Digest-Username code=115 mandatoryBit=may type=UTF8String
+    Avp Digest-Opaque code=116 mandatoryBit=may type=UTF8String
+    Avp Digest-Auth-Param code=117 mandatoryBit=may type=UTF8String
+    Avp Digest-AKA-Auts code=118 mandatoryBit=may type=UTF8String
+    Avp Digest-Domain code=119 mandatoryBit=may type=UTF8String
+    Avp Digest-Stale code=120 mandatoryBit=may type=UTF8String
+    Avp Digest-HA1 code=121 mandatoryBit=may type=UTF8String
+    Avp SIP-AOR code=122 mandatoryBit=may type=UTF8String
+    Avp Delegated-IPv6-Prefix code=123 mandatoryBit=may type=OctetString
+    Avp MIP6-Feature-Vector code=124 mandatoryBit=may type=Unsigned64
+    Avp MIP6-Home-Link-Prefix code=125 mandatoryBit=may type=OctetString
+    Avp Operator-Name code=126 mandatoryBit=may type=OctetString
+    Avp Location-Information code=127 mandatoryBit=may type=OctetString
+    Avp Location-Data code=128 mandatoryBit=may type=OctetString
+    Avp Basic-Location-Policy-Rules code=129 mandatoryBit=may type=OctetString
+    Avp Extended-Location-Policy-Rules code=130 mandatoryBit=may type=OctetString
+    Avp Location-Capable code=131 mandatoryBit=may type=OctetString
+    Avp Requested-Location-Info code=132 mandatoryBit=may type=OctetString
+    Avp Framed-Management-Protocol code=133 mandatoryBit=must type=Enumerated {
+        Enum SNMP code=1
+        Enum WEB_BASED code=2
+        Enum NETCONF code=3
+        Enum FTP code=4
+        Enum TFTP code=5
+        Enum SFTP code=6
+        Enum RCP code=7
+        Enum SCP code=8
+    }
+    Avp Management-Transport-Protection code=134 mandatoryBit=must type=Enumerated {
+        Enum NO_PROTECTION code=1
+        Enum INTEGRITY_PROTECTION code=2
+        Enum INTEGRITY_CONFIDENTIALITY_PROTECTION code=3
+    }
+    Avp Management-Policy-Id code=135 mandatoryBit=may type=UTF8String
+    Avp Management-Privilege-Level code=136 mandatoryBit=must type=Integer32
+    Avp PKM-SS-Cert code=137 mandatoryBit=may type=OctetString
+    Avp PKM-CA-Cert code=138 mandatoryBit=may type=OctetString
+    Avp PKM-Config-Settings code=139 mandatoryBit=may type=OctetString
+    Avp PKM-Cryptosuite-List code=140 mandatoryBit=may type=OctetString
+    Avp PPKM-SAID code=141 mandatoryBit=may type=OctetString
+    Avp PKM-SA-Descriptor code=142 mandatoryBit=may type=OctetString
+    Avp PKM-Auth-Key code=143 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-192 code=192 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-193 code=193 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-194 code=194 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-195 code=195 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-196 code=196 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-197 code=197 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-198 code=198 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-199 code=199 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-200 code=200 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-201 code=201 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-202 code=202 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-203 code=203 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-204 code=204 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-205 code=205 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-206 code=206 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-207 code=207 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-208 code=208 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-209 code=209 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-210 code=210 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-211 code=211 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-212 code=212 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-213 code=213 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-214 code=214 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-215 code=215 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-216 code=216 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-217 code=217 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-218 code=218 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-219 code=219 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-220 code=220 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-221 code=221 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-222 code=222 mandatoryBit=may type=OctetString
+    Avp Experimental-Use-223 code=223 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-224 code=224 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-225 code=225 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-226 code=226 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-227 code=227 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-228 code=228 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-229 code=229 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-230 code=230 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-231 code=231 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-232 code=232 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-233 code=233 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-234 code=234 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-235 code=235 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-236 code=236 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-237 code=237 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-238 code=238 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-239 code=239 mandatoryBit=may type=OctetString
+    Avp Implementation-Specific-240 code=240 mandatoryBit=may type=OctetString
+    Avp Reserved-241 code=241 mandatoryBit=may type=OctetString
+    Avp Reserved-242 code=242 mandatoryBit=may type=OctetString
+    Avp Reserved-243 code=243 mandatoryBit=may type=OctetString
+    Avp Reserved-244 code=244 mandatoryBit=may type=OctetString
+    Avp Reserved-245 code=245 mandatoryBit=may type=OctetString
+    Avp Reserved-246 code=246 mandatoryBit=may type=OctetString
+    Avp Reserved-247 code=247 mandatoryBit=may type=OctetString
+    Avp Reserved-248 code=248 mandatoryBit=may type=OctetString
+    Avp Reserved-249 code=249 mandatoryBit=may type=OctetString
+    Avp Reserved-250 code=250 mandatoryBit=may type=OctetString
+    Avp Reserved-251 code=251 mandatoryBit=may type=OctetString
+    Avp Reserved-252 code=252 mandatoryBit=may type=OctetString
+    Avp Reserved-253 code=253 mandatoryBit=may type=OctetString
+    Avp Reserved-254 code=254 mandatoryBit=may type=OctetString
+    Avp Reserved-255 code=255 mandatoryBit=may type=OctetString
+    Avp Host-IP-Address code=257 mandatoryBit=must type=Address
+    Avp Auth-Application-Id code=258 mandatoryBit=must type=Unsigned32
+    Avp Acct-Application-Id code=259 mandatoryBit=must type=Unsigned32
+    Avp Vendor-Specific-Application-Id code=260 mandatoryBit=must type=Grouped
+    Avp Redirect-Host-Usage code=261 mandatoryBit=must type=Enumerated {
+        Enum DON'T_CARE code=0
+        Enum ALL_SESSION code=1
+        Enum ALL_REALM code=2
+        Enum REALM_AND_APPLICATION code=3
+        Enum ALL_APPLICATION code=4
+        Enum ALL_HOST code=5
+        Enum ALL_USER code=6
+    }
+    Avp Redirect-Max-Cache-Time code=262 mandatoryBit=must type=Unsigned32
+    Avp Session-Id code=263 mandatoryBit=must type=UTF8String
+    Avp Origin-Host code=264 mandatoryBit=must type=DiameterIdentity
+    Avp Supported-Vendor-Id code=265 mandatoryBit=must type=Unsigned32
+    Avp Vendor-Id code=266 mandatoryBit=must type=Unsigned32
+    Avp Firmware-Revision code=267 mandatoryBit=mustnot type=Unsigned32
+    Avp Result-Code code=268 mandatoryBit=must type=Enumerated {
+        Enum DIAMETER_MULTI_ROUND_AUTH code=1001
+        Enum DIAMETER_SUCCESS code=2001
+        Enum DIAMETER_LIMITED_SUCCESS code=2002
+        Enum DIAMETER_FIRST_REGISTRATION code=2003
+        Enum DIAMETER_SUBSEQUENT_REGISTRATION code=2004
+        Enum DIAMETER_UNREGISTERED_SERVICE code=2005
+        Enum DIAMETER_SUCCESS_SERVER_NAME_NOT_STORED code=2006
+        Enum DIAMETER_SERVER_SELECTION code=2007
+        Enum DIAMETER_SUCCESS_AUTH_SENT_SERVER_NOT_STORED code=2008
+        Enum DIAMETER_SUCCESS_RELOCATE_HA code=2009
+        Enum DIAMETER_COMMAND_UNSUPPORTED code=3001
+        Enum DIAMETER_UNABLE_TO_DELIVER code=3002
+        Enum DIAMETER_REALM_NOT_SERVED code=3003
+        Enum DIAMETER_TOO_BUSY code=3004
+        Enum DIAMETER_LOOP_DETECTED code=3005
+        Enum DIAMETER_REDIRECT_INDICATION code=3006
+        Enum DIAMETER_APPLICATION_UNSUPPORTED code=3007
+        Enum DIAMETER_INVALID_HDR_BITS code=3008
+        Enum DIAMETER_INVALID_AVP_BITS code=3009
+        Enum DIAMETER_UNKNOWN_PEER code=3010
+        Enum DIAMETER_REALM_REDIRECT_INDICATION code=3011
+        Enum DIAMETER_AUTHENTICATION_REJECTED code=4001
+        Enum DIAMETER_OUT_OF_SPACE code=4002
+        Enum DIAMETER_ELECTION_LOST code=4003
+        Enum DIAMETER_ERROR_MIP_REPLY_FAILURE code=4005
+        Enum DIAMETER_ERROR_HA_NOT_AVAILABLE code=4006
+        Enum DIAMETER_ERROR_BAD_KEY code=4007
+        Enum DIAMETER_ERROR_MIP_FILTER_NOT_SUPPORTED code=4008
+        Enum DIAMETER_END_USER_SERVICE_DENIED code=4010
+        Enum DIAMETER_CREDIT_CONTROL_NOT_APPLICABLE code=4011
+        Enum DIAMETER_CREDIT_LIMIT_REACHED code=4012
+        Enum DIAMETER_USER_NAME_REQUIRED code=4013
+        Enum RESOURCE_FAILURE code=4014
+        Enum "DIAMETER_END_USER_SERVICE_DENIED#4241" code=4241
+        Enum DIAMETER_AVP_UNSUPPORTED code=5001
+        Enum DIAMETER_UNKNOWN_SESSION_ID code=5002
+        Enum DIAMETER_AUTHORIZATION_REJECTED code=5003
+        Enum DIAMETER_INVALID_AVP_VALUE code=5004
+        Enum DIAMETER_MISSING_AVP code=5005
+        Enum DIAMETER_RESOURCES_EXCEEDED code=5006
+        Enum DIAMETER_CONTRADICTING_AVPS code=5007
+        Enum DIAMETER_AVP_NOT_ALLOWED code=5008
+        Enum DIAMETER_AVP_OCCURS_TOO_MANY_TIMES code=5009
+        Enum DIAMETER_NO_COMMON_APPLICATION code=5010
+        Enum DIAMETER_UNSUPPORTED_VERSION code=5011
+        Enum DIAMETER_UNABLE_TO_COMPLY code=5012
+        Enum DIAMETER_INVALID_BIT_IN_HEADER code=5013
+        Enum DIAMETER_INVALID_AVP_LENGTH code=5014
+        Enum DIAMETER_INVALID_MESSAGE_LENGTH code=5015
+        Enum DIAMETER_INVALID_AVP_BIT_COMBO code=5016
+        Enum DIAMETER_NO_COMMON_SECURITY code=5017
+        Enum DIAMETER_RADIUS_AVP_UNTRANSLATABLE code=5018
+        Enum DIAMETER_ERROR_NO_FOREIGN_HA_SERVICE code=5024
+        Enum DIAMETER_ERROR_END_TO_END_MIP_KEY_ENCRYPTION code=5025
+        Enum DIAMETER_USER_UNKNOWN code=5030
+        Enum DIAMETER_RATING_FAILED code=5031
+        Enum DIAMETER_ERROR_USER_UNKNOWN code=5032
+        Enum DIAMETER_ERROR_IDENTITIES_DONT_MATCH code=5033
+        Enum DIAMETER_ERROR_IDENTITY_NOT_REGISTERED code=5034
+        Enum DIAMETER_ERROR_ROAMING_NOT_ALLOWED code=5035
+        Enum DIAMETER_ERROR_IDENTITY_ALREADY_REGISTERED code=5036
+        Enum DIAMETER_ERROR_AUTH_SCHEME_NOT_SUPPORTED code=5037
+        Enum DIAMETER_ERROR_IN_ASSIGNMENT_TYPE code=5038
+        Enum DIAMETER_ERROR_TOO_MUCH_DATA code=5039
+        Enum DIAMETER_ERROR_NOT_SUPPORTED_USER_DATA code=5040
+        Enum DIAMETER_ERROR_MIP6_AUTH_MODE code=5041
+        Enum UNKNOWN_BINDING_TEMPLATE_NAME code=5042
+        Enum BINDING_FAILURE code=5043
+        Enum MAX_BINDINGS_SET_FAILURE code=5044
+        Enum MAXIMUM_BINDINGS_REACHED_FOR_ENDPOINT code=5045
+        Enum SESSION_EXISTS code=5046
+        Enum INSUFFICIENT_CLASSIFIERS code=5047
+        Enum DIAMETER_ERROR_EAP_CODE_UNKNOWN code=5048
+        Enum DIAMETER_END_USER_NOT_FOUND code=5241
+    }
+    Avp Product-Name code=269 mandatoryBit=mustnot type=UTF8String
+    Avp Session-Binding code=270 mandatoryBit=must type=Enumerated {
+        Enum RE_AUTH code=1
+        Enum STR code=2
+        Enum UNASSIGNED code=3
+        Enum ACCOUNTING code=4
+    }
+    Avp Session-Server-Failover code=271 mandatoryBit=must type=Enumerated {
+        Enum REFUSE_SERVICE code=0
+        Enum TRY_AGAIN code=1
+        Enum ALLOW_SERVICE code=2
+        Enum TRY_AGAIN_ALLOW_SERVICE code=3
+    }
+    Avp Multi-Round-Time-Out code=272 mandatoryBit=must type=Unsigned32
+    Avp Disconnect-Cause code=273 mandatoryBit=must type=Enumerated {
+        Enum REBOOTING code=0
+        Enum BUSY code=1
+        Enum DO_NOT_WANT_TO_TALK_TO_YOU code=2
+    }
+    Avp Auth-Request-Type code=274 mandatoryBit=must type=Enumerated {
+        Enum AUTHENTICATE_ONLY code=1
+        Enum AUTHORIZE_ONLY code=2
+        Enum AUTHORIZE_AUTHENTICATE code=3
+    }
+    Avp Alternate-Peer code=275 mandatoryBit=must type=DiameterIdentity
+    Avp Auth-Grace-Period code=276 mandatoryBit=must type=Unsigned32
+    Avp Auth-Session-State code=277 mandatoryBit=must type=Enumerated {
+        Enum STATE_MAINTAINED code=0
+        Enum NO_STATE_MAINTAINED code=1
+    }
+    Avp Origin-State-Id code=278 mandatoryBit=must type=Unsigned32
+    Avp Failed-AVP code=279 mandatoryBit=must type=Grouped
+    Avp Proxy-Host code=280 mandatoryBit=must type=DiameterIdentity
+    Avp Error-Message code=281 mandatoryBit=mustnot type=UTF8String
+    Avp Route-Record code=282 mandatoryBit=must type=DiameterIdentity
+    Avp Destination-Realm code=283 mandatoryBit=must type=DiameterIdentity
+    Avp Proxy-Info code=284 mandatoryBit=must type=Grouped
+    Avp Re-Auth-Request-Type code=285 mandatoryBit=must type=Enumerated {
+        Enum AUTHORIZE_ONLY code=0
+        Enum AUTHORIZE_AUTHENTICATE code=1
+    }
+    Avp Accounting-Sub-Session-Id code=287 mandatoryBit=must type=Unsigned64
+    Avp Authorization-Lifetime code=291 mandatoryBit=must type=Integer32
+    Avp Redirect-Host code=292 mandatoryBit=must type=DiameterURI
+    Avp Destination-Host code=293 mandatoryBit=must type=DiameterIdentity
+    Avp Error-Reporting-Host code=294 mandatoryBit=mustnot type=DiameterIdentity
+    Avp Termination-Cause code=295 mandatoryBit=must type=Enumerated {
+        Enum DIAMETER_LOGOUT code=1
+        Enum DIAMETER_SERVICE_NOT_PROVIDED code=2
+        Enum DIAMETER_BAD_ANSWER code=3
+        Enum DIAMETER_ADMINISTRATIVE code=4
+        Enum DIAMETER_LINK_BROKEN code=5
+        Enum DIAMETER_AUTH_EXPIRED code=6
+        Enum DIAMETER_USER_MOVED code=7
+        Enum DIAMETER_SESSION_TIMEOUT code=8
+        Enum UNASSIGNED code=9
+        Enum "UNASSIGNED#10" code=10
+        Enum USER_REQUEST code=11
+        Enum LOST_CARRIER code=12
+        Enum LOST_SERVICE code=13
+        Enum IDLE_TIMEOUT code=14
+        Enum SESSION_TIMEOUT code=15
+        Enum ADMIN_RESET code=16
+        Enum ADMIN_REBOOT code=17
+        Enum PORT_ERROR code=18
+        Enum NAS_ERROR code=19
+        Enum NAS_REQUEST code=20
+        Enum NAS_REBOOT code=21
+        Enum PORT_UNNEEDED code=22
+        Enum PORT_PREEMPTED code=23
+        Enum PORT_SUSPENDED code=24
+        Enum SERVICE_UNAVAILABLE code=25
+        Enum CALLBACK code=26
+        Enum USER_ERROR code=27
+        Enum HOST_REQUEST code=28
+        Enum SUPPLICANT_RESTART code=29
+        Enum REAUTHENTICATION_FAILURE code=30
+        Enum "REAUTHENTICATION_FAILURE#31" code=31
+        Enum PORT_ADMINISTRATIVELY_DISABLED code=32
+    }
+    Avp Origin-Realm code=296 mandatoryBit=must type=DiameterIdentity
+    Avp Experimental-Result code=297 mandatoryBit=must type=Grouped
+    Avp Experimental-Result-Code code=298 mandatoryBit=must type=Enumerated {
+        Enum DIAMETER_FIRST_REGISTRATION code=2001
+        Enum DIAMETER_SUBSEQUENT_REGISTRATION code=2002
+        Enum DIAMETER_UNREGISTERED_SERVICE code=2003
+        Enum DIAMETER_SUCCESS_SERVER_NAME_NOT_STORED code=2004
+        Enum "DIAMETER_SERVER_SELECTION(DEPRECATED_VALUE)" code=2005
+        Enum DIAMETER_PDP_CONTEXT_DELETION_INDICATION code=2021
+        Enum DIAMETER_USER_DATA_NOT_AVAILABLE code=4100
+        Enum DIAMETER_PRIOR_UPDATE_IN_PROGRESS code=4101
+        Enum DIAMETER_ERROR_OUT_OF_RESOURCES code=4121
+        Enum DIAMETER_PCC_BEARER_EVENT code=4141
+        Enum DIAMETER_BEARER_EVENT code=4142
+        Enum DIAMETER_AN_GW_FAILED code=4143
+        Enum DIAMETER_PENDING_TRANSACTION code=4144
+        Enum DIAMETER_AUTHENTICATION_DATA_UNAVAILABLE code=4181
+        Enum DIAMETER_ERROR_CAMEL_SUBSCRIPTION_PRESENT code=4182
+        Enum DIAMETER_ERROR_ABSENT_USER code=4201
+        Enum DIAMETER_ERROR_UNREACHABLE_USER code=4221
+        Enum DIAMETER_ERROR_SUSPENDED_USER code=4222
+        Enum DIAMETER_ERROR_DETACHED_USER code=4223
+        Enum DIAMETER_ERROR_POSITIONING_DENIED code=4224
+        Enum DIAMETER_ERROR_POSITIONING_FAILED code=4225
+        Enum DIAMETER_ERROR_UNKNOWN_UNREACHABLE_LCS_CLIENT code=4226
+        Enum DIAMETER_ERROR_NO_AVAILABLE_POLICY_COUNTERS_LCS_CLIENT code=4241
+        Enum REQUESTED_SERVICE_TEMPORARILY_NOT_AUTHORIZED code=4261
+        Enum DIAMETER_ERROR_USER_UNKNOWN code=5001
+        Enum DIAMETER_ERROR_IDENTITIES_DONT_MATCH code=5002
+        Enum DIAMETER_ERROR_IDENTITY_NOT_REGISTERED code=5003
+        Enum DIAMETER_ERROR_ROAMING_NOT_ALLOWED code=5004
+        Enum DIAMETER_ERROR_IDENTITY_ALREADY_REGISTERED code=5005
+        Enum DIAMETER_ERROR_AUTH_SCHEME_NOT_SUPPORTED code=5006
+        Enum DIAMETER_ERROR_IN_ASSIGNMENT_TYPE code=5007
+        Enum DIAMETER_ERROR_TOO_MUCH_DATA code=5008
+        Enum DIAMETER_ERROR_NOT_SUPPORTED_USER_DATA code=5009
+        Enum DIAMETER_MISSING_USER_ID code=5010
+        Enum DIAMETER_ERROR_FEATURE_UNSUPPORTED code=5011
+        Enum DIAMETER_ERROR_SERVING_NODE_FEATURE_UNSUPPORTED code=5012
+        Enum DIAMETER_ERROR_USER_NO_WLAN_SUBSCRIPTION code=5041
+        Enum DIAMETER_ERROR_W_APN_UNUSED_BY_USER code=5042
+        Enum DIAMETER_ERROR_W_DIAMETER_ERROR_NO_ACCESS_INDEPENDENT_SUBSCRIPTION code=5043
+        Enum DIAMETER_ERROR_USER_NO_W_APN_SUBSCRIPTION code=5044
+        Enum DIAMETER_ERROR_UNSUITABLE_NETWORK code=5045
+        Enum INVALID_SERVICE_INFORMATION code=5061
+        Enum FILTER_RESTRICTIONS code=5062
+        Enum REQUESTED_SERVICE_NOT_AUTHORIZED code=5063
+        Enum DUPLICATED_AF_SESSION code=5064
+        Enum IP_CAN_SESSION_NOT_AVAILABLE code=5065
+        Enum UNAUTHORIZED_NON_EMERGENCY_SESSION code=5066
+        Enum UNAUTHORIZED_SPONSORED_DATA_CONNECTIVITY code=5067
+        Enum TEMPORARY_NETWORK_FAILURE code=5068
+        Enum DIAMETER_ERROR_USER_DATA_NOT_RECOGNIZED code=5100
+        Enum DIAMETER_ERROR_OPERATION_NOT_ALLOWED code=5101
+        Enum DIAMETER_ERROR_USER_DATA_CANNOT_BE_READ code=5102
+        Enum DIAMETER_ERROR_USER_DATA_CANNOT_BE_MODIFIED code=5103
+        Enum DIAMETER_ERROR_USER_DATA_CANNOT_BE_NOTIFIED code=5104
+        Enum DIAMETER_ERROR_TRANSPARENT_DATA_OUT_OF_SYNC code=5105
+        Enum DIAMETER_ERROR_SUBS_DATA_ABSENT code=5106
+        Enum DIAMETER_ERROR_NO_SUBSCRIPTION_TO_DATA code=5107
+        Enum DIAMETER_ERROR_DSAI_NOT_AVAILABLE code=5108
+        Enum DIAMETER_ERROR_START_INDICATION code=5120
+        Enum DIAMETER_ERROR_STOP_INDICATION code=5121
+        Enum DIAMETER_ERROR_UNKNOWN_MBMS_BEARER_SERVICE code=5122
+        Enum DIAMETER_ERROR_SERVICE_AREA code=5123
+        Enum DIAMETER_ERROR_INITIAL_PARAMETERS code=5140
+        Enum DIAMETER_ERROR_TRIGGER_EVENT code=5141
+        Enum DIAMETER_PCC_RULE_EVENT code=5142
+        Enum DIAMETER_ERROR_BEARER_NOT_AUTHORIZED code=5143
+        Enum DIAMETER_ERROR_TRAFFIC_MAPPING_INFO_REJECTED code=5144
+        Enum DIAMETER_QOS_RULE_EVENT code=5145
+        Enum "DIAMETER_ERROR_TRAFFIC_MAPPING_INFO_REJECTED#5146" code=5146
+        Enum DIAMETER_ERROR_CONFLICTING_REQUEST code=5147
+        Enum DIAMETER_ADC_RULE_EVENT code=5148
+        Enum DIAMETER_ERROR_NBIFOM_NOT_AUTHORIZED code=5149
+        Enum DIAMETER_ERROR_IMPI_UNKNOWN code=5401
+        Enum DIAMETER_ERROR_NOT_AUTHORIZED code=5402
+        Enum DIAMETER_ERROR_TRANSACTION_IDENTIFIER_INVALID code=5403
+        Enum DIAMETER_ERROR_UNKNOWN_EPS_SUBSCRIPTION code=5420
+        Enum DIAMETER_ERROR_RAT_NOT_ALLOWED code=5421
+        Enum DIAMETER_ERROR_EQUIPMENT_UNKNOWN code=5422
+        Enum DIAMETER_ERROR_UNKNOWN_SERVING_NODE code=5423
+        Enum DIAMETER_ERROR_USER_NO_NON_3GPP_SUBSCRIPTION code=5450
+        Enum DIAMETER_ERROR_USER_NO_APN_SUBSCRIPTION code=5451
+        Enum DIAMETER_ERROR_RAT_TYPE_NOT_ALLOWED code=5452
+        Enum DIAMETER_ERROR_LATE_OVERLAPPING_REQUEST code=5453
+        Enum DIAMETER_ERROR_TIMED_OUT_REQUEST code=5454
+        Enum DIAMETER_ERROR_SUBSESSION code=5470
+        Enum DIAMETER_ERROR_ONGOING_SESSION_ESTABLISHMENT code=5471
+        Enum DIAMETER_ERROR_UNAUTHORIZED_REQUESTING_NETWORK code=5490
+        Enum DIAMETER_ERROR_UNAUTHORIZED_REQUESTING_ENTITY code=5510
+        Enum DIAMETER_ERROR_UNAUTHORIZED_SERVICE code=5511
+        Enum DIAMETER_ERROR_REQUESTED_RANGE_IS_NOT_ALLOWED code=5512
+        Enum DIAMETER_ERROR_CONFIGURATION_EVENT_STORAGE_NOT_SUCCESSFUL code=5513
+        Enum DIAMETER_ERROR_CONFIGURATION_EVENT_NON_EXISTANT code=5514
+        Enum DIAMETER_ERROR_SCEF_REFERENCE_ID_UNKNOWN code=5515
+        Enum DIAMETER_ERROR_INVALID_SME_ADDRESS code=5530
+        Enum DIAMETER_ERROR_SC_CONGESTION code=5531
+        Enum DIAMETER_ERROR_SM_PROTOCOL code=5532
+        Enum DIAMETER_ERROR_TRIGGER_REPLACE_FAILURE code=5533
+        Enum DIAMETER_ERROR_TRIGGER_RECALL_FAILURE code=5534
+        Enum DIAMETER_ERROR_ORIGINAL_MESSAGE_NOT_PENDING code=5535
+        Enum "DIAMETER_ERROR_ABSENT_USER#5550" code=5550
+        Enum DIAMETER_ERROR_USER_BUSY_FOR_MT_SMS code=5551
+        Enum DIAMETER_ERROR_FACILITY_NOT_SUPPORTED code=5552
+        Enum DIAMETER_ERROR_ILLEGAL_USER code=5553
+        Enum DIAMETER_ERROR_ILLEGAL_EQUIPMENT code=5554
+        Enum DIAMETER_ERROR_SM_DELIVERY_FAILURE code=5555
+        Enum DIAMETER_ERROR_SERVICE_NOT_SUBSCRIBED code=5556
+        Enum DIAMETER_ERROR_SERVICE_BARRED code=5557
+        Enum DIAMETER_ERROR_MWD_LIST_FULL code=5558
+        Enum DIAMETER_ERROR_UNKNOWN_POLICY_COUNTERS code=5570
+        Enum DIAMETER_ERROR_ORIGIN_ALUID_UNKNOWN code=5590
+        Enum DIAMETER_ERROR_TARGET_ALUID_UNKNOWN code=5591
+        Enum DIAMETER_ERROR_PFID_UNKNOWN code=5592
+        Enum DIAMETER_ERROR_APP_REGISTER_REJECT code=5593
+        Enum DIAMETER_ERROR_PROSE_MAP_REQUEST_DISALLOWED code=5594
+        Enum DIAMETER_ERROR_MAP_REQUEST_REJECT code=5595
+        Enum DIAMETER_ERROR_REQUESTING_RPAUID_UNKNOWN code=5596
+        Enum DIAMETER_ERROR_UNKNOWN_OR_INVALID_TARGET_SET code=5597
+        Enum DIAMETER_ERROR_MISSING_APPLICATION_DATA code=5598
+        Enum DIAMETER_ERROR_AUTHORIZATION_REJECT code=5599
+        Enum DIAMETER_ERROR_DISCOVERY_NOT_PERMITTED code=5600
+        Enum DIAMETER_ERROR_TARGET_RPAUID_UNKNOWN code=5601
+        Enum DIAMETER_ERROR_INVALID_APPLICATION_DATA code=5602
+        Enum DIAMETER_ERROR_UNKNOWN_PROSE_SUBSCRIPTION code=5610
+        Enum PROSE_NOT_ALLOWED code=5611
+        Enum DIAMETER_ERROR_UE_LOCATION_UNKNOWN code=5612
+        Enum DIAMETER_ERROR_NO_ASSOCIATED_DISCOVERY_FILTER code=5630
+        Enum DIAMETER_ERROR_ANNOUNCING_UNAUTHORIZED_IN_PLMN code=5631
+        Enum DIAMETER_ERROR_INVALID_APPLICATION_CODE code=5632
+        Enum DIAMETER_ERROR_PROXIMITY_UNAUTHORIZED code=5633
+        Enum DIAMETER_ERROR_PROXIMITY_REJECTED code=5634
+        Enum DIAMETER_ERROR_NO_PROXIMITY_REQUEST code=5635
+        Enum DIAMETER_ERROR_UNAUTHORIZED_SERVICE_IN_THIS_PLMN code=5636
+        Enum DIAMETER_ERROR_PROXIMITY_CANCELLED code=5637
+        Enum DIAMETER_ERROR_INVALID_TARGET_PDUID code=5638
+        Enum DIAMETER_ERROR_INVALID_TARGET_RPAUID code=5639
+        Enum DIAMETER_ERROR_NO_ASSOCIATED_RESTRICTED_CODE code=5640
+        Enum DIAMETER_ERROR_INVALID_DISCOVERY_TYPE code=5641
+        Enum DIAMETER_ERROR_REQUESTED_LOCATION_NOT_SERVED code=5650
+        Enum DIAMETER_ERROR_INVALID_EPS_BEARER code=5651
+        Enum DIAMETER_ERROR_NIDD_CONFIGURATION_NOT_AVAILABLE code=5652
+        Enum DIAMETER_ERROR_USER_TEMPORARILY_UNREACHABLE code=5653
+        Enum DIAMETER_ERROR_UNKNKOWN_DATA code=5670
+        Enum DIAMETER_ERROR_REQUIRED_KEY_NOT_PROVIDED code=5671
+        Enum DIAMETER_ERROR_UNKNOWN_V2X_SUBSCRIPTION code=5690
+        Enum DIAMETER_ERROR_V2X_NOT_ALLOWED code=5691
+    }
+    Avp Inband-Security-Id code=299 mandatoryBit=must type=Enumerated {
+        Enum NO_INBAND_SECURITY code=0
+        Enum TLS code=1
+    }
+    Avp E2E-Sequence code=300 mandatoryBit=must type=Grouped
+    Avp DRMP code=301 mandatoryBit=may type=Enumerated {
+        Enum PRIORITY_0 code=0
+        Enum PRIORITY_1 code=1
+        Enum PRIORITY_2 code=2
+        Enum PRIORITY_3 code=3
+        Enum PRIORITY_4 code=4
+        Enum PRIORITY_5 code=5
+        Enum PRIORITY_6 code=6
+        Enum PRIORITY_7 code=7
+        Enum PRIORITY_8 code=8
+        Enum PRIORITY_9 code=9
+        Enum PRIORITY_10 code=10
+        Enum PRIORITY_11 code=11
+        Enum PRIORITY_12 code=12
+        Enum PRIORITY_13 code=13
+        Enum PRIORITY_14 code=14
+        Enum PRIORITY_15 code=15
+    }
+    Avp Accounting-Record-Type code=480 mandatoryBit=must type=Enumerated {
+        Enum EVENT_RECORD code=1
+        Enum START_RECORD code=2
+        Enum INTERIM_RECORD code=3
+        Enum STOP_RECORD code=4
+    }
+    Avp Accounting-Realtime-Required code=483 mandatoryBit=must type=Enumerated {
+        Enum DELIVER_AND_GRANT code=1
+        Enum GRANT_AND_STORE code=2
+        Enum GRANT_AND_LOSE code=3
+    }
+    Avp Accounting-Record-Number code=485 mandatoryBit=must type=Unsigned32
+    Avp TMOD-1 code=495 mandatoryBit=must type=Grouped
+    Avp Token-Rate code=496 mandatoryBit=may type=Float32
+    Avp Bucket-Depth code=497 mandatoryBit=may type=Float32
+    Avp Peak-Traffic-Rate code=498 mandatoryBit=may type=Float32
+    Avp Minimum-Policed-Unit code=499 mandatoryBit=may type=Unsigned32
+    Avp Maximum-Packet-Size code=500 mandatoryBit=may type=Unsigned32
+    Avp TMOD-2 code=501 mandatoryBit=must type=Grouped
+    Avp Bandwidth code=502 mandatoryBit=may type=Float32
+    Avp PHB-Class code=503 mandatoryBit=may type=Unsigned32
+    Avp QoS-Resources code=508 mandatoryBit=must type=Grouped
+    Avp Filter-Rule code=509 mandatoryBit=must type=Grouped
+    Avp Filter-Rule-Precedence code=510 mandatoryBit=may type=Unsigned32
+    Avp Classifier code=511 mandatoryBit=must type=Grouped
+    Avp Classifier-ID code=512 mandatoryBit=may type=OctetString
+    Avp Protocol code=513 mandatoryBit=may type=Enumerated {
+        Enum TCP_TRANSMISSION_CONTROL code=6
+        Enum UDP_USER_DATAGRAM code=17
+        Enum SCTP_STREAM_CONTROL_TRANSMISSION_PROTOCOL code=132
+    }
+    Avp Direction code=514 mandatoryBit=must type=Enumerated {
+        Enum IN code=0
+        Enum OUT code=1
+        Enum BOTH code=2
+    }
+    Avp From-Spec code=515 mandatoryBit=must type=Grouped
+    Avp To-Spec code=516 mandatoryBit=must type=Grouped
+    Avp Negated code=517 mandatoryBit=must type=Enumerated {
+        Enum "FALSE" code=0
+        Enum "TRUE" code=1
+    }
+    Avp IP-Address code=518 mandatoryBit=may type=Address
+    Avp IP-Address-Range code=519 mandatoryBit=must type=Grouped
+    Avp IP-Address-Start code=520 mandatoryBit=may type=Address
+    Avp IP-Address-End code=521 mandatoryBit=may type=Address
+    Avp IP-Address-Mask code=522 mandatoryBit=must type=Grouped
+    Avp IP-Bit-Mask-Width code=523 mandatoryBit=may type=Unsigned32
+    Avp MAC-Address code=524 mandatoryBit=may type=OctetString
+    Avp MAC-Address-Mask code=525 mandatoryBit=must type=Grouped
+    Avp MAC-Address-Mask-Pattern code=526 mandatoryBit=may type=OctetString
+    Avp EUI64-Address code=527 mandatoryBit=may type=OctetString
+    Avp EUI64-Address-Mask code=528 mandatoryBit=must type=Grouped
+    Avp EUI64-Address-Mask-Pattern code=529 mandatoryBit=may type=OctetString
+    Avp Port code=530 mandatoryBit=may type=Integer32
+    Avp Port-Range code=531 mandatoryBit=may type=Grouped
+    Avp Port-Start code=532 mandatoryBit=may type=Integer32
+    Avp Port-End code=533 mandatoryBit=may type=Integer32
+    Avp Use-Assigned-Address code=534 mandatoryBit=may type=Enumerated {
+        Enum "FALSE" code=0
+        Enum "TRUE" code=1
+    }
+    Avp Diffserv-Code-Point code=535 mandatoryBit=may type=Enumerated {
+        Enum CS0 code=0
+        Enum CS1 code=8
+        Enum AF11 code=10
+        Enum AF12 code=12
+        Enum AF13 code=14
+        Enum CS2 code=16
+        Enum AF21 code=18
+        Enum AF22 code=20
+        Enum AF23 code=22
+        Enum CS3 code=24
+        Enum AF31 code=26
+        Enum AF32 code=28
+        Enum AF33 code=30
+        Enum CS4 code=32
+        Enum AF41 code=34
+        Enum AF42 code=36
+        Enum AF43 code=38
+        Enum CS5 code=40
+        Enum VOICE_ADMIT code=44
+        Enum EF code=46
+        Enum CS6 code=48
+        Enum CS7 code=56
+    }
+    Avp Fragmentation-Flag code=536 mandatoryBit=may type=Enumerated {
+        Enum "DON'T_FRAGMENT_(DF)" code=0
+        Enum "MORE_FRAGMENTS_(MF)" code=1
+    }
+    Avp IP-Option code=537 mandatoryBit=may type=Grouped
+    Avp IP-Option-Type code=538 mandatoryBit=may type=Enumerated {
+        Enum END_OF_OPTIONS_LIST code=0
+        Enum NO_OPERATION code=1
+        Enum RECORD_ROUTE code=7
+        Enum EXPERIMENTAL_MEASUREMENT code=10
+        Enum MTU_PROBE code=11
+        Enum MTU_REPLY code=12
+        Enum ENCODE code=15
+        Enum QUICK_START code=25
+        Enum RFC3692_STYLE_EXPERIMENT code=30
+        Enum TIME_STAMP code=68
+        Enum TRACEOUTE code=82
+        Enum "RFC3692_STYLE_EXPERIMENT#94" code=94
+        Enum SECURITY code=130
+        Enum LOOSE_SOURCE_ROUTE code=131
+        Enum EXTENDED_SECURITY code=133
+        Enum COMMERCIAL_SECURITY code=134
+        Enum STREAM_ID code=136
+        Enum STRICT_SOURCE_ROUTE code=137
+        Enum EXPERIMENTAL_ACCESS_CONTROL code=142
+        Enum IMI_TRAFFIC_DESCRIPTOR code=144
+        Enum EXTENDED_INTERNET_PROTOCOL code=145
+        Enum ADDRESS_EXTENSION code=147
+        Enum ROUTER_ALERT code=148
+        Enum SELECTIVE_DIRECTED_BROADCAST code=149
+        Enum DYNAMIC_PACKET_STATE code=151
+        Enum UPSTREAM_MULTICAST_PKT. code=152
+        Enum "RFC3692_STYLE_EXPERIMENT#158" code=158
+        Enum EXPERIMENTAL_FLOW_CONTROL code=205
+        Enum "RFC3692_STYLE_EXPERIMENT#222" code=222
+    }
+    Avp IP-Option-Value code=539 mandatoryBit=may type=OctetString
+    Avp TCP-Option code=540 mandatoryBit=may type=Grouped
+    Avp TCP-Option-Type code=541 mandatoryBit=may type=Enumerated {
+        Enum END_OF_OPTION_LIST code=0
+        Enum NO_OPERATION code=1
+        Enum MAXIMUM_SEGMENT_SIZE code=2
+        Enum WINDOW_SCALE code=3
+        Enum SACK_PERMITTED code=4
+        Enum SACK code=5
+        Enum ECHO code=6
+        Enum ECHO_REPLY code=7
+        Enum TIMESTAMPS code=8
+        Enum PARTIAL_ORDER_CONNECTION_PERMITTED code=9
+        Enum PARTIAL_ORDER_SERVICE_PROFILE code=10
+        Enum CC code=11
+        Enum CC.NEW code=12
+        Enum CC.ECHO code=13
+        Enum TCP_ALTERNATE_CHECKSUM_REQUEST code=14
+        Enum TCP_ALTERNATE_CHECKSUM_DATA code=15
+        Enum SKEETER code=16
+        Enum BUBBA code=17
+        Enum TRAILER_CHECKSUM_OPTION code=18
+        Enum MD5_SIGNATURE_OPTION code=19
+        Enum SCPS_CAPABILITIES code=20
+        Enum SELECTIVE_NEGATIVE_ACKNOWLEDGEMENTS code=21
+        Enum RECORD_BOUNDARIES code=22
+        Enum CORRUPTION_EXPERIENCED code=23
+        Enum SNAP code=24
+        Enum TCP_COMPRESSION_FILTER code=26
+        Enum QUICK_START_RESPONSE code=27
+        Enum USER_TIMEOUT_OPTION code=28
+        Enum "TCP_AUTHENTICATION_OPTION_(TCP_AO)" code=29
+        Enum "MULTIPATH_TCP_(MPTCP)" code=30
+        Enum TCP_FAST_OPEN_COOKIE code=34
+        Enum RFC3692_STYLE_EXPERIMENT_1 code=253
+        Enum RFC3692_STYLE_EXPERIMENT_2 code=254
+    }
+    Avp TCP-Option-Value code=542 mandatoryBit=may type=OctetString
+    Avp TCP-Flags code=543 mandatoryBit=may type=Grouped
+    Avp TCP-Flag-Type code=544 mandatoryBit=may type=Unsigned32
+    Avp ICMP-Type code=545 mandatoryBit=may type=Grouped
+    Avp ICMP-Type-Number code=546 mandatoryBit=may type=Enumerated {
+        Enum ECHO_REPLY code=0
+        Enum DESTINATION_UNREACHABLE code=3
+        Enum SOURCE_QUENCH code=4
+        Enum REDIRECT code=5
+        Enum ALTERNATE_HOST_ADDRESS code=6
+        Enum ECHO code=8
+        Enum ROUTER_ADVERTISEMENT code=9
+        Enum ROUTER_SOLICITATION code=10
+        Enum TIME_EXCEEDED code=11
+        Enum PARAMETER_PROBLEM code=12
+        Enum TIMESTAMP code=13
+        Enum TIMESTAMP_REPLY code=14
+        Enum INFORMATION_REQUEST code=15
+        Enum INFORMATION_REPLY code=16
+        Enum ADDRESS_MASK_REQUEST code=17
+        Enum ADDRESS_MASK_REPLY code=18
+        Enum "RESERVED_(FOR_SECURITY)" code=19
+        Enum TRACEROUTE code=30
+        Enum DATAGRAM_CONVERSION_ERROR code=31
+        Enum MOBILE_HOST_REDIRECT code=32
+        Enum IPV6_WHERE_ARE_YOU code=33
+        Enum IPV6_I_AM_HERE code=34
+        Enum MOBILE_REGISTRATION_REQUEST code=35
+        Enum MOBILE_REGISTRATION_REPLY code=36
+        Enum DOMAIN_NAME_REQUEST code=37
+        Enum DOMAIN_NAME_REPLY code=38
+        Enum SKIP code=39
+        Enum PHOTURIUS code=40
+        Enum ICMP_MESSAGES_UTILIZED_BY_EXPERIMENTAL_MOBILITY_PROTOCOLS_SUCH_AS_SEAMOBY code=41
+        Enum EXTENDED_ECHO_REQUEST code=42
+        Enum EXTENDED_ECHO_REPLY code=43
+        Enum RFC3692_STYLE_EXPERIMENT_1 code=253
+        Enum RFC3692_STYLE_EXPERIMENT_2 code=254
+    }
+    Avp ICMP-Code code=547 mandatoryBit=may type=Enumerated
+    Avp ETH-Option code=548 mandatoryBit=may type=Grouped
+    Avp ETH-Proto-Type code=549 mandatoryBit=may type=Grouped
+    Avp ETH-Ether-Type code=550 mandatoryBit=may type=OctetString
+    Avp ETH-SAP code=551 mandatoryBit=may type=OctetString
+    Avp VLAN-ID-Range code=552 mandatoryBit=may type=Grouped
+    Avp S-VID-Start code=553 mandatoryBit=may type=Unsigned32
+    Avp S-VID-End code=554 mandatoryBit=may type=Unsigned32
+    Avp C-VID-Start code=555 mandatoryBit=may type=Unsigned32
+    Avp C-VID-End code=556 mandatoryBit=may type=Unsigned32
+    Avp User-Priority-Range code=557 mandatoryBit=may type=Grouped
+    Avp Low-User-Priority code=558 mandatoryBit=may type=Unsigned32
+    Avp High-User-Priority code=559 mandatoryBit=may type=Unsigned32
+    Avp Time-Of-Day-Condition code=560 mandatoryBit=may type=Grouped
+    Avp Time-Of-Day-Start code=561 mandatoryBit=may type=Unsigned32
+    Avp Time-Of-Day-End code=562 mandatoryBit=may type=Unsigned32
+    Avp Day-Of-Week-Mask code=563 mandatoryBit=may type=Enumerated {
+        Enum SUNDAY code=0
+        Enum MONDAY code=2
+        Enum TUESDAY code=4
+        Enum WEDNESDAY code=8
+        Enum THURSDAY code=16
+        Enum FRIDAY code=32
+        Enum SATURDAY code=64
+    }
+    Avp Day-Of-Month-Mask code=564 mandatoryBit=may type=Enumerated
+    Avp Month-Of-Year-Mask code=565 mandatoryBit=may type=Enumerated {
+        Enum JANUARY code=0
+        Enum FEBRUARY code=2
+        Enum MARCH code=4
+        Enum APRIL code=8
+        Enum MAY code=16
+        Enum JUNE code=32
+        Enum JULY code=64
+        Enum AUGUST code=128
+        Enum SEPTEMBER code=256
+        Enum OCTOBER code=512
+        Enum NOVEMBER code=1024
+        Enum DECEMBER code=2048
+    }
+    Avp Absolute-Start-Time code=566 mandatoryBit=may type=Time
+    Avp Absolute-Start-Fractional-Seconds code=567 mandatoryBit=may type=Unsigned32
+    Avp Absolute-End-Time code=568 mandatoryBit=may type=Time
+    Avp Absolute-End-Fractional-Seconds code=569 mandatoryBit=may type=Unsigned32
+    Avp Timezone-Flag code=570 mandatoryBit=may type=Enumerated {
+        Enum UTC code=0
+        Enum LOCAL code=1
+        Enum OFFSET code=2
+    }
+    Avp Timezone-Offset code=571 mandatoryBit=may type=Integer32
+    Avp Treatment-Action code=572 mandatoryBit=may type=Enumerated {
+        Enum DROP code=0
+        Enum SHAPE code=1
+        Enum MARK code=2
+        Enum PERMIT code=3
+    }
+    Avp QoS-Profile-Id code=573 mandatoryBit=may type=Unsigned32
+    Avp QoS-Profile-Template code=574 mandatoryBit=must type=Grouped
+    Avp QoS-Semantics code=575 mandatoryBit=may type=Enumerated {
+        Enum QOS_DESIRED code=0
+        Enum QOS_AVAILABLE code=1
+        Enum QOS_DELIVERED code=2
+        Enum MINIMUM_QOS code=3
+        Enum QOS_AUTHORIZED code=4
+    }
+    Avp QoS-Parameters code=576 mandatoryBit=may type=Grouped
+    Avp Excess-Treatment code=577 mandatoryBit=may type=Grouped
+    Avp Redirect-Realm code=620 mandatoryBit=may type=DiameterIdentity
+    Avp OC-Supported-Features code=621 mandatoryBit=may type=Grouped
+    Avp OC-Feature-Vector code=622 mandatoryBit=may type=Unsigned64
+    Avp OC-OLR code=623 mandatoryBit=may type=Grouped
+    Avp OC-Sequence-Number code=624 mandatoryBit=may type=Unsigned64
+    Avp OC-Validity-Duration code=625 mandatoryBit=may type=Unsigned32
+    Avp OC-Report-Type code=626 mandatoryBit=may type=Enumerated {
+        Enum HOST_REPORT code=0
+        Enum REALM_REPORT code=1
+        Enum PEER_REPORT code=2
+    }
+    Avp OC-Reduction-Percentage code=627 mandatoryBit=may type=Unsigned32
+    Avp OC-Peer-Algo code=648 mandatoryBit=may type=Unsigned64
+    Avp SourceID code=649 mandatoryBit=may type=DiameterIdentity
+    Avp Load code=650 mandatoryBit=may type=Grouped
+    Avp Load-Type code=651 mandatoryBit=may type=Enumerated {
+        Enum HOST code=0
+        Enum PEER code=1
+    }
+    Avp Load-Value code=652 mandatoryBit=may type=Unsigned64
+    Avp User-Equipment-Info-Extension code=653 mandatoryBit=may type=Grouped
+    Avp User-Equipment-Info-IMEISV code=654 mandatoryBit=may type=OctetString
+    Avp User-Equipment-Info-MAC code=655 mandatoryBit=may type=OctetString
+    Avp User-Equipment-Info-EUI64 code=656 mandatoryBit=may type=OctetString
+    Avp User-Equipment-Info-ModifiedEUI64 code=657 mandatoryBit=may type=OctetString
+    Avp User-Equipment-Info-IMEI code=658 mandatoryBit=may type=OctetString
+    Avp GBA-UserSecSettings code=400 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Transaction-Identifier code=401 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp NAF-Hostname code=402 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp GAA-Service-Identifier code=403 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Key-ExpiryTime code=404 mandatoryBit=may type=Time vendor=TGPP
+    Avp ME-Key-Material code=405 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp UICC-Key-Material code=406 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp GBA_U-Awareness-Indicator code=407 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO code=0
+        Enum YES code=1
+    }
+    Avp BootstrapInfoCreationTime code=408 mandatoryBit=may type=Time vendor=TGPP
+    Avp GUSS-Timestamp code=409 mandatoryBit=may type=Time vendor=TGPP
+    Avp GBA-Type code=410 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum "3G_GBA" code=0
+        Enum "2G_GBA" code=1
+    }
+    Avp UE-Id code=411 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp UE-Id-Type code=412 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PRIVATE_USER_IDENTITY code=0
+        Enum PUBLIC_USER_IDENTITY code=1
+    }
+    Avp UICC-App-Label code=413 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp UICC-ME code=414 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum GBA_ME code=0
+        Enum GBA_U code=1
+    }
+    Avp Requested-Key-Lifetime code=415 mandatoryBit=may type=Time vendor=TGPP
+    Avp Private-Identity-Request code=416 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PRIVATE_IDENTITY_REQUESTED code=0
+        Enum PRIVATE_IDENTITY_NOT_REQUESTED code=1
+    }
+    Avp GBA-Push-Info code=417 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp NAF-SA-Identifier code=418 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Security-Feature-Request code=419 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Security-Feature-Response code=420 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Event-Type code=823 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp "3GPP-SIP-Method" code=824 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Event code=825 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Content-Type code=826 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Content-Length code=827 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Content-Disposition code=828 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Role-Of-Node code=829 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ORIGINATING_ROLE code=0
+        Enum TERMINATING_ROLE code=1
+        Enum PROXY_ROLE code=2
+        Enum B2BUA_ROLE code=3
+    }
+    Avp User-Session-ID code=830 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Calling-Party-Address code=831 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Called-Party-Address code=832 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Time-Stamps code=833 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SIP-Request-Timestamp code=834 mandatoryBit=must type=Time vendor=TGPP
+    Avp SIP-Response-Timestamp code=835 mandatoryBit=must type=Time vendor=TGPP
+    Avp Application-Server code=836 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Application-Provided-Called-Party-Address code=837 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Inter-Operator-Identifier code=838 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Originating-IOI code=839 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Terminating-IOI code=840 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp IMS-Charging-Identifier code=841 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SDP-Session-Description code=842 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SDP-Media-Component code=843 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SDP-Media-Name code=844 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SDP-Media-Description code=845 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp CG-Address code=846 mandatoryBit=must type=Address vendor=TGPP
+    Avp GGSN-Address code=847 mandatoryBit=must type=Address vendor=TGPP
+    Avp Served-Party-IP-Address code=848 mandatoryBit=must type=Address vendor=TGPP
+    Avp Authorised-QoS code=849 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Application-Server-Information code=850 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Trunk-Group-ID code=851 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Incoming-Trunk-Group-ID code=852 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Outgoing-Trunk-Group-ID code=853 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Bearer-Service code=854 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Service-Id code=855 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Associated-URI code=856 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Charged-Party code=857 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PoC-Controlling-Address code=858 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PoC-Group-Name code=859 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Cause code=860 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Cause-Code code=861 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum END_OF_REGISTER_DIALOG code=-3
+        Enum END_OF_SUBSCRIBE_DIALOG code=-2
+        Enum SUCCESSFUL_TRANSACTION code=-1
+        Enum NORMAL_END_OF_SESSION code=0
+        Enum UNSPECIFIED_ERROR code=1
+        Enum UNSUCCESSFUL_SESSION_SETUP code=2
+        Enum INTERNAL_ERROR code=3
+        Enum MULTIPLE_CHOICES code=300
+        Enum MOVED_PERMANENTLY code=301
+        Enum MOVED_TEMPORARILY code=302
+        Enum USE_PROXY code=305
+        Enum ALTERNATIVE_SERVICE code=380
+        Enum BAD_REQUEST code=400
+        Enum UNAUTHORIZED code=401
+        Enum PAYMENT_REQUIRED code=402
+        Enum FORBIDDEN code=403
+        Enum NOT_FOUND code=404
+        Enum METHOD_NOT_ALLOWED code=405
+        Enum NOT_ACCEPTABLE code=406
+        Enum PROXY_AUTHENTICATION_REQUIRED code=407
+        Enum REQUEST_TIMEOUT code=408
+        Enum GONE code=410
+        Enum CONDITIONAL_REQUEST_FAILED code=412
+        Enum REQUEST_ENTITY_TOO_LARGE code=413
+        Enum REQUEST_URI_TOO_LONG code=414
+        Enum UNSUPPORTED_MEDIA_TYPE code=415
+        Enum UNSUPPORTED_URI_SCHEME code=416
+        Enum UNKNOWN_RESOURCE_PRIORITY code=417
+        Enum BAD_EXTENSION code=420
+        Enum EXTENSION_REQUIRED code=421
+        Enum SESSION_INTERVAL_TOO_SMALL code=422
+        Enum INTERVAL_TOO_BRIEF code=423
+        Enum USE_IDENTITY_HEADER code=428
+        Enum PROVIDE_REFERRER_IDENTITY code=429
+        Enum BAD_IDENTITY_INFO code=436
+        Enum UNSUPPORTED_CERTIFICATE code=437
+        Enum INVALID_IDENTITY_HEADER code=438
+        Enum TEMPORARILY_UNAVAILABLE code=480
+        Enum "CALL/TRANSACTION_DOES_NOT_EXIST" code=481
+        Enum LOOP_DETECTED code=482
+        Enum TOO_MANY_HOPS code=483
+        Enum ADDRESS_INCOMPLETE code=484
+        Enum AMBIGUOUS code=485
+        Enum BUSY_HERE code=486
+        Enum REQUEST_TERMINATED code=487
+        Enum NOT_ACCEPTABLE_HERE code=488
+        Enum BAD_EVENT code=489
+        Enum REQUEST_PENDING code=491
+        Enum UNDECIPHERABLE code=493
+        Enum SECURITY_AGREEMENT_REQUIRED code=494
+        Enum SERVER_INTERNAL_ERROR code=500
+        Enum NOT_IMPLEMENTED code=501
+        Enum BAD_GATEWAY code=502
+        Enum SERVICE_UNAVAILABLE code=503
+        Enum SERVER_TIME_OUT code=504
+        Enum VERSION_NOT_SUPPORTED code=505
+        Enum MESSAGE_TOO_LARGE code=513
+        Enum PRECONDITION_FAILURE code=580
+        Enum BUSY_EVERYWHERE code=600
+        Enum DECLINE code=603
+        Enum DOES_NOT_EXIST_ANYWHERE code=604
+        Enum "NOT_ACCEPTABLE#606" code=606
+    }
+    Avp Node-Functionality code=862 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum S_CSCF code=0
+        Enum P_CSCF code=1
+        Enum I_CSCF code=2
+        Enum MRFC code=3
+        Enum MGCF code=4
+        Enum BGCF code=5
+        Enum AS code=6
+        Enum IBCF code=7
+        Enum S_GW code=8
+        Enum P_GW code=9
+        Enum HSGW code=10
+        Enum E_CSCF code=11
+        Enum MME code=12
+        Enum TRF code=13
+        Enum TF code=14
+        Enum ATCF code=15
+        Enum PROXY_FUNCTION code=16
+        Enum EPDG code=17
+    }
+    Avp Service-Specific-Data code=863 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Originator code=864 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum CALLING_PARTY code=0
+        Enum CALLED_PARTY code=1
+    }
+    Avp PS-Furnish-Charging-Information code=865 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PS-Free-Format-Data code=866 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp PS-Append-Free-Format-Data code=867 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum APPEND code=0
+        Enum OVERWRITE code=1
+    }
+    Avp Time-Quota-Threshold code=868 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Volume-Quota-Threshold code=869 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Trigger-Type code=870 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum CHANGE_IN_SGSN_IP_ADDRESS code=1
+        Enum CHANGE_IN_QOS code=2
+        Enum CHANGE_IN_LOCATION code=3
+        Enum CHANGE_IN_RAT code=4
+        Enum CHANGE_IN_UE_TIMEZONE code=5
+        Enum CHANGEINQOS_TRAFFIC_CLASS code=10
+        Enum CHANGEINQOS_RELIABILITY_CLASS code=11
+        Enum CHANGEINQOS_DELAY_CLASS code=12
+        Enum CHANGEINQOS_PEAK_THROUGHPUT code=13
+        Enum CHANGEINQOS_PRECEDENCE_CLASS code=14
+        Enum CHANGEINQOS_MEAN_THROUGHPUT code=15
+        Enum CHANGEINQOS_MAXIMUM_BIT_RATE_FOR_UPLINK code=16
+        Enum CHANGEINQOS_MAXIMUM_BIT_RATE_FOR_DOWNLINK code=17
+        Enum CHANGEINQOS_RESIDUAL_BER code=18
+        Enum CHANGEINQOS_SDU_ERROR_RATIO code=19
+        Enum CHANGEINQOS_TRANSFER_DELAY code=20
+        Enum CHANGEINQOS_TRAFFIC_HANDLING_PRIORITY code=21
+        Enum CHANGEINQOS_GUARANTEED_BIT_RATE_FOR_UPLINK code=22
+        Enum CHANGEINQOS_GUARANTEED_BIT_RATE_FOR_DOWNLINK code=23
+        Enum CHANGEINQOS_APN_AGGREGATE_MAXIMUM_BIT_RATE code=24
+        Enum CHANGEINLOCATION_MCC code=30
+        Enum CHANGEINLOCATION_MNC code=31
+        Enum CHANGEINLOCATION_RAC code=32
+        Enum CHANGEINLOCATION_LAC code=33
+        Enum CHANGEINLOCATION_CELLID code=34
+        Enum CHANGEINLOCATION_TAC code=35
+        Enum CHANGEINLOCATION_ECGI code=36
+        Enum CHANGE_IN_MEDIA_COMPOSITION code=40
+        Enum CHANGEINPARTICIPANTS_NUMBER code=50
+        Enum CHANGE_IN_THRSHLD_OF_PARTICIPANTS_NMB code=51
+        Enum CHANGE_IN_USER_PARTICIPATING_TYPE code=52
+        Enum CHANGE_IN_SERVICE_CONDITION code=60
+        Enum CHANGE_IN_SERVING_NODE code=61
+        Enum CHANGE_IN_ACCESS_FOR_A_SERVICE_DATA_FLOW code=62
+        Enum CHANGE_IN_USER_CSG_INFORMATION code=70
+        Enum CHANGE_IN_HYBRID_SUBSCRIBED_USER_CSG_INFORMATION code=71
+        Enum CHANGE_IN_HYBRID_UNSUBSCRIBED_USER_CSG_INFORMATION code=72
+        Enum CHANGE_OF_UE_PRESENCE_IN_PRESENCE_REPORTING_AREA code=73
+        Enum CHANGE_IN_SERVING_PLMN_RATE_CONTROL code=74
+        Enum CHANGE_IN_APN_RATE_CONTROL code=75
+    }
+    Avp Quota-Holding-Time code=871 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp "3GPP-Reporting-Reason" code=872 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum THRESHOLD code=0
+        Enum QHT code=1
+        Enum FINAL code=2
+        Enum QUOTA_EXHAUSTED code=3
+        Enum VALIDITY_TIME code=4
+        Enum OTHER_QUOTA_TYPE code=5
+        Enum RATING_CONDITION_CHANGE code=6
+        Enum FORCED_REAUTHORISATION code=7
+        Enum POOL_EXHAUSTED code=8
+    }
+    Avp Service-Information code=873 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PS-Information code=874 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp WLAN-Information code=875 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp IMS-Information code=876 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MMS-Information code=877 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Information code=878 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PoC-Information code=879 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MBMS-Information code=880 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Quota-Consumption-Time code=881 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Media-Initiator-Flag code=882 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum CALLED_PARTY code=0
+        Enum CALLING_PARTY code=1
+        Enum UNKNOWN code=2
+    }
+    Avp PoC-Server-Role code=883 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum PARTICIPATING_POC_SERVER code=0
+        Enum CONTROLLING_POC_SERVER code=1
+    }
+    Avp PoC-Session-Type code=884 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum "1_TO_1_POC_SESSION" code=0
+        Enum CHAT_POC_GROUP_SESSION code=1
+        Enum PRE_ARRANGED_POC_GROUP_SESSION code=2
+        Enum AD_HOC_POC_GROUP_SESSION code=3
+    }
+    Avp Number-Of-Participants code=885 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Originator-Address code=886 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Participants-Involved code=887 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Expires code=888 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Message-Body code=889 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp WAG-Address code=890 mandatoryBit=must type=Address vendor=TGPP
+    Avp WAG-PLMN-Id code=891 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp WLAN-Radio-Container code=892 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp WLAN-Technology code=893 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp WLAN-UE-Local-IPAddress code=894 mandatoryBit=must type=Address vendor=TGPP
+    Avp PDG-Address code=895 mandatoryBit=must type=Address vendor=TGPP
+    Avp PDG-Charging-Id code=896 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Address-Data code=897 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Address-Domain code=898 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Address-Type code=899 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum E_MAIL_ADDRESS code=0
+        Enum MSISDN code=1
+        Enum IPV4_ADDRESS code=2
+        Enum IPV6_ADDRESS code=3
+        Enum NUMERIC_SHORTCODE code=4
+        Enum ALPHANUMERIC_SHORTCODE code=5
+        Enum OTHER code=6
+    }
+    Avp Bearer-Usage code=1000 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum GENERAL code=0
+        Enum IMS_SIGNALLING code=1
+        Enum DEDICATED code=2
+    }
+    Avp Charging-Rule-Install code=1001 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Charging-Rule-Remove code=1002 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Charging-Rule-Definition code=1003 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Charging-Rule-Base-Name code=1004 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Charging-Rule-Name code=1005 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Event-Trigger code=1006 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SGSN_CHANGE code=0
+        Enum QOS_CHANGE code=1
+        Enum RAT_CHANGE code=2
+        Enum TFT_CHANGE code=3
+        Enum PLMN_CHANGE code=4
+        Enum LOSS_OF_BEARER code=5
+        Enum RECOVERY_OF_BEARER code=6
+        Enum IP_CAN_CHANGE code=7
+        Enum GW_PCEF_MALFUNCTION code=8
+        Enum RESOURCES_LIMITATION code=9
+        Enum MAX_NR_BEARERS_REACHED code=10
+        Enum QOS_CHANGE_EXCEEDING_AUTHORIZATION code=11
+        Enum RAI_CHANGE code=12
+        Enum USER_LOCATION_CHANGE code=13
+        Enum NO_EVENT_TRIGGERS code=14
+        Enum OUT_OF_CREDIT code=15
+        Enum REALLOCATION_OF_CREDIT code=16
+        Enum REVALIDATION_TIMEOUT code=17
+        Enum UE_IP_ADDRESS_ALLOCATE code=18
+        Enum UE_IP_ADDRESS_RELEASE code=19
+        Enum DEFAULT_EPS_BEARER_QOS_CHANGE code=20
+        Enum AN_GW_CHANGE code=21
+        Enum SUCCESSFUL_RESOURCE_ALLOCATION code=22
+        Enum RESOURCE_MODIFICATION_REQUEST code=23
+        Enum PGW_TRACE_CONTROL code=24
+        Enum UE_TIME_ZONE_CHANGE code=25
+        Enum TAI_CHANGE code=26
+        Enum ECGI_CHANGE code=27
+        Enum CHARGING_CORRELATION_EXCHANGE code=28
+        Enum APN_AMBR_MODIFICATION_FAILURE code=29
+        Enum USER_CSG_INFORMATION_CHANGE code=30
+        Enum USAGE_REPORT code=33
+        Enum DEFAULT_EPS_BEARER_QOS_MODIFICATION_FAILURE code=34
+        Enum USER_CSG_HYBRID_SUBSCRIBED_INFORMATION_CHANGE code=35
+        Enum USER_CSG__HYBRID_UNSUBSCRIBED_INFORMATION_CHANGE code=36
+        Enum ROUTING_RULE_CHANGE code=37
+        Enum MAX_MBR_APN_AMBR_CHANGE code=38
+        Enum APPLICATION_START code=39
+        Enum APPLICATION_STOP code=40
+        Enum ADC_REVALIDATION_TIMEOUT code=41
+        Enum CS_TO_PS_HANDOVER code=42
+        Enum UE_LOCAL_IP_ADDRESS_CHANGE code=43
+        Enum "H(E)NB_LOCAL_IP_ADDRESS_CHANGE" code=44
+        Enum ACCESS_NETWORK_INFO_REPORT code=45
+        Enum CREDIT_MANAGEMENT_SESSION_FAILURE code=46
+        Enum DEFAULT_QOS_CHANGE code=47
+        Enum CHANGE_OF_UE_PRESENCE_IN_PRESENCE_REPORTING_AREA_REPORT code=48
+        Enum TIME_CHANGE code=100
+        Enum TFT_DELETED code=1000
+        Enum "LOSS_OF_BEARER#1001" code=1001
+        Enum "RECOVERY_OF_BEARER#1002" code=1002
+        Enum POLICY_ENFORCEMENT_FAILED code=1003
+    }
+    Avp Metering-Method code=1007 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum DURATION code=0
+        Enum VOLUME code=1
+        Enum DURATION_VOLUME code=2
+    }
+    Avp Offline code=1008 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum DISABLE_OFFLINE code=0
+        Enum ENABLE_OFFLINE code=1
+    }
+    Avp Online code=1009 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum DISABLE_ONLINE code=0
+        Enum ENABLE_ONLINE code=1
+    }
+    Avp Precedence code=1010 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Reporting-Level code=1011 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SERVICE_IDENTIFIER_LEVEL code=0
+        Enum RATING_GROUP_LEVEL code=1
+        Enum SPONSORED_CONNECTIVITY_LEVEL code=2
+    }
+    Avp TFT-Filter code=1012 mandatoryBit=must type=IPFilterRule vendor=TGPP
+    Avp TFT-Packet-Filter-Information code=1013 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp ToS-Traffic-Class code=1014 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp PDP-Session-operation code=1015 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum PDP_SESSION_TERMINATION code=0
+    }
+    Avp QoS-Information code=1016 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Charging-Rule-Report code=1018 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PCC-Rule-Status code=1019 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ACTIVE code=0
+        Enum INACTIVE code=1
+        Enum TEMPORARY_INACTIVE code=2
+    }
+    Avp Bearer-Identifier code=1020 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Bearer-Operation code=1021 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum TERMINATION code=0
+        Enum ESTABLISHMENT code=1
+        Enum MODIFICATION code=2
+    }
+    Avp Access-Network-Charging-Identifier-Gx code=1022 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Bearer-Control-Mode code=1023 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum UE_ONLY code=0
+        Enum RESERVED code=1
+        Enum UE_NW code=2
+    }
+    Avp Network-Request-Support code=1024 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NETWORK_REQUEST_NOT_SUPPORTED code=0
+        Enum NETWORK_REQUEST_SUPPORTED code=1
+    }
+    Avp Guaranteed-Bitrate-DL code=1025 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Guaranteed-Bitrate-UL code=1026 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp IP-CAN-Type code=1027 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum "3GPP_GPRS" code=0
+        Enum DOCSIS code=1
+        Enum XDSL code=2
+        Enum WIMAX code=3
+        Enum "3GPP2" code=4
+        Enum "3GPP_EPS" code=5
+        Enum NON_3GPP_EPS code=6
+        Enum FBA code=7
+        Enum "3GPP_5GS" code=8
+        Enum NON_3GPP_5GS code=9
+    }
+    Avp QoS-Class-Identifier code=1028 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum QCI_1 code=1
+        Enum QCI_2 code=2
+        Enum QCI_3 code=3
+        Enum QCI_4 code=4
+        Enum QCI_5 code=5
+        Enum QCI_6 code=6
+        Enum QCI_7 code=7
+        Enum QCI_8 code=8
+        Enum QCI_9 code=9
+        Enum QCI_65 code=65
+        Enum QCI_66 code=66
+        Enum QCI_69 code=69
+        Enum QCI_70 code=70
+    }
+    Avp QoS-Negotiation code=1029 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NO_QOS_NEGOTIATION code=0
+        Enum QOS_NEGOTIATION_SUPPORTED code=1
+    }
+    Avp QoS-Upgrade code=1030 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum QOS_UPGRADE_NOT_SUPPORTED code=0
+        Enum QOS_UPGRADE_SUPPORTED code=1
+    }
+    Avp Rule-Failure-Code code=1031 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum UNKNOWN_RULE_NAME code=1
+        Enum RATING_GROUP_ERROR code=2
+        Enum SERVICE_IDENTIFIER_ERROR code=3
+        Enum "GW/PCEF_MALFUNCTION" code=4
+        Enum RESOURCES_LIMITATION code=5
+        Enum MAX_NR_BEARERS_REACHED code=6
+        Enum UNKNOWN_BEARER_ID code=7
+        Enum MISSING_BEARER_ID code=8
+        Enum MISSING_FLOW_DESCRIPTION code=9
+        Enum RESOURCE_ALLOCATION_FAILURE code=10
+        Enum UNSUCCESSFUL_QOS_VALIDATION code=11
+        Enum INCORRECT_FLOW_INFORMATION code=12
+        Enum PS_TO_CS_HANDOVER code=13
+        Enum TDF_APPLICATION_IDENTIFIER_ERROR code=14
+        Enum NO_BEARER_BOUND code=15
+        Enum FILTER_RESTRICTIONS code=16
+        Enum AN_GW_FAILED code=17
+        Enum MISSING_REDIRECT_SERVER_ADDRESS code=18
+        Enum CM_END_USER_SERVICE_DENIED code=19
+        Enum CM_CREDIT_CONTROL_NOT_APPLICABLE code=20
+        Enum CM_AUTHORIZATION_REJECTED code=21
+        Enum CM_USER_UNKNOWN code=22
+        Enum CM_RATING_FAILED code=23
+        Enum ROUTING_RULE_REJECTION code=24
+    }
+    Avp RAT-Type code=1032 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum WLAN code=0
+        Enum VIRTUAL code=1
+        Enum TRUSTED_N3GA code=2
+        Enum WIRELINE code=3
+        Enum WIRELINE_CABLE code=4
+        Enum WIRELINE_BBF code=5
+        Enum UTRAN code=1000
+        Enum GERAN code=1001
+        Enum GAN code=1002
+        Enum HSPA_EVOLUTION code=1003
+        Enum EUTRAN code=1004
+        Enum EUTRAN_NB_IOT code=1005
+        Enum NG_RAN code=1006
+        Enum LTE_M code=1007
+        Enum NR_U code=1008
+        Enum "EUTRAN(LEO)" code=1011
+        Enum "EUTRAN(MEO)" code=1012
+        Enum "EUTRAN(GEO)" code=1013
+        Enum "EUTRAN(OTHERSAT)" code=1014
+        Enum "EUTRAN_NB_IOT(LEO)" code=1021
+        Enum "EUTRAN_NB_IOT(MEO)" code=1022
+        Enum "EUTRAN_NB_IOT(GEO)" code=1023
+        Enum "EUTRAN_NB_IOT(OTHERSAT)" code=1024
+        Enum "LTE_M(LEO)" code=1031
+        Enum "LTE_M(MEO)" code=1032
+        Enum "LTE_M(GEO)" code=1033
+        Enum "LTE_M(OTHERSAT)" code=1034
+        Enum CDMA2000_1X code=2000
+        Enum HRPD code=2001
+        Enum UMB code=2002
+        Enum EHRPD code=2003
+    }
+    Avp Event-Report-Indication code=1033 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Allocation-Retention-Priority code=1034 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CoA-IP-Address code=1035 mandatoryBit=mustnot type=Address vendor=TGPP
+    Avp Tunnel-Header-Filter code=1036 mandatoryBit=mustnot type=IPFilterRule vendor=TGPP
+    Avp Tunnel-Header-Length code=1037 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Tunnel-Information code=1038 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp CoA-Information code=1039 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp APN-Aggregate-Max-Bitrate-DL code=1040 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp APN-Aggregate-Max-Bitrate-UL code=1041 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Revalidation-Time code=1042 mandatoryBit=must type=Time vendor=TGPP
+    Avp Rule-Activation-Time code=1043 mandatoryBit=must type=Time vendor=TGPP
+    Avp Rule-Deactivation-Time code=1044 mandatoryBit=must type=Time vendor=TGPP
+    Avp Session-Release-Cause code=1045 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum UNSPECIFIED_REASON code=0
+        Enum UE_SUBSCRIPTION_REASON code=1
+        Enum INSUFFICIENT_SERVER_RESOURCES code=2
+    }
+    Avp Priority-Level code=1046 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Pre-emption-Capability code=1047 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum PRE_EMPTION_CAPABILITY_ENABLED code=0
+        Enum PRE_EMPTION_CAPABILITY_DISABLED code=1
+    }
+    Avp Pre-emption-Vulnerability code=1048 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum PRE_EMPTION_VULNERABILITY_ENABLED code=0
+        Enum PRE_EMPTION_VULNERABILITY_DISABLED code=1
+    }
+    Avp Default-EPS-Bearer-QoS code=1049 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp AN-GW-Address code=1050 mandatoryBit=mustnot type=Address vendor=TGPP
+    Avp QoS-Rule-Install code=1051 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp QoS-Rule-Remove code=1052 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp QoS-Rule-Definition code=1053 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp QoS-Rule-Name code=1054 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp QoS-Rule-Report code=1055 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Security-Parameter-Index code=1056 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Flow-Label code=1057 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Flow-Information code=1058 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Packet-Filter-Content code=1059 mandatoryBit=mustnot type=IPFilterRule vendor=TGPP
+    Avp Packet-Filter-Identifier code=1060 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Packet-Filter-Information code=1061 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Packet-Filter-Operation code=1062 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum DELETION code=0
+        Enum ADDITION code=1
+        Enum MODIFICATION code=2
+    }
+    Avp Resource-Allocation-Notification code=1063 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum ENABLE_NOTIFICATION code=0
+    }
+    Avp Session-Linking-Indicator code=1064 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SESSION_LINKING_IMMEDIATE code=0
+        Enum SESSION_LINKING_DEFERRED code=1
+    }
+    Avp PDN-Connection-ID code=1065 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Monitoring-Key code=1066 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Usage-Monitoring-Information code=1067 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Usage-Monitoring-Level code=1068 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum SESSION_LEVEL code=0
+        Enum PCC_RULE_LEVEL code=1
+    }
+    Avp Usage-Monitoring-Report code=1069 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum USAGE_MONITORING_REPORT_REQUIRED code=0
+    }
+    Avp Usage-Monitoring-Support code=1070 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum USAGE_MONITORING_DISABLED code=0
+    }
+    Avp CSG-Information-Reporting code=1071 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum CHANGE_CSG_CELL code=0
+        Enum CHANGE_CSG_SUBSCRIBED_HYBRID_CELL code=1
+        Enum CHANGE_CSG_UNSUBSCRIBED_HYBRID_CELL code=2
+    }
+    Avp Packet-Filter-Usage code=1072 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum SEND_TO_UE code=1
+    }
+    Avp Charging-Correlation-Indicator code=1073 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum CHARGING_IDENTIFIER_REQUIRED code=0
+    }
+    Avp QoS-Rule-Base-Name code=1074 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Routing-Rule-Remove code=1075 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Routing-Rule-Definition code=1076 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Routing-Rule-Identifier code=1077 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Routing-Filter code=1078 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Routing-IP-Address code=1079 mandatoryBit=mustnot type=Address vendor=TGPP
+    Avp Flow-Direction code=1080 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum UNSPECIFIED code=0
+        Enum DOWNLINK code=1
+        Enum UPLINK code=2
+        Enum BIDIRECTIONAL code=3
+    }
+    Avp Routing-Rule-Install code=1081 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Credit-Management-Status code=1082 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Redirect-Information code=1085 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Redirect-Support code=1086 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum REDIRECTION_DISABLED code=0
+        Enum REDIRECTION_ENABLED code=1
+    }
+    Avp TDF-Information code=1087 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp TDF-Application-Identifier code=1088 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp TDF-Destination-Host code=1089 mandatoryBit=mustnot type=DiameterIdentity vendor=TGPP
+    Avp TDF-Destination-Realm code=1090 mandatoryBit=mustnot type=DiameterIdentity vendor=TGPP
+    Avp TDF-IP-Address code=1091 mandatoryBit=mustnot type=Address vendor=TGPP
+    Avp ADC-Rule-Install code=1092 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp ADC-Rule-Remove code=1093 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp ADC-Rule-Definition code=1094 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp ADC-Rule-Base-Name code=1095 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp ADC-Rule-Name code=1096 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp ADC-Rule-Report code=1097 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Application-Detection-Information code=1098 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp PS-to-CS-Session-Continuity code=1099 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum VIDEO_PS2CS_CONT_CANDIDATE code=0
+    }
+    Avp Served-User-Identity code=1100 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp VASP-ID code=1101 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp VAS-ID code=1102 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Trigger-Event code=1103 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum MM1_MESSAGE_SUBMISSION,_PROFILE_BASED code=0
+        Enum MM1_MESSAGE_SUBMISSION,_ADDRESS_BASED code=1
+        Enum MM1_MESSAGE_DELIVERY code=2
+        Enum MM7_MESSAGE_SUBMISSION,_PROFILE_BASED code=3
+        Enum MM7_MESSAGE_SUBMISSION,_ADDRESS_BASED code=4
+    }
+    Avp Sender-Address code=1104 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Initial-Recipient-Address code=1105 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Result-Recipient-Address code=1106 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp MM10-Sequence-Number code=1107 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp MM10-Recipient-Address code=1108 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Routeing-Address code=1109 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Originating-Interface code=1110 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum MM1 code=0
+        Enum MM3 code=1
+        Enum MM4 code=2
+        Enum MM7 code=3
+    }
+    Avp Delivery-Report code=1111 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO_DELIVERY_REPORT_REQUESTED code=0
+        Enum DELIVERY_REPORT_REQUESTED code=1
+    }
+    Avp Read-Reply code=1112 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO_READ_REPLY_REQUESTED code=0
+        Enum READ_REPLY_REQUESTED code=1
+    }
+    Avp Sender-Visibility code=1113 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SENDER_IDENTIFICATION_REQUESTED_NOT_TO_BE_HIDDEN code=0
+        Enum SENDER_IDENTIFICATION_REQUESTED_TO_BE_HIDDEN code=1
+    }
+    Avp Service-Key code=1114 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Billing-Information code=1115 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Status code=1116 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Status-Code code=1117 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Status-Text code=1118 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Routeing-Address-Resolution code=1119 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum UNRESOLVED code=0
+        Enum RESOLVED code=1
+    }
+    Avp Domain-Name code=1200 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Recipient-Address code=1201 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Submission-Time code=1202 mandatoryBit=may type=Time vendor=TGPP
+    Avp MM-Content-Type code=1203 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Type-Number code=1204 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum "*/*" code=0
+        Enum "TEXT/*" code=1
+        Enum "TEXT/HTML" code=2
+        Enum "TEXT/PLAIN" code=3
+        Enum "TEXT/X_HDML" code=4
+        Enum "TEXT/X_TTML" code=5
+        Enum "TEXT/X_VCALENDAR" code=6
+        Enum "TEXT/X_VCARD" code=7
+        Enum "TEXT/VND.WAP.WML" code=8
+        Enum "TEXT/VND.WAP.WMLSCRIPT" code=9
+        Enum "TEXT/VND.WAP.WTA_EVENT" code=10
+        Enum "MULTIPART/*" code=11
+        Enum "MULTIPART/MIXED" code=12
+        Enum "MULTIPART/FORM_DATA" code=13
+        Enum "MULTIPART/BYTERANTES" code=14
+        Enum "MULTIPART/ALTERNATIVE" code=15
+        Enum "APPLICATION/*" code=16
+        Enum "APPLICATION/JAVA_VM" code=17
+        Enum "APPLICATION/X_WWW_FORM_URLENCODED" code=18
+        Enum "APPLICATION/X_HDMLC" code=19
+        Enum "APPLICATION/VND.WAP.WMLC" code=20
+        Enum "APPLICATION/VND.WAP.WMLSCRIPTC" code=21
+        Enum "APPLICATION/VND.WAP.WTA_EVENTC" code=22
+        Enum "APPLICATION/VND.WAP.UAPROF" code=23
+        Enum "APPLICATION/VND.WAP.WTLS_CA_CERTIFICATE" code=24
+        Enum "APPLICATION/VND.WAP.WTLS_USER_CERTIFICATE" code=25
+        Enum "APPLICATION/X_X509_CA_CERT" code=26
+        Enum "APPLICATION/X_X509_USER_CERT" code=27
+        Enum "IMAGE/*" code=28
+        Enum "IMAGE/GIF" code=29
+        Enum "IMAGE/JPEG" code=30
+        Enum "IMAGE/TIFF" code=31
+        Enum "IMAGE/PNG" code=32
+        Enum "IMAGE/VND.WAP.WBMP" code=33
+        Enum "APPLICATION/VND.WAP.MULTIPART.*" code=34
+        Enum "APPLICATION/VND.WAP.MULTIPART.MIXED" code=35
+        Enum "APPLICATION/VND.WAP.MULTIPART.FORM_DATA" code=36
+        Enum "APPLICATION/VND.WAP.MULTIPART.BYTERANGES" code=37
+        Enum "APPLICATION/VND.WAP.MULTIPART.ALTERNATIVE" code=38
+        Enum "APPLICATION/XML" code=39
+        Enum "TEXT/XML" code=40
+        Enum "APPLICATION/VND.WAP.WBXML" code=41
+        Enum "APPLICATION/X_X968_CROSS_CERT" code=42
+        Enum "APPLICATION/X_X968_CA_CERT" code=43
+        Enum "APPLICATION/X_X968_USER_CERT" code=44
+        Enum "TEXT/VND.WAP.SI" code=45
+        Enum "APPLICATION/VND.WAP.SIC" code=46
+        Enum "TEXT/VND.WAP.SL" code=47
+        Enum "APPLICATION/VND.WAP.SLC" code=48
+        Enum "TEXT/VND.WAP.CO" code=49
+        Enum "APPLICATION/VND.WAP.COC" code=50
+        Enum "APPLICATION/VND.WAP.MULTIPART.RELATED" code=51
+        Enum "APPLICATION/VND.WAP.SIA" code=52
+        Enum "TEXT/VND.WAP.CONNECTIVITY_XML" code=53
+        Enum "APPLICATION/VND.WAP.CONNECTIVITY_WBXML" code=54
+        Enum "APPLICATION/PKCS7_MIME" code=55
+        Enum "APPLICATION/VND.WAP.HASHED_CERTIFICATE" code=56
+        Enum "APPLICATION/VND.WAP.SIGNED_CERTIFICATE" code=57
+        Enum "APPLICATION/VND.WAP.CERT_RESPONSE" code=58
+        Enum "APPLICATION/XHTML+XML" code=59
+        Enum "APPLICATION/WML+XML" code=60
+        Enum "TEXT/CSS" code=61
+        Enum "APPLICATION/VND.WAP.MMS_MESSAGE" code=62
+        Enum "APPLICATION/VND.WAP.ROLLOVER_CERTIFICATE" code=63
+        Enum "APPLICATION/VND.WAP.LOCC+WBXML" code=64
+        Enum "APPLICATION/VND.WAP.LOC+XML" code=65
+        Enum "APPLICATION/VND.SYNCML.DM+WBXML" code=66
+        Enum "APPLICATION/VND.SYNCML.DM+XML" code=67
+        Enum "APPLICATION/VND.SYNCML.NOTIFICATION" code=68
+        Enum "APPLICATION/VND.WAP.XHTML+XML" code=69
+        Enum "APPLICATION/VND.WV.CSP.CIR" code=70
+        Enum "APPLICATION/VND.OMA.DD+XML" code=71
+        Enum "APPLICATION/VND.OMA.DRM.MESSAGE" code=72
+        Enum "APPLICATION/VND.OMA.DRM.CONTENT" code=73
+        Enum "APPLICATION/VND.OMA.DRM.RIGHTS+XML" code=74
+        Enum "APPLICATION/VND.OMA.DRM.RIGHTS+WBXML" code=75
+        Enum "APPLICATION/VND.WV.CSP+XML" code=76
+        Enum "APPLICATION/VND.WV.CSP+WBXML" code=77
+        Enum "APPLICATION/VND.SYNCML.DS.NOTIFICATION" code=78
+        Enum "AUDIO/*" code=79
+        Enum "VIDEO/*" code=80
+        Enum "APPLICATION/VND.OMA.DD2+XML" code=81
+        Enum "APPLICATION/MIKEY" code=82
+        Enum "APPLICATION/VND.OMA.DCD" code=83
+        Enum "APPLICATION/VND.OMA.DCDC" code=84
+    }
+    Avp Additional-Type-Information code=1205 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Content-Size code=1206 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Additional-Content-Information code=1207 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Addressee-Type code=1208 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum TO code=0
+        Enum CC code=1
+        Enum BCC code=2
+    }
+    Avp Priority code=1209 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum LOW code=0
+        Enum NORMAL code=1
+        Enum HIGH code=2
+    }
+    Avp Message-ID code=1210 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Message-Type code=1211 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum M_SEND_REQ code=1
+        Enum M_SEND_CONF code=2
+        Enum M_NOTIFICATION_IND code=3
+        Enum M_NOTIFYRESP_IND code=4
+        Enum M_RETRIEVE_CONF code=5
+        Enum M_ACKNOWLEDGE_IND code=6
+        Enum M_DELIVERY_IND code=7
+        Enum M_READ_REC_IND code=8
+        Enum M_READ_ORIG_IND code=9
+        Enum M_FORWARD_REQ code=10
+        Enum M_FORWARD_CONF code=11
+        Enum M_MBOX_STORE_CONF code=12
+        Enum M_MBOX_VIEW_CONF code=13
+        Enum M_MBOX_UPLOAD_CONF code=14
+        Enum M_MBOX_DELETE_CONF code=15
+    }
+    Avp Message-Size code=1212 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Message-Class code=1213 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Class-Identifier code=1214 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PERSONAL code=0
+        Enum ADVERTISEMENT code=1
+        Enum INFORMATIONAL code=2
+        Enum AUTO code=3
+    }
+    Avp Token-Text code=1215 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Delivery-Report-Requested code=1216 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO code=0
+        Enum YES code=1
+    }
+    Avp Adaptations code=1217 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO code=0
+        Enum YES code=1
+    }
+    Avp Applic-ID code=1218 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Aux-Applic-Info code=1219 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Content-Class code=1220 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum TEXT code=0
+        Enum IMAGE_BASIC code=1
+        Enum IMAGE_RICH code=2
+        Enum VIDEO_BASIC code=3
+        Enum VIDEO_RICH code=4
+        Enum MEGAPIXEL code=5
+        Enum CONTENT_BASIC code=6
+        Enum CONTENT_RICH code=7
+    }
+    Avp DRM-Content code=1221 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO code=0
+        Enum YES code=1
+    }
+    Avp Read-Reply-Report-Requested code=1222 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO code=0
+        Enum YES code=1
+    }
+    Avp Reply-Applic-ID code=1223 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp File-Repair-Supported code=1224 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SUPPORTED code=1
+        Enum NOT_SUPPORTED code=2
+    }
+    Avp MBMS-User-Service-Type code=1225 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum DOWNLOAD code=1
+        Enum STREAMING code=2
+    }
+    Avp Unit-Quota-Threshold code=1226 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp PDP-Address code=1227 mandatoryBit=may type=Address vendor=TGPP
+    Avp SGSN-Address code=1228 mandatoryBit=may type=Address vendor=TGPP
+    Avp PoC-Session-Id code=1229 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Deferred-Location-Event-Type code=1230 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-APN code=1231 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Client-ID code=1232 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp LCS-Client-Dialed-By-MS code=1233 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Client-External-ID code=1234 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Client-Name code=1235 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp LCS-Data-Coding-Scheme code=1236 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Format-Indicator code=1237 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum LOGICAL_NAME code=0
+        Enum EMAIL_ADDRESS code=1
+        Enum MSISDN code=2
+        Enum URL code=3
+        Enum SIP_URL code=4
+    }
+    Avp LCS-Name-String code=1238 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Requestor-ID code=1239 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp LCS-Requestor-ID-String code=1240 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp LCS-Client-Type code=1241 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum EMERGENCY_SERVICES code=0
+        Enum VALUE_ADDED_SERVICES code=1
+        Enum PLMN_OPERATOR_SERVICES code=2
+        Enum LAWFUL_INTERCEPT_SERVICES code=3
+    }
+    Avp Location-Estimate code=1242 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Location-Estimate-Type code=1243 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum CURRENT_LOCATION code=0
+        Enum CURRENT_LAST_KNOWN_LOCATION code=1
+        Enum INITIAL_LOCATION code=2
+        Enum ACTIVATE_DEFERRED_LOCATION code=3
+        Enum CANCEL_DEFERRED_LOCATION code=4
+        Enum NOTIFICATION_VERIFICATION_ONLY code=5
+    }
+    Avp Location-Type code=1244 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Positioning-Data code=1245 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp WLAN-Session-Id code=1246 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp PDP-Context-Type code=1247 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PRIMARY code=0
+        Enum SECONDARY code=1
+    }
+    Avp MMBox-Storage-Requested code=1248 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO code=0
+        Enum YES code=1
+    }
+    Avp Service-Specific-Info code=1249 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Called-Asserted-Identity code=1250 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Requested-Party-Address code=1251 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp PoC-User-Role code=1252 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp PoC-User-Role-IDs code=1253 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp PoC-User-Role-info-Units code=1254 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum MODERATOR code=1
+        Enum DISPATCHER code=2
+        Enum SESSION_OWNER code=3
+        Enum SESSION_PARTICIPANT code=4
+    }
+    Avp Talk-Burst-Exchange code=1255 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Service-Generic-Information code=1256 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Service-Specific-Type code=1257 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Event-Charging-TimeStamp code=1258 mandatoryBit=may type=Time vendor=TGPP
+    Avp Participant-Access-Priority code=1259 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PRE_EMPTIVE_PRIORITY code=1
+        Enum HIGH_PRIORITY code=2
+        Enum NORMAL_PRIORITY code=3
+        Enum LOW_PRIORITY code=4
+    }
+    Avp Participant-Group code=1260 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp PoC-Change-Condition code=1261 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SERVICECHANGE code=0
+        Enum VOLUMELIMIT code=1
+        Enum TIMELIMIT code=2
+        Enum NUMBEROFTALKBURSTLIMIT code=3
+        Enum NUMBEROFACTIVEPARTICIPANTS code=4
+        Enum TARIFFTIME code=5
+    }
+    Avp PoC-Change-Time code=1262 mandatoryBit=may type=Time vendor=TGPP
+    Avp Access-Network-Information code=1263 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Trigger code=1264 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Base-Time-Interval code=1265 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Envelope code=1266 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Envelope-End-Time code=1267 mandatoryBit=may type=Time vendor=TGPP
+    Avp Envelope-Reporting code=1268 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum DO_NOT_REPORT_ENVELOPES code=0
+        Enum REPORT_ENVELOPES code=1
+        Enum REPORT_ENVELOPES_WITH_VOLUME code=2
+        Enum REPORT_ENVELOPES_WITH_EVENTS code=3
+        Enum REPORT_ENVELOPES_WITH_VOLUME_AND_EVENTS code=4
+    }
+    Avp Envelope-Start-Time code=1269 mandatoryBit=may type=Time vendor=TGPP
+    Avp Time-Quota-Mechanism code=1270 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Time-Quota-Type code=1271 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum DISCRETE_TIME_PERIOD code=0
+        Enum CONTINUOUS_TIME_PERIOD code=1
+    }
+    Avp Early-Media-Description code=1272 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp SDP-TimeStamps code=1273 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp SDP-Offer-Timestamp code=1274 mandatoryBit=may type=Time vendor=TGPP
+    Avp SDP-Answer-Timestamp code=1275 mandatoryBit=may type=Time vendor=TGPP
+    Avp AF-Correlation-Information code=1276 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp PoC-Session-Initiation-type code=1277 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PRE_ESTABLISHED code=0
+        Enum ON_DEMAND code=1
+    }
+    Avp Offline-Charging code=1278 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp User-Participating-Type code=1279 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NORMAL code=0
+        Enum NW_POC_BOX code=1
+        Enum UE_POC_BOX code=2
+    }
+    Avp Alternate-Charged-Party-Address code=1280 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp IMS-Communication-Service-Identifier code=1281 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Number-Of-Received-Talk-Bursts code=1282 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Number-Of-Talk-Bursts code=1283 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Received-Talk-Burst-Time code=1284 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Received-Talk-Burst-Volume code=1285 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Talk-Burst-Time code=1286 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Talk-Burst-Volume code=1287 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Media-Initiator-Party code=1288 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp RAN-End-Timestamp code=1301 mandatoryBit=may type=Time vendor=TGPP
+    Avp RAN-Secondary-RAT-Usage-Report code=1302 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp RAN-Start-Timestamp code=1303 mandatoryBit=may type=Time vendor=TGPP
+    Avp Secondary-RAT-Type code=1304 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Civic-Address-Information code=1305 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp WLAN-Operator-Id code=1306 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp WLAN-Operator-Name code=1307 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp WLAN-PLMN-Id code=1308 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp API-Content code=1309 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp API-Direction code=1310 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum INVOCATION code=0
+        Enum NOTIFICATION code=1
+    }
+    Avp API-Identifier code=1311 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp API-Invocation-Timestamp code=1312 mandatoryBit=may type=Time vendor=TGPP
+    Avp API-Result-Code code=1313 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp API-Size code=1314 mandatoryBit=may type=Unsigned64 vendor=TGPP
+    Avp Subscription-Data code=1400 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Terminal-Information code=1401 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp IMEI code=1402 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Software-Version code=1403 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp QoS-Subscribed code=1404 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp ULR-Flags code=1405 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp ULA-Flags code=1406 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Visited-PLMN-Id code=1407 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Requested-EUTRAN-Authentication-Info code=1408 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Requested-UTRAN-GERAN-Authentication-Info code=1409 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Number-Of-Requested-Vectors code=1410 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Re-Synchronization-Info code=1411 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Immediate-Response-Preferred code=1412 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Authentication-Info code=1413 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp E-UTRAN-Vector code=1414 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp UTRAN-Vector code=1415 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp GERAN-Vector code=1416 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Network-Access-Mode code=1417 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum PACKET_AND_CIRCUIT code=0
+        Enum ONLY_PACKET code=2
+    }
+    Avp HPLMN-ODB code=1418 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Item-Number code=1419 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Cancellation-Type code=1420 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum MME_UPDATE_PROCEDURE code=0
+        Enum SGSN_UPDATE_PROCEDURE code=1
+        Enum SUBSCRIPTION_WITHDRAWAL code=2
+        Enum UPDATE_PROCEDURE_IWF code=3
+        Enum INITIAL_ATTACH_PROCEDURE code=4
+    }
+    Avp DSR-Flags code=1421 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp DSA-Flags code=1422 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Context-Identifier code=1423 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Subscriber-Status code=1424 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SERVICE_GRANTED code=0
+        Enum OPERATOR_DETERMINED_BARRING code=1
+    }
+    Avp Operator-Determined-Barring code=1425 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Access-Restriction-Data code=1426 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp APN-OI-Replacement code=1427 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp All-APN-Configurations-Included-Indicator code=1428 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ALL_APN_CONFIGURATIONS_INCLUDED code=0
+        Enum "MODIFIED/ADDED_APN_CONFIGURATIONS_INCLUDED" code=1
+    }
+    Avp APN-Configuration-Profile code=1429 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp APN-Configuration code=1430 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp EPS-Subscribed-QoS-Profile code=1431 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp VPLMN-Dynamic-Address-Allowed code=1432 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NOTALLOWED code=0
+        Enum ALLOWED code=1
+    }
+    Avp STN-SR code=1433 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Alert-Reason code=1434 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum UE_PRESENT code=0
+        Enum UE_MEMORY_AVAILABLE code=1
+    }
+    Avp AMBR code=1435 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CSG-Subscription-Data code=1436 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CSG-Id code=1437 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp PDN-GW-Allocation-Type code=1438 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum STATIC code=0
+        Enum DYNAMIC code=1
+    }
+    Avp Expiration-Date code=1439 mandatoryBit=must type=Time vendor=TGPP
+    Avp RAT-Frequency-Selection-Priority-ID code=1440 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp IDA-Flags code=1441 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp PUA-Flags code=1442 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp NOR-Flags code=1443 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp User-Id code=1444 mandatoryBit=mustnot type=UTF8String vendor=TGPP
+    Avp Equipment-Status code=1445 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum WHITELISTED code=0
+        Enum BLACKLISTED code=1
+        Enum GREYLISTED code=2
+    }
+    Avp Regional-Subscription-Zone-Code code=1446 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp RAND code=1447 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp XRES code=1448 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp AUTN code=1449 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp KASME code=1450 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trace-Collection-Entity code=1452 mandatoryBit=must type=Address vendor=TGPP
+    Avp Kc code=1453 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SRES code=1454 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Requesting-Node-Type code=1455 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum MME code=0
+        Enum SGSN code=1
+        Enum "MME/SGSN" code=2
+    }
+    Avp PDN-Type code=1456 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum IPV4 code=0
+        Enum IPV6 code=1
+        Enum IPV4V6 code=2
+        Enum IPV4_OR_IPV6 code=3
+        Enum NON_IP code=4
+    }
+    Avp Roaming-Restricted-Due-To-Unsupported-Feature code=1457 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ROAMING_RESTRICTED_DUE_TO_UNSUPPORTED_FEATURE code=0
+    }
+    Avp Trace-Data code=1458 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Trace-Reference code=1459 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trace-Depth code=1462 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum MINIMUM code=0
+        Enum MEDIUM code=1
+        Enum MAXIMUM code=2
+        Enum MINIMUMWITHOUTVENDORSPECIFICEXTENSION code=3
+        Enum MEDIUMWITHOUTVENDORSPECIFICEXTENSION code=4
+        Enum MAXIMUMWITHOUTVENDORSPECIFICEXTENSION code=5
+    }
+    Avp Trace-NE-Type-List code=1463 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trace-Interface-List code=1464 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Trace-Event-List code=1465 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp OMC-Id code=1466 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp GPRS-Subscription-Data code=1467 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Complete-Data-List-Included-Indicator code=1468 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ALL_PDP_CONTEXTS_INCLUDED code=0
+        Enum "MODIFIED/ADDED_PDP_CONTEXTS_INCLUDED" code=1
+    }
+    Avp PDP-Context code=1469 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PDP-Type code=1470 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp "3GPP2-MEID" code=1471 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Specific-APN-Info code=1472 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp LCS-Info code=1473 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp GMLC-Number code=1474 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp LCS-PrivacyException code=1475 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SS-Code code=1476 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp SS-Status code=1477 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Notification-To-UE-User code=1478 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NOTIFY_LOCATION_ALLOWED code=0
+        Enum NOTIFYANDVERIFY_LOCATION_ALLOWED_IF_NO_RESPONSE code=1
+        Enum NOTIFYANDVERIFY_LOCATION_NOT_ALLOWED_IF_NO_RESPONSE code=2
+        Enum LOCATION_NOT_ALLOWED code=3
+    }
+    Avp External-Client code=1479 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Client-Identity code=1480 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp GMLC-Restriction code=1481 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum GMLC_LIST code=0
+        Enum HOME_COUNTRY code=1
+    }
+    Avp PLMN-Client code=1482 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum BROADCAST_SERVICE code=0
+        Enum O_AND_M_HPLMN code=1
+        Enum O_AND_M_VPLMN code=2
+        Enum ANONYMOUS_LOCATION code=3
+        Enum TARGET_UE_SUBSCRIBED_SERVICE code=4
+    }
+    Avp "3GPP-Service-Type" code=1483 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp ServiceTypeIdentity code=1484 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp MO-LR code=1485 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Teleservice-List code=1486 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp TS-Code code=1487 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Call-Barring-Infor-List code=1488 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SGSN-Number code=1489 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp IDR-Flags code=1490 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp ICS-Indicator code=1491 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum "FALSE" code=0
+        Enum "TRUE" code=1
+    }
+    Avp IMS-Voice-Over-PS-Sessions-Supported code=1492 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum NOT_SUPPORTED code=0
+        Enum SUPPORTED code=1
+    }
+    Avp Homogeneous-Support-of-IMS-Voice-Over-PS-Sessions code=1493 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum NOT_SUPPORTED code=0
+        Enum SUPPORTED code=1
+    }
+    Avp Last-UE-Activity-Time code=1494 mandatoryBit=mustnot type=Time vendor=TGPP
+    Avp EPS-User-State code=1495 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp EPS-Location-Information code=1496 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp MME-User-State code=1497 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp SGSN-User-State code=1498 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp User-State code=1499 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum DETACHED code=0
+        Enum ATTACHED_NOT_REACHABLE_FOR_PAGING code=1
+        Enum ATTACHED_REACHABLE_FOR_PAGING code=2
+        Enum CONNECTED_NOT_REACHABLE_FOR_PAGING code=3
+        Enum CONNECTED_REACHABLE_FOR_PAGING code=4
+        Enum NETWORK_DETERMINED_NOT_REACHABLE code=5
+    }
+    Avp Non-3GPP-User-Data code=1500 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Non-3GPP-IP-Access code=1501 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum NON_3GPP_SUBSCRIPTION_ALLOWED code=0
+        Enum NON_3GPP_SUBSCRIPTION_BARRED code=1
+    }
+    Avp Non-3GPP-IP-Access-APN code=1502 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum NON_3GPP_APNS_ENABLE code=0
+        Enum NON_3GPP_APNS_DISABLE code=1
+    }
+    Avp AN-Trusted code=1503 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum TRUSTED code=0
+        Enum UNTRUSTED code=1
+    }
+    Avp ANID code=1504 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Trace-Info code=1505 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp MIP-FA-RK code=1506 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp MIP-FA-RK-SPI code=1507 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp PPR-Flags code=1508 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp WLAN-Identifier code=1509 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp TWAN-Access-Info code=1510 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Access-Authorization-Flags code=1511 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp TWAN-Default-APN-Context-Id code=1512 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Full-Network-Name code=1516 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Short-Network-Name code=1517 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp AAA-Failure-Indication code=1518 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Transport-Access-Type code=1519 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum BBF code=0
+    }
+    Avp DER-Flags code=1520 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp DEA-Flags code=1521 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp RAR-Flags code=1522 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp DER-S6b-Flags code=1523 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp SSID code=1524 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp HESSID code=1525 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Access-Network-Info code=1526 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp TWAN-Connection-Mode code=1527 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp TWAN-Connectivity-Parameters code=1528 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Connectivity-Flags code=1529 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp TWAN-PCO code=1530 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp TWAG-CP-Address code=1531 mandatoryBit=mustnot type=Address vendor=TGPP
+    Avp TWAG-UP-Address code=1532 mandatoryBit=mustnot type=Address vendor=TGPP
+    Avp TWAN-S2a-Failure-Cause code=1533 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp SM-Back-Off-Timer code=1534 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp WLCP-Key code=1535 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Origination-Time-Stamp code=1536 mandatoryBit=mustnot type=Unsigned64 vendor=TGPP
+    Avp Maximum-Wait-Time code=1537 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Emergency-Services code=1538 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp AAR-Flags code=1539 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp IMEI-Check-In-VPLMN-Result code=1540 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp ERP-Authorization code=1541 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp MME-Location-Information code=1600 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp SGSN-Location-Information code=1601 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp E-UTRAN-Cell-Global-Identity code=1602 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Tracking-Area-Identity code=1603 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Cell-Global-Identity code=1604 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Routing-Area-Identity code=1605 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Location-Area-Identity code=1606 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Service-Area-Identity code=1607 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Geographical-Information code=1608 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Geodetic-Information code=1609 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Current-Location-Retrieved code=1610 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum ACTIVE_LOCATION_RETRIEVAL code=0
+    }
+    Avp Age-Of-Location-Information code=1611 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Active-APN code=1612 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp SIPTO-Permission code=1613 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum SIPTO_ALLOWED code=0
+        Enum SIPTO_NOTALLOWED code=1
+    }
+    Avp Error-Diagnostic code=1614 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum GPRS_DATA_SUBSCRIBED code=0
+        Enum NO_GPRS_DATA_SUBSCRIBED code=1
+        Enum ODB_ALL_APN code=2
+        Enum ODB_HPLMN_APN code=3
+        Enum ODB_VPLMN_APN code=4
+    }
+    Avp UE-SRVCC-Capability code=1615 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum UE_SRVCC_NOT_SUPPORTED code=0
+        Enum UE_SRVCC_SUPPORTED code=1
+    }
+    Avp MPS-Priority code=1616 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp VPLMN-LIPA-Allowed code=1617 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum LIPA_NOTALLOWED code=0
+        Enum LIPA_ALLOWED code=1
+    }
+    Avp LIPA-Permission code=1618 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum LIPA_PROHIBITED code=0
+        Enum LIPA_ONLY code=1
+        Enum LIPA_CONDITIONAL code=2
+    }
+    Avp Subscribed-Periodic-RAU-TAU-Timer code=1619 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Ext-PDP-Type code=1620 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Ext-PDP-Address code=1621 mandatoryBit=mustnot type=Address vendor=TGPP
+    Avp MDT-Configuration code=1622 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Job-Type code=1623 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum IMMEDIATE_MDT_ONLY code=0
+        Enum LOGGED_MDT_ONLY code=1
+        Enum TRACE_ONLY code=2
+        Enum IMMEDIATE_MDT_AND_TRACE code=3
+        Enum RLF_REPORTS_ONLY code=4
+    }
+    Avp Area-Scope code=1624 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp List-Of-Measurements code=1625 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Reporting-Trigger code=1626 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Report-Interval code=1627 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum UMTS_250_MS code=0
+        Enum UMTS_500_MS code=1
+        Enum UMTS_1000_MS code=2
+        Enum UMTS_2000_MS code=3
+        Enum UMTS_3000_MS code=4
+        Enum UMTS_4000_MS code=5
+        Enum UMTS_6000_MS code=6
+        Enum UMTS_8000_MS code=7
+        Enum UMTS_12000_MS code=8
+        Enum UMTS_16000_MS code=9
+        Enum UMTS_20000_MS code=10
+        Enum UMTS_24000_MS code=11
+        Enum UMTS_28000_MS code=12
+        Enum UMTS_32000_MS code=13
+        Enum UMTS_64000_MS code=14
+        Enum LTE_120_MS code=15
+        Enum LTE_240_MS code=16
+        Enum LTE_480_MS code=17
+        Enum LTE_640_MS code=18
+        Enum LTE_1024_MS code=19
+        Enum LTE_2048_MS code=20
+        Enum LTE_5120_MS code=21
+        Enum LTE_10240_MS code=22
+        Enum LTE_60000_MS code=23
+        Enum LTE_360000_MS code=24
+        Enum LTE_720000_MS code=25
+        Enum LTE_1800000_MS code=26
+        Enum LTE_3600000_MS code=27
+    }
+    Avp Report-Amount code=1628 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum "1" code=0
+        Enum "2" code=1
+        Enum "4" code=2
+        Enum "8" code=3
+        Enum "16" code=4
+        Enum "32" code=5
+        Enum "64" code=6
+        Enum INFINITY code=7
+    }
+    Avp Event-Threshold-RSRP code=1629 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Event-Threshold-RSRQ code=1630 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Logging-Interval code=1631 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum "1.28" code=0
+        Enum "2.56" code=1
+        Enum "5.12" code=2
+        Enum "10.24" code=3
+        Enum "20.48" code=4
+        Enum "30.72" code=5
+        Enum "40.96" code=6
+        Enum "61.44" code=7
+    }
+    Avp Logging-Duration code=1632 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum "600_SEC" code=0
+        Enum "1200_SEC" code=1
+        Enum "2400_SEC" code=2
+        Enum "3600_SEC" code=3
+        Enum "5400_SEC" code=4
+        Enum "7200_SEC" code=5
+    }
+    Avp Relay-Node-Indicator code=1633 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NOT_RELAY_NODE code=0
+        Enum RELAY_NODE code=1
+    }
+    Avp MDT-User-Consent code=1634 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum CONSENT_NOT_GIVEN code=0
+        Enum CONSENT_GIVEN code=1
+    }
+    Avp PUR-Flags code=1635 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Subscribed-VSRVCC code=1636 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum VSRVCC_SUBSCRIBED code=0
+    }
+    Avp Equivalent-PLMN-List code=1637 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp CLR-Flags code=1638 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp UVR-Flags code=1639 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp UVA-Flags code=1640 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp VPLMN-CSG-Subscription-Data code=1641 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Time-Zone code=1642 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp A-MSISDN code=1643 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp MME-Number-for-MT-SMS code=1645 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp SMS-Register-Request code=1648 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SMS_REGISTRATION_REQUIRED code=0
+        Enum SMS_REGISTRATION_NOT_PREFERRED code=1
+        Enum NO_PREFERENCE code=2
+    }
+    Avp Local-Time-Zone code=1649 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Daylight-Saving-Time code=1650 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO_ADJUSTMENT code=0
+        Enum PLUS_ONE_HOUR_ADJUSTMENT code=1
+        Enum PLUS_TWO_HOURS_ADJUSTMENT code=2
+    }
+    Avp Subscription-Data-Flags code=1654 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Measurement-Period-LTE code=1655 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum "1024_MS" code=0
+        Enum "1280_MS" code=1
+        Enum "2048_MS" code=2
+        Enum "2560_MS" code=3
+        Enum "5120_MS" code=4
+        Enum "10240_MS" code=5
+        Enum "1_MIN" code=6
+    }
+    Avp Measurement-Period-UMTS code=1656 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum "250_MS" code=0
+        Enum "500_MS" code=1
+        Enum "1000_MS" code=2
+        Enum "2000_MS" code=3
+        Enum "3000_MS" code=4
+        Enum "4000_MS" code=5
+        Enum "6000_MS" code=6
+        Enum "8000_MS" code=7
+        Enum "12000_MS" code=8
+        Enum "16000_MS" code=9
+        Enum "20000_MS" code=10
+        Enum "24000_MS" code=11
+        Enum "28000_MS" code=12
+        Enum "32000_MS" code=13
+        Enum "64000_MS" code=14
+    }
+    Avp Collection-Period-RRM-LTE code=1657 mandatoryBit=may type=Enumerated vendor=TGPP
+    Avp Collection-Period-RRM-UMTS code=1658 mandatoryBit=may type=Enumerated vendor=TGPP
+    Avp Positioning-Method code=1659 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Measurement-Quantity code=1660 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Event-Threshold-Event-1F code=1661 mandatoryBit=may type=Integer32 vendor=TGPP
+    Avp Event-Threshold-Event-1I code=1662 mandatoryBit=may type=Integer32 vendor=TGPP
+    Avp Restoration-Priority code=1663 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp SGs-MME-Identity code=1664 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp SIPTO-Local-Network-Permission code=1665 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SIPTO_AT_LOCAL_NETWORK_ALLOWED code=0
+        Enum SIPTO_AT_LOCAL_NETWORK_NOTALLOWED code=1
+    }
+    Avp Coupled-Node-Diameter-ID code=1666 mandatoryBit=may type=DiameterIdentity vendor=TGPP
+    Avp WLAN-offloadability code=1667 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp WLAN-offloadability-EUTRAN code=1668 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp WLAN-offloadability-UTRAN code=1669 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Reset-ID code=1670 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp MDT-Allowed-PLMN-Id code=1671 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Adjacent-PLMNs code=1672 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Adjacent-Access-Restriction-Data code=1673 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp DL-Buffering-Suggested-Packet-Count code=1674 mandatoryBit=may type=Integer32 vendor=TGPP
+    Avp IMSI-Group-Id code=1675 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Group-Service-Id code=1676 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Group-PLMN-Id code=1677 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Local-Group-Id code=1678 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp AIR-Flags code=1679 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp UE-Usage-Type code=1680 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Non-IP-PDN-Type-Indicator code=1681 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum "FALSE" code=0
+        Enum "TRUE" code=1
+    }
+    Avp Non-IP-Data-Delivery-Mechanism code=1682 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum SGI_BASED_DATA_DELIVERY code=0
+        Enum SCEF_BASED_DATA_DELIVERY code=1
+    }
+    Avp Additional-Context-Identifier code=1683 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp SCEF-Realm code=1684 mandatoryBit=mustnot type=DiameterIdentity vendor=TGPP
+    Avp Subscription-Data-Deletion code=1685 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Preferred-Data-Mode code=1686 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Emergency-Info code=1687 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp V2X-Subscription-Data code=1688 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp V2X-Permission code=1689 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp PDN-Connection-Continuity code=1690 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum MAINTAIN_PDN_CONNECTION code=0
+        Enum DISCONNECT_PDN_CONNECTION_WITH_REACTIVATION_REQUEST code=1
+        Enum DISCONNECT_PDN_CONNECTION_WITHOUT_REACTIVATION_REQUEST code=2
+    }
+    Avp eDRX-Cycle-Length code=1691 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp eDRX-Cycle-Length-Value code=1692 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp UE-PC5-AMBR code=1693 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp MBSFN-Area code=1694 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp MBSFN-Area-ID code=1695 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Carrier-Frequency code=1696 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp RDS-Indicator code=1697 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum DISABLED code=0
+        Enum ENABLED code=1
+    }
+    Avp Service-Gap-Time code=1698 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Aerial-UE-Subscription-Information code=1699 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Broadcast-Location-Assistance-Data-Types code=1700 mandatoryBit=mustnot type=Unsigned64 vendor=TGPP
+    Avp Paging-Time-Window code=1701 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Operation-Mode code=1702 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum IU_MODE code=1
+        Enum WB_S1_MODE code=2
+        Enum NB_S1_MODE code=3
+    }
+    Avp Paging-Time-Window-Length code=1703 mandatoryBit=mustnot type=OctetString vendor=TGPP
+    Avp Core-Network-Restrictions code=1704 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp eDRX-Related-RAT code=1705 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Interworking-5GS-Indicator code=1706 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum NOT_SUBSCRIBED code=0
+        Enum SUBSCRIBED code=1
+    }
+    Avp Ethernet-PDN-Type-Indicator code=1707 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum "FALSE" code=0
+        Enum "TRUE" code=1
+    }
+    Avp Subscribed-ARPI code=1708 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp IAB-Operation-Permission code=1709 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum IAB_OPERATION_ALLOWED code=0
+        Enum IAB_OPERATION_NOTALLOWED code=1
+    }
+    Avp V2X-Subscription-Data-Nr code=1710 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp UE-PC5-QoS code=1711 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp PC5-QoS-Flow code=1712 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp "5QI" code=1713 mandatoryBit=mustnot type=Integer32 vendor=TGPP
+    Avp PC5-Flow-Bitrates code=1714 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Guaranteed-Flow-Bitrates code=1715 mandatoryBit=mustnot type=Integer32 vendor=TGPP
+    Avp Maximum-Flow-Bitrates code=1716 mandatoryBit=mustnot type=Integer32 vendor=TGPP
+    Avp PC5-Range code=1717 mandatoryBit=mustnot type=Integer32 vendor=TGPP
+    Avp PC5-Link-AMBR code=1718 mandatoryBit=mustnot type=Integer32 vendor=TGPP
+    Avp Third-Context-Identifier code=1719 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp SMS-Information code=2000 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Data-Coding-Scheme code=2001 mandatoryBit=may type=Integer32 vendor=TGPP
+    Avp Destination-Interface code=2002 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Interface-Id code=2003 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Interface-Port code=2004 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Interface-Text code=2005 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Interface-Type code=2006 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum UNKNOWN code=0
+        Enum MOBILE_ORIGINATING code=1
+        Enum MOBILE_TERMINATING code=2
+        Enum APPLICATION_ORIGINATING code=3
+        Enum APPLICATION_TERMINATION code=4
+    }
+    Avp SM-Message-Type code=2007 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SUBMISSION code=0
+        Enum DELIVERY_REPORT code=1
+        Enum SM_SERVICE_REQUEST code=2
+    }
+    Avp Originator-SCCP-Address code=2008 mandatoryBit=may type=Address vendor=TGPP
+    Avp Originator-Interface code=2009 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Recipient-SCCP-Address code=2010 mandatoryBit=may type=Address vendor=TGPP
+    Avp Reply-Path-Requested code=2011 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO_REPLY_PATH_SET code=0
+        Enum REPLY_PATH_SET code=1
+    }
+    Avp SM-Discharge-Time code=2012 mandatoryBit=may type=Time vendor=TGPP
+    Avp SM-Protocol-ID code=2013 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp SM-Status code=2014 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp SM-User-Data-Header code=2015 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp SMS-Node code=2016 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SMS_ROUTER code=0
+        Enum IP_SM_GW code=1
+        Enum SMS_ROUTER_AND_IP_SM_GW code=2
+        Enum SMS_SC code=3
+    }
+    Avp SMSC-Address code=2017 mandatoryBit=may type=Address vendor=TGPP
+    Avp Client-Address code=2018 mandatoryBit=may type=Address vendor=TGPP
+    Avp Number-of-Messages-Sent code=2019 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Low-Balance-Indication code=2020 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NOT_APPLICABLE code=0
+        Enum YES code=1
+    }
+    Avp Remaining-Balance code=2021 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Refund-Information code=2022 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Carrier-Select-Routing-Information code=2023 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Number-Portability-Routing-Information code=2024 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp PoC-Event-Type code=2025 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NORMAL code=0
+        Enum INSTANT_PERSONAL_AALERT_EVENT code=1
+        Enum POC_GROUP_ADVERTISEMENT_EVENT code=2
+        Enum EARLY_SSESSION_SETTING_UP_EVENT code=3
+        Enum POC_TALK_BURST code=4
+    }
+    Avp Recipient-Info code=2026 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Originator-Received-Address code=2027 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Recipient-Received-Address code=2028 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp SM-Service-Type code=2029 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum VAS4SMS_SHORT_MESSAGE_CONTENT_PROCESSING code=0
+        Enum VAS4SMS_SHORT_MESSAGE_FORWARDING code=1
+        Enum VAS4SMS_SHORT_MESSAGE_FORWARDING_MULTIPLE_SUBSCRIPTIONS code=2
+        Enum VAS4SMS_SHORT_MESSAGE_FILTERING code=3
+        Enum VAS4SMS_SHORT_MESSAGE_RECEIPT code=4
+        Enum VAS4SMS_SHORT_MESSAGE_NETWORK_STORAGE code=5
+        Enum VAS4SMS_SHORT_MESSAGE_TO_MULTIPLE_DESTINATIONS code=6
+        Enum "VAS4SMS_SHORT_MESSAGE_VIRTUAL_PRIVATE_NETWORK_(VPN)" code=7
+        Enum VAS4SMS_SHORT_MESSAGE_AUTO_REPLY code=8
+        Enum VAS4SMS_SHORT_MESSAGE_PERSONAL_SIGNATURE code=9
+        Enum VAS4SMS_SHORT_MESSAGE_DEFERRED_DELIVERY code=10
+    }
+    Avp MMTel-Information code=2030 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp MMTel-Service-Type code=2031 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum "ORIGINATING_IDENTIFICATION_PRESENTATION_(OIP)" code=0
+        Enum "ORIGINATING_IDENTIFICATION_RESTRICTION_(OIR)" code=1
+        Enum "TERMINATING_IDENTIFICATION_PRESENTATION_(TIP)" code=2
+        Enum "TERMINATING_IDENTIFICATION_RESTRICTION_(TIR)" code=3
+        Enum "COMMUNICATION_HOLD_(HOLD)" code=4
+        Enum "COMMUNICATIONS_BARRING_(CB_)" code=5
+        Enum "COMMUNICATION_DIVERSION_(CDIV)" code=6
+        Enum "COMMUNICATION_DIVERSION_NOTIFICATION_(CDIVN)" code=7
+        Enum "COMMUNICATION_WAITING_(CW)" code=8
+        Enum "MESSAGE_WAITING_INDICATION_(MWI)" code=9
+        Enum "CONFERENCE_(CONF)" code=10
+        Enum "FLEXIBLE_ALERTING_(FA)" code=11
+        Enum "COMPLETION_OF_COMMUNICATION_TO_BUSY_SUBSCRIBER_(CCBS)" code=12
+        Enum "COMPLETION_OF_COMMUNICATIONS_ON_NO_REPLY_(CCNR)" code=13
+        Enum "MALICIOUS_COMMUNICATION_IDENTIFICATION_(MCID)" code=14
+        Enum "CUSTOMIZED_ALERTING_TONE_(CAT)" code=15
+        Enum "CLOSED_USER_GROUP_(CUG)" code=16
+        Enum "PERSONAL_NETWORK_MANAGEMENT_(PNM)" code=17
+        Enum "CUSTOMIZED_RINGING_SIGNAL_(CRS)" code=18
+        Enum "ADVICE_OF_CHARGE_(AOC)" code=19
+    }
+    Avp Service-Mode code=2032 mandatoryBit=may type=Enumerated vendor=TGPP
+    Avp Subscriber-Role code=2033 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum ORIGINATING code=0
+        Enum TERMINATING code=1
+    }
+    Avp Number-Of-Diversions code=2034 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Associated-Party-Address code=2035 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp SDP-Type code=2036 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SDP_OFFER code=0
+        Enum SDP_ANSWER code=1
+    }
+    Avp Change-Condition code=2037 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NORMAL_RELEASE code=0
+        Enum ABNORMAL_RELEASE code=1
+        Enum QOS_CHANGE code=2
+        Enum VOLUME_LIMIT code=3
+        Enum TIME_LIMIT code=4
+        Enum SERVING_NODE_CHANGE code=5
+        Enum SERVING_NODE_PLMN_CHANGE code=6
+        Enum USER_LOCATION_CHANGE code=7
+        Enum RAT_CHANGE code=8
+        Enum UE_TIME_ZONE_CHANGE code=9
+        Enum TARIFF_TIME_CHANGE code=10
+        Enum SERVICE_IDLED_OUT code=11
+        Enum SERVICE_SPECIFIC_TIME_LIMIT code=12
+        Enum MAX_NUMBER_OF_CHANGES_IN_CHANGING_CONDITIONS code=13
+        Enum CGI_SAI_CHANGE code=14
+        Enum RAI_CHANGE code=15
+        Enum ECGI_CHANGE code=16
+        Enum TAI_CHANGE code=17
+        Enum SERVICE_DATA_VOLUME_LIMIT code=18
+        Enum SERVICE_DATA_TIME_LIMIT code=19
+        Enum MANAGEMENT_INTERVANTION code=20
+        Enum SERVICE_STOP code=21
+        Enum USER_CSG_INFORMATION_CHANGE code=22
+        Enum S_GW_CHANGE code=23
+        Enum CHANGE_OF_UE_PRESENCE_IN_PRESENCE_REPORTING_AREA code=24
+        Enum PROXIMITY_ALERTED code=25
+        Enum TIME_EXPIRED_WITH_NO_RENEWAL code=26
+        Enum REQUESTOR_CANCELLATION code=27
+        Enum MAXIMUM_NUMBER_OF_REPORTS code=28
+        Enum PLMN_CHANGE code=29
+        Enum COVERAGE_STATUS_CHANGE code=30
+        Enum REMOVAL_OF_ACCESS code=31
+        Enum UNAVAILABILITY_OF_ACCESS code=32
+        Enum ACCESS_CHANGE_OF_SERVICE_DATA_FLOW code=33
+        Enum INDIRECT_CHANGE_CONDITION code=34
+        Enum MAXIMUM_NUMBER_OF_NIDD_SUBMISSIONS code=35
+        Enum CHANGE_IN_UE_TO_PE code=36
+        Enum SERVING_PLMN_RATE_CONTROL_CHANGE code=37
+        Enum APN_RATE_CONTROL_CHANGE code=38
+    }
+    Avp Change-Time code=2038 mandatoryBit=may type=Time vendor=TGPP
+    Avp Diagnostics code=2039 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum UNSPECIFIED code=0
+        Enum SESSION_TIMEOUT code=1
+        Enum RESOURCE_LIMITATION code=2
+        Enum ADMIN_DISCONNECT code=3
+        Enum IDLE_TIMEOUT code=4
+        Enum PCRF_UNREACHABLE code=5
+        Enum AAA_UNREACHABLE code=6
+        Enum AAA_INITIATED_SESSION_TERMINATION code=7
+        Enum REAUTHENTICATION_FAILED code=8
+        Enum PCRF_INITIATED_SESSION_TERMINATION code=9
+        Enum PCRF_INITIATED_FLOW_TERMINATION code=10
+        Enum PCRF_ACCOUNTING_PARAMETERS_CHANGED code=11
+        Enum PMIP_INITIATED_SESSION_TERMINATION code=12
+        Enum PPP_INITIATED_SESSION_TERMINATION code=13
+        Enum GTP_INITIATED_SESSION_TERMINATION code=14
+        Enum PMIP_REVOCATION code=15
+        Enum HANDOVER_ERROR code=16
+        Enum PMIP_LIFETIME_EXPIRED code=17
+        Enum REAUTHORIZATION_FAILED code=18
+    }
+    Avp Service-Data-Container code=2040 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Start-Time code=2041 mandatoryBit=may type=Time vendor=TGPP
+    Avp Stop-Time code=2042 mandatoryBit=may type=Time vendor=TGPP
+    Avp Time-First-Usage code=2043 mandatoryBit=may type=Time vendor=TGPP
+    Avp Time-Last-Usage code=2044 mandatoryBit=may type=Time vendor=TGPP
+    Avp Time-Usage code=2045 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Traffic-Data-Volumes code=2046 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Serving-Node-Type code=2047 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SGSN code=0
+        Enum PMIPSGW code=1
+        Enum GTPSGW code=2
+        Enum EPDG code=3
+        Enum HSGW code=4
+        Enum MME code=5
+    }
+    Avp Supplementary-Service code=2048 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Participant-Action-Type code=2049 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum CREATE_CONF code=0
+        Enum JOIN_CONF code=1
+        Enum INVITE_INTO_CONF code=2
+        Enum QUIT_CONF code=3
+    }
+    Avp PDN-Connection-Charging-ID code=2050 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Dynamic-Address-Flag code=2051 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum STATIC code=0
+        Enum DYNAMIC code=1
+    }
+    Avp Accumulated-Cost code=2052 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp AoC-Cost-Information code=2053 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp AoC-Information code=2054 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp AoC-Request-Type code=2055 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum AOC_NOT_REQUESTED code=0
+        Enum AOC_FULL code=1
+        Enum AOC_COST_ONLY code=2
+        Enum AOC_TARIFF_ONLY code=3
+    }
+    Avp Current-Tariff code=2056 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Next-Tariff code=2057 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Rate-Element code=2058 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Scale-Factor code=2059 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Tariff-Information code=2060 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Unit-Cost code=2061 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Incremental-Cost code=2062 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Local-Sequence-Number code=2063 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Node-Id code=2064 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp SGW-Change code=2065 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ACR_START_NOT_DUE_TO_SGW_CHANGE code=0
+        Enum ACR_START_DUE_TO_SGW_CHANGE code=1
+    }
+    Avp Charging-Characteristics-Selection-Mode code=2066 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SERVING_NODE_SUPPLIED code=0
+        Enum SUBSCRIPTION_SPECIFIC code=1
+        Enum APN_SPECIFIC code=2
+        Enum HOME_DEFAULT code=3
+        Enum ROAMING_DEFAULT code=4
+        Enum VISITING_DEFAULT code=5
+    }
+    Avp SGW-Address code=2067 mandatoryBit=may type=Address vendor=TGPP
+    Avp Dynamic-Address-Flag-Extension code=2068 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum STATIC code=0
+        Enum DYNAMIC code=1
+    }
+    Avp Reserved-2100 code=2100 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Application-Server-ID code=2101 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Application-Service-Type code=2102 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum SENDING code=100
+        Enum RECEIVING code=101
+        Enum RETRIEVAL code=102
+        Enum INVITING code=103
+        Enum LEAVING code=104
+        Enum JOINING code=105
+    }
+    Avp Application-Session-ID code=2103 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Delivery-Status code=2104 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Reserved-2105 code=2105 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Reserved-2106 code=2106 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Reserved-2107 code=2107 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Reserved-2108 code=2108 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Reserved-2109 code=2109 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp IM-Information code=2110 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Number-Of-Messages-Successfully-Exploded code=2111 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Number-Of-Messages-Successfully-Sent code=2112 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Total-Number-Of-Messages-Exploded code=2113 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Total-Number-Of-Messages-Sent code=2114 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp DCD-Information code=2115 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Content-ID code=2116 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Content-provider-ID code=2117 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Charge-Reason-Code code=2118 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum UNKNOWN code=0
+        Enum USAGE code=1
+        Enum COMMUNICATION_ATTEMPT_CHARGE code=2
+        Enum SETUP_CHARGE code=3
+        Enum ADD_ON_CHARGE code=4
+    }
+    Avp Reserved-2300 code=2300 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp SIP-Request-Timestamp-Fraction code=2301 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp SIP-Response-Timestamp-Fraction code=2302 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Online-Charging-Flag code=2303 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum ECF_ADDRESS_NOT_PROVIDED code=0
+        Enum ECF_ADDRESS_PROVIDED code=1
+    }
+    Avp CUG-Information code=2304 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Real-Time-Tariff-Information code=2305 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Tariff-XML code=2306 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp MBMS-GW-Address code=2307 mandatoryBit=may type=Address vendor=TGPP
+    Avp IMSI-Unauthenticated-Flag code=2308 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum AUTHENTICATED code=0
+        Enum UNAUTHENTICATED code=1
+    }
+    Avp Account-Expiration code=2309 mandatoryBit=may type=Time vendor=TGPP
+    Avp AoC-Format code=2310 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum MONETARY code=0
+        Enum NON_MONETARY code=1
+        Enum CAI code=2
+    }
+    Avp AoC-Service code=2311 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp AoC-Service-Obligatory-Type code=2312 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NON_BINDING code=0
+        Enum BINDING code=1
+    }
+    Avp AoC-Service-Type code=2313 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NONE code=0
+        Enum AOC_S code=1
+        Enum AOC_D code=2
+        Enum AOC_E code=3
+    }
+    Avp AoC-Subscription-Information code=2314 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Preferred-AoC-Currency code=2315 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp CSG-Access-Mode code=2317 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum CLOSED_MODE code=0
+        Enum HYBRID_MODE code=1
+    }
+    Avp CSG-Membership-Indication code=2318 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NOT_CSG_MEMBER code=0
+        Enum CSG_MEMBER code=1
+    }
+    Avp User-CSG-Information code=2319 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Outgoing-Session-Id code=2320 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Initial-IMS-Charging-Identifier code=2321 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp LMSI code=2400 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Serving-Node code=2401 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp MME-Name code=2402 mandatoryBit=may type=DiameterIdentity vendor=TGPP
+    Avp MSC-Number code=2403 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp LCS-Capabilities-Sets code=2404 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp GMLC-Address code=2405 mandatoryBit=may type=Address vendor=TGPP
+    Avp Additional-Serving-Node code=2406 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp PSR-Address code=2407 mandatoryBit=may type=Address vendor=TGPP
+    Avp MME-Realm code=2408 mandatoryBit=may type=DiameterIdentity vendor=TGPP
+    Avp SGSN-Name code=2409 mandatoryBit=may type=DiameterIdentity vendor=TGPP
+    Avp SGSN-Realm code=2410 mandatoryBit=may type=DiameterIdentity vendor=TGPP
+    Avp RIA-Flags code=2411 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Slg-Location-Type code=2500 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum CURRENT_LOCATION code=0
+        Enum CURRENT_OR_LAST_KNOWN_LOCATION code=1
+        Enum INITIAL_LOCATION code=2
+        Enum ACTIVATE_DEFERRED_LOCATION code=3
+        Enum CANCEL_DEFERRED_LOCATION code=4
+        Enum NOTIFICATION_VERIFICATION_ONLY code=5
+    }
+    Avp LCS-EPS-Client-Name code=2501 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp LCS-Requestor-Name code=2502 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp LCS-Priority code=2503 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp LCS-QoS code=2504 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Horizontal-Accuracy code=2505 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Vertical-Accuracy code=2506 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Vertical-Requested code=2507 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum VERTICAL_COORDINATE_IS_NOT_REQUESTED code=0
+        Enum VERTICAL_COORDINATE_IS_REQUESTED code=1
+    }
+    Avp Velocity-Requested code=2508 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum VELOCITY_IS_NOT_REQUESTED code=0
+        Enum BEST_VELOCITY_IS_REQUESTED code=1
+    }
+    Avp Response-Time code=2509 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum LOW_DELAY code=0
+        Enum DELAY_TOLERANT code=1
+    }
+    Avp Supported-GAD-Shapes code=2510 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp LCS-Codeword code=2511 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp LCS-Privacy-Check code=2512 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum ALLOWED_WITHOUT_NOTIFICATION code=0
+        Enum ALLOWED_WITH_NOTIFICATION code=1
+        Enum ALLOWED_IF_NO_RESPONSE code=2
+        Enum RESTRICTED_IF_NO_RESPONSE code=3
+        Enum NOT_ALLOWED code=4
+    }
+    Avp Accuracy-Fulfilment-Indicator code=2513 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum REQUESTED_ACCURACY_FULFILLED code=0
+        Enum REQUESTED_ACCURACY_NOT_FULFILLED code=1
+    }
+    Avp Age-Of-Location-Estimate code=2514 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Velocity-Estimate code=2515 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp EUTRAN-Positioning-Data code=2516 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp ECGI code=2517 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Location-Event code=2518 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum EMERGENCY_CALL_ORIGINATION code=0
+        Enum EMERGENCY_CALL_RELEASE code=1
+        Enum MO_LR code=2
+        Enum EMERGENCY_CALL_HANDOVER code=3
+        Enum DEFERRED_MT_LR_RESPONSE code=4
+        Enum DEFERRED_MO_LR_TTTP_INITIATION code=5
+        Enum DELAYED_LOCATION_REPORTING code=6
+    }
+    Avp Pseudonym-Indicator code=2519 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PSEUDONYM_NOT_REQUESTED code=0
+        Enum PSEUDONYM_REQUESTED code=1
+    }
+    Avp LCS-Service-Type-ID code=2520 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp LCS-Privacy-Check-Non-Session code=2521 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp LCS-Privacy-Check-Session code=2522 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp LCS-QoS-Class code=2523 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum ASSURED code=0
+        Enum BEST_EFFORT code=1
+    }
+    Avp GERAN-Positioning-Info code=2524 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp GERAN-Positioning-Data code=2525 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp GERAN-GANSS-Positioning-Data code=2526 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp UTRAN-Positioning-Info code=2527 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp UTRAN-Positioning-Data code=2528 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp UTRAN-GANSS-Positioning-Data code=2529 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp LRR-Flags code=2530 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp LCS-Reference-Number code=2531 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Deferred-Location-Type code=2532 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Area-Event-Info code=2533 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Area-Definition code=2534 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Area code=2535 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Area-Type code=2536 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum COUNTRY_CODE code=0
+        Enum PLMN_ID code=1
+        Enum LOCATION_AREA_ID code=2
+        Enum ROUTING_AREA_ID code=3
+        Enum CELL_GLOBAL_ID code=4
+        Enum UTRAN_CELL_ID code=5
+        Enum TRACKING_AREA_ID code=6
+        Enum E_UTRAN_CELL_GLOBAL_ID code=7
+    }
+    Avp Area-Identification code=2537 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Occurrence-Info code=2538 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum ONE_TIME_EVENT code=0
+        Enum MULTIPLE_TIME_EVENT code=1
+    }
+    Avp Interval-Time code=2539 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Periodic-LDR-Information code=2540 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Reporting-Amount code=2541 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Reporting-Interval code=2542 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Reporting-PLMN-List code=2543 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp PLMN-ID-List code=2544 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp PLR-Flags code=2545 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp PLA-Flags code=2546 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Deferred-MT-LR-Data code=2547 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Termination-Cause-3GPP code=2548 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NORMAL code=0
+        Enum ERROR_UNDEFINED code=1
+        Enum INTERNAL_TIMEOUT code=2
+        Enum CONGESTION code=3
+        Enum MT_LR_RESTART code=4
+        Enum PRIVACY_VIOLATION code=5
+        Enum SHAPE_OF_LOCATION_ESTIMATE_NOT_SUPPORTED code=6
+        Enum SUBSCRIBER_TERMINATION code=7
+        Enum UE_TERMINATION code=8
+        Enum NETWORK_TERMINATION code=9
+    }
+    Avp LRA-Flags code=2549 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Periodic-Location-Support-Indicator code=2550 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NOT_SUPPORTED code=0
+        Enum SUPPORTED code=1
+    }
+    Avp Prioritized-List-Indicator code=2551 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NOT_PRIORITIZED code=0
+        Enum PRIORITIZED code=1
+    }
+    Avp ESMLC-Cell-Info code=2552 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Cell-Portion-ID code=2553 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp OnexRTT-RCID code=2554 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Delayed-Location-Reporting-Data code=2555 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Civic-Address code=2556 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Barometric-Pressure code=2557 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp UTRAN-Additional-Positioning-Data code=2558 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Motion-Event-Info code=2559 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Linear-Distance code=2560 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Maximum-Interval code=2561 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Sampling-Interval code=2562 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Reporting-Duration code=2563 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Reporting-Location-Requirements code=2564 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Additional-Area code=2565 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Reserved-2600 code=2600 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp IMS-Application-Reference-Identifier code=2601 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Low-Priority-Indicator code=2602 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NO code=0
+        Enum YES code=1
+    }
+    Avp IP-Realm-Default-Indicator code=2603 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum DEFAULT_IP_REALM_NOT_USED code=0
+        Enum DEFAULT_IP_REALM_USED code=1
+    }
+    Avp Local-GW-Inserted-Indicator code=2604 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum LOCAL_GW_NOT_INSERTED code=0
+        Enum LOCAL_GW_INSERTED code=1
+    }
+    Avp Transcoder-Inserted-Indicator code=2605 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum TRANSCODER_NOT_INSERTED code=0
+        Enum TRANSCODER_INSERTED code=1
+    }
+    Avp PDP-Address-Prefix-Length code=2606 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp NNI-Information code=2703 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp NNI-Type code=2704 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NON_ROAMING code=0
+        Enum ROAMING_WITHOUT_LOOPBACK code=1
+        Enum ROAMING_WITH_LOOPBACK code=2
+    }
+    Avp Neighbour-Node-Address code=2705 mandatoryBit=must type=Address vendor=TGPP
+    Avp Relationship-Mode code=2706 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum TRUSTED code=0
+        Enum NON_TRUSTED code=1
+    }
+    Avp Session-Direction code=2707 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum INBOUND code=0
+        Enum OUTBOUND code=1
+    }
+    Avp From-Address code=2708 mandatoryBit=must type=Address vendor=TGPP
+    Avp Access-Transfer-Information code=2709 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Access-Transfer-Type code=2710 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PS_TO_CS_TRANSFER code=0
+        Enum CS_TO_PS_TRANSFER code=1
+        Enum PS_TO_PS_TRANSFER code=2
+        Enum CS_TO_CS_TRANSFER code=3
+    }
+    Avp Related-IMS-Charging-Identifier code=2711 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Related-IMS-Charging-Identifier-Node code=2712 mandatoryBit=must type=Address vendor=TGPP
+    Avp IMS-Visited-Network-Identifier code=2713 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp TWAN-User-Location-Info code=2714 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp BSSID code=2716 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp TAD-Identifier code=2717 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum CS code=0
+        Enum PS code=1
+    }
+    Avp TDF-Application-Instance-Identifier code=2802 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp HeNB-Local-IP-Address code=2804 mandatoryBit=may type=Address vendor=TGPP
+    Avp UE-Local-IP-Address code=2805 mandatoryBit=may type=Address vendor=TGPP
+    Avp UDP-Source-Port code=2806 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp CS-Service-QoS-Request-Identifier code=2807 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp CS-Service-QoS-Request-Operation code=2808 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum DELETION code=0
+        Enum MODIFICATION code=1
+    }
+    Avp Mute-Notification code=2809 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum MUTE_REQUIRED code=0
+    }
+    Avp Monitoring-Time code=2810 mandatoryBit=may type=Time vendor=TGPP
+    Avp AN-GW-Status code=2811 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum AN_GW_FAILED code=0
+    }
+    Avp User-Location-Info-Time code=2812 mandatoryBit=may type=Time vendor=TGPP
+    Avp CS-Service-Resource-Report code=2813 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CS-Service-Resource-Failure-Cause code=2814 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum RESOURCE_RELEASED code=0
+    }
+    Avp CS-Service-Resource-Result-Operation code=2815 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum DELETION code=0
+    }
+    Avp Default-QoS-Information code=2816 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp Default-QoS-Name code=2817 mandatoryBit=may type=UTF8String vendor=TGPP
+    Avp Conditional-APN-Aggregate-Max-Bitrate code=2818 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp RAN-NAS-Release-Cause code=2819 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Presence-Reporting-Area-Elements-List code=2820 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Presence-Reporting-Area-Identifier code=2821 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Presence-Reporting-Area-Information code=2822 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Presence-Reporting-Area-Status code=2823 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum IN_AREA code=0
+        Enum OUT_OF_AREA code=1
+        Enum INACTIVE code=2
+    }
+    Avp NetLoc-Access-Support code=2824 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum NETLOC_ACCESS_NOT_SUPPORTED code=0
+    }
+    Avp Fixed-User-Location-Info code=2825 mandatoryBit=may type=Grouped vendor=TGPP
+    Avp PCSCF-Restoration-Indication code=2826 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum PCSCF_RESTORATION code=0
+    }
+    Avp IP-CAN-Session-Charging-Scope code=2827 mandatoryBit=may type=Enumerated vendor=TGPP {
+        Enum IP_CAN_SESSION_SCOPE code=0
+    }
+    Avp Monitoring-Flags code=2828 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Default-Access code=2829 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum "3GPP_GPRS" code=0
+        Enum DOCSIS code=1
+        Enum XDSL code=2
+        Enum WIMAX code=3
+        Enum "3GPP2" code=4
+        Enum "3GPP_EPS" code=5
+        Enum NON_3GPP_EPS code=6
+    }
+    Avp NBIFOM-Mode code=2830 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum UE_INITIATED code=0
+        Enum NETWORK_INITIATED code=1
+    }
+    Avp NBIFOM-Support code=2831 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NBIFOM_NOT_SUPPORTED code=0
+        Enum NBIFOM_SUPPORTED code=1
+    }
+    Avp RAN-Rule-Support code=2832 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Access-Availability-Change-Reason code=2833 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Routing-Rule-Failure-Code code=2834 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Routing-Rule-Report code=2835 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Traffic-Steering-Policy-Identifier-DL code=2836 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Traffic-Steering-Policy-Identifier-UL code=2837 mandatoryBit=may type=OctetString vendor=TGPP
+    Avp Request-Type code=2838 mandatoryBit=may type=Unsigned32 vendor=TGPP
+    Avp Execution-Time code=2839 mandatoryBit=may type=Time vendor=TGPP
+    Avp Conditional-Policy-Information code=2840 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Resource-Release-Notification code=2841 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ENABLE_NOTIFICATION code=0
+    }
+    Avp Removal-Of-Access code=2842 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum REMOVAL_OF_ACCESS code=0
+    }
+    Avp Default-Bearer-Indication code=2844 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum BIND_TO_DEF_BEARER code=0
+        Enum BIND_TO_APPLICABLE_BEARER code=1
+    }
+    Avp PRA-Install code=2845 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp PRA-Remove code=2846 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp "3GPP-PS-Data-Off-Status-Gx" code=2847 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum ACTIVE code=0
+        Enum INACTIVE code=1
+    }
+    Avp Extended-APN-AMBR-DL code=2848 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Extended-APN-AMBR-UL code=2849 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Extended-GBR-DL code=2850 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Extended-GBR-UL code=2851 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Max-PLR-DL code=2852 mandatoryBit=mustnot type=Float32 vendor=TGPP
+    Avp Max-PLR-UL code=2853 mandatoryBit=mustnot type=Float32 vendor=TGPP
+    Avp UE-Status code=2854 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Presence-Reporting-Area-Node code=2855 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum OCS code=0
+        Enum PCRF code=1
+    }
+    Avp Policy-Counter-Identifier code=2901 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Policy-Counter-Status code=2902 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Policy-Counter-Status-Report code=2903 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SL-Request-Type code=2904 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum INITIAL_REQUEST code=0
+        Enum INTERMEDIATE_REQUEST code=1
+    }
+    Avp Pending-Policy-Counter-Information code=2905 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Pending-Policy-Counter-Change-Time code=2906 mandatoryBit=must type=Time vendor=TGPP
+    Avp Device-Action code=3001 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Device-Notification code=3002 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Trigger-Data code=3003 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Payload code=3004 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Action-Type code=3005 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum DEVICE_TRIGGER_REQUEST code=1
+        Enum DELIVERY_REPORT code=2
+    }
+    Avp Priority-Indication code=3006 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NON_PRIORITY code=0
+        Enum PRIORITY code=1
+    }
+    Avp Reference-Number code=3007 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Request-Status code=3008 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SUCCESS code=0
+        Enum INVPAYLOAD code=101
+        Enum INVEXTID code=102
+        Enum INVSCSID code=103
+        Enum INVPERIOD code=104
+        Enum NOTAUTHORIZED code=105
+        Enum SERVICEUNAVAILABLE code=106
+        Enum PERMANENTERROR code=107
+        Enum QUOTAEXCEEDED code=108
+        Enum RATEEXCEEDED code=109
+        Enum TEMPORARYERROR code=201
+    }
+    Avp Delivery-Outcome code=3009 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SUCCESS code=0
+        Enum EXPIRED code=1
+        Enum TEMPORARYERROR code=2
+        Enum UNDELIVERABLE code=3
+    }
+    Avp Application-Port-Identifier code=3010 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Old-Reference-Number code=3011 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp IP-SM-GW-Number code=3100 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp IP-SM-GW-Name code=3101 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp User-Identifier code=3102 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp S6-Service-ID code=3103 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum DEVICE_TRIGGER code=0
+        Enum SMS_MO code=1
+    }
+    Avp SCS-Identity code=3104 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Service-Parameters code=3105 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp T4-Parameters code=3106 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Service-Data code=3107 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp T4-Data code=3108 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp HSS-Cause code=3109 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp SIR-Flags code=3110 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp External-Identifier code=3111 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp IP-SM-GW-Realm code=3112 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp AESE-Communication-Pattern code=3113 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Communication-Pattern-Set code=3114 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Periodic-Communication-Indicator code=3115 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum PERIODICALLY code=0
+        Enum ON_DEMAND code=1
+    }
+    Avp Communication-Duration-Time code=3116 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Periodic-Time code=3117 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Scheduled-Communication-Time code=3118 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Stationary-Indication code=3119 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum STATIONARY_UE code=0
+        Enum MOBILE_UE code=1
+    }
+    Avp AESE-Communication-Pattern-Config-Status code=3120 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp AESE-Error-Report code=3121 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Monitoring-Event-Configuration code=3122 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Monitoring-Event-Report code=3123 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SCEF-Reference-ID code=3124 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp SCEF-ID code=3125 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp SCEF-Reference-ID-for-Deletion code=3126 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Monitoring-Type code=3127 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum LOSS_OF_CONNECTIVITY code=0
+        Enum UE_REACHABILITY code=1
+        Enum LOCATION_REPORTING code=2
+        Enum "CHANGE_OF_IMSI_IMEI(SV)_ASSOCIATION" code=3
+        Enum ROAMING_STATUS code=4
+        Enum COMMUNICATION_FAILURE code=5
+        Enum AVAILABILITY_AFTER_DDN_FAILURE code=6
+        Enum NUMBER_OF_UES_PRESENT_IN_A_GEOGRAPHICAL_AREA code=7
+        Enum UE_REACHABILITY_AND_IDLE_STATUS_INDICATION code=8
+        Enum AVAILABILITY_AFTER_DDN_FAILURE_AND_IDLE_STATUS_INDICATION code=9
+        Enum PDN_CONNECTIVITY_STATUS code=10
+    }
+    Avp Maximum-Number-of-Reports code=3128 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp UE-Reachability-Configuration code=3129 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Monitoring-Duration code=3130 mandatoryBit=must type=Time vendor=TGPP
+    Avp Maximum-Detection-Time code=3131 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Reachability-Type code=3132 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum REACHABILITY_FOR_SMS code=1
+        Enum REACHABILITY_FOR_DATA code=2
+    }
+    Avp Maximum-Latency code=3133 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Maximum-Response-Time code=3134 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Location-Information-Configuration code=3135 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MONTE-Location-Type code=3136 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum CURRENT_LOCATION code=0
+        Enum LAST_KNOWN_LOCATION code=1
+    }
+    Avp Accuracy code=3137 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum CGI_ECGI code=0
+        Enum ENB code=1
+        Enum LA_TA_RA code=2
+        Enum PRA code=3
+        Enum PLMN_ID code=4
+    }
+    Avp Association-Type code=3138 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum IMEI_CHANGE code=0
+        Enum IMEISV_CHANGE code=1
+    }
+    Avp Roaming-Information code=3139 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SUBSCRIBER_ROAMING code=0
+        Enum SUBSCRIBER_NOT_ROAMING code=1
+    }
+    Avp Reachability-Information code=3140 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum REACHABLE_FOR_SMS code=0
+        Enum REACHABLE_FOR_DATA code=1
+    }
+    Avp IMEI-Change code=3141 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Monitoring-Event-Config-Status code=3142 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Supported-Services code=3143 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Supported-Monitoring-Events code=3144 mandatoryBit=must type=Unsigned64 vendor=TGPP
+    Avp CIR-Flags code=3145 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Service-Result code=3146 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Service-Result-Code code=3147 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Reference-ID-Validity-Time code=3148 mandatoryBit=must type=Time vendor=TGPP
+    Avp Event-Handling code=3149 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SUSPEND code=0
+        Enum RESUME code=1
+        Enum CANCEL code=2
+    }
+    Avp NIDD-Authorization-Request code=3150 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp NIDD-Authorization-Response code=3151 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Service-Report code=3152 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Node-Type code=3153 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum HSS code=0
+        Enum MME code=1
+        Enum SGSN code=2
+    }
+    Avp S6t-HSS-Cause code=3154 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Enhanced-Coverage-Restriction code=3155 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Enhanced-Coverage-Restriction-Data code=3156 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Restricted-PLMN-List code=3157 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Allowed-PLMN-List code=3158 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Requested-Validity-Time code=3159 mandatoryBit=mustnot type=Time vendor=TGPP
+    Avp Granted-Validity-Time code=3160 mandatoryBit=mustnot type=Time vendor=TGPP
+    Avp NIDD-Authorization-Update code=3161 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Loss-Of-Connectivity-Reason code=3162 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum UE_DETACHED_MME code=0
+        Enum UE_DETACHED_SGSN code=1
+        Enum MAX_DETECTION_TIME_EXPIRED_MME code=2
+        Enum MAX_DETECTION_TIME_EXPIRED_SGSN code=3
+        Enum UE_PURGED_MME code=4
+        Enum UE_PURGED_SGSN code=5
+    }
+    Avp Group-Reporting-Guard-Timer code=3163 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp CIA-Flags code=3164 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Group-Report code=3165 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Group-Report-Item code=3166 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp RIR-Flags code=3167 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Type-Of-External-Identifier code=3168 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum EXTERNAL_UE_IDENTIFIER_TYPE code=0
+        Enum EXTERNAL_GROUP_IDENTIFIER_TYPE code=1
+    }
+    Avp APN-Validity-Time code=3169 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Suggested-Network-Configuration code=3170 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Monitoring-Event-Report-Status code=3171 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp PLMN-ID-Requested code=3172 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum "TRUE" code=0
+        Enum "FALSE" code=1
+    }
+    Avp AdditionalIdentifiers code=3173 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp NIR-Flags code=3174 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Reporting-Time-Stamp code=3175 mandatoryBit=mustnot type=Time vendor=TGPP
+    Avp NIA-Flags code=3176 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Group-User-Identifier code=3177 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp MTC-Provider-Info code=3178 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp MTC-Provider-ID code=3179 mandatoryBit=mustnot type=UTF8String vendor=TGPP
+    Avp PDN-Connectivity-Status-Configuration code=3180 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp PDN-Connectivity-Status-Report code=3181 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp PDN-Connectivity-Status-Type code=3182 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum CREATED code=0
+        Enum DELETED code=1
+    }
+    Avp Traffic-Profile code=3183 mandatoryBit=mustnot type=Enumerated vendor=TGPP {
+        Enum SINGLE_TRANSMISSION_UL code=0
+        Enum SINGLE_TRANSMISSION_D code=1
+        Enum DUAL_TRANSMISSION_UL_WITH_SUBSEQUENT_DL code=2
+        Enum DUAL_TRANSMISSION_DL_WITH_SUBSEQUENT_UL code=3
+        Enum MULTI_TRANSMISSION code=4
+    }
+    Avp Updated-Network-Configuration code=3184 mandatoryBit=mustnot type=Grouped vendor=TGPP
+    Avp Battery-Indicator code=3185 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp SCEF-Reference-ID-Ext code=3186 mandatoryBit=mustnot type=Unsigned64 vendor=TGPP
+    Avp SCEF-Reference-ID-for-Deletion-Ext code=3187 mandatoryBit=mustnot type=Unsigned64 vendor=TGPP
+    Avp SM-Delivery-Outcome-T4 code=3200 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ABSENT_SUBSCRIBER code=0
+        Enum UE_MEMORTY_CAPACITY_EXCEEDED code=1
+        Enum SUCCESSFUL_TRANSFER code=2
+    }
+    Avp Absent-Subscriber-Diagnostic-T4 code=3201 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NO_PAGING_RESPONSE code=0
+        Enum UE_DETACHED code=1
+        Enum UE_DEREGISTERED code=2
+        Enum UE_PURGED code=3
+        Enum ROAMING_RESTRICTION code=4
+        Enum UNIDENTIFIED_SUBSCRIBER code=5
+    }
+    Avp Trigger-Action code=3202 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp MTC-Error-Diagnostic code=3203 mandatoryBit=mustnot type=Unsigned32 vendor=TGPP
+    Avp Reason-Header code=3401 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Instance-Id code=3402 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Route-Header-Received code=3403 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Route-Header-Transmitted code=3404 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp SM-Device-Trigger-Information code=3405 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MTC-IWF-Address code=3406 mandatoryBit=must type=Address vendor=TGPP
+    Avp SM-Device-Trigger-Indicator code=3407 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NOT_DEVICETRIGGER code=0
+        Enum DEVICETRIGGER code=1
+    }
+    Avp SM-Sequence-Number code=3408 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp SMS-Result code=3409 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp VCS-Information code=3410 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Basic-Service-Code code=3411 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Bearer-Capability code=3412 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Teleservice code=3413 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp ISUP-Location-Number code=3414 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Forwarding-Pending code=3415 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum FORWARDING_NOT_PENDING code=0
+        Enum FORWARDING_PENDING code=1
+    }
+    Avp ISUP-Release-Cause code=3416 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp MSC-Address code=3417 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Network-Call-Reference-Number code=3418 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Start-of-Charging code=3419 mandatoryBit=must type=Time vendor=TGPP
+    Avp VLR-Number code=3420 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp CN-Operator-Selection-Entity code=3421 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum THE_SERVING_NETWORK_HAS_BEEN_SELECTED_BY_THE_UE code=0
+        Enum THE_SERVING_NETWORK_HAS_BEEN_SELECTED_BY_THE_NETWORK code=1
+    }
+    Avp ISUP-Cause-Diagnostics code=3422 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp ISUP-Cause-Location code=3423 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp ISUP-Cause-Value code=3424 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp ePDG-Address code=3425 mandatoryBit=must type=Address vendor=TGPP
+    Avp Announcing-UE-HPLMN-Identifier code=3426 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Announcing-UE-VPLMN-Identifier code=3427 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Coverage-Status code=3428 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum OUT_OF_COVERAGE code=0
+        Enum IN_COVERAGE code=1
+    }
+    Avp Layer-2-Group-ID code=3429 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Monitored-PLMN-Identifier code=3430 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Monitoring-UE-HPLMN-Identifier code=3431 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Monitoring-UE-Identifier code=3432 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Monitoring-UE-VPLMN-Identifier code=3433 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp PC3-Control-Protocol-Cause code=3434 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp PC3-EPC-Control-Protocol-Cause code=3435 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Requested-PLMN-Identifier code=3436 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Requestor-PLMN-Identifier code=3437 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Role-Of-ProSe-Function code=3438 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum HPLMN code=0
+        Enum VPLMN code=1
+        Enum LOCAL_PLMN code=2
+    }
+    Avp Usage-Information-Report-Sequence-Number code=3439 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp ProSe-3rd-Party-Application-ID code=3440 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Enhanced-Diagnostics code=3901 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Inter-UE-Transfer code=3902 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum INTRA_UE_TRANSFER code=0
+        Enum INTER_UE_TRANSFER code=1
+    }
+    Avp TWAG-Address code=3903 mandatoryBit=must type=Address vendor=TGPP
+    Avp Announcement-Information code=3904 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Announcement-Identifier code=3905 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Announcement-Order code=3906 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Variable-Part code=3907 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Variable-Part-Order code=3908 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Variable-Part-Type code=3909 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum INTEGER code=0
+        Enum NUMBER code=1
+        Enum TIME code=2
+        Enum DATE code=3
+        Enum CURRENCY code=4
+    }
+    Avp Variable-Part-Value code=3910 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Time-Indicator code=3911 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Quota-Indicator code=3912 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum QUOTA_IS_NOT_USED_DURING_PLAYBACK code=0
+        Enum QUOTA_IS_USED_DURING_PLAYBACK code=1
+    }
+    Avp Play-Alternative code=3913 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum SERVED_PARTY code=0
+        Enum REMOTE_PARTY code=1
+    }
+    Avp Language code=3914 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Privacy-Indicator code=3915 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NOT_PRIVATE code=0
+        Enum PRIVATE code=1
+    }
+    Avp Called-Identity code=3916 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Called-Identity-Change code=3917 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp UWAN-User-Location-Info code=3918 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Monitoring-Event-Configuration-Activity code=3919 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Monitoring-Event-Report-Data code=3920 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Monitoring-Event-Information code=3921 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Monitoring-Event-Functionality code=3922 mandatoryBit=must type=Integer32 vendor=TGPP
+    Avp Monitoring-Event-Report-Number code=3923 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Cellular-Network-Information code=3924 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Related-Change-Condition-Information code=3925 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp CP-CIoT-EPS-Optimisation-Indicator code=3930 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NOT_APPLY code=0
+        Enum APPLY code=1
+    }
+    Avp SGi-PtP-Tunnelling-Method code=3931 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum UDP_IP_BASED code=0
+        Enum OTHERS code=1
+    }
+    Avp UNI-PDU-CP-Only-Flag code=3932 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum UNI_PDU_BOTH_UP_CP code=0
+        Enum UNI_PDU_CP_ONLY code=1
+    }
+    Avp APN-Rate-Control code=3933 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp APN-Rate-Control-Downlink code=3934 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp APN-Rate-Control-Uplink code=3935 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Additional-Exception-Reports code=3936 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum NOT_ALLOWED code=0
+        Enum ALLOWED code=1
+    }
+    Avp Rate-Control-Max-Message-Size code=3937 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Rate-Control-Max-Rate code=3938 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Rate-Control-Time-Unit code=3939 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp SCS-AS-Address code=3940 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp SCS-Address code=3941 mandatoryBit=must type=Address vendor=TGPP
+    Avp SCS-Realm code=3942 mandatoryBit=must type=DiameterIdentity vendor=TGPP
+    Avp eNodeB-ID code=4008 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Extended-eNodeB-ID code=4013 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Charging-Per-IP-CAN-Session-Indicator code=4400 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum INACTIVE code=0
+        Enum ACTIVE code=1
+    }
+    Avp Access-Network-Info-Change code=4401 mandatoryBit=must type=Grouped vendor=TGPP
+    Avp Discoveree-UE-HPLMN-Identifier code=4402 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Discoveree-UE-VPLMN-Identifier code=4403 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Discoverer-UE-HPLMN-Identifier code=4404 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp Discoverer-UE-VPLMN-Identifier code=4405 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp "3GPP-PS-Data-Off-Status" code=4406 mandatoryBit=must type=Enumerated vendor=TGPP {
+        Enum ACTIVE code=0
+        Enum INACTIVE code=1
+    }
+    Avp Unused-Quota-Timer code=4407 mandatoryBit=must type=Unsigned32 vendor=TGPP
+    Avp Announcing-PLMN-ID code=4408 mandatoryBit=must type=UTF8String vendor=TGPP
+    Avp ProSe-UE-to-Network-Relay-UE-ID code=4409 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp ProSe-Target-Layer-2-ID code=4410 mandatoryBit=must type=OctetString vendor=TGPP
+    Avp Relay-IP-address code=4411 mandatoryBit=must type=Address vendor=TGPP
+    Avp Target-IP-Address code=4412 mandatoryBit=must type=Address vendor=TGPP
+    Avp FE-Identifier-List code=4413 mandatoryBit=must type=UTF8String vendor=TGPP
+}
