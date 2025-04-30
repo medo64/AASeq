@@ -1,5 +1,0 @@
-{
-    "dotnet-test-explorer.testProjectPath": "tests/**/*.csproj",
-    "dotnet-test-explorer.testArguments": "--p:EnableNETAnalyzers=false",
-    "dotnet-test-explorer.autoWatch": true
-}
