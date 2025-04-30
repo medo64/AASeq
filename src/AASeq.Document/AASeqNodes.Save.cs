@@ -329,7 +329,6 @@ public sealed partial class AASeqNodes : IFormattable {
 
         var sbOutQuote = StringBuilderPool.Get();
         try {
-            var dotCount = 0;
             var shouldQuote = (text[0] is '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9')
                 || ((text.Length > 1) && (text[0] is '+' or '-' or '.') && (text[1] is '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9'))
                 || ((text.Length > 2) && (text[0] is '+' or '-') && (text[1] is '.') && (text[2] is '0' or '1' or '2' or '3' or '4' or '5' or '6' or '7' or '8' or '9'));
@@ -341,12 +340,6 @@ public sealed partial class AASeqNodes : IFormattable {
                     if (char.IsWhiteSpace(ch)) {
                         sbOutQuote.Insert(0, '"');
                         shouldQuote = true;
-                    } else if (ch is '.') {
-                        dotCount++;
-                        if (dotCount > 1) {
-                            sbOutQuote.Insert(0, '"');
-                            shouldQuote = true;
-                        }
                     } else if (ch is '{' or '}' or '(' or ')' or '\\' or '/' or '=' or '"' or ';' or '#') {
                         sbOutQuote.Insert(0, '"');
                         shouldQuote = true;
