@@ -140,6 +140,12 @@ internal static class App {
                 }
 
                 Console.WriteLine();
+                Console.WriteLine($"Vendors ....: {vendorsPerName.Count,4}");
+                Console.WriteLine($"Applications: {applicationsPerName.Count,4}");
+                Console.WriteLine($"Commands ...: {commandsPerName.Count,4}");
+                Console.WriteLine($"AVPs .......: {avpsPerVendorAndName.Count,4}");
+
+                Console.WriteLine();
                 Console.WriteLine("Press Enter to save file");
                 Console.ReadLine();
                 doc.Save(file);
