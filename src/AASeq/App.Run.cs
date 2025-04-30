@@ -107,7 +107,7 @@ internal static partial class App {
                     DoneEvent.WaitOne();
                 }
 
-            } catch (InvalidOperationException ex) {
+            } catch (Exception ex) {
                 Output.WriteError("Error creating the engine: " + ex.Message);
             }
         } catch (InvalidOperationException ex) {

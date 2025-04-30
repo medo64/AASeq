@@ -29,15 +29,6 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
         CapabilityExchangeRequestNodes = capabilityExchangeRequestNodes;
         DeviceWatchdogRequestNodes = diameterWatchdogRequestNodes;
 
-        Client = new TcpClient();
-        var connectResult = Client.BeginConnect(Remote.Address, Remote.Port, requestCallback: null, state: null);
-        var waitSuccess = connectResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1));
-        if (waitSuccess) {
-            Client.EndConnect(connectResult);
-        } else {
-            throw new TimeoutException("Timeout waiting for connection to establish.");
-        }
-
         Thread = new Thread(Run) {
             IsBackground = true,
             Name = "DiameterClientThread",
@@ -52,7 +43,6 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
     private readonly IPEndPoint Remote;
     private readonly AASeqNodes CapabilityExchangeRequestNodes;
     private readonly AASeqNodes DeviceWatchdogRequestNodes;
-    private TcpClient Client;
     private readonly Thread Thread;
     private readonly CancellationTokenSource Cancellation = new();
 
@@ -62,65 +52,68 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
         while (true) {
             if (cancel.IsCancellationRequested) { return; }
 
-            if (Client.Connected) {
-                try {
-                    using var stream = Client.GetStream();
-                    using var diameter = new DiameterStream(stream);
-
-                    var cer = DiameterEncoder.Encode("Capabilities-Exchange-Request", CapabilityExchangeRequestNodes);
-                    diameter.WriteMessage(cer);
-                    Log.MessageOut(Logger, Remote, "Capabilities-Exchange-Request");
-
-                    while (true) {
-                        var message = diameter.ReadMessage();
-                        if ((message.ApplicationId == 0) && (message.CommandCode == 257)) {
-                            var resultCode = default(uint?);
-                            foreach (var avp in message.Avps) {
-                                if (avp.Code == 268) {
-                                    resultCode = BinaryPrimitives.ReadUInt32BigEndian(avp.GetData());
-                                    break;
-                                }
-                            }
-                            if (resultCode is null) {
-                                Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (no Result-Code)");
-                            } else if (resultCode == 2001) {
-                                Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (DIAMETER_SUCCESS)");
-                                PluginClass.DiameterStream = diameter;
-                            } else {
-                                Log.MessageIn(Logger, Remote, $"Capabilities-Exchange-Answer ({resultCode})");
-                            }
-                        } else {
-                            var nodes = DiameterEncoder.Decode(message, out var messageName);
-                            if (PluginClass.StorageAwaiting.Remove((message.HopByHopIdentifier, message.EndToEndIdentifier), out var guid)) {
-                                PluginClass.Storage[guid] = (messageName, nodes);
-                            } else {
-                                //TODO Log.MessageIn(Logger, Remote, $"Diameter message {messageName} (no matching HopByHopIdentifier/EndToEndIdentifier)");
-                            }
-                        }
-                    }
-                } catch (Exception ex) {
-                    PluginClass.DiameterStream = null;
-                    if (cancel.IsCancellationRequested) { return; }
-                    Log.ReadError(Logger, Remote, ex, ex.Message);
-                    Debug.WriteLine($"[AASeq.Plugin.Diameter] {Remote}: {ex.Message}");
-                    Thread.Sleep(1000);
-                }
-            }
-
+            TcpClient tcpClient = new TcpClient();
             try {
-                Client.Close();
-                Client = new TcpClient();
-
-                Client = new TcpClient();
-                var connectResult = Client.BeginConnect(Remote.Address, Remote.Port, requestCallback: null, state: null);
+                var connectResult = tcpClient.BeginConnect(Remote.Address, Remote.Port, requestCallback: null, state: null);
                 var waitSuccess = connectResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(1));
                 if (waitSuccess) {
-                    Client.EndConnect(connectResult);
+                    tcpClient.EndConnect(connectResult);
                 } else {
                     throw new TimeoutException("Timeout waiting for connection to establish.");
                 }
+                Log.Connected(Logger, Remote);
+            } catch (Exception ex) {
+                Log.ConnectionError(Logger, Remote, ex, ex.Message);
+                Thread.Sleep(1000);
+                continue;
+            }
 
-                Log.Reconnected(Logger, Remote);
+            try {
+                using var stream = tcpClient.GetStream();
+                using var diameter = new DiameterStream(stream);
+
+                var cer = DiameterEncoder.Encode("Capabilities-Exchange-Request", CapabilityExchangeRequestNodes);
+                diameter.WriteMessage(cer);
+                Log.MessageOut(Logger, Remote, "Capabilities-Exchange-Request");
+
+                while (true) {
+                    var message = diameter.ReadMessage();
+                    if ((message.ApplicationId == 0) && (message.CommandCode == 257)) {
+                        var resultCode = default(uint?);
+                        foreach (var avp in message.Avps) {
+                            if (avp.Code == 268) {
+                                resultCode = BinaryPrimitives.ReadUInt32BigEndian(avp.GetData());
+                                break;
+                            }
+                        }
+                        if (resultCode is null) {
+                            Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (no Result-Code)");
+                        } else if (resultCode == 2001) {
+                            Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (DIAMETER_SUCCESS)");
+                            PluginClass.DiameterStream = diameter;
+                        } else {
+                            Log.MessageIn(Logger, Remote, $"Capabilities-Exchange-Answer ({resultCode})");
+                        }
+                    } else {
+                        var nodes = DiameterEncoder.Decode(message, out var messageName);
+                        if (PluginClass.StorageAwaiting.Remove((message.HopByHopIdentifier, message.EndToEndIdentifier), out var guid)) {
+                            PluginClass.Storage[guid] = (messageName, nodes);
+                        } else {
+                            Log.MessageIn(Logger, Remote, $"Diameter message {messageName} (no matching HopByHopIdentifier/EndToEndIdentifier)");
+                        }
+                    }
+                }
+            } catch (Exception ex) {
+                PluginClass.DiameterStream = null;
+                if (cancel.IsCancellationRequested) { return; }
+                Log.ReadError(Logger, Remote, ex, ex.Message);
+                Debug.WriteLine($"[AASeq.Plugin.Diameter] {Remote}: {ex.Message}");
+                Thread.Sleep(1000);
+            }
+
+            try {
+                tcpClient.Close();
+                tcpClient = new TcpClient();
             } catch (Exception ex) {
                 Log.ConnectionError(Logger, Remote, ex, ex.Message);
                 Thread.Sleep(1000);
@@ -133,7 +126,6 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
 
     public void Stop() {
         Cancellation.Cancel();
-        Client.Close();  // to force the read to stop
         Thread.Join();
     }
 
@@ -144,7 +136,6 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
 
     public void Dispose() {
         Cancellation.Dispose();
-        Client.Dispose();
     }
 
     #endregion IDisposable
