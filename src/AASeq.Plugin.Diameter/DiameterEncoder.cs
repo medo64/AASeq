@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Buffers.Binary;
 using System.Text;
 using System.Globalization;
+using System.Net;
+using System.Net.Sockets;
 using Microsoft.Extensions.Logging;
 using AASeq;
 
@@ -59,10 +61,10 @@ internal static class DiameterEncoder {
 
     private static DiameterAvp GetAvp(AvpDictionaryEntry avpEntry, AASeqValue value) {
         return avpEntry.AvpType switch {
-            AvpType.Address => throw new NotImplementedException("Address"),
+            AvpType.Address => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetAddressBytes(value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Address.")),
             AvpType.DiameterIdentity => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, Utf8.GetBytes(value.AsString(""))),
             AvpType.DiameterURI => throw new NotImplementedException("Uri"),
-            AvpType.Enumerated => throw new NotImplementedException("Enumerated"),
+            AvpType.Enumerated => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetEnumBytes(avpEntry, value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Enumerated.")),
             AvpType.Float32 => throw new NotImplementedException("Float32"),
             AvpType.Grouped => throw new NotImplementedException("Grouped"),
             AvpType.Integer32 => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetInt32Bytes(value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int32.")),
@@ -80,20 +82,20 @@ internal static class DiameterEncoder {
 
     private static AASeqNode GetNode(AvpDictionaryEntry avpEntry, byte[] data) {
         object value = avpEntry.AvpType switch {
-            AvpType.Address => throw new NotImplementedException("Address"),
+            AvpType.Address => GetAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to IPAddress."),
             AvpType.DiameterIdentity => Utf8.GetString(data),
             AvpType.DiameterURI => throw new NotImplementedException("DiameterURI"),
-            AvpType.Enumerated => GetUInt32(data),  // TODO
+            AvpType.Enumerated => GetEnum(avpEntry, data),
             AvpType.Float32 => throw new NotImplementedException("Float32"),
             AvpType.Grouped => throw new NotImplementedException("Grouped"),
-            AvpType.Integer32 => GetInt32(data),
-            AvpType.Integer64 => GetInt64(data),
+            AvpType.Integer32 => GetInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int32."),
+            AvpType.Integer64 => GetInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int64."),
             AvpType.IPFilterRule => throw new NotImplementedException("IPFilterRule"),
             AvpType.OctetString => data,
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
             AvpType.Time => throw new NotImplementedException("Time"),
-            AvpType.Unsigned32 => GetUInt32(data),
-            AvpType.Unsigned64 => GetUInt64(data),
+            AvpType.Unsigned32 => GetUInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32."),
+            AvpType.Unsigned64 => GetUInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64."),
             AvpType.UTF8String => Utf8.GetString(data),
             _ => throw new NotImplementedException(),  // should never happen
         };
@@ -111,6 +113,68 @@ internal static class DiameterEncoder {
         return flags;
     }
 
+
+    private static byte[]? GetAddressBytes(AASeqValue value) {
+        var ip = value.AsIPAddress();
+        if (ip is null) { return null; }
+        if (ip.AddressFamily == AddressFamily.InterNetwork) {
+            var ipBytes = new byte[6];
+            ipBytes[0] = 0x00;
+            ipBytes[1] = 0x01;
+            Buffer.BlockCopy(ip.GetAddressBytes(), 0, ipBytes, 2, 4);
+            return ipBytes;
+        } else if (ip.AddressFamily == AddressFamily.InterNetworkV6) {
+            var ipBytes = new byte[18];
+            ipBytes[0] = 0x00;
+            ipBytes[1] = 0x02;
+            Buffer.BlockCopy(ip.GetAddressBytes(), 0, ipBytes, 2, 16);
+            return ipBytes;
+        }
+        return null;
+    }
+
+    private static object GetAddress(byte[] bytes) {
+        if ((bytes.Length == 6) && (bytes[0] == 0x00) && (bytes[1] == 0x01)) {
+            var ipBytes = new byte[4];
+            Buffer.BlockCopy(bytes, 2, ipBytes, 0, 4);
+            return new IPAddress(ipBytes);
+        } else if ((bytes.Length == 18) && (bytes[0] == 0x00) && (bytes[1] == 0x02)) {
+            var ipBytes = new byte[16];
+            Buffer.BlockCopy(bytes, 2, ipBytes, 0, 16);
+            return new IPAddress(ipBytes);
+        }
+        return bytes;
+    }
+
+
+    private static byte[]? GetEnumBytes(AvpDictionaryEntry avpEntry, AASeqValue value) {
+        var enumName = value.AsString();
+        if (enumName is null) { return null; }
+        var enumCode = avpEntry.FindEnumByName(enumName)?.Code;
+        if (enumCode is null) {
+            if (!Int32.TryParse(enumName, NumberStyles.Integer, CultureInfo.InvariantCulture, out var code)) { return null; }
+            enumCode = code;
+        }
+        var number = enumCode.Value;
+        var bytes = new byte[4];
+        bytes[0] = (byte)((number >> 24) & 0xFF);
+        bytes[1] = (byte)((number >> 16) & 0xFF);
+        bytes[2] = (byte)((number >> 8) & 0xFF);
+        bytes[3] = (byte)(number & 0xFF);
+        return bytes;
+    }
+
+    private static object GetEnum(AvpDictionaryEntry avpEntry, byte[] bytes) {
+        if (bytes.Length != 4) { return bytes; }
+        var enumCode = BinaryPrimitives.ReadInt32BigEndian(bytes);
+        if (avpEntry.AvpType == AvpType.Enumerated) {
+            var enumName = avpEntry.FindEnumByCode(enumCode)?.Name;
+            if (enumName is not null) { return enumName; }
+        }
+        return enumCode.ToString(CultureInfo.InvariantCulture);
+    }
+
+
     private static byte[]? GetInt32Bytes(AASeqValue value) {
         var number = value.AsInt32();
         if (number is null) { return null; }
@@ -121,6 +185,12 @@ internal static class DiameterEncoder {
         bytes[3] = (byte)(number & 0xFF);
         return bytes;
     }
+
+    private static object GetInt32(byte[] bytes) {
+        if (bytes.Length != 4) { return bytes; }
+        return BinaryPrimitives.ReadInt32BigEndian(bytes);
+    }
+
 
     private static byte[]? GetInt64Bytes(AASeqValue value) {
         var number = value.AsInt64();
@@ -137,6 +207,12 @@ internal static class DiameterEncoder {
         return bytes;
     }
 
+    private static object GetInt64(byte[] bytes) {
+        if (bytes.Length != 8) { return bytes; }
+        return BinaryPrimitives.ReadInt64BigEndian(bytes);
+    }
+
+
     private static byte[]? GetUInt32Bytes(AASeqValue value) {
         var number = value.AsUInt32();
         if (number is null) { return null; }
@@ -147,6 +223,12 @@ internal static class DiameterEncoder {
         bytes[3] = (byte)(number & 0xFF);
         return bytes;
     }
+
+    private static object GetUInt32(byte[] bytes) {
+        if (bytes.Length != 4) { return bytes; }
+        return BinaryPrimitives.ReadUInt32BigEndian(bytes);
+    }
+
 
     private static byte[]? GetUInt64Bytes(AASeqValue value) {
         var number = value.AsUInt64();
@@ -163,20 +245,9 @@ internal static class DiameterEncoder {
         return bytes;
     }
 
-    private static Int32 GetInt32(byte[] value) {
-        return BinaryPrimitives.ReadInt32BigEndian(value);
-    }
-
-    private static UInt32 GetUInt32(byte[] value) {
-        return BinaryPrimitives.ReadUInt32BigEndian(value);
-    }
-
-    private static Int64 GetInt64(byte[] value) {
-        return BinaryPrimitives.ReadInt64BigEndian(value);
-    }
-
-    private static UInt64 GetUInt64(byte[] value) {
-        return BinaryPrimitives.ReadUInt64BigEndian(value);
+    private static object GetUInt64(byte[] bytes) {
+        if (bytes.Length != 8) { return bytes; }
+        return BinaryPrimitives.ReadUInt64BigEndian(bytes);
     }
 
     #endregion Helpers
