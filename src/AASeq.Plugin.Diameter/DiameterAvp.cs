@@ -12,14 +12,27 @@ internal sealed record DiameterAvp {
     /// </summary>
     /// <param name="code">AVP code.</param>
     /// <param name="flags">AVP flags.</param>
-    /// <param name="vendorId">AVP vendor ID.</param>
+    /// <param name="vendorCode">AVP vendor code.</param>
     /// <param name="data">AVP data</param>
-    internal DiameterAvp(uint code, byte flags, uint? vendorId, byte[] data) {
+    internal DiameterAvp(UInt32 code, Byte flags, UInt32? vendorCode, Byte[] data) {
         Code = code;
         Flags = flags;
-        VendorId = vendorId;
+        VendorCode = vendorCode;
         Data = data ?? throw new ArgumentNullException(nameof(data), "Data cannot be null.");
     }
+
+    /// <summary>
+    /// Creates new instance.
+    /// </summary>
+    /// <param name="avpDefinition">AVP definition.</param>
+    /// <param name="data">AVP data</param>
+    internal DiameterAvp(AvpDictionaryEntry avpDefinition, Byte[] data)
+        : this(
+              avpDefinition.Code,
+              (byte)((avpDefinition.Vendor is not null ? 0x80 : 0x00) + (avpDefinition.MandatoryBit == AvpBitState.Must ? 0x40 : 0x00)),
+              avpDefinition.Vendor?.Code,
+              data
+            ) { }
 
     /// <summary>
     /// Creates new instance.
@@ -28,22 +41,22 @@ internal sealed record DiameterAvp {
     /// <param name="vendorBit">AVP vendor bit.</param>
     /// <param name="mandatoryBit">AVP mandatory bit.</param>
     /// <param name="protectedBit">AVP protected bit.</param>
-    /// <param name="vendorId">AVP vendor ID.</param>
+    /// <param name="vendorCode">AVP vendor code.</param>
     /// <param name="data">AVP data</param>
-    internal DiameterAvp(uint code, bool vendorBit, bool mandatoryBit, bool protectedBit, uint? vendorId, byte[] data)
-        : this(code, (byte)((vendorBit ? 0x80 : 0) + (byte)(mandatoryBit ? 0x40 : 0) + (byte)(protectedBit ? 0x20 : 0)), vendorId, data) {
+    internal DiameterAvp(UInt32 code, bool vendorBit, bool mandatoryBit, bool protectedBit, UInt32? vendorCode, Byte[] data)
+        : this(code, (byte)((vendorBit ? 0x80 : 0) + (byte)(mandatoryBit ? 0x40 : 0) + (byte)(protectedBit ? 0x20 : 0)), vendorCode, data) {
     }
 
 
     /// <summary>
     /// Gets AVP code.
     /// </summary>
-    public uint Code { get; init; }
+    public UInt32 Code { get; init; }
 
     /// <summary>
     /// Gets AVP flags.
     /// </summary>
-    public byte Flags { get; init; }
+    public Byte Flags { get; init; }
 
     /// <summary>
     /// Gets whether AVP is vendor-specific.
@@ -72,20 +85,20 @@ internal sealed record DiameterAvp {
     /// Gets length for whole AVP.
     /// </summary>
     public int Length {
-        get { return ((VendorId is null) ? 8 : 12) + DataLength; }
+        get { return ((VendorCode is null) ? 8 : 12) + DataLength; }
     }
 
     /// <summary>
     /// Gets length for whole AVP including padding.
     /// </summary>
     public int LengthWithPadding {
-        get { return ((VendorId is null) ? 8 : 12) + DataLengthWithPadding; }
+        get { return ((VendorCode is null) ? 8 : 12) + DataLengthWithPadding; }
     }
 
     /// <summary>
     /// Gets AVP vendor.
     /// </summary>
-    public uint? VendorId { get; init; }
+    public UInt32? VendorCode { get; init; }
 
     /// <summary>
     /// Gets length of AVP data.
@@ -105,7 +118,7 @@ internal sealed record DiameterAvp {
         }
     }
 
-    private byte[] Data { get; init; }
+    private Byte[] Data { get; init; }
 
     /// <summary>
     /// Returns data bytes.
@@ -125,8 +138,8 @@ internal sealed record DiameterAvp {
         BinaryPrimitives.WriteUInt32BigEndian(destination[0..4], Code);
         var flagsAndLength = (uint)((uint)(Flags << 24) | (uint)Length);
         BinaryPrimitives.WriteUInt32BigEndian(destination[4..8], flagsAndLength);
-        if (VendorId is not null) {
-            BinaryPrimitives.WriteUInt32BigEndian(destination[8..12], VendorId.Value);
+        if (VendorCode is not null) {
+            BinaryPrimitives.WriteUInt32BigEndian(destination[8..12], VendorCode.Value);
             new Span<byte>(Data).CopyTo(destination[12..]);
         } else {
             new Span<byte>(Data).CopyTo(destination[8..]);

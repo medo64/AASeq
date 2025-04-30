@@ -27,27 +27,26 @@ internal static class DiameterEncoder {
             var avpEntry = DictionaryLookup.Instance.FindAvpByName(avpName) ?? throw new InvalidOperationException($"Cannot find AVP '{avpName}' in dictionary.");
             if (avpEntry.AvpType != AvpType.Grouped) {
                 if (node.Nodes.Count > 0) { throw new InvalidOperationException($"AVP '{avpEntry.Name}' cannot have children."); }
-                avps.Add(GetAvp(avpEntry, node.Value));
-            } else {  // grouped AVPs get special processing
+            } else {
                 if (!node.Value.IsNull) { throw new InvalidOperationException($"AVP '{avpEntry.Name}' cannot have value."); }
-                avps.Add(GetGroupedAvp(avpEntry, node.Value));
             }
+            avps.Add(GetAvp(avpEntry, node));
         }
         return new DiameterMessage((byte)(isRequest ? 0x80 : 0x00), commandEntry.Code, applicationEntry.Id, avps);
     }
 
-    public static AASeqNodes Decode(ILogger logger, DiameterMessage message, out string messageName) {
+    public static AASeqNodes Decode(DiameterMessage message, out string messageName) {
         var applicationEntry = DictionaryLookup.Instance.FindApplicationById(message.ApplicationId);
         var commandEntry = DictionaryLookup.Instance.FindCommandByCode(message.CommandCode);
 
         messageName = ($"{applicationEntry?.Name ?? message.ApplicationId.ToString(CultureInfo.InvariantCulture)}:{commandEntry?.Name ?? message.CommandCode.ToString(CultureInfo.InvariantCulture)}") + (message.HasRequestFlag ? "-Request" : "-Answer");
         var nodes = new AASeqNodes();
         foreach (var avp in message.Avps) {
-            var avpEntry = DictionaryLookup.Instance.FindAvpByCode(avp.VendorId ?? 0, avp.Code);
+            var avpEntry = DictionaryLookup.Instance.FindAvpByCode(avp.VendorCode ?? 0, avp.Code);
             if (avpEntry is not null) {
                 nodes.Add(GetNode(avpEntry, avp.GetData()));
             } else {
-                var avpName = ((avp.VendorId != null) ? avp.VendorId.Value.ToString(CultureInfo.InvariantCulture) + ":" : "") + avp.Code.ToString(CultureInfo.InvariantCulture);
+                var avpName = ((avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) + ":" : "") + avp.Code.ToString(CultureInfo.InvariantCulture);
                 nodes.Add(new AASeqNode(avpName, avp.GetData()));
             }
         }
@@ -59,58 +58,84 @@ internal static class DiameterEncoder {
 
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
-    private static DiameterAvp GetAvp(AvpDictionaryEntry avpEntry, AASeqValue value) {
+    private static DiameterAvp GetAvp(AvpDictionaryEntry avpEntry, AASeqNode node) {
         return avpEntry.AvpType switch {
-            AvpType.Address => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetAddressBytes(value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Address.")),
-            AvpType.DiameterIdentity => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, Utf8.GetBytes(value.AsString(""))),
+            AvpType.Address => new DiameterAvp(avpEntry, GetAddressBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Address.")),
+            AvpType.DiameterIdentity => new DiameterAvp(avpEntry, Utf8.GetBytes(node.Value.AsString(""))),
             AvpType.DiameterURI => throw new NotImplementedException("Uri"),
-            AvpType.Enumerated => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetEnumBytes(avpEntry, value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Enumerated.")),
+            AvpType.Enumerated => new DiameterAvp(avpEntry, GetEnumBytes(avpEntry, node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Enumerated.")),
             AvpType.Float32 => throw new NotImplementedException("Float32"),
-            AvpType.Grouped => throw new NotImplementedException("Grouped"),
-            AvpType.Integer32 => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetInt32Bytes(value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int32.")),
-            AvpType.Integer64 => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetInt64Bytes(value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int64.")),
+            AvpType.Grouped => GetGroupedAvp(avpEntry, node.Nodes) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Grouped."),
+            AvpType.Integer32 => new DiameterAvp(avpEntry, GetInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int32.")),
+            AvpType.Integer64 => new DiameterAvp(avpEntry, GetInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int64.")),
             AvpType.IPFilterRule => throw new NotImplementedException("IPFilterRule"),
-            AvpType.OctetString => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, value.AsByteArray() ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to byte array.")),
+            AvpType.OctetString => new DiameterAvp(avpEntry, node.Value.AsByteArray() ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to byte array.")),
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
             AvpType.Time => throw new NotImplementedException("Time"),
-            AvpType.Unsigned32 => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetUInt32Bytes(value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32.")),
-            AvpType.Unsigned64 => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, GetUInt64Bytes(value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64.")),
-            AvpType.UTF8String => new DiameterAvp(avpEntry.Code, GetDefaultFlags(avpEntry), avpEntry.Vendor?.Code, Utf8.GetBytes(value.AsString(""))),
+            AvpType.Unsigned32 => new DiameterAvp(avpEntry, GetUInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32.")),
+            AvpType.Unsigned64 => new DiameterAvp(avpEntry, GetUInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64.")),
+            AvpType.UTF8String => new DiameterAvp(avpEntry, Utf8.GetBytes(node.Value.AsString(""))),
             _ => throw new NotImplementedException(),  // should never happen
         };
     }
 
     private static AASeqNode GetNode(AvpDictionaryEntry avpEntry, byte[] data) {
-        object value = avpEntry.AvpType switch {
-            AvpType.Address => GetAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to IPAddress."),
+        return avpEntry.AvpType switch {
+            AvpType.Address => new AASeqNode(avpEntry.Name, GetAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to IPAddress.")),
             AvpType.DiameterIdentity => Utf8.GetString(data),
             AvpType.DiameterURI => throw new NotImplementedException("DiameterURI"),
-            AvpType.Enumerated => GetEnum(avpEntry, data),
+            AvpType.Enumerated => new AASeqNode(avpEntry.Name, GetEnum(avpEntry, data)),
             AvpType.Float32 => throw new NotImplementedException("Float32"),
-            AvpType.Grouped => throw new NotImplementedException("Grouped"),
-            AvpType.Integer32 => GetInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int32."),
-            AvpType.Integer64 => GetInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int64."),
+            AvpType.Grouped => new AASeqNode(avpEntry.Name, GetGrouped(data)),
+            AvpType.Integer32 => new AASeqNode(avpEntry.Name, GetInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int32.")),
+            AvpType.Integer64 => new AASeqNode(avpEntry.Name, GetInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int64.")),
             AvpType.IPFilterRule => throw new NotImplementedException("IPFilterRule"),
-            AvpType.OctetString => data,
+            AvpType.OctetString => new AASeqNode(avpEntry.Name, data),
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
             AvpType.Time => throw new NotImplementedException("Time"),
-            AvpType.Unsigned32 => GetUInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32."),
-            AvpType.Unsigned64 => GetUInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64."),
-            AvpType.UTF8String => Utf8.GetString(data),
+            AvpType.Unsigned32 => new AASeqNode(avpEntry.Name, GetUInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32.")),
+            AvpType.Unsigned64 => new AASeqNode(avpEntry.Name, GetUInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64.")),
+            AvpType.UTF8String => new AASeqNode(avpEntry.Name, Utf8.GetString(data)),
             _ => throw new NotImplementedException(),  // should never happen
         };
-        return new AASeqNode(avpEntry.Name, value);
     }
 
-    private static DiameterAvp GetGroupedAvp(AvpDictionaryEntry avpEntry, AASeqValue value) {
-        throw new NotImplementedException();
+
+    private static DiameterAvp GetGroupedAvp(AvpDictionaryEntry avpEntry, AASeqNodes children) {
+        var totalLen = 0;
+        var avps = new List<DiameterAvp>();
+        foreach (var child in children) {
+            var subName = child.Name;
+            var subEntry = DictionaryLookup.Instance.FindAvpByName(subName) ?? throw new InvalidOperationException($"Cannot find AVP '{subName}' in dictionary.");
+            var sub = GetAvp(subEntry, child);
+            totalLen += sub.LengthWithPadding;
+            avps.Add(sub);
+        }
+        var bytes = new byte[totalLen];
+        var offset = 0;
+        foreach (var avp in avps) {
+            avp.WriteTo(bytes.AsSpan(offset));
+            offset += avp.LengthWithPadding;
+        }
+        return new DiameterAvp(avpEntry, bytes);
     }
 
-    private static byte GetDefaultFlags(AvpDictionaryEntry avpEntry) {
-        var flags = (byte)0;
-        if (avpEntry.Vendor is not null) { flags |= 0x80; }
-        if (avpEntry.MandatoryBit == AvpBitState.Must) { flags |= 0x40; }
-        return flags;
+    private static AASeqNodes GetGrouped(byte[] bytes) {
+        var nodes = new AASeqNodes();
+        var offset = 0;
+        while (offset < bytes.Length) {
+            var avp = DiameterAvp.ReadFrom(bytes.AsSpan(offset));
+            offset += avp.LengthWithPadding;
+
+            var avpEntry = DictionaryLookup.Instance.FindAvpByCode(avp.VendorCode ?? 0, avp.Code);
+            if (avpEntry is not null) {
+                nodes.Add(GetNode(avpEntry, avp.GetData()));
+            } else {
+                var avpName = ((avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) + ":" : "") + avp.Code.ToString(CultureInfo.InvariantCulture);
+                nodes.Add(new AASeqNode(avpName, avp.GetData()));
+            }
+        }
+        return nodes;
     }
 
 

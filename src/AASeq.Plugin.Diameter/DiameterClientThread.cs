@@ -90,7 +90,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                                 Log.MessageIn(Logger, Remote, $"Capabilities-Exchange-Answer ({resultCode})");
                             }
                         } else {
-                            var nodes = DiameterEncoder.Decode(Logger, message, out var messageName);
+                            var nodes = DiameterEncoder.Decode(message, out var messageName);
                             if (PluginClass.StorageAwaiting.Remove((message.HopByHopIdentifier, message.EndToEndIdentifier), out var guid)) {
                                 PluginClass.Storage[guid] = (messageName, nodes);
                             } else {
