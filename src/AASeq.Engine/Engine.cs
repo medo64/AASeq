@@ -248,7 +248,7 @@ public sealed partial class Engine : IDisposable {
 
     #region Helpers
 
-    [GeneratedRegex("^\\p{L}[\\p{L}\\p{Nd}_-]*$")]  // allow only letters, digits, underscores, and hyphens
+    [GeneratedRegex("^[\\p{L}\\p{Nd}][\\p{L}\\p{Nd}:_-]*$")]  // allow only letters, digits, underscores, and hyphens
     private static partial Regex NameRegex();
 
     #endregion Helpers
