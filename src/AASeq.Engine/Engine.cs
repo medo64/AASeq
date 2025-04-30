@@ -32,11 +32,11 @@ public sealed partial class Engine : IDisposable {
             if (!node.Name.StartsWith('@')) { continue; }  // messages and commands will be processed later
             var nodeName = node.Name[1..];
             var pluginName = node.GetValue(nodeName);
-            if (!NameRegex().IsMatch(nodeName)) { throw new InvalidOperationException($"Invalid endpoint name '{nodeName}'."); }
-            if (!NameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
+            if (!EndpointNameRegex().IsMatch(nodeName)) { throw new InvalidOperationException($"Invalid endpoint name '{nodeName}'."); }
+            if (!EndpointNameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
 
             if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                repeatCount = node.Nodes["Repeat"].IsPositiveInfinity ? int.MaxValue: Math.Max(1, node.Nodes["Repeat"].AsInt32(1));
+                repeatCount = node.Nodes["Repeat"].IsPositiveInfinity ? int.MaxValue : Math.Max(1, node.Nodes["Repeat"].AsInt32(1));
                 commandTimeout = node.Nodes["CommandTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(commandTimeout));
                 receiveTimeout = node.Nodes["ReceiveTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(receiveTimeout));
                 sendTimeout = node.Nodes["SendTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(sendTimeout));
@@ -58,7 +58,7 @@ public sealed partial class Engine : IDisposable {
         foreach (var node in document) {
             if (node.Name.StartsWith('@')) { continue; }  // we already created instances above
             var actionName = node.Name;
-            if (!NameRegex().IsMatch(actionName)) { throw new InvalidOperationException($"Invalid message name '{actionName}'."); }
+            if (!MessageNameRegex().IsMatch(actionName)) { throw new InvalidOperationException($"Invalid message name '{actionName}'."); }
 
             var endpointDefinition = node.GetValue(string.Empty).Trim();
             var parsingState = 'L';
@@ -248,8 +248,11 @@ public sealed partial class Engine : IDisposable {
 
     #region Helpers
 
-    [GeneratedRegex("^[\\p{L}\\p{Nd}][\\p{L}\\p{Nd}:_-]*$")]  // allow only letters, digits, underscores, and hyphens
-    private static partial Regex NameRegex();
+    [GeneratedRegex(@"^[\p{L}\p{Nd}][\p{L}\p{Nd}_-]*$")]  // allow only letters, digits, underscores, and hyphens; if two part, separate by colon
+    private static partial Regex EndpointNameRegex();
+
+    [GeneratedRegex(@"^[\p{L}\p{Nd}][\p{L}\p{Nd}_-]*(:[\p{L}\p{Nd}][\p{L}\p{Nd}_-]*)?$")]  // allow only letters, digits, underscores, and hyphens; if two part, separate by colon
+    private static partial Regex MessageNameRegex();
 
     #endregion Helpers
 
