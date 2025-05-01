@@ -81,7 +81,7 @@ public static class DiameterEncoder {
     private static AASeqNode GetNode(AvpDictionaryEntry avpEntry, byte[] data) {
         return avpEntry.AvpType switch {
             AvpType.Address => new AASeqNode(avpEntry.Name, GetAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to IPAddress.")),
-            AvpType.DiameterIdentity => Utf8.GetString(data),
+            AvpType.DiameterIdentity => new AASeqNode(avpEntry.Name, Utf8.GetString(data)),
             AvpType.DiameterURI => throw new NotImplementedException("DiameterURI"),
             AvpType.Enumerated => new AASeqNode(avpEntry.Name, GetEnum(avpEntry, data)),
             AvpType.Float32 => throw new NotImplementedException("Float32"),
