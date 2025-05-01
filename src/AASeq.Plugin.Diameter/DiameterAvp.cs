@@ -5,7 +5,7 @@ using System.Buffers.Binary;
 /// <summary>
 /// Diameter AVP.
 /// </summary>
-internal sealed record DiameterAvp {
+public sealed record DiameterAvp {
 
     /// <summary>
     /// Creates new instance.

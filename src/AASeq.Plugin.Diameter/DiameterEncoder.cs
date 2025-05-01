@@ -6,10 +6,9 @@ using System.Text;
 using System.Globalization;
 using System.Net;
 using System.Net.Sockets;
-using Microsoft.Extensions.Logging;
 using AASeq;
 
-internal static class DiameterEncoder {
+public static class DiameterEncoder {
 
     public static DiameterMessage Encode(string messageName, AASeqNodes nodes) {
         var isRequest = messageName.EndsWith("-Request", StringComparison.OrdinalIgnoreCase);

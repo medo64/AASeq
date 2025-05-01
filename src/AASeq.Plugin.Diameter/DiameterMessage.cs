@@ -8,7 +8,7 @@ using System.Threading;
 /// <summary>
 /// Diameter message.
 /// </summary>
-internal sealed record DiameterMessage {
+public sealed record DiameterMessage {
 
     /// <summary>
     /// Creates new instance.
