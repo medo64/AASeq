@@ -13,6 +13,7 @@
     <DebugType>embedded</DebugType>
     <OutputPath>../../build/</OutputPath>
     <Deterministic>true</Deterministic>
+    <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
   <PropertyGroup>
