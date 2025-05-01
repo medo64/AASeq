@@ -944,6 +944,9 @@ DiameterDictionary {
     Avp MIP-MN-HA-SPI code=491 mandatoryBit=must type=Unsigned32
     Avp MIP-MN-HA-MSA code=492 mandatoryBit=must type=Grouped
     Avp Service-Selection code=493 mandatoryBit=must type=UTF8String
+    Avp MIP6-Auth-Mode code=494 mandatoryBit=must type=Enumerated {
+        Enum IP6_AUTH_MN_AAA code=1
+    }
     Avp TMOD-1 code=495 mandatoryBit=must type=Grouped
     Avp Token-Rate code=496 mandatoryBit=must type=Float32
     Avp Bucket-Depth code=497 mandatoryBit=must type=Float32
@@ -954,6 +957,10 @@ DiameterDictionary {
     Avp TMOD-2 code=501 mandatoryBit=must type=Grouped
     Avp Bandwidth code=502 mandatoryBit=must type=Float32
     Avp PHB-Class code=503 mandatoryBit=must type=Unsigned32
+    Avp PMIP6-DHCP-Server-Address code=504 mandatoryBit=may type=Address
+    Avp PMIP6-IPv4-Home-Address code=505 mandatoryBit=may type=Address
+    Avp Mobile-Node-Identifier code=506 mandatoryBit=may type=UTF8String
+    Avp Service-Configuration code=507 mandatoryBit=may type=Grouped
     Avp QoS-Resources code=508 mandatoryBit=must type=Grouped
     Avp Filter-Rule code=509 mandatoryBit=must type=Grouped
     Avp Filter-Rule-Precedence code=510 mandatoryBit=must type=Unsigned32
@@ -1227,8 +1234,43 @@ DiameterDictionary {
     Avp User-Equipment-Info-ModifiedEUI64 code=657 mandatoryBit=may type=OctetString
     Avp User-Equipment-Info-IMEI code=658 mandatoryBit=may type=OctetString
 
+    Avp "3GPP-IMSI" code=1 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-Charging-Id" code=2 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-PDP-Type" code=3 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum IPV4 code=0
+        Enum PPP code=1
+        Enum IPV6 code=2
+        Enum IPV4V6 code=3
+    }
+    Avp "3GPP-CG-Address" code=4 mandatoryBit=must type=Address vendor=3GPP
+    Avp "3GPP-GPRS-Negotiated-QoS-Profile" code=5 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-SGSN-Address" code=6 mandatoryBit=must type=Address vendor=3GPP
+    Avp "3GPP-GGSN-Address" code=7 mandatoryBit=must type=Address vendor=3GPP
+    Avp "3GPP-IMSI-MCC-MNC" code=8 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-GGSN-MCC-MNC" code=9 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-NSAPI" code=10 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-Session-Stop-Indicator" code=11 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-Selection-Mode" code=12 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-Charging-Characteristics" code=13 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-CG-IPv6-Address" code=14 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-SGSN-IPv6-Address" code=15 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-GGSN-IPv6-Address" code=16 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-IPv6-DNS-Server" code=17 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-SGSN-MCC-MNC" code=18 mandatoryBit=must type=UTF8String vendor=3GPP
+    Avp "3GPP-Teardown-Indicator" code=19 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-IMEISV" code=20 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-RAT-Type" code=21 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-User-Location-Info" code=22 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-MS-TimeZone" code=23 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-CAMEL-Charging-Info" code=24 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-Packet-Filter" code=25 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-Negotiated-DSCP" code=26 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-Allocate-IP-Type" code=27 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-TWAN-Identifier" code=29 mandatoryBit=must type=OctetString vendor=3GPP
+
     Avp 3GPP-WLAN-APN-Id code=100 mandatoryBit=must type=OctetString vendor=3GPP
     Avp 3GPP-WLAN-QoS-Filter-Rule code=101 mandatoryBit=must type=QoSFilterRule vendor=3GPP
+
     Avp Authentication-Method code=300 mandatoryBit=must type=Enumerated vendor=3GPP {
         Enum WLAN_EAP_SIM code=0
         Enum WLAN_EAP_AKA code=1
@@ -1307,7 +1349,13 @@ DiameterDictionary {
     Avp Security-Feature-Request code=419 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Security-Feature-Response code=420 mandatoryBit=must type=OctetString vendor=3GPP
 
-    Avp Abort-Cause code=500 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Abort-Cause code=500 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum BEARER_RELEASED code=0
+        Enum INSUFFICIENT_SERVER_RESOURCES code=1
+        Enum INSUFFICIENT_BEARER_RESOURCES code=2
+        Enum PS_TO_CS_HANDOVER code=3
+        Enum SPONSORED_DATA_CONNECTIVITY__DISALLOWED code=4
+    }
     Avp Access-Network-Charging-Address code=501 mandatoryBit=must type=Address vendor=3GPP
     Avp Access-Network-Charging-Identifier code=502 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Access-Network-Charging-Identifier-Value code=503 mandatoryBit=must type=OctetString vendor=3GPP
@@ -1318,28 +1366,126 @@ DiameterDictionary {
     Avp Flow-Grouping code=508 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Flow-Number code=509 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Flows code=510 mandatoryBit=must type=Grouped vendor=3GPP
-    Avp Flow-Status code=511 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp Flow-Usage code=512 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp Specific-Action code=513 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Flow-Status code=511 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum ENABLED_UPLINK code=0
+        Enum ENABLED_DOWNLINK code=1
+        Enum ENABLED code=2
+        Enum DISABLED code=3
+        Enum REMOVED code=4
+    }
+    Avp Flow-Usage code=512 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum NO_INFORMATION code=0
+        Enum RTCP code=1
+        Enum AF_SIGNALLING code=2
+    }
+    Avp Specific-Action code=513 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum "SERVICE_INFORMATION_REQUEST_(NOW_VOID)" code=0
+        Enum CHARGING_CORRELATION_EXCHANGE code=1
+        Enum INDICATION_OF_LOSS_OF_BEARER code=2
+        Enum INDICATION_OF_RECOVERY_OF_BEARER code=3
+        Enum INDICATION_OF_RELEASE_OF_BEARER code=4
+        Enum "INDICATION_OF_ESTABLISHMENT_OF_BEARER_(NOW_VOID)" code=5
+        Enum IP_CAN_CHANGE code=6
+        Enum INDICATION_OF_OUT_OF_CREDIT code=7
+        Enum INDICATION_OF_SUCCESSFUL_RESOURCES_ALLOCATION code=8
+        Enum INDICATION_OF_FAILED_RESOURCES_ALLOCATION code=9
+        Enum INDICATION_OF_LIMITED_PCC_DEPLOYMENT code=10
+        Enum USAGE_REPORT code=11
+        Enum ACCESS_NETWORK_INFO_REPORT code=12
+        Enum INDICATION_OF_RECOVERY_FROM_LIMITED_PCC_DEPLOYMENT code=13
+        Enum INDICATION_OF_ACCESS_NETWORK_INFO_REPORTING_FAILURE code=14
+        Enum INDICATION_OF_TRANSFER_POLICY_EXPIRED code=15
+        Enum PLMN_CHANGE code=16
+        Enum EPS_FALLBACK code=17
+        Enum INDICATION_OF_REALLOCATION_OF_CREDIT code=18
+        Enum SUCCESSFUL_QOS_UPDATE code=19
+        Enum FAILED_QOS_UPDATE code=20
+    }
     Avp Max-Requested-Bandwidth code=514 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Max-Requested-Bandwidth-DL code=515 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Max-Requested-Bandwidth-UL code=516 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Media-Component-Description code=517 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Media-Component-Number code=518 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Media-Sub-Component code=519 mandatoryBit=must type=Grouped vendor=3GPP
-    Avp Media-Type code=520 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Media-Type code=520 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum OTHER code=-1
+        Enum AUDIO code=0
+        Enum VIDEO code=1
+        Enum DATA code=2
+        Enum APPLICATION code=3
+        Enum CONTROL code=4
+        Enum TEXT code=5
+        Enum MESSAGE code=6
+    }
     Avp RR-Bandwidth code=521 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp RS-Bandwidth code=522 mandatoryBit=must type=Unsigned32 vendor=3GPP
-    Avp SIP-Forking-Indication code=523 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp SIP-Forking-Indication code=523 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum SINGLE_DIALOGUE code=0
+        Enum SEVERAL_DIALOGUES code=1
+    }
     Avp Codec-Data code=524 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Service-URN code=525 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Acceptable-Service-Info code=526 mandatoryBit=must type=Grouped vendor=3GPP
-    Avp Service-Info-Status code=527 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Service-Info-Status code=527 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum FINAL_SERVICE_INFORMATION code=0
+        Enum PRELIMINARY_SERVICE_INFORMATION code=1
+    }
     Avp MPS-Identifier code=528 mandatoryBit=must type=OctetString vendor=3GPP
-    Avp AF-Signalling-Protocol code=529 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp AF-Signalling-Protocol code=529 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum NO_INFORMATION code=0
+        Enum SIP code=1
+    }
     Avp Sponsored-Connectivity-Data code=530 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Sponsor-Identity code=531 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Application-Service-Provider-Identity code=532 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp Rx-Request-Type code=533 mandatoryBit=may type=Enumerated vendor=3GPP {
+        Enum INITIAL_REQUEST code=0
+        Enum UPDATE_REQUEST code=1
+        Enum PCSCF_RESTORATION code=2
+    }
+    Avp Min-Requested-Bandwidth-DL code=534 mandatoryBit=may type=Unsigned32 vendor=3GPP
+    Avp Min-Requested-Bandwidth-UL code=535 mandatoryBit=may type=Unsigned32 vendor=3GPP
+    Avp Required-Access-Info code=536 mandatoryBit=may type=Enumerated vendor=3GPP {
+        Enum USER_LOCATION code=0
+        Enum MS_TIME_ZONE code=1
+    }
+    Avp IP-Domain-Id code=537 mandatoryBit=may type=OctetString vendor=3GPP
+    Avp GCS-Identifier code=538 mandatoryBit=may type=OctetString vendor=3GPP
+    Avp Sharing-Key-DL code=539 mandatoryBit=may type=Unsigned32 vendor=3GPP
+    Avp Sharing-Key-UL code=540 mandatoryBit=may type=Unsigned32 vendor=3GPP
+    Avp Retry-Interval code=541 mandatoryBit=may type=Unsigned32 vendor=3GPP
+    Avp Sponsoring-Action code=542 mandatoryBit=mustnot type=Enumerated vendor=3GPP {
+        Enum DISABLE_SPONSORING code=0
+        Enum ENABLE_SPONSORING code=1
+    }
+    Avp Max-Supported-Bandwidth-DL code=543 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Max-Supported-Bandwidth-UL code=544 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Min-Desired-Bandwidth-DL code=545 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Min-Desired-Bandwidth-UL code=546 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp MCPTT-Identifier code=547 mandatoryBit=mustnot type=OctetString vendor=3GPP
+    Avp Service-Authorization-Info code=548 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Priority-Sharing-Indicator code=550 mandatoryBit=mustnot type=Enumerated vendor=3GPP {
+        Enum PRIORITY_SHARING_ENABLED code=0
+        Enum PRIORITY_SHARING_DISABLED code=1
+    }
+    Avp AF-Requested-Data code=551 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Content-Version code=552 mandatoryBit=mustnot type=Unsigned64 vendor=3GPP
+    Avp Pre-emption-Control-Info code=553 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Extended-Max-Requested-BW-DL code=554 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Extended-Max-Requested-BW-UL code=555 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Extended-Max-Supported-BW-DL code=556 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Extended-Max-Supported-BW-UL code=557 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Extended-Min-Desired-BW-DL code=558 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Extended-Min-Desired-BW-UL code=559 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Extended-Min-Requested-BW-DL code=560 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Extended-Min-Requested-BW-UL code=561 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp MCVideo-Identifier code=562 mandatoryBit=mustnot type=OctetString vendor=3GPP
+    Avp IMS-Content-Identifier code=563 mandatoryBit=mustnot type=OctetString vendor=3GPP
+    Avp IMS-Content-Type code=564 mandatoryBit=mustnot type=Enumerated vendor=3GPP {
+        Enum NO_CONTENT_DETAIL code=0
+        Enum CAT code=1
+        Enum CONFERENCE code=2
+    }
 
     Avp Visited-Network-Identifier code=600 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Public-Identity code=601 mandatoryBit=must type=UTF8String vendor=3GPP
@@ -1355,31 +1501,68 @@ DiameterDictionary {
     Avp SIP-Authentication-Context code=611 mandatoryBit=must type=OctetString vendor=3GPP
     Avp SIP-Auth-Data-Item code=612 mandatoryBit=must type=Grouped vendor=3GPP
     Avp SIP-Item-Number code=613 mandatoryBit=must type=Unsigned32 vendor=3GPP
-    Avp Server-Assignment-Type code=614 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Server-Assignment-Type code=614 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum NO_ASSIGNMENT code=0
+        Enum REGISTRATION code=1
+        Enum RE_REGISTRATION code=2
+        Enum UNREGISTERED_USER code=3
+        Enum TIMEOUT_DEREGISTRATION code=4
+        Enum USER_DEREGISTRATION code=5
+        Enum TIMEOUT_DEREGISTRATION_STORE_SERVER_NAME code=6
+        Enum USER_DEREGISTRATION_STORE_SERVER_NAME code=7
+        Enum ADMINISTRATIVE_DEREGISTRATION code=8
+        Enum AUTHENTICATION_FAILURE code=9
+        Enum AUTHENTICATION_TIMEOUT code=10
+        Enum DEREGISTRATION_TOO_MUCH_DATA code=11
+        Enum AAA_USER_DATA_REQUEST code=12
+        Enum PGW_UPDATE code=13
+        Enum RESTORATION code=14
+    }
     Avp Deregistration-Reason code=615 mandatoryBit=must type=Grouped vendor=3GPP
-    Avp "Reason-Code#616" code=616 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp "Reason-Code#616" code=616 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum PERMANENT_TERMINATION code=0
+        Enum NEW_SERVER_ASSIGNED code=1
+        Enum SERVER_CHANGE code=2
+        Enum REMOVE_S_CSCF code=3
+    }
     Avp Reason-Info code=617 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Charging-Information code=618 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Primary-Event-Charging-Function-Name code=619 mandatoryBit=must type=DiameterURI vendor=3GPP
     Avp Secondary-Event-Charging-Function-Name code=620 mandatoryBit=must type=DiameterURI vendor=3GPP
     Avp Primary-Charging-Collection-Function-Name code=621 mandatoryBit=must type=DiameterURI vendor=3GPP
     Avp Secondary-Charging-Collection-Function-Name code=622 mandatoryBit=must type=DiameterURI vendor=3GPP
-    Avp User-Authorization-Type code=623 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp User-Data-Already-Available code=624 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp User-Authorization-Type code=623 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum REGISTRATION code=0
+        Enum DE_REGISTRATION code=1
+        Enum REGISTRATION_AND_CAPABILITIES code=2
+    }
+    Avp User-Data-Already-Available code=624 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum USER_DATA_NOT_AVAILABLE code=0
+        Enum USER_DATA_ALREADY_AVAILABLE code=1
+    }
     Avp Confidentiality-Key code=625 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Integrity-Key code=626 mandatoryBit=must type=OctetString vendor=3GPP
-    Avp User-Data-Request-Type code=627 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp User-Data-Request-Type code=627 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum COMPLETE_PROFILE code=0
+        Enum REGISTERED_PROFILE code=1
+        Enum UNREGISTERED_PROFILE code=2
+    }
     Avp Supported-Features code=628 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Feature-List-ID code=629 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Feature-List code=630 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Supported-Applications code=631 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Associated-Identities code=632 mandatoryBit=must type=Grouped vendor=3GPP
-    Avp Originating-Request code=633 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Originating-Request code=633 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum ORIGINATING code=0
+    }
     Avp Wildcarded-Public-Identity code=634 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp SIP-Digest-Authenticate code=635 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Wildcarded-IMPU code=636 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp UAR-Flags code=637 mandatoryBit=must type=Unsigned32 vendor=3GPP
-    Avp Loose-Route-Indication code=638 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Loose-Route-Indication code=638 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum LOOSE_ROUTE_NOT_REQUIRED code=0
+        Enum LOOSE_ROUTE_REQUIRED code=1
+    }
     Avp SCSCF-Restoration-Info code=639 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Path code=640 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Contact code=641 mandatoryBit=must type=OctetString vendor=3GPP
@@ -1389,30 +1572,98 @@ DiameterDictionary {
     Avp To-SIP-Header code=645 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Record-Route code=646 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Associated-Registered-Identities code=647 mandatoryBit=must type=Grouped vendor=3GPP
-    Avp Multiple-Registration-Indication code=648 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Multiple-Registration-Indication code=648 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum NOT_MULTIPLE_REGISTRATION code=0
+        Enum MULTIPLE_REGISTRATION code=1
+    }
     Avp Restoration-Info code=649 mandatoryBit=must type=Grouped vendor=3GPP
-    Avp Session-Priority code=650 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Session-Priority code=650 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum PRIORITY_0 code=0
+        Enum PRIORITY_1 code=1
+        Enum PRIORITY_2 code=2
+        Enum PRIORITY_3 code=3
+        Enum PRIORITY_4 code=4
+    }
     Avp Identity-with-Emergency-Registration code=651 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Priviledged-Sender-Indication code=652 mandatoryBit=must type=Enumerated vendor=3GPP
 
     Avp User-Identity code=700 mandatoryBit=must type=Grouped vendor=3GPP
     Avp MSISDN code=701 mandatoryBit=must type=OctetString vendor=3GPP
     Avp User-Data code=702 mandatoryBit=must type=OctetString vendor=3GPP
-    Avp Data-Reference code=703 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Data-Reference code=703 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum REPOSITORYDATA code=0
+        Enum IMSPUBLICIDENTITY code=10
+        Enum IMSUSERSTATE code=11
+        Enum S_CSCFNAME code=12
+        Enum INITIALFILTERCRITERIA code=13
+        Enum LOCATIONINFORMATION code=14
+        Enum USERSTATE code=15
+        Enum CHARGINGINFORMATION code=16
+        Enum MSISDN code=17
+        Enum PSIACTIVATION code=18
+        Enum DSAI code=19
+        Enum SERVICELEVELTRACEINFO code=21
+        Enum IPADDRESSSECUREBINDINGINFORMATION code=22
+        Enum SERVICEPRIORITYLEVEL code=23
+        Enum SMSREGISTRATIONINFO code=24
+        Enum UEREACHABILITYFORIP code=25
+        Enum TADSINFORMATION code=26
+        Enum STN_SR code=27
+        Enum UE_SRVCC_CAPABILITY code=28
+        Enum EXTENDEDPRIORITY code=29
+        Enum CSRN code=30
+        Enum REFERENCELOCATIONINFORMATION code=31
+        Enum IMSI code=32
+        Enum IMSPRIVATEUSERIDENTITY code=33
+        Enum IMEISV code=34
+        Enum UE_5G_SRVCC_CAPABILITY code=35
+    }
     Avp Service-Indication code=704 mandatoryBit=must type=OctetString vendor=3GPP
-    Avp Subs-Req-Type code=705 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp Requested-Domain code=706 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp Current-Location code=707 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp Identity-Set code=708 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Subs-Req-Type code=705 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum SUBSCRIBE code=0
+        Enum UNSUBSCRIBE code=1
+    }
+    Avp Requested-Domain code=706 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum CS_DOMAIN code=0
+        Enum PS_DOMAIN code=1
+    }
+    Avp Current-Location code=707 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum DONOTNEEDINITIATEACTIVELOCATIONRETRIEVAL code=0
+        Enum INITIATEACTIVELOCATIONRETRIEVAL code=1
+    }
+    Avp Identity-Set code=708 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum ALL_IDENTITIES code=0
+        Enum REGISTERED_IDENTITIES code=1
+        Enum IMPLICIT_IDENTITIES code=2
+        Enum ALIAS_IDENTITIES code=3
+    }
     Avp Expiry-Time code=709 mandatoryBit=must type=Time vendor=3GPP
-    Avp Send-Data-Indication code=710 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Send-Data-Indication code=710 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum USER_DATA_NOT_REQUESTED code=0
+        Enum USER_DATA_REQUESTED code=1
+    }
     Avp DSAI-Tag code=711 mandatoryBit=must type=OctetString vendor=3GPP
-    Avp One-Time-Notification code=712 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp One-Time-Notification code=712 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum ONE_TIME_NOTIFICATION_REQUESTED code=0
+    }
     Avp Requested-Nodes code=713 mandatoryBit=must type=Unsigned32 vendor=3GPP
-    Avp Serving-Node-Indication code=714 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Serving-Node-Indication code=714 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum ONLY_SERVING_NODES_REQUIRED code=0
+    }
     Avp Repository-Data-ID code=715 mandatoryBit=must type=Grouped vendor=3GPP
     Avp "Sequence-Number#716" code=716 mandatoryBit=must type=Unsigned32 vendor=3GPP
-    Avp Pre-paging-Supported code=717 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Pre-paging-Supported code=717 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum PREPAGING_NOT_SUPPORTED code=0
+        Enum PREPAGING_SUPPORTED code=1
+    }
+    Avp Local-Time-Zone-Indication code=718 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum ONLY_LOCAL_TIME_ZONE_REQUESTED code=0
+        Enum LOCAL_TIME_ZONE_WITH_LOCATION_INFO_REQUESTED code=1
+    }
+    Avp UDR-Flags code=719 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum LOCATION_INFORMATION_EPS_SUPPORTED code=1
+        Enum RAT_TYPE_REQUESTED code=2
+    }
 
     Avp Event-Type code=823 mandatoryBit=must type=Grouped vendor=3GPP
     Avp SIP-Method code=824 mandatoryBit=must type=UTF8String vendor=3GPP
@@ -1658,33 +1909,68 @@ DiameterDictionary {
 
     Avp TMGI code=900 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Required-MBMS-Bearer-Capabilities code=901 mandatoryBit=must type=UTF8String vendor=3GPP
-    Avp MBMS-StartStop-Indication code=902 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp MBMS-StartStop-Indication code=902 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum START code=0
+        Enum STOP code=1
+        Enum UPDATE code=2
+    }
     Avp MBMS-Service-Area code=903 mandatoryBit=must type=OctetString vendor=3GPP
     Avp MBMS-Session-Duration code=904 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp Alternative-APN code=905 mandatoryBit=must type=UTF8String vendor=3GPP
-    Avp MBMS-Service-Type code=906 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp MBMS-2G-3G-Indicator code=907 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp MBMS-Service-Type code=906 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum MULTICAST code=0
+        Enum BROADCAST code=1
+    }
+    Avp MBMS-2G-3G-Indicator code=907 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum "2G" code=0
+        Enum "3G" code=1
+        Enum "2G_AND_3G" code=2
+    }
     Avp MBMS-Session-Identity code=908 mandatoryBit=must type=OctetString vendor=3GPP
     Avp RAI code=909 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Additional-MBMS-Trace-Info code=910 mandatoryBit=must type=OctetString vendor=3GPP
     Avp MBMS-Time-To-Data-Transfer code=911 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp MBMS-Session-Identity-Repetition-Number code=912 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp MBMS-Required-QoS code=913 mandatoryBit=must type=UTF8String vendor=3GPP
-    Avp MBMS-Counting-Information code=914 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp MBMS-User-Data-Mode-Indication code=915 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp MBMS-Counting-Information code=914 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum COUNTING_NOT_APPLICABLE code=0
+        Enum COUNTING_APPLICABLE code=1
+    }
+    Avp MBMS-User-Data-Mode-Indication code=915 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum UNICAST code=0
+        Enum MULTICAST_AND_UNICAST code=1
+    }
     Avp MBMS-GGSN-Address code=916 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp MBMS-GGSN-IPv6-Address code=917 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp MBMS-BMSC-SSM-IP-Address code=918 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp MBMS-BMSC-SSM-IPv6-Address code=919 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp MBMS-Flow-Identifier code=920 mandatoryBit=must type=OctetString vendor=3GPP
-    Avp CN-IP-Multicast-Distribution code=921 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp MBMS-HC-Indicator code=922 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp MBMS-Access-Indicator code=923 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp CN-IP-Multicast-Distribution code=921 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum NO_IP_MULTICAST code=0
+        Enum IP_MULTICAST code=1
+    }
+    Avp MBMS-HC-Indicator code=922 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum UNCOMPRESSED_HEADER code=0
+        Enum COMPRESSED_HEADER code=1
+    }
+    Avp MBMS-Access-Indicator code=923 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum UTRAN code=0
+        Enum E_UTRAN code=1
+        Enum UTRAN_AND_E_UTRAN code=2
+    }
     Avp MBMS-GW-SSM-IP-Address code=924 mandatoryBit=must type=OctetString vendor=3GPP
     Avp MBMS-GW-SSM-IPv6-Address code=925 mandatoryBit=must type=OctetString vendor=3GPP
     Avp MBMS-BMSC-SSM-UDP-Port code=926 mandatoryBit=must type=OctetString vendor=3GPP
     Avp MBMS-GW-UDP-Port code=927 mandatoryBit=must type=OctetString vendor=3GPP
-    Avp MBMS-GW-UDP-Port-Indicator code=928 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp MBMS-GW-UDP-Port-Indicator code=928 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum UDP_PORT_REQUIRED code=1
+    }
+    Avp MBMS-Data-Transfer-Start code=929 mandatoryBit=must type=Unsigned64 vendor=3GPP
+    Avp MBMS-Data-Transfer-Stop code=930 mandatoryBit=must type=Unsigned64 vendor=3GPP
+    Avp MBMS-Flags code=931 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp Restart-Counter code=932 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp Diagnostic-Info code=933 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp MBMS-Cell-List code=934 mandatoryBit=must type=OctetString vendor=3GPP
 
     Avp Bearer-Usage code=1000 mandatoryBit=must type=Enumerated vendor=3GPP {
         Enum GENERAL code=0
@@ -3105,8 +3391,15 @@ DiameterDictionary {
     Avp Subsession-Decision-Info code=2200 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Subsession-Enforcement-Info code=2201 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Subsession-Id code=2202 mandatoryBit=must type=Unsigned32 vendor=3GPP
-    Avp Subsession-Operation code=2203 mandatoryBit=must type=Enumerated vendor=3GPP
-    Avp Multiple-BBERF-Action code=2204 mandatoryBit=must type=Enumerated vendor=3GPP
+    Avp Subsession-Operation code=2203 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum TERMINATION code=0
+        Enum ESTABLISHMENT code=1
+        Enum MODIFICATION code=2
+    }
+    Avp Multiple-BBERF-Action code=2204 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum ESTABLISHMENT code=0
+        Enum TERMINATION code=1
+    }
 
     Avp SIP-Request-Timestamp-Fraction code=2301 mandatoryBit=must type=Unsigned32 vendor=3GPP
     Avp SIP-Response-Timestamp-Fraction code=2302 mandatoryBit=must type=Unsigned32 vendor=3GPP
@@ -3684,6 +3977,67 @@ DiameterDictionary {
     }
     Avp Trigger-Action code=3202 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
     Avp MTC-Error-Diagnostic code=3203 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+
+    Avp SC-Address code=3300 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp SM-RP-UI code=3301 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp TFR-Flags code=3302 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp SM-Delivery-Failure-Cause code=3303 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp SM-Enumerated-Delivery-Failure-Cause code=3304 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum MEMORY_CAPACITY_EXCEEDED code=0
+        Enum EQUIPMENT_PROTOCOL_ERROR code=1
+        Enum EQUIPMENT_NOT_SM_EQUIPPED code=2
+        Enum UNKNOWN_SERVICE_CENTRE code=3
+        Enum SC_CONGESTION code=4
+        Enum INVALID_SME_ADDRESS code=5
+        Enum USER_NOT_SC_USER code=6
+    }
+    Avp SM-Diagnostic-Info code=3305 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp SM-Delivery-Timer code=3306 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp SM-Delivery-Start-Time code=3307 mandatoryBit=must type=Time vendor=3GPP
+    Avp SM-RP-MTI code=3308 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum SM_DELIVER code=0
+        Enum SM_STATUS_REPORT code=1
+    }
+    Avp SM-RP-SMEA code=3309 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp SRR-Flags code=3310 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp SM-Delivery-Not-Intended code=3311 mandatoryBit=mustnot type=Enumerated vendor=3GPP {
+        Enum ONLY_IMSI_REQUESTED code=0
+        Enum ONLY_MCC_MNC_REQUESTED code=1
+    }
+    Avp MWD-Status code=3312 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp MME-Absent-User-Diagnostic-SM code=3313 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp MSC-Absent-User-Diagnostic-SM code=3314 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp SGSN-Absent-User-Diagnostic-SM code=3315 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp SM-Delivery-Outcome code=3316 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp MME-SM-Delivery-Outcome code=3317 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp MSC-SM-Delivery-Outcome code=3318 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp SGSN-SM-Delivery-Outcome code=3319 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp IP-SM-GW-SM-Delivery-Outcome code=3320 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp SM-Delivery-Cause code=3321 mandatoryBit=mustnot type=Enumerated vendor=3GPP {
+        Enum SM_DELIVERY_CAUSE code=0
+        Enum ABSENT_USER code=1
+        Enum SUCCESSFUL_TRANSFER code=2
+    }
+    Avp Absent-User-Diagnostic-SM code=3322 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp RDR-Flags code=3323 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Maximum-UE-Availability-Time code=3329 mandatoryBit=mustnot type=Time vendor=3GPP
+    Avp Maximum-Retransmission-Time code=3330 mandatoryBit=mustnot type=Time vendor=3GPP
+    Avp Requested-Retransmission-Time code=3331 mandatoryBit=mustnot type=Time vendor=3GPP
+    Avp SMS-GMSC-Address code=3332 mandatoryBit=mustnot type=OctetString vendor=3GPP
+    Avp SMS-GMSC-Alert-Event code=3333 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp SMSF-3GPP-Absent-User-Diagnostic-SM code=3334 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp SMSF-Non-3GPP-Absent-User-Diagnostic-SM code=3335 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp SMSF-3GPP-SM-Delivery-Outcome code=3336 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp SMSF-Non-3GPP-SM-Delivery-Outcome code=3337 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp SMSF-3GPP-Number code=3338 mandatoryBit=mustnot type=OctetString vendor=3GPP
+    Avp SMSF-Non-3GPP-Number code=3339 mandatoryBit=mustnot type=OctetString vendor=3GPP
+    Avp SMSF-3GPP-Name code=3340 mandatoryBit=mustnot type=DiameterIdentity vendor=3GPP
+    Avp SMSF-Non-3GPP-Name code=3341 mandatoryBit=mustnot type=DiameterIdentity vendor=3GPP
+    Avp SMSF-3GPP-Realm code=3342 mandatoryBit=mustnot type=DiameterIdentity vendor=3GPP
+    Avp SMSF-Non-3GPP-Realm code=3343 mandatoryBit=mustnot type=DiameterIdentity vendor=3GPP
+    Avp SMSF-3GPP-Address code=3344 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp SMSF-Non-3GPP-Address code=3345 mandatoryBit=mustnot type=Grouped vendor=3GPP
+
     Avp Reason-Header code=3401 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Instance-Id code=3402 mandatoryBit=must type=UTF8String vendor=3GPP
     Avp Route-Header-Received code=3403 mandatoryBit=must type=UTF8String vendor=3GPP
@@ -3740,6 +4094,34 @@ DiameterDictionary {
     }
     Avp Usage-Information-Report-Sequence-Number code=3439 mandatoryBit=must type=Integer32 vendor=3GPP
     Avp ProSe-3rd-Party-Application-ID code=3440 mandatoryBit=must type=UTF8String vendor=3GPP
+
+    Avp BMSC-Address code=3500 mandatoryBit=must type=Address vendor=3GPP
+    Avp BMSC-Port code=3501 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp MBMS-Bearer-Event code=3502 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp MBMS-Bearer-Event-Notification code=3503 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp MBMS-Bearer-Request code=3504 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp MBMS-Bearer-Response code=3505 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp MBMS-Bearer-Result code=3506 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp MBMS-Start-Time code=3507 mandatoryBit=must type=Time vendor=3GPP
+    Avp Radio-Frequency code=3508 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp TMGI-Allocation-Request code=3509 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp TMGI-Allocation-Response code=3510 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp TMGI-Allocation-Result code=3511 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp TMGI-Deallocation-Request code=3512 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp TMGI-Deallocation-Response code=3513 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp TMGI-Deallocation-Result code=3514 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp TMGI-Expiry code=3515 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp TMGI-Number code=3516 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp MB2U-Security code=3517 mandatoryBit=must type=Unsigned32 vendor=3GPP
+
+    Avp ProSe-Subscription-Data code=3701 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp ProSe-Permission code=3702 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp ProSe-Allowed-PLMN code=3703 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp ProSe-Direct-Allowed code=3704 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp UPR-Flags code=3705 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp PNR-Flags code=3706 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp ProSe-Initial-Location-Information code=3707 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp Authorized-Discovery-Range code=3708 mandatoryBit=must type=Unsigned32 vendor=3GPP
 
     Avp Enhanced-Diagnostics code=3901 mandatoryBit=must type=Grouped vendor=3GPP
     Avp Inter-UE-Transfer code=3902 mandatoryBit=must type=Enumerated vendor=3GPP {
@@ -3812,6 +4194,44 @@ DiameterDictionary {
 
     Avp eNodeB-ID code=4008 mandatoryBit=must type=OctetString vendor=3GPP
     Avp Extended-eNodeB-ID code=4013 mandatoryBit=must type=OctetString vendor=3GPP
+
+    Avp Communication-Failure-Information code=4300 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp Cause-Type code=4301 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum RADIO_NETWORK_LAYER code=0
+        Enum TRANSPORT_LAYER code=1
+        Enum NAS code=2
+        Enum PROTOCOL code=3
+        Enum MISCELLANEOUS code=4
+    }
+    Avp S1AP-Cause code=4302 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp RANAP-Cause code=4303 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp GMM-Cause code=4304 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp SM-Cause code=4305 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp Number-Of-UE-Per-Location-Configuration code=4306 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp Number-Of-UE-Per-Location-Report code=4307 mandatoryBit=must type=Grouped vendor=3GPP
+
+    Avp UE-Count code=4308 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp BSSGP-Cause code=4309 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp Serving-PLMN-Rate-Control code=4310 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp Uplink-Rate-Limit code=4311 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp Downlink-Rate-Limit code=4312 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp Extended-PCO code=4313 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp Connection-Action code=4314 mandatoryBit=must type=Enumerated vendor=3GPP {
+        Enum CONNECTION_ESTABLISHMENT code=0
+        Enum CONNECTION_RELEASE code=1
+        Enum CONNECTION_UPDATE code=2
+    }
+    Avp Non-IP-Data code=4315 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp SCEF-Wait-Time code=4316 mandatoryBit=must type=Time vendor=3GPP
+    Avp CMR-Flags code=4317 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp RRC-Cause-Counter code=4318 mandatoryBit=must type=Grouped vendor=3GPP
+    Avp Counter-Value code=4319 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp RRC-Counter-Timestamp code=4320 mandatoryBit=must type=Time vendor=3GPP
+    Avp TDA-Flags code=4321 mandatoryBit=must type=Unsigned32 vendor=3GPP
+    Avp Idle-Status-Indication code=4322 mandatoryBit=mustnot type=Grouped vendor=3GPP
+    Avp Idle-Status-Timestamp code=4323 mandatoryBit=mustnot type=Time vendor=3GPP
+    Avp Active-Time code=4324 mandatoryBit=mustnot type=Unsigned32 vendor=3GPP
+    Avp Reachability-Cause code=4325 mandatoryBit=must type=Unsigned32 vendor=3GPP
 
     Avp Charging-Per-IP-CAN-Session-Indicator code=4400 mandatoryBit=must type=Enumerated vendor=3GPP {
         Enum INACTIVE code=0
