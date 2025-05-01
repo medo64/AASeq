@@ -8,11 +8,16 @@ using System.Linq;
 using System.Reflection;
 using System.Xml;
 using AASeqPlugin;
+using static System.Net.Mime.MediaTypeNames;
 
 internal class WiresharkDictionaryLookup {
 
-    public WiresharkDictionaryLookup(Stream stream) {
+    public WiresharkDictionaryLookup(string fileName) {
+        using var stream = File.OpenRead(fileName);
+        var dirName = Path.GetDirectoryName(fileName);
+
         var doc = new XmlDocument();
+        doc.XmlResolver = new XmlResourceResolver(dirName);
         doc.Load(stream);
         if (doc.DocumentElement is null) { throw new InvalidOperationException("Cannot load XML document."); }
 
@@ -26,11 +31,11 @@ internal class WiresharkDictionaryLookup {
         var applicationsByName = new Dictionary<String, ApplicationDictionaryEntry>();
         var commandsByCode = new Dictionary<UInt32, CommandDictionaryEntry>();
         var commandsByName = new Dictionary<String, CommandDictionaryEntry>();
-        var avpsByCode = new Dictionary<UInt32, AvpDictionaryEntry>();
+        var avpsByCode = new Dictionary<(UInt32, UInt32), AvpDictionaryEntry>();
         var avpsByName = new Dictionary<String, AvpDictionaryEntry>();
 
         ParseVendorEntries(iRootNode.ChildNodes, iRootNode.LocalName, vendorsByCode, vendorsById);  // doing vendors first to avoid XML ordering errors
-        ParseApplicationEntries(iRootNode.ChildNodes, iRootNode.LocalName, applicationsById, applicationsByName);
+        ParseApplicationEntries(iRootNode.ChildNodes, iRootNode.LocalName, applicationsById, applicationsByName, avpsByCode, avpsByName, vendorsById);
         ParseCommandEntries(iRootNode.ChildNodes, iRootNode.LocalName, commandsByCode, commandsByName, vendorsById);
         ParseAvpEntries(iRootNode.ChildNodes, iRootNode.LocalName, avpsByCode, avpsByName, vendorsById);
 
@@ -88,13 +93,22 @@ internal class WiresharkDictionaryLookup {
                     }
                     break;
 
-                case "base": ParseVendorEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, vendorsByCode, vendorsById); break;
+                case "base":
+                    ParseVendorEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, vendorsByCode, vendorsById);
+                    break;
+
+                default: {
+                        if (node is XmlEntityReference) {
+                            ParseVendorEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, vendorsByCode, vendorsById);
+                        }
+                    }
+                    break;
             }
         }
     }
 
 
-    private static void ParseApplicationEntries(XmlNodeList nodes, string rootNodeLocalName, IDictionary<UInt32, ApplicationDictionaryEntry> applicationById, IDictionary<String, ApplicationDictionaryEntry> applicationByName) {
+    private static void ParseApplicationEntries(XmlNodeList nodes, string rootNodeLocalName, IDictionary<UInt32, ApplicationDictionaryEntry> applicationById, IDictionary<String, ApplicationDictionaryEntry> applicationByName, IDictionary<(UInt32, UInt32), AvpDictionaryEntry> avpsByCode, IDictionary<String, AvpDictionaryEntry> avpsByName, Dictionary<String, VendorDictionaryEntry> vendorsById) {
         foreach (XmlNode node in nodes) {
             switch (node.LocalName) {
                 case "application": {
@@ -119,18 +133,28 @@ internal class WiresharkDictionaryLookup {
                                 oldApplication = new ApplicationDictionaryEntry(oldApplication.Name + "#" + oldApplication.Id.ToString(CultureInfo.InvariantCulture), oldApplication.Id);
                                 applicationById.Add(oldApplication.Id, oldApplication);
                                 applicationByName.Add(oldApplication.Name, oldApplication);
-                                applicationById.Add(application.Id, application);
+                                applicationById.TryAdd(application.Id, application);
                                 applicationByName.Add(application.Name, application);
                             }
 
                         } else {
-                            applicationById.Add(application.Id, application);
+                            applicationById.TryAdd(application.Id, application);
                             applicationByName.Add(application.Name, application);
                         }
+                        ParseAvpEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, avpsByCode, avpsByName, vendorsById);
                     }
                     break;
 
-                case "base": ParseApplicationEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, applicationById, applicationByName); break;
+                case "base":
+                    ParseApplicationEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, applicationById, applicationByName, avpsByCode, avpsByName, vendorsById);
+                    break;
+
+                default: {
+                        if (node is XmlEntityReference) {
+                            ParseApplicationEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, applicationById, applicationByName, avpsByCode, avpsByName, vendorsById);
+                        }
+                    }
+                    break;
             }
         }
     }
@@ -157,13 +181,22 @@ internal class WiresharkDictionaryLookup {
                     }
                     break;
 
-                case "base": ParseCommandEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, commandsByCode, commandsByName, vendorsById); break;
+                case "base":
+                    ParseCommandEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, commandsByCode, commandsByName, vendorsById);
+                    break;
+
+                default: {
+                        if (node is XmlEntityReference) {
+                            ParseCommandEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, commandsByCode, commandsByName, vendorsById);
+                        }
+                    }
+                    break;
             }
         }
     }
 
 
-    private static void ParseAvpEntries(XmlNodeList nodes, string rootNodeLocalName, IDictionary<UInt32, AvpDictionaryEntry> avpsByCode, IDictionary<String, AvpDictionaryEntry> avpsByName, Dictionary<String, VendorDictionaryEntry> vendorsById) {
+    private static void ParseAvpEntries(XmlNodeList nodes, string rootNodeLocalName, IDictionary<(UInt32, UInt32), AvpDictionaryEntry> avpsByCode, IDictionary<String, AvpDictionaryEntry> avpsByName, Dictionary<String, VendorDictionaryEntry> vendorsById) {
         foreach (XmlNode node in nodes) {
             switch (node.LocalName) {
                 case "avp": {
@@ -194,7 +227,10 @@ internal class WiresharkDictionaryLookup {
                                     if ("Reserved".Equals(avpEnumNameStr, StringComparison.Ordinal)) { continue; }
 
                                     var avpEnumName = avpEnumNameStr.Trim().Replace(' ', '_').Replace('-', '_').ToUpperInvariant();
-                                    var avpEnumCode = Int32.Parse(avpEnumCodeStr, NumberStyles.Integer, CultureInfo.InvariantCulture);
+                                    int avpEnumCode;
+                                    if (!Int32.TryParse(avpEnumCodeStr, NumberStyles.Integer, CultureInfo.InvariantCulture, out avpEnumCode)) {
+                                        avpEnumCode = (Int32)(UInt32.Parse(avpEnumCodeStr, NumberStyles.Integer, CultureInfo.InvariantCulture));
+                                    }
 
                                     if (avpEnumDict.ContainsKey(avpEnumName)) {
                                         var avpEnum = new AvpEnumDictionaryEntry(avpEnumName + "#" + avpEnumCode.ToString(CultureInfo.InvariantCulture), avpEnumCode);
@@ -238,12 +274,21 @@ internal class WiresharkDictionaryLookup {
                                 Console.WriteLine($"            {avpEnum.Code,10} {avpEnum.Name}");
                             }
                         }
-                        avpsByCode.Add(avp.Code, avp);
+                        avpsByCode.Add((avp.Vendor?.Code ?? 0, avp.Code), avp);
                         avpsByName.Add(avp.Name, avp);
                     }
                     break;
 
-                case "base": ParseAvpEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, avpsByCode, avpsByName, vendorsById); break;
+                case "base":
+                    ParseAvpEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, avpsByCode, avpsByName, vendorsById);
+                    break;
+
+                default: {
+                        if (node is XmlEntityReference) {
+                            ParseAvpEntries(node.ChildNodes, rootNodeLocalName + "/" + node.LocalName, avpsByCode, avpsByName, vendorsById);
+                        }
+                    }
+                    break;
             }
         }
     }

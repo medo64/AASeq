@@ -8,7 +8,7 @@ using AASeqPlugin;
 internal static class App {
 
     internal static void Main(string[] args) {
-        var doc = new WiresharkDictionaryLookup(File.OpenRead("../../tools/WiresharkDictImport/data/wireshark-4.4.6/dictionary.xml"));
+        var doc = new WiresharkDictionaryLookup("../../tools/WiresharkDictImport/data/wireshark-4.4.6/dictionary.xml");
 
         Console.WriteLine();
         Console.WriteLine($"Vendors ....: {doc.Vendors.Count,4}");
