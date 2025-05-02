@@ -70,7 +70,8 @@ public static class DiameterEncoder {
             AvpType.IPFilterRule => throw new NotImplementedException("IPFilterRule"),
             AvpType.OctetString => new DiameterAvp(avpEntry, node.Value.AsByteArray() ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to byte array.")),
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
-            AvpType.Time => throw new NotImplementedException("Time"),
+            AvpType.RawAddress => new DiameterAvp(avpEntry, GetRawAddressBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to RawAddress.")),
+            AvpType.Time => new DiameterAvp(avpEntry, GetTimeBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Time.")),
             AvpType.Unsigned32 => new DiameterAvp(avpEntry, GetUInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32.")),
             AvpType.Unsigned64 => new DiameterAvp(avpEntry, GetUInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64.")),
             AvpType.UTF8String => new DiameterAvp(avpEntry, Utf8.GetBytes(node.Value.AsString(""))),
@@ -91,7 +92,8 @@ public static class DiameterEncoder {
             AvpType.IPFilterRule => throw new NotImplementedException("IPFilterRule"),
             AvpType.OctetString => new AASeqNode(avpEntry.Name, data),
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
-            AvpType.Time => throw new NotImplementedException("Time"),
+            AvpType.RawAddress => new AASeqNode(avpEntry.Name, GetRawAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to IPAddress.")),
+            AvpType.Time => new AASeqNode(avpEntry.Name, GetTime(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Time.")),
             AvpType.Unsigned32 => new AASeqNode(avpEntry.Name, GetUInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32.")),
             AvpType.Unsigned64 => new AASeqNode(avpEntry.Name, GetUInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64.")),
             AvpType.UTF8String => new AASeqNode(avpEntry.Name, Utf8.GetString(data)),
@@ -140,7 +142,7 @@ public static class DiameterEncoder {
 
     private static byte[]? GetAddressBytes(AASeqValue value) {
         var ip = value.AsIPAddress();
-        if (ip is null) { return null; }
+        if (ip is null) { return value.AsByteArray(); }
         if (ip.AddressFamily == AddressFamily.InterNetwork) {
             var ipBytes = new byte[6];
             ipBytes[0] = 0x00;
@@ -201,7 +203,7 @@ public static class DiameterEncoder {
 
     private static byte[]? GetInt32Bytes(AASeqValue value) {
         var number = value.AsInt32();
-        if (number is null) { return null; }
+        if (number is null) { return value.AsByteArray(); }
         var bytes = new byte[4];
         bytes[0] = (byte)((number >> 24) & 0xFF);
         bytes[1] = (byte)((number >> 16) & 0xFF);
@@ -218,7 +220,7 @@ public static class DiameterEncoder {
 
     private static byte[]? GetInt64Bytes(AASeqValue value) {
         var number = value.AsInt64();
-        if (number is null) { return null; }
+        if (number is null) { return value.AsByteArray(); }
         var bytes = new byte[8];
         bytes[0] = (byte)((number >> 56) & 0xFF);
         bytes[1] = (byte)((number >> 48) & 0xFF);
@@ -237,9 +239,51 @@ public static class DiameterEncoder {
     }
 
 
+    private static byte[]? GetRawAddressBytes(AASeqValue value) {
+        var ip = value.AsIPAddress();
+        if (ip is null) { return value.AsByteArray(); }
+        if (ip.AddressFamily == AddressFamily.InterNetwork) {
+            return ip.GetAddressBytes();
+        } else if (ip.AddressFamily == AddressFamily.InterNetworkV6) {
+            return ip.GetAddressBytes();
+        }
+        return null;
+    }
+
+    private static object GetRawAddress(byte[] bytes) {
+        if (bytes.Length == 4) {
+            return new IPAddress(bytes);
+        } else if (bytes.Length == 16) {
+            return new IPAddress(bytes);
+        }
+        return bytes;
+    }
+
+
+    private readonly static DateTimeOffset DiameterEpoch = new DateTimeOffset(1900, 1, 1, 0, 0, 0, TimeSpan.Zero);
+    private static byte[]? GetTimeBytes(AASeqValue value) {
+        var dto = value.AsDateTimeOffset();
+        if (dto is null) { return value.AsByteArray(); }
+        var seconds = (uint)(dto.Value - DiameterEpoch).TotalSeconds;
+        var bytes = new byte[4];
+        bytes[0] = (byte)((seconds >> 24) & 0xFF);
+        bytes[1] = (byte)((seconds >> 16) & 0xFF);
+        bytes[2] = (byte)((seconds >> 8) & 0xFF);
+        bytes[3] = (byte)(seconds & 0xFF);
+        return bytes;
+    }
+
+    private static object GetTime(byte[] bytes) {
+        if (bytes.Length != 4) { return bytes; }
+        var seconds = BinaryPrimitives.ReadUInt32BigEndian(bytes);
+        var dto = DiameterEpoch.AddSeconds(seconds);
+        return dto;
+    }
+
+
     private static byte[]? GetUInt32Bytes(AASeqValue value) {
         var number = value.AsUInt32();
-        if (number is null) { return null; }
+        if (number is null) { return value.AsByteArray(); }
         var bytes = new byte[4];
         bytes[0] = (byte)((number >> 24) & 0xFF);
         bytes[1] = (byte)((number >> 16) & 0xFF);
@@ -256,7 +300,7 @@ public static class DiameterEncoder {
 
     private static byte[]? GetUInt64Bytes(AASeqValue value) {
         var number = value.AsUInt64();
-        if (number is null) { return null; }
+        if (number is null) { return value.AsByteArray(); }
         var bytes = new byte[8];
         bytes[0] = (byte)((number >> 56) & 0xFF);
         bytes[1] = (byte)((number >> 48) & 0xFF);

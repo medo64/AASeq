@@ -94,6 +94,7 @@ internal static class App {
                             case "Float32":
                             case "Float64":
                             case "Address":
+                            case "RawAddress":
                             case "Time":
                             case "UTF8String":
                             case "DiameterIdentity":

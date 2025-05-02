@@ -12,6 +12,7 @@ internal enum AvpType {
     IPFilterRule,
     OctetString,
     QoSFilterRule,
+    RawAddress,
     Time,
     Unsigned32,
     Unsigned64,
