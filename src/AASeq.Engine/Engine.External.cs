@@ -107,7 +107,7 @@ public sealed partial class Engine {
             } else {
                 return new AASeqNode("@Me", AASeqValue.Null, [
                     new AASeqNode("Repeat", RepeatCount),
-                    new AASeqNode("CommandTimeout", CommandTimeout),
+                    new AASeqNode("CommandTimeout", CommandTimeout == TimeSpan.MaxValue ? double.PositiveInfinity : CommandTimeout),
                     new AASeqNode("ReceiveTimeut", ReceiveTimeout),
                     new AASeqNode("SendTimeut", SendTimeout),
                 ]);

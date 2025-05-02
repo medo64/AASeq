@@ -22,7 +22,7 @@ public sealed partial class Engine : IDisposable {
         ArgumentNullException.ThrowIfNull(document);
 
         var repeatCount = 1;
-        var commandTimeout = TimeSpan.FromSeconds(3);
+        var commandTimeout = TimeSpan.MaxValue;
         var receiveTimeout = TimeSpan.FromSeconds(3);
         var sendTimeout = TimeSpan.FromSeconds(1);
 

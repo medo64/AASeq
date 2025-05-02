@@ -58,7 +58,9 @@ public sealed partial class Engine {
                             executingFlows[i] = actionNode;
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
-                            using var cts = new CancellationTokenSource(CommandTimeout);
+                            using var cts = (CommandTimeout < TimeSpan.MaxValue)
+                                ? new CancellationTokenSource(CommandTimeout)
+                                : new CancellationTokenSource();
                             var token = cts.Token;
 
                             var sw = Stopwatch.StartNew();
@@ -90,7 +92,9 @@ public sealed partial class Engine {
                             executingGuids[i] = id;
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
-                            using var cts = new CancellationTokenSource(SendTimeout);
+                            using var cts = (SendTimeout < TimeSpan.MaxValue)
+                                ? new CancellationTokenSource(SendTimeout)
+                                : new CancellationTokenSource();
                             var token = cts.Token;
 
                             var sw = Stopwatch.StartNew();
@@ -122,7 +126,9 @@ public sealed partial class Engine {
                             executingGuids[i] = id;
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
-                            using var cts = new CancellationTokenSource(ReceiveTimeout);
+                            using var cts = (ReceiveTimeout < TimeSpan.MaxValue)
+                                ? new CancellationTokenSource(ReceiveTimeout)
+                                : new CancellationTokenSource();
                             var token = cts.Token;
 
                             var sw = Stopwatch.StartNew();
