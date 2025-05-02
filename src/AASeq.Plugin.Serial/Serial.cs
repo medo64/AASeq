@@ -63,10 +63,10 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     /// </summary>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task StartAsync(CancellationToken cancellationToken) {
-        Logger.LogTrace($"Starting Serial endpoint @ {PortName}");
+        Logger.LogTrace($"[Serial] Starting Serial endpoint @ {PortName}");
         Port = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits);
         Port.Open();
-        Logger.LogTrace($"Started Serial endpoint @ {PortName}");
+        Logger.LogTrace($"[Serial] Started Serial endpoint @ {PortName}");
         await Task.CompletedTask.ConfigureAwait(false);
     }
 
