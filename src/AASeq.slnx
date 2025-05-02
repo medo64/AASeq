@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="AASeq/AASeq.csproj" />
+  <Project Path="AASeq.Diameter/AASeq.Diameter.csproj" />
   <Project Path="AASeq.Document/AASeq.Document.csproj" />
   <Project Path="AASeq.Engine/AASeq.Engine.csproj" />
   <Project Path="AASeq.Plugin/AASeq.Plugin.csproj" />
@@ -10,9 +11,9 @@
     <Project Path="../examples/AASeq.Document.BasicParsing/AASeq.Document.BasicParsing.csproj" />
   </Folder>
   <Folder Name="/Tests/" Id="f4193310-f20b-425e-b55a-606624987d67">
+    <Project Path="../tests/AASeq.Diameter.UnitTests/AASeq.Diameter.UnitTests.csproj" />
     <Project Path="../tests/AASeq.Document.FileTests/AASeq.Document.FileTests.csproj" />
     <Project Path="../tests/AASeq.Document.UnitTests/AASeq.Document.UnitTests.csproj" />
     <Project Path="../tests/AASeq.Engine.UnitTests/AASeq.Engine.UnitTests.csproj" />
-    <Project Path="../tests/AASeq.Plugin.Diameter.UnitTests/AASeq.Plugin.Diameter.UnitTests.csproj" />
   </Folder>
 </Solution>

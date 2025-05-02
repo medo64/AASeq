@@ -1,4 +1,4 @@
-namespace AASeqPlugin;
+namespace AASeq.Diameter;
 using System;
 using System.Collections.Generic;
 using System.Buffers.Binary;
@@ -8,8 +8,16 @@ using System.Net;
 using System.Net.Sockets;
 using AASeq;
 
+/// <summary>
+/// Diameter encoder/decoder.
+/// </summary>
 public static class DiameterEncoder {
 
+    /// <summary>
+    /// Encodes AASeqNodes into a diameter message.
+    /// </summary>
+    /// <param name="messageName">Message name.</param>
+    /// <param name="nodes">Nodes.</param>
     public static DiameterMessage Encode(string messageName, AASeqNodes nodes) {
         var isRequest = messageName.EndsWith("-Request", StringComparison.OrdinalIgnoreCase);
         var nameParts = messageName.Split(':', 2, StringSplitOptions.None);
@@ -34,6 +42,12 @@ public static class DiameterEncoder {
         return new DiameterMessage((byte)(isRequest ? 0x80 : 0x00), commandEntry.Code, applicationEntry.Id, avps);
     }
 
+    /// <summary>
+    /// Decodes a diameter message into AASeqNodes.
+    /// </summary>
+    /// <param name="message">Diameter message.</param>
+    /// <param name="messageName">Message name.</param>
+    /// <returns></returns>
     public static AASeqNodes Decode(DiameterMessage message, out string messageName) {
         var applicationEntry = DictionaryLookup.Instance.FindApplicationById(message.ApplicationId);
         var commandEntry = DictionaryLookup.Instance.FindCommandByCode(message.CommandCode);

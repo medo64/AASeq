@@ -1,4 +1,4 @@
-namespace AASeqPlugin;
+namespace AASeq.Diameter;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -184,7 +184,7 @@ internal class DictionaryLookup {
 
     private static IEnumerable<string> GetDictionaryResourceNames() {
         foreach (var resName in Assembly.GetExecutingAssembly().GetManifestResourceNames()) {
-            if (resName.StartsWith("AASeqPlugin.Assets.", StringComparison.Ordinal) && resName.EndsWith("Dictionary.aaseq", StringComparison.Ordinal)) {
+            if (resName.EndsWith("Dictionary.aaseq", StringComparison.Ordinal)) {
                 yield return resName;
             }
         }

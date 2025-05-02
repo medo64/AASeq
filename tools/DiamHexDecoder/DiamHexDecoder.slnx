@@ -1,6 +1,5 @@
 <Solution>
   <Project Path="DiamHexDecoder.csproj" />
+  <Project Path="..\..\src\AASeq.Diameter\AASeq.Diameter.csproj" />
   <Project Path="..\..\src\AASeq.Document\AASeq.Document.csproj" />
-  <Project Path="..\..\src\AASeq.Plugin\AASeq.Plugin.csproj" />
-  <Project Path="..\..\src\AASeq.Plugin.Diameter\AASeq.Plugin.Diameter.csproj" />
 </Solution>

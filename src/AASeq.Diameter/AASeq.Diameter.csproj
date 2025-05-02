@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>AASeq.Plugin.Diameter</AssemblyName>
-    <RootNamespace>AASeqPlugin</RootNamespace>
+    <AssemblyName>AASeq.Diameter</AssemblyName>
+    <RootNamespace>AASeq.Diameter</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -25,20 +25,22 @@
     </When>
     <Otherwise>
       <PropertyGroup>
-        <AnalysisMode>Recommended</AnalysisMode>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
+        <AnalysisMode>All</AnalysisMode>
       </PropertyGroup>
     </Otherwise>
   </Choose>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Logging" Version="9.0.4" />
-    <ProjectReference Include="../AASeq.Diameter/AASeq.Diameter.csproj" />
     <ProjectReference Include="../AASeq.Document/AASeq.Document.csproj" />
-    <ProjectReference Include="../AASeq.Plugin/AASeq.Plugin.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <InternalsVisibleTo Include="AASeq.Plugin.Diameter.UnitTests" />
+    <EmbeddedResource Include="Assets/*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="AASeq.Diameter.UnitTests" />
   </ItemGroup>
 
 </Project>

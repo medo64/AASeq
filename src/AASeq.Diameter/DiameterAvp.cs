@@ -1,4 +1,4 @@
-namespace AASeqPlugin;
+namespace AASeq.Diameter;
 using System;
 using System.Buffers.Binary;
 

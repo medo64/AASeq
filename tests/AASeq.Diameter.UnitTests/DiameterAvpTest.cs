@@ -1,7 +1,7 @@
 namespace Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using AASeqPlugin;
+using AASeq.Diameter;
 
 [TestClass]
 public class DiameterAvpTest {

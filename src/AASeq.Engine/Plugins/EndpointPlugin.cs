@@ -24,8 +24,9 @@ internal sealed class EndpointPlugin : PluginBase {
     /// </summary>
     /// <param name="type">Plugin reflection type.</param>
     /// <param name="createInstanceMethodInfo">Reflection data for CreateInstance method.</param>
+    /// <param name="startMethodInfo">Reflection data for Start method.</param>
     /// <param name="sendMethodInfo">Reflection data for Send method.</param>
-    /// <param name="receiveMethodInfo">Reflection data for ReceiveMethod method.</param>
+    /// <param name="receiveMethodInfo">Reflection data for Receive method.</param>
     public EndpointPlugin(Type type, MethodInfo createInstanceMethodInfo, MethodInfo startMethodInfo, MethodInfo sendMethodInfo, MethodInfo receiveMethodInfo)
         : base(type) {
         CreateInstanceMethodInfo = createInstanceMethodInfo;

@@ -6,8 +6,9 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using AASeq;
 using Microsoft.Extensions.Logging;
+using AASeq;
+using AASeq.Diameter;
 
 /// <summary>
 /// Diameter client.

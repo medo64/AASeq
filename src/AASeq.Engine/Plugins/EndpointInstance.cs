@@ -14,8 +14,9 @@ internal sealed class EndpointInstance : PluginInstanceBase {
     /// Creates a new instance.
     /// </summary>
     /// <param name="instance">Instance.</param>
+    /// <param name="startMethodInfo">Reflection data for Start method.</param>
     /// <param name="sendMethodInfo">Reflection data for Send method.</param>
-    /// <param name="receiveMethodInfo">Reflection data for ReceiveMethod method.</param>
+    /// <param name="receiveMethodInfo">Reflection data for Receive method.</param>
     internal EndpointInstance(Object instance, MethodInfo startMethodInfo, MethodInfo sendMethodInfo, MethodInfo receiveMethodInfo)
         : base(instance) {
         StartMethodInfo = startMethodInfo;

@@ -2,7 +2,7 @@ namespace Tests;
 using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using AASeqPlugin;
+using AASeq.Diameter;
 
 [TestClass]
 public sealed class DictionaryLookupTests {

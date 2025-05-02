@@ -1,11 +1,11 @@
-namespace AASeqPlugin;
+namespace AASeq.Diameter;
 using System;
 using System.IO;
 
 /// <summary>
 /// Diameter protocol stream.
 /// </summary>
-internal sealed class DiameterStream : Stream, IDisposable {
+public sealed class DiameterStream : Stream, IDisposable {
 
     /// <summary>
     /// Creates new instance.

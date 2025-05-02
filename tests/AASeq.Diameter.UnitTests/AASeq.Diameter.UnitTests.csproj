@@ -1,7 +1,7 @@
 <Project Sdk="MSTest.Sdk/3.7.3">
 
   <PropertyGroup>
-    <AssemblyName>AASeq.Plugin.Diameter.UnitTests</AssemblyName>
+    <AssemblyName>AASeq.Diameter.UnitTests</AssemblyName>
     <RootNamespace>Tests</RootNamespace>
   </PropertyGroup>
 
@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../src/AASeq.Plugin.Diameter/AASeq.Plugin.Diameter.csproj" />
+    <ProjectReference Include="../../src/AASeq.Diameter/AASeq.Diameter.csproj" />
   </ItemGroup>
 
 </Project>

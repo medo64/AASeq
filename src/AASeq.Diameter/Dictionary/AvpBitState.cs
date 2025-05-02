@@ -1,4 +1,4 @@
-namespace AASeqPlugin;
+namespace AASeq.Diameter;
 
 internal enum AvpBitState {
     MustNot,

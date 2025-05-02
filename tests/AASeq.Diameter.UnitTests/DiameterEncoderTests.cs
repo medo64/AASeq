@@ -1,8 +1,8 @@
 namespace Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using AASeqPlugin;
 using AASeq;
+using AASeq.Diameter;
 
 [TestClass]
 public class DiameterEncoderTests {

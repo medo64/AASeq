@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Text;
-using AASeqPlugin;
+using AASeq.Diameter;
 
 internal static class Helpers {
 
