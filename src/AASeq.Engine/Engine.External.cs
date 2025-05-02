@@ -55,10 +55,27 @@ public sealed partial class Engine {
     public bool IsRunning { get { return Interlocked.CompareExchange(ref CurrentIsRunning, 0, 0) == 1; } }
 
 
+    private readonly Lock EndpointsStartedLock = new();
+    private bool EndpointsStarted;
+    private void StartEndpointsIfNeeded() {
+        lock (EndpointsStartedLock) {
+            if (!EndpointsStarted) {
+                foreach (var endpoint in Endpoints) {
+                    using var cts = (SendTimeout < TimeSpan.MaxValue)
+                                  ? new CancellationTokenSource(SendTimeout)
+                                  : new CancellationTokenSource();
+                    ((EndpointStore)endpoint).Instance.Start(cts.Token);
+                }
+                EndpointsStarted = true;
+            }
+        }
+    }
+
     /// <summary>
     /// Starts running the engine.
     /// </summary>
     public void Start() {
+        StartEndpointsIfNeeded();
         if (FlowSequence.Count > 0) {
             StepEvent.Reset(0);
             CanStopEvent.WaitOne();
@@ -89,6 +106,7 @@ public sealed partial class Engine {
     /// Performs a single step.
     /// </summary>
     public void Step() {
+        StartEndpointsIfNeeded();
         if (FlowSequence.Count > 0) {
             StepEvent.Reset(1);
         }

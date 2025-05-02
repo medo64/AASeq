@@ -33,9 +33,6 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
             IsBackground = true,
             Name = "DiameterClientThread",
         };
-        Thread.Start();
-
-        Thread.Sleep(1000);
     }
 
     private readonly Diameter PluginClass;
@@ -44,6 +41,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
     private readonly AASeqNodes CapabilityExchangeRequestNodes;
     private readonly AASeqNodes DeviceWatchdogRequestNodes;
     private readonly Thread Thread;
+    private readonly ManualResetEvent PassedCE = new(false);  // tracks if CER was successful
     private readonly CancellationTokenSource Cancellation = new();
 
     private void Run() {
@@ -90,6 +88,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                             Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (no Result-Code)");
                         } else if (resultCode == 2001) {
                             Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (DIAMETER_SUCCESS)");
+                            PassedCE.Set();
                             PluginClass.DiameterStream = diameter;
                         } else {
                             Log.MessageIn(Logger, Remote, $"Capabilities-Exchange-Answer ({resultCode})");
@@ -104,6 +103,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                     }
                 }
             } catch (Exception ex) {
+                PassedCE.Reset();
                 PluginClass.DiameterStream = null;
                 if (cancel.IsCancellationRequested) { return; }
                 Log.ReadError(Logger, Remote, ex, ex.Message);
@@ -124,10 +124,17 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
 
     #region IDiameterThread
 
+    public void Start(CancellationToken cancellationToken) {
+        Thread.Start();
+        PassedCE.WaitOne();
+    }
+
     public void Stop() {
         Cancellation.Cancel();
         Thread.Join();
     }
+
+    public IPEndPoint Endpoint => Remote;
 
     #endregion IDiameterThread
 

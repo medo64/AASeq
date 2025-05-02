@@ -137,6 +137,10 @@ public sealed class PluginManager {
         if (mCreateInstance is null) { return null; }
         if (!mCreateInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
 
+        var mStart = type.GetMethod("StartAsync", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(CancellationToken)]);
+        if (mStart is null) { return null; }
+        if (!mStart.ReturnType.Equals(typeof(Task))) { return null; }
+
         var mSend = type.GetMethod("SendAsync", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mSend is null) { return null; }
         if (!mSend.ReturnType.Equals(typeof(Task))) { return null; }
@@ -145,7 +149,7 @@ public sealed class PluginManager {
         if (mReceive is null) { return null; }
         if (!mReceive.ReturnType.Equals(typeof(Task<Tuple<string, AASeqNodes>>))) { return null; }
 
-        return new EndpointPlugin(type, mCreateInstance, mSend, mReceive);
+        return new EndpointPlugin(type, mCreateInstance, mStart, mSend, mReceive);
     }
 
     #endregion Helpers

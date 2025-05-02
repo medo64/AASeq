@@ -12,15 +12,9 @@ using Microsoft.Extensions.Logging;
 /// </summary>
 internal sealed class Serial : IEndpointPlugin, IDisposable {
 
-    /// <summary>
-    /// Gets the instance.
-    /// </summary>
-    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
-        return new Serial(configuration);
-    }
+    private Serial(ILogger logger, AASeqNodes configuration) {
+        Logger = logger;
 
-
-    private Serial(AASeqNodes configuration) {
         string? firstSerialPort = null;
         foreach (var port in SerialPort.GetPortNames()) {
             firstSerialPort = port;
@@ -28,9 +22,9 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
         }
         if (firstSerialPort is null) { throw new InvalidOperationException("No serial ports available."); }
 
-        var portName = configuration["PortName"].AsString(firstSerialPort);
-        var baudRate = configuration["BaudRate"].AsInt32(DefaultBaudRate);
-        var parity = configuration["Parity"].AsString(DefaultParity) switch {
+        PortName = configuration["PortName"].AsString(firstSerialPort);
+        BaudRate = configuration["BaudRate"].AsInt32(DefaultBaudRate);
+        Parity = configuration["Parity"].AsString(DefaultParity) switch {
             "N" or "None" => Parity.None,
             "O" or "Odd" => Parity.Odd,
             "E" or "Even" => Parity.Even,
@@ -38,8 +32,8 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
             "S" or "Space" => Parity.Space,
             _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unknown parity: {configuration["Parity"]}."),
         };
-        var dataBits = configuration["DataBits"].AsInt32(DefaultDataBits);
-        var stopBits = configuration["StopBits"].AsDouble(DefaultStopBits) switch {
+        DataBits = configuration["DataBits"].AsInt32(DefaultDataBits);
+        StopBits = configuration["StopBits"].AsDouble(DefaultStopBits) switch {
             1.0 => StopBits.One,
             1.5 => StopBits.OnePointFive,
             2.0 => StopBits.Two,
@@ -52,22 +46,40 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
             "CR" or "\r" => "\r",
             _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unsupported line ending."),
         };
-
-        Port = new SerialPort(portName, baudRate, parity, dataBits, stopBits);
-        Port.Open();
     }
 
-    private readonly SerialPort Port;
+    private readonly ILogger Logger;
+    private readonly string PortName;
+    private readonly int BaudRate;
+    private readonly Parity Parity;
+    private readonly int DataBits;
+    private readonly StopBits StopBits;
     private readonly string Eol;
+    private SerialPort? Port;
+
 
     /// <summary>
-    /// Returns true, if message was successfully sent.
+    /// Starts the endpoint.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task StartAsync(CancellationToken cancellationToken) {
+        Logger.LogTrace($"Starting Serial endpoint @ {PortName}");
+        Port = new SerialPort(PortName, BaudRate, Parity, DataBits, StopBits);
+        Port.Open();
+        Logger.LogTrace($"Started Serial endpoint @ {PortName}");
+        await Task.CompletedTask.ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Sends message to the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+        if (Port is null) { throw new InvalidOperationException("Port not set."); }
+
         switch (messageName.ToUpperInvariant()) {
             case "WRITELINE": {
                     var bytes = Utf8.GetBytes(parameters["Text"].AsString("") + Eol);
@@ -97,13 +109,15 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     private int BytesIndex;
 
     /// <summary>
-    /// Returns true, if message was successfully received.
+    /// Receives message from the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+        if (Port is null) { throw new InvalidOperationException("Port not set."); }
+
         // id is ignored because serial port is always sequential
 
         switch (messageName.ToUpperInvariant()) {
@@ -174,6 +188,18 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     }
 
 
+    #region IDisposable
+
+    void IDisposable.Dispose() {
+        if (Port is not null) {
+            Port.Dispose();
+            Port = null;
+        }
+    }
+
+    #endregion IDisposable
+
+
     private const int DefaultBaudRate = 9600;
     private const string DefaultParity = "None";
     private const int DefaultDataBits = 8;
@@ -183,12 +209,11 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
 
-    #region IDisposable
-
-    void IDisposable.Dispose() {
-        Port.Dispose();
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
+        return new Serial(logger, configuration);
     }
-
-    #endregion IDisposable
 
 }

@@ -5,23 +5,16 @@ using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using AASeq;
 using Microsoft.Extensions.Logging;
+using AASeq;
 
 /// <summary>
 /// Diameter endpoint.
 /// </summary>
 internal sealed class Diameter : IEndpointPlugin, IDisposable {
 
-    /// <summary>
-    /// Gets the instance.
-    /// </summary>
-    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
-        return new Diameter(logger, configuration);
-    }
-
-
     private Diameter(ILogger logger, AASeqNodes configuration) {
+        Logger = logger;
         var remoteIP = configuration["Remote"].AsIPAddress();
         var localIP = configuration["Local"].AsIPAddress();
 
@@ -42,6 +35,7 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     }
 
 
+    private readonly ILogger Logger;
     private readonly IDiameterThread DiameterThread;
 
     /// <summary>
@@ -63,7 +57,18 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
 
 
     /// <summary>
-    /// Returns true, if message was successfully sent.
+    /// Starts the endpoint.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task StartAsync(CancellationToken cancellationToken) {
+        Logger.LogTrace($"Starting Diameter endpoint @ {DiameterThread.Endpoint}");
+        DiameterThread.Start(cancellationToken);
+        Logger.LogTrace($"Started Diameter endpoint @ {DiameterThread.Endpoint}");
+        await Task.CompletedTask.ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Sends message to the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
@@ -79,7 +84,7 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     }
 
     /// <summary>
-    /// Returns true, if message was successfully received.
+    /// Receives message from the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
@@ -96,6 +101,14 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
             }
         }
         throw new InvalidOperationException("No reply.");
+    }
+
+
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
+        return new Diameter(logger, configuration);
     }
 
 }

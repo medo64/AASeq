@@ -37,7 +37,15 @@ internal sealed class Ping : IEndpointPlugin {
 
 
     /// <summary>
-    /// Returns true, if message was successfully sent.
+    /// Starts the endpoint.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public async Task StartAsync(CancellationToken cancellationToken) {
+        await Task.CompletedTask.ConfigureAwait(false);
+    }
+
+    /// <summary>
+    /// Sends message to the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
@@ -70,7 +78,7 @@ internal sealed class Ping : IEndpointPlugin {
     }
 
     /// <summary>
-    /// Returns true, if message was successfully received.
+    /// Receives message from the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>

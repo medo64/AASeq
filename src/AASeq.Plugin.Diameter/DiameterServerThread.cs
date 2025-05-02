@@ -1,6 +1,7 @@
 namespace AASeqPlugin;
 using System;
 using System.Net;
+using System.Threading;
 using AASeq;
 using Microsoft.Extensions.Logging;
 
@@ -23,8 +24,13 @@ internal sealed class DiameterServerThread : IDiameterThread, IDisposable {
 
     #region IDiameterThread
 
+    public void Start(CancellationToken cancellationToken) {
+    }
+
     public void Stop() {
     }
+
+    public IPEndPoint Endpoint { get { return new IPEndPoint(IPAddress.Any, 0); } }
 
     #endregion IDiameterThread
 

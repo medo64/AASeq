@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 /// <summary>
 /// Endpoint plugin instance.
 /// </summary>
-internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInstance {
+internal sealed class EndpointInstance : PluginInstanceBase {
 
     /// <summary>
     /// Creates a new instance.
@@ -16,19 +16,31 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     /// <param name="instance">Instance.</param>
     /// <param name="sendMethodInfo">Reflection data for Send method.</param>
     /// <param name="receiveMethodInfo">Reflection data for ReceiveMethod method.</param>
-    internal EndpointInstance(Object instance, MethodInfo sendMethodInfo, MethodInfo receiveMethodInfo)
+    internal EndpointInstance(Object instance, MethodInfo startMethodInfo, MethodInfo sendMethodInfo, MethodInfo receiveMethodInfo)
         : base(instance) {
+        StartMethodInfo = startMethodInfo;
         SendMethodInfo = sendMethodInfo;
         ReceiveMethodInfo = receiveMethodInfo;
     }
 
 
+    private readonly MethodInfo StartMethodInfo;
     private readonly MethodInfo SendMethodInfo;
     private readonly MethodInfo ReceiveMethodInfo;
 
 
     /// <summary>
-    /// Returns true, if message was successfully sent.
+    /// Starts the endpoint.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public void Start(CancellationToken cancellationToken) {
+        if (StartMethodInfo is null) { throw new NotSupportedException(); }
+        var task = (Task)StartMethodInfo.Invoke(Instance, [cancellationToken])!;
+        task.GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// Sends message to the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
@@ -41,7 +53,7 @@ internal sealed class EndpointInstance : PluginInstanceBase, IEndpointPluginInst
     }
 
     /// <summary>
-    /// Returns true, if message was successfully received.
+    /// Receives message from the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>

@@ -10,7 +10,13 @@ using System.Threading.Tasks;
 public interface IEndpointPluginInstance {
 
     /// <summary>
-    /// Returns true, if message was successfully sent.
+    /// Starts the endpoint.
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token.</param>
+    public Task StartAsync(CancellationToken cancellationToken);
+
+    /// <summary>
+    /// Sends message to the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
@@ -19,7 +25,7 @@ public interface IEndpointPluginInstance {
     public Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken);
 
     /// <summary>
-    /// Returns true, if message was successfully received.
+    /// Receives message from the endpoint.
     /// </summary>
     /// <param name="id">ID.</param>
     /// <param name="messageName">Message name.</param>
