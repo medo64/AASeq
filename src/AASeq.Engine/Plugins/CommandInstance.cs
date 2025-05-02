@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 /// <summary>
 /// Command plugin instance.
 /// </summary>
-internal sealed class CommandInstance : PluginInstanceBase, ICommandPluginInstance {
+internal sealed class CommandInstance : PluginInstanceBase {
 
     /// <summary>
     /// Creates a new instance.
@@ -30,10 +30,10 @@ internal sealed class CommandInstance : PluginInstanceBase, ICommandPluginInstan
     /// </summary>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task ExecuteAsync(AASeqNodes parameters, CancellationToken cancellationToken) {
+    public void Execute(AASeqNodes parameters, CancellationToken cancellationToken) {
         if (ExecuteMethodInfo is null) { throw new NotSupportedException(); }
         var task = (Task)ExecuteMethodInfo.Invoke(Instance, [parameters, cancellationToken])!;
-        await task.ConfigureAwait(false);
+        task.GetAwaiter().GetResult();
     }
 
 }

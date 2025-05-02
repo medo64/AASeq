@@ -65,9 +65,7 @@ public sealed partial class Engine {
 
                             var sw = Stopwatch.StartNew();
                             try {
-                                commandAction.Instance
-                                    .ExecuteAsync(actionNode.Nodes, token)  // TODO: process data instead of clone
-                                    .Wait(token);
+                                commandAction.Instance.Execute(actionNode.Nodes, token);
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
                             } catch (OperationCanceledException) {
@@ -99,9 +97,7 @@ public sealed partial class Engine {
 
                             var sw = Stopwatch.StartNew();
                             try {
-                                messageOutAction.DestinationInstance
-                                    .SendAsync(id, messageOutAction.MessageName, actionNode.Nodes, token)  // TODO: process data instead of clone
-                                    .Wait(token);
+                                messageOutAction.DestinationInstance.Send(id, messageOutAction.MessageName, actionNode.Nodes, token);
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
                             } catch (OperationCanceledException) {
@@ -134,10 +130,7 @@ public sealed partial class Engine {
                             var sw = Stopwatch.StartNew();
                             try {
                                 var messageName = messageInAction.MessageName;
-                                var task = messageInAction.SourceInstance
-                                    .ReceiveAsync(id, messageName, actionNode.Nodes, token);
-                                task.Wait(token);
-                                (messageName, var nodes) = task.Result;
+                                (messageName, var nodes) = messageInAction.SourceInstance.Receive(id, messageName, actionNode.Nodes, token);
                                 sw.Stop();
                                 var responseNode = new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes);
                                 responseNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));

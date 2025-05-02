@@ -46,10 +46,10 @@ internal sealed class EndpointInstance : PluginInstanceBase {
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+    public void Send(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         if (SendMethodInfo is null) { throw new NotSupportedException(); }
         var task = (Task)SendMethodInfo.Invoke(Instance, [id, messageName, parameters, cancellationToken])!;
-        await task.ConfigureAwait(false);
+        task.GetAwaiter().GetResult();
     }
 
     /// <summary>
@@ -59,10 +59,10 @@ internal sealed class EndpointInstance : PluginInstanceBase {
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+    public Tuple<string, AASeqNodes> Receive(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         if (ReceiveMethodInfo is null) { throw new NotSupportedException(); }
         var task = (Task<Tuple<string, AASeqNodes>>)ReceiveMethodInfo.Invoke(Instance, [id, messageName, parameters, cancellationToken])!;
-        return await task.ConfigureAwait(false);
+        return task.GetAwaiter().GetResult();
     }
 
 }
