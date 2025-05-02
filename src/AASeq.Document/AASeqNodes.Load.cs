@@ -186,7 +186,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                         nodeTree.Peek().Nodes.Add(newNode);
                         lastNode = newNode;
                         hadValue = false;
-                        Debug.WriteLine($"[AASeq.Document] Added node '{newNode.Name}'");
+                        //Debug.WriteLine($"[AASeq.Document] Added node '{newNode.Name}'");
                     } catch (ArgumentException ex) {
                         throw new InvalidOperationException($"Cannot add node at line {nLine}, character {nChar}.", ex);
                     } finally {
@@ -206,7 +206,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                             lastNode.Value = new AASeqValue(newValue);
                             hadValue = true;
                         }
-                        Debug.WriteLine($"[AASeq.Document] Added value '{newValue}'");
+                        //Debug.WriteLine($"[AASeq.Document] Added value '{newValue}'");
                     } catch (ArgumentException ex) {
                         throw new InvalidOperationException($"Cannot convert value at line {nLine}, character {nChar}.", ex);
                     } finally {
@@ -227,7 +227,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                         } else {
                             lastNode.Properties.Add(propertyNameRes, propertyValue);
                         }
-                        Debug.WriteLine($"[AASeq.Document] Added property '{propertyValueRes}'='{propertyValue}'");
+                        //Debug.WriteLine($"[AASeq.Document] Added property '{propertyValueRes}'='{propertyValue}'");
                     } finally {
                         sbArgument.Length = 0;
                         sbPropertyValue.Length = 0;
@@ -567,7 +567,7 @@ public sealed partial class AASeqNodes : IParsable<AASeqNodes> {
                 StringBuilderPool.Return(sbQuotedString);
             }
         } finally {
-            Debug.WriteLine($"[AASeq.Document] Load: {sw.ElapsedMilliseconds} ms");
+            //Debug.WriteLine($"[AASeq.Document] Load: {sw.ElapsedMilliseconds} ms");
             Metrics.NodesLoadMilliseconds.Record(sw.ElapsedMilliseconds);
             Metrics.NodesLoadCount.Add(1);
         }
