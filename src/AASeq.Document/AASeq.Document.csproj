@@ -30,7 +30,6 @@
     </When>
     <Otherwise>
       <PropertyGroup>
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <AnalysisMode>AllEnabledByDefault</AnalysisMode>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
       </PropertyGroup>
