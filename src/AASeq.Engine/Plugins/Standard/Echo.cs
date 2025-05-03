@@ -41,6 +41,7 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+        Logger.LogTrace($"Storing message {id}");
         Storage[id] = (messageName, parameters);
         await Task.CompletedTask.ConfigureAwait(false);
     }
@@ -53,13 +54,14 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+        Logger.LogTrace($"Retrieving message {id}");
         if (Storage.Remove(id, out var value)) {
             messageName = value.Item1;
             var data = value.Item2;
             if (Delay.Ticks > 0) {
                 await Task.Delay(Delay, cancellationToken).ConfigureAwait(false);
             }
-            await Task.FromResult(new Tuple<string, AASeqNodes>(messageName, data)).ConfigureAwait(false);
+            return new Tuple<string, AASeqNodes>(messageName, data);
         }
 
         throw new InvalidOperationException("Message not received.");
