@@ -1,6 +1,8 @@
 namespace AASeq;
 using System;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 
 /// <summary>
@@ -14,14 +16,11 @@ internal sealed class CommandPlugin : PluginBase {
     /// <param name="type">Plugin reflection type.</param>
     /// <param name="createInstanceMethodInfo">Reflection data for CreateInstance method.</param>
     /// <param name="executeMethodInfo">Reflection data for Execute method.</param>
-    public CommandPlugin(Type type, MethodInfo createInstanceMethodInfo, MethodInfo executeMethodInfo)
+    public CommandPlugin(Type type, MethodInfo executeMethodInfo)
         : base(type) {
-        CreateInstanceMethodInfo = createInstanceMethodInfo;
         ExecuteMethodInfo = executeMethodInfo;
     }
 
-
-    private readonly MethodInfo CreateInstanceMethodInfo;
 
     private readonly MethodInfo ExecuteMethodInfo;
 
@@ -29,9 +28,9 @@ internal sealed class CommandPlugin : PluginBase {
     /// <summary>
     /// Returns a new instance of the plugin.
     /// </summary>
-    public CommandInstance CreateInstance(ILogger logger) {
-        var instance = CreateInstanceMethodInfo.Invoke(null, [logger])!;
-        return new CommandInstance(instance, ExecuteMethodInfo);
+    public AASeqNodes Execute(ILogger logger, AASeqNodes parameters, CancellationToken cancellationToken) {
+        var task = (Task<AASeqNodes>)ExecuteMethodInfo.Invoke(null, [logger, parameters, cancellationToken])!;
+        return task.GetAwaiter().GetResult();
     }
 
 }

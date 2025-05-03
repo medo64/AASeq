@@ -65,9 +65,13 @@ public sealed partial class Engine {
 
                             var sw = Stopwatch.StartNew();
                             try {
-                                commandAction.Instance.Execute(actionNode.Nodes, token);
-                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
-                                OnActionDone(flowIndex, actionIndex, action, actionNode);
+                                var responseNode = new AASeqNode(
+                                    commandAction.CommandName,
+                                    AASeqValue.Null,
+                                    commandAction.Plugin.Execute(commandAction.Logger, actionNode.Nodes, token)
+                                );
+                                responseNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                OnActionDone(flowIndex, actionIndex, action, responseNode);
                             } catch (OperationCanceledException) {
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 actionNode.Properties.Add("exception", "Timeout");

@@ -139,12 +139,10 @@ public sealed partial class Engine : IDisposable {
                 }
                 var data = node.Nodes;
                 flowSequence.Add(new FlowCommand(
-                    plugin.Name,
-                    plugin.CreateInstance(new Logger(logger, plugin.Name)),
+                    logger,
+                    plugin,
                     data
                 ));
-
-                //} else if (string.IsNullOrEmpty(leftX)) {
 
             } else if (isMessageOut) {
 

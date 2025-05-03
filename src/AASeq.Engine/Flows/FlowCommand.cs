@@ -1,6 +1,7 @@
 namespace AASeq;
 using System;
 using System.Diagnostics;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 /// Flow.
@@ -16,20 +17,21 @@ internal sealed class FlowCommand : IFlowCommandAction {
     /// <param name="templateData">Data nodes.</param>
     /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters.</exception>
-    internal FlowCommand(string commandName, CommandInstance commandInstance, AASeqNodes templateData) {
-        CommandName = commandName;
-        Instance = commandInstance;
+    internal FlowCommand(ILogger logger, CommandPlugin plugin, AASeqNodes templateData) {
+        Logger = new Logger(logger, plugin.Name);
+        Plugin = plugin;
         TemplateData = templateData;
     }
 
 
+    internal ILogger Logger { get; }
+    internal CommandPlugin Plugin { get; }
+    internal AASeqNodes TemplateData { get; }
+
     /// <summary>
     /// Gets command name.
     /// </summary>
-    public string CommandName { get; }
-
-    internal CommandInstance Instance { get; }
-    internal AASeqNodes TemplateData { get; }
+    public string CommandName => Plugin.Name;
 
 
     AASeqNode IFlowAction.DefinitionNode {

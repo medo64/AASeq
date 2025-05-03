@@ -119,15 +119,11 @@ public sealed class PluginManager {
     private static CommandPlugin? GetCommandPlugin(Type type) {
         if (!type.IsClass) { return null; }
 
-        var mCreateInstance = type.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, [typeof(ILogger)]);
-        if (mCreateInstance is null) { return null; }
-        if (!mCreateInstance.ReturnType.IsAssignableTo(typeof(object))) { return null; }
-
-        var mExecute = type.GetMethod("ExecuteAsync", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(AASeqNodes), typeof(CancellationToken)]);
+        var mExecute = type.GetMethod("ExecuteAsync", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, [typeof(ILogger), typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mExecute is null) { return null; }
-        if (!mExecute.ReturnType.Equals(typeof(Task))) { return null; }
+        if (!mExecute.ReturnType.Equals(typeof(Task<AASeqNodes>))) { return null; }
 
-        return new CommandPlugin(type, mCreateInstance, mExecute);
+        return new CommandPlugin(type, mExecute);
     }
 
     private static EndpointPlugin? GetEndpointPlugin(Type type) {
