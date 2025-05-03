@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using AASeq;
 using AASeq.Diameter;
+using System.Text;
 
 /// <summary>
 /// Diameter endpoint.
@@ -76,7 +77,7 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+    public async Task<AASeqNodes> SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         while (DiameterStream is null) {
             await Task.Delay(100, cancellationToken).ConfigureAwait(false);
         }
@@ -84,6 +85,7 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
         StorageAwaiting[(message.HopByHopIdentifier, message.EndToEndIdentifier)] = id;
         DiameterStream.WriteMessage(message);
         Interlocked.Exchange(ref LastMessageTimestamp, Environment.TickCount64);
+        return DiameterEncoder.Decode(message, out _);
     }
 
     /// <summary>

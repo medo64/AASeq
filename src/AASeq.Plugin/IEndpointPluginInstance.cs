@@ -22,7 +22,7 @@ public interface IEndpointPluginInstance {
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken);
+    public Task<AASeqNodes> SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken);
 
     /// <summary>
     /// Receives message from the endpoint.

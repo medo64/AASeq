@@ -6,6 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AASeq;
 using Microsoft.Extensions.Logging;
+using static System.Net.Mime.MediaTypeNames;
 
 /// <summary>
 /// Ping endpoint.
@@ -77,29 +78,34 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+    public async Task<AASeqNodes> SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         if (Port is null) { throw new InvalidOperationException("Port not set."); }
 
         switch (messageName.ToUpperInvariant()) {
             case "WRITELINE": {
-                    var bytes = Utf8.GetBytes(parameters["Text"].AsString("") + Eol);
+                    var text = parameters["Text"].AsString("");
+                    var bytes = Utf8.GetBytes(text + Eol);
                     await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+                    return new AASeqNodes(
+                        [new AASeqNode("Text", text)]
+                    );
                 }
-                break;
 
             case "WRITEBYTES": {
                     var bytes = parameters["Bytes"].AsByteArray() ?? throw new ArgumentNullException(nameof(parameters), "Bytes are null.");
                     if (bytes.Length == 0) { throw new ArgumentOutOfRangeException(nameof(parameters), "Bytes are empty."); }
                     await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+                    return new AASeqNodes(
+                        [new AASeqNode("Bytes", bytes)]
+                    );
                 }
-                break;
 
             case "DISCARD": {
                     Port.DiscardInBuffer();
                     Port.DiscardOutBuffer();
                     BytesIndex = 0;
+                    return new AASeqNodes();
                 }
-                break;
 
             default: throw new ArgumentOutOfRangeException(nameof(messageName), $"Unknown message: {messageName}");
         }

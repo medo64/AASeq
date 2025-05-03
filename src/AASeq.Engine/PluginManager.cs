@@ -139,7 +139,7 @@ public sealed class PluginManager {
 
         var mSend = type.GetMethod("SendAsync", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(String), typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mSend is null) { return null; }
-        if (!mSend.ReturnType.Equals(typeof(Task))) { return null; }
+        if (!mSend.ReturnType.Equals(typeof(Task<AASeqNodes>))) { return null; }
 
         var mReceive = type.GetMethod("ReceiveAsync", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance, [typeof(Guid), typeof(string), typeof(AASeqNodes), typeof(CancellationToken)]);
         if (mReceive is null) { return null; }

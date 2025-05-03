@@ -47,10 +47,10 @@ internal sealed class EndpointInstance : PluginInstanceBase {
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public void Send(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+    public AASeqNodes Send(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         if (SendMethodInfo is null) { throw new NotSupportedException(); }
-        var task = (Task)SendMethodInfo.Invoke(Instance, [id, messageName, parameters, cancellationToken])!;
-        task.GetAwaiter().GetResult();
+        var task = (Task<AASeqNodes>)SendMethodInfo.Invoke(Instance, [id, messageName, parameters, cancellationToken])!;
+        return task.GetAwaiter().GetResult();
     }
 
     /// <summary>

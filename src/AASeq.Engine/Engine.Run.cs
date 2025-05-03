@@ -101,7 +101,11 @@ public sealed partial class Engine {
 
                             var sw = Stopwatch.StartNew();
                             try {
-                                messageOutAction.DestinationInstance.Send(id, messageOutAction.MessageName, actionNode.Nodes, token);
+                                var responseNode = new AASeqNode(
+                                    messageOutAction.MessageName,
+                                    (messageOutAction.SkipMatching ? ">>" : ">") + messageOutAction.DestinationName,
+                                    messageOutAction.DestinationInstance.Send(id, messageOutAction.MessageName, actionNode.Nodes, token)
+                                );
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 OnActionDone(flowIndex, actionIndex, action, actionNode);
                             } catch (OperationCanceledException) {

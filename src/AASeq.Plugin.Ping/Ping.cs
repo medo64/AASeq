@@ -51,7 +51,7 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+    public async Task<AASeqNodes> SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         var pingOptions = new PingOptions {
             DontFragment = parameters["DontFragment"].AsBoolean(DontFragment),
             Ttl = parameters["TTL"].AsInt32(TimeToLive),
@@ -75,6 +75,11 @@ internal sealed class Ping : IEndpointPlugin {
 #pragma warning restore CS4014
 
         await Task.CompletedTask.ConfigureAwait(false);
+        return new AASeqNodes {
+            new AASeqNode("DontFragment", pingOptions.DontFragment),
+            new AASeqNode("TTL", pingOptions.Ttl),
+            new AASeqNode("Timeout", timeout),
+        };
     }
 
     /// <summary>

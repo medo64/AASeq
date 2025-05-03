@@ -40,10 +40,11 @@ internal sealed class Echo : IEndpointPlugin {
     /// <param name="messageName">Message name.</param>
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
-    public async Task SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+    public async Task<AASeqNodes> SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
         Logger.LogTrace($"Storing message {id}");
         Storage[id] = (messageName, parameters);
         await Task.CompletedTask.ConfigureAwait(false);
+        return parameters;
     }
 
     /// <summary>
