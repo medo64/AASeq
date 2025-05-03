@@ -9,19 +9,19 @@ using Microsoft.Extensions.Logging;
 
 internal sealed partial class Log {
 
-    [LoggerMessage(LogLevel.Error, "{message} ({endpoint})")]
-    public static partial void ReadError(ILogger logger, IPEndPoint endpoint, Exception exception, string message);
+    [LoggerMessage(LogLevel.Error, "{message}")]
+    public static partial void ReadError(ILogger logger, Exception exception, string message);
 
-    [LoggerMessage(LogLevel.Error, "{message} ({endpoint})")]
-    public static partial void ConnectionError(ILogger logger, IPEndPoint endpoint, Exception exception, string message);
+    [LoggerMessage(LogLevel.Error, "{message}")]
+    public static partial void ConnectionError(ILogger logger, Exception exception, string message);
 
     [LoggerMessage(LogLevel.Information, "Connected ({endpoint})")]
     public static partial void Connected(ILogger logger, IPEndPoint endpoint);
 
-    [LoggerMessage(LogLevel.Information, ">{messageName} ({endpoint})")]
-    public static partial void MessageOut(ILogger logger, IPEndPoint endpoint, string messageName);
+    [LoggerMessage(LogLevel.Information, ">{messageName}")]
+    public static partial void MessageOut(ILogger logger, string messageName);
 
-    [LoggerMessage(LogLevel.Information, "<{messageName} ({endpoint})")]
-    public static partial void MessageIn(ILogger logger, IPEndPoint endpoint, string messageName);
+    [LoggerMessage(LogLevel.Information, "<{messageName}")]
+    public static partial void MessageIn(ILogger logger, string messageName);
 
 }

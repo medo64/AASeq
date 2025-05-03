@@ -62,7 +62,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                 }
                 Log.Connected(Logger, Remote);
             } catch (Exception ex) {
-                Log.ConnectionError(Logger, Remote, ex, ex.Message);
+                Log.ConnectionError(Logger, ex, ex.Message);
                 Thread.Sleep(1000);
                 continue;
             }
@@ -72,8 +72,8 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                 using var diameter = new DiameterStream(stream);
 
                 var cer = DiameterEncoder.Encode("Capabilities-Exchange-Request", CapabilityExchangeRequestNodes);
+                Log.MessageOut(Logger, "Capabilities-Exchange-Request");
                 diameter.WriteMessage(cer);
-                Log.MessageOut(Logger, Remote, "Capabilities-Exchange-Request");
 
                 while (true) {
                     var message = diameter.ReadMessage();
@@ -86,20 +86,20 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                             }
                         }
                         if (resultCode is null) {
-                            Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (no Result-Code)");
+                            Log.MessageIn(Logger, "Device-Watchdog-Answer (no Result-Code)");
                         } else if (resultCode == 2001) {
-                            Log.MessageIn(Logger, Remote, "Capabilities-Exchange-Answer (DIAMETER_SUCCESS)");
+                            Log.MessageIn(Logger, "Device-Watchdog-Answer (DIAMETER_SUCCESS)");
                             PassedCE.Set();
                             PluginClass.DiameterStream = diameter;
                         } else {
-                            Log.MessageIn(Logger, Remote, $"Capabilities-Exchange-Answer ({resultCode})");
+                            Log.MessageIn(Logger, $"Device-Watchdog-Answer ({resultCode})");
                         }
                     } else {
                         var nodes = DiameterEncoder.Decode(message, out var messageName);
                         if (PluginClass.StorageAwaiting.Remove((message.HopByHopIdentifier, message.EndToEndIdentifier), out var guid)) {
                             PluginClass.Storage[guid] = (messageName, nodes);
                         } else {
-                            Log.MessageIn(Logger, Remote, $"Diameter message {messageName} (no matching HopByHopIdentifier/EndToEndIdentifier)");
+                            Log.MessageIn(Logger, $"Diameter message {messageName} (no matching HopByHopIdentifier/EndToEndIdentifier)");
                         }
                     }
                 }
@@ -107,7 +107,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                 PassedCE.Reset();
                 PluginClass.DiameterStream = null;
                 if (cancel.IsCancellationRequested) { return; }
-                Log.ReadError(Logger, Remote, ex, ex.Message);
+                Log.ReadError(Logger, ex, ex.Message);
                 Debug.WriteLine($"[AASeq.Plugin.Diameter] {Remote}: {ex.Message}");
                 Thread.Sleep(1000);
             }
@@ -116,7 +116,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                 tcpClient.Close();
                 tcpClient = new TcpClient();
             } catch (Exception ex) {
-                Log.ConnectionError(Logger, Remote, ex, ex.Message);
+                Log.ConnectionError(Logger, ex, ex.Message);
                 Thread.Sleep(1000);
             }
         }
