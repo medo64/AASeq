@@ -1,0 +1,40 @@
+#!/usr/bin/env aaseq
+
+# Remote diameter server
+@Remote Diameter {
+    Remote 192.168.57.90:3868
+    WatchdogInterval 10s
+    Capability-Exchange-Request {
+        Origin-Host         diameter.aaseq.com
+        Origin-Realm        aaseq.com
+        Product-Name        AASeq
+        Vendor-Id           10415
+        Auth-Application-Id 16777264
+        Auth-Application-Id 16777265
+        Auth-Application-Id 16777272
+    }
+    Diameter-Watchdog-Request {
+        Origin-Host         diameter.aaseq.com
+        Origin-Realm        aaseq.com
+    }
+}
+
+
+SWm:Diameter-EAP-Request >Remote {
+    Session-Id           1234567890
+    Origin-Host          diameter.aaseq.com
+    Origin-Realm         aaseq.com
+    Destination-Realm    example.com
+    Auth-Application-Id  16777264
+    Auth-Request-Type    AUTHORIZE_AUTHENTICATE
+    User-Name            test
+    RAT-Type             WLAN
+    Service-Selection    ims
+    UE-Local-IP-Address  100.10.1.0
+}
+
+Diameter-EAP-Answer <Remote {
+    Result-Code          DIAMETER_SUCCESS
+}
+
+Wait "1s"
