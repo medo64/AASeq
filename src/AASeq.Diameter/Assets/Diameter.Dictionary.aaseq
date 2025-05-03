@@ -919,7 +919,7 @@ DiameterDictionary {
         Enum EUI64 code=2
         Enum MODIFIED_EUI64 code=3
     }
-    Avp User-Equipment-Info-Value code=460 mandatoryBit=may type=OctetString
+    Avp User-Equipment-Info-Value code=460 mandatoryBit=may type=UTF8String
     Avp Service-Context-Id code=461 mandatoryBit=must type=UTF8String
     Avp EAP-Payload code=462 mandatoryBit=must type=OctetString
     Avp EAP-Reissued-Payload code=463 mandatoryBit=must type=OctetString
