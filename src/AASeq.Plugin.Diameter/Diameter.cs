@@ -62,9 +62,9 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
     /// </summary>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task StartAsync(CancellationToken cancellationToken) {
-        Logger.LogTrace($"[Diameter] Starting Diameter endpoint @ {DiameterThread.Endpoint}");
+        Logger.LogTrace($"Starting Diameter endpoint ({DiameterThread.Endpoint})");
         DiameterThread.Start(cancellationToken);
-        Logger.LogTrace($"[Diameter] Started Diameter endpoint @ {DiameterThread.Endpoint}");
+        Logger.LogTrace($"Started Diameter endpoint ({DiameterThread.Endpoint})");
         await Task.CompletedTask.ConfigureAwait(false);
     }
 

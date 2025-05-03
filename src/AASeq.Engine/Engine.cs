@@ -43,7 +43,12 @@ public sealed partial class Engine : IDisposable {
             } else {
                 var plugin = pluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
                 var configuration = node.Nodes;
-                endpoints.Add(nodeName, new EndpointStore(nodeName, configuration, plugin, plugin.CreateInstance(logger, configuration)));
+                endpoints.Add(nodeName, new EndpointStore(
+                    nodeName,
+                    configuration,
+                    plugin,
+                    plugin.CreateInstance(new Logger(logger, nodeName), configuration))
+                );
             }
         }
 
@@ -133,7 +138,11 @@ public sealed partial class Engine : IDisposable {
                     node.Value = AASeqValue.Null;
                 }
                 var data = node.Nodes;
-                flowSequence.Add(new FlowCommand(plugin.Name, plugin.CreateInstance(logger), data));
+                flowSequence.Add(new FlowCommand(
+                    plugin.Name,
+                    plugin.CreateInstance(new Logger(logger, plugin.Name)),
+                    data
+                ));
 
                 //} else if (string.IsNullOrEmpty(leftX)) {
 
