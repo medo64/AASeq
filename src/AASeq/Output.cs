@@ -14,11 +14,24 @@ internal static class Output {
     }
 
 
+    public static void WriteErrorLine(string s) {
+        lock (SyncRoot) {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Error.WriteLine(s);
+            Console.ResetColor();
+        }
+    }
+
+
     #region Log
 
-    public static void WriteDebug(string s, bool prependEmptyLine = false) {
-        lock (SyncRoot) {
+    public static void WriteDebug(string s, bool prependEmptyLine = false)
+    {
+        lock (SyncRoot)
+        {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.Out.WriteLine(s);
             Console.ResetColor();
@@ -28,7 +41,9 @@ internal static class Output {
     public static void WriteInfo(string s, bool prependEmptyLine = false) {
         lock (SyncRoot) {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
-            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Out.WriteLine(s);
             Console.ResetColor();
         }
@@ -37,6 +52,8 @@ internal static class Output {
     public static void WriteWarning(string s, bool prependEmptyLine = false) {
         lock (SyncRoot) {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Error.WriteLine(s);
             Console.ResetColor();
@@ -46,6 +63,8 @@ internal static class Output {
     public static void WriteError(string s, bool prependEmptyLine = false) {
         lock (SyncRoot) {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Error.WriteLine(s);
             Console.ResetColor();
@@ -59,9 +78,11 @@ internal static class Output {
 
     private readonly static AASeqOutputOptions NodeOutputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true, NoTypeAnnotation = true };
 
-    public static void WriteNote(string s, bool prependEmptyLine = false) {
+    public static void WriteNote(string s, int level = 1, bool prependEmptyLine = false) {
         lock (SyncRoot) {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Out.Write(new string('#', level) + new string(' ', 4 - level) + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
             Console.ForegroundColor = ConsoleColor.Blue;
             Console.Out.WriteLine(s);
             Console.ResetColor();

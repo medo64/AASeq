@@ -47,11 +47,11 @@ internal static partial class App {
                 }
 
                 engine.FlowBegin += (sender, e) => {
-                    Output.WriteNote($"# Flow: {e.FlowIndex}", prependEmptyLine: true);
+                    Output.WriteNote($"Flow: {e.FlowIndex}", level: 1, prependEmptyLine: true);
                 };
 
                 engine.ActionBegin += (sender, e) => {
-                    Output.WriteNote($"## Action: {e.FlowIndex}:{e.ActionIndex}", prependEmptyLine: true);
+                    Output.WriteNote($"Action: {e.FlowIndex}:{e.ActionIndex}", level: 2, prependEmptyLine: true);
                 };
 
                 engine.ActionDone += (sender, e) => {
@@ -66,7 +66,7 @@ internal static partial class App {
                     if (e.FlowIndex == engine.RepeatCount) {
                         engine.Pause();  // just pause
                         if (isInteractive) {
-                            Output.WriteNote($"# Paused", prependEmptyLine: true);
+                            Output.WriteNote($"Paused", level: 1, prependEmptyLine: true);
                         } else {
                             DoneEvent.Set();
                         }
@@ -108,10 +108,10 @@ internal static partial class App {
                 }
 
             } catch (Exception ex) {
-                Output.WriteError("Error creating the engine: " + ex.Message);
+                Output.WriteErrorLine("Error creating the engine: " + ex.Message);
             }
         } catch (InvalidOperationException ex) {
-            Output.WriteError("Error parsing the document: " + ex.Message);
+            Output.WriteErrorLine("Error parsing the document: " + ex.Message);
         }
     }
 
