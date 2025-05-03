@@ -71,16 +71,45 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
                 using var stream = tcpClient.GetStream();
                 using var diameter = new DiameterStream(stream);
 
+                using var dwrTimer = new Timer((_) => {
+                    var msElapsed = Environment.TickCount64 - Interlocked.Read(ref PluginClass.LastMessageTimestamp);
+                    if (msElapsed > 29500) {
+                        Interlocked.Exchange(ref PluginClass.LastMessageTimestamp, Environment.TickCount64);
+                        var dwr = DiameterEncoder.Encode("Device-Watchdog-Request", DeviceWatchdogRequestNodes);
+                        Log.MessageOut(Logger, "Device-Watchdog-Request");
+                        diameter.WriteMessage(dwr);
+                    }
+                }, null, 0, 1000);
+
                 var cer = DiameterEncoder.Encode("Capabilities-Exchange-Request", CapabilityExchangeRequestNodes);
                 Log.MessageOut(Logger, "Capabilities-Exchange-Request");
                 diameter.WriteMessage(cer);
 
                 while (true) {
                     var message = diameter.ReadMessage();
+                    Interlocked.Exchange(ref PluginClass.LastMessageTimestamp, Environment.TickCount64);
+
                     if ((message.ApplicationId == 0) && (message.CommandCode == 257)) {
                         var resultCode = default(uint?);
                         foreach (var avp in message.Avps) {
-                            if (avp.Code == 268) {
+                            if (avp.Code == 268) {  // Result-Code
+                                resultCode = BinaryPrimitives.ReadUInt32BigEndian(avp.GetData());
+                                break;
+                            }
+                        }
+                        if (resultCode is null) {
+                            Log.MessageIn(Logger, "Capabilities-Exchange-Answer (no Result-Code)");
+                        } else if (resultCode == 2001) {
+                            Log.MessageIn(Logger, "Capabilities-Exchange-Answer (DIAMETER_SUCCESS)");
+                            PassedCE.Set();
+                            PluginClass.DiameterStream = diameter;
+                        } else {
+                            Log.MessageIn(Logger, $"Capabilities-Exchange-Answer ({resultCode})");
+                        }
+                    } else if ((message.ApplicationId == 0) && (message.CommandCode == 280)) {
+                        var resultCode = default(uint?);
+                        foreach (var avp in message.Avps) {
+                            if (avp.Code == 268) {  // Result-Code
                                 resultCode = BinaryPrimitives.ReadUInt32BigEndian(avp.GetData());
                                 break;
                             }

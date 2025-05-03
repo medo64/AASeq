@@ -38,6 +38,7 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
 
     private readonly ILogger Logger;
     private readonly IDiameterThread DiameterThread;
+    internal long LastMessageTimestamp = Environment.TickCount64;  // interlocked access - used by *Thread class
 
     /// <summary>
     /// Gets/sets the diameter stream.
@@ -82,6 +83,7 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
         var message = DiameterEncoder.Encode(messageName, parameters);
         StorageAwaiting[(message.HopByHopIdentifier, message.EndToEndIdentifier)] = id;
         DiameterStream.WriteMessage(message);
+        Interlocked.Exchange(ref LastMessageTimestamp, Environment.TickCount64);
     }
 
     /// <summary>
