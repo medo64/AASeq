@@ -16,5 +16,5 @@ research/
 *.log
 
 TODO.md
-.meta.private
+.meta.*
 .nuget.key

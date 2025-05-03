@@ -157,6 +157,12 @@ if [ "$PACKAGE_LINUX_DOCKER" != "" ]; then
             echo "${ANSI_PURPLE}Docker remote image .: ${ANSI_RED}not found${ANSI_RESET}" >&2
             exit 113
         fi
+
+        if [ -d ".meta.docker" ]; then
+            echo "${ANSI_PURPLE}Docker config .......: ${ANSI_MAGENTA}.meta.docker${ANSI_RESET}"
+        else
+            echo "${ANSI_PURPLE}Docker config .......: ${ANSI_MAGENTA}default${ANSI_RESET}"
+        fi
     fi
 fi
 
@@ -683,11 +689,15 @@ make_publish() {
         ANYTHING_DONE=1
         echo "${ANSI_MAGENTA}docker${ANSI_RESET}"
 
+        if [ -d "$SCRIPT_DIR/.meta.docker" ]; then
+            DOCKER_CONFIG_ARGS="--config .meta.docker"
+        fi
+
         if [ "$GIT_VERSION" != "" ]; then
             docker tag                                            \
                 $PACKAGE_LINUX_DOCKER:$GIT_VERSION                \
                 $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:$GIT_VERSION || exit 113
-            docker push                                           \
+            docker $DOCKER_CONFIG_ARGS push                       \
                 $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:$GIT_VERSION || exit 113
             echo "${ANSI_CYAN}$DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:$GIT_VERSION${ANSI_RESET}"
             echo
@@ -695,7 +705,7 @@ make_publish() {
             docker tag                                      \
                 $PACKAGE_LINUX_DOCKER:latest                \
                 $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:latest || exit 113
-            docker push                                     \
+            docker $DOCKER_CONFIG_ARGS push                 \
                 $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:latest || exit 113
             echo "${ANSI_CYAN}$DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:latest${ANSI_RESET}"
             echo
@@ -704,7 +714,7 @@ make_publish() {
         docker tag                                        \
             $PACKAGE_LINUX_DOCKER:unstable                \
             $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:unstable || exit 113
-        docker push                                       \
+        docker $DOCKER_CONFIG_ARGS push                   \
             $DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:unstable || exit 113
             echo "${ANSI_CYAN}$DOCKER_IMAGE_ID/$DOCKER_IMAGE_NAME:unstable${ANSI_RESET}"
         echo
