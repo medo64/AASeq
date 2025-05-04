@@ -161,6 +161,26 @@ public sealed partial class AASeqNodes : IList<AASeqNode> {
     }
 
 
+    #region Extra
+
+    /// <summary>
+    /// Removes the item.
+    /// </summary>
+    /// <param name="name">Name.</param>
+    public bool Remove(string name) {
+        var anyRemoved = false;
+        for (var i = Count - 1; i >= 0; i--) {
+            if (BaseList[i].Name.Equals(name, StringComparison.OrdinalIgnoreCase)) {
+                BaseList.RemoveAt(i);
+                anyRemoved = true;
+            }
+        }
+        return anyRemoved;
+    }
+
+    #endregion Extra
+
+
     /// <summary>
     /// Gets an empty instance.
     /// </summary>
