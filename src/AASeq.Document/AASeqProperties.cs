@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 /// <summary>
 /// AASeq properties.
@@ -31,7 +32,7 @@ public sealed partial class AASeqProperties : IDictionary<string, string> {
         get => BaseDict[key];
         set {
             BaseDict.Remove(key);
-            BaseDict[key]= value;
+            BaseDict[key] = value;
         }
     }
 
@@ -146,5 +147,44 @@ public sealed partial class AASeqProperties : IDictionary<string, string> {
     }
 
     #endregion IDictionary<string, string>
+
+    #region Extra
+
+    /// <summary>
+    /// Adds an item with the provided key and value.
+    /// </summary>
+    /// <param name="key">Key.</param>
+    /// <param name="value">Value.</param>
+    public void Add(string key, bool value) {
+        BaseDict.Add(key, value ? "true" : "false");
+    }
+
+    /// <summary>
+    /// Adds an item with the provided key and value.
+    /// </summary>
+    /// <param name="key">Key.</param>
+    /// <param name="value">Value.</param>
+    public void Add(string key, int value) {
+        BaseDict.Add(key, value.ToString(CultureInfo.InvariantCulture));
+    }
+
+    /// <summary>
+    /// Adds an item with the provided key and value.
+    /// </summary>
+    /// <param name="key">Key.</param>
+    /// <param name="value">Value.</param>
+    public void Add(string key, double value) {
+        if (double.IsNaN(value)) {
+            BaseDict.Add(key, "NaN");
+        } else if (double.IsPositiveInfinity(value)) {
+            BaseDict.Add(key, "+Inf");
+        } else if (double.IsNegativeInfinity(value)) {
+            BaseDict.Add(key, "-Inf");
+        } else {
+            BaseDict.Add(key, value.ToString("0.0##############", CultureInfo.InvariantCulture));
+        }
+    }
+
+    #endregion Extra
 
 }
