@@ -88,7 +88,10 @@ public class DiameterEncoderTests {
             ]);
 
         var nodes = DiameterEncoder.Decode(message, out var messageName);
-        Assert.AreEqual("Vendor-Specific-Application-Id { Vendor-Id (u32)10415; Auth-Application-Id (u32)16777264 }", nodes.ToString());
+        Assert.IsTrue(nodes.Remove(".HopByHop"));
+        Assert.IsTrue(nodes.Remove(".EndToEnd"));
+        Assert.IsTrue(nodes.Remove(".Flags"));
+        Assert.AreEqual("Vendor-Specific-Application-Id flags=0x40 mandatory=true vendor=false { Vendor-Id (u32)10415 flags=0x40 mandatory=true vendor=false; Auth-Application-Id (u32)16777264 flags=0x40 mandatory=true vendor=false }", nodes.ToString());
     }
 
 }
