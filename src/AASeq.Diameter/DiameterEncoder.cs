@@ -54,14 +54,26 @@ public static class DiameterEncoder {
 
         messageName = ($"{applicationEntry?.Name ?? message.ApplicationId.ToString(CultureInfo.InvariantCulture)}:{commandEntry?.Name ?? message.CommandCode.ToString(CultureInfo.InvariantCulture)}") + (message.HasRequestFlag ? "-Request" : "-Answer");
         var nodes = new AASeqNodes();
+        nodes.Add(new AASeqNode(".HopByHop", message.HopByHopIdentifier));
+        nodes.Add(new AASeqNode(".EndToEnd", message.EndToEndIdentifier));
+        var flags = new AASeqNode(".Flags", new byte[] { message.Flags });
+        flags.Properties.Add("proxiable", message.HasProxiableFlag);
+        flags.Properties.Add("error", message.HasErrorFlag);
+        flags.Properties.Add("retransmitted", message.HasRetransmittedFlag);
+        nodes.Add(flags);
         foreach (var avp in message.Avps) {
             var avpEntry = DictionaryLookup.Instance.FindAvpByCode(avp.VendorCode ?? 0, avp.Code);
+            AASeqNode node;
             if (avpEntry is not null) {
-                nodes.Add(GetNode(avpEntry, avp.GetData()));
+                node = GetNode(avpEntry, avp.GetData());
             } else {
                 var avpName = ((avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) + ":" : "") + avp.Code.ToString(CultureInfo.InvariantCulture);
-                nodes.Add(new AASeqNode(avpName, avp.GetData()));
+                node = new AASeqNode(avpName, avp.GetData());
             }
+            node.Properties.Add("flags", "0x" + avp.Flags.ToString("X2", CultureInfo.InvariantCulture));
+            node.Properties.Add("mandatory", avp.HasMandatoryFlag);
+            node.Properties.Add("vendor", avp.HasVendorFlag);
+            nodes.Add(node);
         }
         return nodes;
     }
@@ -143,12 +155,17 @@ public static class DiameterEncoder {
             offset += avp.LengthWithPadding;
 
             var avpEntry = DictionaryLookup.Instance.FindAvpByCode(avp.VendorCode ?? 0, avp.Code);
+            AASeqNode node;
             if (avpEntry is not null) {
-                nodes.Add(GetNode(avpEntry, avp.GetData()));
+                node = GetNode(avpEntry, avp.GetData());
             } else {
                 var avpName = ((avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) + ":" : "") + avp.Code.ToString(CultureInfo.InvariantCulture);
-                nodes.Add(new AASeqNode(avpName, avp.GetData()));
+                node = new AASeqNode(avpName, avp.GetData());
             }
+            node.Properties.Add("flags", "0x" + avp.Flags.ToString("X2", CultureInfo.InvariantCulture));
+            node.Properties.Add("mandatory", avp.HasMandatoryFlag);
+            node.Properties.Add("vendor", avp.HasVendorFlag);
+            nodes.Add(node);
         }
         return nodes;
     }
