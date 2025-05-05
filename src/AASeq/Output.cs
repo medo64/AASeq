@@ -25,10 +25,8 @@ internal static class Output {
 
     #region Log
 
-    public static void WriteDebug(string s, bool prependEmptyLine = false)
-    {
-        lock (SyncRoot)
-        {
+    public static void WriteDebug(string s, bool prependEmptyLine = false) {
+        lock (SyncRoot) {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
@@ -77,6 +75,46 @@ internal static class Output {
     #region Engine
 
     private readonly static AASeqOutputOptions NodeOutputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true, NoTypeAnnotation = true };
+    private readonly static AASeqOutputOptions NodeOutputOptionsDocument = NodeOutputOptions with {
+        AnsiColorName = 33,
+        AnsiColorType = 33,
+        AnsiColorValue = 93,
+        AnsiColorPropertyName = 33,
+        AnsiColorPropertyValue = 33,
+        AnsiColorSymbols = 33,
+    };
+    private readonly static AASeqOutputOptions NodeOutputOptionsCommand = NodeOutputOptions with {
+        AnsiColorName = 35,
+        AnsiColorType = 35,
+        AnsiColorValue = 95,
+        AnsiColorPropertyName = 35,
+        AnsiColorPropertyValue = 35,
+        AnsiColorSymbols = 35,
+    };
+    private readonly static AASeqOutputOptions NodeOutputOptionsMessageOut = NodeOutputOptions with {
+        AnsiColorName = 36,
+        AnsiColorType = 36,
+        AnsiColorValue = 96,
+        AnsiColorPropertyName = 36,
+        AnsiColorPropertyValue = 36,
+        AnsiColorSymbols = 36,
+    };
+    private readonly static AASeqOutputOptions NodeOutputOptionsMessageIn = NodeOutputOptions with {
+        AnsiColorName = 32,
+        AnsiColorType = 32,
+        AnsiColorValue = 92,
+        AnsiColorPropertyName = 32,
+        AnsiColorPropertyValue = 32,
+        AnsiColorSymbols = 32,
+    };
+    private readonly static AASeqOutputOptions NodeOutputOptionsMessageError = NodeOutputOptions with {
+        AnsiColorName = 31,
+        AnsiColorType = 31,
+        AnsiColorValue = 91,
+        AnsiColorPropertyName = 31,
+        AnsiColorPropertyValue = 31,
+        AnsiColorSymbols = 31,
+    };
 
     public static void WriteNote(string s, int level = 1, bool prependEmptyLine = false) {
         lock (SyncRoot) {
@@ -92,7 +130,7 @@ internal static class Output {
     public static void WriteDocument(AASeqNodes nodes) {
         lock (SyncRoot) {
             Console.ForegroundColor = ConsoleColor.Yellow;
-            nodes.Save(Console.Out, NodeOutputOptions);
+            nodes.Save(Console.Out, NodeOutputOptionsDocument);
             Console.ResetColor();
         }
     }
@@ -101,12 +139,14 @@ internal static class Output {
         lock (SyncRoot) {
             if (action.IsCommand) {
                 Console.ForegroundColor = ConsoleColor.Magenta;
+                node.Save(Console.Out, NodeOutputOptionsCommand);
             } else if (action.IsMessageOut) {
                 Console.ForegroundColor = ConsoleColor.Cyan;
+                node.Save(Console.Out, NodeOutputOptionsMessageOut);
             } else if (action.IsMessageIn) {
+                node.Save(Console.Out, NodeOutputOptionsMessageIn);
                 Console.ForegroundColor = ConsoleColor.Green;
             }
-            node.Save(Console.Out, NodeOutputOptions);
             Console.ResetColor();
         }
     }
@@ -114,7 +154,7 @@ internal static class Output {
     public static void WriteActionNok(IFlowAction _, AASeqNode node) {
         lock (SyncRoot) {
             Console.ForegroundColor = ConsoleColor.Red;
-            node.Save(Console.Out, NodeOutputOptions);
+            node.Save(Console.Out, NodeOutputOptionsMessageError);
             Console.ResetColor();
         }
     }
