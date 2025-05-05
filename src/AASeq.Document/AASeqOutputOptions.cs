@@ -7,6 +7,37 @@ using System;
 public sealed record AASeqOutputOptions {
 
     /// <summary>
+    /// ANSI color number to use for Node name.
+    /// </summary>
+    public int? AnsiColorName { get; init; }
+
+    /// <summary>
+    /// ANSI color number to use for Node property name.
+    /// </summary>
+    public int? AnsiColorPropertyName { get; init; }
+
+    /// <summary>
+    /// ANSI color number to use for Node property value.
+    /// </summary>
+    public int? AnsiColorPropertyValue { get; init; }
+
+    /// <summary>
+    /// ANSI color number to use for symbols (i.e., equals, braces, and semicolon).
+    /// </summary>
+    public int? AnsiColorSymbols { get; init; }
+
+    /// <summary>
+    /// ANSI color number to use for Node type annotation.
+    /// </summary>
+    public int? AnsiColorType { get; init; }
+
+    /// <summary>
+    /// ANSI color number to use for Node value.
+    /// </summary>
+    public int? AnsiColorValue { get; init; }
+
+
+    /// <summary>
     /// If true, new lines will be avoided when possible.
     /// </summary>
     public bool CompactRepresentation { get; init; }

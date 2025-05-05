@@ -172,9 +172,11 @@ public sealed partial class AASeqNodes : IFormattable {
 
     private static void SaveNodes(AASeqNodes nodes, TextWriter writer, AASeqOutputOptions options, int level) {
         if ((level == 0) && !string.IsNullOrEmpty(options.HeaderExecutable)) {
+            BeginColor(writer, options.AnsiColorSymbols);
             writer.Write("#!/usr/bin/env ");
             writer.Write(options.HeaderExecutable);
             writer.Write(options.NewLine);
+            EndColor(writer, options.AnsiColorSymbols);
         }
 
         for (var i = 0; i < nodes.Count; i++) {
@@ -191,34 +193,48 @@ public sealed partial class AASeqNodes : IFormattable {
         var indent = new string(' ', level * 4);
         if ((level > 0) && !options.CompactRepresentation) { writer.Write(indent); }
 
+        BeginColor(writer, options.AnsiColorName);
         writer.Write(node.Name);
+        EndColor(writer, options.AnsiColorName);
 
         if (node.Value.RawValue is not null) {
             writer.Write(' ');
             if (!options.NoTypeAnnotation) {
                 var typeAnnotation = GetTypeAnnotation(node.Value);
                 if (typeAnnotation is not null) {
+                    BeginColor(writer, options.AnsiColorType);
                     writer.Write('(');
                     writer.Write(typeAnnotation);
                     writer.Write(')');
+                    EndColor(writer, options.AnsiColorType);
                 }
             }
+            BeginColor(writer, options.AnsiColorValue);
             writer.Write(GetStringFromValue(node.Value));
+            EndColor(writer, options.AnsiColorValue);
         }
 
         if (node.Properties.Count > 0) {
             foreach (var property in node.Properties) {
                 writer.Write(' ');
+                BeginColor(writer, options.AnsiColorPropertyName);
                 writer.Write(property.Key);
+                EndColor(writer, options.AnsiColorPropertyName);
+                BeginColor(writer, options.AnsiColorSymbols);
                 writer.Write('=');
+                EndColor(writer, options.AnsiColorSymbols);
+                BeginColor(writer, options.AnsiColorPropertyValue);
                 writer.Write(GetPotentiallyQuotedString(property.Value, propertyQuoting: true));
+                EndColor(writer, options.AnsiColorPropertyValue);
             }
         }
 
         var hasSubnodes = node.Nodes.Count > 0;
         if (hasSubnodes) {
             writer.Write(' ');
+            BeginColor(writer, options.AnsiColorSymbols);
             writer.Write('{');
+            EndColor(writer, options.AnsiColorSymbols);
             if (options.CompactRepresentation) {
                 writer.Write(' ');
             } else {
@@ -229,7 +245,9 @@ public sealed partial class AASeqNodes : IFormattable {
                 writer.Write(' ');
             }
             if ((level > 0) && !options.CompactRepresentation) { writer.Write(indent); }
+            BeginColor(writer, options.AnsiColorSymbols);
             writer.Write('}');
+            EndColor(writer, options.AnsiColorSymbols);
         }
 
         if (!options.CompactRepresentation) {
@@ -242,7 +260,11 @@ public sealed partial class AASeqNodes : IFormattable {
             }
         } else {  // compact
             if (isLast) {
-                if (!hasSubnodes) { writer.Write(';'); }
+                if (!hasSubnodes) {
+                    BeginColor(writer, options.AnsiColorSymbols);
+                    writer.Write(';');
+                    EndColor(writer, options.AnsiColorSymbols);
+                }
                 writer.Write(' ');
             }
         }
@@ -384,6 +406,16 @@ public sealed partial class AASeqNodes : IFormattable {
             sbOutQuote.Length = 0;
             StringBuilderPool.Return(sbOutQuote);
         }
+    }
+
+    private static void BeginColor(TextWriter writer, int? ansiColor) {
+        if (ansiColor == null) { return; }
+        writer.Write("\x1B[" + ansiColor.Value.ToString(CultureInfo.InvariantCulture) + "m");
+    }
+
+    private static void EndColor(TextWriter writer, int? ansiColor) {
+        if (ansiColor == null) { return; }
+        writer.Write("\x1B[0m");
     }
 
     #endregion Helper
