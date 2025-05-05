@@ -30,6 +30,9 @@ public static class DiameterEncoder {
 
         var avps = new List<DiameterAvp>();
         foreach (var node in nodes) {
+            if (node.Name.Equals(".HopByHop", StringComparison.OrdinalIgnoreCase)) { continue; }
+            if (node.Name.Equals(".EndToEnd", StringComparison.OrdinalIgnoreCase)) { continue; }
+            if (node.Name.Equals(".Flags", StringComparison.OrdinalIgnoreCase)) { continue; }
             var avpName = node.Name;
             var avpEntry = DictionaryLookup.Instance.FindAvpByName(avpName) ?? throw new InvalidOperationException($"Cannot find AVP '{avpName}' in dictionary.");
             if (avpEntry.AvpType != AvpType.Grouped) {
@@ -48,7 +51,7 @@ public static class DiameterEncoder {
         if (isRequest) { flags |= 0x80; } else { flags &= 0x7F; }
         if ("true".Equals(flagNode?.GetPropertyValue("proxiable"))) { flags |= 0x40; }
         if ("true".Equals(flagNode?.GetPropertyValue("error"))) { flags |= 0x20; }
-        if ("true".Equals(flagNode?.GetPropertyValue("retransmittable"))) { flags |= 0x10; }
+        if ("true".Equals(flagNode?.GetPropertyValue("retransmitted"))) { flags |= 0x10; }
 
         return new DiameterMessage(flags, commandEntry.Code, applicationEntry.Id, hopByHopId, endToEnd, avps);
     }

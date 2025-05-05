@@ -87,7 +87,7 @@ public sealed record DiameterMessage {
     /// Get if potentially re-transmitted message flag is set.
     /// </summary>
     public bool HasRetransmittedFlag {
-        get { return (Flags & 0x20) != 0; }
+        get { return (Flags & 0x10) != 0; }
     }
 
 
