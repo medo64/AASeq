@@ -107,7 +107,7 @@ public sealed partial class Engine {
                                     messageOutAction.DestinationInstance.Send(id, messageOutAction.MessageName, actionNode.Nodes, token)
                                 );
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
-                                OnActionDone(flowIndex, actionIndex, action, actionNode);
+                                OnActionDone(flowIndex, actionIndex, action, responseNode);
                             } catch (OperationCanceledException) {
                                 actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 actionNode.Properties.Add("exception", "Timeout");

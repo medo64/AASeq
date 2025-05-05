@@ -19,15 +19,15 @@ public sealed record DiameterMessage {
     /// <param name="hopByHopIdentifier">Hop-by-hop identifier.</param>
     /// <param name="endToEndIdentifier">End-to-end identifier.</param>
     /// <param name="avps">AVP collection.</param>
-    public DiameterMessage(byte flags, uint commandCode, uint applicationId, uint hopByHopIdentifier, uint endToEndIdentifier, IList<DiameterAvp> avps) {
+    public DiameterMessage(byte flags, uint commandCode, uint applicationId, uint? hopByHopIdentifier, uint? endToEndIdentifier, IList<DiameterAvp> avps) {
         if (commandCode is > 16777215) { throw new ArgumentOutOfRangeException(nameof(commandCode), "Command code cannot be larger than 16777215."); }
         if (avps is null) { throw new ArgumentNullException(nameof(avps), "AVPs cannot be null."); }
 
         Flags = flags;
         CommandCode = commandCode;
         ApplicationId = applicationId;
-        HopByHopIdentifier = hopByHopIdentifier;
-        EndToEndIdentifier = endToEndIdentifier;
+        HopByHopIdentifier = hopByHopIdentifier ?? GetNewHopByHopIdentifier();
+        EndToEndIdentifier = endToEndIdentifier ?? GetNewEndToEndIdentifier();
         Avps = avps;
     }
 
@@ -39,7 +39,7 @@ public sealed record DiameterMessage {
     /// <param name="applicationId">Application ID.</param>
     /// <param name="avps">AVP collection.</param>
     public DiameterMessage(byte flags, uint commandCode, uint applicationId, IList<DiameterAvp> avps)
-        : this(flags, commandCode, applicationId, GetNewHopByHopIdentifier(), GetNewEndToEndIdentifier(), avps) {
+        : this(flags, commandCode, applicationId, hopByHopIdentifier: null, endToEndIdentifier: null, avps) {
     }
 
 

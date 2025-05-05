@@ -39,7 +39,18 @@ public static class DiameterEncoder {
             }
             avps.Add(GetAvp(avpEntry, node));
         }
-        return new DiameterMessage((byte)(isRequest ? 0x80 : 0x00), commandEntry.Code, applicationEntry.Id, avps);
+
+        var hopByHopId = nodes[".HopByHop"].AsUInt32();
+        var endToEnd = nodes[".EndToEnd"].AsUInt32();
+
+        var flagNode = nodes.FindNode(".Flags");
+        var flags = flagNode?.Value.AsByte() ?? 0x00;
+        if (isRequest) { flags |= 0x80; } else { flags &= 0x7F; }
+        if ("true".Equals(flagNode?.GetPropertyValue("proxiable"))) { flags |= 0x40; }
+        if ("true".Equals(flagNode?.GetPropertyValue("error"))) { flags |= 0x20; }
+        if ("true".Equals(flagNode?.GetPropertyValue("retransmittable"))) { flags |= 0x10; }
+
+        return new DiameterMessage(flags, commandEntry.Code, applicationEntry.Id, hopByHopId, endToEnd, avps);
     }
 
     /// <summary>
@@ -53,6 +64,7 @@ public static class DiameterEncoder {
         var commandEntry = DictionaryLookup.Instance.FindCommandByCode(message.CommandCode);
 
         messageName = ($"{applicationEntry?.Name ?? message.ApplicationId.ToString(CultureInfo.InvariantCulture)}:{commandEntry?.Name ?? message.CommandCode.ToString(CultureInfo.InvariantCulture)}") + (message.HasRequestFlag ? "-Request" : "-Answer");
+
         var nodes = new AASeqNodes();
         nodes.Add(new AASeqNode(".HopByHop", message.HopByHopIdentifier));
         nodes.Add(new AASeqNode(".EndToEnd", message.EndToEndIdentifier));
@@ -61,6 +73,7 @@ public static class DiameterEncoder {
         flags.Properties.Add("error", message.HasErrorFlag);
         flags.Properties.Add("retransmitted", message.HasRetransmittedFlag);
         nodes.Add(flags);
+
         foreach (var avp in message.Avps) {
             var avpEntry = DictionaryLookup.Instance.FindAvpByCode(avp.VendorCode ?? 0, avp.Code);
             AASeqNode node;
@@ -72,7 +85,7 @@ public static class DiameterEncoder {
             }
             node.Properties.Add("flags", "0x" + avp.Flags.ToString("X2", CultureInfo.InvariantCulture));
             node.Properties.Add("mandatory", avp.HasMandatoryFlag);
-            node.Properties.Add("vendor", avp.HasVendorFlag);
+            node.Properties.Add("vendor", (avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) : "false");
             nodes.Add(node);
         }
         return nodes;
@@ -84,7 +97,7 @@ public static class DiameterEncoder {
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 
     private static DiameterAvp GetAvp(AvpDictionaryEntry avpEntry, AASeqNode node) {
-        return avpEntry.AvpType switch {
+        var avp = avpEntry.AvpType switch {
             AvpType.Address => new DiameterAvp(avpEntry, GetAddressBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Address.")),
             AvpType.DiameterIdentity => new DiameterAvp(avpEntry, Utf8.GetBytes(node.Value.AsString(""))),
             AvpType.DiameterURI => throw new NotImplementedException("Uri"),
@@ -103,6 +116,22 @@ public static class DiameterEncoder {
             AvpType.UTF8String => new DiameterAvp(avpEntry, Utf8.GetBytes(node.Value.AsString(""))),
             _ => throw new NotImplementedException(),  // should never happen
         };
+
+        var flagsProp = node.GetPropertyValue("flags");
+        byte flags;
+        if (byte.TryParse(flagsProp, NumberStyles.HexNumber | NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out flags)) {
+            if (avp.HasVendorFlag) { flags |= 0x80; }
+        } else {
+            flags = avp.Flags;
+        }
+        if ("true".Equals(node.GetPropertyValue("mandatory"))) {
+            flags |= 0b01000000;
+        } else if ("false".Equals(node.GetPropertyValue("mandatory"))) {
+            flags &= 0b10111111;
+        }
+        if (avp.Flags != flags) { avp = avp with { Flags = flags }; }
+
+        return avp;
     }
 
     private static AASeqNode GetNode(AvpDictionaryEntry avpEntry, byte[] data) {
@@ -169,7 +198,6 @@ public static class DiameterEncoder {
         }
         return nodes;
     }
-
 
     private static byte[]? GetAddressBytes(AASeqValue value) {
         var ip = value.AsIPAddress();
