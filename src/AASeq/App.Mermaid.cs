@@ -1,17 +1,18 @@
 namespace AASeqCli;
-using AASeq;
 using System;
 using System.IO;
+using AASeq;
 
 internal static partial class App {
 
-    public static void Mermaid(FileInfo file) {
-        try {
+    public static void Mermaid(FileInfo file, bool debug, bool verbose) {
+        var logger = Logger.GetInstance(debug, verbose);
 
+        try {
             var document = AASeqNodes.Load(file.FullName);
 
-            var pluginManager = new PluginManager(Logger.Instance);
-            using var engine = new Engine(Logger.Instance, pluginManager, document);
+            var pluginManager = new PluginManager(logger);
+            using var engine = new Engine(logger, pluginManager, document);
 
             if (engine.FlowSequence.Count == 0) {
                 Output.WriteError("No flows found in the document.");

@@ -1,18 +1,21 @@
 namespace AASeqCli;
 using System;
+using System.Diagnostics;
 using System.Reflection;
 using AASeq;
 
 internal static partial class App {
 
-    public static void Version(bool isVerbose) {
+    public static void Version(bool debug, bool verbose) {
         var assembly = Assembly.GetEntryAssembly();
         var name = assembly?.GetName().Name ?? string.Empty;
         var version = assembly?.GetName().Version ?? new Version();
         Console.WriteLine($"{name} {version.Major}.{version.Minor} {version.Revision}");
 
-        if (isVerbose) {
-            var manager = new PluginManager(Logger.Instance);  // this loads plugins
+        var logger = Logger.GetInstance(debug, verbose);
+
+        if (verbose) {
+            var manager = new PluginManager(logger);  // this loads plugins
 
             var hadEndpoints = false;
             Console.Write("Endpoints: ");

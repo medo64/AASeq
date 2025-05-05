@@ -9,6 +9,12 @@ using System.IO;
 internal static partial class App {
 
     internal static void Main(string[] args) {
+        var debugOption = new Option<bool>(
+            aliases: ["--debug", "-D"],
+            description: "Enable debug output") {
+            Arity = ArgumentArity.Zero,
+        };
+
         var verboseOption = new Option<bool>(
             aliases: ["--verbose", "-v"],
             description: "Enable verbose output") {
@@ -33,30 +39,33 @@ internal static partial class App {
 
         // Default command
         var rootCommand = new RootCommand("Protocol simulator") {
+            debugOption,
             verboseOption,
             fileArgument,
         };
-        rootCommand.SetHandler(App.Default, fileArgument);
+        rootCommand.SetHandler(App.Default, fileArgument, debugOption, verboseOption);
         rootCommand.AddArgument(fileArgument);
 
         // Command: lint
         var lintCommand = new Command("lint", "Parse file and display it") {
+            debugOption,
             verboseOption,
             fileArgument,
         };
-        lintCommand.SetHandler(App.Lint, fileArgument);
+        lintCommand.SetHandler(App.Lint, fileArgument, debugOption, verboseOption);
         rootCommand.Add(lintCommand);
 
         // Command: mermaid
         var mermaidCommand = new Command("mermaid", "Mermaid diagram definitions") {
+            debugOption,
+            verboseOption,
             fileArgument,
         };
-        mermaidCommand.SetHandler(App.Mermaid, fileArgument);
+        mermaidCommand.SetHandler(App.Mermaid, fileArgument, debugOption, verboseOption);
         rootCommand.Add(mermaidCommand);
 
         // Command: new
         var newCommand = new Command("new", "Creates a new file") {
-            verboseOption,
             fileArgument,
         };
         newCommand.SetHandler(App.New, fileArgument);
@@ -64,17 +73,19 @@ internal static partial class App {
 
         // Command: run
         var runCommand = new Command("run", "Execute flows in the file") {
+            debugOption,
             verboseOption,
             fileArgument,
         };
-        runCommand.SetHandler(App.Run, fileArgument);
+        runCommand.SetHandler(App.Run, fileArgument, debugOption, verboseOption);
         rootCommand.Add(runCommand);
 
         // Command: version
         var versionCommand = new Command("version", "Shows current version") {
+            debugOption,
             verboseOption,
         };
-        versionCommand.SetHandler(App.Version, verboseOption);
+        versionCommand.SetHandler(App.Version, debugOption, verboseOption);
         rootCommand.Add(versionCommand);
 
 

@@ -7,13 +7,15 @@ using System.Threading;
 
 internal static partial class App {
 
-    public static void Lint(FileInfo file) {
+    public static void Lint(FileInfo file, bool debug, bool verbose) {
+        var logger = Logger.GetInstance(debug, verbose);
+
         try {
 
             var document = AASeqNodes.Load(file.FullName);
 
-            var pluginManager = new PluginManager(Logger.Instance);
-            using var engine = new Engine(Logger.Instance, pluginManager, document);
+            var pluginManager = new PluginManager(logger);
+            using var engine = new Engine(logger, pluginManager, document);
 
             var newDocument = new AASeqNodes([engine.OwnDefinitionNode]);
             foreach (var endpoint in engine.Endpoints) {

@@ -5,6 +5,13 @@ using Microsoft.Extensions.Logging;
 
 internal sealed class Logger : ILogger {
 
+    internal Logger(LogLevel minimumLogLevel) {
+        MinimumLogLevel = minimumLogLevel;
+    }
+
+    public LogLevel MinimumLogLevel { get; }
+
+
     #region ILogger
 
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull {
@@ -16,6 +23,8 @@ internal sealed class Logger : ILogger {
     }
 
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) {
+        if (logLevel <= MinimumLogLevel) { return; }
+
         switch (logLevel) {
             case LogLevel.Trace:
             case LogLevel.Debug:
@@ -34,6 +43,7 @@ internal sealed class Logger : ILogger {
                 Output.WriteError(formatter.Invoke(state, exception).ToString());
                 break;
         }
+
         var message = formatter.Invoke(state, exception).ToString();
         Output.WriteError(message);
     }
@@ -41,6 +51,10 @@ internal sealed class Logger : ILogger {
     #endregion ILogger
 
 
-    public static Logger Instance { get; } = new Logger();
+    public static Logger Default { get; } = new Logger(LogLevel.Warning);
+
+    public static Logger GetInstance(bool debug, bool verbose) {
+        return new Logger(debug ? LogLevel.Trace : verbose ? LogLevel.Information : LogLevel.Warning);
+    }
 
 }

@@ -3,28 +3,32 @@ using AASeq;
 using System;
 using System.IO;
 using System.Threading;
+using Microsoft.Extensions.Logging;
+using System.Dynamic;
 
 internal static partial class App {
 
     private static readonly ManualResetEvent DoneEvent = new(initialState: false);
 
-    public static void Run(FileInfo file) {
-        Run(file, isInteractive: false);
+    public static void Run(FileInfo file, bool debug, bool verbose) {
+        Run(file, debug, verbose, isInteractive: false);
     }
 
-    public static void Run(FileInfo file, bool isInteractive = false) {
+    public static void Run(FileInfo file, bool debug, bool verbose, bool isInteractive = false) {
         Console.CancelKeyPress += delegate {
             Output.WriteError("^C", prependEmptyLine: true);
             DoneEvent.Set();
             Environment.Exit(1);
         };
 
+        var logger = Logger.GetInstance(debug, verbose);
+
         try {
             var document = AASeqNodes.Load(file.FullName);
 
             try {
-                var pluginManager = new PluginManager(Logger.Instance);
-                using var engine = new Engine(Logger.Instance, pluginManager, document);
+                var pluginManager = new PluginManager(logger);
+                using var engine = new Engine(logger, pluginManager, document);
 
                 var newDocument = new AASeqNodes([engine.OwnDefinitionNode]);
                 foreach (var endpoint in engine.Endpoints) {

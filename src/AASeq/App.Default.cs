@@ -7,8 +7,8 @@ using System.Threading;
 
 internal static partial class App {
 
-    public static void Default(FileInfo file) {
-        App.Run(file, isInteractive: true);
+    public static void Default(FileInfo file, bool debug, bool verbose) {
+        App.Run(file, debug, verbose, isInteractive: true);
     }
 
 }
