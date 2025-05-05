@@ -1,5 +1,9 @@
 #!/usr/bin/env aaseq
 
+@Me {
+    Repeat 5
+}
+
 # Remote diameter server
 @Remote Diameter {
     Remote 192.168.57.90:3868
