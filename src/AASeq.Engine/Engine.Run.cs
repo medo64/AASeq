@@ -150,13 +150,15 @@ public sealed partial class Engine {
                                     OnActionError(flowIndex, actionIndex, action, responseNode);
                                 }
                             } catch (OperationCanceledException) {
-                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
-                                actionNode.Properties.Add("exception", "Timeout");
-                                OnActionError(flowIndex, actionIndex, action, actionNode);
+                                var errNode = new AASeqNode(actionNode.Name, actionNode.Value);
+                                errNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                errNode.Properties.Add("exception", "Timeout");
+                                OnActionError(flowIndex, actionIndex, action, errNode);
                             } catch (Exception ex) {
-                                actionNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
-                                actionNode.Properties.Add("exception", ex.Message);
-                                OnActionError(flowIndex, actionIndex, action, actionNode);
+                                var errNode = new AASeqNode(actionNode.Name, actionNode.Value);
+                                errNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
+                                errNode.Properties.Add("exception", ex.Message);
+                                OnActionError(flowIndex, actionIndex, action, errNode);
                             }
 
                         } else {

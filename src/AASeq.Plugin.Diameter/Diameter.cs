@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using AASeq;
 using AASeq.Diameter;
 using System.Text;
+using System.Globalization;
 
 /// <summary>
 /// Diameter endpoint.
@@ -17,29 +18,72 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
 
     private Diameter(ILogger logger, AASeqNodes configuration) {
         Logger = logger;
-        var remoteIP = configuration["Remote"].AsIPAddress();
-        var localIP = configuration["Local"].AsIPAddress();
 
-        var remoteEndpoint = remoteIP is null ? configuration["Remote"].AsIPEndPoint() : new IPEndPoint(remoteIP, 3868);
-        var localEndpoint = localIP is null ? configuration["Local"].AsIPEndPoint() : new IPEndPoint(localIP, 3868);
+        string? remoteHost = null;
+        int remotePort = 3868;
+        if (configuration.TryConsumeNode("Remote", out var remoteNode)) {
+            if (remoteNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{remoteNode.Name}'."); }
+            var parts = remoteNode.Value.AsString("").Split(':', StringSplitOptions.TrimEntries);
+            if (parts.Length == 1) {
+                remoteHost = parts[0];
+            } else if (parts.Length == 2) {
+                remoteHost = parts[0];
+                if (!int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out remotePort) || (remotePort is < 1 or > 65535)) {
+                    throw new InvalidOperationException($"Cannot convert 'Remote' port value.");
+                }
+            } else {
+                throw new InvalidOperationException($"Cannot convert 'Remote' value.");
+            }
+        }
 
-        if ((remoteEndpoint is not null) && (localEndpoint is null)) {
-            var cerNodes = configuration.FindNode("Capability-Exchange-Request")?.Nodes ?? [];
-            var dwrNodes = configuration.FindNode("Diameter-Watchdog-Request")?.Nodes ?? [];
-            DiameterThread = new DiameterClientThread(this, logger, remoteEndpoint, cerNodes, dwrNodes);
-        } else if ((remoteEndpoint is null) && (localEndpoint is not null)) {
-            var ceaNodes = configuration.FindNode("Capability-Exchange-Answer")?.Nodes ?? [];
-            var dwrNodes = configuration.FindNode("Diameter-Watchdog-Request")?.Nodes ?? [];
-            DiameterThread = new DiameterServerThread(this, logger, localEndpoint, ceaNodes, dwrNodes);
+        string? localHost = null;
+        int localPort = 3868;
+        if (configuration.TryConsumeNode("Local", out var localNode)) {
+            if (localNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{localNode.Name}'."); }
+            var parts = localNode.Value.AsString("").Split(':', StringSplitOptions.TrimEntries);
+            if (parts.Length == 1) {
+                localHost = parts[0];
+            } else if (parts.Length == 2) {
+                localHost = parts[0];
+                if (!int.TryParse(parts[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out localPort) || (localPort is < 1 or > 65535)) {
+                    throw new InvalidOperationException($"Cannot convert 'Local' port value.");
+                }
+            } else {
+                throw new InvalidOperationException($"Cannot convert 'Local' value.");
+            }
+        }
+
+        int watchdogInterval = 30;
+        if (configuration.TryConsumeNode("WatchdogInterval", out var watchdogNode)) {
+            if (watchdogNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{watchdogNode.Name}'."); }
+            var wdInt = watchdogNode.Value.AsInt32(watchdogInterval);
+            if (wdInt is >= 5) {
+                watchdogInterval = wdInt;
+            } else {
+                throw new InvalidOperationException($"Cannot convert 'Local' value.");
+            }
+        }
+
+        if ((remoteHost is not null) && (localHost is null)) {
+            var cerNodes = configuration.ConsumeNode("Capability-Exchange-Request")?.Nodes ?? [];
+            var dwrNodes = configuration.ConsumeNode("Diameter-Watchdog-Request")?.Nodes ?? [];
+            DiameterThread = new DiameterClientThread(this, logger, remoteHost, remotePort, cerNodes, dwrNodes, watchdogInterval);
+        } else if ((remoteHost is null) && (localHost is not null)) {
+            var ceaNodes = configuration.ConsumeNode("Capability-Exchange-Answer")?.Nodes ?? [];
+            var dwrNodes = configuration.ConsumeNode("Diameter-Watchdog-Request")?.Nodes ?? [];
+            DiameterThread = new DiameterServerThread(this, logger, localHost, localPort, ceaNodes, dwrNodes, watchdogInterval);
         } else {
             throw new InvalidOperationException("Either remote or local endpoint must be specified.");
         }
+
+        if (configuration.Count > 0) { logger.LogWarning($"Unrecognized configuration node '{configuration[0].Name}'."); }
     }
 
 
     private readonly ILogger Logger;
     private readonly IDiameterThread DiameterThread;
     internal long LastMessageTimestamp = Environment.TickCount64;  // interlocked access - used by *Thread class
+
 
     /// <summary>
     /// Gets/sets the diameter stream.

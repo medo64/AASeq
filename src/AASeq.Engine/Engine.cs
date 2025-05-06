@@ -100,9 +100,9 @@ public sealed partial class Engine : IDisposable {
                 var configuration = node.Nodes;
                 endpoints.Add(nodeName, new EndpointStore(
                     nodeName,
-                    configuration,
+                    configuration.Clone(),
                     plugin,
-                    plugin.CreateInstance(new Logger(logger, nodeName), configuration))
+                    plugin.CreateInstance(new Logger(logger, nodeName), configuration.Clone()))
                 );
             }
 
