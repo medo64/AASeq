@@ -23,39 +23,82 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
         }
         if (firstSerialPort is null) { throw new InvalidOperationException("No serial ports available."); }
 
-        PortName = configuration["PortName"].AsString(firstSerialPort);
-        BaudRate = configuration["BaudRate"].AsInt32(DefaultBaudRate);
-        Parity = configuration["Parity"].AsString(DefaultParity) switch {
-            "N" or "None" => Parity.None,
-            "O" or "Odd" => Parity.Odd,
-            "E" or "Even" => Parity.Even,
-            "M" or "Mark" => Parity.Mark,
-            "S" or "Space" => Parity.Space,
-            _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unknown parity: {configuration["Parity"]}."),
-        };
-        DataBits = configuration["DataBits"].AsInt32(DefaultDataBits);
-        StopBits = configuration["StopBits"].AsDouble(DefaultStopBits) switch {
-            1.0 => StopBits.One,
-            1.5 => StopBits.OnePointFive,
-            2.0 => StopBits.Two,
-            _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unknown stop bits: {configuration["StopBits"]}."),
-        };
+        PortName = firstSerialPort;
+        if (configuration.TryConsumeNode("PortName", out var portNode)) {
+            if (portNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{portNode.Name}'."); }
+            var portValue = portNode.Value.AsString();
+            if (!string.IsNullOrWhiteSpace(portValue)) {
+                PortName = portValue;
+            } else {
+                throw new InvalidOperationException($"Cannot convert 'PortName' value.");
+            }
+        }
 
-        Eol = configuration["EOL"].AsString(DefaultEol).ToUpperInvariant() switch {
-            "LF" or "\n" => "\n",
-            "CRLF" or "\r\n" => "\r\n",
-            "CR" or "\r" => "\r",
-            _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unsupported line ending."),
-        };
+        if (configuration.TryConsumeNode("BaudRate", out var baudNode)) {
+            if (baudNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{baudNode.Name}'."); }
+            var baudValue = baudNode.Value.AsInt32();
+            if ((baudValue != null) && (baudValue.Value > 0)) {
+                BaudRate = baudValue.Value;
+            } else {
+                throw new InvalidOperationException($"Cannot convert 'BaudRate' value.");
+            }
+        }
+
+        if (configuration.TryConsumeNode("DataBits", out var dataNode)) {
+            if (dataNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{dataNode.Name}'."); }
+            var dataValue = dataNode.Value.AsInt32(8);
+            if (dataValue is 7 or 8) {
+                DataBits = dataValue;
+            } else {
+                throw new InvalidOperationException($"Cannot convert 'DataBits' value.");
+            }
+        }
+
+        if (configuration.TryConsumeNode("Parity", out var parityNode)) {
+            if (parityNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{parityNode.Name}'."); }
+            Parity = parityNode.Value.AsString("None") switch {
+                "N" or "None" => Parity.None,
+                "O" or "Odd" => Parity.Odd,
+                "E" or "Even" => Parity.Even,
+                "M" or "Mark" => Parity.Mark,
+                "S" or "Space" => Parity.Space,
+                _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Cannot convert 'Parity' value."),
+            };
+        }
+
+        if (configuration.TryConsumeNode("StopBits", out var stopNode)) {
+            if (stopNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{stopNode.Name}'."); }
+            StopBits = stopNode.Value.AsDouble(1) switch {
+                1.0 => StopBits.One,
+                1.5 => StopBits.OnePointFive,
+                2.0 => StopBits.Two,
+                _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Cannot convert 'StopBits' value."),
+            };
+        }
+
+        if (configuration.TryConsumeNode("EOL", out var eolNode)) {
+            if (eolNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{eolNode.Name}'."); }
+            Eol = eolNode.Value.AsString(Eol).ToUpperInvariant() switch {
+                "LF" or "\n" => "\n",
+                "CRLF" or "\r\n" => "\r\n",
+                "CR" or "\r" => "\r",
+                _ => throw new ArgumentOutOfRangeException(nameof(configuration), $"Unsupported line ending."),
+            };
+        }
+
+        if (configuration.Count > 0) { logger.LogWarning($"Unrecognized configuration node '{configuration[0].Name}'."); }
     }
 
+
     private readonly ILogger Logger;
+
     private readonly string PortName;
-    private readonly int BaudRate;
-    private readonly Parity Parity;
-    private readonly int DataBits;
-    private readonly StopBits StopBits;
-    private readonly string Eol;
+    private readonly int BaudRate = 9600;
+    private readonly Parity Parity = Parity.None;
+    private readonly int DataBits = 8;
+    private readonly StopBits StopBits = StopBits.One;
+    private readonly string Eol = "\r\n";
+
     private SerialPort? Port;
 
 
@@ -83,24 +126,37 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
 
         switch (messageName.ToUpperInvariant()) {
             case "WRITELINE": {
-                    var text = parameters["Text"].AsString("");
-                    var bytes = Utf8.GetBytes(text + Eol);
-                    await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
-                    return new AASeqNodes(
-                        [new AASeqNode("Text", text)]
-                    );
+                    if (parameters.TryConsumeNode("Text", out var node)) {
+                        if (parameters.Count > 0) { Logger.LogWarning($"Unrecognized parameter '{parameters[0].Name}'."); }
+                        if (node.Nodes.Count > 0) { Logger.LogWarning($"Unrecognized properties for '{parameters[0].Name}'."); }
+                        var text = node.Value.AsString("");
+                        var bytes = Utf8.GetBytes(text + Eol);
+                        await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+                        return new AASeqNodes(
+                            [new AASeqNode("Text", text)]
+                        );
+                    } else {
+                        throw new InvalidOperationException("No 'Text' specified.");
+                    }
                 }
 
             case "WRITEBYTES": {
-                    var bytes = parameters["Bytes"].AsByteArray() ?? throw new ArgumentNullException(nameof(parameters), "Bytes are null.");
-                    if (bytes.Length == 0) { throw new ArgumentOutOfRangeException(nameof(parameters), "Bytes are empty."); }
-                    await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
-                    return new AASeqNodes(
-                        [new AASeqNode("Bytes", bytes)]
-                    );
+                    if (parameters.TryConsumeNode("Bytes", out var node)) {
+                        if (parameters.Count > 0) { Logger.LogWarning($"Unrecognized parameter '{parameters[0].Name}'."); }
+                        if (node.Nodes.Count > 0) { Logger.LogWarning($"Unrecognized properties for '{parameters[0].Name}'."); }
+                        var bytes = node.Value.AsByteArray() ?? throw new ArgumentNullException(nameof(parameters), "Cannot convert 'Bytes'.");
+                        if (bytes.Length == 0) { throw new ArgumentOutOfRangeException(nameof(parameters), "Bytes are empty."); }
+                        await Port.BaseStream.WriteAsync(bytes, cancellationToken).ConfigureAwait(false);
+                        return new AASeqNodes(
+                            [new AASeqNode("Bytes", bytes)]
+                        );
+                    } else {
+                        throw new InvalidOperationException("No 'Bytes' specified.");
+                    }
                 }
 
             case "DISCARD": {
+                    if (parameters.Count > 0) { Logger.LogWarning($"Unrecognized parameter '{parameters[0].Name}'."); }
                     Port.DiscardInBuffer();
                     Port.DiscardOutBuffer();
                     BytesIndex = 0;
@@ -205,12 +261,6 @@ internal sealed class Serial : IEndpointPlugin, IDisposable {
 
     #endregion IDisposable
 
-
-    private const int DefaultBaudRate = 9600;
-    private const string DefaultParity = "None";
-    private const int DefaultDataBits = 8;
-    private const double DefaultStopBits = 1.0;
-    private const string DefaultEol = "CRLF";
 
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
 

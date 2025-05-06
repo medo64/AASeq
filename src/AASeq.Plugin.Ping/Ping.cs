@@ -13,14 +13,6 @@ using AASeq;
 /// </summary>
 internal sealed class Ping : IEndpointPlugin {
 
-    /// <summary>
-    /// Gets the instance.
-    /// </summary>
-    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
-        return new Ping(logger, configuration);
-    }
-
-
     private Ping(ILogger logger, AASeqNodes configuration) {
         Logger = logger;
 
@@ -30,7 +22,7 @@ internal sealed class Ping : IEndpointPlugin {
             if (dfValue != null) {
                 DontFragment = dfValue.Value;
             } else {
-                logger.LogWarning($"Cannot convert 'DontFragment' value.");
+                throw new InvalidOperationException($"Cannot convert 'DontFragment' value.");
             }
         }
         if (configuration.TryConsumeNode("Host", out var hostNode)) {
@@ -39,7 +31,7 @@ internal sealed class Ping : IEndpointPlugin {
             if (!string.IsNullOrWhiteSpace(hostValue)) {
                 Host = hostValue;
             } else {
-                logger.LogWarning($"Cannot convert 'Host' value.");
+                throw new InvalidOperationException($"Cannot convert 'Host' value.");
             }
         }
         if (configuration.TryConsumeNode("Timeout", out var timeoutNode)) {
@@ -48,7 +40,7 @@ internal sealed class Ping : IEndpointPlugin {
             if ((timeoutValue != null) && (timeoutValue.Value.TotalSeconds > 0)) {
                 Timeout = timeoutValue.Value;
             } else {
-                logger.LogWarning($"Cannot convert 'Timeout' value.");
+                throw new InvalidOperationException($"Cannot convert 'Timeout' value.");
             }
         }
         if (configuration.TryConsumeNode("TTL", out var ttlNode)) {
@@ -57,7 +49,7 @@ internal sealed class Ping : IEndpointPlugin {
             if ((ttlValue != null) && (ttlValue.Value is > 0 and < 255)) {
                 TimeToLive = ttlValue.Value;
             } else {
-                logger.LogWarning($"Cannot convert 'TTL' value.");
+                throw new InvalidOperationException($"Cannot convert 'TTL' value.");
             }
         }
 
@@ -65,12 +57,12 @@ internal sealed class Ping : IEndpointPlugin {
     }
 
     private readonly ILogger Logger;
+    private readonly ConcurrentDictionary<Guid, (string, AASeqNodes)> Storage = [];
+
     private readonly bool DontFragment = false;
     private readonly string Host = "localhost";
     private readonly TimeSpan Timeout = TimeSpan.FromSeconds(1);
     private readonly int TimeToLive = 64;
-
-    private readonly ConcurrentDictionary<Guid, (string, AASeqNodes)> Storage = [];
 
 
     /// <summary>
@@ -172,6 +164,14 @@ internal sealed class Ping : IEndpointPlugin {
             }
         }
         throw new InvalidOperationException("No reply.");
+    }
+
+
+    /// <summary>
+    /// Gets the instance.
+    /// </summary>
+    public static IEndpointPlugin CreateInstance(ILogger logger, AASeqNodes configuration) {
+        return new Ping(logger, configuration);
     }
 
 }
