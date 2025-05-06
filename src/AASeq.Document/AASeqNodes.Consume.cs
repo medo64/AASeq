@@ -1,5 +1,6 @@
 namespace AASeq;
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 public sealed partial class AASeqNodes {
 
@@ -7,7 +8,7 @@ public sealed partial class AASeqNodes {
     /// Finds node at a given path, returns it, and removes it from the collection.
     /// It will not create new nodes.
     /// If there are any duplicates, along the path, only the last one will be returned.
-    /// All serach starts at the root of the current node.
+    /// Search starts at the root of the current node.
     /// </summary>
     /// <param name="nodePath">Path to the node.</param>
     public AASeqNode? ConsumeNode(string nodePath) {
@@ -32,6 +33,20 @@ public sealed partial class AASeqNodes {
             }
         }
         return null;
+    }
+
+    /// <summary>
+    /// Finds node at a given path, returns it, and removes it from the collection.
+    /// It will not create new nodes.
+    /// If there are any duplicates, along the path, only the last one will be returned.
+    /// Search starts at the root of the current node.
+    /// </summary>
+    /// <param name="nodePath">Path to the node.</param>
+    /// <param name="node">Node that was found.</param>
+    public bool TryConsumeNode(string nodePath, [MaybeNullWhen(false)] out AASeqNode node) {
+        if (nodePath == null) { node = default; return false; }
+        node = ConsumeNode(nodePath);
+        return node != null;
     }
 
 }

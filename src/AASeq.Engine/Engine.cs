@@ -36,11 +36,66 @@ public sealed partial class Engine : IDisposable {
             if (!EndpointNameRegex().IsMatch(pluginName)) { throw new InvalidOperationException($"Invalid plugin name '{pluginName}'."); }
 
             if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
-                repeatCount = node.Nodes["Repeat"].IsPositiveInfinity ? int.MaxValue : Math.Max(1, node.Nodes["Repeat"].AsInt32(1));
-                commandTimeout = node.Nodes["CommandTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(commandTimeout));
-                receiveTimeout = node.Nodes["ReceiveTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(receiveTimeout));
-                sendTimeout = node.Nodes["SendTimeout"].AsTimeSpan(node.Nodes["Timeout"].AsTimeSpan(sendTimeout));
+
+                if (node.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {node.Name}."); }
+
+                if (node.Nodes.TryConsumeNode("Repeat", out var repeatNode)) {
+                    if (repeatNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {repeatNode.Name}."); }
+                    if (repeatNode.Value.IsPositiveInfinity) {
+                        repeatCount = int.MaxValue;
+                    } else {
+                        var count = repeatNode.Value.AsInt32();
+                        if ((count != null) && (count > 0)) {
+                            repeatCount = count.Value;
+                        } else {
+                            logger.LogWarning($"Cannot convert Repeat value; using 1.");
+                        }
+                    }
+                }
+
+                if (node.Nodes.TryConsumeNode("Timeout", out var timeoutNode)) {
+                    if (timeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {timeoutNode.Name}."); }
+                    var timeout = timeoutNode.Value.AsTimeSpan();
+                    if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
+                        commandTimeout = timeout.Value;
+                        receiveTimeout = timeout.Value;
+                        sendTimeout = timeout.Value;
+                    } else {
+                        logger.LogWarning($"Cannot convert Timeout value.");
+                    }
+                }
+                if (node.Nodes.TryConsumeNode("CommandTimeout", out var commandTimeoutNode)) {
+                    if (commandTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {commandTimeoutNode.Name}."); }
+                    var timeout = commandTimeoutNode.Value.AsTimeSpan();
+                    if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
+                        commandTimeout = timeout.Value;
+                    } else {
+                        logger.LogWarning($"Cannot convert CommandTimeout value.");
+                    }
+                }
+                if (node.Nodes.TryConsumeNode("ReceiveTimeout", out var receiveTimeoutNode)) {
+                    if (receiveTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {receiveTimeoutNode.Name}."); }
+                    var timeout = receiveTimeoutNode.Value.AsTimeSpan();
+                    if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
+                        receiveTimeout = timeout.Value;
+                    } else {
+                        logger.LogWarning($"Cannot convert ReceiveTimeout value.");
+                    }
+                }
+                if (node.Nodes.TryConsumeNode("SendTimeout", out var sendTimeoutNode)) {
+                    if (sendTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {sendTimeoutNode.Name}."); }
+                    var timeout = sendTimeoutNode.Value.AsTimeSpan();
+                    if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
+                        sendTimeout = timeout.Value;
+                    } else {
+                        logger.LogWarning($"Cannot convert SendTimeout value.");
+                    }
+                }
+
+                if (node.Nodes.Count > 0) { logger.LogWarning($"Unrecognized node {node.Nodes[0].Name} for own endpoint."); }
+
             } else {
+
                 var plugin = pluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
                 var configuration = node.Nodes;
                 endpoints.Add(nodeName, new EndpointStore(
@@ -50,6 +105,7 @@ public sealed partial class Engine : IDisposable {
                     plugin.CreateInstance(new Logger(logger, nodeName), configuration))
                 );
             }
+
         }
 
         RepeatCount = repeatCount;
