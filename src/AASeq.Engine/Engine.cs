@@ -37,10 +37,10 @@ public sealed partial class Engine : IDisposable {
 
             if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
 
-                if (node.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {node.Name}."); }
+                if (node.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{node.Name}'."); }
 
                 if (node.Nodes.TryConsumeNode("Repeat", out var repeatNode)) {
-                    if (repeatNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {repeatNode.Name}."); }
+                    if (repeatNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{repeatNode.Name}'."); }
                     if (repeatNode.Value.IsPositiveInfinity) {
                         repeatCount = int.MaxValue;
                     } else {
@@ -48,51 +48,51 @@ public sealed partial class Engine : IDisposable {
                         if ((count != null) && (count > 0)) {
                             repeatCount = count.Value;
                         } else {
-                            logger.LogWarning($"Cannot convert Repeat value; using 1.");
+                            logger.LogWarning($"Cannot convert 'Repeat' value.");
                         }
                     }
                 }
 
                 if (node.Nodes.TryConsumeNode("Timeout", out var timeoutNode)) {
-                    if (timeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {timeoutNode.Name}."); }
+                    if (timeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{timeoutNode.Name}'."); }
                     var timeout = timeoutNode.Value.AsTimeSpan();
                     if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
                         commandTimeout = timeout.Value;
                         receiveTimeout = timeout.Value;
                         sendTimeout = timeout.Value;
                     } else {
-                        logger.LogWarning($"Cannot convert Timeout value.");
+                        logger.LogWarning($"Cannot convert 'Timeout' value.");
                     }
                 }
                 if (node.Nodes.TryConsumeNode("CommandTimeout", out var commandTimeoutNode)) {
-                    if (commandTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {commandTimeoutNode.Name}."); }
+                    if (commandTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{commandTimeoutNode.Name}'."); }
                     var timeout = commandTimeoutNode.Value.AsTimeSpan();
                     if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
                         commandTimeout = timeout.Value;
                     } else {
-                        logger.LogWarning($"Cannot convert CommandTimeout value.");
+                        logger.LogWarning($"Cannot convert 'CommandTimeout' value.");
                     }
                 }
                 if (node.Nodes.TryConsumeNode("ReceiveTimeout", out var receiveTimeoutNode)) {
-                    if (receiveTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {receiveTimeoutNode.Name}."); }
+                    if (receiveTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{receiveTimeoutNode.Name}'."); }
                     var timeout = receiveTimeoutNode.Value.AsTimeSpan();
                     if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
                         receiveTimeout = timeout.Value;
                     } else {
-                        logger.LogWarning($"Cannot convert ReceiveTimeout value.");
+                        logger.LogWarning($"Cannot convert 'ReceiveTimeout' value.");
                     }
                 }
                 if (node.Nodes.TryConsumeNode("SendTimeout", out var sendTimeoutNode)) {
-                    if (sendTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on {sendTimeoutNode.Name}."); }
+                    if (sendTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{sendTimeoutNode.Name}'."); }
                     var timeout = sendTimeoutNode.Value.AsTimeSpan();
                     if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
                         sendTimeout = timeout.Value;
                     } else {
-                        logger.LogWarning($"Cannot convert SendTimeout value.");
+                        logger.LogWarning($"Cannot convert 'SendTimeout' value.");
                     }
                 }
 
-                if (node.Nodes.Count > 0) { logger.LogWarning($"Unrecognized node {node.Nodes[0].Name} for own endpoint."); }
+                if (node.Nodes.Count > 0) { logger.LogWarning($"Unrecognized node '{node.Nodes[0].Name}' for own endpoint."); }
 
             } else {
 
