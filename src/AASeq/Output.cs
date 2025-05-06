@@ -25,11 +25,26 @@ internal static class Output {
 
     #region Log
 
+    public static void WriteVerbose(string s, bool prependEmptyLine = false) {
+        lock (SyncRoot) {
+            if (prependEmptyLine) { Console.Out.WriteLine(); }
+            Console.ForegroundColor = ConsoleColor.DarkGray;
+            Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Out.Write("V: ");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.Out.WriteLine(s);
+            Console.ResetColor();
+        }
+    }
+
     public static void WriteDebug(string s, bool prependEmptyLine = false) {
         lock (SyncRoot) {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.Out.Write("D: ");
             Console.ForegroundColor = ConsoleColor.DarkBlue;
             Console.Out.WriteLine(s);
             Console.ResetColor();
@@ -41,6 +56,8 @@ internal static class Output {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Out.Write("I: ");
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.Out.WriteLine(s);
             Console.ResetColor();
@@ -52,6 +69,8 @@ internal static class Output {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.Out.Write("W: ");
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.Error.WriteLine(s);
             Console.ResetColor();
@@ -63,6 +82,8 @@ internal static class Output {
             if (prependEmptyLine) { Console.Out.WriteLine(); }
             Console.ForegroundColor = ConsoleColor.DarkGray;
             Console.Out.Write("### " + DateTime.Now.ToString("HH:mm:ss.fff") + " ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Out.Write("E: ");
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.Error.WriteLine(s);
             Console.ResetColor();

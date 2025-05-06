@@ -23,10 +23,12 @@ internal sealed class Logger : ILogger {
     }
 
     public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter) {
-        if (logLevel <= MinimumLogLevel) { return; }
+        if (logLevel < MinimumLogLevel) { return; }
 
         switch (logLevel) {
             case LogLevel.Trace:
+                Output.WriteVerbose(formatter.Invoke(state, exception).ToString());
+                return;
             case LogLevel.Debug:
                 Output.WriteDebug(formatter.Invoke(state, exception).ToString());
                 return;
