@@ -38,7 +38,7 @@ RUN chown -R $UID:$UID /app
 
 # User
 RUN addgroup -g $UID $UNAME
-RUN adduser -D -G $UNAME $UNAME
+RUN adduser -D -u $UID -G $UNAME $UNAME
 
 # TcpDump (requires NET_ADMIN and NET_RAW)
 RUN apk add tcpdump libcap
