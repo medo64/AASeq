@@ -16,7 +16,7 @@ RUN apk add bash
 COPY src/AASeq.Docker/bash-default.sh /etc/bash/default.sh
 
 # Helper packages
-RUN apk add bash bind-tools tcpdump
+RUN apk add bind-tools
 
 # Examples
 COPY examples/Files/* /app/examples/
@@ -39,6 +39,10 @@ RUN chown -R $UID:$UID /app
 # User
 RUN addgroup -g $UID $UNAME
 RUN adduser -D -G $UNAME $UNAME
+
+# TcpDump (requires NET_ADMIN and NET_RAW)
+RUN apk add tcpdump libcap
+RUN setcap cap_net_raw,cap_net_admin=eip /usr/bin/tcpdump
 
 # Done
 USER $UNAME
