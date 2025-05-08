@@ -514,6 +514,34 @@ make_package() {
 
     ANYTHING_DONE=0
 
+    for RUNTIME in $PROJECT_RUNTIMES; do
+        if [ "$RUNTIME" = "current" ]; then continue; fi
+
+        ANYTHING_DONE=1
+        echo "${ANSI_MAGENTA}archive ($RUNTIME)${ANSI_RESET}"
+
+        mkdir -p "$SCRIPT_DIR/build/archive-$RUNTIME"
+        find "$SCRIPT_DIR/build/archive-$RUNTIME" -mindepth 1 -delete
+
+        rsync -a "$SCRIPT_DIR/bin/$RUNTIME/" "$SCRIPT_DIR/build/archive-$RUNTIME/" || exit 113
+
+        mkdir -p "dist"
+
+        case $RUNTIME in
+            win-*)  ARCHIVE_NAME_CURR="$PROJECT_NAME-$GIT_VERSION_TEXT-$RUNTIME.zip" ;;
+            *)      ARCHIVE_NAME_CURR="$PROJECT_NAME-$GIT_VERSION_TEXT-$RUNTIME.tgz" ;;
+        esac
+        rm "dist/$ARCHIVE_NAME_CURR" 2>/dev/null
+
+        case $RUNTIME in
+            win-*)  (cd "$SCRIPT_DIR/build/archive-$RUNTIME" && zip -r "$SCRIPT_DIR/dist/$ARCHIVE_NAME_CURR" .) || exit 113 ;;
+            *)      tar czvf "dist/$ARCHIVE_NAME_CURR" -C "$SCRIPT_DIR/build/archive-$RUNTIME" . || exit 113 ;;
+        esac
+
+        echo "${ANSI_CYAN}dist/$APPIMAGE_NAME_CURR${ANSI_RESET}"
+        echo
+    done
+
     if [ "$PACKAGE_LINUX_DOCKER" != "" ]; then
         ANYTHING_DONE=1
         echo "${ANSI_MAGENTA}docker${ANSI_RESET}"
