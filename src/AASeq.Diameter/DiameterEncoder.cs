@@ -101,21 +101,21 @@ public static class DiameterEncoder {
 
     private static DiameterAvp GetAvp(AvpDictionaryEntry avpEntry, AASeqNode node) {
         var avp = avpEntry.AvpType switch {
-            AvpType.Address => new DiameterAvp(avpEntry, GetAddressBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Address.")),
+            AvpType.Address => new DiameterAvp(avpEntry, GetAddressBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Address.")),
             AvpType.DiameterIdentity => new DiameterAvp(avpEntry, Utf8.GetBytes(node.Value.AsString(""))),
             AvpType.DiameterURI => throw new NotImplementedException("Uri"),
-            AvpType.Enumerated => new DiameterAvp(avpEntry, GetEnumBytes(avpEntry, node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Enumerated.")),
+            AvpType.Enumerated => new DiameterAvp(avpEntry, GetEnumBytes(avpEntry, node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Enumerated.")),
             AvpType.Float32 => throw new NotImplementedException("Float32"),
-            AvpType.Grouped => GetGroupedAvp(avpEntry, node.Nodes) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Grouped."),
-            AvpType.Integer32 => new DiameterAvp(avpEntry, GetInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int32.")),
-            AvpType.Integer64 => new DiameterAvp(avpEntry, GetInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int64.")),
+            AvpType.Grouped => GetGroupedAvp(avpEntry, node.Nodes) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Grouped."),
+            AvpType.Integer32 => new DiameterAvp(avpEntry, GetInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Integer32.")),
+            AvpType.Integer64 => new DiameterAvp(avpEntry, GetInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Integer64.")),
             AvpType.IPFilterRule => throw new NotImplementedException("IPFilterRule"),
-            AvpType.OctetString => new DiameterAvp(avpEntry, node.Value.AsByteArray() ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to byte array.")),
+            AvpType.OctetString => new DiameterAvp(avpEntry, node.Value.AsByteArray() ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an OctetString.")),
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
             AvpType.RawAddress => new DiameterAvp(avpEntry, GetRawAddressBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to RawAddress.")),
             AvpType.Time => new DiameterAvp(avpEntry, GetTimeBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Time.")),
-            AvpType.Unsigned32 => new DiameterAvp(avpEntry, GetUInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32.")),
-            AvpType.Unsigned64 => new DiameterAvp(avpEntry, GetUInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64.")),
+            AvpType.Unsigned32 => new DiameterAvp(avpEntry, GetUInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Unsigned32.")),
+            AvpType.Unsigned64 => new DiameterAvp(avpEntry, GetUInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Unsigned64.")),
             AvpType.UTF8String => new DiameterAvp(avpEntry, Utf8.GetBytes(node.Value.AsString(""))),
             _ => throw new NotImplementedException(),  // should never happen
         };
@@ -139,21 +139,21 @@ public static class DiameterEncoder {
 
     private static AASeqNode GetNode(AvpDictionaryEntry avpEntry, byte[] data) {
         return avpEntry.AvpType switch {
-            AvpType.Address => new AASeqNode(avpEntry.Name, GetAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to IPAddress.")),
+            AvpType.Address => new AASeqNode(avpEntry.Name, GetAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an IPAddress.")),
             AvpType.DiameterIdentity => new AASeqNode(avpEntry.Name, Utf8.GetString(data)),
             AvpType.DiameterURI => throw new NotImplementedException("DiameterURI"),
             AvpType.Enumerated => new AASeqNode(avpEntry.Name, GetEnum(avpEntry, data)),
             AvpType.Float32 => throw new NotImplementedException("Float32"),
             AvpType.Grouped => new AASeqNode(avpEntry.Name, GetGrouped(data)),
-            AvpType.Integer32 => new AASeqNode(avpEntry.Name, GetInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int32.")),
-            AvpType.Integer64 => new AASeqNode(avpEntry.Name, GetInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Int64.")),
+            AvpType.Integer32 => new AASeqNode(avpEntry.Name, GetInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an Integer32.")),
+            AvpType.Integer64 => new AASeqNode(avpEntry.Name, GetInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an Integer64.")),
             AvpType.IPFilterRule => throw new NotImplementedException("IPFilterRule"),
             AvpType.OctetString => new AASeqNode(avpEntry.Name, data),
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
-            AvpType.RawAddress => new AASeqNode(avpEntry.Name, GetRawAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to IPAddress.")),
-            AvpType.Time => new AASeqNode(avpEntry.Name, GetTime(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Time.")),
-            AvpType.Unsigned32 => new AASeqNode(avpEntry.Name, GetUInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt32.")),
-            AvpType.Unsigned64 => new AASeqNode(avpEntry.Name, GetUInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to UInt64.")),
+            AvpType.RawAddress => new AASeqNode(avpEntry.Name, GetRawAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an IPAddress.")),
+            AvpType.Time => new AASeqNode(avpEntry.Name, GetTime(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from a Time.")),
+            AvpType.Unsigned32 => new AASeqNode(avpEntry.Name, GetUInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an Unsigned32.")),
+            AvpType.Unsigned64 => new AASeqNode(avpEntry.Name, GetUInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an Unsigned64.")),
             AvpType.UTF8String => new AASeqNode(avpEntry.Name, Utf8.GetString(data)),
             _ => throw new NotImplementedException(),  // should never happen
         };
