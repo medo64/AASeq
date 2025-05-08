@@ -116,7 +116,7 @@ public static class DiameterEncoder {
             AvpType.Time => new DiameterAvp(avpEntry, GetTimeBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Time.")),
             AvpType.Unsigned32 => new DiameterAvp(avpEntry, GetUInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Unsigned32.")),
             AvpType.Unsigned64 => new DiameterAvp(avpEntry, GetUInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Unsigned64.")),
-            AvpType.UTF8String => new DiameterAvp(avpEntry, Utf8.GetBytes(node.Value.AsString(""))),
+            AvpType.UTF8String => new DiameterAvp(avpEntry, GetUtf8StringBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an UTF8String.")),
             _ => throw new NotImplementedException(),  // should never happen
         };
 
@@ -154,7 +154,7 @@ public static class DiameterEncoder {
             AvpType.Time => new AASeqNode(avpEntry.Name, GetTime(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from a Time.")),
             AvpType.Unsigned32 => new AASeqNode(avpEntry.Name, GetUInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an Unsigned32.")),
             AvpType.Unsigned64 => new AASeqNode(avpEntry.Name, GetUInt64(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an Unsigned64.")),
-            AvpType.UTF8String => new AASeqNode(avpEntry.Name, Utf8.GetString(data)),
+            AvpType.UTF8String => new AASeqNode(avpEntry.Name, GetUtf8String(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an UTF8String.")),
             _ => throw new NotImplementedException(),  // should never happen
         };
     }
@@ -378,6 +378,17 @@ public static class DiameterEncoder {
     private static object GetUInt64(byte[] bytes) {
         if (bytes.Length != 8) { return bytes; }
         return BinaryPrimitives.ReadUInt64BigEndian(bytes);
+    }
+
+
+    private static byte[]? GetUtf8StringBytes(AASeqValue value) {
+        if (value.RawValue is byte[] bytes) { return bytes; }
+        var text = value.AsString("");
+        return Utf8.GetBytes(text);
+    }
+
+    private static object GetUtf8String(byte[] bytes) {
+        return Utf8.GetString(bytes);
     }
 
     #endregion Helpers
