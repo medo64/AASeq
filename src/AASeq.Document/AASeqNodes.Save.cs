@@ -88,10 +88,7 @@ public sealed partial class AASeqNodes : IFormattable {
         ArgumentNullException.ThrowIfNull(stream);
         ArgumentNullException.ThrowIfNull(options);
 
-        stream.SetLength(0);
-
-        using var bufferStream = new BufferedStream(stream, BufferSize);
-        using var writerStream = new StreamWriter(bufferStream, Utf8);
+        using var writerStream = new StreamWriter(stream, Utf8, BufferSize, leaveOpen: true);
         SaveNodes(nodes, writerStream, options, 0);
     }
 
