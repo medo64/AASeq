@@ -18,7 +18,7 @@ internal sealed class FlowCommand : IFlowCommandAction {
     /// <exception cref="ArgumentNullException">Name cannot be null.</exception>
     /// <exception cref="ArgumentOutOfRangeException">Name contains invalid characters.</exception>
     internal FlowCommand(ILogger logger, CommandPlugin plugin, AASeqNodes templateData) {
-        Logger = new Logger(logger, plugin.Name);
+        Logger = logger;
         Plugin = plugin;
         TemplateData = templateData;
     }

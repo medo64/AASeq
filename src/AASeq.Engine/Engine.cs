@@ -21,6 +21,8 @@ public sealed partial class Engine : IDisposable {
     public Engine(ILogger logger, PluginManager pluginManager, AASeqNodes document) {
         ArgumentNullException.ThrowIfNull(document);
 
+        LogFile = new LogToFile();
+
         var repeatCount = 1;
         var commandTimeout = TimeSpan.MaxValue;
         var receiveTimeout = TimeSpan.FromSeconds(3);
@@ -38,6 +40,13 @@ public sealed partial class Engine : IDisposable {
             if (pluginName.Equals("Me", StringComparison.OrdinalIgnoreCase)) {
 
                 if (node.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{node.Name}'."); }
+
+                if (node.Nodes.TryConsumeNode("LogFile", out var logFileNode)) {
+                    if (logFileNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{logFileNode.Name}'."); }
+                    var logFileValue = logFileNode.Value.AsString("");
+                    if (string.IsNullOrEmpty(logFileValue)) { throw new InvalidOperationException("Invalid file name"); }
+                    LogFile.SetDestination(logFileValue);
+                }
 
                 if (node.Nodes.TryConsumeNode("Repeat", out var repeatNode)) {
                     if (repeatNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{repeatNode.Name}'."); }
@@ -102,7 +111,7 @@ public sealed partial class Engine : IDisposable {
                     nodeName,
                     configuration.Clone(),
                     plugin,
-                    plugin.CreateInstance(new Logger(logger, nodeName), configuration.Clone()))
+                    plugin.CreateInstance(new LogToParent(logger, nodeName, LogFile), configuration.Clone()))
                 );
             }
 
@@ -195,7 +204,7 @@ public sealed partial class Engine : IDisposable {
                 }
                 var data = node.Nodes;
                 flowSequence.Add(new FlowCommand(
-                    logger,
+                    new LogToParent(logger, plugin.Name, LogFile),
                     plugin,
                     data
                 ));
@@ -310,6 +319,8 @@ public sealed partial class Engine : IDisposable {
 
 
     #region Helpers
+
+    private readonly LogToFile LogFile;
 
     [GeneratedRegex(@"^[\p{L}\p{Nd}][\p{L}\p{Nd}_-]*$")]  // allow only letters, digits, underscores, and hyphens; if two part, separate by colon
     private static partial Regex EndpointNameRegex();

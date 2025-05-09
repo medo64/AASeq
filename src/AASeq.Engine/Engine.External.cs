@@ -118,18 +118,22 @@ public sealed partial class Engine {
     /// </summary>
     public AASeqNode OwnDefinitionNode {
         get {
-            if ((CommandTimeout.Ticks == ReceiveTimeout.Ticks) && (ReceiveTimeout.Ticks == SendTimeout.Ticks)) {
-                return new AASeqNode("@Me", AASeqValue.Null, [
-                    new AASeqNode("Timeout", CommandTimeout),
-            ]);
-            } else {
-                return new AASeqNode("@Me", AASeqValue.Null, [
-                    new AASeqNode("Repeat", RepeatCount),
-                    new AASeqNode("CommandTimeout", CommandTimeout == TimeSpan.MaxValue ? double.PositiveInfinity : CommandTimeout),
-                    new AASeqNode("ReceiveTimeut", ReceiveTimeout),
-                    new AASeqNode("SendTimeut", SendTimeout),
-                ]);
+            var response = new AASeqNode("@Me", AASeqValue.Null);
+            response.Nodes.Add(new AASeqNode("Repeat", RepeatCount));
+
+            if (LogFile.Path is not null) {
+                response.Nodes.Add(new AASeqNode("LogFile", LogFile.Path));
             }
+
+            if ((CommandTimeout.Ticks == ReceiveTimeout.Ticks) && (ReceiveTimeout.Ticks == SendTimeout.Ticks)) {
+                response.Nodes.Add(new AASeqNode("Timeout", CommandTimeout));
+            } else {
+                response.Nodes.Add(new AASeqNode("CommandTimeout", CommandTimeout == TimeSpan.MaxValue ? double.PositiveInfinity : CommandTimeout));
+                response.Nodes.Add(new AASeqNode("ReceiveTimeut", ReceiveTimeout));
+                response.Nodes.Add(new AASeqNode("SendTimeut", SendTimeout));
+            }
+
+            return response;
         }
     }
 
