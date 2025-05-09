@@ -41,8 +41,8 @@ internal class LogToFile {
 
     private FileStream? Stream;
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
-    private static readonly byte[] NewLineBytes = Utf8.GetBytes(Environment.NewLine);
-    private static readonly AASeqOutputOptions NodeOutputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true, NoTypeAnnotation = true };
+    private static readonly byte[] NewLineBytes = Utf8.GetBytes("\n");  // use LF on Windows too
+    private static readonly AASeqOutputOptions NodeOutputOptions = AASeqOutputOptions.Default with { ExtraEmptyRootNodeLines = true, NoTypeAnnotation = true, NewLine = "\n" };
     private static readonly Lock SyncRoot = new();
 
     private void WriteLine(string s, int level = 1, bool prependEmptyLine = false) {
