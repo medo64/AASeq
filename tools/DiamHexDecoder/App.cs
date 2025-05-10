@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using AASeq;
-using AASeqPlugin;
+using AASeq.Diameter;
 
 internal static class App {
 

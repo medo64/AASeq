@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../src/AASeq.Document/AASeq.Document.csproj" />
-    <ProjectReference Include="../../src/AASeq.Plugin.Diameter/AASeq.Plugin.Diameter.csproj" />
+    <ProjectReference Include="../../src/AASeq.Diameter/AASeq.Diameter.csproj" />
   </ItemGroup>
 
 </Project>
