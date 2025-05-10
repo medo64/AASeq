@@ -5,6 +5,7 @@ using System.IO;
 using System.Threading;
 using Microsoft.Extensions.Logging;
 using System.Dynamic;
+using System.Reflection;
 
 internal static partial class App {
 
@@ -110,9 +111,12 @@ internal static partial class App {
                     engine.Start();
                     DoneEvent.WaitOne();
                 }
-
             } catch (Exception ex) {
-                Output.WriteErrorLine("Error creating the engine: " + ex.Message);
+                if ((ex is TargetInvocationException) && (ex.InnerException is not null)) {
+                    Output.WriteErrorLine("Error creating the engine: " + ex.InnerException.Message);
+                } else {
+                    Output.WriteErrorLine("Error creating the engine: " + ex.Message);
+                }
             }
         } catch (InvalidOperationException ex) {
             Output.WriteErrorLine("Error parsing the document: " + ex.Message);
