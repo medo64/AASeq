@@ -19,7 +19,7 @@ internal record AvpDictionaryEntry(String Name, UInt32 Code, AvpBitState Mandato
 
     public IReadOnlyList<AvpEnumDictionaryEntry> Enums { get; init; } = [];
 
-    private readonly Dictionary<String, AvpEnumDictionaryEntry> EnumsByName = new(StringComparer.CurrentCultureIgnoreCase);
+    private readonly Dictionary<String, AvpEnumDictionaryEntry> EnumsByName = new(StringComparer.OrdinalIgnoreCase);
     private readonly Dictionary<Int32, AvpEnumDictionaryEntry> EnumsByCode = [];
 
     public AvpEnumDictionaryEntry? FindEnumByCode(Int32 code) {
