@@ -22,6 +22,7 @@ public sealed partial class Engine : IDisposable {
         ArgumentNullException.ThrowIfNull(document);
 
         LogFile = new LogToFile();
+        Variables = new Variables(Environment.GetEnvironmentVariables());
 
         var repeatCount = 1;
         var commandTimeout = TimeSpan.MaxValue;
@@ -41,14 +42,16 @@ public sealed partial class Engine : IDisposable {
 
                 if (node.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{node.Name}'."); }
 
-                if (node.Nodes.TryConsumeNode("LogFile", out var logFileNode)) {
+                var configuration = Variables.GetExpanded(node.Nodes);
+
+                if (configuration.TryConsumeNode("LogFile", out var logFileNode)) {
                     if (logFileNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{logFileNode.Name}'."); }
                     var logFileValue = logFileNode.Value.AsString("");
                     if (string.IsNullOrEmpty(logFileValue)) { throw new InvalidOperationException("Invalid file name"); }
                     LogFile.SetDestination(logFileValue);
                 }
 
-                if (node.Nodes.TryConsumeNode("Repeat", out var repeatNode)) {
+                if (configuration.TryConsumeNode("Repeat", out var repeatNode)) {
                     if (repeatNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{repeatNode.Name}'."); }
                     if (repeatNode.Value.IsPositiveInfinity) {
                         repeatCount = int.MaxValue;
@@ -62,7 +65,7 @@ public sealed partial class Engine : IDisposable {
                     }
                 }
 
-                if (node.Nodes.TryConsumeNode("Timeout", out var timeoutNode)) {
+                if (configuration.TryConsumeNode("Timeout", out var timeoutNode)) {
                     if (timeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{timeoutNode.Name}'."); }
                     var timeout = timeoutNode.Value.AsTimeSpan();
                     if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
@@ -73,7 +76,7 @@ public sealed partial class Engine : IDisposable {
                         logger.LogWarning($"Cannot convert 'Timeout' value.");
                     }
                 }
-                if (node.Nodes.TryConsumeNode("CommandTimeout", out var commandTimeoutNode)) {
+                if (configuration.TryConsumeNode("CommandTimeout", out var commandTimeoutNode)) {
                     if (commandTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{commandTimeoutNode.Name}'."); }
                     var timeout = commandTimeoutNode.Value.AsTimeSpan();
                     if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
@@ -82,7 +85,7 @@ public sealed partial class Engine : IDisposable {
                         logger.LogWarning($"Cannot convert 'CommandTimeout' value.");
                     }
                 }
-                if (node.Nodes.TryConsumeNode("ReceiveTimeout", out var receiveTimeoutNode)) {
+                if (configuration.TryConsumeNode("ReceiveTimeout", out var receiveTimeoutNode)) {
                     if (receiveTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{receiveTimeoutNode.Name}'."); }
                     var timeout = receiveTimeoutNode.Value.AsTimeSpan();
                     if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
@@ -91,7 +94,7 @@ public sealed partial class Engine : IDisposable {
                         logger.LogWarning($"Cannot convert 'ReceiveTimeout' value.");
                     }
                 }
-                if (node.Nodes.TryConsumeNode("SendTimeout", out var sendTimeoutNode)) {
+                if (configuration.TryConsumeNode("SendTimeout", out var sendTimeoutNode)) {
                     if (sendTimeoutNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{sendTimeoutNode.Name}'."); }
                     var timeout = sendTimeoutNode.Value.AsTimeSpan();
                     if ((timeout != null) && (timeout.Value.TotalSeconds > 0)) {
@@ -101,7 +104,7 @@ public sealed partial class Engine : IDisposable {
                     }
                 }
 
-                if (node.Nodes.Count > 0) { logger.LogWarning($"Unrecognized node '{node.Nodes[0].Name}' for own endpoint."); }
+                if (configuration.Count > 0) { logger.LogWarning($"Unrecognized node '{configuration[0].Name}' for own endpoint."); }
 
             } else {
 
@@ -111,7 +114,7 @@ public sealed partial class Engine : IDisposable {
                     nodeName,
                     configuration.Clone(),
                     plugin,
-                    plugin.CreateInstance(new LogToParent(logger, nodeName, LogFile), configuration.Clone()))
+                    plugin.CreateInstance(new LogToParent(logger, nodeName, LogFile), Variables.GetExpanded(configuration)))
                 );
             }
 
@@ -321,6 +324,7 @@ public sealed partial class Engine : IDisposable {
     #region Helpers
 
     private readonly LogToFile LogFile;
+    private readonly Variables Variables;
 
     [GeneratedRegex(@"^[\p{L}\p{Nd}][\p{L}\p{Nd}_-]*$")]  // allow only letters, digits, underscores, and hyphens; if two part, separate by colon
     private static partial Regex EndpointNameRegex();
