@@ -18,7 +18,7 @@ public class VariablesTests {
     [TestMethod]
     public void Variables_Environment() {
         var vars = new Variables(Environment.GetEnvironmentVariables());
-        Assert.IsTrue(vars["TEMP"].Length > 0);
+        Assert.IsTrue(vars["PATH"].Length > 0);
     }
 
 
