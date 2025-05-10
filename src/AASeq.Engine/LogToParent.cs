@@ -27,12 +27,14 @@ internal class LogToParent : ILogger {
 
         if ((logLevel >= LogLevel.Warning) && FileLog.IsEnabled) {
             switch (logLevel) {
+                case LogLevel.Trace: FileLog.WriteLog("V: " + (Prefix ?? "") + formatter(state, exception)); break;
+                case LogLevel.Debug: FileLog.WriteLog("D: " + (Prefix ?? "") + formatter(state, exception)); break;
+                case LogLevel.Information: FileLog.WriteLog("I: " + (Prefix ?? "") + formatter(state, exception)); break;
                 case LogLevel.Warning: FileLog.WriteLog("W: " + (Prefix ?? "") + formatter(state, exception)); break;
                 case LogLevel.Error: FileLog.WriteLog("E: " + (Prefix ?? "") + formatter(state, exception)); break;
                 case LogLevel.Critical: FileLog.WriteLog("C: " + (Prefix ?? "") + formatter(state, exception)); break;
                 default: break;
             }
-            
         }
     }
 

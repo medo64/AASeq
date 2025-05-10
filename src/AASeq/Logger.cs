@@ -56,7 +56,7 @@ internal sealed class Logger : ILogger {
     public static Logger Default { get; } = new Logger(LogLevel.Warning);
 
     public static Logger GetInstance(bool debug, bool verbose) {
-        return new Logger(debug ? LogLevel.Trace : verbose ? LogLevel.Information : LogLevel.Warning);
+        return new Logger(debug ? LogLevel.Trace : verbose ? LogLevel.Debug : LogLevel.Information);
     }
 
 }
