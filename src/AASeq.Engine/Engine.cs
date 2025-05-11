@@ -22,7 +22,7 @@ public sealed partial class Engine : IDisposable {
         ArgumentNullException.ThrowIfNull(document);
 
         LogFile = new LogToFile();
-        Variables = new Variables(Environment.GetEnvironmentVariables());
+        CurrVariables = new Variables();
 
         var repeatCount = 1;
         var commandTimeout = TimeSpan.MaxValue;
@@ -32,7 +32,18 @@ public sealed partial class Engine : IDisposable {
         // setup endpoints
         var endpoints = new SortedDictionary<string, EndpointStore>(StringComparer.OrdinalIgnoreCase);  // instance per name storage
         foreach (var node in document) {
+            if (node.Name.StartsWith('$')) {
+                if (node.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{node.Name}'."); }
+
+                foreach (var varNode in node.Nodes) {
+                    if (varNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{node.Name}'."); }
+                    if (varNode.Nodes.Count > 0) { logger.LogWarning($"Unrecognized subnodes on '{node.Name}'."); }
+                    CurrVariables.Add(varNode.Name, varNode.Value.AsString(""));
+                }
+            }
+
             if (!node.Name.StartsWith('@')) { continue; }  // messages and commands will be processed later
+
             var nodeName = node.Name[1..];
             var pluginName = node.GetValue(nodeName);
             if (!EndpointNameRegex().IsMatch(nodeName)) { throw new InvalidOperationException($"Invalid endpoint name '{nodeName}'."); }
@@ -42,7 +53,7 @@ public sealed partial class Engine : IDisposable {
 
                 if (node.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{node.Name}'."); }
 
-                var configuration = Variables.GetExpanded(node.Nodes);
+                var configuration = CurrVariables.GetExpanded(node.Nodes);
 
                 if (configuration.TryConsumeNode("LogFile", out var logFileNode)) {
                     if (logFileNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{logFileNode.Name}'."); }
@@ -114,7 +125,7 @@ public sealed partial class Engine : IDisposable {
                     nodeName,
                     configuration.Clone(),
                     plugin,
-                    plugin.CreateInstance(new LogToParent(logger, nodeName, LogFile), Variables.GetExpanded(configuration)))
+                    plugin.CreateInstance(new LogToParent(logger, nodeName, LogFile), CurrVariables.GetExpanded(configuration)))
                 );
             }
 
@@ -125,11 +136,15 @@ public sealed partial class Engine : IDisposable {
         ReceiveTimeout = receiveTimeout;
         SendTimeout = sendTimeout;
         Endpoints = [.. endpoints.Values];
+        Variables = CurrVariables;
+
 
         // setup flow sequence
         var flowSequence = new List<IFlowAction>();
         foreach (var node in document) {
             if (node.Name.StartsWith('@')) { continue; }  // we already created instances above
+            if (node.Name.StartsWith('$')) { continue; }  // we already dealt with variables above
+
             var actionName = node.Name;
             if (!MessageNameRegex().IsMatch(actionName)) { throw new InvalidOperationException($"Invalid message name '{actionName}'."); }
 
@@ -324,7 +339,7 @@ public sealed partial class Engine : IDisposable {
     #region Helpers
 
     private readonly LogToFile LogFile;
-    private readonly Variables Variables;
+    private readonly Variables CurrVariables;
 
     [GeneratedRegex(@"^[\p{L}\p{Nd}][\p{L}\p{Nd}_-]*$")]  // allow only letters, digits, underscores, and hyphens; if two part, separate by colon
     private static partial Regex EndpointNameRegex();

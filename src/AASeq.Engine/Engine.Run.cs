@@ -122,7 +122,7 @@ public sealed partial class Engine {
 
                             Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Receiving {messageInAction.MessageName}");
 
-                            var actionNode = new AASeqNode(messageInAction.MessageName, (messageInAction.SkipMatching ? "<<" : "<") + messageInAction.SourceName, Variables.GetExpanded(messageInAction.TemplateData));
+                            var actionNode = new AASeqNode(messageInAction.MessageName, (messageInAction.SkipMatching ? "<<" : "<") + messageInAction.SourceName, CurrVariables.GetExpanded(messageInAction.TemplateData));
                             var id = (messageInAction.ResponseToActionIndex != null)
                                    ? executingGuids[messageInAction.ResponseToActionIndex.Value]!.Value
                                    : Guid.NewGuid();

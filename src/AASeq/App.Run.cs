@@ -31,14 +31,7 @@ internal static partial class App {
                 var pluginManager = new PluginManager(logger);
                 using var engine = new Engine(logger, pluginManager, document);
 
-                var newDocument = new AASeqNodes([engine.OwnDefinitionNode]);
-                foreach (var endpoint in engine.Endpoints) {
-                    newDocument.Add(endpoint.DefinitionNode);
-                }
-                foreach (var action in engine.FlowSequence) {
-                    newDocument.Add(action.DefinitionNode);
-                }
-                Output.WriteDocument(newDocument);
+                Output.WriteDocument(LintDocument(engine));
 
                 if (isInteractive) {
                     Console.WriteLine();

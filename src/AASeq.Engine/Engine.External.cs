@@ -11,6 +11,11 @@ public sealed partial class Engine {
     public IReadOnlyList<IEndpoint> Endpoints { get; }
 
     /// <summary>
+    /// Gets all variables.
+    /// </summary>
+    public IDictionary<string, string> Variables { get; }
+
+    /// <summary>
     /// Gets all flows.
     /// </summary>
     public IReadOnlyList<IFlowAction> FlowSequence { get; }

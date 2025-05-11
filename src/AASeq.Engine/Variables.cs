@@ -5,25 +5,18 @@ using System.Collections.Generic;
 using static System.Net.Mime.MediaTypeNames;
 using System.Globalization;
 using System.Text;
+using System.Diagnostics.CodeAnalysis;
+using Microsoft.Extensions.Primitives;
 
-internal class Variables {
+internal class Variables : IDictionary<string, string> {
 
     public Variables() {
     }
 
-    public Variables(IDictionary variables) {
-        foreach (DictionaryEntry entry in variables) {
-            var key = entry.Key?.ToString();
-            if (string.IsNullOrEmpty(key)) { continue; }
-
-            var value = entry.Value?.ToString();
-            if (string.IsNullOrEmpty(value)) { continue; }
-
-            Vars[key] = value;
-        }
-    }
-
     private readonly Dictionary<string, string> Vars = new(StringComparer.OrdinalIgnoreCase);
+
+
+    #region IDictionary<string, string>
 
     /// <summary>
     /// Get or set a variable.
@@ -32,9 +25,141 @@ internal class Variables {
     /// </summary>
     /// <param name="key">Key.</param>
     public string this[string key] {
-        get { return Vars.TryGetValue(key, out var value) ? value : string.Empty; }
-        set { Vars[key] = value; }
+        get { return TryGetValueOrEnvironment(key, out var value) ? value : string.Empty; }
+        set {
+            ArgumentNullException.ThrowIfNull(key);
+            ArgumentOutOfRangeException.ThrowIfNullOrEmpty(key);
+            Vars[key] = value ?? string.Empty;
+        }
     }
+
+    /// <summary>
+    /// Gets all keys.
+    /// </summary>
+    public ICollection<string> Keys => Vars.Keys;
+
+    /// <summary>
+    /// Gets all values.
+    /// </summary>
+    public ICollection<string> Values => Vars.Values;
+
+    /// <summary>
+    /// Gets the number of variables.
+    /// </summary>
+    public int Count => Vars.Count;
+
+    /// <summary>
+    /// Gets whether dictionary is empty.
+    /// </summary>
+    public bool IsReadOnly => false;
+
+    /// <summary>
+    /// Adds a new variable.
+    /// </summary>
+    /// <param name="key">Variable name.</param>
+    /// <param name="value">Variable value.</param>
+    public void Add(string key, string value) {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentOutOfRangeException.ThrowIfNullOrEmpty(key);
+        Vars.Add(key, value ?? string.Empty);
+    }
+
+    /// <summary>
+    /// Adds a new variable.
+    /// </summary>
+    /// <param name="item">Item.</param>
+    public void Add(KeyValuePair<string, string> item) {
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentOutOfRangeException.ThrowIfNullOrEmpty(item.Key);
+        Vars.Add(item.Key, item.Value ?? string.Empty);
+    }
+
+    /// <summary>
+    /// Clears all variables.
+    /// </summary>
+    /// <exception cref="NotImplementedException"></exception>
+    public void Clear() {
+        Vars.Clear();
+    }
+
+    /// <summary>
+    /// Returns if the variable exists.
+    /// </summary>
+    /// <param name="item">Item.</param>
+    public bool Contains(KeyValuePair<string, string> item) {
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentOutOfRangeException.ThrowIfNullOrEmpty(item.Key);
+        if (TryGetValueOrEnvironment(item.Key, out var value)) {
+            if (string.Equals(item.Value, value, StringComparison.Ordinal)) { return true; }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Returns if the variable exists.
+    /// </summary>
+    /// <param name="key">Variable name.</param>
+    public bool ContainsKey(string key) {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentOutOfRangeException.ThrowIfNullOrEmpty(key);
+        return Vars.ContainsKey(key);
+    }
+
+    /// <summary>
+    /// Copies all variables to an array.
+    /// </summary>
+    /// <param name="array">Array.</param>
+    /// <param name="arrayIndex">Start index.</param>
+    public void CopyTo(KeyValuePair<string, string>[] array, int arrayIndex) {
+        ((ICollection)Vars).CopyTo(array, arrayIndex);
+    }
+
+    /// <summary>
+    /// Gets the enumerator.
+    /// </summary>
+    public IEnumerator<KeyValuePair<string, string>> GetEnumerator() {
+        return Vars.GetEnumerator();
+    }
+
+    /// <summary>
+    /// Removes a variable.
+    /// </summary>
+    /// <param name="key">Variable name.</param>
+    public bool Remove(string key) {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentOutOfRangeException.ThrowIfNullOrEmpty(key);
+        return Vars.Remove(key);
+    }
+
+    public bool Remove(KeyValuePair<string, string> item) {
+        ArgumentNullException.ThrowIfNull(item);
+        ArgumentOutOfRangeException.ThrowIfNullOrEmpty(item.Key);
+        if (Vars.TryGetValue(item.Key, out var value)) {
+            if (string.Equals(item.Value, value, StringComparison.Ordinal)) {
+                Vars.Remove(item.Key);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /// <summary>
+    /// Tries to get the value of the variable.
+    /// </summary>
+    /// <param name="key">Variable name.</param>
+    /// <param name="value">Output value.</param>
+    public bool TryGetValue(string key, [MaybeNullWhen(false)] out string value) {
+        return TryGetValueOrEnvironment(key, out value);
+    }
+
+    /// <summary>
+    /// Gets the enumerator.
+    /// </summary>
+    IEnumerator IEnumerable.GetEnumerator() {
+        return Vars.GetEnumerator();
+    }
+
+    #endregion IDictionary<string, string>
 
 
     /// <summary>
@@ -302,6 +427,32 @@ internal class Variables {
             }
             return value.Substring(start, length);
         }
+    }
+
+
+    private Dictionary<string, string> EnvironmentVarTranslation = new(StringComparer.OrdinalIgnoreCase);
+
+    private bool TryGetValueOrEnvironment(string key, [MaybeNullWhen(false)] out string value) {
+        if (key is null) { value = null; return false; }
+        if (Vars.TryGetValue(key, out value)) { return true; }
+
+        if (!EnvironmentVarTranslation.TryGetValue(key, out var envName)) {
+            var sb = new StringBuilder(key.Length);
+            foreach (var ch in key) {
+                sb.Append(char.IsLetterOrDigit(ch) ? char.ToUpperInvariant(ch) : '_');
+            }
+            envName = sb.ToString().TrimEnd('_');
+            if (string.IsNullOrEmpty(envName)) { value = null; return false; }
+            EnvironmentVarTranslation[key] = envName;
+        }
+
+        if (Environment.GetEnvironmentVariable(envName) is string envValue) {
+            value = envValue;
+            return true;
+        }
+
+        value = string.Empty;
+        return false;
     }
 
 }
