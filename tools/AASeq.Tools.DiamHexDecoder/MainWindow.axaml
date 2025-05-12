@@ -1,0 +1,38 @@
+<Window xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" d:DesignWidth="640" d:DesignHeight="480"
+    x:Class="DiamHexDecoder.MainWindow"
+    Width="800" Height="600"
+    Icon="/Assets/App.ico"
+    Title="Diameter Hex Decoder">
+
+    <DockPanel Margin="7">
+        <DockPanel.Styles>
+            <Style Selector="TextBox[IsReadOnly=True]:focus /template/ Border">
+                <Setter Property="Background" Value="{DynamicResource SystemChromeLowColor}" />
+            </Style>
+            <Style Selector="TextBox[IsReadOnly=True] /template/ Border">
+                <Setter Property="Background" Value="{DynamicResource SystemChromeLowColor}" />
+            </Style>
+        </DockPanel.Styles>
+
+        <DockPanel DockPanel.Dock="Top">
+            <StackPanel DockPanel.Dock="Left">
+                <Label DockPanel.Dock="Left">Wireshark Hex Stream:</Label>
+                <Label DockPanel.Dock="Right" FontSize="10">(Copy ... as a Hex Stream)</Label>
+            </StackPanel>
+            <TextBox Name="txtHexStream" FontFamily="monospace" Margin="3 0 0 0" TextWrapping="WrapWithOverflow" />
+        </DockPanel>
+
+        <Label Name="lblError" DockPanel.Dock="Top" HorizontalAlignment="Right" Foreground="Red" IsVisible="False" />
+
+        <DockPanel DockPanel.Dock="Bottom">
+            <Button Name="btnCopy" Content="Copy" HorizontalAlignment="Right" Margin="0 7 0 0" IsEnabled="False" />
+        </DockPanel>
+
+        <TextBox Name="txtMessage" FontFamily="monospace" IsReadOnly="True" Margin="0 7 0 0"/>
+    </DockPanel>
+
+</Window>
