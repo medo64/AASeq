@@ -68,12 +68,12 @@ if [ "$GIT_HASH" = "" ]; then GIT_HASH=alpha; fi
 GIT_VERSION=$( git tag --points-at HEAD 2>/dev/null | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' | sed -n 1p | sed 's/^v//g' | xargs )
 if [ "$GIT_VERSION" != "" ]; then
     if [ "$HAS_CHANGES" -eq 0 ]; then
-        GIT_VERSION_TEXT="$GIT_VERSION"
+        ASSEMBLY_VERSION_TEXT="$GIT_VERSION"
     else
-        GIT_VERSION_TEXT="$GIT_VERSION+$GIT_HASH"
+        ASSEMBLY_VERSION_TEXT="$GIT_VERSION+$GIT_HASH"
     fi
 else
-    GIT_VERSION_TEXT="0.0.0+$GIT_HASH"
+    ASSEMBLY_VERSION_TEXT="0.0.0+$GIT_HASH"
 fi
 
 if [ "$GIT_VERSION" != "" ]; then
@@ -81,8 +81,14 @@ if [ "$GIT_VERSION" != "" ]; then
 else
     echo "${ANSI_PURPLE}Git tag version .....: ${ANSI_MAGENTA}-${ANSI_RESET}"
 fi
-echo "${ANSI_PURPLE}Git tag version text : ${ANSI_MAGENTA}$GIT_VERSION_TEXT${ANSI_RESET}"
-echo "${ANSI_PURPLE}Git revision ........: ${ANSI_MAGENTA}$GIT_HASH${ANSI_PURPLE} (${ANSI_MAGENTA}$GIT_INDEX${ANSI_PURPLE})${ANSI_RESET}"
+
+if [ "$GIT_VERSION" != "" ]; then
+    ASSEMBLY_VERSION="$GIT_VERSION.$GIT_INDEX"
+else
+    ASSEMBLY_VERSION="0.0.0.$GIT_INDEX"
+fi
+echo "${ANSI_PURPLE}Assembly version ....: ${ANSI_MAGENTA}$ASSEMBLY_VERSION${ANSI_RESET}"
+echo "${ANSI_PURPLE}Assembly version text: ${ANSI_MAGENTA}$ASSEMBLY_VERSION_TEXT${ANSI_RESET}"
 
 PROJECT_ENTRYPOINT=$( cat "$SCRIPT_DIR/.meta" | grep -E "^PROJECT_ENTRYPOINT:" | sed  -n 1p | cut -d: -sf2- | xargs )
 if [ "$PROJECT_ENTRYPOINT" = "" ]; then  # auto-detect
@@ -226,7 +232,7 @@ if [ "$PACKAGE_NUGET" != "" ]; then
 
     PACKAGE_NUGET_VERSION=`cat "$PACKAGE_NUGET_ENTRYPOINT" | grep "<Version>" | sed 's^</\?Version>^^g' | xargs`
     if [ "$PACKAGE_NUGET_VERSION" = "" ]; then
-        PACKAGE_NUGET_VERSION=$GIT_VERSION_TEXT
+        PACKAGE_NUGET_VERSION=$ASSEMBLY_VERSION_TEXT
     fi
     echo "${ANSI_PURPLE}NuGET package version: ${ANSI_MAGENTA}$PACKAGE_NUGET_VERSION${ANSI_RESET}"
 
@@ -460,12 +466,6 @@ make_release() {
     echo "${ANSI_MAGENTA}┗━━━━━━━━━┛${ANSI_RESET}"
     echo
 
-    if [ "$GIT_VERSION" != "" ]; then
-        ASSEMBLY_VERSION="$GIT_VERSION.$GIT_INDEX"
-    else
-        ASSEMBLY_VERSION="0.0.0.$GIT_INDEX"
-    fi
-
     mkdir -p "$SCRIPT_DIR/bin"
     for RUNTIME in $PROJECT_RUNTIMES; do
         echo "${ANSI_MAGENTA}$(basename $PROJECT_ENTRYPOINT) ($RUNTIME)${ANSI_RESET}"
@@ -497,7 +497,7 @@ make_release() {
         dotnet publish "$SCRIPT_DIR/$PROJECT_ENTRYPOINT"                           \
             --configuration Release                                                \
             -p:AssemblyVersion=$ASSEMBLY_VERSION -p:FileVersion=$ASSEMBLY_VERSION  \
-            -p:Version=$ASSEMBLY_VERSION+$GIT_HASH                                 \
+            -p:Version=$ASSEMBLY_VERSION_TEXT                                      \
             -p:EnableNETAnalyzers=false                                            \
             $PUBLISH_EXTRA_ARGS --output "$PUBLISH_OUTPUT_DIR"                     \
         && echo "${ANSI_CYAN}$SCRIPT_DIR/bin${ANSI_RESET}"                        || exit 113
@@ -528,8 +528,8 @@ make_package() {
         mkdir -p "dist"
 
         case $RUNTIME in
-            win-*)  ARCHIVE_NAME_CURR="$PROJECT_NAME-$GIT_VERSION_TEXT-$RUNTIME.zip" ;;
-            *)      ARCHIVE_NAME_CURR="$PROJECT_NAME-$GIT_VERSION_TEXT-$RUNTIME.tgz" ;;
+            win-*)  ARCHIVE_NAME_CURR="$PROJECT_NAME-$ASSEMBLY_VERSION_TEXT-$RUNTIME.zip" ;;
+            *)      ARCHIVE_NAME_CURR="$PROJECT_NAME-$ASSEMBLY_VERSION_TEXT-$RUNTIME.tgz" ;;
         esac
         rm "dist/$ARCHIVE_NAME_CURR" 2>/dev/null
 
@@ -579,7 +579,7 @@ make_package() {
             ANYTHING_DONE=1
             echo "${ANSI_MAGENTA}appimage ($RUNTIME: $APPIMAGE_ARCHITECTURE)${ANSI_RESET}"
 
-            APPIMAGE_NAME_CURR="$PROJECT_NAME-$GIT_VERSION_TEXT-$APPIMAGE_ARCHITECTURE.AppImage"
+            APPIMAGE_NAME_CURR="$PROJECT_NAME-$ASSEMBLY_VERSION_TEXT-$APPIMAGE_ARCHITECTURE.AppImage"
 
             mkdir -p "$SCRIPT_DIR/build/AppImage-$RUNTIME"
             find "$SCRIPT_DIR/build/AppImage-$RUNTIME" -mindepth 1 -delete
@@ -627,10 +627,10 @@ make_package() {
 
             if [ "$GIT_VERSION" != "" ]; then
                 DEB_VERSION=$GIT_VERSION
-                DEB_PACKAGE_NAME="${PROJECT_NAME}_${GIT_VERSION_TEXT}_${DEB_ARCHITECTURE}"
+                DEB_PACKAGE_NAME="${PROJECT_NAME}_${ASSEMBLY_VERSION_TEXT}_${DEB_ARCHITECTURE}"
             else
                 DEB_VERSION=0.0.0
-                DEB_PACKAGE_NAME="${PROJECT_NAME}_${GIT_VERSION_TEXT}_${DEB_ARCHITECTURE}"
+                DEB_PACKAGE_NAME="${PROJECT_NAME}_${ASSEMBLY_VERSION_TEXT}_${DEB_ARCHITECTURE}"
             fi
 
             mkdir -p "$SCRIPT_DIR/build/$DEB_PACKAGE_NAME"
