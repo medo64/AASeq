@@ -32,6 +32,10 @@ internal class LogToFile {
         lock (SyncRoot) {
             ArgumentNullException.ThrowIfNull(path);
             var file = new FileInfo(path);
+            if (file.Directory is null) { throw new InvalidOperationException("Cannot determine log directory."); ; }
+            if (!file.Directory.Exists) {
+                Directory.CreateDirectory(file.Directory.FullName);  // also creates intermediate directories
+            }
             Stream = File.OpenWrite(file.FullName);
             Stream.SetLength(0);
             Path = path;
