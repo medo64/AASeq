@@ -19,6 +19,6 @@
     <Project Path="../tests/AASeq.Engine.UnitTests/AASeq.Engine.UnitTests.csproj" />
   </Folder>
   <Folder Name="/Tools/">
-    <Project Path="../tools/AASeq.Tools.DiamHexDecoder/AASeq.Tools.DiamHexDecoder.csproj" />
+    <Project Path="../tools/AASeq.Tools.DiamHexDecoder.Gui/AASeq.Tools.DiamHexDecoder.Gui.csproj" />
   </Folder>
 </Solution>
