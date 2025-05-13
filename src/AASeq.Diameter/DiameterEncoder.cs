@@ -63,6 +63,17 @@ public static class DiameterEncoder {
     /// <param name="messageName">Message name.</param>
     /// <returns></returns>
     public static AASeqNodes Decode(DiameterMessage message, out string messageName) {
+        return Decode(message, includeAllFlags: true, out messageName);
+    }
+
+    /// <summary>
+    /// Decodes a diameter message into AASeqNodes.
+    /// </summary>
+    /// <param name="message">Diameter message.</param>
+    /// <param name="includeAllFlags">If true, flags are included even when they match AVP definition.</param>
+    /// <param name="messageName">Message name.</param>
+    /// <returns></returns>
+    public static AASeqNodes Decode(DiameterMessage message, bool includeAllFlags, out string messageName) {
         var applicationEntry = DictionaryLookup.Instance.FindApplicationById(message.ApplicationId);
         var commandEntry = DictionaryLookup.Instance.FindCommandByCode(message.CommandCode);
 
@@ -86,9 +97,11 @@ public static class DiameterEncoder {
                 var avpName = ((avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) + ":" : "") + avp.Code.ToString(CultureInfo.InvariantCulture);
                 node = new AASeqNode(avpName, avp.GetData());
             }
-            node.Properties.Add("flags", "0x" + avp.Flags.ToString("X2", CultureInfo.InvariantCulture));
-            node.Properties.Add("mandatory", avp.HasMandatoryFlag);
-            node.Properties.Add("vendor", (avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) : "false");
+            if (includeAllFlags | (avp.Flags != avpEntry.DefaultFlags)) {
+                node.Properties.Add("flags", "0x" + avp.Flags.ToString("X2", CultureInfo.InvariantCulture));
+                node.Properties.Add("mandatory", avp.HasMandatoryFlag);
+                node.Properties.Add("vendor", (avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) : "false");
+            }
             nodes.Add(node);
         }
         return nodes;
@@ -125,7 +138,7 @@ public static class DiameterEncoder {
         if (byte.TryParse(flagsProp, NumberStyles.HexNumber | NumberStyles.AllowHexSpecifier, CultureInfo.InvariantCulture, out flags)) {
             if (avp.HasVendorFlag) { flags |= 0x80; }
         } else {
-            flags = avp.Flags;
+            flags = avpEntry.DefaultFlags;
         }
         if ("true".Equals(node.GetPropertyValue("mandatory"))) {
             flags |= 0b01000000;

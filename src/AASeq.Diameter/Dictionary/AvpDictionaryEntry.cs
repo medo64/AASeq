@@ -30,4 +30,6 @@ internal record AvpDictionaryEntry(String Name, UInt32 Code, AvpBitState Mandato
         return EnumsByName.TryGetValue(name, out var e) ? e : null;
     }
 
+    public byte DefaultFlags => (byte)((Vendor is not null ? 0x80 : 0x00) | (MandatoryBit == AvpBitState.Must ? 0x40 : 0x00));
+
 }

@@ -29,6 +29,7 @@
         <Label Name="lblError" DockPanel.Dock="Top" HorizontalAlignment="Right" Foreground="Red" IsVisible="False" />
 
         <DockPanel DockPanel.Dock="Bottom">
+            <CheckBox Name="chbIncludeAllFlags" Content="Include all flags" VerticalAlignment="Center" />
             <Button Name="btnCopy" Content="Copy" HorizontalAlignment="Right" Margin="0 7 0 0" IsEnabled="False" />
         </DockPanel>
 

@@ -14,6 +14,7 @@ internal partial class MainWindow : Window {
         InitializeComponent();
 
         txtHexStream.TextChanged += txtHexStream_TextChanged;
+        chbIncludeAllFlags.IsCheckedChanged += txtHexStream_TextChanged;
         btnCopy.Click += btnCopy_Click;
     }
 
@@ -22,6 +23,7 @@ internal partial class MainWindow : Window {
         lblError.IsVisible = false;
 
         var hexStream = txtHexStream.Text ?? string.Empty;
+        var includeAllFlags = chbIncludeAllFlags.IsChecked ?? false;
 
         try {
             byte[] bytes;
@@ -43,11 +45,11 @@ internal partial class MainWindow : Window {
                 var message = DiameterMessage.ReadFrom(bytes);
                 if (message is null) { throw new InvalidOperationException("Failed to decode message."); }
 
-                var nodes = DiameterEncoder.Decode(message, out var messageName);
+                var nodes = DiameterEncoder.Decode(message, includeAllFlags, out var messageName);
                 var node = new AASeqNode(messageName, message.HasRequestFlag ? ">Remote" : "<Remote", nodes);
 
                 using var outStream = new MemoryStream();
-                node.Save(outStream);
+                node.Save(outStream, OutputOptions);
 
                 txtMessage.Text = Utf8.GetString(outStream.ToArray());
             } catch (Exception) {
@@ -69,5 +71,6 @@ internal partial class MainWindow : Window {
 
 
     private static readonly Encoding Utf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+    private static readonly AASeqOutputOptions OutputOptions = AASeqOutputOptions.Default with { NoTypeAnnotation = true };
 
 }
