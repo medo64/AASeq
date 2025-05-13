@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <AssemblyName>diamhexdecoder</AssemblyName>
+    <RootNamespace>DiamHexDecoder</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <DebugType>embedded</DebugType>
+    <OutputPath>../../build/</OutputPath>
+    <Deterministic>true</Deterministic>
+    <InvariantGlobalization>true</InvariantGlobalization>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="'$(Configuration)' == 'Debug'">
+      <PropertyGroup>
+        <EnableNETAnalyzers>false</EnableNETAnalyzers>
+        <RunAnalyzers>false</RunAnalyzers>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <AnalysisMode>Recommended</AnalysisMode>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <ItemGroup>
+    <ProjectReference Include="../../src/AASeq.Document/AASeq.Document.csproj" />
+    <ProjectReference Include="../../src/AASeq.Diameter/AASeq.Diameter.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
+  </ItemGroup>
+
+</Project>

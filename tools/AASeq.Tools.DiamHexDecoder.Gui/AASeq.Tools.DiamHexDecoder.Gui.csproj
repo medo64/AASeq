@@ -18,6 +18,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="../AASeq.Tools.DiamHexDecoder/Decoder.cs">
+      <Link>Decoder.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="../../src/AASeq.Document/AASeq.Document.csproj" />
     <ProjectReference Include="../../src/AASeq.Diameter/AASeq.Diameter.csproj" />
   </ItemGroup>
