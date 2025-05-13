@@ -97,7 +97,7 @@ public static class DiameterEncoder {
                 var avpName = ((avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) + ":" : "") + avp.Code.ToString(CultureInfo.InvariantCulture);
                 node = new AASeqNode(avpName, avp.GetData());
             }
-            if (includeAllFlags | (avp.Flags != avpEntry.DefaultFlags)) {
+            if (includeAllFlags | (avp.Flags != avpEntry?.DefaultFlags)) {
                 node.Properties.Add("flags", "0x" + avp.Flags.ToString("X2", CultureInfo.InvariantCulture));
                 node.Properties.Add("mandatory", avp.HasMandatoryFlag);
                 node.Properties.Add("vendor", (avp.VendorCode != null) ? avp.VendorCode.Value.ToString(CultureInfo.InvariantCulture) : "false");
