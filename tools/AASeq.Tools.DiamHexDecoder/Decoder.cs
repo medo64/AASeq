@@ -11,7 +11,7 @@ internal static class Decoder {
     public static string GetDecodedText(string wiresharkStream, bool includeAllFlags, bool includeTypeAnnotations) {
         byte[] bytes;
 
-        try {
+        try {  // first try hex
             using var memory = new MemoryStream();
             for (int i = 0; i < wiresharkStream.Length; i += 2) {
                 var hex = wiresharkStream.Substring(i, 2);
@@ -21,7 +21,11 @@ internal static class Decoder {
             memory.Position = 0;
             bytes = memory.ToArray();
         } catch (Exception) {
-            throw new InvalidOperationException("Cannot decode wireshark stream.");
+            try {  // then try base64
+                bytes = Convert.FromBase64String(wiresharkStream);
+            } catch (Exception) {
+                throw new InvalidOperationException("Cannot decode wireshark stream.");
+            }
         }
 
         try {
