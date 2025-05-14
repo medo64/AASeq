@@ -57,7 +57,7 @@ internal sealed class Ping : IEndpointPlugin {
     }
 
     private readonly ILogger Logger;
-    private readonly ConcurrentDictionary<Guid, (string, AASeqNodes)> Storage = [];
+    private readonly ConcurrentDictionary<Guid, Task<AASeqNodes>> Storage = [];
 
     private readonly bool DontFragment = false;
     private readonly string Host = "localhost";
@@ -123,7 +123,7 @@ internal sealed class Ping : IEndpointPlugin {
         };
 
 #pragma warning disable CS4014
-        Task.Run(() => {
+        var task = Task<AASeqNodes>.Run(() => {
             using var ping = new System.Net.NetworkInformation.Ping();
             var reply = ping.Send(Host, timeout, null, pingOptions);
             var data = new AASeqNodes {
@@ -133,11 +133,10 @@ internal sealed class Ping : IEndpointPlugin {
             if (reply.Status == IPStatus.Success) {
                 data.Add(new AASeqNode("RoundtripTime", TimeSpan.FromMilliseconds(reply.RoundtripTime)));
             }
-            Storage[id] = ("Reply", data);
+            return data;
         }, CancellationToken.None);
+        Storage[id] = task;
 #pragma warning restore CS4014
-
-        await Task.CompletedTask.ConfigureAwait(false);
 
         var result = new AASeqNodes();
         if (pingOptions.DontFragment != DontFragment) { result.Add(new AASeqNode("DontFragment", pingOptions.DontFragment)); }
@@ -154,14 +153,11 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task<Tuple<string, AASeqNodes>> ReceiveAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
-        while (!cancellationToken.IsCancellationRequested) {
-            if (Storage.Remove(id, out var value)) {
-                messageName = value.Item1;
-                var data = value.Item2;
-                return await Task.FromResult(new Tuple<string, AASeqNodes>(messageName, data)).ConfigureAwait(false);
-            } else {
-                await Task.Delay(1, cancellationToken).ConfigureAwait(false);
-            }
+        if (!messageName.Equals("Reply", StringComparison.OrdinalIgnoreCase)) { throw new InvalidOperationException("Unknown expected message name."); }
+
+        if (Storage.Remove(id, out var task)) {
+            var nodes = await task.WaitAsync(cancellationToken).ConfigureAwait(false);
+            return new Tuple<string, AASeqNodes>("Reply", nodes);
         }
         throw new InvalidOperationException("No reply.");
     }
