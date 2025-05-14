@@ -56,29 +56,33 @@ public sealed class PluginManager {
     }
 
     private bool CheckAssembly(Assembly assembly) {
-        var anyFound = false;
-        foreach (var type in assembly.GetTypes()) {
-            if (!type.IsClass) { continue; }
+        try {
+            var anyFound = false;
+            foreach (var type in assembly.GetTypes()) {
+                if (!type.IsClass) { continue; }
 
-            Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{type.Name}' ({assembly.FullName})");
+                Debug.WriteLine($"[AASeq.Engine] Checking for plugins in '{type.Name}' ({assembly.FullName})");
 
-            var endpointPlugin = GetEndpointPlugin(type);
-            if (endpointPlugin is not null) {
-                anyFound = true;
-                if (endpointPlugin.Name.Equals("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
-                EndpointPluginsByName.Add(endpointPlugin.Name, endpointPlugin);
-                Debug.WriteLine($"[AASeq.Engine] Found endpoint plugin '{endpointPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
+                var endpointPlugin = GetEndpointPlugin(type);
+                if (endpointPlugin is not null) {
+                    anyFound = true;
+                    if (endpointPlugin.Name.Equals("Me", StringComparison.OrdinalIgnoreCase)) { continue; }
+                    EndpointPluginsByName.Add(endpointPlugin.Name, endpointPlugin);
+                    Debug.WriteLine($"[AASeq.Engine] Found endpoint plugin '{endpointPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
+                }
+
+                var commandPlugin = GetCommandPlugin(type);
+                if (commandPlugin is not null) {
+                    anyFound = true;
+                    CommandPluginsByName.Add(commandPlugin.Name, commandPlugin);
+                    Debug.WriteLine($"[AASeq.Engine] Found command plugin '{commandPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
+                }
+
             }
-
-            var commandPlugin = GetCommandPlugin(type);
-            if (commandPlugin is not null) {
-                anyFound = true;
-                CommandPluginsByName.Add(commandPlugin.Name, commandPlugin);
-                Debug.WriteLine($"[AASeq.Engine] Found command plugin '{commandPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
-            }
-
+            return anyFound;
+        } catch (ReflectionTypeLoadException) {
+            return false;
         }
-        return anyFound;
     }
 
     private static readonly List<AssemblyLoadContext> PluginLoadContexts = [];  // just to keep them around
