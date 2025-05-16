@@ -101,6 +101,7 @@ internal static class App {
                             case "IPFilterRule":
                             case "QoSFilterRule":
                             case "OctetString:Address":
+                            case "OctetString:MSTimeZone":
                                 if (node.Nodes.Count != 0) { WriteError($"Unexpected subnode for '{node.Value}."); }
                                 break;
                             case "Unsigned32":

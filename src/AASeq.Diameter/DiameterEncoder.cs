@@ -126,6 +126,7 @@ public static class DiameterEncoder {
             AvpType.OctetString => new DiameterAvp(avpEntry, node.Value.AsByteArray() ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an OctetString.")),
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
             AvpType.OctetStringAddress => new DiameterAvp(avpEntry, GetOctetStringAddressBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to OctetString:Address.")),
+            AvpType.OctetStringMSTimeZone => new DiameterAvp(avpEntry, GetOctetStringMSTimeZoneBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to OctetString:MSTimeZone.")),
             AvpType.Time => new DiameterAvp(avpEntry, GetTimeBytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to Time.")),
             AvpType.Unsigned32 => new DiameterAvp(avpEntry, GetUInt32Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Unsigned32.")),
             AvpType.Unsigned64 => new DiameterAvp(avpEntry, GetUInt64Bytes(node.Value) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} to an Unsigned64.")),
@@ -163,6 +164,7 @@ public static class DiameterEncoder {
             AvpType.IPFilterRule => throw new NotImplementedException("IPFilterRule"),
             AvpType.OctetString => new AASeqNode(avpEntry.Name, data),
             AvpType.OctetStringAddress => new AASeqNode(avpEntry.Name, GetOctetStringAddress(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an IPAddress.")),
+            AvpType.OctetStringMSTimeZone => new AASeqNode(avpEntry.Name, GetOctetStringMSTimeZone(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an TimeSpan.")),
             AvpType.QoSFilterRule => throw new NotImplementedException("QoSFilterRule"),
             AvpType.Time => new AASeqNode(avpEntry.Name, GetTime(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from a Time.")),
             AvpType.Unsigned32 => new AASeqNode(avpEntry.Name, GetUInt32(data) ?? throw new InvalidOperationException($"Cannot convert {avpEntry.Name} from an Unsigned32.")),
@@ -330,6 +332,44 @@ public static class DiameterEncoder {
             return new IPAddress(bytes);
         } else if (bytes.Length == 16) {
             return new IPAddress(bytes);
+        }
+        return bytes;
+    }
+
+
+    private static byte[]? GetOctetStringMSTimeZoneBytes(AASeqValue value) {  // ETSI TS 123 040 (9.2.3.11 TP-Service-Centre-Time-Stamp)
+        var text = value.AsString();  // must be string due to daytime part
+        if (text is not null) {
+            var splitPlus = text.Split('+', StringSplitOptions.None);
+            if (splitPlus.Length > 2) { throw new InvalidOperationException($"Cannot parse timezone '{text}'"); }
+            var splitColon = splitPlus[0].Split(':', StringSplitOptions.None);
+            if (splitColon.Length != 2) { throw new InvalidOperationException($"Cannot parse timezone '{text}'"); }
+            if (!int.TryParse(splitColon[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var hours)) { throw new InvalidOperationException($"Cannot parse timezone '{text}'"); }
+            if (!int.TryParse(splitColon[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out var minutes)) { throw new InvalidOperationException($"Cannot parse timezone '{text}'"); }
+            var dtHours = 0;
+            if ((splitPlus.Length == 2) && !int.TryParse(splitPlus[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out dtHours)) { throw new InvalidOperationException($"Cannot parse timezone '{text}'"); }
+            var quarters = (Math.Abs(hours) * 4 + minutes / 15);
+            var nibble0 = (quarters % 10);
+            var nibble1 = (quarters / 10);
+            if (hours < 0) { nibble1 += 8; }
+            if (nibble1 > 15) { throw new InvalidOperationException($"Time-zone '{text}' range too big."); }
+            if (dtHours > 255) { throw new InvalidOperationException($"Time-zone '{text}' range too big."); }
+            return new byte[] { (byte)((nibble0 << 4) | nibble1), (byte)dtHours };
+        }
+        return value.AsByteArray();
+    }
+
+    private static object GetOctetStringMSTimeZone(byte[] bytes) {
+        if (bytes.Length == 2) {
+            var nibble0 = bytes[0] >> 4;
+            var nibble1 = bytes[0] & 0xF;
+            var isNegative = (nibble1 & 0x8) != 0;
+            if (isNegative) { nibble1 -= 8; }
+            var dtHours = bytes[1];
+            var quarters = nibble0 + (nibble1 * 10);
+            var hours = (quarters / 4) * (isNegative ? -1 : 1);
+            var minutes = (quarters % 4) * 15;
+            return string.Format(CultureInfo.InvariantCulture, "{0:00}:{1:00}+{2:0}", hours, minutes, dtHours);
         }
         return bytes;
     }

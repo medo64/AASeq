@@ -12,6 +12,7 @@ internal enum AvpType {
     IPFilterRule,
     OctetString,
     OctetStringAddress,
+    OctetStringMSTimeZone,
     QoSFilterRule,
     Time,
     Unsigned32,

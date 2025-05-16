@@ -1262,7 +1262,7 @@ DiameterDictionary {
     Avp "3GPP-IMEISV" code=20 mandatoryBit=must type=OctetString vendor=3GPP
     Avp "3GPP-RAT-Type" code=21 mandatoryBit=must type=OctetString vendor=3GPP
     Avp "3GPP-User-Location-Info" code=22 mandatoryBit=must type=OctetString vendor=3GPP
-    Avp "3GPP-MS-TimeZone" code=23 mandatoryBit=must type=OctetString vendor=3GPP
+    Avp "3GPP-MS-TimeZone" code=23 mandatoryBit=must type=OctetString:MSTimeZone vendor=3GPP
     Avp "3GPP-CAMEL-Charging-Info" code=24 mandatoryBit=must type=OctetString vendor=3GPP
     Avp "3GPP-Packet-Filter" code=25 mandatoryBit=must type=OctetString vendor=3GPP
     Avp "3GPP-Negotiated-DSCP" code=26 mandatoryBit=must type=OctetString vendor=3GPP

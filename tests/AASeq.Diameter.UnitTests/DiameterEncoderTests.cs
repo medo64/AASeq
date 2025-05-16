@@ -94,4 +94,129 @@ public class DiameterEncoderTests {
         Assert.AreEqual("Vendor-Specific-Application-Id flags=0x40 mandatory=true vendor=false { Vendor-Id (u32)10415 flags=0x40 mandatory=true vendor=false; Auth-Application-Id (u32)16777264 flags=0x40 mandatory=true vendor=false }", nodes.ToString());
     }
 
+
+    #region TimeZone
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_4A00() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "-6:00"),
+            ]);
+        Assert.AreEqual("4A-00", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("-06:00+0", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_4A01() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "-6:00+1"),
+            ]);
+        Assert.AreEqual("4A-01", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("-06:00+1", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_8A00() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "-07:00"),
+            ]);
+        Assert.AreEqual("8A-00", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("-07:00+0", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_8A01() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "-07:00+01"),
+            ]);
+        Assert.AreEqual("8A-01", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("-07:00+1", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_6900() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "-04:00+0"),
+            ]);
+        Assert.AreEqual("69-00", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("-04:00+0", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_6901() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "-04:00 +1"),
+            ]);
+        Assert.AreEqual("69-01", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("-04:00+1", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_0000() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "00:00"),
+            ]);
+        Assert.AreEqual("00-00", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("00:00+0", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_0001() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "00:00+1"),
+            ]);
+        Assert.AreEqual("00-01", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("00:00+1", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_4000() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "01:00"),
+            ]);
+        Assert.AreEqual("40-00", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("01:00+0", decoded[^1].Value.AsString());
+    }
+
+    [TestMethod]
+    public void DiameterEncoder_TimeZone_4001() {
+        var message = DiameterEncoder.Encode(
+            "Common:Capabilities-Exchange-Request", [
+                new AASeqNode("3GPP-MS-TimeZone", "01:00+1"),
+            ]);
+        Assert.AreEqual("40-01", BitConverter.ToString(message.Avps[0].GetData()));
+
+        var decoded = DiameterEncoder.Decode(message, out var messageName);
+        Assert.AreEqual("01:00+1", decoded[^1].Value.AsString());
+    }
+
+    #endregion TimeZone
+
 }

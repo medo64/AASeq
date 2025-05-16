@@ -68,6 +68,7 @@ internal class DictionaryLookup {
                                 "OCTETSTRING" => AvpType.OctetString,
                                 "QOSFILTERRULE" => AvpType.QoSFilterRule,
                                 "OCTETSTRING:ADDRESS" => AvpType.OctetStringAddress,
+                                "OCTETSTRING:MSTIMEZONE" => AvpType.OctetStringMSTimeZone,
                                 "TIME" => AvpType.Time,
                                 "UNSIGNED32" => AvpType.Unsigned32,
                                 "UNSIGNED64" => AvpType.Unsigned64,
