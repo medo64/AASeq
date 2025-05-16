@@ -94,13 +94,13 @@ internal static class App {
                             case "Float32":
                             case "Float64":
                             case "Address":
-                            case "RawAddress":
                             case "Time":
                             case "UTF8String":
                             case "DiameterIdentity":
                             case "DiameterURI":
                             case "IPFilterRule":
                             case "QoSFilterRule":
+                            case "OctetString:Address":
                                 if (node.Nodes.Count != 0) { WriteError($"Unexpected subnode for '{node.Value}."); }
                                 break;
                             case "Unsigned32":

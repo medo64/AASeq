@@ -80,7 +80,7 @@ DiameterDictionary {
     Avp User-Name code=1 mandatoryBit=must type=UTF8String
     Avp User-Password code=2 mandatoryBit=must type=OctetString
     Avp CHAP-Password code=3 mandatoryBit=must type=OctetString
-    Avp NAS-IP-Address code=4 mandatoryBit=must type=RawAddress
+    Avp NAS-IP-Address code=4 mandatoryBit=must type=OctetString:Address
     Avp NAS-Port code=5 mandatoryBit=must type=Unsigned32
     Avp Service-Type code=6 mandatoryBit=must type=Enumerated {
         Enum UNKNOWN code=0
@@ -119,8 +119,8 @@ DiameterDictionary {
         Enum COMB code=260
         Enum FR code=261
     }
-    Avp Framed-IP-Address code=8 mandatoryBit=must type=RawAddress
-    Avp Framed-IP-Netmask code=9 mandatoryBit=must type=RawAddress
+    Avp Framed-IP-Address code=8 mandatoryBit=must type=OctetString:Address
+    Avp Framed-IP-Netmask code=9 mandatoryBit=must type=OctetString:Address
     Avp Framed-Routing code=10 mandatoryBit=must type=Enumerated {
         Enum NONE code=0
         Enum SEND_ROUTING_PACKETS code=1
@@ -135,7 +135,7 @@ DiameterDictionary {
         Enum IPX_HEADER code=2
         Enum STAC_LZS code=3
     }
-    Avp Login-IP-Host code=14 mandatoryBit=must type=RawAddress
+    Avp Login-IP-Host code=14 mandatoryBit=must type=OctetString:Address
     Avp Login-Service code=15 mandatoryBit=must type=Enumerated {
         Enum TELNET code=0
         Enum RLOGIN code=1
@@ -336,7 +336,7 @@ DiameterDictionary {
     Avp Tunnel-Server-Auth-Id code=91 mandatoryBit=must type=UTF8String
     Avp RADIUS-NAS-Filter-Rule code=92 mandatoryBit=must type=UTF8String
     Avp Originating-Line-Info code=94 mandatoryBit=may type=OctetString
-    Avp NAS-IPv6-Address code=95 mandatoryBit=must type=RawAddress
+    Avp NAS-IPv6-Address code=95 mandatoryBit=must type=OctetString:Address
     Avp Framed-Interface-Id code=96 mandatoryBit=must type=Unsigned64
     Avp Framed-IPv6-Prefix code=97 mandatoryBit=must type=OctetString
     Avp Login-IPv6-Host code=98 mandatoryBit=must type=OctetString

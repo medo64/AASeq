@@ -67,7 +67,7 @@ internal class DictionaryLookup {
                                 "IPFILTERRULE" => AvpType.IPFilterRule,
                                 "OCTETSTRING" => AvpType.OctetString,
                                 "QOSFILTERRULE" => AvpType.QoSFilterRule,
-                                "RAWADDRESS" => AvpType.RawAddress,
+                                "OCTETSTRING:ADDRESS" => AvpType.OctetStringAddress,
                                 "TIME" => AvpType.Time,
                                 "UNSIGNED32" => AvpType.Unsigned32,
                                 "UNSIGNED64" => AvpType.Unsigned64,
