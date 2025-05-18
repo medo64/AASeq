@@ -29,7 +29,7 @@ internal class Variables : IDictionary<string, string> {
     /// </summary>
     /// <param name="key">Key.</param>
     public string this[string key] {
-        get { return TryGetValueOrEnvironment(key, out var value) ? value : string.Empty; }
+        get { return TryGetValueOrEnvironment(key, string.Empty, out var value) ? value : string.Empty; }
         set {
             ArgumentNullException.ThrowIfNull(key);
             ArgumentOutOfRangeException.ThrowIfNullOrEmpty(key);
@@ -93,7 +93,7 @@ internal class Variables : IDictionary<string, string> {
     public bool Contains(KeyValuePair<string, string> item) {
         ArgumentNullException.ThrowIfNull(item);
         ArgumentOutOfRangeException.ThrowIfNullOrEmpty(item.Key);
-        if (TryGetValueOrEnvironment(item.Key, out var value)) {
+        if (TryGetValueOrEnvironment(item.Key, string.Empty, out var value)) {
             if (string.Equals(item.Value, value, StringComparison.Ordinal)) { return true; }
         }
         return false;
@@ -153,7 +153,7 @@ internal class Variables : IDictionary<string, string> {
     /// <param name="key">Variable name.</param>
     /// <param name="value">Output value.</param>
     public bool TryGetValue(string key, [MaybeNullWhen(false)] out string value) {
-        return TryGetValueOrEnvironment(key, out value);
+        return TryGetValueOrEnvironment(key, string.Empty, out value);
     }
 
     /// <summary>
@@ -188,7 +188,7 @@ internal class Variables : IDictionary<string, string> {
         }
     }
 
-    private enum State { Text, ParameterStart, SimpleParameter, ComplexParameter, ComplexParameterWithInstructions }
+    private enum State { Text, ParameterStart, SimpleParameter, ComplexParameter, ComplexParameterWithInstructions, SimpleParameterArgument, ComplexParameterArgument }
 
     /// <summary>
     /// Performs basic shell parameter expansion.
@@ -216,6 +216,7 @@ internal class Variables : IDictionary<string, string> {
         var state = State.Text;
         var sbOutput = new StringBuilder();
         var sbParameterName = new StringBuilder();
+        var sbParameterArgument = new StringBuilder();
         var sbParameterInstructions = new StringBuilder();
         var braceLevel = 0;
 
@@ -258,12 +259,14 @@ internal class Variables : IDictionary<string, string> {
                         if (ch.HasValue && (char.IsLetterOrDigit(ch.Value) || (ch is '_'))) {  // continue as variable
                             sbParameterName.Append(ch);
                         } else if (ch.HasValue && (ch is '$')) {  // next variable starts immediatelly
-                            OnRetrieveParameter(sbParameterName.ToString(), null, out var value);
+                            OnRetrieveParameter(sbParameterName.ToString(), sbParameterArgument.ToString(), null, out var value);
                             sbOutput.Append(value);
                             sbParameterName.Clear();
+                        } else if (ch is '<') {
+                            state = State.SimpleParameterArgument;
                         } else {  // parameter done
                             if (sbParameterName.Length > 0) {
-                                OnRetrieveParameter(sbParameterName.ToString(), null, out var value);
+                                OnRetrieveParameter(sbParameterName.ToString(), sbParameterArgument.ToString(), null, out var value);
                                 sbOutput.Append(value);
                             } else if (ch is null) {  // lone ending $
                                 sbOutput.Append('$');
@@ -276,9 +279,11 @@ internal class Variables : IDictionary<string, string> {
 
                 case State.ComplexParameter: {
                         if (ch is '}') {  // parameter done
-                            OnRetrieveParameter(sbParameterName.ToString(), null, out var value);
+                            OnRetrieveParameter(sbParameterName.ToString(), sbParameterArgument.ToString(), null, out var value);
                             sbOutput.Append(value);
                             state = State.Text;
+                        } else if (ch is '<') {
+                            state = State.ComplexParameterArgument;
                         } else if ((sbParameterName.Length == 0) && (ch is '!' or '#')) { //indirection must be the first character
                             sbParameterInstructions.Clear();
                             sbParameterInstructions.Append(ch);
@@ -300,57 +305,57 @@ internal class Variables : IDictionary<string, string> {
 
                             if (string.IsNullOrEmpty(parameterName) && instructions.StartsWith("!")) {  // ${!parameter} indirect
                                 var parameterNameQuery = instructions[1..];
-                                OnRetrieveParameter(parameterNameQuery, null, out var indirectParameterName);
+                                OnRetrieveParameter(parameterNameQuery, sbParameterArgument.ToString(), null, out var indirectParameterName);
                                 if (!string.IsNullOrEmpty(indirectParameterName)) {
-                                    OnRetrieveParameter(indirectParameterName, null, out var value);
+                                    OnRetrieveParameter(indirectParameterName, sbParameterArgument.ToString(), null, out var value);
                                     sbOutput.Append(value);
                                 }
                             } else if (string.IsNullOrEmpty(parameterName) && instructions.StartsWith("#")) {  // ${#parameter} parameter length
                                 var innerParameterName = instructions[1..];
-                                OnRetrieveParameter(innerParameterName, null, out var value);
+                                OnRetrieveParameter(innerParameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (string.IsNullOrEmpty(value)) { value = ""; }
                                 sbOutput.Append(value.Length.ToString(CultureInfo.InvariantCulture));
                             } else if (instructions.StartsWith(":+")) {  // ${parameter:+word} use alternate value even if empty
                                 var alternateValue = instructions[2..];
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (!string.IsNullOrEmpty(value)) {
                                     sbOutput.Append(alternateValue);
                                 }
                             } else if (instructions.StartsWith("+")) {  // ${parameter+word} use alternate value
                                 var alternateValue = instructions[1..];
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (value != null) {
                                     sbOutput.Append(alternateValue);
                                 }
                             } else if (instructions.StartsWith(":-")) {  // ${parameter:-word} use default even if empty
                                 var defaultValue = instructions[2..];
-                                OnRetrieveParameter(parameterName, defaultValue, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), defaultValue, out var value);
                                 if (string.IsNullOrEmpty(value)) { value = defaultValue; }  // also replace if it's empty
                                 sbOutput.Append(value);
                             } else if (instructions.StartsWith("-")) {  // ${parameter-word} use default
                                 var defaultValue = instructions[1..];
-                                OnRetrieveParameter(parameterName, defaultValue, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), defaultValue, out var value);
                                 sbOutput.Append(value);
                             } else if (instructions.StartsWith(":=")) {  // ${parameter:=word} use default and set variable even if empty
                                 var defaultValue = instructions[2..];
-                                OnRetrieveParameter(parameterName, defaultValue, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), defaultValue, out var value);
                                 if (string.IsNullOrEmpty(value)) { value = defaultValue; }  // also replace if it's empty
                                 sbOutput.Append(value);
                                 Vars[parameterName] = value;
                             } else if (instructions.StartsWith("=")) {  // ${parameter=word} use default and set variable
                                 var defaultValue = instructions[1..];
-                                OnRetrieveParameter(parameterName, defaultValue, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), defaultValue, out var value);
                                 sbOutput.Append(value);
                                 Vars[parameterName] = value ?? string.Empty;
                             } else if (instructions.StartsWith(":")) {  // ${parameter:offset:length} substring
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (value != null) {
                                     var newValue = GetSubstring(value, instructions[1..]);
                                     if (newValue != null) { sbOutput.Append(newValue); }
                                 }
                             } else if (instructions.StartsWith("@")) {  // ${parameter@operator} perform modifications
                                 var oper = instructions[1..];
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (value != null) {
                                     var newValue = (oper) switch {
                                         "U" => value.ToUpperInvariant(),
@@ -361,27 +366,27 @@ internal class Variables : IDictionary<string, string> {
                                     sbOutput.Append(newValue);
                                 }
                             } else if (instructions == "^^") {  // ${parameter^^} uppercase
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (value != null) {
                                     sbOutput.Append(value.ToUpperInvariant());
                                 }
                             } else if (instructions == "^") {  // ${parameter^} uppercase first letter
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (value != null) {
                                     sbOutput.Append(value[0..1].ToUpperInvariant() + value[1..]);
                                 }
                             } else if (instructions == ",,") {  // ${parameter,,} lowercase
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (value != null) {
                                     sbOutput.Append(value.ToLowerInvariant());
                                 }
                             } else if (instructions == ",") {  // ${parameter,} lowercase first letter
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 if (value != null) {
                                     sbOutput.Append(value[0..1].ToLowerInvariant() + value[1..]);
                                 }
                             } else {
-                                OnRetrieveParameter(parameterName, null, out var value);
+                                OnRetrieveParameter(parameterName, sbParameterArgument.ToString(), null, out var value);
                                 sbOutput.Append(value);
                             }
 
@@ -397,14 +402,31 @@ internal class Variables : IDictionary<string, string> {
                     }
                     break;
 
+                case State.SimpleParameterArgument: {
+                        if (ch is '>') {
+                            state = State.SimpleParameter;
+                        } else {
+                            sbParameterArgument.Append(ch);
+                        }
+                    }
+                    break;
+
+                case State.ComplexParameterArgument: {
+                        if (ch is '>') {
+                            state = State.ComplexParameter;
+                        } else {
+                            sbParameterArgument.Append(ch);
+                        }
+                    }
+                    break;
             }
         }
 
         return sbOutput.ToString();
     }
 
-    private void OnRetrieveParameter(string name, string? defaultValue, out string? value) {
-        if (!TryGetValueOrEnvironment(name, out value)) {
+    private void OnRetrieveParameter(string name, string argument, string? defaultValue, out string? value) {
+        if (!TryGetValueOrEnvironment(name, argument, out value)) {
             value = defaultValue;
         }
     }
@@ -436,13 +458,13 @@ internal class Variables : IDictionary<string, string> {
 
     private Dictionary<string, string> EnvironmentVarTranslation = new(StringComparer.OrdinalIgnoreCase);
 
-    private bool TryGetValueOrEnvironment(string key, [MaybeNullWhen(false)] out string value) {
+    private bool TryGetValueOrEnvironment(string key, string argument, [MaybeNullWhen(false)] out string value) {
         if (key is null) { value = null; return false; }
         if (Vars.TryGetValue(key, out value)) { return true; }
 
         var variablePlugin = PluginManager.FindVariablePlugin(key);
         if (variablePlugin is not null) {
-            var variableValue = variablePlugin.GetVariableValue(Logger, "");  // TODO: add argument
+            var variableValue = variablePlugin.GetVariableValue(Logger, argument);
             if (variableValue is not null) {
                 value = variableValue;
                 return true;
