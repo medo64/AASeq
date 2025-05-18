@@ -17,7 +17,7 @@ internal abstract class PluginBase : IPluginDefinition {
     /// <summary>
     /// Gets plugin name.
     /// </summary>
-    public string Name => Type.Name;
+    public virtual string Name => Type.Name;
 
     /// <summary>
     /// Gets type.

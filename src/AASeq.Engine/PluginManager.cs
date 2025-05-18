@@ -49,6 +49,7 @@ public sealed class PluginManager {
 
             CommandPlugins = new ReadOnlyCollection<CommandPlugin>([.. CommandPluginsByName.Values]);
             EndpointPlugins = new ReadOnlyCollection<EndpointPlugin>([.. EndpointPluginsByName.Values]);
+            VariablePlugins = new ReadOnlyCollection<VariablePlugin>([.. VariablePluginsByName.Values]);
         } finally {
             Debug.WriteLine($"[AASeq.Engine] Init: {sw.ElapsedMilliseconds} ms");
             Metrics.PluginFileLoadMilliseconds.Record(sw.ElapsedMilliseconds);
@@ -78,6 +79,13 @@ public sealed class PluginManager {
                     Debug.WriteLine($"[AASeq.Engine] Found command plugin '{commandPlugin.Name}' in '{type.Name}' ({assembly.FullName})");
                 }
 
+                var variablePlugin = GetVariablePlugin(type);
+                if (variablePlugin is not null) {
+                    anyFound = true;
+                    VariablePluginsByName.Add(variablePlugin.Name, variablePlugin);
+                    Debug.WriteLine($"[AASeq.Engine] Found variable plugin '{variablePlugin.Name}' in '{type.Name}' ({assembly.FullName})");
+                }
+
             }
             return anyFound;
         } catch (ReflectionTypeLoadException) {
@@ -86,8 +94,9 @@ public sealed class PluginManager {
     }
 
     private static readonly List<AssemblyLoadContext> PluginLoadContexts = [];  // just to keep them around
-    private readonly SortedDictionary<string, EndpointPlugin> EndpointPluginsByName = new(StringComparer.OrdinalIgnoreCase);
     private readonly SortedDictionary<string, CommandPlugin> CommandPluginsByName = new(StringComparer.OrdinalIgnoreCase);
+    private readonly SortedDictionary<string, EndpointPlugin> EndpointPluginsByName = new(StringComparer.OrdinalIgnoreCase);
+    private readonly SortedDictionary<string, VariablePlugin> VariablePluginsByName = new(StringComparer.OrdinalIgnoreCase);
 
 
     /// <summary>
@@ -99,6 +108,11 @@ public sealed class PluginManager {
     /// Gets all endpoint plugins.
     /// </summary>
     public IReadOnlyCollection<IPluginDefinition> EndpointPlugins { get; }
+
+    /// <summary>
+    /// Gets all variable plugins.
+    /// </summary>
+    public IReadOnlyCollection<IPluginDefinition> VariablePlugins { get; }
 
 
     /// <summary>
@@ -115,6 +129,14 @@ public sealed class PluginManager {
     /// <param name="pluginName">Plugin name.</param>
     internal EndpointPlugin? FindEndpointPlugin(string pluginName) {
         return EndpointPluginsByName.TryGetValue(pluginName, out var plugin) ? plugin : null;
+    }
+
+    /// <summary>
+    /// Finds a endpoint plugin by name.
+    /// </summary>
+    /// <param name="pluginName">Plugin name.</param>
+    internal VariablePlugin? FindVariablePlugin(string pluginName) {
+        return VariablePluginsByName.TryGetValue(pluginName, out var plugin) ? plugin : null;
     }
 
 
@@ -150,6 +172,16 @@ public sealed class PluginManager {
         if (!mReceive.ReturnType.Equals(typeof(Task<Tuple<string, AASeqNodes>>))) { return null; }
 
         return new EndpointPlugin(type, mCreateInstance, mStart, mSend, mReceive);
+    }
+
+    private static VariablePlugin? GetVariablePlugin(Type type) {
+        if (!type.IsClass) { return null; }
+
+        var mGetVariableValue = type.GetMethod("GetVariableValue", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static, [typeof(ILogger), typeof(string)]);
+        if (mGetVariableValue is null) { return null; }
+        if (!mGetVariableValue.ReturnType.Equals(typeof(string))) { return null; }
+
+        return new VariablePlugin(type, mGetVariableValue);
     }
 
     #endregion Helpers

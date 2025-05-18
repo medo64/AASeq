@@ -22,7 +22,7 @@ public sealed partial class Engine : IDisposable {
         ArgumentNullException.ThrowIfNull(document);
 
         LogFile = new LogToFile();
-        CurrVariables = new Variables();
+        CurrVariables = new Variables(logger, pluginManager);
 
         var repeatCount = 1;
         var commandTimeout = TimeSpan.MaxValue;
@@ -120,7 +120,7 @@ public sealed partial class Engine : IDisposable {
             } else {
 
                 var plugin = pluginManager.FindEndpointPlugin(pluginName) ?? throw new InvalidOperationException($"Cannot find plugin named '{pluginName}'.");
-                var configuration = node.Nodes;
+                var configuration = CurrVariables.GetExpanded(node.Nodes);
                 endpoints.Add(nodeName, new EndpointStore(
                     nodeName,
                     configuration.Clone(),

@@ -2,16 +2,20 @@ namespace AASeq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using static System.Net.Mime.MediaTypeNames;
+using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Text;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.Extensions.Primitives;
+using Microsoft.Extensions.Logging;
 
 internal class Variables : IDictionary<string, string> {
 
-    public Variables() {
+    public Variables(ILogger logger, PluginManager pluginManager) {
+        Logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        PluginManager = pluginManager ?? throw new ArgumentNullException(nameof(pluginManager));
     }
+
+    private readonly ILogger Logger;
+    private readonly PluginManager PluginManager;
 
     private readonly Dictionary<string, string> Vars = new(StringComparer.OrdinalIgnoreCase);
 
@@ -400,7 +404,7 @@ internal class Variables : IDictionary<string, string> {
     }
 
     private void OnRetrieveParameter(string name, string? defaultValue, out string? value) {
-        if (!Vars.TryGetValue(name, out value)) {
+        if (!TryGetValueOrEnvironment(name, out value)) {
             value = defaultValue;
         }
     }
@@ -435,6 +439,15 @@ internal class Variables : IDictionary<string, string> {
     private bool TryGetValueOrEnvironment(string key, [MaybeNullWhen(false)] out string value) {
         if (key is null) { value = null; return false; }
         if (Vars.TryGetValue(key, out value)) { return true; }
+
+        var variablePlugin = PluginManager.FindVariablePlugin(key);
+        if (variablePlugin is not null) {
+            var variableValue = variablePlugin.GetVariableValue(Logger, "");  // TODO: add argument
+            if (variableValue is not null) {
+                value = variableValue;
+                return true;
+            }
+        }
 
         if (!EnvironmentVarTranslation.TryGetValue(key, out var envName)) {
             var sb = new StringBuilder(key.Length);
