@@ -18,17 +18,17 @@ internal sealed class RandomHex : IVariablePlugin {
     public static string? GetVariableValue(ILogger logger, string argument) {
         int count;
         if (argument.Length == 0) {
-            count = 16;
+            count = 8;
         } else if (!int.TryParse(argument, NumberStyles.Integer, CultureInfo.InvariantCulture, out count)) {
             logger.LogWarning($"Unknown argument '{argument}'.");
-            count = 16;
+            count = 8;
         }
 
         var bytes = new byte[count];
         Rnd.GetBytes(bytes);
         var sb = new StringBuilder(count);
         for (var i = 0; i < count; i++) {
-            sb.Append((bytes[i] & 0x0F).ToString("0", CultureInfo.InvariantCulture));
+            sb.Append(bytes[i].ToString("X2", CultureInfo.InvariantCulture));
         }
         return sb.ToString();
     }
