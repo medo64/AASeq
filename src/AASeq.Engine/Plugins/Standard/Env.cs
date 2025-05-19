@@ -29,6 +29,8 @@ internal sealed class Env : IVariablePlugin {
             }
         }
 
+        logger.LogWarning($"Cannot parse ENV argument '{argument}'.");
+
         return null;
     }
 

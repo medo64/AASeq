@@ -20,7 +20,7 @@ internal sealed class RandomHex : IVariablePlugin {
         if (argument.Length == 0) {
             count = 8;
         } else if (!int.TryParse(argument, NumberStyles.Integer, CultureInfo.InvariantCulture, out count)) {
-            logger.LogWarning($"Unknown argument '{argument}'.");
+            logger.LogWarning($"Cannot parse RANDOM_HEX argument '{argument}'.");
             count = 8;
         }
 

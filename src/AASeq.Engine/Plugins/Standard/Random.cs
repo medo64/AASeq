@@ -25,12 +25,13 @@ internal sealed class Random : IVariablePlugin {
                 && long.TryParse(parameters[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out max)
                 && (max > 0)) {
             min = 0;
+            max -= 1;
         } else if ((parameters.Length == 2)
                 && long.TryParse(parameters[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out min)
                 && long.TryParse(parameters[1], NumberStyles.Integer, CultureInfo.InvariantCulture, out max)
                 && (min < max)) {
         } else {
-            logger.LogWarning($"Unknown argument '{argument}'.");
+            logger.LogWarning($"Cannot parse RANDOM argument '{argument}'.");
             min = 0;
             max = 32767;
         }
