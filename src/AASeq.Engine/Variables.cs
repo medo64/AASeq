@@ -29,7 +29,7 @@ internal class Variables : IDictionary<string, string> {
     /// </summary>
     /// <param name="key">Key.</param>
     public string this[string key] {
-        get { return TryGetValueOrEnvironment(key, string.Empty, out var value) ? value : string.Empty; }
+        get { return TryGetLocalOrPluginValue(key, string.Empty, out var value) ? value : string.Empty; }
         set {
             ArgumentNullException.ThrowIfNull(key);
             ArgumentOutOfRangeException.ThrowIfNullOrEmpty(key);
@@ -93,7 +93,7 @@ internal class Variables : IDictionary<string, string> {
     public bool Contains(KeyValuePair<string, string> item) {
         ArgumentNullException.ThrowIfNull(item);
         ArgumentOutOfRangeException.ThrowIfNullOrEmpty(item.Key);
-        if (TryGetValueOrEnvironment(item.Key, string.Empty, out var value)) {
+        if (TryGetLocalOrPluginValue(item.Key, string.Empty, out var value)) {
             if (string.Equals(item.Value, value, StringComparison.Ordinal)) { return true; }
         }
         return false;
@@ -153,7 +153,7 @@ internal class Variables : IDictionary<string, string> {
     /// <param name="key">Variable name.</param>
     /// <param name="value">Output value.</param>
     public bool TryGetValue(string key, [MaybeNullWhen(false)] out string value) {
-        return TryGetValueOrEnvironment(key, string.Empty, out value);
+        return TryGetLocalOrPluginValue(key, string.Empty, out value);
     }
 
     /// <summary>
@@ -426,7 +426,7 @@ internal class Variables : IDictionary<string, string> {
     }
 
     private void OnRetrieveParameter(string name, string argument, string? defaultValue, out string? value) {
-        if (!TryGetValueOrEnvironment(name, argument, out value)) {
+        if (!TryGetLocalOrPluginValue(name, argument, out value)) {
             value = defaultValue;
         }
     }
@@ -456,9 +456,7 @@ internal class Variables : IDictionary<string, string> {
     }
 
 
-    private Dictionary<string, string> EnvironmentVarTranslation = new(StringComparer.OrdinalIgnoreCase);
-
-    private bool TryGetValueOrEnvironment(string key, string argument, [MaybeNullWhen(false)] out string value) {
+    private bool TryGetLocalOrPluginValue(string key, string argument, [MaybeNullWhen(false)] out string value) {
         if (key is null) { value = null; return false; }
         if (Vars.TryGetValue(key, out value)) { return true; }
 
@@ -469,21 +467,6 @@ internal class Variables : IDictionary<string, string> {
                 value = variableValue;
                 return true;
             }
-        }
-
-        if (!EnvironmentVarTranslation.TryGetValue(key, out var envName)) {
-            var sb = new StringBuilder(key.Length);
-            foreach (var ch in key) {
-                sb.Append(char.IsLetterOrDigit(ch) ? char.ToUpperInvariant(ch) : '_');
-            }
-            envName = sb.ToString().TrimEnd('_');
-            if (string.IsNullOrEmpty(envName)) { value = null; return false; }
-            EnvironmentVarTranslation[key] = envName;
-        }
-
-        if (Environment.GetEnvironmentVariable(envName) is string envValue) {
-            value = envValue;
-            return true;
         }
 
         value = string.Empty;

@@ -1,7 +1,8 @@
 namespace Tests;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AASeq;
 
 [TestClass]
@@ -9,22 +10,16 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_Basic() {
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["a"] = "a1";
         vars["A"] = "a2";
         Assert.AreEqual("a2", vars["a"]);
     }
 
-    [TestMethod]
-    public void Variables_Environment() {
-        var vars = new Variables();
-        Assert.IsTrue(vars["PATH"].Length > 0);
-    }
-
 
     [TestMethod]
     public void Variables_SimpleReplacement() {  // $parameter
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "Test";
         var nodes = AASeqNodes.Parse("A { B $VAR }");
         Assert.AreEqual("A { B Test }", vars.GetExpanded(nodes).ToString());
@@ -32,7 +27,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_ParameterLength() {  // ${#parameter}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "Test";
         var nodes = AASeqNodes.Parse("A { B \"N${#VAR}\" }");
         Assert.AreEqual("A { B N4 }", vars.GetExpanded(nodes).ToString());
@@ -40,7 +35,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_ReplaceDefault() {  // ${parameter:-word}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "Test";
 
         {
@@ -56,7 +51,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_AssignDefault() {  // ${parameter:=word}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "Test";
 
         {
@@ -74,7 +69,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_NoReplaceDefault() {  // ${parameter:+word}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "Test";
 
         {
@@ -91,7 +86,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_ToUppercase() {  // ${parameter@U}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "tesT";
 
         var nodes = AASeqNodes.Parse("A { B \"${VAR@U}\" }");
@@ -100,7 +95,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_ToTitlecase() {  // ${parameter@u}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "tesT";
 
         var nodes = AASeqNodes.Parse("A { B \"${VAR@u}\" }");
@@ -109,7 +104,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_ToLowercase() {  // ${parameter@L}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "tesT";
 
         var nodes = AASeqNodes.Parse("A { B \"${VAR@L}\" }");
@@ -118,7 +113,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_Substring() {  // ${parameter:offset}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "tesT";
 
         var nodes = AASeqNodes.Parse("A { B \"${VAR:2}\" }");
@@ -127,7 +122,7 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_Substring2() {  // ${parameter:offset:length}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "tesT";
 
         var nodes = AASeqNodes.Parse("A { B \"${VAR:2:1}\" }");
@@ -136,12 +131,16 @@ public class VariablesTests {
 
     [TestMethod]
     public void Variables_Indirect() {  // ${!parameter}
-        var vars = new Variables();
+        var vars = new Variables(Logger, PluginManager);
         vars["Var"] = "Test";
         vars["Indi"] = "Var";
 
         var nodes = AASeqNodes.Parse("A { B \"${!INDI}\" }");
         Assert.AreEqual("A { B Test }", vars.GetExpanded(nodes).ToString());
     }
+
+
+    private static ILogger Logger = LoggerFactory.Create(builder => builder.SetMinimumLevel(LogLevel.Debug)).CreateLogger("Test");
+    private static readonly PluginManager PluginManager = new PluginManager(Logger);
 
 }
