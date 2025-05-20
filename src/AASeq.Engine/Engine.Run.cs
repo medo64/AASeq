@@ -54,7 +54,8 @@ public sealed partial class Engine {
 
                             Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Executing {commandAction.CommandName}");
 
-                            var actionNode = new AASeqNode(commandAction.CommandName, AASeqValue.Null, commandAction.TemplateData.Clone());
+                            var data = CurrVariables.GetExpanded(commandAction.TemplateData);
+                            var actionNode = new AASeqNode(commandAction.CommandName, AASeqValue.Null, data);
                             executingFlows[i] = actionNode;
 
                             OnActionStart(flowIndex, actionIndex, action, actionNode);
@@ -86,7 +87,8 @@ public sealed partial class Engine {
 
                             Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Sending {messageOutAction.MessageName}");
 
-                            var actionNode = new AASeqNode(messageOutAction.MessageName, (messageOutAction.SkipMatching ? ">>" : ">") + messageOutAction.DestinationName, messageOutAction.TemplateData.Clone());
+                            var data = CurrVariables.GetExpanded(messageOutAction.TemplateData);
+                            var actionNode = new AASeqNode(messageOutAction.MessageName, (messageOutAction.SkipMatching ? ">>" : ">") + messageOutAction.DestinationName, data);
                             var id = (messageOutAction.ResponseToActionIndex != null)
                                    ? executingGuids[messageOutAction.ResponseToActionIndex.Value]!.Value
                                    : Guid.NewGuid();
@@ -122,7 +124,8 @@ public sealed partial class Engine {
 
                             Debug.WriteLine($"[AASeq.Engine] {actionIndex}: Receiving {messageInAction.MessageName}");
 
-                            var actionNode = new AASeqNode(messageInAction.MessageName, (messageInAction.SkipMatching ? "<<" : "<") + messageInAction.SourceName, CurrVariables.GetExpanded(messageInAction.TemplateData));
+                            var data = CurrVariables.GetExpanded(messageInAction.TemplateData);
+                            var actionNode = new AASeqNode(messageInAction.MessageName, (messageInAction.SkipMatching ? "<<" : "<") + messageInAction.SourceName, data);
                             var id = (messageInAction.ResponseToActionIndex != null)
                                    ? executingGuids[messageInAction.ResponseToActionIndex.Value]!.Value
                                    : Guid.NewGuid();
@@ -143,7 +146,7 @@ public sealed partial class Engine {
                                 var responseNode = new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes);
                                 responseNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 try {
-                                    Validate(nodes, messageInAction.TemplateData);
+                                    Validate(nodes, messageInAction.TemplateData);  // TODO: add variable set
                                     OnActionDone(flowIndex, actionIndex, action, responseNode);
                                 } catch (InvalidOperationException ex2) {
                                     responseNode.Properties.Add("exception", ex2.Message);

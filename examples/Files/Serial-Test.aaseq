@@ -1,0 +1,51 @@
+#!/usr/bin/env aaseq
+
+@Me {
+    Repeat 10
+}
+
+
+# First endpoint
+@Port Serial {
+    PortName /dev/ttyUSB0
+    BaudRate 115200
+    Parity None
+    DataBits 8
+    StopBits 1
+    EOL "CRLF"
+}
+
+
+# Discard existing data without expecting response
+Discard >>Port
+
+# Send line
+WriteLine >Port {
+    Text $RANDOM /set=TEXT
+}
+
+# Check we received the same line
+ReadLine <Port  {
+    Text $TEXT
+}
+
+# Send 3 bytes
+WriteBytes >Port {
+    Bytes $RANDOM /set=BYTES
+}
+
+# Receive 3 bytes
+ReadBytes <Port {
+    .Count ${#TEXT
+    Bytes $BYTES
+}
+
+# Send 1 byte
+WriteBytes >Port {
+    Bytes 0x00
+}
+
+# Receive 1 byte
+ReadBytes <Port {
+    Bytes 0x00
+}

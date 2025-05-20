@@ -184,6 +184,10 @@ internal class Variables : IDictionary<string, string> {
                     node.Value = ExpandValue(value);
                 }
             }
+            var varSet = node.ConsumeProperty("/set");  // set variable
+            if (!string.IsNullOrWhiteSpace(varSet)) {
+                this[varSet.Trim()] = node.Value.AsString(string.Empty);
+            }
             if (node.Nodes.Count > 0) { ExpandNodes(node.Nodes); }
         }
     }
