@@ -32,22 +32,9 @@ internal static class Metrics {
     /// </summary>
     public static Counter<long> NodesCloneCount = Meter.CreateCounter<long>("aaseq.nodes.clone.count");
 
-
     /// <summary>
     /// Time needed for document Clone operation.
     /// </summary>
     public static Histogram<long> NodesCloneMilliseconds = Meter.CreateHistogram<long>("aaseq.nodes.clone.milliseconds");
-
-
-    /// <summary>
-    /// Document Validate count.
-    /// </summary>
-    public static Counter<long> NodesValidateCount = Meter.CreateCounter<long>("aaseq.nodes.validate.count");
-
-
-    /// <summary>
-    /// Time needed for document Validate operation.
-    /// </summary>
-    public static Histogram<long> NodesValidateMilliseconds = Meter.CreateHistogram<long>("aaseq.nodes.validate.milliseconds");
 
 }

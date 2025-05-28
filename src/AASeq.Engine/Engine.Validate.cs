@@ -1,49 +1,28 @@
 namespace AASeq;
-using System.Text.RegularExpressions;
 using System;
-using System.Diagnostics.CodeAnalysis;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Xml.Linq;
 
-public sealed partial class AASeqNodes {
+public sealed partial class Engine {
 
-    /// <summary>
-    /// Tries to validate if current nodes match the given nodes.
-    /// </summary>
-    /// <param name="matchNodes">Nodes to match.</param>
-    public bool TryValidate(AASeqNodes matchNodes) {
-        return TryValidate(matchNodes, ignoreHidden: false, out _);
+    internal static void Validate(AASeqNodes inputNodes, AASeqNodes matchNodes) {
+        if (!TryValidate(inputNodes, matchNodes, ignoreHidden: true, out var failedNode)) {
+            throw new InvalidOperationException($"Cannot validate {failedNode.Name}");
+        }
     }
 
-    /// <summary>
-    /// Tries to validate if current nodes match the given nodes.
-    /// </summary>
-    /// <param name="matchNodes">Nodes to match.</param>
-    /// <param name="ignoreHidden">If true, properties starting with dot (.) are not checked.</param>
-    public bool TryValidate(AASeqNodes matchNodes, bool ignoreHidden) {
-        return TryValidate(matchNodes, ignoreHidden, out _);
-    }
 
-    /// <summary>
-    /// Tries to validate if current nodes match the given nodes.
-    /// </summary>
-    /// <param name="matchNodes">Nodes to match.</param>
-    /// <param name="failedNode">Node that failed to match.</param>
-    public bool TryValidate(AASeqNodes matchNodes, [MaybeNullWhen(true)] out AASeqNode failedNode) {
-        return TryValidate(matchNodes, ignoreHidden: false, out failedNode);
-    }
-
-    /// <summary>
-    /// Tries to validate if current nodes match the given nodes.
-    /// </summary>
-    /// <param name="matchNodes">Nodes to match.</param>
-    /// <param name="ignoreHidden">If true, properties starting with dot (.) are not checked.</param>
-    /// <param name="failedNode">Node that failed to match.</param>
-    public bool TryValidate(AASeqNodes matchNodes, bool ignoreHidden, [MaybeNullWhen(true)] out AASeqNode failedNode) {
+    internal static bool TryValidate(AASeqNodes inputNodes, AASeqNodes matchNodes, bool ignoreHidden, [MaybeNullWhen(true)] out AASeqNode failedNode) {
         var sw = Stopwatch.StartNew();
         try {
             ArgumentNullException.ThrowIfNull(matchNodes);
-            var nodes = Clone(removeHidden: ignoreHidden);
-            matchNodes = matchNodes.Clone(removeHidden: ignoreHidden);
+            var nodes = CloneWithoutHidden(inputNodes);
+            matchNodes = CloneWithoutHidden(matchNodes);
 
             for (var i = matchNodes.Count - 1; i >= 0; i--) {
                 var j = GetMatchIndex(nodes, matchNodes[i], 0);
@@ -59,9 +38,36 @@ public sealed partial class AASeqNodes {
             return true;
         } finally {
             Debug.WriteLine($"[AASeq.Document] Validate: {sw.ElapsedMilliseconds} ms");
-            Metrics.NodesValidateMilliseconds.Record(sw.ElapsedMilliseconds);
-            Metrics.NodesValidateCount.Add(1);
         }
+    }
+
+    internal static AASeqNodes CloneWithoutHidden(AASeqNodes input) {
+        var sw = Stopwatch.StartNew();
+        try {
+            var clone = new AASeqNodes();
+            foreach (var node in input) {
+                if (node.Name.StartsWith('.')) { continue; }
+                clone.Add(CloneWithoutHidden(node));
+            }
+            return clone;
+        } finally {
+            Debug.WriteLine($"[AASeq.Document] Clone: {sw.ElapsedMilliseconds} ms");
+        }
+    }
+
+    internal static AASeqNode CloneWithoutHidden(AASeqNode input) {
+        var clone = new AASeqNode(input.Name, input.Value);
+        foreach (var property in input.Properties) {
+            if (property.Key.StartsWith('.')) { continue; }
+            clone.Properties.Add(property.Key, property.Value);
+        }
+        if (input.Nodes.Count > 0) {
+            foreach (var node in input.Nodes) {
+                if (node.Name.StartsWith('.')) { continue; }
+                clone.Nodes.Add(CloneWithoutHidden(node));
+            }
+        }
+        return clone;
     }
 
     private static int? GetMatchIndex(AASeqNodes nodes, AASeqNode match, int level) {

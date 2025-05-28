@@ -182,11 +182,4 @@ public sealed partial class Engine {
         } catch (ThreadAbortException) { }
     }
 
-
-    internal static void Validate(AASeqNodes nodes, AASeqNodes matchNodes) {
-        if (!nodes.TryValidate(matchNodes, ignoreHidden: true, out var failedNode)) {
-            throw new InvalidOperationException($"Cannot validate {failedNode.Name}");
-        }
-    }
-
 }

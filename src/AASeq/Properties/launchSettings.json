@@ -2,8 +2,8 @@
   "profiles": {
     "AASeq": {
         "commandName": "Project",
-        "commandLineArgs": "../../examples/Files/Serial-Echo.aaseq",
-        "workingDirectory": "."
+        "commandLineArgs": "../../examples/Files/Ping-DNSv4.aaseq",
+        "worki ngDirectory": "."
     }
   }
 }

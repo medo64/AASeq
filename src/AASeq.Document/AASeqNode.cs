@@ -1,4 +1,5 @@
 namespace AASeq;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -112,31 +113,22 @@ public sealed partial class AASeqNode {
 
     /// <summary>
     /// Any value used for internal processing (e.g. cached Regex).
+    /// This is not serialized nor it is cloned.
     /// </summary>
-    internal object? Tag;
+    public object? Tag;
 
 
     /// <summary>
     /// Returns the clone of given node.
     /// </summary>
     public AASeqNode Clone() {
-        return Clone(removeHidden: false);
-    }
-
-    /// <summary>
-    /// Returns the clone of given node.
-    /// </summary>
-    /// <param name="removeHidden">If true, properties starting with dot (.) are not cloned.</param>
-    internal AASeqNode Clone(bool removeHidden) {
         var clone = new AASeqNode(Name, Value);
         foreach (var property in Properties) {
-            if (removeHidden && property.Key.StartsWith('.')) { continue; }
             clone.Properties.Add(property.Key, property.Value);
         }
         if (Nodes.Count > 0) {
             foreach (var node in Nodes) {
-                if (removeHidden && node.Name.StartsWith('.')) { continue; }
-                clone.Nodes.Add(node.Clone(removeHidden));
+                clone.Nodes.Add(node.Clone());
             }
         }
         return clone;
