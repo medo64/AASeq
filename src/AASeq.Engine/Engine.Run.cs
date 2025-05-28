@@ -146,7 +146,7 @@ public sealed partial class Engine {
                                 var responseNode = new AASeqNode(messageName, "<" + messageInAction.SourceName, nodes);
                                 responseNode.Properties.Add("elapsed", sw.Elapsed.TotalMilliseconds.ToString("0.0'ms'", CultureInfo.InvariantCulture));
                                 try {
-                                    Validate(nodes, messageInAction.TemplateData);  // TODO: add variable set
+                                    Validate(nodes, messageInAction.TemplateData, Variables);
                                     OnActionDone(flowIndex, actionIndex, action, responseNode);
                                 } catch (InvalidOperationException ex2) {
                                     responseNode.Properties.Add("exception", ex2.Message);

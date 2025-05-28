@@ -10,14 +10,14 @@ using System.Xml.Linq;
 
 public sealed partial class Engine {
 
-    internal static void Validate(AASeqNodes inputNodes, AASeqNodes matchNodes) {
-        if (!TryValidate(inputNodes, matchNodes, ignoreHidden: true, out var failedNode)) {
+    internal static void Validate(AASeqNodes inputNodes, AASeqNodes matchNodes, IDictionary<string, string> variables) {
+        if (!TryValidate(inputNodes, matchNodes, variables, out var failedNode)) {
             throw new InvalidOperationException($"Cannot validate {failedNode.Name}");
         }
     }
 
 
-    internal static bool TryValidate(AASeqNodes inputNodes, AASeqNodes matchNodes, bool ignoreHidden, [MaybeNullWhen(true)] out AASeqNode failedNode) {
+    internal static bool TryValidate(AASeqNodes inputNodes, AASeqNodes matchNodes, IDictionary<string, string> variables, [MaybeNullWhen(true)] out AASeqNode failedNode) {
         var sw = Stopwatch.StartNew();
         try {
             ArgumentNullException.ThrowIfNull(matchNodes);
@@ -27,6 +27,13 @@ public sealed partial class Engine {
             for (var i = matchNodes.Count - 1; i >= 0; i--) {
                 var j = GetMatchIndex(nodes, matchNodes[i], 0);
                 if (j is not null) {
+                    // set variable, if any, only on success
+                    var variableName = matchNodes[i].GetPropertyValue("/set");
+                    if (variableName is not null) {
+                        var variableValue = nodes[j.Value].Value.AsString("");
+                        variables[variableName] = variableValue;
+                    }
+
                     nodes.RemoveAt(j.Value);
                 } else {
                     failedNode = matchNodes[i];
@@ -37,7 +44,7 @@ public sealed partial class Engine {
             failedNode = null;
             return true;
         } finally {
-            Debug.WriteLine($"[AASeq.Document] Validate: {sw.ElapsedMilliseconds} ms");
+            Debug.WriteLine($"[AASeq.Engine] Validate: {sw.ElapsedMilliseconds} ms");
         }
     }
 
