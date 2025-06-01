@@ -17,7 +17,7 @@ internal sealed class DiameterServerThread : IDiameterThread, IDisposable {
     /// <param name="local">Local endpoint.</param>
     /// <param name="capabilityExchangeAnswerNodes">Nodes for Capability-Exchange-Answer.</param>
     /// <param name="diameterWatchdogRequestNodes">Nodes for Diameter-Watchdog-Request.</param>
-    public DiameterServerThread(Diameter pluginClass, ILogger logger, string localHost, int localPort, AASeqNodes capabilityExchangeAnswerNodes, AASeqNodes diameterWatchdogRequestNodes, int watchdogInterval) {
+    public DiameterServerThread(Diameter pluginClass, ILogger logger, string localHost, int localPort, AASeqNodes capabilityExchangeAnswerNodes, AASeqNodes diameterWatchdogRequestNodes, int watchdogInterval, bool useNagle) {
         throw new NotSupportedException("Diameter server not supported.");
     }
 

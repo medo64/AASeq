@@ -1,4 +1,5 @@
 namespace AASeqPlugin;
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -64,14 +65,20 @@ internal sealed class Diameter : IEndpointPlugin, IDisposable {
             }
         }
 
+        var useNagle = false;
+        if (configuration.TryConsumeNode("UseNagle", out var useNagleNode)) {
+            if (useNagleNode.Properties.Count > 0) { logger.LogWarning($"Unrecognized properties on '{useNagleNode.Name}'."); }
+            useNagle = useNagleNode.Value.AsBoolean(useNagle);
+        }
+
         if ((remoteHost is not null) && (localHost is null)) {
             var cerNodes = configuration.ConsumeNode("Capability-Exchange-Request")?.Nodes ?? [];
             var dwrNodes = configuration.ConsumeNode("Diameter-Watchdog-Request")?.Nodes ?? [];
-            DiameterThread = new DiameterClientThread(this, logger, remoteHost, remotePort, cerNodes, dwrNodes, watchdogInterval);
+            DiameterThread = new DiameterClientThread(this, logger, remoteHost, remotePort, cerNodes, dwrNodes, watchdogInterval, useNagle);
         } else if ((remoteHost is null) && (localHost is not null)) {
             var ceaNodes = configuration.ConsumeNode("Capability-Exchange-Answer")?.Nodes ?? [];
             var dwrNodes = configuration.ConsumeNode("Diameter-Watchdog-Request")?.Nodes ?? [];
-            DiameterThread = new DiameterServerThread(this, logger, localHost, localPort, ceaNodes, dwrNodes, watchdogInterval);
+            DiameterThread = new DiameterServerThread(this, logger, localHost, localPort, ceaNodes, dwrNodes, watchdogInterval, useNagle);
         } else {
             throw new InvalidOperationException("Either remote or local endpoint must be specified.");
         }

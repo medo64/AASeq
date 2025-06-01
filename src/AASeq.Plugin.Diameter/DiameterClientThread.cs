@@ -23,7 +23,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
     /// <param name="remote">Remote endpoint.</param>
     /// <param name="capabilityExchangeRequestNodes">Nodes for Capability-Exchange-Request.</param>
     /// <param name="diameterWatchdogRequestNodes">Nodes for Diameter-Watchdog-Request.</param>
-    public DiameterClientThread(Diameter pluginClass, ILogger logger, string remoteHost, int remotePort, AASeqNodes capabilityExchangeRequestNodes, AASeqNodes diameterWatchdogRequestNodes, int watchdogInterval) {
+    public DiameterClientThread(Diameter pluginClass, ILogger logger, string remoteHost, int remotePort, AASeqNodes capabilityExchangeRequestNodes, AASeqNodes diameterWatchdogRequestNodes, int watchdogInterval, bool useNagle) {
         PluginClass = pluginClass;
         Logger = logger;
         RemoteHost = remoteHost;
@@ -31,6 +31,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
         CapabilityExchangeRequestNodes = capabilityExchangeRequestNodes;
         DeviceWatchdogRequestNodes = diameterWatchdogRequestNodes;
         WatchdogIntervalMS = watchdogInterval * 1000 - 500;
+        UseNagle = useNagle;
 
         Thread = new Thread(Run) {
             IsBackground = true,
@@ -46,6 +47,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
     private readonly AASeqNodes CapabilityExchangeRequestNodes;
     private readonly AASeqNodes DeviceWatchdogRequestNodes;
     private readonly int WatchdogIntervalMS;
+    private readonly bool UseNagle;
 
     private readonly Thread Thread;
     private readonly ManualResetEvent PassedCE = new(false);  // tracks if CER was successful
@@ -58,6 +60,7 @@ internal sealed class DiameterClientThread : IDiameterThread, IDisposable {
             if (cancel.IsCancellationRequested) { return; }
 
             TcpClient tcpClient = new TcpClient();
+            tcpClient.NoDelay = !UseNagle;
             IPEndPoint lastEndpoint = new IPEndPoint(IPAddress.Any, 0);
             try {
                 var connectResult = tcpClient.BeginConnect(RemoteHost, RemotePort, requestCallback: null, state: null);
