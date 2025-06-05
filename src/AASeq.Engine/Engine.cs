@@ -217,8 +217,10 @@ public sealed partial class Engine : IDisposable {
 
                 var plugin = pluginManager.FindCommandPlugin(actionName) ?? throw new InvalidOperationException($"Cannot find command plugin '{actionName}'.");
                 if (node.Value is not null) {
-                    node.Nodes.Add(new AASeqNode("Value", node.Value));
+                    var newNode = new AASeqNode("Value", node.Value, [], node.Properties);
+                    node.Nodes.Add(newNode);
                     node.Value = AASeqValue.Null;
+                    node.Properties.Clear();
                 }
                 var data = node.Nodes;
                 flowSequence.Add(new FlowCommand(

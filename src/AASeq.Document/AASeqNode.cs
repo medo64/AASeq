@@ -18,7 +18,7 @@ public sealed partial class AASeqNode {
     /// </summary>
     /// <param name="name">Node name.</param>
     public AASeqNode(string name)
-        : this(name, AASeqValue.Null) {
+        : this(name, AASeqValue.Null, [], []) {
     }
 
     /// <summary>
@@ -26,9 +26,8 @@ public sealed partial class AASeqNode {
     /// </summary>
     /// <param name="name">Node name.</param>
     /// <param name="value">Value.</param>
-    public AASeqNode(string name, AASeqValue value) {
-        Name = name;
-        Value = value;
+    public AASeqNode(string name, AASeqValue value)
+        : this(name, value, [], []) {
     }
 
     /// <summary>
@@ -37,7 +36,7 @@ public sealed partial class AASeqNode {
     /// <param name="name">Node name.</param>
     /// <param name="value">Value.</param>
     public AASeqNode(string name, Object? value)
-        : this(name, new AASeqValue(value)) {
+        : this(name, new AASeqValue(value), [], []) {
     }
 
     /// <summary>
@@ -46,7 +45,16 @@ public sealed partial class AASeqNode {
     /// <param name="name">Node name.</param>
     /// <param name="nodes">Children nodes.</param>
     public AASeqNode(string name, IEnumerable<AASeqNode> nodes)
-        : this(name, AASeqValue.Null, nodes) {
+        : this(name, AASeqValue.Null, nodes, []) {
+    }
+    /// <summary>
+    /// Creates a new node.
+    /// </summary>
+    /// <param name="name">Node name.</param>
+    /// <param name="value">Value.</param>
+    /// <param name="nodes">Children nodes.</param>
+    public AASeqNode(string name, AASeqValue value, IEnumerable<AASeqNode> nodes)
+        : this(name, value, nodes, []) {
     }
 
     /// <summary>
@@ -55,11 +63,28 @@ public sealed partial class AASeqNode {
     /// <param name="name">Node name.</param>
     /// <param name="value">Value.</param>
     /// <param name="nodes">Children nodes.</param>
-    public AASeqNode(string name, AASeqValue value, IEnumerable<AASeqNode> nodes)
-        : this(name, value) {
+    public AASeqNode(string name, Object? value, IEnumerable<AASeqNode> nodes)
+        : this(name, new AASeqValue(value), nodes, []) {
+    }
+
+    /// <summary>
+    /// Creates a new node.
+    /// </summary>
+    /// <param name="name">Node name.</param>
+    /// <param name="value">Value.</param>
+    /// <param name="nodes">Children nodes.</param>
+    /// <param name="properties">Properties.</param>
+    public AASeqNode(string name, AASeqValue value, IEnumerable<AASeqNode> nodes, IEnumerable<KeyValuePair<string,string>> properties) {
+        Name = name;
+        Value = value;
         if (nodes is not null) {
             foreach (var node in nodes) {
                 Nodes.Add(node);
+            }
+        }
+        if (properties is not null) {
+            foreach (var property in properties) {
+                Properties.Add(property);
             }
         }
     }
@@ -70,8 +95,9 @@ public sealed partial class AASeqNode {
     /// <param name="name">Node name.</param>
     /// <param name="value">Value.</param>
     /// <param name="nodes">Children nodes.</param>
-    public AASeqNode(string name, Object? value, IEnumerable<AASeqNode> nodes)
-        : this(name, new AASeqValue(value), nodes) {
+    /// <param name="properties">Properties.</param>
+    public AASeqNode(string name, Object? value, IEnumerable<AASeqNode> nodes, IEnumerable<KeyValuePair<string, string>> properties)
+        : this(name, new AASeqValue(value), nodes, []) {
     }
 
 

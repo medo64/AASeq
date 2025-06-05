@@ -1,0 +1,9 @@
+#!/usr/bin/env aaseq
+
+$ {
+    NUMBER 1
+}
+
+Calc "$NUMBER + 2" /set=NUMBER
+
+Calc "2 + 3 * 2"
