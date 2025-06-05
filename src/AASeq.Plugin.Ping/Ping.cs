@@ -81,6 +81,8 @@ internal sealed class Ping : IEndpointPlugin {
     /// <param name="parameters">Parameters.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     public async Task<AASeqNodes> SendAsync(Guid id, string messageName, AASeqNodes parameters, CancellationToken cancellationToken) {
+        await Task.CompletedTask;  // just to keep the compiler happy
+
         var dontFragment = DontFragment;
         if (parameters.TryConsumeNode("DontFragment", out var dfNode)) {
             if (dfNode.Properties.Count > 0) { Logger.LogWarning($"Unrecognized properties on '{dfNode.Name}'."); }
