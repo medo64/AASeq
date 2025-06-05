@@ -338,10 +338,11 @@ public static class DiameterEncoder {
 
 
     private static byte[]? GetOctetStringMSTimeZoneBytes(AASeqValue value) {  // ETSI TS 123 040 (9.2.3.11 TP-Service-Centre-Time-Stamp)
+        if (value.RawValue is byte[] bytes) { return bytes; }
         var text = value.AsString();  // must be string due to daytime part
         if (text is not null) {
             var splitPlus = text.Split('+', StringSplitOptions.None);
-            if (splitPlus.Length > 2) { throw new InvalidOperationException($"Cannot parse timezone '{text}'"); }
+            if (splitPlus.Length > 2) { throw new InvalidOperationException($"Cannot parse timezone offset '{text}'"); }
             var splitColon = splitPlus[0].Split(':', StringSplitOptions.None);
             if (splitColon.Length != 2) { throw new InvalidOperationException($"Cannot parse timezone '{text}'"); }
             if (!int.TryParse(splitColon[0], NumberStyles.Integer, CultureInfo.InvariantCulture, out var hours)) { throw new InvalidOperationException($"Cannot parse timezone '{text}'"); }
