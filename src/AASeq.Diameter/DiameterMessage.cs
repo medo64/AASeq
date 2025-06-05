@@ -1,7 +1,9 @@
 namespace AASeq.Diameter;
+
 using System;
 using System.Buffers.Binary;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Security.Cryptography;
 using System.Threading;
 
@@ -173,7 +175,10 @@ public sealed record DiameterMessage {
     private static uint? LastHopByHopIdentifier;
     private static readonly Lock LastHopByHopIdentifierLock = new();
 
-    private static uint GetNewHopByHopIdentifier() {
+    /// <summary>
+    /// Returns a new hop-by-hop identifier.
+    /// </summary>
+    public static uint GetNewHopByHopIdentifier() {
         lock (LastHopByHopIdentifierLock) {
             if (LastHopByHopIdentifier is null) {
                 LastHopByHopIdentifier = GetRandomUInt32();
@@ -184,7 +189,10 @@ public sealed record DiameterMessage {
         }
     }
 
-    private static uint GetNewEndToEndIdentifier() {
+    /// <summary>
+    /// Returns a new end-to-end identifier.
+    /// </summary>
+    public static uint GetNewEndToEndIdentifier() {
         return (uint)(((uint)DateTimeOffset.UtcNow.ToUnixTimeSeconds() << 20) | (GetRandomUInt32() & 0x000FFFFF));
     }
 
@@ -208,6 +216,26 @@ public sealed record DiameterMessage {
         Buffer.BlockCopy(buffer, bufferIndex, bytes, 0, 4);
         RandomBufferIndex.Value = bufferIndex + 4;
         return BinaryPrimitives.ReadUInt32BigEndian(bytes);
+    }
+
+
+    private static ulong LastSessionIdCounter = ((ulong)DateTimeOffset.UtcNow.ToUnixTimeSeconds() << 32) - 1;  // interlocked
+
+    /// <summary>
+    /// Returns a new session ID based on the machine name.
+    /// </summary>
+    public static string GetNewSessionId() {
+        return GetNewSessionId(Environment.MachineName);
+    }
+
+    /// <summary>
+    /// Returns a new session ID based on the provided identity.
+    /// </summary>
+    /// <param name="identity">Identity.</param>
+    public static string GetNewSessionId(string identity) {
+        identity = identity ?? Environment.MachineName;
+        var counter = Interlocked.Increment(ref LastSessionIdCounter);
+        return identity + ";" + (counter >> 32).ToString(CultureInfo.InvariantCulture) + ";" + (counter & 0xFFFFFFFF).ToString(CultureInfo.InvariantCulture) + ";" + GetRandomUInt32().ToString("x8",CultureInfo.InvariantCulture);
     }
 
     #endregion Helper

@@ -29,7 +29,7 @@ $ {
 
 
 SWm:Diameter-EAP-Request >Remote {
-    Session-Id           1234567890
+    Session-Id           $DIAMETER_SESSION_ID<diameter.aaseq.com>
     Origin-Host          diameter.aaseq.com
     Origin-Realm         aaseq.com
     Destination-Realm    example.com
