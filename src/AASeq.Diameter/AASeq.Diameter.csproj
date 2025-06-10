@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>AASeq.Diameter</AssemblyName>
+    <AssemblyName>aaseq.diameter</AssemblyName>
     <RootNamespace>AASeq.Diameter</RootNamespace>
   </PropertyGroup>
 

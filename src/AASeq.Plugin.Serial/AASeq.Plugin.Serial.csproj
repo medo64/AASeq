@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <AssemblyName>AASeq.Plugin.Serial</AssemblyName>
+    <AssemblyName>aaseq.plugin.serial</AssemblyName>
     <RootNamespace>AASeqPlugin</RootNamespace>
   </PropertyGroup>
 
